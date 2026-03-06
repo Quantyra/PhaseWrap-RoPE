@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import math
 from typing import Iterable
 
@@ -53,10 +54,16 @@ def feature_angles(text: str, n_qubits: int, seed: int) -> list[float]:
     for i in range(n_qubits):
         total = 0
         for tok in tokens:
-            total += (hash((tok, i, seed)) & 0xFFFF)
+            total += stable_token_hash(tok=tok, qubit_index=i, seed=seed)
         norm = (total % 10000) / 10000.0
         vals.append(norm * math.pi)
     return vals
+
+
+def stable_token_hash(tok: str, qubit_index: int, seed: int) -> int:
+    payload = f"{tok}|{qubit_index}|{seed}".encode("utf-8")
+    digest = hashlib.sha256(payload).digest()
+    return int.from_bytes(digest[:2], byteorder="big", signed=False)
 
 
 def raw_variant_phases(variant: str, n_qubits: int) -> list[float]:

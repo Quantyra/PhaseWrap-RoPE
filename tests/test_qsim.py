@@ -2,7 +2,7 @@ import pytest
 
 from qrope.qibm import derive_ibm_angles
 from qrope.qphotonic import derive_photonic_angles
-from qrope.qsim import effective_variant_phases, raw_variant_phases, variant_phases
+from qrope.qsim import effective_variant_phases, feature_angles, raw_variant_phases, stable_token_hash, variant_phases
 
 
 def test_v4_phase_schedule_is_damped_relative_to_v3() -> None:
@@ -40,3 +40,15 @@ def test_v4b_effective_phase_is_clipped_and_feature_capped() -> None:
 
 def test_variant_phases_returns_raw_schedule_for_backward_compatibility() -> None:
     assert variant_phases("V4b", 2) == pytest.approx([0.18, 0.36])
+
+
+def test_stable_token_hash_is_deterministic() -> None:
+    value = stable_token_hash(tok="service", qubit_index=1, seed=42)
+    assert value == stable_token_hash(tok="service", qubit_index=1, seed=42)
+    assert value != stable_token_hash(tok="service", qubit_index=2, seed=42)
+
+
+def test_feature_angles_are_deterministic() -> None:
+    angles_a = feature_angles("good food and quick service", n_qubits=3, seed=42)
+    angles_b = feature_angles("good food and quick service", n_qubits=3, seed=42)
+    assert angles_a == pytest.approx(angles_b)
