@@ -68,6 +68,15 @@ def test_v4b_quantum_backend_path_runs() -> None:
     assert metrics["eval_loss"] > 0.0
 
 
+def test_quantum_backend_repeated_runs_are_stable_for_same_inputs() -> None:
+    metrics_a = run_real_experiment(dataset="yelp", seed=42, backend="sim_quantum_statevector", variant="V3")
+    metrics_b = run_real_experiment(dataset="yelp", seed=42, backend="sim_quantum_statevector", variant="V3")
+    assert metrics_a["accuracy"] == metrics_b["accuracy"]
+    assert metrics_a["f1"] == metrics_b["f1"]
+    assert metrics_a["train_loss_final"] == metrics_b["train_loss_final"]
+    assert metrics_a["eval_loss"] == metrics_b["eval_loss"]
+
+
 def test_qiskit_aer_backend_path_runs_if_available() -> None:
     if not importlib.util.find_spec("qiskit_aer"):
         return

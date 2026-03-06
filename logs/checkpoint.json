@@ -1,14 +1,14 @@
 {
-  "timestamp_utc": "2026-03-06T22:28:00Z",
+  "timestamp_utc": "2026-03-06T22:40:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S048"
+    "S049"
   ],
   "active_workers": {},
   "next_actions": [
-    "Implement the redesigned local quantum screening circuit and richer all-qubit score path.",
+    "Rerun the deterministic local `V3` vs `V4` vs `V4b` packet on the redesigned screening circuit.",
     "Keep the next validation wave zero-credit and restricted to variant-sensitive local backends.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
@@ -119,5 +119,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S047 completed with a minimal implementation plan for the redesigned local screening gate. S048 is now active for implementation."
+  "notes": "S048 completed with the redesigned local screening circuit implementation. S049 is now active for the deterministic rerun."
 }

@@ -2,7 +2,15 @@ import pytest
 
 from qrope.qibm import derive_ibm_angles
 from qrope.qphotonic import derive_photonic_angles
-from qrope.qsim import effective_variant_phases, feature_angles, raw_variant_phases, stable_token_hash, variant_phases
+from qrope.qsim import (
+    effective_variant_phases,
+    feature_angles,
+    raw_variant_phases,
+    rx,
+    stable_token_hash,
+    variant_phases,
+    weighted_mean_excitation,
+)
 
 
 def test_v4_phase_schedule_is_damped_relative_to_v3() -> None:
@@ -52,3 +60,19 @@ def test_feature_angles_are_deterministic() -> None:
     angles_a = feature_angles("good food and quick service", n_qubits=3, seed=42)
     angles_b = feature_angles("good food and quick service", n_qubits=3, seed=42)
     assert angles_a == pytest.approx(angles_b)
+
+
+def test_weighted_mean_excitation_stays_in_unit_interval() -> None:
+    import numpy as np
+
+    state = np.zeros(4, dtype=np.complex128)
+    state[1] = 1.0 + 0.0j
+    assert weighted_mean_excitation(state, n_qubits=2) == pytest.approx(0.5)
+
+
+def test_rx_gate_is_unitary() -> None:
+    import numpy as np
+
+    gate = rx(0.3)
+    ident = gate.conjugate().T @ gate
+    assert np.allclose(ident, np.eye(2))

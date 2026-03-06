@@ -18,6 +18,7 @@ VARIANT_PHASE_BASES = {
 V4B_PHASE_CLIP = 0.22
 V4B_RATIO_FACTOR = 0.35
 FEATURE_FLOOR = 0.05
+SCREENING_MIX_ANGLE = math.pi / 4.0
 
 
 def simple_quantum_score(text: str, variant: str, seed: int, n_qubits: int = 3) -> float:
@@ -26,7 +27,10 @@ def simple_quantum_score(text: str, variant: str, seed: int, n_qubits: int = 3) 
     This is an actual quantum simulation (statevector evolution) with:
     - per-qubit RY feature loading
     - positional-like RZ phase gates by variant
-    - nearest-neighbor CNOT entangling layer
+    - forward nearest-neighbor CNOT entangling layer
+    - global RX mixing layer to convert phase differences into readout differences
+    - reverse CNOT chain
+    - all-qubit weighted excitation readout
     """
     n = max(2, min(n_qubits, 6))
     dim = 1 << n
@@ -43,7 +47,13 @@ def simple_quantum_score(text: str, variant: str, seed: int, n_qubits: int = 3) 
     for q in range(n - 1):
         state = apply_cnot(state, control=q, target=q + 1, n_qubits=n)
 
-    return prob_qubit_one(state, qubit=0, n_qubits=n)
+    for q in range(n):
+        state = apply_single_qubit_gate(state, rx(SCREENING_MIX_ANGLE), q, n)
+
+    for q in range(n - 1, 0, -1):
+        state = apply_cnot(state, control=q, target=q - 1, n_qubits=n)
+
+    return weighted_mean_excitation(state, n_qubits=n)
 
 
 def feature_angles(text: str, n_qubits: int, seed: int) -> list[float]:
@@ -107,6 +117,12 @@ def rz(theta: float) -> np.ndarray:
     )
 
 
+def rx(theta: float) -> np.ndarray:
+    c = math.cos(theta / 2.0)
+    s = math.sin(theta / 2.0)
+    return np.array([[c, -1j * s], [-1j * s, c]], dtype=np.complex128)
+
+
 def apply_single_qubit_gate(state: np.ndarray, gate: np.ndarray, qubit: int, n_qubits: int) -> np.ndarray:
     out = state.copy()
     step = 1 << qubit
@@ -143,3 +159,14 @@ def prob_qubit_one(state: np.ndarray, qubit: int, n_qubits: int) -> float:
         if idx & mask:
             prob += float((amp.conjugate() * amp).real)
     return max(0.0, min(1.0, prob))
+
+
+def weighted_mean_excitation(state: np.ndarray, n_qubits: int) -> float:
+    if n_qubits <= 0:
+        return 0.0
+    total = 0.0
+    for idx, amp in enumerate(state):
+        prob = float((amp.conjugate() * amp).real)
+        excitation_fraction = idx.bit_count() / n_qubits
+        total += prob * excitation_fraction
+    return max(0.0, min(1.0, total))

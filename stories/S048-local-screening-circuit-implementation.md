@@ -35,6 +35,8 @@ As a research lead, I want the redesigned local screening circuit implemented, s
 
 ## Cycle time
 - Start: 2026-03-06 12:28 (Pacific/Honolulu)
+- End: 2026-03-06 12:40 (Pacific/Honolulu)
 
 ## Notes
 - Keep this step zero-credit.
+- Completed with a redesigned local screening circuit, richer all-qubit score path, focused tests, and a local smoke run.
