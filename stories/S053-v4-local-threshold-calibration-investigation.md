@@ -33,6 +33,8 @@ As a research lead, I want to test whether better local calibration removes the 
 
 ## Cycle time
 - Start: 2026-03-06 13:18 (Pacific/Honolulu)
+- End: 2026-03-06 13:27 (Pacific/Honolulu)
 
 ## Notes
 - Keep this step zero-credit.
+- Completed with a threshold-rule sweep showing that calibration helps, but does not yet resolve the imdb blocker cleanly.
