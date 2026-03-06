@@ -35,3 +35,7 @@ As a research lead, I want the local readout observable analyzed against alterna
 
 ## Cycle time
 - Start: 2026-03-06 14:28 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:35 (Pacific/Honolulu)
+- Decision: weighted mean excitation is a real compression bottleneck, but richer observables alone still do not create strong class separation, so any future mechanism-level branch must consider observable design and stronger post-phase mixing together.
