@@ -35,3 +35,7 @@ As a research lead, I want the active variant decision reassessed after robust c
 
 ## Cycle time
 - Start: 2026-03-06 14:04 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:10 (Pacific/Honolulu)
+- Decision: return `V3` to primary local reference status and demote `V4` to exploratory status pending score-geometry diagnostics.
