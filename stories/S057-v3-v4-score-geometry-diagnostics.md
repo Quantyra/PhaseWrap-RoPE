@@ -35,3 +35,7 @@ As a research lead, I want score-level diagnostics for `V3` and `V4`, so we can 
 
 ## Cycle time
 - Start: 2026-03-06 14:10 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:17 (Pacific/Honolulu)
+- Decision: `V4` remains exploratory only; the score-geometry diagnostics do not support further threshold-only refinement or any remote `V4` spend.
