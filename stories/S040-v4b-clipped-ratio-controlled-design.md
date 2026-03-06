@@ -33,6 +33,8 @@ As a research lead, I want a more targeted `V4` redesign, so we can test a credi
 
 ## Cycle time
 - Start: 2026-03-06 10:42 (Pacific/Honolulu)
+- End: 2026-03-06 11:01 (Pacific/Honolulu)
 
 ## Notes
 - Keep this zero-credit until a concrete implementation is ready.
+- Completed with a concrete shared-layer design, backend translation policy, and zero-credit local validation gate for `V4b`.
