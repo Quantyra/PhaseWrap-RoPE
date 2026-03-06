@@ -34,6 +34,8 @@ As a research lead, I want the local `V3` vs `V4` vs `V4b` packet rerun on the u
 
 ## Cycle time
 - Start: 2026-03-06 12:40 (Pacific/Honolulu)
+- End: 2026-03-06 12:50 (Pacific/Honolulu)
 
 ## Notes
 - Keep this step zero-credit.
+- Completed with a deterministic rerun on the redesigned local screening circuit and a no-go decision for remote `V4b` promotion at this time.
