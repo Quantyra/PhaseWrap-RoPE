@@ -279,9 +279,11 @@ def run_quantum_backend(
     seed: int,
     variant: str,
 ) -> tuple[float, float, float, float]:
-    # Threshold is calibrated on train-set average score to keep decision rule reproducible.
     train_scores = [simple_quantum_score(text=t, variant=variant, seed=seed) for t, _ in train]
-    threshold = sum(train_scores) / len(train_scores) if train_scores else 0.5
+    _, validation = stratified_calibration_split(train)
+    validation_scores = [simple_quantum_score(text=t, variant=variant, seed=seed) for t, _ in validation]
+    validation_labels = [label for _, label in validation]
+    threshold = calibrate_threshold(validation_scores, validation_labels)
 
     y_true = [label for _, label in test]
     y_pred: list[int] = []
@@ -296,6 +298,79 @@ def run_quantum_backend(
     accuracy = compute_accuracy(y_true, y_pred)
     f1 = compute_f1_binary(y_true, y_pred)
     return train_loss, eval_loss, accuracy, f1
+
+
+def stratified_calibration_split(
+    rows: list[tuple[str, int]],
+    validation_ratio: float = 0.25,
+) -> tuple[list[tuple[str, int]], list[tuple[str, int]]]:
+    if len(rows) < 4:
+        return rows, rows
+
+    grouped: dict[int, list[tuple[str, int]]] = {0: [], 1: []}
+    for row in rows:
+        grouped[row[1]].append(row)
+
+    subtrain: list[tuple[str, int]] = []
+    validation: list[tuple[str, int]] = []
+    for label in (0, 1):
+        bucket = sorted(grouped[label], key=calibration_row_key)
+        if not bucket:
+            continue
+        requested = max(1, int(round(len(bucket) * validation_ratio)))
+        val_count = min(requested, max(1, len(bucket) - 1))
+        validation.extend(bucket[:val_count])
+        subtrain.extend(bucket[val_count:])
+
+    if not validation:
+        return rows, rows
+    if not subtrain:
+        return validation, validation
+    return subtrain, validation
+
+
+def calibration_row_key(row: tuple[str, int]) -> str:
+    text, label = row
+    return f"{label}:{stable_text_hash(text)}"
+
+
+def stable_text_hash(text: str) -> str:
+    import hashlib
+
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def calibrate_threshold(scores: list[float], labels: list[int]) -> float:
+    if not scores or not labels or len(scores) != len(labels):
+        return 0.5
+
+    candidates = threshold_candidates(scores)
+    label_prior = sum(labels) / len(labels)
+    best: tuple[float, float, float, float] | None = None
+    best_threshold = 0.5
+    score_mean = sum(scores) / len(scores)
+
+    for threshold in candidates:
+        preds = [1 if score >= threshold else 0 for score in scores]
+        macro_f1 = compute_macro_f1_binary(labels, preds)
+        balanced_acc = compute_balanced_accuracy(labels, preds)
+        pos_rate_drift = abs((sum(preds) / len(preds)) - label_prior)
+        mean_distance = abs(threshold - score_mean)
+        candidate_rank = (macro_f1, balanced_acc, -pos_rate_drift, -mean_distance)
+        if best is None or candidate_rank > best:
+            best = candidate_rank
+            best_threshold = threshold
+    return best_threshold
+
+
+def threshold_candidates(scores: list[float]) -> list[float]:
+    ordered = sorted(set(max(0.0, min(1.0, score)) for score in scores))
+    if not ordered:
+        return [0.5]
+    candidates = {ordered[0], ordered[-1], 0.5}
+    for left, right in zip(ordered, ordered[1:]):
+        candidates.add((left + right) / 2.0)
+    return sorted(candidates)
 
 
 def run_qiskit_aer_backend(
@@ -460,6 +535,24 @@ def compute_f1_binary(y_true: list[int], y_pred: list[int]) -> float:
     if precision + recall == 0:
         return 0.0
     return 2 * precision * recall / (precision + recall)
+
+
+def compute_macro_f1_binary(y_true: list[int], y_pred: list[int]) -> float:
+    positive_f1 = compute_f1_binary(y_true, y_pred)
+    inverted_true = [1 - value for value in y_true]
+    inverted_pred = [1 - value for value in y_pred]
+    negative_f1 = compute_f1_binary(inverted_true, inverted_pred)
+    return (positive_f1 + negative_f1) / 2.0
+
+
+def compute_balanced_accuracy(y_true: list[int], y_pred: list[int]) -> float:
+    tp = sum(1 for a, b in zip(y_true, y_pred) if a == 1 and b == 1)
+    tn = sum(1 for a, b in zip(y_true, y_pred) if a == 0 and b == 0)
+    fp = sum(1 for a, b in zip(y_true, y_pred) if a == 0 and b == 1)
+    fn = sum(1 for a, b in zip(y_true, y_pred) if a == 1 and b == 0)
+    tpr = tp / (tp + fn) if (tp + fn) else 0.0
+    tnr = tn / (tn + fp) if (tn + fp) else 0.0
+    return (tpr + tnr) / 2.0
 
 
 def binary_cross_entropy(y_true: list[int], probs: list[float]) -> float:

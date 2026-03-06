@@ -37,3 +37,7 @@ As a research lead, I want the robust local calibration protocol implemented for
 
 ## Notes
 - Keep this step zero-credit.
+
+## Completion
+- Completed: 2026-03-06 14:04 (Pacific/Honolulu)
+- Decision: robust calibration removed the earlier `imdb`-specific `V4` regression signal, but `V4` still does not justify remote promotion and no longer shows a clean advantage over `V3`.

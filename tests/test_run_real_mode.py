@@ -1,6 +1,16 @@
 import importlib.util
 
-from qrope.run import collect_quandela_scores, estimate_hardware_costs, limit_remote_samples, load_dataset_samples, run_real_experiment
+from qrope.run import (
+    calibrate_threshold,
+    collect_quandela_scores,
+    compute_balanced_accuracy,
+    compute_macro_f1_binary,
+    estimate_hardware_costs,
+    limit_remote_samples,
+    load_dataset_samples,
+    run_real_experiment,
+    stratified_calibration_split,
+)
 
 
 def test_real_experiment_returns_non_placeholder_metrics() -> None:
@@ -112,3 +122,32 @@ def test_collect_quandela_scores_skips_runtime_errors(monkeypatch) -> None:
     assert labels == [1, 1]
     assert scores == [0.3, 0.7]
     assert skipped == 1
+
+
+def test_stratified_calibration_split_keeps_both_classes() -> None:
+    rows = [(f"neg-{idx}", 0) for idx in range(8)] + [(f"pos-{idx}", 1) for idx in range(8)]
+    subtrain, validation = stratified_calibration_split(rows)
+    assert len(subtrain) + len(validation) == len(rows)
+    assert sum(1 for _, label in validation if label == 0) >= 1
+    assert sum(1 for _, label in validation if label == 1) >= 1
+    assert sum(1 for _, label in subtrain if label == 0) >= 1
+    assert sum(1 for _, label in subtrain if label == 1) >= 1
+
+
+def test_calibrate_threshold_prefers_validation_rule_with_low_drift() -> None:
+    scores = [0.15, 0.30, 0.45, 0.60, 0.72, 0.84]
+    labels = [0, 0, 0, 1, 1, 1]
+    threshold = calibrate_threshold(scores, labels)
+    preds = [1 if score >= threshold else 0 for score in scores]
+    assert 0.45 <= threshold <= 0.60
+    assert compute_macro_f1_binary(labels, preds) >= 0.8
+    assert compute_balanced_accuracy(labels, preds) >= 0.8
+
+
+def test_v4_quantum_backend_uses_stable_robust_calibration() -> None:
+    metrics_a = run_real_experiment(dataset="imdb", seed=123, backend="sim_quantum_statevector", variant="V4")
+    metrics_b = run_real_experiment(dataset="imdb", seed=123, backend="sim_quantum_statevector", variant="V4")
+    assert metrics_a["accuracy"] == metrics_b["accuracy"]
+    assert metrics_a["f1"] == metrics_b["f1"]
+    assert metrics_a["train_loss_final"] == metrics_b["train_loss_final"]
+    assert metrics_a["eval_loss"] == metrics_b["eval_loss"]
