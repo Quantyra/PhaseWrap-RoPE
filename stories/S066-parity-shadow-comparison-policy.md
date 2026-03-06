@@ -34,3 +34,7 @@ As a research lead, I want a policy for when weighted must shadow parity in loca
 
 ## Cycle time
 - Start: 2026-03-06 15:03 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 15:07 (Pacific/Honolulu)
+- Decision: parity remains the default local screening readout, while weighted becomes a mandatory shadow comparator only for branch-changing, amazon-dependent, or remote-budget-relevant decisions.
