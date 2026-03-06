@@ -1,14 +1,14 @@
 {
-  "timestamp_utc": "2026-03-06T23:08:00Z",
+  "timestamp_utc": "2026-03-06T23:18:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S052"
+    "S053"
   ],
   "active_workers": {},
   "next_actions": [
-    "Investigate the local `imdb` regression that still limits the case for `V4`.",
+    "Investigate whether alternative local threshold calibration removes the current `imdb` regression for `V4`.",
     "Keep the next validation wave zero-credit and restricted to variant-sensitive local backends.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
@@ -119,5 +119,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S051 completed with a five-seed local packet and a hold on new remote V4 execution. S052 is now active for local investigation of the imdb regression."
+  "notes": "S052 completed with a calibration-focused diagnosis of the imdb regression. S053 is now active for local threshold-calibration investigation."
 }

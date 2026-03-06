@@ -33,6 +33,8 @@ As a research lead, I want to investigate why `V4` regresses on `imdb` locally, 
 
 ## Cycle time
 - Start: 2026-03-06 13:08 (Pacific/Honolulu)
+- End: 2026-03-06 13:18 (Pacific/Honolulu)
 
 ## Notes
 - Keep this step zero-credit.
+- Completed with a calibration-focused diagnosis: the imdb regression appears tied to threshold shift under small class-separation margins.
