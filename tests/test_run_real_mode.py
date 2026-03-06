@@ -151,3 +151,29 @@ def test_v4_quantum_backend_uses_stable_robust_calibration() -> None:
     assert metrics_a["f1"] == metrics_b["f1"]
     assert metrics_a["train_loss_final"] == metrics_b["train_loss_final"]
     assert metrics_a["eval_loss"] == metrics_b["eval_loss"]
+
+
+def test_quantum_backend_supports_q2_readout() -> None:
+    metrics = run_real_experiment(
+        dataset="yelp",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V3",
+        local_readout="q2",
+    )
+    assert 0.0 <= metrics["accuracy"] <= 1.0
+    assert 0.0 <= metrics["f1"] <= 1.0
+    assert metrics["data_mode"].endswith("readout_q2")
+
+
+def test_quantum_backend_supports_parity_readout() -> None:
+    metrics = run_real_experiment(
+        dataset="yelp",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V3",
+        local_readout="parity",
+    )
+    assert 0.0 <= metrics["accuracy"] <= 1.0
+    assert 0.0 <= metrics["f1"] <= 1.0
+    assert metrics["data_mode"].endswith("readout_parity")

@@ -16,7 +16,7 @@ from .config_utils import apply_set, deep_merge, load_yaml
 from .env_utils import load_local_dotenv
 from .qibm import run_ibm_sampler_batch
 from .qphotonic import quandela_remote_score
-from .qsim import feature_angles, simple_quantum_score, variant_phases
+from .qsim import SUPPORTED_READOUTS, feature_angles, simple_quantum_score, variant_phases
 
 
 def parse_args() -> argparse.Namespace:
@@ -55,9 +55,11 @@ def main() -> None:
     if isinstance(backend_block, dict):
         backend = str(backend_block.get("name", "unknown"))
         noise_model = str(backend_block.get("noise_model", "none"))
+        local_readout = str(backend_block.get("local_readout", "weighted"))
     else:
         backend = str(backend_block)
         noise_model = "none"
+        local_readout = "weighted"
 
     output_root = Path(str(config.get("logging", {}).get("output_root", "logs/ablation_runs")))
     run_dir = output_root / run_id
@@ -74,7 +76,13 @@ def main() -> None:
 
     do_real = args.real_run and not args.dry_run
     if do_real:
-        real_metrics = run_real_experiment(dataset=dataset, seed=seed, backend=backend, variant=variant)
+        real_metrics = run_real_experiment(
+            dataset=dataset,
+            seed=seed,
+            backend=backend,
+            variant=variant,
+            local_readout=local_readout,
+        )
         accuracy = real_metrics["accuracy"]
         f1 = real_metrics["f1"]
         train_loss_final = real_metrics["train_loss_final"]
@@ -130,14 +138,27 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
     return gate_count, depth
 
 
-def run_real_experiment(dataset: str, seed: int, backend: str, variant: str) -> dict[str, float | str]:
+def run_real_experiment(
+    dataset: str,
+    seed: int,
+    backend: str,
+    variant: str,
+    local_readout: str = "weighted",
+) -> dict[str, float | str]:
     samples, data_mode = load_dataset_samples(dataset, seed)
     if backend == "sim_quandela_remote":
         samples = limit_remote_samples(samples, max_samples=12)
     train, test = split_samples(samples, train_ratio=0.8)
 
     if backend == "sim_quantum_statevector":
-        train_loss, eval_loss, accuracy, f1 = run_quantum_backend(train=train, test=test, seed=seed, variant=variant)
+        train_loss, eval_loss, accuracy, f1 = run_quantum_backend(
+            train=train,
+            test=test,
+            seed=seed,
+            variant=variant,
+            readout=local_readout,
+        )
+        data_mode = f"{data_mode}+readout_{local_readout}"
     elif backend == "sim_qiskit_aer":
         train_loss, eval_loss, accuracy, f1 = run_qiskit_aer_backend(train=train, test=test, seed=seed, variant=variant)
     elif backend == "sim_quandela_remote":
@@ -278,10 +299,13 @@ def run_quantum_backend(
     test: list[tuple[str, int]],
     seed: int,
     variant: str,
+    readout: str = "weighted",
 ) -> tuple[float, float, float, float]:
-    train_scores = [simple_quantum_score(text=t, variant=variant, seed=seed) for t, _ in train]
+    if readout not in SUPPORTED_READOUTS:
+        raise ValueError(f"Unsupported local readout: {readout}")
+    train_scores = [simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout) for t, _ in train]
     _, validation = stratified_calibration_split(train)
-    validation_scores = [simple_quantum_score(text=t, variant=variant, seed=seed) for t, _ in validation]
+    validation_scores = [simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout) for t, _ in validation]
     validation_labels = [label for _, label in validation]
     threshold = calibrate_threshold(validation_scores, validation_labels)
 
@@ -289,7 +313,7 @@ def run_quantum_backend(
     y_pred: list[int] = []
     probs: list[float] = []
     for text, _ in test:
-        p1 = simple_quantum_score(text=text, variant=variant, seed=seed)
+        p1 = simple_quantum_score(text=text, variant=variant, seed=seed, readout=readout)
         probs.append(p1)
         y_pred.append(1 if p1 >= threshold else 0)
 
