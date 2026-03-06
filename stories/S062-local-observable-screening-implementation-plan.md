@@ -35,3 +35,7 @@ As a research lead, I want the implementation plan for local observable screenin
 
 ## Cycle time
 - Start: 2026-03-06 14:40 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:44 (Pacific/Honolulu)
+- Decision: implement a configurable local readout layer for `weighted`, `q2`, and `parity`; keep the resulting work framed as local screening infrastructure rather than algorithm novelty.
