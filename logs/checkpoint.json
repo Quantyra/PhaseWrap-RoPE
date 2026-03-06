@@ -1,14 +1,14 @@
 {
-  "timestamp_utc": "2026-03-06T21:28:00Z",
+  "timestamp_utc": "2026-03-06T21:45:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S043"
+    "S044"
   ],
   "active_workers": {},
   "next_actions": [
-    "Run the zero-credit local `V3` vs `V4` vs `V4b` comparison packet on variant-sensitive backends.",
+    "Replace process-salted local feature hashing with a deterministic encoding path.",
     "Keep the next validation wave zero-credit and restricted to variant-sensitive local backends.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
@@ -119,5 +119,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S042 completed with local V4b implementation and validation. S043 is now active for the zero-credit comparison packet."
+  "notes": "S043 completed with a provisional local V4b comparison packet and a hold decision. S044 is now active for the deterministic local feature-encoding fix."
 }

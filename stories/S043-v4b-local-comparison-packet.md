@@ -35,6 +35,8 @@ As a research lead, I want a zero-credit `V3` vs `V4` vs `V4b` local packet, so 
 
 ## Cycle time
 - Start: 2026-03-06 11:28 (Pacific/Honolulu)
+- End: 2026-03-06 11:45 (Pacific/Honolulu)
 
 ## Notes
 - Keep this step zero-credit and variant-sensitive.
+- Completed with a provisional local packet and a hold decision due to process-level nondeterminism in the current local statevector path.
