@@ -35,3 +35,7 @@ As a research lead, I want the local phase-to-score coupling path analyzed, so w
 
 ## Cycle time
 - Start: 2026-03-06 14:22 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:28 (Pacific/Honolulu)
+- Decision: the main dynamic-range bottleneck is downstream of phase injection, specifically across the `RX` mixing plus weighted-excitation readout path; further calibration work and remote `V4` spend remain unjustified.
