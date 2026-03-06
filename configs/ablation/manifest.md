@@ -10,6 +10,7 @@ Single reference for the first Q-RoPE ablation batch config files.
 - `configs/ablation/V2.yaml`
 - `configs/ablation/V3.yaml`
 - `configs/ablation/V4.yaml`
+- `configs/ablation/V4b.yaml`
 
 ## Variant map
 - `V0`: no positional encoding
@@ -17,6 +18,7 @@ Single reference for the first Q-RoPE ablation batch config files.
 - `V2`: fixed-gate quantum positional encoding
 - `V3`: Q-RoPE relative-phase encoding
 - `V4`: damped-and-clipped Q-RoPE relative-phase encoding
+- `V4b`: clipped ratio-controlled Q-RoPE relative-phase encoding
 
 ## Execution reference
 Use `docs/research/q-rope-ablation-runbook-v1.md` for canonical run commands and logging requirements.

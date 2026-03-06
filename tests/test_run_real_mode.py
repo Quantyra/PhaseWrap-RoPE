@@ -25,6 +25,13 @@ def test_v4_hardware_cost_matches_v3_structure() -> None:
     assert depth_v4 == depth_v3
 
 
+def test_v4b_hardware_cost_matches_v3_structure() -> None:
+    gate_count_v3, depth_v3 = estimate_hardware_costs(qubits=8, layers=2, variant="V3")
+    gate_count_v4b, depth_v4b = estimate_hardware_costs(qubits=8, layers=2, variant="V4b")
+    assert gate_count_v4b == gate_count_v3
+    assert depth_v4b == depth_v3
+
+
 def test_local_dataset_loader_path() -> None:
     rows, mode = load_dataset_samples(dataset="yelp", seed=42)
     assert len(rows) >= 20
@@ -47,6 +54,14 @@ def test_quantum_backend_path_runs() -> None:
 
 def test_v4_quantum_backend_path_runs() -> None:
     metrics = run_real_experiment(dataset="yelp", seed=42, backend="sim_quantum_statevector", variant="V4")
+    assert 0.0 <= metrics["accuracy"] <= 1.0
+    assert 0.0 <= metrics["f1"] <= 1.0
+    assert metrics["train_loss_final"] > 0.0
+    assert metrics["eval_loss"] > 0.0
+
+
+def test_v4b_quantum_backend_path_runs() -> None:
+    metrics = run_real_experiment(dataset="yelp", seed=42, backend="sim_quantum_statevector", variant="V4b")
     assert 0.0 <= metrics["accuracy"] <= 1.0
     assert 0.0 <= metrics["f1"] <= 1.0
     assert metrics["train_loss_final"] > 0.0

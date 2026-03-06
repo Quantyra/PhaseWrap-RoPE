@@ -36,6 +36,8 @@ As a research lead, I want `V4b` implemented locally, so we can evaluate a more 
 
 ## Cycle time
 - Start: 2026-03-06 11:14 (Pacific/Honolulu)
+- End: 2026-03-06 11:28 (Pacific/Honolulu)
 
 ## Notes
 - Keep this step zero-credit.
+- Completed with shared effective-phase helpers, `V4b` config, focused tests, and a local smoke run.

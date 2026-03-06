@@ -11,7 +11,12 @@ VARIANT_PHASE_BASES = {
     "V2": 0.16,
     "V3": 0.24,
     "V4": 0.14,
+    "V4b": 0.18,
 }
+
+V4B_PHASE_CLIP = 0.22
+V4B_RATIO_FACTOR = 0.35
+FEATURE_FLOOR = 0.05
 
 
 def simple_quantum_score(text: str, variant: str, seed: int, n_qubits: int = 3) -> float:
@@ -28,7 +33,7 @@ def simple_quantum_score(text: str, variant: str, seed: int, n_qubits: int = 3) 
     state[0] = 1.0 + 0.0j
 
     features = feature_angles(text=text, n_qubits=n, seed=seed)
-    phases = variant_phases(variant, n)
+    phases = effective_variant_phases(variant, features)
 
     for q in range(n):
         state = apply_single_qubit_gate(state, ry(features[q]), q, n)
@@ -54,9 +59,29 @@ def feature_angles(text: str, n_qubits: int, seed: int) -> list[float]:
     return vals
 
 
-def variant_phases(variant: str, n_qubits: int) -> list[float]:
+def raw_variant_phases(variant: str, n_qubits: int) -> list[float]:
     base = VARIANT_PHASE_BASES.get(variant, 0.04)
     return [base * (i + 1) for i in range(n_qubits)]
+
+
+def effective_variant_phases(variant: str, features: list[float]) -> list[float]:
+    raw_phases = raw_variant_phases(variant, len(features))
+    if variant != "V4b":
+        return raw_phases
+
+    effective: list[float] = []
+    for raw_phase, feature in zip(raw_phases, features):
+        clipped = max(-V4B_PHASE_CLIP, min(V4B_PHASE_CLIP, raw_phase))
+        cap = V4B_RATIO_FACTOR * max(abs(feature), FEATURE_FLOOR)
+        if clipped == 0.0:
+            effective.append(0.0)
+            continue
+        effective.append(math.copysign(min(abs(clipped), cap), clipped))
+    return effective
+
+
+def variant_phases(variant: str, n_qubits: int) -> list[float]:
+    return raw_variant_phases(variant, n_qubits)
 
 
 def ry(theta: float) -> np.ndarray:

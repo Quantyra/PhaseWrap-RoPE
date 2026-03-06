@@ -32,3 +32,9 @@ def test_effective_theta_is_bounded() -> None:
     assert compute_effective_theta(2.0, 2.0, 0.0) == 1.4
     mid = compute_effective_theta(0.8, 0.6, 0.2)
     assert 0.2 <= mid <= 1.4
+
+
+def test_v4b_photonic_relative_phase_is_lower_than_raw_v3() -> None:
+    _, _, rel_v3 = derive_photonic_angles("great service and clean room", variant="V3", seed=42)
+    _, _, rel_v4b = derive_photonic_angles("great service and clean room", variant="V4b", seed=42)
+    assert rel_v4b < rel_v3

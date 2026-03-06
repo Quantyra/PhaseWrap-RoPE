@@ -8,7 +8,7 @@ from pathlib import Path
 import requests
 
 from .env_utils import load_local_dotenv
-from .qsim import feature_angles, variant_phases
+from .qsim import effective_variant_phases, feature_angles
 
 THETA_MIN = 0.2
 THETA_MAX = 1.4
@@ -17,7 +17,7 @@ PHOTONIC_RETRY_DELAYS_SEC = (2.0, 5.0, 10.0)
 
 def derive_photonic_angles(text: str, variant: str, seed: int) -> tuple[float, float, float]:
     features = feature_angles(text=text, n_qubits=2, seed=seed)
-    phases = variant_phases(variant, 2)
+    phases = effective_variant_phases(variant, features)
     theta_left = THETA_MIN + 1.2 * (features[0] / 3.141592653589793)
     theta_right = THETA_MIN + 1.2 * (features[1] / 3.141592653589793)
     relative_phase = phases[1] - phases[0]

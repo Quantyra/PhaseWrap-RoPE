@@ -6,12 +6,12 @@ from functools import lru_cache
 from pathlib import Path
 
 from .env_utils import load_local_dotenv
-from .qsim import feature_angles, variant_phases
+from .qsim import effective_variant_phases, feature_angles
 
 
 def derive_ibm_angles(text: str, variant: str, seed: int) -> tuple[float, float]:
     features = feature_angles(text=text, n_qubits=2, seed=seed)
-    phases = variant_phases(variant, 2)
+    phases = effective_variant_phases(variant, features)
     return features[0], phases[0] + 0.5 * phases[1]
 
 

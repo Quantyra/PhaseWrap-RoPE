@@ -1,0 +1,19 @@
+variant:
+  id: "V4b"
+  name: "q_rope_relative_phase_clipped_ratio_controlled"
+
+positional_encoding:
+  type: "q_rope_relative_phase"
+  enabled: true
+  gate_family: "rz"
+  frequencies:
+    - 0.125
+    - 0.25
+    - 0.5
+    - 1.0
+  relative_mode: true
+  tie_query_key_frequencies: true
+  stability_mode: "clipped_ratio_controlled"
+  phase_base: 0.18
+  phase_clip: 0.22
+  ratio_factor: 0.35
