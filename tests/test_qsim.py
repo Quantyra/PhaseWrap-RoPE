@@ -5,9 +5,13 @@ from qrope.qphotonic import derive_photonic_angles
 from qrope.qsim import (
     effective_variant_phases,
     feature_angles,
+    parity_readout,
+    prob_qubit_one,
     raw_variant_phases,
     rx,
+    simple_quantum_score,
     stable_token_hash,
+    state_readout_score,
     variant_phases,
     weighted_mean_excitation,
 )
@@ -68,6 +72,31 @@ def test_weighted_mean_excitation_stays_in_unit_interval() -> None:
     state = np.zeros(4, dtype=np.complex128)
     state[1] = 1.0 + 0.0j
     assert weighted_mean_excitation(state, n_qubits=2) == pytest.approx(0.5)
+
+
+def test_q2_readout_uses_last_qubit_probability() -> None:
+    import numpy as np
+
+    state = np.zeros(8, dtype=np.complex128)
+    state[4] = 1.0 + 0.0j
+    assert state_readout_score(state, n_qubits=3, readout="q2") == pytest.approx(prob_qubit_one(state, qubit=2, n_qubits=3))
+
+
+def test_parity_readout_stays_in_unit_interval() -> None:
+    import numpy as np
+
+    state = np.zeros(4, dtype=np.complex128)
+    state[0] = 1.0 + 0.0j
+    assert parity_readout(state, n_qubits=2) == pytest.approx(1.0)
+
+
+def test_simple_quantum_score_supports_alternative_readouts() -> None:
+    weighted = simple_quantum_score("good food and quick service", variant="V3", seed=42, readout="weighted")
+    q2 = simple_quantum_score("good food and quick service", variant="V3", seed=42, readout="q2")
+    parity = simple_quantum_score("good food and quick service", variant="V3", seed=42, readout="parity")
+    assert 0.0 <= weighted <= 1.0
+    assert 0.0 <= q2 <= 1.0
+    assert 0.0 <= parity <= 1.0
 
 
 def test_rx_gate_is_unitary() -> None:

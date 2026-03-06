@@ -19,9 +19,16 @@ V4B_PHASE_CLIP = 0.22
 V4B_RATIO_FACTOR = 0.35
 FEATURE_FLOOR = 0.05
 SCREENING_MIX_ANGLE = math.pi / 4.0
+SUPPORTED_READOUTS = {"weighted", "q2", "parity"}
 
 
-def simple_quantum_score(text: str, variant: str, seed: int, n_qubits: int = 3) -> float:
+def simple_quantum_score(
+    text: str,
+    variant: str,
+    seed: int,
+    n_qubits: int = 3,
+    readout: str = "weighted",
+) -> float:
     """Return a probability score from a small statevector circuit.
 
     This is an actual quantum simulation (statevector evolution) with:
@@ -53,7 +60,7 @@ def simple_quantum_score(text: str, variant: str, seed: int, n_qubits: int = 3) 
     for q in range(n - 1, 0, -1):
         state = apply_cnot(state, control=q, target=q - 1, n_qubits=n)
 
-    return weighted_mean_excitation(state, n_qubits=n)
+    return state_readout_score(state=state, n_qubits=n, readout=readout)
 
 
 def feature_angles(text: str, n_qubits: int, seed: int) -> list[float]:
@@ -161,6 +168,15 @@ def prob_qubit_one(state: np.ndarray, qubit: int, n_qubits: int) -> float:
     return max(0.0, min(1.0, prob))
 
 
+def parity_readout(state: np.ndarray, n_qubits: int) -> float:
+    total = 0.0
+    for idx, amp in enumerate(state):
+        prob = float((amp.conjugate() * amp).real)
+        parity = -1.0 if (idx.bit_count() % 2) else 1.0
+        total += parity * prob
+    return max(0.0, min(1.0, (total + 1.0) / 2.0))
+
+
 def weighted_mean_excitation(state: np.ndarray, n_qubits: int) -> float:
     if n_qubits <= 0:
         return 0.0
@@ -170,3 +186,14 @@ def weighted_mean_excitation(state: np.ndarray, n_qubits: int) -> float:
         excitation_fraction = idx.bit_count() / n_qubits
         total += prob * excitation_fraction
     return max(0.0, min(1.0, total))
+
+
+def state_readout_score(state: np.ndarray, n_qubits: int, readout: str) -> float:
+    if readout == "weighted":
+        return weighted_mean_excitation(state, n_qubits=n_qubits)
+    if readout == "q2":
+        qubit = min(2, max(0, n_qubits - 1))
+        return prob_qubit_one(state, qubit=qubit, n_qubits=n_qubits)
+    if readout == "parity":
+        return parity_readout(state, n_qubits=n_qubits)
+    raise ValueError(f"Unsupported local readout: {readout}")
