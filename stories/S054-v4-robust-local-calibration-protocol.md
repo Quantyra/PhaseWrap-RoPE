@@ -33,6 +33,8 @@ As a research lead, I want a more robust local calibration protocol for `V4`, so
 
 ## Cycle time
 - Start: 2026-03-06 13:27 (Pacific/Honolulu)
+- End: 2026-03-06 13:34 (Pacific/Honolulu)
 
 ## Notes
 - Keep this step zero-credit.
+- Completed with a robust-calibration-first decision and an explicit deferral of `V5`.
