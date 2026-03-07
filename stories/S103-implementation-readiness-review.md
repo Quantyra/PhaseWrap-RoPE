@@ -31,3 +31,7 @@ As a research lead, I want a final planning review before any restart brief is w
 
 ## Unit tests (development stories only)
 - No new unit tests required.
+
+## Cycle time
+- Start: 2026-03-07 10:33 (Pacific/Honolulu)
+- End: 2026-03-07 10:42 (Pacific/Honolulu)
