@@ -34,3 +34,7 @@ As a research lead, I want the interference-tail screening branch translated int
 
 ## Cycle time
 - Start: 2026-03-06 14:16 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:20 (Pacific/Honolulu)
+- Decision: implement a single additional local tail, `mix_it1`, against the current `mix_v0` baseline, with the parity packet locked and the weighted shadow triggered only if parity becomes branch-changing.
