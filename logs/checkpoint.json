@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-07T01:37:00Z",
+  "timestamp_utc": "2026-03-07T01:46:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S088"
+    "S089"
   ],
   "active_workers": {},
   "next_actions": [
-    "Specify the first synthetic task family concretely.",
-    "Define deterministic generation controls and leakage checks.",
-    "Keep the first restart packet zero-credit and restricted to variant-sensitive local backends.",
+    "Define the synthetic generator implementation boundary.",
+    "List the first restart packet inputs, outputs, and diagnostics.",
+    "Keep the first implementation zero-credit and restricted to variant-sensitive local backends.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
   ],
@@ -120,5 +120,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S087 completed. The salvage path is now concrete: zero-credit synthetic theorem-to-mechanism validation on controlled relative-offset tasks. S088 is active to specify the first synthetic task family and leakage controls."
+  "notes": "S088 completed. The first synthetic salvage family is now specified as balanced signed relative-offset classification with explicit leakage checks. S089 is active to define the minimal generator and restart-packet implementation boundary."
 }
