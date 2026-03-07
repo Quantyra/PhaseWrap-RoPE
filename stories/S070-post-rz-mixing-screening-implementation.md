@@ -35,3 +35,7 @@ As a research lead, I want the local post-`RZ` mixing presets implemented and sc
 
 ## Cycle time
 - Start: 2026-03-06 15:19 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:11 (Pacific/Honolulu)
+- Decision: `HOLD`. `mix_v2` was the only preset strong enough to trigger a weighted shadow check, but the parity-only gain did not survive strongly enough across `yelp` and `amazon` to justify branch promotion or remote spend.

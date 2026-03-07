@@ -3,6 +3,7 @@ import pytest
 from qrope.qibm import derive_ibm_angles
 from qrope.qphotonic import derive_photonic_angles
 from qrope.qsim import (
+    SUPPORTED_MIXING_PRESETS,
     effective_variant_phases,
     feature_angles,
     parity_readout,
@@ -97,6 +98,25 @@ def test_simple_quantum_score_supports_alternative_readouts() -> None:
     assert 0.0 <= weighted <= 1.0
     assert 0.0 <= q2 <= 1.0
     assert 0.0 <= parity <= 1.0
+
+
+def test_supported_mixing_presets_are_available() -> None:
+    assert SUPPORTED_MIXING_PRESETS == {"mix_v0", "mix_v1", "mix_v2"}
+
+
+def test_simple_quantum_score_supports_mixing_presets() -> None:
+    scores = {
+        preset: simple_quantum_score(
+            "good food and quick service",
+            variant="V3",
+            seed=42,
+            readout="parity",
+            mixing_preset=preset,
+        )
+        for preset in sorted(SUPPORTED_MIXING_PRESETS)
+    }
+    assert all(0.0 <= score <= 1.0 for score in scores.values())
+    assert len(set(round(score, 12) for score in scores.values())) >= 2
 
 
 def test_rx_gate_is_unitary() -> None:
