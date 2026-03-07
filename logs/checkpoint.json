@@ -1,14 +1,14 @@
 {
-  "timestamp_utc": "2026-03-08T21:02:00Z",
+  "timestamp_utc": "2026-03-08T21:14:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S106"
+    "S107"
   ],
   "active_workers": {},
   "next_actions": [
-    "Translate the approved restart brief into an exact implementation plan.",
+    "Implement V_new_explicit_interference in the local simulator path.",
     "Keep the restart scope confined to the explicit interference-comparator family and synthetic packet only.",
     "Do not touch remote or benchmark-expansion paths.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
@@ -120,5 +120,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S105 completed. The restart brief for V_new_explicit_interference is approved for one tightly bounded implementation phase only. S106 is active to convert that approval into an exact implementation plan without scope drift."
+  "notes": "S106 completed. The approved restart brief now has an exact implementation plan. S107 is active to implement V_new_explicit_interference within the fixed synthetic-only scope and without reopening remote or benchmark paths."
 }
