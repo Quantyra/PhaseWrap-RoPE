@@ -34,3 +34,7 @@ As a research lead, I want the minimal implementation plan for post-`RZ` mixing 
 
 ## Cycle time
 - Start: 2026-03-06 15:15 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 15:19 (Pacific/Honolulu)
+- Decision: implement three configurable local mixing presets (`mix_v0`, `mix_v1`, `mix_v2`) on the `V3` parity path only, with no remote or variant-branch changes.
