@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-08T03:06:00Z",
+  "timestamp_utc": "2026-03-08T19:02:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S091"
+    "S092"
   ],
   "active_workers": {},
   "next_actions": [
-    "Execute the first synthetic packet for V0 and V3 across seeds 42, 123, and 777.",
-    "Collect metrics and generator diagnostics for each synthetic run.",
-    "Write the first salvage decision note from the synthetic packet.",
+    "Produce score-vs-offset diagnostics for V0 and V3 on the synthetic family.",
+    "Determine whether V3 shows a clearer relative-offset response than V0.",
+    "Pause or justify one further salvage step based on the diagnostic outcome.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
   ],
@@ -120,5 +120,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S090 completed. The deterministic synthetic generator and local runner integration are now executable, with diagnostics artifacts written per run. S091 is active to execute the first multi-seed synthetic packet and assess whether the salvage path shows any positive signal."
+  "notes": "S091 completed. The first full synthetic packet was null-to-inconclusive: V0 led on mean accuracy while V3 led on mean F1, with no clean synthetic rescue signal. S092 is active for one final score-vs-offset diagnostic before deciding whether to pause the salvage path."
 }
