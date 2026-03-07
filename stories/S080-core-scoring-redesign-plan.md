@@ -34,3 +34,7 @@ As a research lead, I want the next core scoring-formulation redesign planned ex
 
 ## Cycle time
 - Start: 2026-03-06 14:36 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:38 (Pacific/Honolulu)
+- Decision: redesign the local scoring primitive around a pairwise-relative-overlap screening path, using `V0` vs `V3` local diagnostics before any broader expansion.

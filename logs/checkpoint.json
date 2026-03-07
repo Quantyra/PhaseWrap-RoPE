@@ -1,15 +1,15 @@
 {
-  "timestamp_utc": "2026-03-07T00:36:00Z",
+  "timestamp_utc": "2026-03-07T00:38:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S080"
+    "S081"
   ],
   "active_workers": {},
   "next_actions": [
-    "Plan the next core scoring-formulation redesign as a local-first, zero-credit branch.",
-    "Define the evaluation gate before implementation.",
+    "Write the minimal implementation plan for pairwise-relative-overlap screening.",
+    "Lock the first V0 vs V3 diagnostic packet before code changes.",
     "Keep the next validation wave zero-credit and restricted to variant-sensitive local backends.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
@@ -120,5 +120,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S079 completed. Core scoring-formulation redesign is now selected as the best next technical branch. Benchmark/task redesign is deferred as a secondary follow-on, and S080 is active to plan the scoring-path redesign."
+  "notes": "S080 completed. Pairwise-relative-overlap screening is now selected as the next core scoring-formulation redesign. S081 is active to define the minimal implementation boundary before code changes."
 }
