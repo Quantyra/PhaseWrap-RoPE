@@ -1,14 +1,16 @@
 {
-  "timestamp_utc": "2026-03-08T19:19:00Z",
+  "timestamp_utc": "2026-03-08T19:28:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
-  "current_story_ids": [],
+  "current_story_ids": [
+    "S094"
+  ],
   "active_workers": {},
   "next_actions": [
     "Keep the initiative in paused internal-archive status.",
-    "Do not reopen experimentation without a materially new mechanism hypothesis.",
-    "Require a synthetic theorem-validation win before any future benchmark or remote reopening.",
+    "Require a concrete restart hypothesis proposal before any future reopening.",
+    "Prefer explicit relative-phase interference comparison as the top future restart candidate.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
   ],
@@ -118,5 +120,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S093 completed. The initiative is now paused as an internal archive. Publication remains gated off. Restart is allowed only under a materially new mechanism hypothesis that first clears a controlled synthetic theorem-validation gate."
+  "notes": "S093 completed and the initiative remains paused as an internal archive. S094 records the ranked restart-hypothesis posture: any future reopening must begin with a concrete mechanism proposal, with explicit relative-phase interference comparison ranked first."
 }
