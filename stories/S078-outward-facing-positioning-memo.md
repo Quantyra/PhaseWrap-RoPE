@@ -36,5 +36,5 @@ As a research lead, I want the current bounded program posture translated into o
 - Start: 2026-03-06 14:29 (Pacific/Honolulu)
 
 ## Status
-- Deferred: 2026-03-06 14:36 (Pacific/Honolulu)
-- Reason: user-directed priority changed to evaluation of next technical options before communication-layer work.
+- Reactivated: 2026-03-06 14:47 (Pacific/Honolulu)
+- Reason: the first core scoring-redesign branch was tested and stopped, so the highest-value next move returns to communication-layer synthesis.
