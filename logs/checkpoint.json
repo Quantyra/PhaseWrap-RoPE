@@ -1,14 +1,14 @@
 {
-  "timestamp_utc": "2026-03-07T01:11:00Z",
+  "timestamp_utc": "2026-03-07T01:15:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S068"
+    "S069"
   ],
   "active_workers": {},
   "next_actions": [
-    "Define a zero-credit screening plan for stronger post-RZ mixing on the primary V3 path.",
+    "Define the minimal implementation plan for configurable post-RZ mixing presets on the primary V3 path.",
     "Keep the next step framed as local mechanism screening rather than a new algorithm branch or remote question.",
     "Keep the next validation wave zero-credit and restricted to variant-sensitive local backends.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
@@ -120,5 +120,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S067 completed. The next highest-value zero-credit question is stronger post-RZ phase-to-amplitude conversion on the primary V3 path. S068 is now active for post-RZ mixing screening planning."
+  "notes": "S068 completed. The next mechanism screen is a narrow three-preset post-RZ mixing study on V3 under parity readout. S069 is now active for the implementation plan."
 }
