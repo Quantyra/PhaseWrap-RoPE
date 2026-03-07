@@ -20,7 +20,7 @@ V4B_RATIO_FACTOR = 0.35
 FEATURE_FLOOR = 0.05
 SCREENING_MIX_ANGLE = math.pi / 4.0
 SUPPORTED_READOUTS = {"weighted", "q2", "parity"}
-SUPPORTED_MIXING_PRESETS = {"mix_v0", "mix_v1", "mix_v2"}
+SUPPORTED_MIXING_PRESETS = {"mix_it1", "mix_v0", "mix_v1", "mix_v2"}
 
 
 def simple_quantum_score(
@@ -109,6 +109,10 @@ def apply_mixing_preset(state: np.ndarray, n_qubits: int, mixing_preset: str) ->
         raise ValueError(f"Unsupported mixing preset: {mixing_preset}")
 
     mixed = state
+    if mixing_preset == "mix_it1":
+        mixed = apply_global_rx_layer(mixed, n_qubits=n_qubits, angle=SCREENING_MIX_ANGLE)
+        mixed = apply_global_hadamard_layer(mixed, n_qubits=n_qubits)
+        return apply_reverse_cnot_chain(mixed, n_qubits=n_qubits)
     if mixing_preset == "mix_v0":
         mixed = apply_global_rx_layer(mixed, n_qubits=n_qubits, angle=SCREENING_MIX_ANGLE)
         return apply_reverse_cnot_chain(mixed, n_qubits=n_qubits)
@@ -127,6 +131,14 @@ def apply_global_rx_layer(state: np.ndarray, n_qubits: int, angle: float) -> np.
     out = state
     for q in range(n_qubits):
         out = apply_single_qubit_gate(out, rx(angle), q, n_qubits)
+    return out
+
+
+def apply_global_hadamard_layer(state: np.ndarray, n_qubits: int) -> np.ndarray:
+    out = state
+    gate = hadamard()
+    for q in range(n_qubits):
+        out = apply_single_qubit_gate(out, gate, q, n_qubits)
     return out
 
 
@@ -164,6 +176,11 @@ def rx(theta: float) -> np.ndarray:
     c = math.cos(theta / 2.0)
     s = math.sin(theta / 2.0)
     return np.array([[c, -1j * s], [-1j * s, c]], dtype=np.complex128)
+
+
+def hadamard() -> np.ndarray:
+    scale = 1.0 / math.sqrt(2.0)
+    return np.array([[scale, scale], [scale, -scale]], dtype=np.complex128)
 
 
 def apply_single_qubit_gate(state: np.ndarray, gate: np.ndarray, qubit: int, n_qubits: int) -> np.ndarray:

@@ -1,15 +1,15 @@
 {
-  "timestamp_utc": "2026-03-07T00:20:23Z",
+  "timestamp_utc": "2026-03-07T00:25:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S075"
+    "S076"
   ],
   "active_workers": {},
   "next_actions": [
-    "Implement the single interference-tail candidate `mix_it1` in the local simulator.",
-    "Run the zero-credit parity packet for `mix_v0` vs `mix_it1`.",
+    "Reassess whether further local screening-path redesign iteration is justified after the failed `mix_it1` candidate.",
+    "Decide whether to continue, pause, or stop the current local simulator branch.",
     "Keep the next validation wave zero-credit and restricted to variant-sensitive local backends.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
@@ -120,5 +120,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S074 completed. The broader redesign is now reduced to one concrete implementation candidate, `mix_it1`, against the `mix_v0` baseline on the V3 parity path. S075 is active for local implementation and zero-credit screening."
+  "notes": "S075 completed. The single broader redesign candidate `mix_it1` failed the parity promotion gate clearly enough that no weighted shadow was warranted. S076 is now active to reassess whether the local screening branch should continue."
 }

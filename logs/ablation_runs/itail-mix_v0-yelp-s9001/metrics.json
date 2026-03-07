@@ -1,0 +1,21 @@
+{
+  "run_id": "itail-mix_v0-yelp-s9001",
+  "variant": "V3",
+  "dataset": "yelp",
+  "seed": 9001,
+  "backend": "sim_quantum_statevector",
+  "accuracy": 0.625,
+  "f1": 0.571429,
+  "train_loss_final": 0.791112,
+  "eval_loss": 0.644248,
+  "qubit_count": 8,
+  "gate_count_total": 112,
+  "circuit_depth": 7,
+  "shot_count": 256,
+  "noise_model": "none",
+  "dry_run": false,
+  "run_mode": "real",
+  "data_mode": "local_jsonl+readout_parity+mix_mix_v0",
+  "mixing_preset": "mix_v0",
+  "local_readout": "parity"
+}

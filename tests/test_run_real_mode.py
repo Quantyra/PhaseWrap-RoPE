@@ -191,3 +191,17 @@ def test_quantum_backend_supports_mixing_preset() -> None:
     assert 0.0 <= metrics["accuracy"] <= 1.0
     assert 0.0 <= metrics["f1"] <= 1.0
     assert metrics["data_mode"].endswith("readout_parity+mix_mix_v1")
+
+
+def test_quantum_backend_supports_interference_tail_preset() -> None:
+    metrics = run_real_experiment(
+        dataset="yelp",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V3",
+        local_readout="parity",
+        local_mixing_preset="mix_it1",
+    )
+    assert 0.0 <= metrics["accuracy"] <= 1.0
+    assert 0.0 <= metrics["f1"] <= 1.0
+    assert metrics["data_mode"].endswith("readout_parity+mix_mix_it1")

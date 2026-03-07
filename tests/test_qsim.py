@@ -6,6 +6,7 @@ from qrope.qsim import (
     SUPPORTED_MIXING_PRESETS,
     effective_variant_phases,
     feature_angles,
+    hadamard,
     parity_readout,
     prob_qubit_one,
     raw_variant_phases,
@@ -101,7 +102,7 @@ def test_simple_quantum_score_supports_alternative_readouts() -> None:
 
 
 def test_supported_mixing_presets_are_available() -> None:
-    assert SUPPORTED_MIXING_PRESETS == {"mix_v0", "mix_v1", "mix_v2"}
+    assert SUPPORTED_MIXING_PRESETS == {"mix_it1", "mix_v0", "mix_v1", "mix_v2"}
 
 
 def test_simple_quantum_score_supports_mixing_presets() -> None:
@@ -119,9 +120,35 @@ def test_simple_quantum_score_supports_mixing_presets() -> None:
     assert len(set(round(score, 12) for score in scores.values())) >= 2
 
 
+def test_interference_tail_differs_from_baseline_tail() -> None:
+    baseline = simple_quantum_score(
+        "good food and quick service",
+        variant="V3",
+        seed=42,
+        readout="parity",
+        mixing_preset="mix_v0",
+    )
+    candidate = simple_quantum_score(
+        "good food and quick service",
+        variant="V3",
+        seed=42,
+        readout="parity",
+        mixing_preset="mix_it1",
+    )
+    assert baseline != pytest.approx(candidate)
+
+
 def test_rx_gate_is_unitary() -> None:
     import numpy as np
 
     gate = rx(0.3)
+    ident = gate.conjugate().T @ gate
+    assert np.allclose(ident, np.eye(2))
+
+
+def test_hadamard_gate_is_unitary() -> None:
+    import numpy as np
+
+    gate = hadamard()
     ident = gate.conjugate().T @ gate
     assert np.allclose(ident, np.eye(2))
