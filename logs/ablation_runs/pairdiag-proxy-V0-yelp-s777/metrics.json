@@ -1,0 +1,20 @@
+{
+  "run_id": "pairdiag-proxy-V0-yelp-s777",
+  "variant": "V0",
+  "dataset": "yelp",
+  "seed": 777,
+  "backend": "sim_quantum_statevector",
+  "scoring_mode": "proxy",
+  "accuracy": 0.625,
+  "f1": 0.666667,
+  "train_loss_final": 0.759569,
+  "eval_loss": 0.720167,
+  "data_mode": "local_jsonl+readout_parity+mix_mix_v0",
+  "qubit_count": 8,
+  "gate_count_total": 64,
+  "circuit_depth": 4,
+  "shot_count": 256,
+  "noise_model": "none",
+  "dry_run": false,
+  "run_mode": "real"
+}

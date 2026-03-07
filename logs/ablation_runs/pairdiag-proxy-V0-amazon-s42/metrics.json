@@ -1,0 +1,20 @@
+{
+  "run_id": "pairdiag-proxy-V0-amazon-s42",
+  "variant": "V0",
+  "dataset": "amazon",
+  "seed": 42,
+  "backend": "sim_quantum_statevector",
+  "scoring_mode": "proxy",
+  "accuracy": 0.375,
+  "f1": 0.545455,
+  "train_loss_final": 0.749618,
+  "eval_loss": 0.881981,
+  "data_mode": "local_jsonl+readout_parity+mix_mix_v0",
+  "qubit_count": 8,
+  "gate_count_total": 64,
+  "circuit_depth": 4,
+  "shot_count": 256,
+  "noise_model": "none",
+  "dry_run": false,
+  "run_mode": "real"
+}

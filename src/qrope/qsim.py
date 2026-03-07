@@ -41,6 +41,24 @@ def simple_quantum_score(
     - reverse CNOT chain
     - all-qubit weighted excitation readout
     """
+    state = build_quantum_state(
+        text=text,
+        variant=variant,
+        seed=seed,
+        n_qubits=n_qubits,
+        mixing_preset=mixing_preset,
+    )
+    n = int(round(math.log2(len(state))))
+    return state_readout_score(state=state, n_qubits=n, readout=readout)
+
+
+def build_quantum_state(
+    text: str,
+    variant: str,
+    seed: int,
+    n_qubits: int = 3,
+    mixing_preset: str = "mix_v0",
+) -> np.ndarray:
     n = max(2, min(n_qubits, 6))
     dim = 1 << n
     state = np.zeros(dim, dtype=np.complex128)
@@ -55,8 +73,32 @@ def simple_quantum_score(
 
     state = apply_forward_cnot_chain(state, n_qubits=n)
     state = apply_mixing_preset(state=state, n_qubits=n, mixing_preset=mixing_preset)
+    return state
 
-    return state_readout_score(state=state, n_qubits=n, readout=readout)
+
+def pairwise_quantum_score(
+    text_a: str,
+    text_b: str,
+    variant: str,
+    seed: int,
+    n_qubits: int = 3,
+    mixing_preset: str = "mix_v0",
+) -> float:
+    state_a = build_quantum_state(
+        text=text_a,
+        variant=variant,
+        seed=seed,
+        n_qubits=n_qubits,
+        mixing_preset=mixing_preset,
+    )
+    state_b = build_quantum_state(
+        text=text_b,
+        variant=variant,
+        seed=seed,
+        n_qubits=n_qubits,
+        mixing_preset=mixing_preset,
+    )
+    return state_overlap_score(state_a, state_b)
 
 
 def feature_angles(text: str, n_qubits: int, seed: int) -> list[float]:
@@ -250,3 +292,9 @@ def state_readout_score(state: np.ndarray, n_qubits: int, readout: str) -> float
     if readout == "parity":
         return parity_readout(state, n_qubits=n_qubits)
     raise ValueError(f"Unsupported local readout: {readout}")
+
+
+def state_overlap_score(state_a: np.ndarray, state_b: np.ndarray) -> float:
+    overlap = np.vdot(state_a, state_b)
+    value = float(abs(overlap) ** 2)
+    return max(0.0, min(1.0, value))

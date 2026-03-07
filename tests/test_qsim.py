@@ -4,15 +4,18 @@ from qrope.qibm import derive_ibm_angles
 from qrope.qphotonic import derive_photonic_angles
 from qrope.qsim import (
     SUPPORTED_MIXING_PRESETS,
+    build_quantum_state,
     effective_variant_phases,
     feature_angles,
     hadamard,
     parity_readout,
+    pairwise_quantum_score,
     prob_qubit_one,
     raw_variant_phases,
     rx,
     simple_quantum_score,
     stable_token_hash,
+    state_overlap_score,
     state_readout_score,
     variant_phases,
     weighted_mean_excitation,
@@ -152,3 +155,28 @@ def test_hadamard_gate_is_unitary() -> None:
     gate = hadamard()
     ident = gate.conjugate().T @ gate
     assert np.allclose(ident, np.eye(2))
+
+
+def test_build_quantum_state_is_normalized() -> None:
+    import numpy as np
+
+    state = build_quantum_state("good food and quick service", variant="V3", seed=42)
+    assert np.allclose(float(np.vdot(state, state).real), 1.0)
+
+
+def test_state_overlap_score_identity_is_one() -> None:
+    state = build_quantum_state("good food and quick service", variant="V3", seed=42)
+    assert state_overlap_score(state, state) == pytest.approx(1.0)
+
+
+def test_pairwise_quantum_score_is_deterministic_and_bounded() -> None:
+    score_a = pairwise_quantum_score("good food and quick service", "bad slow dirty product", variant="V3", seed=42)
+    score_b = pairwise_quantum_score("good food and quick service", "bad slow dirty product", variant="V3", seed=42)
+    assert score_a == pytest.approx(score_b)
+    assert 0.0 <= score_a <= 1.0
+
+
+def test_pairwise_quantum_score_prefers_identical_input() -> None:
+    identical = pairwise_quantum_score("good food and quick service", "good food and quick service", variant="V3", seed=42)
+    different = pairwise_quantum_score("good food and quick service", "bad slow dirty product", variant="V3", seed=42)
+    assert identical >= different

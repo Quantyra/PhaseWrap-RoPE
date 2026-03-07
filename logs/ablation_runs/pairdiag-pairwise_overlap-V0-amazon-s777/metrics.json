@@ -1,0 +1,20 @@
+{
+  "run_id": "pairdiag-pairwise_overlap-V0-amazon-s777",
+  "variant": "V0",
+  "dataset": "amazon",
+  "seed": 777,
+  "backend": "sim_quantum_statevector",
+  "scoring_mode": "pairwise_overlap",
+  "accuracy": 0.875,
+  "f1": 0.857143,
+  "train_loss_final": 0.621844,
+  "eval_loss": 0.626364,
+  "data_mode": "local_jsonl+pairwise_overlap+readout_parity+mix_mix_v0",
+  "qubit_count": 8,
+  "gate_count_total": 64,
+  "circuit_depth": 4,
+  "shot_count": 256,
+  "noise_model": "none",
+  "dry_run": false,
+  "run_mode": "real"
+}
