@@ -34,3 +34,7 @@ As a research lead, I want the pairwise-relative-overlap screening path translat
 
 ## Cycle time
 - Start: 2026-03-06 14:38 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:40 (Pacific/Honolulu)
+- Decision: add one pairwise-overlap diagnostic path beside the current proxy path, using a small `V0` vs `V3` local packet before any broader refactor.
