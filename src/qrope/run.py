@@ -16,7 +16,7 @@ from .config_utils import apply_set, deep_merge, load_yaml
 from .env_utils import load_local_dotenv
 from .qibm import run_ibm_sampler_batch
 from .qphotonic import quandela_remote_score
-from .qsim import SUPPORTED_READOUTS, feature_angles, simple_quantum_score, variant_phases
+from .qsim import SUPPORTED_MIXING_PRESETS, SUPPORTED_READOUTS, feature_angles, simple_quantum_score, variant_phases
 
 
 def parse_args() -> argparse.Namespace:
@@ -56,10 +56,12 @@ def main() -> None:
         backend = str(backend_block.get("name", "unknown"))
         noise_model = str(backend_block.get("noise_model", "none"))
         local_readout = str(backend_block.get("local_readout", "weighted"))
+        local_mixing_preset = str(backend_block.get("local_mixing_preset", "mix_v0"))
     else:
         backend = str(backend_block)
         noise_model = "none"
         local_readout = "weighted"
+        local_mixing_preset = "mix_v0"
 
     output_root = Path(str(config.get("logging", {}).get("output_root", "logs/ablation_runs")))
     run_dir = output_root / run_id
@@ -82,6 +84,7 @@ def main() -> None:
             backend=backend,
             variant=variant,
             local_readout=local_readout,
+            local_mixing_preset=local_mixing_preset,
         )
         accuracy = real_metrics["accuracy"]
         f1 = real_metrics["f1"]
@@ -144,6 +147,7 @@ def run_real_experiment(
     backend: str,
     variant: str,
     local_readout: str = "weighted",
+    local_mixing_preset: str = "mix_v0",
 ) -> dict[str, float | str]:
     samples, data_mode = load_dataset_samples(dataset, seed)
     if backend == "sim_quandela_remote":
@@ -157,8 +161,9 @@ def run_real_experiment(
             seed=seed,
             variant=variant,
             readout=local_readout,
+            mixing_preset=local_mixing_preset,
         )
-        data_mode = f"{data_mode}+readout_{local_readout}"
+        data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
         train_loss, eval_loss, accuracy, f1 = run_qiskit_aer_backend(train=train, test=test, seed=seed, variant=variant)
     elif backend == "sim_quandela_remote":
@@ -300,12 +305,21 @@ def run_quantum_backend(
     seed: int,
     variant: str,
     readout: str = "weighted",
+    mixing_preset: str = "mix_v0",
 ) -> tuple[float, float, float, float]:
     if readout not in SUPPORTED_READOUTS:
         raise ValueError(f"Unsupported local readout: {readout}")
-    train_scores = [simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout) for t, _ in train]
+    if mixing_preset not in SUPPORTED_MIXING_PRESETS:
+        raise ValueError(f"Unsupported local mixing preset: {mixing_preset}")
+    train_scores = [
+        simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout, mixing_preset=mixing_preset)
+        for t, _ in train
+    ]
     _, validation = stratified_calibration_split(train)
-    validation_scores = [simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout) for t, _ in validation]
+    validation_scores = [
+        simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout, mixing_preset=mixing_preset)
+        for t, _ in validation
+    ]
     validation_labels = [label for _, label in validation]
     threshold = calibrate_threshold(validation_scores, validation_labels)
 
@@ -313,7 +327,13 @@ def run_quantum_backend(
     y_pred: list[int] = []
     probs: list[float] = []
     for text, _ in test:
-        p1 = simple_quantum_score(text=text, variant=variant, seed=seed, readout=readout)
+        p1 = simple_quantum_score(
+            text=text,
+            variant=variant,
+            seed=seed,
+            readout=readout,
+            mixing_preset=mixing_preset,
+        )
         probs.append(p1)
         y_pred.append(1 if p1 >= threshold else 0)
 

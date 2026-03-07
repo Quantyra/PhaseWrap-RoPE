@@ -20,6 +20,7 @@ V4B_RATIO_FACTOR = 0.35
 FEATURE_FLOOR = 0.05
 SCREENING_MIX_ANGLE = math.pi / 4.0
 SUPPORTED_READOUTS = {"weighted", "q2", "parity"}
+SUPPORTED_MIXING_PRESETS = {"mix_v0", "mix_v1", "mix_v2"}
 
 
 def simple_quantum_score(
@@ -28,6 +29,7 @@ def simple_quantum_score(
     seed: int,
     n_qubits: int = 3,
     readout: str = "weighted",
+    mixing_preset: str = "mix_v0",
 ) -> float:
     """Return a probability score from a small statevector circuit.
 
@@ -51,14 +53,8 @@ def simple_quantum_score(
         state = apply_single_qubit_gate(state, ry(features[q]), q, n)
         state = apply_single_qubit_gate(state, rz(phases[q]), q, n)
 
-    for q in range(n - 1):
-        state = apply_cnot(state, control=q, target=q + 1, n_qubits=n)
-
-    for q in range(n):
-        state = apply_single_qubit_gate(state, rx(SCREENING_MIX_ANGLE), q, n)
-
-    for q in range(n - 1, 0, -1):
-        state = apply_cnot(state, control=q, target=q - 1, n_qubits=n)
+    state = apply_forward_cnot_chain(state, n_qubits=n)
+    state = apply_mixing_preset(state=state, n_qubits=n, mixing_preset=mixing_preset)
 
     return state_readout_score(state=state, n_qubits=n, readout=readout)
 
@@ -106,6 +102,46 @@ def effective_variant_phases(variant: str, features: list[float]) -> list[float]
 
 def variant_phases(variant: str, n_qubits: int) -> list[float]:
     return raw_variant_phases(variant, n_qubits)
+
+
+def apply_mixing_preset(state: np.ndarray, n_qubits: int, mixing_preset: str) -> np.ndarray:
+    if mixing_preset not in SUPPORTED_MIXING_PRESETS:
+        raise ValueError(f"Unsupported mixing preset: {mixing_preset}")
+
+    mixed = state
+    if mixing_preset == "mix_v0":
+        mixed = apply_global_rx_layer(mixed, n_qubits=n_qubits, angle=SCREENING_MIX_ANGLE)
+        return apply_reverse_cnot_chain(mixed, n_qubits=n_qubits)
+    if mixing_preset == "mix_v1":
+        mixed = apply_global_rx_layer(mixed, n_qubits=n_qubits, angle=SCREENING_MIX_ANGLE * 1.5)
+        return apply_reverse_cnot_chain(mixed, n_qubits=n_qubits)
+
+    mixed = apply_global_rx_layer(mixed, n_qubits=n_qubits, angle=SCREENING_MIX_ANGLE)
+    mixed = apply_reverse_cnot_chain(mixed, n_qubits=n_qubits)
+    mixed = apply_forward_cnot_chain(mixed, n_qubits=n_qubits)
+    mixed = apply_global_rx_layer(mixed, n_qubits=n_qubits, angle=SCREENING_MIX_ANGLE / 2.0)
+    return apply_reverse_cnot_chain(mixed, n_qubits=n_qubits)
+
+
+def apply_global_rx_layer(state: np.ndarray, n_qubits: int, angle: float) -> np.ndarray:
+    out = state
+    for q in range(n_qubits):
+        out = apply_single_qubit_gate(out, rx(angle), q, n_qubits)
+    return out
+
+
+def apply_forward_cnot_chain(state: np.ndarray, n_qubits: int) -> np.ndarray:
+    out = state
+    for q in range(n_qubits - 1):
+        out = apply_cnot(out, control=q, target=q + 1, n_qubits=n_qubits)
+    return out
+
+
+def apply_reverse_cnot_chain(state: np.ndarray, n_qubits: int) -> np.ndarray:
+    out = state
+    for q in range(n_qubits - 1, 0, -1):
+        out = apply_cnot(out, control=q, target=q - 1, n_qubits=n_qubits)
+    return out
 
 
 def ry(theta: float) -> np.ndarray:
