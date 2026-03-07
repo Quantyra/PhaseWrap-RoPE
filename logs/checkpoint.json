@@ -1,15 +1,15 @@
 {
-  "timestamp_utc": "2026-03-07T00:11:31Z",
+  "timestamp_utc": "2026-03-07T00:15:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S071"
+    "S072"
   ],
   "active_workers": {},
   "next_actions": [
-    "Write the post-RZ mixing selection memo from the completed parity and weighted-shadow packets.",
-    "Decide whether the local mixing branch should be retained, refined, or stopped.",
+    "Select the next broader zero-credit local redesign question after stopping the fixed mixing branch.",
+    "Keep the next mechanism step local and narrowly scoped.",
     "Keep the next validation wave zero-credit and restricted to variant-sensitive local backends.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
@@ -120,5 +120,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S070 completed. The parity-path post-RZ mixing screen showed that fixed mixing changes can move the local signal, but the only promising preset (`mix_v2`) did not survive the weighted shadow strongly enough to justify promotion or remote spend. S071 is now active for decision synthesis."
+  "notes": "S071 completed. The fixed post-RZ mixing preset branch is now closed as an active improvement track. `mix_v0` remains baseline, and the next step is to choose the broader local redesign question without reopening remote spend."
 }
