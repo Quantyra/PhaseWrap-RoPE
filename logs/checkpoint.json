@@ -1,15 +1,15 @@
 {
-  "timestamp_utc": "2026-03-07T00:15:30Z",
+  "timestamp_utc": "2026-03-07T00:16:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S073"
+    "S074"
   ],
   "active_workers": {},
   "next_actions": [
-    "Choose one narrowly scoped joint circuit-readout redesign family for the V3 local screening path.",
-    "Define the evaluation gate before implementation.",
+    "Write the minimal implementation plan for the interference-tail parity screening branch.",
+    "Lock the local evaluation packet and promotion gate before code changes.",
     "Keep the next validation wave zero-credit and restricted to variant-sensitive local backends.",
     "Keep direct Quandela as photonic-primary and IBM as secondary comparator.",
     "Use Scaleway as fallback only if direct Quandela becomes credit- or reliability-constrained again."
@@ -120,5 +120,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S072 completed. The next broader local redesign question is now locked: a joint circuit-plus-readout redesign on the V3 local screening path. S073 is active to narrow that redesign family before any implementation."
+  "notes": "S073 completed. The broader redesign is now narrowed to a single local screening family: interference-tail parity screening on the V3 path. S074 is active to define the minimal implementation boundary before code changes."
 }

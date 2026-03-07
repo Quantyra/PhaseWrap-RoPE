@@ -34,3 +34,7 @@ As a research lead, I want a narrow plan for a joint local circuit-readout redes
 
 ## Cycle time
 - Start: 2026-03-06 14:15 (Pacific/Honolulu)
+
+## Completion
+- Completed: 2026-03-06 14:16 (Pacific/Honolulu)
+- Decision: narrow the broader redesign to a single local screening family, `interference-tail parity screening`, with an explicit promotion gate and no remote spend.
