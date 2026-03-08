@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T20:24:00Z",
+    "timestamp_utc":  "2026-03-09T20:29:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S152"
+                              "S153"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
                          "Keep the repo in memo-only mode.",
-                         "Bind the witness-head angle to one exact alignment-safe task and falsification packet next.",
-                         "Do not reopen code or experiments without a new restart brief."
+                         "Draft a bounded restart brief for the relational witness head on synthetic_sector_parity_binary.",
+                         "Do not reopen code or experiments without a new approval gate."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S152 fixed the witness-head capacity and training constraints. The next memo step is to bind this angle to one exact task and packet so it can become a real restart candidate instead of an open-ended hybrid idea."
+    "notes":  "S153 bound the relational witness head angle to synthetic_sector_parity_binary. The next protocol-safe move is a bounded restart brief for this exact task/family combination."
 }
