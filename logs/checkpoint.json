@@ -1,13 +1,15 @@
 {
-  "timestamp_utc": "2026-03-08T22:23:00Z",
+  "timestamp_utc": "2026-03-08T22:24:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
-  "current_story_ids": [],
+  "current_story_ids": [
+    "S111"
+  ],
   "active_workers": {},
   "next_actions": [
+    "Record one internal executive archive summary for reuse and governance.",
     "Keep the repository in archive posture.",
-    "Allow only memo-level restart design unless a future restart brief is approved.",
     "Do not open new implementation, new experiments, or remote work."
   ],
   "risks_or_blocks": [
@@ -116,5 +118,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S110 completed. The repository is back in explicit archive posture after the bounded V_new restart failed its approved synthetic gate. Future work is memo-only unless a new restart brief is approved first."
+  "notes": "S110 completed. The repository is back in explicit archive posture after the bounded V_new restart failed its approved synthetic gate. S111 is active only to record one internal executive archive summary."
 }
