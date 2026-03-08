@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-08T22:18:00Z",
+  "timestamp_utc": "2026-03-08T22:20:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "In progress",
   "current_story_ids": [
-    "S109"
+    "S110"
   ],
   "active_workers": {},
   "next_actions": [
-    "Write the decision memo for the bounded V_new synthetic packet.",
-    "Decide whether V_new stops here or requires one exact new hypothesis before any follow-up.",
-    "Do not open new implementation or remote work from the packet alone."
+    "Return the repo to explicit archive posture after the failed bounded restart.",
+    "Record that future work is memo-only unless a materially new comparator hypothesis is approved.",
+    "Do not open new implementation, new experiments, or remote work."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -118,5 +118,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S108 completed. The fixed V0 versus V_new synthetic falsification packet returned a NO-GO result because V_new failed the offset-separation gate despite a slight mean F1 increase. S109 is active to convert that packet into a final bounded decision."
+  "notes": "S109 completed. The bounded V_new restart is stopped. The branch remains documented as executable but failed the approved synthetic falsification gate. S110 is active only to restore explicit archive posture."
 }
