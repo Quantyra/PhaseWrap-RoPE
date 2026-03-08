@@ -21,6 +21,7 @@ from .qsim import (
     SUPPORTED_MIXING_PRESETS,
     SUPPORTED_READOUTS,
     feature_angles,
+    offset_sector,
     pairstate_quantum_result,
     parse_synthetic_pair_text,
     relational_witness_features,
@@ -183,6 +184,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_pairstate_relational": 16,
         "V_future_sector_contrast_pairstate": 16,
         "V_future_relational_witness": 16,
+        "V_control_symbolic_relational": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -234,6 +236,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_sector_contrast+repr_pairstate+control_{pairstate_control_mode}"
         elif variant == "V_future_relational_witness":
             data_mode = f"{data_mode}+readout_relational_witness+head_logreg+featuremode_{witness_feature_mode}"
+        elif variant == "V_control_symbolic_relational":
+            data_mode = f"{data_mode}+readout_symbolic_relational+head_logreg"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -400,6 +404,8 @@ def run_quantum_backend(
             validation=validation,
             witness_feature_mode=witness_feature_mode,
         )
+    if variant == "V_control_symbolic_relational":
+        return run_symbolic_relational_control_backend(train=train, test=test, validation=validation)
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
@@ -539,6 +545,26 @@ def apply_feature_mask(matrix: list[list[float]], mask: list[float]) -> list[lis
     return [[value * keep for value, keep in zip(row, mask)] for row in matrix]
 
 
+def symbolic_relational_features(text: str) -> dict[str, object]:
+    sample = parse_synthetic_pair_text(text)
+    sector = offset_sector(int(sample["offset"]))
+    feature_order = ["sec_P_small", "sec_P_large", "sec_N_small", "sec_N_large"]
+    sector_to_feature = {
+        "P_small": "sec_P_small",
+        "P_large": "sec_P_large",
+        "N_small": "sec_N_small",
+        "N_large": "sec_N_large",
+    }
+    active = sector_to_feature[sector]
+    features = {name: 1.0 if name == active else 0.0 for name in feature_order}
+    return {
+        "sector": sector,
+        "feature_order": feature_order,
+        "features": features,
+        "forbidden_inputs_absent": True,
+    }
+
+
 def run_relational_witness_backend(
     train: list[tuple[str, int]],
     test: list[tuple[str, int]],
@@ -582,6 +608,49 @@ def run_relational_witness_backend(
         weights=weights,
         bias=bias,
         mask_diagnostics=mask_diagnostics,
+    )
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, y_pred)
+    f1 = compute_f1_binary(test_labels, y_pred)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_symbolic_relational_control_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+
+    train_results = [symbolic_relational_features(text=text) for text, _ in train]
+    validation_results = [symbolic_relational_features(text=text) for text, _ in validation]
+    test_results = [symbolic_relational_features(text=text) for text, _ in test]
+
+    feature_order = list(train_results[0]["feature_order"]) if train_results else []
+    train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
+    validation_matrix = [[float(result["features"][name]) for name in feature_order] for result in validation_results]
+    test_matrix = [[float(result["features"][name]) for name in feature_order] for result in test_results]
+
+    train_labels = [label for _, label in train]
+    validation_labels = [label for _, label in validation]
+    test_labels = [label for _, label in test]
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    y_pred = [1 if score >= threshold else 0 for score in test_scores]
+
+    diagnostics = build_symbolic_relational_run_diagnostics(
+        rows=test,
+        results=test_results,
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
     )
     train_loss = binary_cross_entropy(train_labels, train_scores)
     eval_loss = binary_cross_entropy(test_labels, test_scores)
@@ -726,6 +795,27 @@ def build_relational_witness_run_diagnostics(
         "sector_responses": mean_sector_responses,
         "task_contrast_mean": round(sum(task_contrasts) / len(task_contrasts), 6) if task_contrasts else 0.0,
         "anti_collapse_pass": all(anti_collapse_flags),
+        "forbidden_inputs_absent": all(forbidden_absent_flags),
+    }
+
+
+def build_symbolic_relational_run_diagnostics(
+    rows: list[tuple[str, int]],
+    results: list[dict[str, Any]],
+    feature_order: list[str],
+    weights: list[float],
+    bias: float,
+) -> dict[str, Any]:
+    sector_counts = {key: 0 for key in ("P_small", "P_large", "N_small", "N_large")}
+    forbidden_absent_flags: list[bool] = []
+    for _, result in zip(rows, results):
+        sector_counts[str(result["sector"])] += 1
+        forbidden_absent_flags.append(bool(result["forbidden_inputs_absent"]))
+    return {
+        "feature_order": feature_order,
+        "coefficients": {name: round(weight, 6) for name, weight in zip(feature_order, weights)},
+        "intercept": round(bias, 6),
+        "sector_counts": sector_counts,
         "forbidden_inputs_absent": all(forbidden_absent_flags),
     }
 

@@ -22,6 +22,7 @@ As a research lead, I want the compressed witness branch compared against one bo
 
 ## Evidence and references
 - `docs/research/q-rope-relational-witness-symbolic-control-plan-v1.md`
+- `docs/research/q-rope-relational-witness-symbolic-control-v1.md`
 - `docs/research/q-rope-relational-witness-schema-compression-v1.md`
 
 ## Out of scope
@@ -41,3 +42,4 @@ As a research lead, I want the compressed witness branch compared against one bo
 
 ## Cycle time
 - Start: 2026-03-08 13:13 (Pacific/Honolulu)
+- End: 2026-03-08 13:27 (Pacific/Honolulu)

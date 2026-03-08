@@ -12,6 +12,7 @@ from qrope.run import (
     limit_remote_samples,
     load_dataset_samples,
     run_real_experiment,
+    symbolic_relational_features,
     stratified_calibration_split,
 )
 
@@ -411,3 +412,29 @@ def test_future_relational_witness_supports_schema_view_run() -> None:
     assert diagnostics["retained_features"] == RELATIONAL_WITNESS_SCHEMA_VIEWS["means_only"]
     assert "delta_task" in diagnostics["ablated_features"]
     assert metrics["data_mode"].endswith("readout_relational_witness+head_logreg+featuremode_means_only")
+
+
+def test_symbolic_relational_features_are_one_hot() -> None:
+    result = symbolic_relational_features("lt:A rt:C lp:2 rp:5 off:+3")
+    assert result["feature_order"] == ["sec_P_small", "sec_P_large", "sec_N_small", "sec_N_large"]
+    assert result["features"] == {
+        "sec_P_small": 0.0,
+        "sec_P_large": 1.0,
+        "sec_N_small": 0.0,
+        "sec_N_large": 0.0,
+    }
+    assert result["forbidden_inputs_absent"] is True
+
+
+def test_symbolic_relational_control_runs_on_sector_parity_packet() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_sector_parity_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_relational",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_relational+head_logreg")
+    assert diagnostics["feature_order"] == ["sec_P_small", "sec_P_large", "sec_N_small", "sec_N_large"]
+    assert "coefficients" in diagnostics
+    assert diagnostics["forbidden_inputs_absent"] is True

@@ -1,0 +1,22 @@
+{
+  "feature_order": [
+    "sec_P_small",
+    "sec_P_large",
+    "sec_N_small",
+    "sec_N_large"
+  ],
+  "coefficients": {
+    "sec_P_small": 2.280363,
+    "sec_P_large": -2.280363,
+    "sec_N_small": -2.280363,
+    "sec_N_large": 2.280363
+  },
+  "intercept": -0.0,
+  "sector_counts": {
+    "P_small": 32,
+    "P_large": 32,
+    "N_small": 32,
+    "N_large": 32
+  },
+  "forbidden_inputs_absent": true
+}

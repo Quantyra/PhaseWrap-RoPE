@@ -1,0 +1,7 @@
+"run_id","variant","seed","accuracy","f1","feature_order"
+"vcontrol-symbolic-s42","V_control_symbolic_relational","42","1","1","sec_P_small;sec_P_large;sec_N_small;sec_N_large"
+"vcontrol-symbolic-s123","V_control_symbolic_relational","123","1","1","sec_P_small;sec_P_large;sec_N_small;sec_N_large"
+"vcontrol-symbolic-s777","V_control_symbolic_relational","777","1","1","sec_P_small;sec_P_large;sec_N_small;sec_N_large"
+"vfuture-witness-controlcmp-s42","V_future_relational_witness","42","1","1","mu_P_small;mu_P_large;mu_N_small;mu_N_large;delta_sign_small;delta_sign_large;delta_mag_pos;delta_mag_neg;delta_task"
+"vfuture-witness-controlcmp-s123","V_future_relational_witness","123","1","1","mu_P_small;mu_P_large;mu_N_small;mu_N_large;delta_sign_small;delta_sign_large;delta_mag_pos;delta_mag_neg;delta_task"
+"vfuture-witness-controlcmp-s777","V_future_relational_witness","777","1","1","mu_P_small;mu_P_large;mu_N_small;mu_N_large;delta_sign_small;delta_sign_large;delta_mag_pos;delta_mag_neg;delta_task"
