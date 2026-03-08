@@ -18,6 +18,7 @@ As a research lead, I want one bounded symbolic control defined for the witness 
 
 ## Evidence and references
 - `docs/research/q-rope-relational-witness-post-compression-decision-v1.md`
+- `docs/research/q-rope-relational-witness-symbolic-control-plan-v1.md`
 - `docs/research/q-rope-relational-witness-schema-compression-v1.md`
 
 ## Out of scope
@@ -36,3 +37,4 @@ As a research lead, I want one bounded symbolic control defined for the witness 
 
 ## Cycle time
 - Start: 2026-03-08 13:04 (Pacific/Honolulu)
+- End: 2026-03-08 13:13 (Pacific/Honolulu)
