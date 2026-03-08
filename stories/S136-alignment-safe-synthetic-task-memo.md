@@ -36,3 +36,4 @@ As a research lead, I want the next synthetic restart angle defined without reop
 
 ## Cycle time
 - Start: 2026-03-08 08:55 (Pacific/Honolulu)
+- End: 2026-03-08 09:00 (Pacific/Honolulu)
