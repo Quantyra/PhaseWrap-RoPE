@@ -1,13 +1,15 @@
 {
-  "timestamp_utc": "2026-03-09T03:52:00Z",
+  "timestamp_utc": "2026-03-09T03:53:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
-  "current_story_ids": [],
+  "current_story_ids": [
+    "S113"
+  ],
   "active_workers": {},
   "next_actions": [
+    "Develop one new memo-level mechanism angle that is materially different from the stopped scoring-path branches.",
     "Keep the repository in archive posture.",
-    "Allow only memo-level restart design unless a future restart brief is approved.",
     "Do not open new implementation, new experiments, or remote work."
   ],
   "risks_or_blocks": [
@@ -116,5 +118,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S112 completed. The repository remains in explicit archive posture with no active stories. Future work is memo-only unless a new restart brief is approved first."
+  "notes": "S112 completed. The repository remains in explicit archive posture. S113 is active only as a memo-level exploration of a new representation-angle mechanism direction."
 }
