@@ -36,3 +36,4 @@ As a research lead, I want the sector-parity restart formally returned to archiv
 
 ## Cycle time
 - Start: 2026-03-08 10:01 (Pacific/Honolulu)
+- End: 2026-03-08 10:04 (Pacific/Honolulu)

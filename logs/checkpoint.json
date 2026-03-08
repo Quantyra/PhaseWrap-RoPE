@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T20:01:00Z",
+    "timestamp_utc":  "2026-03-09T20:04:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S149"
+
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Return the sector-parity restart branch to archive posture.",
-                         "Preserve the task family and negative packet artifacts.",
-                         "Do not reopen implementation or experiments without a materially new restart brief."
+                         "Keep the repo in memo-only archive posture.",
+                         "Preserve the sector-parity task family and negative restart artifacts.",
+                         "Require a materially new restart brief before any new code or experiments."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S148 completed. The sector-parity restart failed cleanly on its first approved packet and should now return to archive posture. S149 is active only to close the branch administratively and preserve its artifacts."
+    "notes":  "S149 completed. The sector-parity restart branch has returned to archive posture after a clean negative first packet. The repo is back to memo-only research protocol unless a materially new restart brief is approved."
 }
