@@ -20,6 +20,7 @@ As a research lead, I want the next bounded evidence step defined around feature
 - `docs/research/q-rope-relational-witness-post-hardening-decision-v1.md`
 - `docs/research/q-rope-first-relational-witness-packet-v1.md`
 - `docs/research/q-rope-relational-witness-split-rotation-hardening-v1.md`
+- `docs/research/q-rope-relational-witness-feature-ablation-plan-v1.md`
 
 ## Out of scope
 - New tasks
@@ -37,3 +38,4 @@ As a research lead, I want the next bounded evidence step defined around feature
 
 ## Cycle time
 - Start: 2026-03-08 11:31 (Pacific/Honolulu)
+- End: 2026-03-08 11:46 (Pacific/Honolulu)
