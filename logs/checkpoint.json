@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T06:18:00Z",
+    "timestamp_utc":  "2026-03-09T06:32:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S133"
+                              "S134"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Implement the single sector-permuted control mode for the pair-state branch.",
-                         "Run the fixed synthetic packet on seeds 42, 123, and 777 only.",
-                         "Keep the restart scope confined to aligned-versus-permuted comparison."
+                         "Write the post-control decision memo for the pair-state branch.",
+                         "Keep interpretation bounded to the current synthetic aligned-versus-permuted evidence.",
+                         "Do not reopen remote or benchmark-expansion paths."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -31,7 +31,7 @@
                             "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
                             "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage."
                         ],
-    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_qsim.py tests/test_run_real_mode.py tests/test_vnew_interference.py",
+    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
                            "AGENTS.md",
                            "README.md",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S132 completed. The pair-state branch now has one tightly bounded validity control: a sector-permuted packet that preserves the pair-state skeleton while breaking direct sign alignment. S133 is active only to implement and execute that single control."
+    "notes":  "S133 completed. The sector-permuted control materially weakened the pair-state result and collapsed most of the offset-gap advantage, confirming that the current synthetic win is validity-limited and not ready for expansion. S134 is active only to record the branch decision."
 }
