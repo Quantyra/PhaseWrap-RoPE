@@ -253,9 +253,26 @@ def test_pairstate_relational_runs_on_synthetic_packet() -> None:
     )
     assert 0.0 <= metrics["accuracy"] <= 1.0
     assert 0.0 <= metrics["f1"] <= 1.0
-    assert metrics["data_mode"].endswith("readout_sector_contrast+repr_pairstate")
+    assert metrics["data_mode"].endswith("readout_sector_contrast+repr_pairstate+control_aligned")
     diagnostics = metrics["run_diagnostics"]
     assert diagnostics["sector_resolution_pre_aggregation"] is True
     assert set(diagnostics["sector_responses"].keys()) == {"P_small", "P_large", "N_small", "N_large"}
     assert "signed_contrast_mean" in diagnostics
     assert "magnitude_balance_mean" in diagnostics
+
+
+def test_pairstate_sector_permuted_control_is_recorded() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_offset_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_pairstate_relational",
+        pairstate_control_mode="sector_permuted",
+    )
+    assert metrics["data_mode"].endswith("readout_sector_contrast+repr_pairstate+control_sector_permuted")
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["control_mode"] == "sector_permuted"
+    assert diagnostics["aggregation_buckets"] == {
+        "positive": ["P_small", "N_large"],
+        "negative": ["N_small", "P_large"],
+    }

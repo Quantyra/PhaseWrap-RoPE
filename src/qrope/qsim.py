@@ -23,6 +23,7 @@ FEATURE_FLOOR = 0.05
 SCREENING_MIX_ANGLE = math.pi / 4.0
 SUPPORTED_READOUTS = {"weighted", "q2", "parity"}
 SUPPORTED_MIXING_PRESETS = {"mix_it1", "mix_v0", "mix_v1", "mix_v2"}
+PAIRSTATE_CONTROL_MODES = {"aligned", "sector_permuted"}
 
 
 def simple_quantum_score(
@@ -129,24 +130,50 @@ def explicit_interference_score(text: str, seed: int, n_qubits: int = 3) -> floa
     return max(0.0, min(1.0, 0.5 + contrast / 2.0))
 
 
-def pairstate_quantum_result(text: str, seed: int, n_qubits: int = 3) -> dict[str, object]:
+def pairstate_signed_contrast(
+    sector_responses: dict[str, float],
+    control_mode: str = "aligned",
+) -> tuple[float, dict[str, list[str]]]:
+    if control_mode == "aligned":
+        positive_keys = ["P_small", "P_large"]
+        negative_keys = ["N_small", "N_large"]
+    elif control_mode == "sector_permuted":
+        positive_keys = ["P_small", "N_large"]
+        negative_keys = ["N_small", "P_large"]
+    else:
+        raise ValueError(f"Unsupported pairstate control mode: {control_mode}")
+    positive_mean = sum(float(sector_responses[key]) for key in positive_keys) / len(positive_keys)
+    negative_mean = sum(float(sector_responses[key]) for key in negative_keys) / len(negative_keys)
+    return positive_mean - negative_mean, {"positive": positive_keys, "negative": negative_keys}
+
+
+def pairstate_magnitude_balance(sector_responses: dict[str, float]) -> float:
+    return abs(sector_responses["P_small"] - sector_responses["P_large"]) + abs(
+        sector_responses["N_small"] - sector_responses["N_large"]
+    )
+
+
+def pairstate_quantum_result(
+    text: str,
+    seed: int,
+    n_qubits: int = 3,
+    control_mode: str = "aligned",
+) -> dict[str, object]:
     sample = parse_synthetic_pair_text(text)
     sector = offset_sector(int(sample["offset"]))
     sector_responses = sector_response_map(sample=sample, seed=seed, n_qubits=n_qubits)
-    signed_contrast = (
-        sector_responses["P_small"]
-        + sector_responses["P_large"]
-        - sector_responses["N_small"]
-        - sector_responses["N_large"]
+    signed_contrast, aggregation_buckets = pairstate_signed_contrast(
+        sector_responses=sector_responses,
+        control_mode=control_mode,
     )
-    magnitude_balance = abs(sector_responses["P_small"] - sector_responses["P_large"]) + abs(
-        sector_responses["N_small"] - sector_responses["N_large"]
-    )
+    magnitude_balance = pairstate_magnitude_balance(sector_responses)
     score = max(0.0, min(1.0, 0.5 + signed_contrast / 2.0))
     return {
         "score": score,
         "sector": sector,
+        "control_mode": control_mode,
         "sector_responses": {k: round(v, 6) for k, v in sector_responses.items()},
+        "aggregation_buckets": aggregation_buckets,
         "signed_contrast": round(signed_contrast, 6),
         "magnitude_balance": round(magnitude_balance, 6),
         "sector_resolution_pre_aggregation": True,

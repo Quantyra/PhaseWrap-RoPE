@@ -3,6 +3,7 @@ import pytest
 from qrope.qibm import derive_ibm_angles
 from qrope.qphotonic import derive_photonic_angles
 from qrope.qsim import (
+    PAIRSTATE_CONTROL_MODES,
     SUPPORTED_MIXING_PRESETS,
     build_quantum_state,
     build_branch_state,
@@ -12,6 +13,7 @@ from qrope.qsim import (
     hadamard,
     offset_sector,
     ordered_pair_content_value,
+    pairstate_signed_contrast,
     pairstate_quantum_result,
     parity_readout,
     parse_synthetic_pair_text,
@@ -240,3 +242,19 @@ def test_pairstate_quantum_result_exposes_sector_responses_before_aggregation() 
     assert result["sector_resolution_pre_aggregation"] is True
     responses = result["sector_responses"]
     assert set(responses.keys()) == {"P_small", "P_large", "N_small", "N_large"}
+    assert result["control_mode"] in PAIRSTATE_CONTROL_MODES
+
+
+def test_pairstate_sector_permuted_changes_signed_contrast() -> None:
+    aligned = pairstate_quantum_result("lt:A rt:C lp:2 rp:5 off:+3", seed=42, control_mode="aligned")
+    permuted = pairstate_quantum_result("lt:A rt:C lp:2 rp:5 off:+3", seed=42, control_mode="sector_permuted")
+    assert aligned["aggregation_buckets"] != permuted["aggregation_buckets"]
+    assert float(aligned["signed_contrast"]) != float(permuted["signed_contrast"])
+
+
+def test_pairstate_signed_contrast_rejects_unknown_mode() -> None:
+    with pytest.raises(ValueError, match="Unsupported pairstate control mode"):
+        pairstate_signed_contrast(
+            {"P_small": 0.5, "P_large": 0.5, "N_small": 0.5, "N_large": 0.5},
+            control_mode="bad_mode",
+        )
