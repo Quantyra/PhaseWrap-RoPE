@@ -2,6 +2,7 @@ import importlib.util
 
 from qrope.run import (
     RELATIONAL_WITNESS_FEATURE_GROUPS,
+    RELATIONAL_WITNESS_SCHEMA_VIEWS,
     build_relational_witness_feature_mask,
     calibrate_threshold,
     collect_quandela_scores,
@@ -309,7 +310,7 @@ def test_future_relational_witness_runs_on_sector_parity_packet() -> None:
         backend="sim_quantum_statevector",
         variant="V_future_relational_witness",
     )
-    assert metrics["data_mode"].endswith("readout_relational_witness+head_logreg+ablation_full")
+    assert metrics["data_mode"].endswith("readout_relational_witness+head_logreg+featuremode_full")
     diagnostics = metrics["run_diagnostics"]
     assert diagnostics["feature_order"] == [
         "mu_P_small",
@@ -324,6 +325,7 @@ def test_future_relational_witness_runs_on_sector_parity_packet() -> None:
     ]
     assert "coefficients" in diagnostics
     assert "intercept" in diagnostics
+    assert diagnostics["witness_feature_mode"] == "full"
     assert diagnostics["witness_ablation_group"] == "full"
     assert diagnostics["ablated_features"] == []
     assert diagnostics["anti_collapse_pass"] is True
@@ -367,10 +369,45 @@ def test_future_relational_witness_supports_group_ablation_run() -> None:
         seed=42,
         backend="sim_quantum_statevector",
         variant="V_future_relational_witness",
-        witness_ablation_group="group_D_task_contrast",
+        witness_feature_mode="group_D_task_contrast",
     )
     diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["witness_feature_mode"] == "group_D_task_contrast"
     assert diagnostics["witness_ablation_group"] == "group_D_task_contrast"
     assert diagnostics["ablated_features"] == ["delta_task"]
     assert diagnostics["feature_group_state"]["group_D_task_contrast"]["ablated"] is True
-    assert metrics["data_mode"].endswith("readout_relational_witness+head_logreg+ablation_group_D_task_contrast")
+    assert metrics["data_mode"].endswith("readout_relational_witness+head_logreg+featuremode_group_D_task_contrast")
+
+
+def test_relational_witness_feature_mask_supports_schema_views() -> None:
+    feature_order = [
+        "mu_P_small",
+        "mu_P_large",
+        "mu_N_small",
+        "mu_N_large",
+        "delta_sign_small",
+        "delta_sign_large",
+        "delta_mag_pos",
+        "delta_mag_neg",
+        "delta_task",
+    ]
+    mask, diagnostics = build_relational_witness_feature_mask(feature_order, "contrasts_only")
+    assert mask == [0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0]
+    assert diagnostics["witness_feature_mode"] == "contrasts_only"
+    assert diagnostics["retained_features"] == RELATIONAL_WITNESS_SCHEMA_VIEWS["contrasts_only"]
+    assert diagnostics["ablated_features"] == ["mu_P_small", "mu_P_large", "mu_N_small", "mu_N_large", "delta_task"]
+
+
+def test_future_relational_witness_supports_schema_view_run() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_sector_parity_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness",
+        witness_feature_mode="means_only",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["witness_feature_mode"] == "means_only"
+    assert diagnostics["retained_features"] == RELATIONAL_WITNESS_SCHEMA_VIEWS["means_only"]
+    assert "delta_task" in diagnostics["ablated_features"]
+    assert metrics["data_mode"].endswith("readout_relational_witness+head_logreg+featuremode_means_only")

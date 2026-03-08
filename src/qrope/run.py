@@ -37,6 +37,11 @@ RELATIONAL_WITNESS_FEATURE_GROUPS = {
     "group_D_task_contrast": ["delta_task"],
 }
 
+RELATIONAL_WITNESS_SCHEMA_VIEWS = {
+    "means_only": ["mu_P_small", "mu_P_large", "mu_N_small", "mu_N_large"],
+    "contrasts_only": ["delta_sign_small", "delta_sign_large", "delta_mag_pos", "delta_mag_neg"],
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Q-RoPE run bootstrap")
@@ -79,14 +84,16 @@ def main() -> None:
         local_readout = str(backend_block.get("local_readout", "weighted"))
         local_mixing_preset = str(backend_block.get("local_mixing_preset", "mix_v0"))
         pairstate_control_mode = str(backend_block.get("pairstate_control_mode", "aligned"))
-        witness_ablation_group = str(backend_block.get("witness_ablation_group", "full"))
+        witness_feature_mode = str(
+            backend_block.get("witness_feature_mode", backend_block.get("witness_ablation_group", "full"))
+        )
     else:
         backend = str(backend_block)
         noise_model = "none"
         local_readout = "weighted"
         local_mixing_preset = "mix_v0"
         pairstate_control_mode = "aligned"
-        witness_ablation_group = "full"
+        witness_feature_mode = "full"
 
     output_root = Path(str(config.get("logging", {}).get("output_root", "logs/ablation_runs")))
     run_dir = output_root / run_id
@@ -111,7 +118,7 @@ def main() -> None:
             local_readout=local_readout,
             local_mixing_preset=local_mixing_preset,
             pairstate_control_mode=pairstate_control_mode,
-            witness_ablation_group=witness_ablation_group,
+            witness_feature_mode=witness_feature_mode,
             synthetic_split_rotation=synthetic_split_rotation,
         )
         accuracy = real_metrics["accuracy"]
@@ -190,7 +197,7 @@ def run_real_experiment(
     local_readout: str = "weighted",
     local_mixing_preset: str = "mix_v0",
     pairstate_control_mode: str = "aligned",
-    witness_ablation_group: str = "full",
+    witness_feature_mode: str = "full",
     synthetic_split_rotation: int = 0,
 ) -> dict[str, Any]:
     bundle = load_dataset_bundle(dataset, seed, split_rotation=synthetic_split_rotation)
@@ -218,7 +225,7 @@ def run_real_experiment(
             readout=local_readout,
             mixing_preset=local_mixing_preset,
             pairstate_control_mode=pairstate_control_mode,
-            witness_ablation_group=witness_ablation_group,
+            witness_feature_mode=witness_feature_mode,
             validation=validation,
         )
         if variant == "V_new_explicit_interference":
@@ -226,7 +233,7 @@ def run_real_experiment(
         elif variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
             data_mode = f"{data_mode}+readout_sector_contrast+repr_pairstate+control_{pairstate_control_mode}"
         elif variant == "V_future_relational_witness":
-            data_mode = f"{data_mode}+readout_relational_witness+head_logreg+ablation_{witness_ablation_group}"
+            data_mode = f"{data_mode}+readout_relational_witness+head_logreg+featuremode_{witness_feature_mode}"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -378,7 +385,7 @@ def run_quantum_backend(
     readout: str = "weighted",
     mixing_preset: str = "mix_v0",
     pairstate_control_mode: str = "aligned",
-    witness_ablation_group: str = "full",
+    witness_feature_mode: str = "full",
     validation: list[tuple[str, int]] | None = None,
 ) -> tuple[float, float, float, float, dict[str, Any] | None]:
     if readout not in SUPPORTED_READOUTS:
@@ -391,7 +398,7 @@ def run_quantum_backend(
             test=test,
             seed=seed,
             validation=validation,
-            witness_ablation_group=witness_ablation_group,
+            witness_feature_mode=witness_feature_mode,
         )
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
@@ -496,28 +503,32 @@ def fit_logistic_witness_head(
 
 def build_relational_witness_feature_mask(
     feature_order: list[str],
-    witness_ablation_group: str,
+    witness_feature_mode: str,
 ) -> tuple[list[float], dict[str, Any]]:
-    if witness_ablation_group == "full":
+    if witness_feature_mode == "full":
         mask = [1.0] * len(feature_order)
-    elif witness_ablation_group in RELATIONAL_WITNESS_FEATURE_GROUPS:
-        disabled = set(RELATIONAL_WITNESS_FEATURE_GROUPS[witness_ablation_group])
+    elif witness_feature_mode in RELATIONAL_WITNESS_FEATURE_GROUPS:
+        disabled = set(RELATIONAL_WITNESS_FEATURE_GROUPS[witness_feature_mode])
         mask = [0.0 if name in disabled else 1.0 for name in feature_order]
+    elif witness_feature_mode in RELATIONAL_WITNESS_SCHEMA_VIEWS:
+        retained = set(RELATIONAL_WITNESS_SCHEMA_VIEWS[witness_feature_mode])
+        mask = [1.0 if name in retained else 0.0 for name in feature_order]
     else:
-        allowed = ", ".join(["full", *RELATIONAL_WITNESS_FEATURE_GROUPS.keys()])
-        raise ValueError(f"Unsupported witness_ablation_group={witness_ablation_group!r}. Allowed: {allowed}")
+        allowed = ", ".join(["full", *RELATIONAL_WITNESS_FEATURE_GROUPS.keys(), *RELATIONAL_WITNESS_SCHEMA_VIEWS.keys()])
+        raise ValueError(f"Unsupported witness_feature_mode={witness_feature_mode!r}. Allowed: {allowed}")
 
     group_state = {
         group_name: {
             "features": list(feature_names),
-            "ablated": group_name == witness_ablation_group,
+            "ablated": group_name == witness_feature_mode,
         }
         for group_name, feature_names in RELATIONAL_WITNESS_FEATURE_GROUPS.items()
     }
     retained = [name for name, keep in zip(feature_order, mask) if keep > 0]
     ablated = [name for name, keep in zip(feature_order, mask) if keep == 0]
     return mask, {
-        "witness_ablation_group": witness_ablation_group,
+        "witness_feature_mode": witness_feature_mode,
+        "witness_ablation_group": witness_feature_mode if witness_feature_mode in RELATIONAL_WITNESS_FEATURE_GROUPS else "full",
         "feature_group_state": group_state,
         "retained_features": retained,
         "ablated_features": ablated,
@@ -533,7 +544,7 @@ def run_relational_witness_backend(
     test: list[tuple[str, int]],
     seed: int,
     validation: list[tuple[str, int]] | None = None,
-    witness_ablation_group: str = "full",
+    witness_feature_mode: str = "full",
 ) -> tuple[float, float, float, float, dict[str, Any]]:
     if validation is None:
         _, validation = stratified_calibration_split(train)
@@ -546,7 +557,7 @@ def run_relational_witness_backend(
     train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
     validation_matrix = [[float(result["features"][name]) for name in feature_order] for result in validation_results]
     test_matrix = [[float(result["features"][name]) for name in feature_order] for result in test_results]
-    feature_mask, mask_diagnostics = build_relational_witness_feature_mask(feature_order, witness_ablation_group)
+    feature_mask, mask_diagnostics = build_relational_witness_feature_mask(feature_order, witness_feature_mode)
     train_matrix = apply_feature_mask(train_matrix, feature_mask)
     validation_matrix = apply_feature_mask(validation_matrix, feature_mask)
     test_matrix = apply_feature_mask(test_matrix, feature_mask)
@@ -707,6 +718,7 @@ def build_relational_witness_run_diagnostics(
         "feature_order": feature_order,
         "coefficients": {name: round(weight, 6) for name, weight in zip(feature_order, weights)},
         "intercept": round(bias, 6),
+        "witness_feature_mode": mask_diagnostics["witness_feature_mode"],
         "witness_ablation_group": mask_diagnostics["witness_ablation_group"],
         "feature_group_state": mask_diagnostics["feature_group_state"],
         "retained_features": mask_diagnostics["retained_features"],
