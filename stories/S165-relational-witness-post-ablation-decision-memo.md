@@ -18,6 +18,7 @@ As a research lead, I want the witness branch reassessed after the bounded ablat
 
 ## Evidence and references
 - `docs/research/q-rope-relational-witness-feature-ablation-v1.md`
+- `docs/research/q-rope-relational-witness-post-ablation-decision-v1.md`
 - `docs/research/q-rope-first-relational-witness-packet-v1.md`
 - `docs/research/q-rope-relational-witness-split-rotation-hardening-v1.md`
 
@@ -37,3 +38,4 @@ As a research lead, I want the witness branch reassessed after the bounded ablat
 
 ## Cycle time
 - Start: 2026-03-08 12:22 (Pacific/Honolulu)
+- End: 2026-03-08 12:31 (Pacific/Honolulu)
