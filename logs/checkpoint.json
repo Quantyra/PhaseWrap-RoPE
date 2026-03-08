@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T21:46:00Z",
+    "timestamp_utc":  "2026-03-09T22:22:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S164"
+                              "S165"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Implement masking for the fixed relational witness feature groups only.",
-                         "Run the three-seed ablation packet on synthetic_sector_parity_binary.",
-                         "Compare each ablation setting against the full witness model without broadening scope."
+                         "Interpret the bounded witness ablation result at branch level.",
+                         "Decide whether one more bounded control is justified or whether the branch should hold posture.",
+                         "Do not broaden into new tasks, remote execution, or benchmark expansion."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S163 completed. The relational witness branch remains active, and the next bounded step is execution of the fixed feature-group ablation packet before any broader claim is made."
+    "notes":  "S164 completed. The relational witness branch survived the fixed feature-group ablation packet cleanly; the next step is a branch-level decision memo, not immediate broadening."
 }

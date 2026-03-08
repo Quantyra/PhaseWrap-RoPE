@@ -1,0 +1,79 @@
+{
+  "feature_order": [
+    "mu_P_small",
+    "mu_P_large",
+    "mu_N_small",
+    "mu_N_large",
+    "delta_sign_small",
+    "delta_sign_large",
+    "delta_mag_pos",
+    "delta_mag_neg",
+    "delta_task"
+  ],
+  "coefficients": {
+    "mu_P_small": -0.305177,
+    "mu_P_large": 0.318467,
+    "mu_N_small": 0.254046,
+    "mu_N_large": -0.258525,
+    "delta_sign_small": 0.0,
+    "delta_sign_large": 0.0,
+    "delta_mag_pos": -0.62364,
+    "delta_mag_neg": 0.512571,
+    "delta_task": -0.568105
+  },
+  "intercept": -0.012922,
+  "witness_ablation_group": "group_B_sign_contrasts",
+  "feature_group_state": {
+    "group_A_sector_means": {
+      "features": [
+        "mu_P_small",
+        "mu_P_large",
+        "mu_N_small",
+        "mu_N_large"
+      ],
+      "ablated": false
+    },
+    "group_B_sign_contrasts": {
+      "features": [
+        "delta_sign_small",
+        "delta_sign_large"
+      ],
+      "ablated": true
+    },
+    "group_C_magnitude_contrasts": {
+      "features": [
+        "delta_mag_pos",
+        "delta_mag_neg"
+      ],
+      "ablated": false
+    },
+    "group_D_task_contrast": {
+      "features": [
+        "delta_task"
+      ],
+      "ablated": false
+    }
+  },
+  "retained_features": [
+    "mu_P_small",
+    "mu_P_large",
+    "mu_N_small",
+    "mu_N_large",
+    "delta_mag_pos",
+    "delta_mag_neg",
+    "delta_task"
+  ],
+  "ablated_features": [
+    "delta_sign_small",
+    "delta_sign_large"
+  ],
+  "sector_responses": {
+    "P_small": 0.637225,
+    "P_large": 0.624193,
+    "N_small": 0.60621,
+    "N_large": 0.583993
+  },
+  "task_contrast_mean": -0.004593,
+  "anti_collapse_pass": true,
+  "forbidden_inputs_absent": true
+}
