@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T23:04:00Z",
+    "timestamp_utc":  "2026-03-09T23:13:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S169"
+                              "S170"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Define one bounded symbolic relational control for the witness branch.",
-                         "Keep the same task, seeds, backend, and tiny head family.",
-                         "Do not broaden into remote execution, new tasks, or multiple new controls."
+                         "Implement the bounded symbolic sector-one-hot control only.",
+                         "Run the fixed three-seed comparison against the contrasts_only witness branch.",
+                         "Do not broaden into new tasks, remote execution, or second control families."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S168 completed. The witness branch remains active after compression; the next bounded question is whether the compressed quantum-derived contrast core still beats a fair direct symbolic relational control."
+    "notes":  "S169 completed. The next bounded question is whether the compressed contrasts_only witness branch still beats a fair direct symbolic sector-one-hot control on the same task."
 }
