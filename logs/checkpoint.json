@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T19:10:00Z",
+    "timestamp_utc":  "2026-03-09T19:14:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S139"
+                              "S140"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
                          "Keep the repo in memo-only mode.",
-                         "Preserve the sector-parity restart brief as a future review artifact.",
-                         "Do not reopen code or experiments without an explicit approval gate."
+                         "Preserve the sector-parity restart path as a non-approved option.",
+                         "If work continues, define one exact candidate mechanism family next."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S139 drafted the next archive-safe restart brief for synthetic_sector_parity_binary. The brief is concrete enough to review later, but it remains non-approved and does not reopen implementation."
+    "notes":  "S140 preserved the sector-parity restart path but did not approve it. The remaining blocker is mechanism specificity: the archive has the task and scaffold, but not yet one exact mechanism family to test first."
 }
