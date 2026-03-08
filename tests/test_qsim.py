@@ -10,6 +10,9 @@ from qrope.qsim import (
     explicit_interference_score,
     feature_angles,
     hadamard,
+    offset_sector,
+    ordered_pair_content_value,
+    pairstate_quantum_result,
     parity_readout,
     parse_synthetic_pair_text,
     pairwise_quantum_score,
@@ -215,3 +218,25 @@ def test_explicit_interference_score_is_deterministic_and_bounded() -> None:
     score_b = explicit_interference_score(text=text, seed=42)
     assert score_a == pytest.approx(score_b)
     assert 0.0 <= score_a <= 1.0
+
+
+def test_ordered_pair_content_value_distinguishes_order() -> None:
+    ab = ordered_pair_content_value("A", "B", seed=42)
+    ba = ordered_pair_content_value("B", "A", seed=42)
+    assert ab != pytest.approx(ba)
+
+
+def test_offset_sector_maps_sign_and_magnitude() -> None:
+    assert offset_sector(1) == "P_small"
+    assert offset_sector(4) == "P_large"
+    assert offset_sector(-2) == "N_small"
+    assert offset_sector(-3) == "N_large"
+
+
+def test_pairstate_quantum_result_exposes_sector_responses_before_aggregation() -> None:
+    result = pairstate_quantum_result("lt:A rt:C lp:2 rp:5 off:+3", seed=42)
+    assert 0.0 <= float(result["score"]) <= 1.0
+    assert result["sector"] == "P_large"
+    assert result["sector_resolution_pre_aggregation"] is True
+    responses = result["sector_responses"]
+    assert set(responses.keys()) == {"P_small", "P_large", "N_small", "N_large"}

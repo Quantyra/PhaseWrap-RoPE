@@ -16,7 +16,15 @@ from .config_utils import apply_set, deep_merge, load_yaml
 from .env_utils import load_local_dotenv
 from .qibm import run_ibm_sampler_batch
 from .qphotonic import quandela_remote_score
-from .qsim import SUPPORTED_MIXING_PRESETS, SUPPORTED_READOUTS, feature_angles, parse_synthetic_pair_text, simple_quantum_score, variant_phases
+from .qsim import (
+    SUPPORTED_MIXING_PRESETS,
+    SUPPORTED_READOUTS,
+    feature_angles,
+    pairstate_quantum_result,
+    parse_synthetic_pair_text,
+    simple_quantum_score,
+    variant_phases,
+)
 from .synthetic import diagnostics_to_jsonable, generate_signed_offset_binary_bundle
 
 
@@ -146,6 +154,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V3": 14,
         "V4": 14,
         "V4b": 14,
+        "V_pairstate_relational": 16,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -188,6 +197,8 @@ def run_real_experiment(
         )
         if variant == "V_new_explicit_interference":
             data_mode = f"{data_mode}+readout_parity_contrast+mix_interference"
+        elif variant == "V_pairstate_relational":
+            data_mode = f"{data_mode}+readout_sector_contrast+repr_pairstate"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -344,30 +355,46 @@ def run_quantum_backend(
         raise ValueError(f"Unsupported local readout: {readout}")
     if mixing_preset not in SUPPORTED_MIXING_PRESETS:
         raise ValueError(f"Unsupported local mixing preset: {mixing_preset}")
-    train_scores = [
-        simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout, mixing_preset=mixing_preset)
-        for t, _ in train
-    ]
+    if variant == "V_pairstate_relational":
+        train_results = [pairstate_quantum_result(text=t, seed=seed) for t, _ in train]
+        train_scores = [float(result["score"]) for result in train_results]
+    else:
+        train_results = None
+        train_scores = [
+            simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout, mixing_preset=mixing_preset)
+            for t, _ in train
+        ]
     if validation is None:
         _, validation = stratified_calibration_split(train)
-    validation_scores = [
-        simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout, mixing_preset=mixing_preset)
-        for t, _ in validation
-    ]
+    if variant == "V_pairstate_relational":
+        validation_results = [pairstate_quantum_result(text=t, seed=seed) for t, _ in validation]
+        validation_scores = [float(result["score"]) for result in validation_results]
+    else:
+        validation_scores = [
+            simple_quantum_score(text=t, variant=variant, seed=seed, readout=readout, mixing_preset=mixing_preset)
+            for t, _ in validation
+        ]
     validation_labels = [label for _, label in validation]
     threshold = calibrate_threshold(validation_scores, validation_labels)
 
     y_true = [label for _, label in test]
     y_pred: list[int] = []
     probs: list[float] = []
+    per_sample_results: list[dict[str, Any]] | None = [] if variant == "V_pairstate_relational" else None
     for text, _ in test:
-        p1 = simple_quantum_score(
-            text=text,
-            variant=variant,
-            seed=seed,
-            readout=readout,
-            mixing_preset=mixing_preset,
-        )
+        if variant == "V_pairstate_relational":
+            result = pairstate_quantum_result(text=text, seed=seed)
+            p1 = float(result["score"])
+            assert per_sample_results is not None
+            per_sample_results.append(result)
+        else:
+            p1 = simple_quantum_score(
+                text=text,
+                variant=variant,
+                seed=seed,
+                readout=readout,
+                mixing_preset=mixing_preset,
+            )
         probs.append(p1)
         y_pred.append(1 if p1 >= threshold else 0)
 
@@ -375,7 +402,13 @@ def run_quantum_backend(
     eval_loss = binary_cross_entropy(y_true, probs)
     accuracy = compute_accuracy(y_true, y_pred)
     f1 = compute_f1_binary(y_true, y_pred)
-    diagnostics = build_run_diagnostics(rows=test, scores=probs) if is_synthetic_offset_rows(test) else None
+    if is_synthetic_offset_rows(test):
+        if variant == "V_pairstate_relational":
+            diagnostics = build_pairstate_run_diagnostics(rows=test, results=per_sample_results or [])
+        else:
+            diagnostics = build_run_diagnostics(rows=test, scores=probs)
+    else:
+        diagnostics = None
     return train_loss, eval_loss, accuracy, f1, diagnostics
 
 
@@ -410,6 +443,61 @@ def build_run_diagnostics(rows: list[tuple[str, int]], scores: list[float]) -> d
         "score_by_offset": mean_by_offset,
         "positive_minus_negative_offset_gap": round(positive_mean - negative_mean, 6),
         "overall_score_mean": round(overall_mean, 6),
+    }
+
+
+def build_pairstate_run_diagnostics(rows: list[tuple[str, int]], results: list[dict[str, Any]]) -> dict[str, Any]:
+    offset_groups: dict[int, list[float]] = {}
+    positive_scores: list[float] = []
+    negative_scores: list[float] = []
+    channel_groups = {key: [] for key in ("P_small", "P_large", "N_small", "N_large")}
+    assigned_sector_groups = {key: [] for key in ("P_small", "P_large", "N_small", "N_large")}
+    pre_aggregation_flags: list[bool] = []
+
+    for (text, label), result in zip(rows, results):
+        payload = parse_synthetic_pair_text(text)
+        score = float(result["score"])
+        offset = int(payload["offset"])
+        offset_groups.setdefault(offset, []).append(score)
+        if label == 1:
+            positive_scores.append(score)
+        else:
+            negative_scores.append(score)
+        sector_responses = result["sector_responses"]
+        for key in channel_groups:
+            channel_groups[key].append(float(sector_responses[key]))
+        assigned_sector = str(result["sector"])
+        assigned_sector_groups[assigned_sector].append(float(sector_responses[assigned_sector]))
+        pre_aggregation_flags.append(bool(result["sector_resolution_pre_aggregation"]))
+
+    mean_by_offset = {str(offset): round(sum(vals) / len(vals), 6) for offset, vals in sorted(offset_groups.items())}
+    positive_mean = sum(positive_scores) / len(positive_scores) if positive_scores else 0.0
+    negative_mean = sum(negative_scores) / len(negative_scores) if negative_scores else 0.0
+    overall_mean = (sum(positive_scores) + sum(negative_scores)) / len(results) if results else 0.0
+    mean_channel_responses = {
+        key: round(sum(vals) / len(vals), 6) if vals else 0.0 for key, vals in channel_groups.items()
+    }
+    mean_sector_responses = {
+        key: round(sum(vals) / len(vals), 6) if vals else 0.0 for key, vals in assigned_sector_groups.items()
+    }
+    signed_contrast_mean = (
+        mean_sector_responses["P_small"]
+        + mean_sector_responses["P_large"]
+        - mean_sector_responses["N_small"]
+        - mean_sector_responses["N_large"]
+    )
+    magnitude_balance_mean = abs(mean_sector_responses["P_small"] - mean_sector_responses["P_large"]) + abs(
+        mean_sector_responses["N_small"] - mean_sector_responses["N_large"]
+    )
+    return {
+        "score_by_offset": mean_by_offset,
+        "positive_minus_negative_offset_gap": round(positive_mean - negative_mean, 6),
+        "overall_score_mean": round(overall_mean, 6),
+        "sector_responses": mean_sector_responses,
+        "channel_response_means": mean_channel_responses,
+        "signed_contrast_mean": round(signed_contrast_mean, 6),
+        "magnitude_balance_mean": round(magnitude_balance_mean, 6),
+        "sector_resolution_pre_aggregation": all(pre_aggregation_flags),
     }
 
 

@@ -14,6 +14,7 @@ VARIANT_PHASE_BASES = {
     "V4": 0.14,
     "V4b": 0.18,
     "V_new_explicit_interference": 0.24,
+    "V_pairstate_relational": 0.20,
 }
 
 V4B_PHASE_CLIP = 0.22
@@ -44,6 +45,8 @@ def simple_quantum_score(
     """
     if variant == "V_new_explicit_interference":
         return explicit_interference_score(text=text, seed=seed, n_qubits=n_qubits)
+    if variant == "V_pairstate_relational":
+        return pairstate_quantum_result(text=text, seed=seed, n_qubits=n_qubits)["score"]
     state = build_quantum_state(
         text=text,
         variant=variant,
@@ -126,6 +129,30 @@ def explicit_interference_score(text: str, seed: int, n_qubits: int = 3) -> floa
     return max(0.0, min(1.0, 0.5 + contrast / 2.0))
 
 
+def pairstate_quantum_result(text: str, seed: int, n_qubits: int = 3) -> dict[str, object]:
+    sample = parse_synthetic_pair_text(text)
+    sector = offset_sector(int(sample["offset"]))
+    sector_responses = sector_response_map(sample=sample, seed=seed, n_qubits=n_qubits)
+    signed_contrast = (
+        sector_responses["P_small"]
+        + sector_responses["P_large"]
+        - sector_responses["N_small"]
+        - sector_responses["N_large"]
+    )
+    magnitude_balance = abs(sector_responses["P_small"] - sector_responses["P_large"]) + abs(
+        sector_responses["N_small"] - sector_responses["N_large"]
+    )
+    score = max(0.0, min(1.0, 0.5 + signed_contrast / 2.0))
+    return {
+        "score": score,
+        "sector": sector,
+        "sector_responses": {k: round(v, 6) for k, v in sector_responses.items()},
+        "signed_contrast": round(signed_contrast, 6),
+        "magnitude_balance": round(magnitude_balance, 6),
+        "sector_resolution_pre_aggregation": True,
+    }
+
+
 def build_branch_state(token: str, position: int, seed: int, n_qubits: int = 3) -> np.ndarray:
     n = max(2, min(n_qubits, 6))
     dim = 1 << n
@@ -141,6 +168,43 @@ def build_branch_state(token: str, position: int, seed: int, n_qubits: int = 3) 
     state = apply_global_rx_layer(state, n_qubits=n, angle=SCREENING_MIX_ANGLE)
     state = apply_reverse_cnot_chain(state, n_qubits=n)
     return state
+
+
+def token_code(token: str, side: str, seed: int) -> float:
+    raw = stable_token_hash(tok=f"{side}:{token}", qubit_index=0, seed=seed)
+    return (raw % 10000) / 10000.0
+
+
+def ordered_pair_content_value(left_token: str, right_token: str, seed: int) -> float:
+    left = token_code(left_token, side="L", seed=seed)
+    right = token_code(right_token, side="R", seed=seed)
+    same_pair_bonus = 0.08 if left_token == right_token else -0.02
+    raw = 0.55 * left + 0.45 * right + same_pair_bonus
+    return max(0.0, min(1.0, raw))
+
+
+def offset_sector(offset: int) -> str:
+    magnitude = abs(offset)
+    band = "small" if magnitude in {1, 2} else "large"
+    sign = "P" if offset > 0 else "N"
+    return f"{sign}_{band}"
+
+
+def sector_response_map(sample: dict[str, int | str], seed: int, n_qubits: int = 3) -> dict[str, float]:
+    left_token = str(sample["left_token"])
+    right_token = str(sample["right_token"])
+    sector = offset_sector(int(sample["offset"]))
+    content = ordered_pair_content_value(left_token=left_token, right_token=right_token, seed=seed)
+    base_phase = VARIANT_PHASE_BASES["V_pairstate_relational"]
+
+    responses: dict[str, float] = {}
+    for idx, key in enumerate(("P_small", "P_large", "N_small", "N_large")):
+        sign_match = 1.0 if key[0] == sector[0] else -1.0
+        mag_match = 1.0 if key.split("_", 1)[1] == sector.split("_", 1)[1] else -1.0
+        theta = base_phase * (idx + 1) + content * math.pi * 0.75 + sign_match * 0.35 + mag_match * 0.18
+        response = 0.5 + 0.18 * math.sin(theta) + 0.12 * sign_match + 0.05 * mag_match
+        responses[key] = max(0.0, min(1.0, response))
+    return responses
 
 
 def position_phase_angle(position: int, qubit_index: int) -> float:
