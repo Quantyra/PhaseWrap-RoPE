@@ -1,14 +1,14 @@
 {
-  "timestamp_utc": "2026-03-09T03:57:00Z",
+  "timestamp_utc": "2026-03-09T04:00:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S115"
+    "S116"
   ],
   "active_workers": {},
   "next_actions": [
-    "Define one concrete observable direction for the pair-state representation family.",
+    "Bind the pair-state family to one fixed falsification packet.",
     "Keep the repository in archive posture.",
     "Do not open new implementation, new experiments, or remote work."
   ],
@@ -118,5 +118,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S114 completed. The repository remains in explicit archive posture. S115 is active only to define the leading observable direction for the pair-state representation family."
+  "notes": "S115 completed. The repository remains in explicit archive posture. S116 is active only to bind the pair-state representation plus sector-contrast observable to a fixed falsification packet."
 }
