@@ -1,0 +1,29 @@
+{
+  "score_by_offset": {
+    "-4": 0.357905,
+    "-3": 0.357905,
+    "-2": 0.361547,
+    "-1": 0.361547,
+    "1": 0.710967,
+    "2": 0.710967,
+    "3": 0.712009,
+    "4": 0.712009
+  },
+  "positive_minus_negative_offset_gap": 0.351762,
+  "overall_score_mean": 0.535607,
+  "sector_responses": {
+    "P_small": 0.769761,
+    "P_large": 0.743248,
+    "N_small": 0.713814,
+    "N_large": 0.682634
+  },
+  "channel_response_means": {
+    "P_small": 0.637225,
+    "P_large": 0.624193,
+    "N_small": 0.60621,
+    "N_large": 0.583993
+  },
+  "signed_contrast_mean": 0.116561,
+  "magnitude_balance_mean": 0.057693,
+  "sector_resolution_pre_aggregation": true
+}
