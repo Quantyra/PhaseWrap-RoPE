@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T23:36:00Z",
+    "timestamp_utc":  "2026-03-09T23:45:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S172"
+                              "S173"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Define one harder alignment-safe symbolic-resistant task for the witness branch.",
-                         "Explain why direct sector one-hot should not solve it linearly.",
-                         "Keep the next step memo-only before any implementation decision."
+                         "Specify the dual-sector agreement task formally.",
+                         "Define the exact bounded symbolic control for that task.",
+                         "Keep the step memo-only before any implementation decision."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S171 completed. The witness branch remains active, but the current task is exhausted as a uniqueness test; the next bounded move is memo-level design of a harder symbolic-resistant task."
+    "notes":  "S172 completed. The next bounded move is formal specification of synthetic_dual_sector_agreement_binary as a harder symbolic-resistant task for the witness branch."
 }

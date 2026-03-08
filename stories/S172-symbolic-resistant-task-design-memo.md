@@ -19,6 +19,7 @@ As a research lead, I want one harder alignment-safe task defined, so the witnes
 ## Evidence and references
 - `docs/research/q-rope-relational-witness-post-control-decision-v1.md`
 - `docs/research/q-rope-relational-witness-symbolic-control-v1.md`
+- `docs/research/q-rope-symbolic-resistant-task-design-v1.md`
 
 ## Out of scope
 - Implementation
@@ -36,3 +37,4 @@ As a research lead, I want one harder alignment-safe task defined, so the witnes
 
 ## Cycle time
 - Start: 2026-03-08 13:36 (Pacific/Honolulu)
+- End: 2026-03-08 13:45 (Pacific/Honolulu)
