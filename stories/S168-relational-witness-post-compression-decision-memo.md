@@ -18,6 +18,7 @@ As a research lead, I want the witness branch reassessed after schema compressio
 
 ## Evidence and references
 - `docs/research/q-rope-relational-witness-schema-compression-v1.md`
+- `docs/research/q-rope-relational-witness-post-compression-decision-v1.md`
 - `docs/research/q-rope-relational-witness-post-ablation-decision-v1.md`
 
 ## Out of scope
@@ -36,3 +37,4 @@ As a research lead, I want the witness branch reassessed after schema compressio
 
 ## Cycle time
 - Start: 2026-03-08 12:55 (Pacific/Honolulu)
+- End: 2026-03-08 13:04 (Pacific/Honolulu)
