@@ -1,17 +1,17 @@
 {
-    "timestamp_utc":  "2026-03-09T19:00:00Z",
+    "timestamp_utc":  "2026-03-09T19:05:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S137"
+                              "S138"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
                          "Keep the repo in memo-only mode.",
-                         "Preserve synthetic_sector_parity_binary as the exact next synthetic restart target.",
+                         "Preserve synthetic_sector_parity_binary together with its restart scaffold.",
                          "Do not reopen code or experiments without a new restart brief."
                      ],
     "risks_or_blocks":  [
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S137 specified the next alignment-safe synthetic family exactly: synthetic_sector_parity_binary. The repo remains archived, but future restart design now has one concrete falsification target that is not reducible to offset-sign recovery."
+    "notes":  "S138 completed the archive-safe preparation for the next synthetic restart angle by binding synthetic_sector_parity_binary to a fixed restart scaffold. The repo remains paused for implementation work."
 }

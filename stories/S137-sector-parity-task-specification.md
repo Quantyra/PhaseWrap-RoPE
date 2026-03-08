@@ -36,3 +36,4 @@ As a research lead, I want the alignment-safe synthetic family specified exactly
 
 ## Cycle time
 - Start: 2026-03-08 09:00 (Pacific/Honolulu)
+- End: 2026-03-08 09:05 (Pacific/Honolulu)
