@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T21:02:00Z",
+    "timestamp_utc":  "2026-03-09T21:08:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S159"
+                              "S160"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Write the relational witness branch decision memo.",
-                         "Define the smallest validity-hardening step next.",
-                         "Do not broaden beyond that hardening step yet."
+                         "Define the smallest validity-hardening step for the relational witness branch.",
+                         "Keep the branch local-only, synthetic-only, and single-candidate.",
+                         "Do not broaden into benchmarks or remote execution yet."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S158 completed. The relational witness restart produced a strong positive first packet against V0 on the alignment-safe sector-parity task. S159 is active only to record the branch decision and set the next hardening step before any expansion."
+    "notes":  "S159 completed. The relational witness branch is now the first active provisional-go line in the repo: strong positive packet, but still constrained to one validity-hardening step before any broader move."
 }
