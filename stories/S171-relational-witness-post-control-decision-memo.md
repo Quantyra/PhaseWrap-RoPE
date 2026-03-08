@@ -18,6 +18,7 @@ As a research lead, I want the witness branch reassessed after the symbolic cont
 
 ## Evidence and references
 - `docs/research/q-rope-relational-witness-symbolic-control-v1.md`
+- `docs/research/q-rope-relational-witness-post-control-decision-v1.md`
 - `docs/research/q-rope-relational-witness-schema-compression-v1.md`
 
 ## Out of scope
@@ -36,3 +37,4 @@ As a research lead, I want the witness branch reassessed after the symbolic cont
 
 ## Cycle time
 - Start: 2026-03-08 13:27 (Pacific/Honolulu)
+- End: 2026-03-08 13:36 (Pacific/Honolulu)
