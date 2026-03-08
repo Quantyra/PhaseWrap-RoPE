@@ -324,3 +324,14 @@ def test_future_relational_witness_runs_on_sector_parity_packet() -> None:
     assert "intercept" in diagnostics
     assert diagnostics["anti_collapse_pass"] is True
     assert diagnostics["forbidden_inputs_absent"] is True
+
+
+def test_sector_parity_split_rotation_flows_through_runner() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_sector_parity_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness",
+        synthetic_split_rotation=1,
+    )
+    assert metrics["dataset_diagnostics"]["split_rotation"] == 1

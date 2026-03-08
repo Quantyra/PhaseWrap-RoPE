@@ -34,15 +34,25 @@ class SyntheticDatasetBundle:
     diagnostics: dict[str, Any]
 
 
-def generate_signed_offset_binary_bundle(seed: int) -> SyntheticDatasetBundle:
-    return generate_sector_bundle(seed=seed, dataset_name="synthetic_offset_binary", label_mode="offset_sign")
+def generate_signed_offset_binary_bundle(seed: int, split_rotation: int = 0) -> SyntheticDatasetBundle:
+    return generate_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_offset_binary",
+        label_mode="offset_sign",
+        split_rotation=split_rotation,
+    )
 
 
-def generate_sector_parity_binary_bundle(seed: int) -> SyntheticDatasetBundle:
-    return generate_sector_bundle(seed=seed, dataset_name="synthetic_sector_parity_binary", label_mode="sector_parity")
+def generate_sector_parity_binary_bundle(seed: int, split_rotation: int = 0) -> SyntheticDatasetBundle:
+    return generate_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_sector_parity_binary",
+        label_mode="sector_parity",
+        split_rotation=split_rotation,
+    )
 
 
-def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str) -> SyntheticDatasetBundle:
+def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
 
@@ -79,9 +89,12 @@ def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str) -> Syn
         required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
         if len(bucket) < required:
             raise ValueError(f"Insufficient bucket size for {key}: {len(bucket)} < {required}")
-        train.extend(bucket[:TRAIN_COUNT_PER_BUCKET])
-        validation.extend(bucket[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
-        test.extend(bucket[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        stride = required
+        rotation_offset = (split_rotation % max(1, len(bucket) // stride)) * stride
+        rotated = bucket[rotation_offset:] + bucket[:rotation_offset]
+        train.extend(rotated[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(rotated[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(rotated[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
 
     train_rows = [(sample.text, sample.label) for sample in sorted(train, key=sample_sort_key)]
     validation_rows = [(sample.text, sample.label) for sample in sorted(validation, key=sample_sort_key)]
@@ -90,6 +103,7 @@ def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str) -> Syn
     diagnostics = build_bundle_diagnostics(
         dataset_name=dataset_name,
         seed=seed,
+        split_rotation=split_rotation,
         train=sorted(train, key=sample_sort_key),
         validation=sorted(validation, key=sample_sort_key),
         test=sorted(test, key=sample_sort_key),
@@ -152,6 +166,7 @@ def sample_sort_key(sample: SyntheticSample) -> tuple[Any, ...]:
 def build_bundle_diagnostics(
     dataset_name: str,
     seed: int,
+    split_rotation: int,
     train: list[SyntheticSample],
     validation: list[SyntheticSample],
     test: list[SyntheticSample],
@@ -164,6 +179,7 @@ def build_bundle_diagnostics(
     diagnostics = {
         "dataset": dataset_name,
         "seed": seed,
+        "split_rotation": split_rotation,
         "sequence_length": SEQUENCE_LENGTH,
         "vocabulary": list(TOKENS),
         "offsets": list(OFFSETS),

@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T21:13:00Z",
+    "timestamp_utc":  "2026-03-09T21:25:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S161"
+                              "S162"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Implement one deterministic split-rotation policy.",
-                         "Run the same three-seed packet under the rotated split only.",
-                         "Do not broaden into new tasks, variants, or remote execution."
+                         "Write the post-hardening decision for the relational witness branch.",
+                         "Choose the next bounded evidence step without broadening too early.",
+                         "Keep the branch away from remote execution and benchmark expansion for now."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S160 completed. The relational witness branch remains active, but the next step is tightly limited to split-rotation hardening. S161 is the only active code story and should not broaden scope."
+    "notes":  "S161 completed. The relational witness branch passed the split-rotation hardening check. S162 is active to decide the next bounded evidence step now that the initial robustness concern has been reduced."
 }

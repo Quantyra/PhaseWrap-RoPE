@@ -1,0 +1,52 @@
+run:
+  seed: 42
+  epochs: 25
+  batch_size: 32
+  learning_rate: 0.0003
+  weight_decay: 1.0e-05
+  id: v0-witness-rot1-s42
+dataset:
+  name: synthetic_sector_parity_binary
+  split:
+    train: 0.8
+    val: 0.1
+    test: 0.1
+  tokenizer: wordpiece
+  max_seq_len: 256
+  split_rotation: 1
+model:
+  architecture: qmsan_style
+  hidden_dim: 128
+  attention_heads: 4
+  quantum:
+    qubits: 8
+    layers: 2
+    shots: 2048
+backend:
+  name: sim_quantum_statevector
+  noise_model: none
+  device: cpu
+  local_readout: parity
+logging:
+  output_root: logs/ablation_runs
+  save_checkpoints: true
+  save_metrics_json: true
+  required_fields:
+  - run_id
+  - variant
+  - dataset
+  - seed
+  - backend
+  - accuracy
+  - f1
+  - train_loss_final
+  - eval_loss
+  - qubit_count
+  - gate_count_total
+  - circuit_depth
+  - shot_count
+  - noise_model
+  - wall_time_sec
+  - timestamp_utc
+variant:
+  id: V0

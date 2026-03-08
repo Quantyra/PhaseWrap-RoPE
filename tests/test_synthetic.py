@@ -51,3 +51,12 @@ def test_sector_parity_labels_match_crossed_sector_rule() -> None:
         magnitude = abs(offset)
         expected = 1 if (offset > 0 and magnitude in {1, 2}) or (offset < 0 and magnitude in {3, 4}) else 0
         assert label == expected
+
+
+def test_sector_parity_split_rotation_changes_selected_rows() -> None:
+    base = generate_sector_parity_binary_bundle(seed=42, split_rotation=0)
+    rotated = generate_sector_parity_binary_bundle(seed=42, split_rotation=1)
+    assert base.train != rotated.train
+    assert base.validation != rotated.validation
+    assert base.test != rotated.test
+    assert rotated.diagnostics["split_rotation"] == 1
