@@ -35,6 +35,14 @@ class SyntheticDatasetBundle:
 
 
 def generate_signed_offset_binary_bundle(seed: int) -> SyntheticDatasetBundle:
+    return generate_sector_bundle(seed=seed, dataset_name="synthetic_offset_binary", label_mode="offset_sign")
+
+
+def generate_sector_parity_binary_bundle(seed: int) -> SyntheticDatasetBundle:
+    return generate_sector_bundle(seed=seed, dataset_name="synthetic_sector_parity_binary", label_mode="sector_parity")
+
+
+def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
 
@@ -48,6 +56,7 @@ def generate_signed_offset_binary_bundle(seed: int) -> SyntheticDatasetBundle:
                             right_token=right_token,
                             left_pos=base_left,
                             right_pos=base_left + magnitude,
+                            label_mode=label_mode,
                         )
                     )
                     grouped[(0, magnitude, left_token, right_token)].append(
@@ -56,6 +65,7 @@ def generate_signed_offset_binary_bundle(seed: int) -> SyntheticDatasetBundle:
                             right_token=right_token,
                             left_pos=base_left + magnitude,
                             right_pos=base_left,
+                            label_mode=label_mode,
                         )
                     )
 
@@ -78,6 +88,7 @@ def generate_signed_offset_binary_bundle(seed: int) -> SyntheticDatasetBundle:
     test_rows = [(sample.text, sample.label) for sample in sorted(test, key=sample_sort_key)]
 
     diagnostics = build_bundle_diagnostics(
+        dataset_name=dataset_name,
         seed=seed,
         train=sorted(train, key=sample_sort_key),
         validation=sorted(validation, key=sample_sort_key),
@@ -91,9 +102,19 @@ def generate_signed_offset_binary_bundle(seed: int) -> SyntheticDatasetBundle:
     )
 
 
-def build_sample(left_token: str, right_token: str, left_pos: int, right_pos: int) -> SyntheticSample:
+def label_from_offset(offset: int, label_mode: str) -> int:
+    if label_mode == "offset_sign":
+        return 1 if offset > 0 else 0
+    if label_mode == "sector_parity":
+        magnitude = abs(offset)
+        sign_positive = offset > 0
+        return 1 if (sign_positive and magnitude in {1, 2}) or ((not sign_positive) and magnitude in {3, 4}) else 0
+    raise ValueError(f"Unsupported synthetic label mode: {label_mode}")
+
+
+def build_sample(left_token: str, right_token: str, left_pos: int, right_pos: int, label_mode: str) -> SyntheticSample:
     offset = right_pos - left_pos
-    label = 1 if offset > 0 else 0
+    label = label_from_offset(offset=offset, label_mode=label_mode)
     text = render_sample_text(
         left_token=left_token,
         right_token=right_token,
@@ -129,6 +150,7 @@ def sample_sort_key(sample: SyntheticSample) -> tuple[Any, ...]:
 
 
 def build_bundle_diagnostics(
+    dataset_name: str,
     seed: int,
     train: list[SyntheticSample],
     validation: list[SyntheticSample],
@@ -140,7 +162,7 @@ def build_bundle_diagnostics(
         "test": test,
     }
     diagnostics = {
-        "dataset": "synthetic_offset_binary",
+        "dataset": dataset_name,
         "seed": seed,
         "sequence_length": SEQUENCE_LENGTH,
         "vocabulary": list(TOKENS),
@@ -158,7 +180,7 @@ def build_bundle_diagnostics(
         "class_balanced": all(split["class_balance_ok"] for split in diagnostics["splits"].values()),
         "token_permutation_invariant_labels": True,
         "absolute_position_baseline_note": (
-            "Label depends only on offset sign by construction; token identity does not affect labels."
+            "Label depends only on the declared relative-offset rule by construction; token identity does not affect labels."
         ),
     }
     return diagnostics

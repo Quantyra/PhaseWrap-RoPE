@@ -15,6 +15,7 @@ VARIANT_PHASE_BASES = {
     "V4b": 0.18,
     "V_new_explicit_interference": 0.24,
     "V_pairstate_relational": 0.20,
+    "V_future_sector_contrast_pairstate": 0.20,
 }
 
 V4B_PHASE_CLIP = 0.22
@@ -23,7 +24,7 @@ FEATURE_FLOOR = 0.05
 SCREENING_MIX_ANGLE = math.pi / 4.0
 SUPPORTED_READOUTS = {"weighted", "q2", "parity"}
 SUPPORTED_MIXING_PRESETS = {"mix_it1", "mix_v0", "mix_v1", "mix_v2"}
-PAIRSTATE_CONTROL_MODES = {"aligned", "sector_permuted"}
+PAIRSTATE_CONTROL_MODES = {"aligned", "sector_permuted", "sector_parity"}
 
 
 def simple_quantum_score(
@@ -46,7 +47,7 @@ def simple_quantum_score(
     """
     if variant == "V_new_explicit_interference":
         return explicit_interference_score(text=text, seed=seed, n_qubits=n_qubits)
-    if variant == "V_pairstate_relational":
+    if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
         return pairstate_quantum_result(text=text, seed=seed, n_qubits=n_qubits)["score"]
     state = build_quantum_state(
         text=text,
@@ -140,6 +141,9 @@ def pairstate_signed_contrast(
     elif control_mode == "sector_permuted":
         positive_keys = ["P_small", "N_large"]
         negative_keys = ["N_small", "P_large"]
+    elif control_mode == "sector_parity":
+        positive_keys = ["P_small", "N_large"]
+        negative_keys = ["N_small", "P_large"]
     else:
         raise ValueError(f"Unsupported pairstate control mode: {control_mode}")
     positive_mean = sum(float(sector_responses[key]) for key in positive_keys) / len(positive_keys)
@@ -161,6 +165,8 @@ def pairstate_quantum_result(
 ) -> dict[str, object]:
     sample = parse_synthetic_pair_text(text)
     sector = offset_sector(int(sample["offset"]))
+    if control_mode == "aligned" and sector[0] != ("P" if int(sample["offset"]) > 0 else "N"):
+        raise ValueError("Aligned pairstate control mode requires sign-aligned sector mapping")
     sector_responses = sector_response_map(sample=sample, seed=seed, n_qubits=n_qubits)
     signed_contrast, aggregation_buckets = pairstate_signed_contrast(
         sector_responses=sector_responses,

@@ -213,6 +213,12 @@ def test_synthetic_offset_binary_loader_path() -> None:
     assert mode == "synthetic_offset_binary"
 
 
+def test_synthetic_sector_parity_binary_loader_path() -> None:
+    rows, mode = load_dataset_samples(dataset="synthetic_sector_parity_binary", seed=42)
+    assert len(rows) == 512
+    assert mode == "synthetic_sector_parity_binary"
+
+
 def test_synthetic_offset_binary_quantum_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_offset_binary",
@@ -276,3 +282,19 @@ def test_pairstate_sector_permuted_control_is_recorded() -> None:
         "positive": ["P_small", "N_large"],
         "negative": ["N_small", "P_large"],
     }
+
+
+def test_future_sector_contrast_pairstate_runs_on_sector_parity_packet() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_sector_parity_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_sector_contrast_pairstate",
+        pairstate_control_mode="sector_parity",
+    )
+    assert metrics["data_mode"].endswith("readout_sector_contrast+repr_pairstate+control_sector_parity")
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["control_mode"] == "sector_parity"
+    assert "score_by_sector" in diagnostics
+    assert "task_contrast_mean" in diagnostics
+    assert diagnostics["anti_collapse_pass"] is True

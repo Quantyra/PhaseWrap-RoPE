@@ -258,3 +258,12 @@ def test_pairstate_signed_contrast_rejects_unknown_mode() -> None:
             {"P_small": 0.5, "P_large": 0.5, "N_small": 0.5, "N_large": 0.5},
             control_mode="bad_mode",
         )
+
+
+def test_pairstate_sector_parity_uses_crossed_assignment() -> None:
+    result = pairstate_quantum_result("lt:A rt:C lp:2 rp:5 off:+3", seed=42, control_mode="sector_parity")
+    assert result["aggregation_buckets"] == {
+        "positive": ["P_small", "N_large"],
+        "negative": ["N_small", "P_large"],
+    }
+    assert result["sector_resolution_pre_aggregation"] is True

@@ -1,0 +1,48 @@
+{
+  "score_by_offset": {
+    "-4": 0.477418,
+    "-3": 0.477418,
+    "-2": 0.50653,
+    "-1": 0.50653,
+    "1": 0.498133,
+    "2": 0.498133,
+    "3": 0.506456,
+    "4": 0.506456
+  },
+  "score_by_sector": {
+    "P_small": 0.498133,
+    "P_large": 0.506456,
+    "N_small": 0.50653,
+    "N_large": 0.477418
+  },
+  "positive_minus_negative_offset_gap": -0.018718,
+  "overall_score_mean": 0.497134,
+  "control_mode": "sector_parity",
+  "aggregation_buckets": {
+    "positive": [
+      "P_small",
+      "N_large"
+    ],
+    "negative": [
+      "N_small",
+      "P_large"
+    ]
+  },
+  "sector_responses": {
+    "P_small": 0.822696,
+    "P_large": 0.812978,
+    "N_small": 0.79756,
+    "N_large": 0.777056
+  },
+  "channel_response_means": {
+    "P_small": 0.637457,
+    "P_large": 0.643568,
+    "N_small": 0.643955,
+    "N_large": 0.638604
+  },
+  "signed_contrast_mean": -0.005731,
+  "task_contrast_mean": -0.005731,
+  "magnitude_balance_mean": 0.201378,
+  "sector_resolution_pre_aggregation": true,
+  "anti_collapse_pass": true
+}

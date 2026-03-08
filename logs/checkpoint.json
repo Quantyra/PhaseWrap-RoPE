@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T19:41:00Z",
+    "timestamp_utc":  "2026-03-09T19:55:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S147"
+                              "S148"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Implement synthetic_sector_parity_binary and V_future_sector_contrast_pairstate.",
-                         "Add only focused tests and sector-first diagnostics.",
-                         "Execute only the fixed first packet after implementation."
+                         "Write the sector-parity branch decision memo.",
+                         "Do not broaden or retune the restart before the decision is recorded.",
+                         "Keep the interpretation bounded to the first approved packet."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -31,7 +31,7 @@
                             "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
                             "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage."
                         ],
-    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_qsim.py tests/test_run_real_mode.py",
+    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
                            "AGENTS.md",
                            "README.md",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S146 completed. The bounded sector-parity restart now has a strict implementation plan. S147 is the first code-writing story for this restart and must stay within the approved local synthetic scope."
+    "notes":  "S147 completed. The bounded sector-parity restart produced a clean negative first packet: the candidate preserved sector-first anti-collapse behavior, but it did not beat V0 on accuracy and its task-relevant contrast was negative across all three seeds. S148 is active only to record the branch decision."
 }

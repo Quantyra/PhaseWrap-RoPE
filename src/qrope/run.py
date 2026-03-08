@@ -27,6 +27,7 @@ from .qsim import (
     variant_phases,
 )
 from .synthetic import diagnostics_to_jsonable, generate_signed_offset_binary_bundle
+from .synthetic import generate_sector_parity_binary_bundle
 
 
 def parse_args() -> argparse.Namespace:
@@ -159,6 +160,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V4": 14,
         "V4b": 14,
         "V_pairstate_relational": 16,
+        "V_future_sector_contrast_pairstate": 16,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -203,7 +205,7 @@ def run_real_experiment(
         )
         if variant == "V_new_explicit_interference":
             data_mode = f"{data_mode}+readout_parity_contrast+mix_interference"
-        elif variant == "V_pairstate_relational":
+        elif variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
             data_mode = f"{data_mode}+readout_sector_contrast+repr_pairstate+control_{pairstate_control_mode}"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
@@ -362,9 +364,9 @@ def run_quantum_backend(
         raise ValueError(f"Unsupported local readout: {readout}")
     if mixing_preset not in SUPPORTED_MIXING_PRESETS:
         raise ValueError(f"Unsupported local mixing preset: {mixing_preset}")
-    if variant == "V_pairstate_relational" and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
+    if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
-    if variant == "V_pairstate_relational":
+    if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
         train_results = [
             pairstate_quantum_result(text=t, seed=seed, control_mode=pairstate_control_mode) for t, _ in train
         ]
@@ -377,7 +379,7 @@ def run_quantum_backend(
         ]
     if validation is None:
         _, validation = stratified_calibration_split(train)
-    if variant == "V_pairstate_relational":
+    if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
         validation_results = [
             pairstate_quantum_result(text=t, seed=seed, control_mode=pairstate_control_mode) for t, _ in validation
         ]
@@ -393,9 +395,9 @@ def run_quantum_backend(
     y_true = [label for _, label in test]
     y_pred: list[int] = []
     probs: list[float] = []
-    per_sample_results: list[dict[str, Any]] | None = [] if variant == "V_pairstate_relational" else None
+    per_sample_results: list[dict[str, Any]] | None = [] if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} else None
     for text, _ in test:
-        if variant == "V_pairstate_relational":
+        if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
             result = pairstate_quantum_result(text=text, seed=seed, control_mode=pairstate_control_mode)
             p1 = float(result["score"])
             assert per_sample_results is not None
@@ -416,7 +418,7 @@ def run_quantum_backend(
     accuracy = compute_accuracy(y_true, y_pred)
     f1 = compute_f1_binary(y_true, y_pred)
     if is_synthetic_offset_rows(test):
-        if variant == "V_pairstate_relational":
+        if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
             diagnostics = build_pairstate_run_diagnostics(rows=test, results=per_sample_results or [])
         else:
             diagnostics = build_run_diagnostics(rows=test, scores=probs)
@@ -461,6 +463,7 @@ def build_run_diagnostics(rows: list[tuple[str, int]], scores: list[float]) -> d
 
 def build_pairstate_run_diagnostics(rows: list[tuple[str, int]], results: list[dict[str, Any]]) -> dict[str, Any]:
     offset_groups: dict[int, list[float]] = {}
+    sector_score_groups = {key: [] for key in ("P_small", "P_large", "N_small", "N_large")}
     positive_scores: list[float] = []
     negative_scores: list[float] = []
     channel_groups = {key: [] for key in ("P_small", "P_large", "N_small", "N_large")}
@@ -476,6 +479,7 @@ def build_pairstate_run_diagnostics(rows: list[tuple[str, int]], results: list[d
         score = float(result["score"])
         offset = int(payload["offset"])
         offset_groups.setdefault(offset, []).append(score)
+        sector_score_groups[str(result["sector"])].append(score)
         if label == 1:
             positive_scores.append(score)
         else:
@@ -497,6 +501,7 @@ def build_pairstate_run_diagnostics(rows: list[tuple[str, int]], results: list[d
             }
 
     mean_by_offset = {str(offset): round(sum(vals) / len(vals), 6) for offset, vals in sorted(offset_groups.items())}
+    mean_by_sector = {key: round(sum(vals) / len(vals), 6) if vals else 0.0 for key, vals in sector_score_groups.items()}
     positive_mean = sum(positive_scores) / len(positive_scores) if positive_scores else 0.0
     negative_mean = sum(negative_scores) / len(negative_scores) if negative_scores else 0.0
     overall_mean = (sum(positive_scores) + sum(negative_scores)) / len(results) if results else 0.0
@@ -510,6 +515,7 @@ def build_pairstate_run_diagnostics(rows: list[tuple[str, int]], results: list[d
     magnitude_balance_mean = sum(magnitude_balances) / len(magnitude_balances) if magnitude_balances else 0.0
     return {
         "score_by_offset": mean_by_offset,
+        "score_by_sector": mean_by_sector,
         "positive_minus_negative_offset_gap": round(positive_mean - negative_mean, 6),
         "overall_score_mean": round(overall_mean, 6),
         "control_mode": sorted(control_modes)[0] if len(control_modes) == 1 else "mixed",
@@ -517,8 +523,10 @@ def build_pairstate_run_diagnostics(rows: list[tuple[str, int]], results: list[d
         "sector_responses": mean_sector_responses,
         "channel_response_means": mean_channel_responses,
         "signed_contrast_mean": round(signed_contrast_mean, 6),
+        "task_contrast_mean": round(signed_contrast_mean, 6),
         "magnitude_balance_mean": round(magnitude_balance_mean, 6),
         "sector_resolution_pre_aggregation": all(pre_aggregation_flags),
+        "anti_collapse_pass": bool(aggregation_buckets) and all(pre_aggregation_flags),
     }
 
 
@@ -651,6 +659,15 @@ def load_dataset_bundle(dataset: str, seed: int) -> dict[str, Any]:
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_offset_binary",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_sector_parity_binary":
+        bundle = generate_sector_parity_binary_bundle(seed=seed)
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_sector_parity_binary",
             "dataset_diagnostics": bundle.diagnostics,
         }
 
