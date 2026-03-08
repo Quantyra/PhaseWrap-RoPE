@@ -1,14 +1,14 @@
 {
-  "timestamp_utc": "2026-03-09T04:10:00Z",
+  "timestamp_utc": "2026-03-09T04:11:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S120"
+    "S121"
   ],
   "active_workers": {},
   "next_actions": [
-    "Close the sector-definition gap for the pair-state restart direction.",
+    "Close the state-construction gap for the pair-state restart direction.",
     "Keep the repository in archive posture.",
     "Do not open new implementation, new experiments, or remote work."
   ],
@@ -118,5 +118,5 @@
     "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
     "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
   ],
-  "notes": "S119 completed. The repository remains in explicit archive posture. S120 is active only to specify a concrete sector scheme and aggregation rule for the pair-state direction."
+  "notes": "S120 completed. The repository remains in explicit archive posture. S121 is active only to define an operational construction sketch for the pair-state direction."
 }
