@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-09T22:31:00Z",
+    "timestamp_utc":  "2026-03-09T22:39:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S166"
+                              "S167"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Define the bounded schema-compression control for the relational witness branch.",
-                         "Keep the same task, seeds, backend, and head family.",
-                         "Do not broaden into new tasks, remote execution, or new candidates."
+                         "Implement the fixed schema views for the relational witness branch only.",
+                         "Run the three-seed schema-compression packet on synthetic_sector_parity_binary.",
+                         "Compare means_only and contrasts_only against full without broadening scope."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S165 completed. The relational witness branch remains active after ablation; the next bounded question is whether the current win survives a cleaner, less redundant relational schema."
+    "notes":  "S166 completed. The next bounded witness step is schema compression: test whether the current win survives on a cleaner relational core rather than the full redundant schema."
 }

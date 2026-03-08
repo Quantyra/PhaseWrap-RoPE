@@ -18,6 +18,7 @@ As a research lead, I want one bounded schema-compression control defined for th
 
 ## Evidence and references
 - `docs/research/q-rope-relational-witness-post-ablation-decision-v1.md`
+- `docs/research/q-rope-relational-witness-schema-compression-plan-v1.md`
 - `docs/research/q-rope-relational-witness-feature-ablation-v1.md`
 
 ## Out of scope
@@ -36,3 +37,4 @@ As a research lead, I want one bounded schema-compression control defined for th
 
 ## Cycle time
 - Start: 2026-03-08 12:31 (Pacific/Honolulu)
+- End: 2026-03-08 12:39 (Pacific/Honolulu)
