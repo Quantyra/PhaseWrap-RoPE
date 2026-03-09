@@ -2,6 +2,7 @@ from qrope.synthetic import (
     content_family_name,
     generate_dual_continuous_coupled_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
+    generate_dual_nonlinear_manifold_response_bundle,
     generate_dual_orthogonalized_continuous_response_bundle,
     generate_dual_state_sensitive_continuous_response_bundle,
     generate_dual_sector_agreement_binary_bundle,
@@ -327,3 +328,12 @@ def test_dual_orthogonalized_continuous_response_bundle_centers_coarse_tuple_mea
         summary = bundle.diagnostics["splits"][split]
         assert summary["within_state_variation_ok"] is True
         assert summary["coarse_tuple_mean_abs_max"] <= 1e-6
+
+
+def test_dual_nonlinear_manifold_response_bundle_centers_coarse_tuple_means() -> None:
+    bundle = generate_dual_nonlinear_manifold_response_bundle(seed=42)
+    for split in ("train", "validation", "test"):
+        summary = bundle.diagnostics["splits"][split]
+        assert summary["within_state_variation_ok"] is True
+        assert summary["coarse_tuple_mean_abs_max"] <= 1e-6
+        assert summary["target_min"] < summary["target_max"]

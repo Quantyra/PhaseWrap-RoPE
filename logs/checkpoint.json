@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T14:05:00Z",
+    "timestamp_utc": "2026-03-10T14:35:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S243"
+        "S246"
     ],
     "active_workers": {},
     "next_actions": [
-        "Implement only the approved nonlinear manifold task, witness candidate, and additive control stack.",
-        "Run the fixed three-seed local packet on sim_quantum_statevector.",
-        "Emit orthogonalization and regression diagnostics for all variants."
+        "Preserve the nonlinear manifold branch as active after the first packet win.",
+        "Define and approve one bounded nonlinear symbolic control before any further execution.",
+        "Do not broaden the task, branch, or benchmark scope in this phase."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,15 +28,19 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The nonlinear manifold branch is newly approved and still needs empirical validation against the fixed additive control stack."
+        "The nonlinear manifold branch has only been tested against additive symbolic controls so far; its next fairness test is a bounded nonlinear symbolic baseline."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-nonlinear-manifold-implementation-approval-gate-v1.md",
-        "docs/research/q-rope-nonlinear-manifold-implementation-plan-v1.md",
-        "stories/S242-nonlinear-manifold-implementation-approval-gate.md",
-        "stories/S243-nonlinear-manifold-implementation-plan.md",
+        "src/qrope/synthetic.py",
+        "src/qrope/run.py",
+        "tests/test_synthetic.py",
+        "tests/test_run_real_mode.py",
+        "docs/research/q-rope-nonlinear-manifold-implementation-v1.md",
+        "docs/research/q-rope-nonlinear-manifold-first-packet-v1.md",
+        "docs/research/q-rope-nonlinear-manifold-post-packet-decision-v1.md",
+        "docs/research/q-rope-nonlinear-symbolic-control-plan-v1.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S242-S243 completed. The nonlinear manifold path is implementation-approved under a strictly bounded local synthetic packet with one witness candidate and three additive controls."
+    "notes": "S244-S246 completed. The nonlinear manifold branch passed its first bounded packet against all approved additive controls and remains active, with one bounded nonlinear symbolic control preserved as the next fairness test."
 }

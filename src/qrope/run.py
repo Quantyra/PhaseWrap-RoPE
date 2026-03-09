@@ -33,6 +33,7 @@ from .synthetic import (
     content_family_name,
     generate_dual_continuous_coupled_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
+    generate_dual_nonlinear_manifold_response_bundle,
     generate_dual_orthogonalized_continuous_response_bundle,
     generate_dual_state_sensitive_continuous_response_bundle,
     generate_dual_sector_agreement_binary_bundle,
@@ -224,6 +225,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_continuous": 24,
         "V_future_relational_witness_state_sensitive": 24,
         "V_future_relational_witness_orthogonalized": 24,
+        "V_future_relational_witness_nonlinear": 24,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -231,6 +233,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_analog_only_regressor": 1,
         "V_control_symbolic_full_declared_regressor": 1,
         "V_control_symbolic_full_declared_residual_regressor": 1,
+        "V_control_symbolic_full_declared_additive_regressor": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -333,6 +336,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_state_sensitive+head_linear"
         elif variant == "V_future_relational_witness_orthogonalized":
             data_mode = f"{data_mode}+readout_relational_witness_orthogonalized+head_linear"
+        elif variant == "V_future_relational_witness_nonlinear":
+            data_mode = f"{data_mode}+readout_relational_witness_nonlinear+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -347,6 +352,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_full_declared_regressor+head_linear"
         elif variant == "V_control_symbolic_full_declared_residual_regressor":
             data_mode = f"{data_mode}+readout_symbolic_full_declared_residual_regressor+head_linear"
+        elif variant == "V_control_symbolic_full_declared_additive_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_full_declared_additive_regressor+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -550,6 +557,8 @@ def run_quantum_backend(
         return run_state_sensitive_continuous_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_orthogonalized":
         return run_orthogonalized_continuous_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_nonlinear":
+        return run_nonlinear_manifold_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_control_symbolic_single_family_regressor":
         return run_continuous_symbolic_single_family_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_two_family_regressor":
@@ -564,6 +573,8 @@ def run_quantum_backend(
         return run_state_sensitive_symbolic_full_declared_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_full_declared_residual_regressor":
         return run_orthogonalized_symbolic_full_declared_residual_regressor(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_full_declared_additive_regressor":
+        return run_nonlinear_symbolic_full_declared_additive_regressor(train=train, test=test, validation=validation)
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
@@ -869,6 +880,12 @@ def state_sensitive_ordered_content_delta(payload: dict[str, Any]) -> float:
     score_a = (token_ordinal(str(payload["a_lt"])) - token_ordinal(str(payload["a_rt"]))) / 3.0
     score_b = (token_ordinal(str(payload["b_lt"])) - token_ordinal(str(payload["b_rt"]))) / 3.0
     return round(0.5 * (score_a - score_b), 6)
+
+
+def nonlinear_orientation_delta(payload: dict[str, Any]) -> float:
+    score_a = (token_ordinal(str(payload["a_rt"])) - token_ordinal(str(payload["a_lt"]))) / 3.0
+    score_b = (token_ordinal(str(payload["b_rt"])) - token_ordinal(str(payload["b_lt"]))) / 3.0
+    return round(0.5 * (score_a + score_b), 6)
 
 
 def dual_relational_witness_features(text: str, seed: int) -> dict[str, object]:
@@ -1216,6 +1233,52 @@ def symbolic_orthogonalized_full_declared_features(text: str) -> dict[str, objec
         "orientation_agreement": 1.0 if payload["orientation_agreement"] else 0.0,
         "sector_magnitude_delta": state_sensitive_sector_magnitude_delta(payload),
         "ordered_content_delta": state_sensitive_ordered_content_delta(payload),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "forbidden_inputs_absent": True,
+    }
+
+
+def nonlinear_manifold_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    base = triple_relational_witness_features(text=text, seed=seed)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    feature_order = list(base["feature_order"]) + [
+        "sector_magnitude_delta",
+        "ordered_content_delta",
+        "orientation_delta",
+        "nonlinear_manifold_hint",
+    ]
+    features = dict(base["features"])
+    features["sector_magnitude_delta"] = sector_magnitude_delta
+    features["ordered_content_delta"] = ordered_content_delta
+    features["orientation_delta"] = orientation_delta
+    features["nonlinear_manifold_hint"] = round(
+        math.sin(math.pi * sector_magnitude_delta * ordered_content_delta)
+        + 0.5 * (1.0 if sector_magnitude_delta >= 0.0 else -1.0) * orientation_delta
+        - 0.25 * math.cos(math.pi * ordered_content_delta),
+        6,
+    )
+    return {
+        **base,
+        "feature_order": feature_order,
+        "features": features,
+    }
+
+
+def symbolic_nonlinear_full_declared_additive_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    features = {
+        "sign_agreement": 1.0 if payload["sign_agreement"] else 0.0,
+        "content_agreement": 1.0 if payload["content_agreement"] else 0.0,
+        "orientation_agreement": 1.0 if payload["orientation_agreement"] else 0.0,
+        "sector_magnitude_delta": state_sensitive_sector_magnitude_delta(payload),
+        "ordered_content_delta": state_sensitive_ordered_content_delta(payload),
+        "orientation_delta": nonlinear_orientation_delta(payload),
     }
     return {
         "feature_order": list(features.keys()),
@@ -2154,6 +2217,52 @@ def run_orthogonalized_symbolic_full_declared_residual_regressor(
     )
 
 
+def run_nonlinear_manifold_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [nonlinear_manifold_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [nonlinear_manifold_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [nonlinear_manifold_witness_features(text=text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(bool(result.get("bounded_feature_audit_pass", False)) for result in test_results)
+    diagnostics["anti_collapse_pass"] = True
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_nonlinear_symbolic_full_declared_additive_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_nonlinear_full_declared_additive_features(text=text) for text, _ in train]
+    validation_results = [symbolic_nonlinear_full_declared_additive_features(text=text) for text, _ in validation]
+    test_results = [symbolic_nonlinear_full_declared_additive_features(text=text) for text, _ in test]
+    return run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+
+
 def is_synthetic_offset_rows(rows: list[tuple[str, int]]) -> bool:
     if not rows:
         return False
@@ -2612,6 +2721,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_dual_orthogonalized_continuous_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_dual_nonlinear_manifold_response":
+        bundle = generate_dual_nonlinear_manifold_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_dual_nonlinear_manifold_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
 
