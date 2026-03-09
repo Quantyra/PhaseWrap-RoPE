@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-11T06:05:00Z",
+    "timestamp_utc":  "2026-03-11T06:20:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S358"
+                              "S361"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Draft the implementation-approval gate for synthetic_transition_orbit_rank_band_response.",
-                         "Require diagnostics proving coarse ordinal lookup is near-null before any code reopens.",
-                         "Keep the line memo-only until that gate is explicitly approved."
+                         "Implement synthetic_transition_orbit_rank_band_response inside the bounded local-only scope.",
+                         "Stop immediately if coarse ordinal lookup is not near-null by diagnostics.",
+                         "Run the fixed three-seed first packet and decide the branch from rank correlation first."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -38,11 +38,10 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-rank-stable-task-spec-v2.md",
-                           "docs/research/q-rope-transition-orbit-rank-stable-restart-scaffold-v2.md",
-                           "docs/research/q-rope-transition-orbit-rank-stable-approval-candidate-v2.md",
+                           "docs/research/q-rope-transition-orbit-rank-band-implementation-approval-gate-v1.md",
+                           "docs/research/q-rope-transition-orbit-rank-band-implementation-plan-v1.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S356-S358 completed. The rank-stable transition-orbit line now has one exact within-state ordinal-band task, one bounded symbolic ordinal lookup control, and returns to approval-candidate posture while remaining memo-only."
+    "notes":  "S359-S360 completed. The rank-band transition-orbit line is now implementation-approved in a strictly bounded local-only phase with explicit lookup-null and within-state rank-band diagnostics gating interpretation."
 }
