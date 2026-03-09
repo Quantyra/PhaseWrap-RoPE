@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-11T05:35:00Z",
+    "timestamp_utc":  "2026-03-11T05:50:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S352"
+                              "S355"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Draft the dedicated approval gate for the rank-stable transition-orbit line.",
-                         "Prove the ordinal task cannot be reduced to a small symbolic ordinal lookup before any implementation reopens.",
-                         "Keep the line memo-only until that gate is passed."
+                         "Design a future rank-stable transition task with explicit within-state ordinal variation.",
+                         "Bind the bounded symbolic ordinal-lookup control directly into that task spec.",
+                         "Keep the line memo-only until the hardened approval gate can be satisfied."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -38,11 +38,11 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-rank-stable-task-spec-v1.md",
-                           "docs/research/q-rope-transition-orbit-rank-stable-restart-scaffold-v1.md",
-                           "docs/research/q-rope-transition-orbit-rank-stable-approval-candidate-v1.md",
+                           "docs/research/q-rope-transition-orbit-rank-stable-symbolic-lookup-proof-v1.md",
+                           "docs/research/q-rope-transition-orbit-rank-stable-scaffold-hardening-v1.md",
+                           "docs/research/q-rope-transition-orbit-rank-stable-next-step-v1.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S350-S352 completed. The transition-orbit line is preserved only as a memo-level rank-stable restart candidate with rank correlation declared as the future primary metric and a symbolic ordinal-lookup proof still required before approval."
+    "notes":  "S353-S355 completed. The rank-stable transition-orbit line remains memo-only because the symbolic ordinal-lookup blocker is now explicit but the future task still needs within-state ordinal variation specified on paper before any approval gate can pass."
 }
