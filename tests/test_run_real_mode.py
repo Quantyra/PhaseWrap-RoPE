@@ -1200,3 +1200,39 @@ def test_chart_transition_quadratic_control_runs() -> None:
     assert diagnostics["chart_id_absent"] is True
     assert diagnostics["transition_family_only"] is True
     assert diagnostics["transition_quadratic_only"] is True
+
+
+def test_chart_transition_cubic_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_chart_transition_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_cubic_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_transition_cubic_regressor+head_linear")
+    assert diagnostics["feature_order"] == [
+        "transition_backbone",
+        "transition_phase_forward",
+        "transition_curvature_forward",
+        "transition_phase_reversed",
+        "transition_curvature_reversed",
+        "transition_backbone_sq",
+        "transition_phase_forward_sq",
+        "transition_curvature_forward_sq",
+        "transition_phase_reversed_sq",
+        "transition_curvature_reversed_sq",
+        "transition_phase_cross",
+        "transition_curvature_cross",
+        "transition_backbone_phase_forward",
+        "transition_backbone_phase_reversed",
+        "transition_phase_forward_cube",
+        "transition_phase_reversed_cube",
+        "transition_curvature_forward_cube",
+        "transition_curvature_reversed_cube",
+        "transition_phase_cross_backbone",
+        "transition_curvature_cross_backbone",
+    ]
+    assert diagnostics["chart_id_absent"] is True
+    assert diagnostics["transition_family_only"] is True
+    assert diagnostics["transition_cubic_only"] is True
