@@ -10,5 +10,9 @@
 - The remaining weakness is that token views were still exposed through duplicated rendered examples.
 - The orbit task removes that degree of freedom at task definition time.
 
+## Fairness contract
+The future first packet must include the bounded orbit-additive symbolic baseline:
+- `V_control_symbolic_transition_orbit_additive_regressor`
+
 ## Remaining blocker
-- future orbit-additive symbolic baseline must be specified before any implementation approval gate is legitimate.
+- implementation approval still requires a dedicated approval-gate memo after the orbit-additive control is bound into the future plan.
