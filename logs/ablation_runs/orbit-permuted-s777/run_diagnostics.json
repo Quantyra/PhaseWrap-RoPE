@@ -1,0 +1,20 @@
+{
+  "feature_order": [
+    "transition_backbone",
+    "transition_phase_permuted",
+    "transition_curvature_permuted"
+  ],
+  "coefficients": {
+    "transition_backbone": 0.709799,
+    "transition_phase_permuted": 0.15349,
+    "transition_curvature_permuted": 0.089992
+  },
+  "intercept": -0.038703,
+  "forbidden_inputs_absent": true,
+  "mae": 0.158901,
+  "rank_correlation": 0.293728,
+  "calibration_slope": 0.885497,
+  "token_identity_absent": true,
+  "orbit_canonical_only": true,
+  "transition_table_permuted": true
+}

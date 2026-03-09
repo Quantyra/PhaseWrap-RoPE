@@ -1,18 +1,18 @@
-﻿{
-    "timestamp_utc":  "2026-03-11T03:55:00Z",
+{
+    "timestamp_utc":  "2026-03-11T04:35:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S336"
+                              "S341"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Define the orbit-canonical transition-family permutation control.",
-                         "Run the fixed transition-orbit packet against that control only if the control is fully bounded.",
-                         "Keep the branch local-only and zero-credit."
+                         "Execute the fixed transition-orbit packet under one orbit-preserving token renaming.",
+                         "Compare the witness against the strongest current symbolic baseline on the renamed-task packet.",
+                         "Keep the branch local-only, zero-credit, and label-preserving."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -32,15 +32,18 @@
                             "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
                             "The token-invariant chart-transition branch has been stopped after losing to all approved controls on mean MAE.",
                             "The preserved next angle is memo-only and must not reopen execution without a new restart scaffold.",
-                            "The transition-orbit line is still memo-only because an explicit orbit-additive symbolic baseline has not yet been specified."
+                            "Split rotation remains inert for the current transition-orbit generator and should not be counted as new robustness evidence.",
+                            "The transition-orbit branch still needs label-preserving robustness hardening before any broader claim is justified."
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-split-rotation-hardening-v1.md",
-                           "docs/research/q-rope-transition-orbit-post-split-rotation-decision-v1.md",
-                           "docs/research/q-rope-transition-orbit-next-test-selection-v1.md",
+                           "docs/research/q-rope-transition-orbit-permuted-control-plan-v1.md",
+                           "docs/research/q-rope-transition-orbit-permuted-control-v1.md",
+                           "docs/research/q-rope-transition-orbit-post-permuted-decision-v1.md",
+                           "docs/research/q-rope-transition-orbit-orbit-preserving-token-hardening-plan-v1.md",
+                           "stories/S341-transition-orbit-orbit-preserving-token-hardening.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S334-S336 completed. Split rotation was inert for the transition-orbit generator, so the branch remains active but the next step must be a non-inert fairness test."
+    "notes":  "S337-S340 completed. The orbit-canonical permuted control stayed materially weaker than the witness, so the branch remains active and advances to one label-preserving orbit-family token-renaming hardening step."
 }

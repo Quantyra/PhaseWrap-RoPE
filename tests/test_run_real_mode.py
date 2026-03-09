@@ -294,6 +294,22 @@ def test_transition_orbit_additive_control_backend_runs() -> None:
     assert diagnostics["orbit_canonical_only"] is True
 
 
+def test_transition_orbit_permuted_control_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_chart_transition_orbit_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_orbit_permuted_regressor",
+    )
+    assert metrics["data_mode"].startswith(
+        "synthetic_chart_transition_orbit_response+readout_symbolic_transition_orbit_permuted_regressor+head_linear"
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["token_identity_absent"] is True
+    assert diagnostics["orbit_canonical_only"] is True
+    assert diagnostics["transition_table_permuted"] is True
+
+
 def test_synthetic_offset_binary_quantum_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_offset_binary",

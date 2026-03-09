@@ -259,6 +259,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_quadratic_regressor": 1,
         "V_control_symbolic_transition_cubic_regressor": 1,
         "V_control_symbolic_transition_orbit_additive_regressor": 1,
+        "V_control_symbolic_transition_orbit_permuted_regressor": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -418,6 +419,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_cubic_regressor+head_linear"
         elif variant == "V_control_symbolic_transition_orbit_additive_regressor":
             data_mode = f"{data_mode}+readout_symbolic_transition_orbit_additive_regressor+head_linear"
+        elif variant == "V_control_symbolic_transition_orbit_permuted_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_transition_orbit_permuted_regressor+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -682,6 +685,8 @@ def run_quantum_backend(
         return run_transition_invariant_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_chart_transition_orbit_response" and variant == "V_control_symbolic_transition_orbit_additive_regressor":
         return run_transition_orbit_additive_symbolic_regressor(train=train, test=test, validation=validation)
+    if dataset == "synthetic_chart_transition_orbit_response" and variant == "V_control_symbolic_transition_orbit_permuted_regressor":
+        return run_transition_orbit_permuted_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_quadratic_regressor":
         return run_transition_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_cubic_regressor":
@@ -1918,6 +1923,37 @@ def symbolic_transition_orbit_additive_features(text: str) -> dict[str, object]:
         "forbidden_inputs_absent": True,
         "token_identity_absent": True,
         "orbit_canonical_only": True,
+    }
+
+
+def symbolic_transition_orbit_permuted_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    phi_transition, psi_transition = chart_transition_permuted_params(payload)
+    features = {
+        "transition_backbone": round(math.sin(math.pi * sector_magnitude_delta * ordered_content_delta), 6),
+        "transition_phase_permuted": round(
+            0.28
+            * math.sin(
+                math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.45 * orientation_delta)
+                + phi_transition
+            ),
+            6,
+        ),
+        "transition_curvature_permuted": round(
+            0.20 * math.cos(math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_transition),
+            6,
+        ),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "forbidden_inputs_absent": True,
+        "token_identity_absent": True,
+        "orbit_canonical_only": True,
+        "transition_table_permuted": True,
     }
 
 
@@ -3717,6 +3753,33 @@ def run_transition_orbit_additive_symbolic_regressor(
     )
     diagnostics["token_identity_absent"] = all(bool(result.get("token_identity_absent", False)) for result in test_results)
     diagnostics["orbit_canonical_only"] = all(bool(result.get("orbit_canonical_only", False)) for result in test_results)
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_transition_orbit_permuted_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_transition_orbit_permuted_features(text=text) for text, _ in train]
+    validation_results = [symbolic_transition_orbit_permuted_features(text=text) for text, _ in validation]
+    test_results = [symbolic_transition_orbit_permuted_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["token_identity_absent"] = all(bool(result.get("token_identity_absent", False)) for result in test_results)
+    diagnostics["orbit_canonical_only"] = all(bool(result.get("orbit_canonical_only", False)) for result in test_results)
+    diagnostics["transition_table_permuted"] = all(
+        bool(result.get("transition_table_permuted", False)) for result in test_results
+    )
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
