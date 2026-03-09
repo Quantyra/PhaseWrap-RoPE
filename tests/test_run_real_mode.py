@@ -910,3 +910,15 @@ def test_nonlinear_manifold_additive_control_runs() -> None:
     assert "orientation_delta" in diagnostics["feature_order"]
     assert "ordered_content_delta" in diagnostics["feature_order"]
     assert "sector_magnitude_delta" in diagnostics["feature_order"]
+
+
+def test_nonlinear_manifold_symbolic_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_nonlinear_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_nonlinear_manifold_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_nonlinear_manifold_regressor+head_linear")
+    assert diagnostics["feature_order"] == ["sin_uv", "signed_orientation", "cos_v"]
