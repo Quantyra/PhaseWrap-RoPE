@@ -1,4 +1,8 @@
-from qrope.synthetic import generate_sector_parity_binary_bundle, generate_signed_offset_binary_bundle
+from qrope.synthetic import (
+    generate_dual_sector_agreement_binary_bundle,
+    generate_sector_parity_binary_bundle,
+    generate_signed_offset_binary_bundle,
+)
 
 
 def test_signed_offset_bundle_is_deterministic() -> None:
@@ -60,3 +64,31 @@ def test_sector_parity_split_rotation_changes_selected_rows() -> None:
     assert base.validation != rotated.validation
     assert base.test != rotated.test
     assert rotated.diagnostics["split_rotation"] == 1
+
+
+def test_dual_sector_agreement_bundle_is_deterministic() -> None:
+    bundle_a = generate_dual_sector_agreement_binary_bundle(seed=42)
+    bundle_b = generate_dual_sector_agreement_binary_bundle(seed=42)
+    assert bundle_a.train == bundle_b.train
+    assert bundle_a.validation == bundle_b.validation
+    assert bundle_a.test == bundle_b.test
+    assert bundle_a.diagnostics == bundle_b.diagnostics
+
+
+def test_dual_sector_agreement_bundle_is_balanced() -> None:
+    bundle = generate_dual_sector_agreement_binary_bundle(seed=42)
+    for split in ("train", "validation", "test"):
+        summary = bundle.diagnostics["splits"][split]
+        assert summary["class_balance_ok"] is True
+        assert summary["sector_pair_balance_ok"] is True
+        assert summary["sector_slot_balance_ok"] is True
+
+
+def test_dual_sector_agreement_labels_follow_same_sign_rule() -> None:
+    bundle = generate_dual_sector_agreement_binary_bundle(seed=42)
+    rows = bundle.train[:10] + bundle.validation[:10] + bundle.test[:10]
+    for text, label in rows:
+        parts = {item.split(":", 1)[0]: item.split(":", 1)[1] for item in text.split()}
+        sector_a = ("P" if int(parts["a_off"]) > 0 else "N")
+        sector_b = ("P" if int(parts["b_off"]) > 0 else "N")
+        assert label == (1 if sector_a == sector_b else 0)
