@@ -1,0 +1,28 @@
+{
+  "feature_order": [
+    "transition_backbone",
+    "transition_phase_forward",
+    "transition_curvature_forward",
+    "transition_phase_reversed",
+    "transition_curvature_reversed",
+    "transition_phase_cross",
+    "transition_curvature_cross"
+  ],
+  "coefficients": {
+    "transition_backbone": 0.328632,
+    "transition_phase_forward": 0.074795,
+    "transition_curvature_forward": 0.12856,
+    "transition_phase_reversed": 0.101085,
+    "transition_curvature_reversed": 0.034262,
+    "transition_phase_cross": -0.033835,
+    "transition_curvature_cross": 0.015209
+  },
+  "intercept": 0.455278,
+  "forbidden_inputs_absent": true,
+  "mae": 0.295165,
+  "rank_correlation": 0.173205,
+  "calibration_slope": 0.557522,
+  "chart_id_absent": true,
+  "transition_family_only": true,
+  "transition_cross_direction_only": true
+}

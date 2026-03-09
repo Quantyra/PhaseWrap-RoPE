@@ -468,6 +468,139 @@ def generate_chart_transition_orbit_response_bundle(
     )
 
 
+def generate_transition_orbit_rank_band_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_transition_orbit_rank_band_response:{seed}")
+    single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
+
+    for left_token in TOKENS:
+        for right_token in TOKENS:
+            for magnitude in OFFSETS:
+                for base_left in range(SEQUENCE_LENGTH - magnitude):
+                    pos_sample = build_sample(
+                        left_token=left_token,
+                        right_token=right_token,
+                        left_pos=base_left,
+                        right_pos=base_left + magnitude,
+                        label_mode="offset_sign",
+                    )
+                    neg_sample = build_sample(
+                        left_token=left_token,
+                        right_token=right_token,
+                        left_pos=base_left + magnitude,
+                        right_pos=base_left,
+                        label_mode="offset_sign",
+                    )
+                    single_grouped[offset_sector_name(pos_sample.offset)].append(pos_sample)
+                    single_grouped[offset_sector_name(neg_sample.offset)].append(neg_sample)
+
+    coarse_candidates: dict[tuple[int, int], list[DualSyntheticSample]] = defaultdict(list)
+    sectors = ("P_small", "P_large", "N_small", "N_large")
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    band_values = (0.0, 1.0 / 3.0, 2.0 / 3.0, 1.0)
+    for sector_a in sectors:
+        for sector_b in sectors:
+            bucket_a = list(single_grouped[sector_a])
+            bucket_b = list(single_grouped[sector_b])
+            rng.shuffle(bucket_a)
+            rng.shuffle(bucket_b)
+            pair_count = min(len(bucket_a), len(bucket_b))
+            for idx in range(pair_count):
+                sample_a = bucket_a[idx]
+                sample_b = bucket_b[(idx + pair_reindex) % pair_count]
+                if slot_swap:
+                    sample_a, sample_b = sample_b, sample_a
+                dual = build_dual_sample(sample_a=sample_a, sample_b=sample_b, label_mode="chart_transition_orbit_response")
+                payload = parse_dual_sample_text(dual.text)
+                coarse_candidates[chart_transition_pair(payload)].append(dual)
+
+    train: list[DualSyntheticSample] = []
+    validation: list[DualSyntheticSample] = []
+    test: list[DualSyntheticSample] = []
+    for key in sorted(coarse_candidates):
+        bucket = sorted(coarse_candidates[key], key=lambda row: orbit_transition_band_delta(row.sample_a, row.sample_b))
+        if len(bucket) < required:
+            continue
+        if len(bucket) == required:
+            chosen = bucket
+        else:
+            max_index = len(bucket) - 1
+            spread_indices = [0, max_index // 3, (2 * max_index) // 3, max_index]
+            deduped: list[int] = []
+            for idx in spread_indices:
+                if idx not in deduped:
+                    deduped.append(idx)
+            cursor = 0
+            while len(deduped) < required and cursor <= max_index:
+                if cursor not in deduped:
+                    deduped.append(cursor)
+                cursor += 1
+            chosen = [bucket[idx] for idx in sorted(deduped[:required])]
+        labeled_rows: list[DualSyntheticSample] = []
+        for rank_idx, row in enumerate(chosen):
+            labeled_rows.append(
+                DualSyntheticSample(
+                    text=row.text,
+                    label=band_values[rank_idx],
+                    sector_a=row.sector_a,
+                    sector_b=row.sector_b,
+                    sample_a=row.sample_a,
+                    sample_b=row.sample_b,
+                )
+            )
+        split_assignment = (0, 3, 1, 2) if (key[0] + key[1]) % 2 == 0 else (1, 2, 0, 3)
+        arranged = [labeled_rows[idx] for idx in split_assignment]
+        train.extend(arranged[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(arranged[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(arranged[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+
+    diagnostics = build_dual_bundle_diagnostics(
+        dataset_name="synthetic_transition_orbit_rank_band_response",
+        seed=seed,
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation="orbit_canonical",
+        pair_reindex=pair_reindex,
+        train=sorted(train, key=dual_sample_sort_key),
+        validation=sorted(validation, key=dual_sample_sort_key),
+        test=sorted(test, key=dual_sample_sort_key),
+    )
+    train_state_bands: dict[str, set[float]] = defaultdict(set)
+    all_state_bands: dict[str, set[float]] = defaultdict(set)
+    train_state_labels: dict[str, list[float]] = defaultdict(list)
+    for row in train:
+        payload = parse_dual_sample_text(row.text)
+        state_key = f"{chart_transition_pair(payload)[0]}->{chart_transition_pair(payload)[1]}"
+        train_state_bands[state_key].add(round(float(row.label), 6))
+        train_state_labels[state_key].append(float(row.label))
+    for row in train + validation + test:
+        payload = parse_dual_sample_text(row.text)
+        state_key = f"{chart_transition_pair(payload)[0]}->{chart_transition_pair(payload)[1]}"
+        all_state_bands[state_key].add(round(float(row.label), 6))
+    train_state_means = {state_key: round(sum(values) / len(values), 6) for state_key, values in train_state_labels.items()}
+    unique_train_means = sorted(set(train_state_means.values()))
+    diagnostics["coarse_rank_lookup_near_null_pass"] = len(unique_train_means) == 1 and unique_train_means[0] == 0.5
+    diagnostics["within_state_rank_band_count_min"] = min(len(bands) for bands in all_state_bands.values()) if all_state_bands else 0
+    band_counter = Counter(round(float(row.label), 6) for row in train + validation + test)
+    diagnostics["rank_band_balance_pass"] = len(set(band_counter.values())) == 1
+    diagnostics["coarse_state_train_means"] = dict(sorted(train_state_means.items()))
+    diagnostics["per_state_rank_band_counts"] = {
+        key: len(value) for key, value in sorted(all_state_bands.items())
+    }
+    diagnostics["rank_band_counts"] = dict(sorted((str(key), value) for key, value in band_counter.items()))
+    return SyntheticDatasetBundle(
+        train=[(sample.text, sample.label) for sample in sorted(train, key=dual_sample_sort_key)],
+        validation=[(sample.text, sample.label) for sample in sorted(validation, key=dual_sample_sort_key)],
+        test=[(sample.text, sample.label) for sample in sorted(test, key=dual_sample_sort_key)],
+        diagnostics=diagnostics,
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
@@ -1112,6 +1245,49 @@ def render_dual_sample_text(sample_a: SyntheticSample, sample_b: SyntheticSample
     )
 
 
+def parse_dual_sample_text(text: str) -> dict[str, Any]:
+    fields: dict[str, Any] = {}
+    for chunk in text.split():
+        key, value = chunk.split(":", 1)
+        if key.endswith(("_lp", "_rp", "_off")):
+            fields[key] = int(value)
+        else:
+            fields[key] = value
+    fields["sample_a"] = SyntheticSample(
+        text=render_sample_text(
+            left_token=fields["a_lt"],
+            right_token=fields["a_rt"],
+            left_pos=fields["a_lp"],
+            right_pos=fields["a_rp"],
+            offset=fields["a_off"],
+        ),
+        label=0.0,
+        left_token=fields["a_lt"],
+        right_token=fields["a_rt"],
+        left_pos=fields["a_lp"],
+        right_pos=fields["a_rp"],
+        offset=fields["a_off"],
+        offset_abs=abs(fields["a_off"]),
+    )
+    fields["sample_b"] = SyntheticSample(
+        text=render_sample_text(
+            left_token=fields["b_lt"],
+            right_token=fields["b_rt"],
+            left_pos=fields["b_lp"],
+            right_pos=fields["b_rp"],
+            offset=fields["b_off"],
+        ),
+        label=0.0,
+        left_token=fields["b_lt"],
+        right_token=fields["b_rt"],
+        left_pos=fields["b_lp"],
+        right_pos=fields["b_rp"],
+        offset=fields["b_off"],
+        offset_abs=abs(fields["b_off"]),
+    )
+    return fields
+
+
 def apply_token_permutation_to_sample(sample: SyntheticSample, token_permutation: str) -> SyntheticSample:
     if token_permutation == "identity":
         return sample
@@ -1162,6 +1338,62 @@ def canonicalize_orbit_sample(sample: SyntheticSample) -> SyntheticSample:
         offset=sample.offset,
         offset_abs=sample.offset_abs,
     )
+
+
+def orbit_transition_band_delta(sample_a: SyntheticSample, sample_b: SyntheticSample) -> float:
+    sector_magnitude_delta = normalized_sector_magnitude_delta(sample_a, sample_b)
+    ordered_content_delta = ordered_content_delta_score(sample_a, sample_b)
+    orientation_delta = orientation_delta_score(sample_a, sample_b)
+    alpha = sector_magnitude_delta + 0.4 * orientation_delta
+    beta = ordered_content_delta - 0.5 * sector_magnitude_delta
+    gamma = ordered_content_delta + 0.35 * orientation_delta
+    delta = sector_magnitude_delta - 0.25 * orientation_delta
+    source_chart = (1 if alpha >= 0.0 else 0) * 2 + (1 if beta >= 0.0 else 0)
+    dest_chart = (1 if gamma >= 0.0 else 0) * 2 + (1 if delta >= 0.0 else 0)
+    transition_params = {
+        (0, 0): (-math.pi / 4.0, math.pi / 10.0),
+        (0, 1): (math.pi / 6.0, -math.pi / 7.0),
+        (0, 2): (math.pi / 3.0, math.pi / 9.0),
+        (0, 3): (-math.pi / 8.0, -math.pi / 5.0),
+        (1, 0): (math.pi / 5.0, math.pi / 8.0),
+        (1, 1): (-math.pi / 6.0, -math.pi / 9.0),
+        (1, 2): (math.pi / 2.8, math.pi / 11.0),
+        (1, 3): (-math.pi / 7.0, math.pi / 6.0),
+        (2, 0): (math.pi / 2.6, -math.pi / 8.0),
+        (2, 1): (-math.pi / 5.5, math.pi / 7.0),
+        (2, 2): (math.pi / 3.4, -math.pi / 10.0),
+        (2, 3): (-math.pi / 9.0, math.pi / 5.0),
+        (3, 0): (math.pi / 7.0, -math.pi / 6.0),
+        (3, 1): (-math.pi / 3.8, math.pi / 9.0),
+        (3, 2): (math.pi / 4.5, -math.pi / 7.0),
+        (3, 3): (-math.pi / 10.0, math.pi / 8.0),
+    }
+    phi_transition, psi_transition = transition_params[(source_chart, dest_chart)]
+    return round(
+        math.sin(math.pi * sector_magnitude_delta * ordered_content_delta)
+        + 0.28
+        * math.sin(
+            math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.45 * orientation_delta)
+            + phi_transition
+        )
+        + 0.20 * math.cos(math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_transition),
+        6,
+    )
+
+
+def chart_transition_pair(payload: dict[str, Any]) -> tuple[int, int]:
+    sample_a = payload["sample_a"]
+    sample_b = payload["sample_b"]
+    sector_magnitude_delta = normalized_sector_magnitude_delta(sample_a, sample_b)
+    ordered_content_delta = ordered_content_delta_score(sample_a, sample_b)
+    orientation_delta = orientation_delta_score(sample_a, sample_b)
+    alpha = sector_magnitude_delta + 0.4 * orientation_delta
+    beta = ordered_content_delta - 0.5 * sector_magnitude_delta
+    gamma = ordered_content_delta + 0.35 * orientation_delta
+    delta = sector_magnitude_delta - 0.25 * orientation_delta
+    source_chart = (1 if alpha >= 0.0 else 0) * 2 + (1 if beta >= 0.0 else 0)
+    dest_chart = (1 if gamma >= 0.0 else 0) * 2 + (1 if delta >= 0.0 else 0)
+    return source_chart, dest_chart
 
 
 def content_family_name(left_token: str, right_token: str) -> str:

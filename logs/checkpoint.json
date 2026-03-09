@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-11T06:20:00Z",
+    "timestamp_utc":  "2026-03-11T07:30:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S361"
+                              "S364"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Implement synthetic_transition_orbit_rank_band_response inside the bounded local-only scope.",
-                         "Stop immediately if coarse ordinal lookup is not near-null by diagnostics.",
-                         "Run the fixed three-seed first packet and decide the branch from rank correlation first."
+                         "Design an order-only transition-orbit task where ordinal structure is primary and absolute magnitude is not the target.",
+                         "Bind bounded coarse-rank and bounded symbolic ordinal controls directly into the next restart scaffold.",
+                         "Keep the line memo-only until the new order-focused task is explicit enough for an approval-candidate review."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -34,14 +34,23 @@
                             "The preserved next angle is memo-only and must not reopen execution without a new restart scaffold.",
                             "Split rotation remains inert for the current transition-orbit generator and should not be counted as new robustness evidence.",
                             "The transition-orbit execution branch has been stopped after losing mean MAE under deeper pair reindex hardening.",
-                            "Any continuation on this line now requires a new memo-level rank-stable task scaffold."
+                            "Any continuation on this line now requires a new memo-level rank-stable task scaffold.",
+                            "The corrected rank-band transition-orbit packet showed stronger witness rank structure but still failed the active MAE-first gate against bounded symbolic controls.",
+                            "The only preserved signal from the rank-band branch is ordinal, so direct reuse of the stopped regression task would be methodologically invalid."
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-rank-band-implementation-approval-gate-v1.md",
-                           "docs/research/q-rope-transition-orbit-rank-band-implementation-plan-v1.md",
+                           "src/qrope/synthetic.py",
+                           "src/qrope/run.py",
+                           "tests/test_synthetic.py",
+                           "tests/test_run_real_mode.py",
+                           "docs/research/q-rope-transition-orbit-rank-band-implementation-v1.md",
+                           "docs/research/q-rope-transition-orbit-rank-band-first-packet-v1.md",
+                           "docs/research/q-rope-transition-orbit-rank-band-decision-memo-v1.md",
+                           "docs/research/q-rope-transition-orbit-order-only-task-design-v1.md",
+                           "logs/ablation_runs/summary/transition_orbit_rank_band_v1.csv",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S359-S360 completed. The rank-band transition-orbit line is now implementation-approved in a strictly bounded local-only phase with explicit lookup-null and within-state rank-band diagnostics gating interpretation."
+    "notes":  "S361-S364 completed. The corrected rank-band transition-orbit packet is valid and preserves stronger witness ordinal structure, but the execution branch is stopped because bounded symbolic controls still win on the primary MAE gate. The line returns to memo-only order-focused design."
 }

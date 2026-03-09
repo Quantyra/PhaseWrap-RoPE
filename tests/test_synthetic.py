@@ -2,6 +2,7 @@ from qrope.synthetic import (
     content_family_name,
     generate_chart_transition_token_invariant_response_bundle,
     generate_chart_transition_orbit_response_bundle,
+    generate_transition_orbit_rank_band_response_bundle,
     generate_dual_continuous_coupled_response_bundle,
     generate_dual_latent_phase_manifold_residual_response_bundle,
     generate_dual_local_atlas_manifold_response_bundle,
@@ -276,6 +277,17 @@ def test_chart_transition_orbit_bundle_emits_required_orbit_diagnostics() -> Non
     assert diagnostics["orbit_target_invariance_pass"] is True
     assert diagnostics["orbit_target_max_abs_delta"] == 0.0
     assert diagnostics["orbit_canonical_balance_pass"] is True
+
+
+def test_transition_orbit_rank_band_bundle_emits_required_diagnostics() -> None:
+    bundle = generate_transition_orbit_rank_band_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_transition_orbit_rank_band_response"
+    assert diagnostics["coarse_rank_lookup_near_null_pass"] is True
+    assert diagnostics["within_state_rank_band_count_min"] >= 3
+    assert diagnostics["rank_band_balance_pass"] is True
+    assert diagnostics["splits"]["validation"]["target_max"] > diagnostics["splits"]["validation"]["target_min"]
+    assert diagnostics["splits"]["test"]["target_max"] > diagnostics["splits"]["test"]["target_min"]
 
 
 def test_dual_continuous_coupled_response_labels_follow_rule() -> None:

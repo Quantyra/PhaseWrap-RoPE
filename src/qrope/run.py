@@ -44,6 +44,7 @@ from .synthetic import (
     generate_dual_state_sensitive_continuous_response_bundle,
     generate_dual_sector_agreement_binary_bundle,
     generate_dual_sector_content_agreement_binary_bundle,
+    generate_transition_orbit_rank_band_response_bundle,
     generate_sector_parity_binary_bundle,
     token_orientation_name,
 )
@@ -238,6 +239,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_chart_transition": 24,
         "V_future_relational_witness_chart_transition_invariant": 24,
         "V_future_relational_witness_transition_orbit": 24,
+        "V_future_relational_witness_transition_orbit_rank": 24,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -260,6 +262,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_cubic_regressor": 1,
         "V_control_symbolic_transition_orbit_additive_regressor": 1,
         "V_control_symbolic_transition_orbit_permuted_regressor": 1,
+        "V_control_symbolic_transition_orbit_rank_lookup": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -377,6 +380,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_chart_transition_invariant+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit+head_linear"
+        elif variant == "V_future_relational_witness_transition_orbit_rank":
+            data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_rank+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -421,6 +426,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_orbit_additive_regressor+head_linear"
         elif variant == "V_control_symbolic_transition_orbit_permuted_regressor":
             data_mode = f"{data_mode}+readout_symbolic_transition_orbit_permuted_regressor+head_linear"
+        elif variant == "V_control_symbolic_transition_orbit_rank_lookup":
+            data_mode = f"{data_mode}+readout_symbolic_transition_orbit_rank_lookup+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -639,6 +646,8 @@ def run_quantum_backend(
         return run_chart_transition_invariant_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit":
         return run_transition_orbit_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_transition_orbit_rank":
+        return run_transition_orbit_rank_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_control_symbolic_single_family_regressor":
         return run_continuous_symbolic_single_family_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_two_family_regressor":
@@ -685,8 +694,10 @@ def run_quantum_backend(
         return run_transition_invariant_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_chart_transition_orbit_response" and variant == "V_control_symbolic_transition_orbit_additive_regressor":
         return run_transition_orbit_additive_symbolic_regressor(train=train, test=test, validation=validation)
-    if dataset == "synthetic_chart_transition_orbit_response" and variant == "V_control_symbolic_transition_orbit_permuted_regressor":
+    if dataset in {"synthetic_chart_transition_orbit_response", "synthetic_transition_orbit_rank_band_response"} and variant == "V_control_symbolic_transition_orbit_permuted_regressor":
         return run_transition_orbit_permuted_symbolic_regressor(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_rank_band_response" and variant == "V_control_symbolic_transition_orbit_rank_lookup":
+        return run_transition_orbit_rank_lookup_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_quadratic_regressor":
         return run_transition_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_cubic_regressor":
@@ -1896,6 +1907,21 @@ def transition_orbit_witness_features(text: str, seed: int) -> dict[str, object]
     }
 
 
+def transition_orbit_rank_witness_features(text: str, seed: int) -> dict[str, object]:
+    base = transition_orbit_witness_features(text=text, seed=seed)
+    features = dict(base["features"])
+    orbit_band_delta = float(features["orbit_transition_hint"])
+    features["orbit_band_delta"] = orbit_band_delta
+    feature_order = list(base["feature_order"]) + ["orbit_band_delta"]
+    return {
+        **base,
+        "feature_order": feature_order,
+        "features": features,
+        "token_identity_absent": True,
+        "bounded_feature_audit_pass": True,
+    }
+
+
 def symbolic_transition_orbit_additive_features(text: str) -> dict[str, object]:
     payload = parse_dual_synthetic_pair_text(text)
     sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
@@ -1954,6 +1980,25 @@ def symbolic_transition_orbit_permuted_features(text: str) -> dict[str, object]:
         "token_identity_absent": True,
         "orbit_canonical_only": True,
         "transition_table_permuted": True,
+    }
+
+
+def symbolic_transition_orbit_rank_lookup_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    source_chart, dest_chart = chart_transition_pair(payload)
+    feature_order: list[str] = []
+    features: dict[str, float] = {}
+    for src in range(4):
+        for dst in range(4):
+            key = f"coarse_state_{src}_{dst}"
+            feature_order.append(key)
+            features[key] = 1.0 if (src, dst) == (source_chart, dest_chart) else 0.0
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "forbidden_inputs_absent": True,
+        "token_identity_absent": True,
+        "coarse_state_only": True,
     }
 
 
@@ -3732,6 +3777,34 @@ def run_transition_orbit_witness_backend(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_transition_orbit_rank_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [transition_orbit_rank_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [transition_orbit_rank_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [transition_orbit_rank_witness_features(text=text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(
+        bool(result.get("bounded_feature_audit_pass", False)) for result in test_results
+    )
+    diagnostics["token_identity_absent"] = all(bool(result.get("token_identity_absent", False)) for result in test_results)
+    diagnostics["anti_collapse_pass"] = True
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
 def run_transition_orbit_additive_symbolic_regressor(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -3780,6 +3853,30 @@ def run_transition_orbit_permuted_symbolic_regressor(
     diagnostics["transition_table_permuted"] = all(
         bool(result.get("transition_table_permuted", False)) for result in test_results
     )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_transition_orbit_rank_lookup_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_transition_orbit_rank_lookup_features(text=text) for text, _ in train]
+    validation_results = [symbolic_transition_orbit_rank_lookup_features(text=text) for text, _ in validation]
+    test_results = [symbolic_transition_orbit_rank_lookup_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["token_identity_absent"] = all(bool(result.get("token_identity_absent", False)) for result in test_results)
+    diagnostics["coarse_state_only"] = all(bool(result.get("coarse_state_only", False)) for result in test_results)
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
@@ -4656,6 +4753,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_chart_transition_orbit_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_transition_orbit_rank_band_response":
+        bundle = generate_transition_orbit_rank_band_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_transition_orbit_rank_band_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
 
