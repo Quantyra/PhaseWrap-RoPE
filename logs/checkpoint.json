@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-10T10:35:00Z",
+    "timestamp_utc":  "2026-03-10T10:55:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S222"
+                              "S224"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Keep the continuous line at memo-only scope.",
-                         "Design one harder state-sensitive continuous target whose response varies within coarse agreement states.",
-                         "Require a future restart brief to prove bounded symbolic lookup insufficiency before any new implementation."
+                         "Keep the state-sensitive continuous line at memo-only scope.",
+                         "Elevate the state-sensitive continuous task from scaffold to approval-candidate only if the future control stack stays explicit.",
+                         "Do not reopen implementation until a future brief proves coarse lookup insufficiency and clarifies full symbolic baseline fairness."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -33,15 +33,12 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-continuous-target-implementation-v1.md",
-                           "docs/research/q-rope-continuous-target-first-packet-v1.md",
-                           "docs/research/q-rope-continuous-target-decision-memo-v1.md",
-                           "docs/research/q-rope-continuous-state-sensitive-task-design-v1.md",
-                           "stories/S220-continuous-target-implementation.md",
-                           "stories/S221-continuous-target-decision-memo.md",
-                           "stories/S222-continuous-state-sensitive-task-design.md",
+                           "docs/research/q-rope-state-sensitive-continuous-task-spec-v1.md",
+                           "docs/research/q-rope-state-sensitive-continuous-restart-scaffold-v1.md",
+                           "stories/S223-state-sensitive-continuous-task-spec.md",
+                           "stories/S224-state-sensitive-continuous-restart-scaffold.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S220-S222 completed. The implemented continuous target failed its bounded packet and the line has returned to memo-only posture with one harder state-sensitive continuous task direction preserved."
+    "notes":  "S223-S224 completed. The continuous line remains memo-only, now anchored to one exact harder task that requires within-state analog variation and an explicit future control stack."
 }
