@@ -92,3 +92,21 @@ def test_dual_sector_agreement_labels_follow_same_sign_rule() -> None:
         sector_a = ("P" if int(parts["a_off"]) > 0 else "N")
         sector_b = ("P" if int(parts["b_off"]) > 0 else "N")
         assert label == (1 if sector_a == sector_b else 0)
+
+
+def test_dual_sector_agreement_slot_swap_preserves_labels_and_changes_order() -> None:
+    base = generate_dual_sector_agreement_binary_bundle(seed=42, slot_swap=0)
+    swapped = generate_dual_sector_agreement_binary_bundle(seed=42, slot_swap=1)
+    assert base.train != swapped.train
+    assert swapped.diagnostics["slot_swap"] == 1
+
+    def swap_text(text: str) -> str:
+        parts = {item.split(":", 1)[0]: item.split(":", 1)[1] for item in text.split()}
+        return (
+            f"a_lt:{parts['b_lt']} a_rt:{parts['b_rt']} a_lp:{parts['b_lp']} a_rp:{parts['b_rp']} a_off:{parts['b_off']} "
+            f"b_lt:{parts['a_lt']} b_rt:{parts['a_rt']} b_lp:{parts['a_lp']} b_rp:{parts['a_rp']} b_off:{parts['a_off']}"
+        )
+
+    expected = {(swap_text(text), label) for text, label in base.train}
+    observed = set(swapped.train)
+    assert observed == expected

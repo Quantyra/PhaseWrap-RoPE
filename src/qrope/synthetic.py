@@ -62,11 +62,16 @@ def generate_sector_parity_binary_bundle(seed: int, split_rotation: int = 0) -> 
     )
 
 
-def generate_dual_sector_agreement_binary_bundle(seed: int, split_rotation: int = 0) -> SyntheticDatasetBundle:
+def generate_dual_sector_agreement_binary_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+) -> SyntheticDatasetBundle:
     return generate_dual_sector_bundle(
         seed=seed,
         dataset_name="synthetic_dual_sector_agreement_binary",
         split_rotation=split_rotation,
+        slot_swap=slot_swap,
     )
 
 
@@ -134,7 +139,12 @@ def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_
     )
 
 
-def generate_dual_sector_bundle(seed: int, dataset_name: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
+def generate_dual_sector_bundle(
+    seed: int,
+    dataset_name: str,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+) -> SyntheticDatasetBundle:
     rng = random.Random(f"{dataset_name}:{seed}")
     single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
 
@@ -171,6 +181,8 @@ def generate_dual_sector_bundle(seed: int, dataset_name: str, split_rotation: in
             for idx in range(required):
                 sample_a = bucket_a[idx]
                 sample_b = bucket_b[idx]
+                if slot_swap:
+                    sample_a, sample_b = sample_b, sample_a
                 pair_grouped[(sector_a, sector_b)].append(
                     build_dual_sample(sample_a=sample_a, sample_b=sample_b)
                 )
@@ -196,6 +208,7 @@ def generate_dual_sector_bundle(seed: int, dataset_name: str, split_rotation: in
         dataset_name=dataset_name,
         seed=seed,
         split_rotation=split_rotation,
+        slot_swap=slot_swap,
         train=sorted(train, key=dual_sample_sort_key),
         validation=sorted(validation, key=dual_sample_sort_key),
         test=sorted(test, key=dual_sample_sort_key),
@@ -345,6 +358,7 @@ def build_dual_bundle_diagnostics(
     dataset_name: str,
     seed: int,
     split_rotation: int,
+    slot_swap: int,
     train: list[DualSyntheticSample],
     validation: list[DualSyntheticSample],
     test: list[DualSyntheticSample],
@@ -358,6 +372,7 @@ def build_dual_bundle_diagnostics(
         "dataset": dataset_name,
         "seed": seed,
         "split_rotation": split_rotation,
+        "slot_swap": slot_swap,
         "sequence_length": SEQUENCE_LENGTH,
         "vocabulary": list(TOKENS),
         "offsets": list(OFFSETS),

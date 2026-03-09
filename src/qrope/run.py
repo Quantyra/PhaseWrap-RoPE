@@ -74,9 +74,11 @@ def main() -> None:
     if isinstance(dataset_block, dict):
         dataset = str(dataset_block.get("name", "unknown"))
         synthetic_split_rotation = int(dataset_block.get("split_rotation", 0))
+        synthetic_slot_swap = int(dataset_block.get("slot_swap", 0))
     else:
         dataset = str(dataset_block)
         synthetic_split_rotation = 0
+        synthetic_slot_swap = 0
     seed = int(config.get("run", {}).get("seed", 0))
     backend_block = config.get("backend", "unknown")
     if isinstance(backend_block, dict):
@@ -121,6 +123,7 @@ def main() -> None:
             pairstate_control_mode=pairstate_control_mode,
             witness_feature_mode=witness_feature_mode,
             synthetic_split_rotation=synthetic_split_rotation,
+            synthetic_slot_swap=synthetic_slot_swap,
         )
         accuracy = real_metrics["accuracy"]
         f1 = real_metrics["f1"]
@@ -203,8 +206,14 @@ def run_real_experiment(
     pairstate_control_mode: str = "aligned",
     witness_feature_mode: str = "full",
     synthetic_split_rotation: int = 0,
+    synthetic_slot_swap: int = 0,
 ) -> dict[str, Any]:
-    bundle = load_dataset_bundle(dataset, seed, split_rotation=synthetic_split_rotation)
+    bundle = load_dataset_bundle(
+        dataset,
+        seed,
+        split_rotation=synthetic_split_rotation,
+        slot_swap=synthetic_slot_swap,
+    )
     data_mode = bundle["data_mode"]
     dataset_diagnostics = bundle.get("dataset_diagnostics")
     if "rows" in bundle:
@@ -1183,7 +1192,7 @@ def run_qiskit_aer_backend(
     return train_loss, eval_loss, accuracy, f1
 
 
-def load_dataset_bundle(dataset: str, seed: int, split_rotation: int = 0) -> dict[str, Any]:
+def load_dataset_bundle(dataset: str, seed: int, split_rotation: int = 0, slot_swap: int = 0) -> dict[str, Any]:
     if dataset == "synthetic_offset_binary":
         bundle = generate_signed_offset_binary_bundle(seed=seed, split_rotation=split_rotation)
         return {
@@ -1203,7 +1212,11 @@ def load_dataset_bundle(dataset: str, seed: int, split_rotation: int = 0) -> dic
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_dual_sector_agreement_binary":
-        bundle = generate_dual_sector_agreement_binary_bundle(seed=seed, split_rotation=split_rotation)
+        bundle = generate_dual_sector_agreement_binary_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+        )
         return {
             "train": bundle.train,
             "validation": bundle.validation,
@@ -1227,8 +1240,13 @@ def load_dataset_bundle(dataset: str, seed: int, split_rotation: int = 0) -> dic
     return {"rows": generate_synthetic_dataset(dataset, seed), "data_mode": "synthetic_fallback"}
 
 
-def load_dataset_samples(dataset: str, seed: int, split_rotation: int = 0) -> tuple[list[tuple[str, int]], str]:
-    bundle = load_dataset_bundle(dataset, seed, split_rotation=split_rotation)
+def load_dataset_samples(
+    dataset: str,
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+) -> tuple[list[tuple[str, int]], str]:
+    bundle = load_dataset_bundle(dataset, seed, split_rotation=split_rotation, slot_swap=slot_swap)
     if "rows" in bundle:
         return bundle["rows"], bundle["data_mode"]
     rows = bundle["train"] + bundle["validation"] + bundle["test"]
