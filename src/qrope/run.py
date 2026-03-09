@@ -75,10 +75,12 @@ def main() -> None:
         dataset = str(dataset_block.get("name", "unknown"))
         synthetic_split_rotation = int(dataset_block.get("split_rotation", 0))
         synthetic_slot_swap = int(dataset_block.get("slot_swap", 0))
+        synthetic_token_permutation = str(dataset_block.get("token_permutation", "identity"))
     else:
         dataset = str(dataset_block)
         synthetic_split_rotation = 0
         synthetic_slot_swap = 0
+        synthetic_token_permutation = "identity"
     seed = int(config.get("run", {}).get("seed", 0))
     backend_block = config.get("backend", "unknown")
     if isinstance(backend_block, dict):
@@ -124,6 +126,7 @@ def main() -> None:
             witness_feature_mode=witness_feature_mode,
             synthetic_split_rotation=synthetic_split_rotation,
             synthetic_slot_swap=synthetic_slot_swap,
+            synthetic_token_permutation=synthetic_token_permutation,
         )
         accuracy = real_metrics["accuracy"]
         f1 = real_metrics["f1"]
@@ -207,12 +210,14 @@ def run_real_experiment(
     witness_feature_mode: str = "full",
     synthetic_split_rotation: int = 0,
     synthetic_slot_swap: int = 0,
+    synthetic_token_permutation: str = "identity",
 ) -> dict[str, Any]:
     bundle = load_dataset_bundle(
         dataset,
         seed,
         split_rotation=synthetic_split_rotation,
         slot_swap=synthetic_slot_swap,
+        token_permutation=synthetic_token_permutation,
     )
     data_mode = bundle["data_mode"]
     dataset_diagnostics = bundle.get("dataset_diagnostics")
@@ -1192,7 +1197,13 @@ def run_qiskit_aer_backend(
     return train_loss, eval_loss, accuracy, f1
 
 
-def load_dataset_bundle(dataset: str, seed: int, split_rotation: int = 0, slot_swap: int = 0) -> dict[str, Any]:
+def load_dataset_bundle(
+    dataset: str,
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+) -> dict[str, Any]:
     if dataset == "synthetic_offset_binary":
         bundle = generate_signed_offset_binary_bundle(seed=seed, split_rotation=split_rotation)
         return {
@@ -1216,6 +1227,7 @@ def load_dataset_bundle(dataset: str, seed: int, split_rotation: int = 0, slot_s
             seed=seed,
             split_rotation=split_rotation,
             slot_swap=slot_swap,
+            token_permutation=token_permutation,
         )
         return {
             "train": bundle.train,
@@ -1245,8 +1257,15 @@ def load_dataset_samples(
     seed: int,
     split_rotation: int = 0,
     slot_swap: int = 0,
+    token_permutation: str = "identity",
 ) -> tuple[list[tuple[str, int]], str]:
-    bundle = load_dataset_bundle(dataset, seed, split_rotation=split_rotation, slot_swap=slot_swap)
+    bundle = load_dataset_bundle(
+        dataset,
+        seed,
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+    )
     if "rows" in bundle:
         return bundle["rows"], bundle["data_mode"]
     rows = bundle["train"] + bundle["validation"] + bundle["test"]
