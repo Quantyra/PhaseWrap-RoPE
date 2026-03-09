@@ -1,18 +1,18 @@
 ﻿{
-    "timestamp_utc":  "2026-03-10T05:39:00Z",
+    "timestamp_utc":  "2026-03-10T05:46:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S199"
+                              "S200"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Run the strict implementation-approval gate for the harder dual content-coupled path.",
-                         "Decide approve vs hold against the fixed scaffold only.",
-                         "If approved, require a strict implementation plan next."
+                         "Translate the approved harder dual content-coupled path into a strict implementation plan.",
+                         "Fix writable scope, fixed packet, and allowed candidate/control families.",
+                         "Do not open code until the implementation plan is explicit."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S198 completed. The next memo-only step is the implementation-approval gate for the harder dual content-coupled path."
+    "notes":  "S199 completed. The next step is the strict implementation plan for the harder dual content-coupled path."
 }
