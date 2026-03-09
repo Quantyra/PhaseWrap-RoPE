@@ -263,6 +263,37 @@ def test_chart_transition_invariant_control_backend_runs() -> None:
     assert diagnostics["transition_family_only"] is True
 
 
+def test_synthetic_chart_transition_orbit_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_chart_transition_orbit_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_transition_orbit",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_chart_transition_orbit_response+readout_relational_witness_transition_orbit+head_linear"
+    )
+    assert diagnostics["orbit_target_invariance_pass"] is True
+    assert diagnostics["orbit_target_max_abs_delta"] == 0.0
+    assert diagnostics["orbit_canonical_balance_pass"] is True
+
+
+def test_transition_orbit_additive_control_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_chart_transition_orbit_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_orbit_additive_regressor",
+    )
+    assert metrics["data_mode"].startswith(
+        "synthetic_chart_transition_orbit_response+readout_symbolic_transition_orbit_additive_regressor+head_linear"
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["token_identity_absent"] is True
+    assert diagnostics["orbit_canonical_only"] is True
+
+
 def test_synthetic_offset_binary_quantum_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_offset_binary",

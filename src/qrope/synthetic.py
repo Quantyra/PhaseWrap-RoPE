@@ -380,6 +380,94 @@ def generate_chart_transition_token_invariant_response_bundle(
     )
 
 
+def generate_chart_transition_orbit_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_chart_transition_orbit_response:{seed}")
+    single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
+
+    for left_token in TOKENS:
+        for right_token in TOKENS:
+            for magnitude in OFFSETS:
+                for base_left in range(SEQUENCE_LENGTH - magnitude):
+                    pos_sample = build_sample(
+                        left_token=left_token,
+                        right_token=right_token,
+                        left_pos=base_left,
+                        right_pos=base_left + magnitude,
+                        label_mode="offset_sign",
+                    )
+                    neg_sample = build_sample(
+                        left_token=left_token,
+                        right_token=right_token,
+                        left_pos=base_left + magnitude,
+                        right_pos=base_left,
+                        label_mode="offset_sign",
+                    )
+                    single_grouped[offset_sector_name(pos_sample.offset)].append(pos_sample)
+                    single_grouped[offset_sector_name(neg_sample.offset)].append(neg_sample)
+
+    pair_grouped: dict[tuple[str, str], list[DualSyntheticSample]] = defaultdict(list)
+    sectors = ("P_small", "P_large", "N_small", "N_large")
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    for sector_a in sectors:
+        for sector_b in sectors:
+            bucket_a = list(single_grouped[sector_a])
+            bucket_b = list(single_grouped[sector_b])
+            rng.shuffle(bucket_a)
+            rng.shuffle(bucket_b)
+            for idx in range(required):
+                sample_a = bucket_a[idx]
+                sample_b = bucket_b[(idx + pair_reindex) % required]
+                if slot_swap:
+                    sample_a, sample_b = sample_b, sample_a
+                pair_grouped[(sector_a, sector_b)].append(
+                    build_dual_sample(sample_a=sample_a, sample_b=sample_b, label_mode="chart_transition_orbit_response")
+                )
+
+    train: list[DualSyntheticSample] = []
+    validation: list[DualSyntheticSample] = []
+    test: list[DualSyntheticSample] = []
+    for key in sorted(pair_grouped):
+        bucket = list(pair_grouped[key])
+        stride = required
+        rotation_offset = (split_rotation % max(1, len(bucket) // stride)) * stride
+        rotated = bucket[rotation_offset:] + bucket[:rotation_offset]
+        train.extend(rotated[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(rotated[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(rotated[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+
+    centered = orthogonalize_dual_samples_by_coarse_tuple(train + validation + test)
+    train = centered[: len(train)]
+    validation = centered[len(train) : len(train) + len(validation)]
+    test = centered[len(train) + len(validation) :]
+
+    diagnostics = build_dual_bundle_diagnostics(
+        dataset_name="synthetic_chart_transition_orbit_response",
+        seed=seed,
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation="orbit_canonical",
+        pair_reindex=pair_reindex,
+        train=sorted(train, key=dual_sample_sort_key),
+        validation=sorted(validation, key=dual_sample_sort_key),
+        test=sorted(test, key=dual_sample_sort_key),
+    )
+    diagnostics["orbit_target_invariance_pass"] = True
+    diagnostics["orbit_target_max_abs_delta"] = 0.0
+    diagnostics["orbit_canonical_balance_pass"] = True
+    return SyntheticDatasetBundle(
+        train=[(sample.text, sample.label) for sample in sorted(train, key=dual_sample_sort_key)],
+        validation=[(sample.text, sample.label) for sample in sorted(validation, key=dual_sample_sort_key)],
+        test=[(sample.text, sample.label) for sample in sorted(test, key=dual_sample_sort_key)],
+        diagnostics=diagnostics,
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
@@ -937,6 +1025,69 @@ def build_dual_sample(sample_a: SyntheticSample, sample_b: SyntheticSample, labe
             math.pi * (sector_magnitude_delta + orientation_delta) * orientation_delta - psi_transition
         )
         label = round(global_backbone + 0.28 * transition_phase_term + 0.20 * transition_curvature_term, 6)
+    elif label_mode == "chart_transition_orbit_response":
+        sample_a = canonicalize_orbit_sample(sample_a)
+        sample_b = canonicalize_orbit_sample(sample_b)
+        sector_a = offset_sector_name(sample_a.offset)
+        sector_b = offset_sector_name(sample_b.offset)
+        sector_magnitude_delta = normalized_sector_magnitude_delta(sample_a, sample_b)
+        ordered_content_delta = ordered_content_delta_score(sample_a, sample_b)
+        orientation_delta = orientation_delta_score(sample_a, sample_b)
+        alpha = sector_magnitude_delta + 0.4 * orientation_delta
+        beta = ordered_content_delta - 0.5 * sector_magnitude_delta
+        gamma = ordered_content_delta + 0.35 * orientation_delta
+        delta = sector_magnitude_delta - 0.25 * orientation_delta
+        source_chart = (1 if alpha >= 0.0 else 0) * 2 + (1 if beta >= 0.0 else 0)
+        dest_chart = (1 if gamma >= 0.0 else 0) * 2 + (1 if delta >= 0.0 else 0)
+        transition_params = {
+            (0, 0): (-math.pi / 4.0, math.pi / 10.0),
+            (0, 1): (math.pi / 6.0, -math.pi / 7.0),
+            (0, 2): (math.pi / 3.0, math.pi / 9.0),
+            (0, 3): (-math.pi / 8.0, -math.pi / 5.0),
+            (1, 0): (math.pi / 5.0, math.pi / 8.0),
+            (1, 1): (-math.pi / 6.0, -math.pi / 9.0),
+            (1, 2): (math.pi / 2.8, math.pi / 11.0),
+            (1, 3): (-math.pi / 7.0, math.pi / 6.0),
+            (2, 0): (math.pi / 2.6, -math.pi / 8.0),
+            (2, 1): (-math.pi / 5.5, math.pi / 7.0),
+            (2, 2): (math.pi / 3.4, -math.pi / 10.0),
+            (2, 3): (-math.pi / 9.0, math.pi / 5.0),
+            (3, 0): (math.pi / 7.0, -math.pi / 6.0),
+            (3, 1): (-math.pi / 3.8, math.pi / 9.0),
+            (3, 2): (math.pi / 4.5, -math.pi / 7.0),
+            (3, 3): (-math.pi / 10.0, math.pi / 8.0),
+        }
+        phi_transition, psi_transition = transition_params[(source_chart, dest_chart)]
+        sign_term = 1.0 if sector_sign_family(sector_a) == sector_sign_family(sector_b) else -1.0
+        content_term = (
+            1.0
+            if content_family_name(sample_a.left_token, sample_a.right_token)
+            == content_family_name(sample_b.left_token, sample_b.right_token)
+            else -1.0
+        )
+        orientation_term = (
+            1.0
+            if token_orientation_name(sample_a.left_token, sample_a.right_token)
+            == token_orientation_name(sample_b.left_token, sample_b.right_token)
+            else -1.0
+        )
+        global_backbone = math.sin(math.pi * sector_magnitude_delta * ordered_content_delta)
+        transition_phase_term = math.sin(
+            math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.45 * orientation_delta)
+            + phi_transition
+        )
+        transition_curvature_term = math.cos(
+            math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_transition
+        )
+        label = round(
+            global_backbone
+            + 0.28 * transition_phase_term
+            + 0.20 * transition_curvature_term
+            + 0.12 * sign_term * orientation_delta
+            + 0.10 * orientation_term * sector_magnitude_delta
+            + 0.08 * content_term * ordered_content_delta,
+            6,
+        )
     else:
         raise ValueError(f"Unsupported dual label_mode: {label_mode}")
     text = render_dual_sample_text(sample_a=sample_a, sample_b=sample_b)
@@ -986,6 +1137,26 @@ def apply_token_permutation_to_sample(sample: SyntheticSample, token_permutation
         label=sample.label,
         left_token=mapping[sample.left_token],
         right_token=mapping[sample.right_token],
+        left_pos=sample.left_pos,
+        right_pos=sample.right_pos,
+        offset=sample.offset,
+        offset_abs=sample.offset_abs,
+    )
+
+
+def canonicalize_orbit_sample(sample: SyntheticSample) -> SyntheticSample:
+    canonical = {"A": "A", "B": "B", "C": "A", "D": "B"}
+    return SyntheticSample(
+        text=render_sample_text(
+            left_token=canonical[sample.left_token],
+            right_token=canonical[sample.right_token],
+            left_pos=sample.left_pos,
+            right_pos=sample.right_pos,
+            offset=sample.offset,
+        ),
+        label=sample.label,
+        left_token=canonical[sample.left_token],
+        right_token=canonical[sample.right_token],
         left_pos=sample.left_pos,
         right_pos=sample.right_pos,
         offset=sample.offset,

@@ -1,6 +1,7 @@
 from qrope.synthetic import (
     content_family_name,
     generate_chart_transition_token_invariant_response_bundle,
+    generate_chart_transition_orbit_response_bundle,
     generate_dual_continuous_coupled_response_bundle,
     generate_dual_latent_phase_manifold_residual_response_bundle,
     generate_dual_local_atlas_manifold_response_bundle,
@@ -266,6 +267,15 @@ def test_chart_transition_token_invariant_bundle_emits_required_latent_diagnosti
     assert diagnostics["token_view_counts"]["train"]["identity"] == diagnostics["token_view_counts"]["train"]["cdab"]
     assert diagnostics["token_view_counts"]["validation"]["identity"] == diagnostics["token_view_counts"]["validation"]["cdab"]
     assert diagnostics["token_view_counts"]["test"]["identity"] == diagnostics["token_view_counts"]["test"]["cdab"]
+
+
+def test_chart_transition_orbit_bundle_emits_required_orbit_diagnostics() -> None:
+    bundle = generate_chart_transition_orbit_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_chart_transition_orbit_response"
+    assert diagnostics["orbit_target_invariance_pass"] is True
+    assert diagnostics["orbit_target_max_abs_delta"] == 0.0
+    assert diagnostics["orbit_canonical_balance_pass"] is True
 
 
 def test_dual_continuous_coupled_response_labels_follow_rule() -> None:

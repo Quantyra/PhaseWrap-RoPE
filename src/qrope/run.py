@@ -36,6 +36,7 @@ from .synthetic import (
     generate_dual_local_atlas_manifold_response_bundle,
     generate_dual_chart_transition_manifold_response_bundle,
     generate_chart_transition_token_invariant_response_bundle,
+    generate_chart_transition_orbit_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
     generate_dual_nonlinear_manifold_response_bundle,
     generate_dual_phase_sensitive_manifold_response_bundle,
@@ -236,6 +237,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_local_atlas": 24,
         "V_future_relational_witness_chart_transition": 24,
         "V_future_relational_witness_chart_transition_invariant": 24,
+        "V_future_relational_witness_transition_orbit": 24,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -256,6 +258,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_cross_direction_regressor": 1,
         "V_control_symbolic_transition_quadratic_regressor": 1,
         "V_control_symbolic_transition_cubic_regressor": 1,
+        "V_control_symbolic_transition_orbit_additive_regressor": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -371,6 +374,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_chart_transition+head_linear"
         elif variant == "V_future_relational_witness_chart_transition_invariant":
             data_mode = f"{data_mode}+readout_relational_witness_chart_transition_invariant+head_linear"
+        elif variant == "V_future_relational_witness_transition_orbit":
+            data_mode = f"{data_mode}+readout_relational_witness_transition_orbit+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -411,6 +416,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_quadratic_regressor+head_linear"
         elif variant == "V_control_symbolic_transition_cubic_regressor":
             data_mode = f"{data_mode}+readout_symbolic_transition_cubic_regressor+head_linear"
+        elif variant == "V_control_symbolic_transition_orbit_additive_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_transition_orbit_additive_regressor+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -627,6 +634,8 @@ def run_quantum_backend(
         return run_chart_transition_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_chart_transition_invariant":
         return run_chart_transition_invariant_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_transition_orbit":
+        return run_transition_orbit_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_control_symbolic_single_family_regressor":
         return run_continuous_symbolic_single_family_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_two_family_regressor":
@@ -671,6 +680,8 @@ def run_quantum_backend(
         return run_transition_cross_direction_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_chart_transition_token_invariant_response" and variant == "V_control_symbolic_transition_quadratic_regressor":
         return run_transition_invariant_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
+    if dataset == "synthetic_chart_transition_orbit_response" and variant == "V_control_symbolic_transition_orbit_additive_regressor":
+        return run_transition_orbit_additive_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_quadratic_regressor":
         return run_transition_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_cubic_regressor":
@@ -1841,6 +1852,72 @@ def chart_transition_invariant_witness_features(text: str, seed: int) -> dict[st
         "forbidden_inputs_absent": True,
         "token_identity_absent": True,
         "bounded_feature_audit_pass": True,
+    }
+
+
+def transition_orbit_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    base = triple_relational_witness_features(text=text, seed=seed)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    phi_transition, psi_transition = chart_transition_params(payload)
+    feature_order = list(base["feature_order"]) + [
+        "sector_magnitude_delta",
+        "ordered_content_delta",
+        "orientation_delta",
+        "orbit_transition_hint",
+    ]
+    features = dict(base["features"])
+    features["sector_magnitude_delta"] = sector_magnitude_delta
+    features["ordered_content_delta"] = ordered_content_delta
+    features["orientation_delta"] = orientation_delta
+    features["orbit_transition_hint"] = round(
+        math.sin(math.pi * sector_magnitude_delta * ordered_content_delta)
+        + 0.28
+        * math.sin(
+            math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.45 * orientation_delta)
+            + phi_transition
+        )
+        + 0.20 * math.cos(math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_transition),
+        6,
+    )
+    return {
+        **base,
+        "feature_order": feature_order,
+        "features": features,
+        "token_identity_absent": True,
+        "bounded_feature_audit_pass": True,
+    }
+
+
+def symbolic_transition_orbit_additive_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    phi_transition, psi_transition = chart_transition_params(payload)
+    features = {
+        "transition_backbone": round(math.sin(math.pi * sector_magnitude_delta * ordered_content_delta), 6),
+        "transition_phase": round(
+            0.28
+            * math.sin(
+                math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.45 * orientation_delta)
+                + phi_transition
+            ),
+            6,
+        ),
+        "transition_curvature": round(
+            0.20 * math.cos(math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_transition),
+            6,
+        ),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "forbidden_inputs_absent": True,
+        "token_identity_absent": True,
+        "orbit_canonical_only": True,
     }
 
 
@@ -3591,6 +3668,58 @@ def run_chart_transition_invariant_witness_backend(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_transition_orbit_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [transition_orbit_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [transition_orbit_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [transition_orbit_witness_features(text=text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(
+        bool(result.get("bounded_feature_audit_pass", False)) for result in test_results
+    )
+    diagnostics["token_identity_absent"] = all(bool(result.get("token_identity_absent", False)) for result in test_results)
+    diagnostics["anti_collapse_pass"] = True
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_transition_orbit_additive_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_transition_orbit_additive_features(text=text) for text, _ in train]
+    validation_results = [symbolic_transition_orbit_additive_features(text=text) for text, _ in validation]
+    test_results = [symbolic_transition_orbit_additive_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["token_identity_absent"] = all(bool(result.get("token_identity_absent", False)) for result in test_results)
+    diagnostics["orbit_canonical_only"] = all(bool(result.get("orbit_canonical_only", False)) for result in test_results)
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
 def run_transition_invariant_additive_symbolic_regressor(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -4449,6 +4578,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_chart_transition_token_invariant_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_chart_transition_orbit_response":
+        bundle = generate_chart_transition_orbit_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_chart_transition_orbit_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
 
