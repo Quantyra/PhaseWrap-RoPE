@@ -783,3 +783,61 @@ def test_continuous_symbolic_boolean_state_lookup_runs() -> None:
     assert metrics["data_mode"].endswith("readout_symbolic_boolean_state_lookup+head_linear")
     assert "state_same__same__same" in diagnostics["feature_order"]
     assert diagnostics["forbidden_inputs_absent"] is True
+
+
+def test_state_sensitive_continuous_loader_path() -> None:
+    rows, mode = load_dataset_samples(dataset="synthetic_dual_state_sensitive_continuous_response", seed=42)
+    assert len(rows) == 64
+    assert mode == "synthetic_dual_state_sensitive_continuous_response"
+
+
+def test_state_sensitive_continuous_witness_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_state_sensitive_continuous_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_state_sensitive",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_relational_witness_state_sensitive+head_linear")
+    assert metrics["extra_metrics"]["mae"] >= 0.0
+    assert "sign_mag_coupling" in diagnostics["feature_order"]
+    assert diagnostics["bounded_feature_audit_pass"] is True
+    assert diagnostics["anti_collapse_pass"] is True
+
+
+def test_state_sensitive_symbolic_coarse_lookup_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_state_sensitive_continuous_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_coarse_lookup_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_coarse_lookup_regressor+head_linear")
+    assert diagnostics["feature_order"] == ["sign_agreement", "content_agreement", "orientation_agreement"]
+
+
+def test_state_sensitive_symbolic_analog_only_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_state_sensitive_continuous_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_analog_only_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_analog_only_regressor+head_linear")
+    assert diagnostics["feature_order"] == ["sector_magnitude_delta", "ordered_content_delta"]
+
+
+def test_state_sensitive_symbolic_full_declared_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_state_sensitive_continuous_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_full_declared_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_full_declared_regressor+head_linear")
+    assert "ordered_content_delta" in diagnostics["feature_order"]
+    assert "sector_magnitude_delta" in diagnostics["feature_order"]
