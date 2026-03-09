@@ -1,42 +1,46 @@
 {
-    "timestamp_utc":  "2026-03-10T12:50:00Z",
-    "current_epic_id":  "E001",
-    "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
-    "current_epic_status":  "Paused",
-    "current_story_ids":  [
-                              "S235"
-                          ],
-    "active_workers":  {
-
-                       },
-    "next_actions":  [
-                         "Implement `synthetic_dual_orthogonalized_continuous_response` and the fixed candidate/control stack only.",
-                         "Run the fixed three-seed packet on `sim_quantum_statevector`.",
-                         "Emit auditable orthogonalization and regression diagnostics for all variants."
-                     ],
-    "risks_or_blocks":  [
-                            "Novelty remains conditional until empirical ablation results are collected.",
-                            "Benchmark breadth risk remains if phase-1 includes only text classification.",
-                            "Cloud provider API/platform changes may require periodic strategy updates.",
-                            "Current matrix is fully real-mode but based on small handcrafted local datasets.",
-                            "Local handcrafted datasets may not reflect production distributions.",
-                            "Quandela remote path currently supports a provider-accepted minimal circuit and reduced slice size rather than a matched full benchmark matrix.",
-                            "IBM open-instance backend availability and latency may vary across sessions.",
-                            "Matched remote evidence is still limited to one dataset, one seed, and non-identical circuit families.",
-                            "Current `V2` asymmetry across providers may be seed-sensitive and should not be over-interpreted.",
-                            "The Quandela adapter currently has a provider-rejected parameter regime that blocks some seeds.",
-                            "Retry/cache-reset hardening improved but did not eliminate Quandela coverage gaps.",
-                            "Sample-level skip policy still leaves some Quandela seed/variant combinations non-viable.",
-                            "Direct Quandela execution depends on maintaining sufficient provider credits.",
-                            "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
-                            "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage."
-                        ],
-    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
-    "recent_changes":  [
-                           "docs/research/q-rope-orthogonalized-continuous-implementation-plan-v1.md",
-                           "stories/S235-orthogonalized-continuous-implementation-plan.md",
-                           "docs/evidence/E001-evidence-log.md",
-                           "logs/checkpoint.json"
-                       ],
-    "notes":  "S235 completed. The orthogonalized continuous branch now has a strict implementation plan and is ready for one bounded local packet."
+    "timestamp_utc": "2026-03-10T13:25:00Z",
+    "current_epic_id": "E001",
+    "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
+    "current_epic_status": "Paused",
+    "current_story_ids": [
+        "S238"
+    ],
+    "active_workers": {},
+    "next_actions": [
+        "Preserve the nonlinear analog manifold task as the next memo-only continuous direction.",
+        "Do not reopen implementation until a future restart brief proves coarse lookup near-null and additive analog insufficiency by construction.",
+        "Keep the orthogonalized continuous branch closed with no further packet expansion."
+    ],
+    "risks_or_blocks": [
+        "Novelty remains conditional until empirical ablation results are collected.",
+        "Benchmark breadth risk remains if phase-1 includes only text classification.",
+        "Cloud provider API/platform changes may require periodic strategy updates.",
+        "Current matrix is fully real-mode but based on small handcrafted local datasets.",
+        "Local handcrafted datasets may not reflect production distributions.",
+        "Quandela remote path currently supports a provider-accepted minimal circuit and reduced slice size rather than a matched full benchmark matrix.",
+        "IBM open-instance backend availability and latency may vary across sessions.",
+        "Matched remote evidence is still limited to one dataset, one seed, and non-identical circuit families.",
+        "Current `V2` asymmetry across providers may be seed-sensitive and should not be over-interpreted.",
+        "The Quandela adapter currently has a provider-rejected parameter regime that blocks some seeds.",
+        "Retry/cache-reset hardening improved but did not eliminate Quandela coverage gaps.",
+        "Sample-level skip policy still leaves some Quandela seed/variant combinations non-viable.",
+        "Direct Quandela execution depends on maintaining sufficient provider credits.",
+        "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
+        "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
+        "Orthogonalized continuous branch weakened the coarse-state shortcut but remained beatable by stronger additive analog symbolic controls.",
+        "Future continuous tasks must suppress both coarse lookup and simple additive analog shortcuts by construction."
+    ],
+    "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
+    "recent_changes": [
+        "docs/research/q-rope-orthogonalized-continuous-implementation-v1.md",
+        "docs/research/q-rope-orthogonalized-continuous-first-packet-v1.md",
+        "docs/research/q-rope-orthogonalized-continuous-decision-memo-v1.md",
+        "docs/research/q-rope-nonlinear-analog-manifold-task-design-v1.md",
+        "stories/S236-orthogonalized-continuous-implementation.md",
+        "stories/S237-orthogonalized-continuous-decision-memo.md",
+        "stories/S238-nonlinear-analog-manifold-task-design.md",
+        "docs/evidence/E001-evidence-log.md"
+    ],
+    "notes": "S236-S238 completed. The orthogonalized continuous branch improved fairness against the coarse lookup baseline but still lost to stronger additive analog controls, so the line returns to memo-only posture with nonlinear analog manifold design preserved as the next future angle."
 }
