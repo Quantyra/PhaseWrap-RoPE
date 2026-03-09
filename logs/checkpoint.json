@@ -1,18 +1,18 @@
 ﻿{
-    "timestamp_utc":  "2026-03-10T03:28:00Z",
+    "timestamp_utc":  "2026-03-10T03:35:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S183"
+                              "S184"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Define one deterministic global token-renaming control for the dual-sector task.",
-                         "Keep labels unchanged and preserve the fixed six-run packet scope.",
-                         "Rerun only after the token-renaming plan is explicitly recorded."
+                         "Implement one deterministic token-permutation control in the dual-sector generator.",
+                         "Rerun the fixed six-run packet with the same candidate, control, and seeds.",
+                         "Compare the renamed packet directly against the original and slot-swap packets."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S182 completed. The next bounded hardening step is deterministic token renaming on the dual-sector task with the same candidate, control, and seeds."
+    "notes":  "S183 completed. The next bounded hardening step is token-renaming execution on the dual-sector task with the same candidate, control, and seeds."
 }
