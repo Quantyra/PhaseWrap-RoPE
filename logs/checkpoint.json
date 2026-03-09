@@ -1,15 +1,15 @@
 {
-    "timestamp_utc": "2026-03-10T14:55:00Z",
+    "timestamp_utc": "2026-03-10T15:15:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S249"
+        "S252"
     ],
     "active_workers": {},
     "next_actions": [
-        "Preserve the phase-sensitive manifold task as the next memo-only nonlinear direction.",
-        "Do not reopen implementation until a future restart brief proves insufficiency of coarse lookup, additive analog controls, and the current direct nonlinear symbolic control family.",
+        "Keep the phase-sensitive manifold path at approval-candidate posture until a strict implementation gate is written.",
+        "Do not reopen implementation until the gate fixes the candidate, control stack, and packet without ambiguity.",
         "Keep the current nonlinear manifold task closed with no further packet expansion."
     ],
     "risks_or_blocks": [
@@ -28,16 +28,17 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The current nonlinear manifold task is exhausted as a uniqueness test because a bounded direct nonlinear symbolic control now matches or beats the witness on the primary metric."
+        "The phase-sensitive manifold path is only approval-candidate; implementation still needs to prove the phase-insensitive nonlinear controls are bounded correctly."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "src/qrope/run.py",
-        "tests/test_run_real_mode.py",
-        "docs/research/q-rope-nonlinear-symbolic-control-v1.md",
-        "docs/research/q-rope-nonlinear-manifold-post-control-decision-v1.md",
-        "docs/research/q-rope-phase-sensitive-manifold-task-design-v1.md",
+        "docs/research/q-rope-phase-sensitive-manifold-task-spec-v1.md",
+        "docs/research/q-rope-phase-sensitive-manifold-restart-scaffold-v1.md",
+        "docs/research/q-rope-phase-sensitive-manifold-approval-candidate-v1.md",
+        "stories/S250-phase-sensitive-manifold-task-specification.md",
+        "stories/S251-phase-sensitive-manifold-restart-scaffold.md",
+        "stories/S252-phase-sensitive-manifold-approval-candidate-memo.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S247-S249 completed. The nonlinear manifold branch beat additive controls but lost its uniqueness test against the bounded nonlinear symbolic control, so the current task returns to memo-only posture and the next preserved angle is a phase-sensitive manifold residual response family."
+    "notes": "S250-S252 completed. The next nonlinear line is now a phase-sensitive manifold path with one exact task, one fixed control stack that includes the prior successful nonlinear family, and approval-candidate status, but implementation remains closed pending a strict gate."
 }
