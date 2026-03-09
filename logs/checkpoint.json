@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T18:30:00Z",
+    "timestamp_utc": "2026-03-10T18:45:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S268"
+        "S270"
     ],
     "active_workers": {},
     "next_actions": [
-        "Keep the local atlas manifold line memo-only until a future implementation-approval gate proves the chart-assignment rule and bounded single-chart control are sufficiently explicit.",
-        "Do not reopen implementation until the local atlas manifold path has a strict approval gate with a bounded local-only, zero-credit first packet.",
-        "Keep the current latent phase manifold task closed with no further packet expansion."
+        "Implement the local atlas manifold path only within the approved bounded scope.",
+        "Run the fixed local-only, zero-credit three-seed packet with one witness candidate and six fixed controls.",
+        "Stop the branch immediately after the first packet unless the candidate beats every control on the primary regression metric."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,19 +28,17 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The latent phase manifold task is exhausted as a uniqueness test because bounded analog, nonlinear manifold, and global-phase symbolic controls beat the witness on the primary metric.",
-        "The local atlas manifold path is still memo-only and may fail if its chart-local residual can be approximated by one bounded single-chart symbolic control."
+        "The local atlas manifold branch may still fail if its chart-local residual is recoverable by a bounded single-chart symbolic comparator."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-latent-phase-manifold-implementation-v1.md",
-        "docs/research/q-rope-latent-phase-manifold-first-packet-v1.md",
-        "docs/research/q-rope-latent-phase-manifold-decision-memo-v1.md",
         "docs/research/q-rope-local-atlas-manifold-task-design-v1.md",
         "docs/research/q-rope-local-atlas-manifold-task-spec-v1.md",
         "docs/research/q-rope-local-atlas-manifold-restart-scaffold-v1.md",
         "docs/research/q-rope-local-atlas-manifold-approval-candidate-v1.md",
+        "docs/research/q-rope-local-atlas-manifold-implementation-approval-gate-v1.md",
+        "docs/research/q-rope-local-atlas-manifold-implementation-plan-v1.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S266-S268 completed. The next preserved direction is the local atlas manifold residual-response line, now elevated to approval-candidate posture but still memo-only until a future implementation gate is written and passed."
+    "notes": "S269-S270 completed. The local atlas manifold branch is now implementation-approved, but only for one strictly bounded local synthetic packet against the fixed six-control stack."
 }
