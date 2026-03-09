@@ -18,6 +18,7 @@ As a research lead, I want one explicit implementation approval decision for the
 
 ## Evidence and references
 - `docs/research/q-rope-dual-sector-agreement-approval-candidate-v1.md`
+- `docs/research/q-rope-dual-sector-agreement-implementation-approval-gate-v1.md`
 
 ## Out of scope
 - Implementation itself
@@ -35,3 +36,4 @@ As a research lead, I want one explicit implementation approval decision for the
 
 ## Cycle time
 - Start: 2026-03-08 14:10 (Pacific/Honolulu)
+- End: 2026-03-08 14:17 (Pacific/Honolulu)
