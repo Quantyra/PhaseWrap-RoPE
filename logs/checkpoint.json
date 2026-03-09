@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-10T08:35:00Z",
+    "timestamp_utc":  "2026-03-10T08:55:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S209"
+                              "S211"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Implement the triple-family witness task, one candidate, and the fixed five-control stack only.",
-                         "Run the fixed first packet on seeds 42, 123, 777.",
-                         "Emit auditable diagnostics for all variants."
+                         "Implement one symbolic three-family parity control only.",
+                         "Run the same fixed triple-family packet on seeds 42, 123, 777.",
+                         "Decide whether the triple-family branch remains unique after the new control."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -33,11 +33,14 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-triple-family-implementation-approval-gate-v1.md",
-                           "docs/research/q-rope-triple-family-implementation-plan-v1.md",
-                           "stories/S209-triple-family-implementation.md",
+                           "docs/research/q-rope-triple-family-first-packet-v1.md",
+                           "docs/research/q-rope-triple-family-post-packet-decision-v1.md",
+                           "docs/research/q-rope-triple-family-symbolic-parity-control-plan-v1.md",
+                           "stories/S210-triple-family-post-packet-decision.md",
+                           "stories/S211-triple-family-symbolic-parity-control-plan.md",
+                           "logs/ablation_runs/summary/triple_family_v1.csv",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S207-S208 completed. The triple-family witness branch is approved for one strictly bounded local synthetic implementation phase."
+    "notes":  "S209 completed. The triple-family witness branch cleared the approved bounded control stack. The next bounded fairness test is a direct symbolic three-family parity control."
 }
