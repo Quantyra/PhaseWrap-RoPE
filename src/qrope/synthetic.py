@@ -79,6 +79,24 @@ def generate_dual_sector_agreement_binary_bundle(
     )
 
 
+def generate_dual_sector_content_agreement_binary_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    return generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_dual_sector_content_agreement_binary",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="sector_content_xnor",
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
@@ -150,6 +168,7 @@ def generate_dual_sector_bundle(
     slot_swap: int = 0,
     token_permutation: str = "identity",
     pair_reindex: int = 0,
+    label_mode: str = "same_sign",
 ) -> SyntheticDatasetBundle:
     rng = random.Random(f"{dataset_name}:{seed}")
     single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
@@ -184,16 +203,28 @@ def generate_dual_sector_bundle(
             rng.shuffle(bucket_a)
             rng.shuffle(bucket_b)
             required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
-            for idx in range(required):
-                sample_a = bucket_a[idx]
-                sample_b = bucket_b[(idx + pair_reindex) % required]
-                if slot_swap:
-                    sample_a, sample_b = sample_b, sample_a
-                sample_a = apply_token_permutation_to_sample(sample_a, token_permutation)
-                sample_b = apply_token_permutation_to_sample(sample_b, token_permutation)
-                pair_grouped[(sector_a, sector_b)].append(
-                    build_dual_sample(sample_a=sample_a, sample_b=sample_b)
+            if label_mode == "sector_content_xnor":
+                pair_grouped[(sector_a, sector_b)].extend(
+                    build_balanced_content_pairs(
+                        bucket_a=bucket_a,
+                        bucket_b=bucket_b,
+                        required=required,
+                        token_permutation=token_permutation,
+                        slot_swap=slot_swap,
+                        pair_reindex=pair_reindex,
+                    )
                 )
+            else:
+                for idx in range(required):
+                    sample_a = bucket_a[idx]
+                    sample_b = bucket_b[(idx + pair_reindex) % required]
+                    if slot_swap:
+                        sample_a, sample_b = sample_b, sample_a
+                    sample_a = apply_token_permutation_to_sample(sample_a, token_permutation)
+                    sample_b = apply_token_permutation_to_sample(sample_b, token_permutation)
+                    pair_grouped[(sector_a, sector_b)].append(
+                        build_dual_sample(sample_a=sample_a, sample_b=sample_b, label_mode=label_mode)
+                    )
 
     train: list[DualSyntheticSample] = []
     validation: list[DualSyntheticSample] = []
@@ -231,6 +262,51 @@ def generate_dual_sector_bundle(
     )
 
 
+def build_balanced_content_pairs(
+    bucket_a: list[SyntheticSample],
+    bucket_b: list[SyntheticSample],
+    required: int,
+    token_permutation: str,
+    slot_swap: int,
+    pair_reindex: int,
+) -> list[DualSyntheticSample]:
+    if required != 4:
+        raise ValueError(f"Balanced content pair builder expects required=4, got {required}")
+
+    permuted_a = [apply_token_permutation_to_sample(sample, token_permutation) for sample in bucket_a]
+    permuted_b = [apply_token_permutation_to_sample(sample, token_permutation) for sample in bucket_b]
+    grouped_a = {
+        "aligned": [sample for sample in permuted_a if content_family_name(sample.left_token, sample.right_token) == "aligned"],
+        "crossed": [sample for sample in permuted_a if content_family_name(sample.left_token, sample.right_token) == "crossed"],
+    }
+    grouped_b = {
+        "aligned": [sample for sample in permuted_b if content_family_name(sample.left_token, sample.right_token) == "aligned"],
+        "crossed": [sample for sample in permuted_b if content_family_name(sample.left_token, sample.right_token) == "crossed"],
+    }
+    for family in ("aligned", "crossed"):
+        if len(grouped_a[family]) < 2 or len(grouped_b[family]) < 2:
+            raise ValueError(f"Insufficient {family} samples for balanced content pairing")
+
+    patterns = [
+        ("aligned", "aligned"),
+        ("aligned", "crossed"),
+        ("crossed", "crossed"),
+        ("crossed", "aligned"),
+    ]
+    counters_a = {"aligned": 0, "crossed": 0}
+    counters_b = {"aligned": pair_reindex, "crossed": pair_reindex}
+    pairs: list[DualSyntheticSample] = []
+    for family_a, family_b in patterns:
+        sample_a = grouped_a[family_a][counters_a[family_a] % len(grouped_a[family_a])]
+        sample_b = grouped_b[family_b][counters_b[family_b] % len(grouped_b[family_b])]
+        counters_a[family_a] += 1
+        counters_b[family_b] += 1
+        if slot_swap:
+            sample_a, sample_b = sample_b, sample_a
+        pairs.append(build_dual_sample(sample_a=sample_a, sample_b=sample_b, label_mode="sector_content_xnor"))
+    return pairs
+
+
 def label_from_offset(offset: int, label_mode: str) -> int:
     if label_mode == "offset_sign":
         return 1 if offset > 0 else 0
@@ -263,10 +339,19 @@ def build_sample(left_token: str, right_token: str, left_pos: int, right_pos: in
     )
 
 
-def build_dual_sample(sample_a: SyntheticSample, sample_b: SyntheticSample) -> DualSyntheticSample:
+def build_dual_sample(sample_a: SyntheticSample, sample_b: SyntheticSample, label_mode: str = "same_sign") -> DualSyntheticSample:
     sector_a = offset_sector_name(sample_a.offset)
     sector_b = offset_sector_name(sample_b.offset)
-    label = 1 if sector_sign_family(sector_a) == sector_sign_family(sector_b) else 0
+    if label_mode == "same_sign":
+        label = 1 if sector_sign_family(sector_a) == sector_sign_family(sector_b) else 0
+    elif label_mode == "sector_content_xnor":
+        sign_agreement = sector_sign_family(sector_a) == sector_sign_family(sector_b)
+        content_agreement = content_family_name(sample_a.left_token, sample_a.right_token) == content_family_name(
+            sample_b.left_token, sample_b.right_token
+        )
+        label = 1 if sign_agreement == content_agreement else 0
+    else:
+        raise ValueError(f"Unsupported dual label_mode: {label_mode}")
     text = render_dual_sample_text(sample_a=sample_a, sample_b=sample_b)
     return DualSyntheticSample(
         text=text,
@@ -319,6 +404,14 @@ def apply_token_permutation_to_sample(sample: SyntheticSample, token_permutation
         offset=sample.offset,
         offset_abs=sample.offset_abs,
     )
+
+
+def content_family_name(left_token: str, right_token: str) -> str:
+    group_x = {"A", "C"}
+    group_y = {"B", "D"}
+    if (left_token in group_x and right_token in group_x) or (left_token in group_y and right_token in group_y):
+        return "aligned"
+    return "crossed"
 
 
 def sample_sort_key(sample: SyntheticSample) -> tuple[Any, ...]:
@@ -466,15 +559,30 @@ def summarize_dual_split(rows: list[DualSyntheticSample]) -> dict[str, Any]:
     sector_pair_counts = Counter(f"{sample.sector_a}|{sample.sector_b}" for sample in rows)
     sector_a_counts = Counter(sample.sector_a for sample in rows)
     sector_b_counts = Counter(sample.sector_b for sample in rows)
+    content_a_counts = Counter(content_family_name(sample.sample_a.left_token, sample.sample_a.right_token) for sample in rows)
+    content_b_counts = Counter(content_family_name(sample.sample_b.left_token, sample.sample_b.right_token) for sample in rows)
+    sign_agreement_counts = Counter(
+        sector_sign_family(sample.sector_a) == sector_sign_family(sample.sector_b) for sample in rows
+    )
+    content_agreement_counts = Counter(
+        content_family_name(sample.sample_a.left_token, sample.sample_a.right_token)
+        == content_family_name(sample.sample_b.left_token, sample.sample_b.right_token)
+        for sample in rows
+    )
     return {
         "size": len(rows),
         "class_counts": dict(sorted(class_counts.items())),
         "sector_pair_counts": dict(sorted(sector_pair_counts.items())),
         "sector_a_counts": dict(sorted(sector_a_counts.items())),
         "sector_b_counts": dict(sorted(sector_b_counts.items())),
+        "content_a_counts": dict(sorted(content_a_counts.items())),
+        "content_b_counts": dict(sorted(content_b_counts.items())),
+        "sign_agreement_counts": {str(key).lower(): value for key, value in sorted(sign_agreement_counts.items())},
+        "content_agreement_counts": {str(key).lower(): value for key, value in sorted(content_agreement_counts.items())},
         "class_balance_ok": class_counts.get(0, 0) == class_counts.get(1, 0),
         "sector_pair_balance_ok": len(set(sector_pair_counts.values())) <= 1,
         "sector_slot_balance_ok": len(set(sector_a_counts.values())) <= 1 and len(set(sector_b_counts.values())) <= 1,
+        "content_slot_balance_ok": len(set(content_a_counts.values())) <= 1 and len(set(content_b_counts.values())) <= 1,
     }
 
 
