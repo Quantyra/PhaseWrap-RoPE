@@ -1,18 +1,18 @@
 ﻿{
-    "timestamp_utc":  "2026-03-11T03:25:00Z",
+    "timestamp_utc":  "2026-03-11T03:55:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S330"
+                              "S336"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Rerun the fixed transition-orbit packet with `pair_reindex = 1`.",
-                         "Keep the candidate and control stack unchanged.",
-                         "Decide the branch from the hardening packet before any expansion."
+                         "Define the orbit-canonical transition-family permutation control.",
+                         "Run the fixed transition-orbit packet against that control only if the control is fully bounded.",
+                         "Keep the branch local-only and zero-credit."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -36,12 +36,11 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-implementation-v1.md",
-                           "docs/research/q-rope-transition-orbit-first-packet-v1.md",
-                           "docs/research/q-rope-transition-orbit-post-packet-decision-v1.md",
-                           "docs/research/q-rope-transition-orbit-pair-reindex-plan-v1.md",
+                           "docs/research/q-rope-transition-orbit-split-rotation-hardening-v1.md",
+                           "docs/research/q-rope-transition-orbit-post-split-rotation-decision-v1.md",
+                           "docs/research/q-rope-transition-orbit-next-test-selection-v1.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S327-S330 completed. The transition-orbit branch beat the full approved control stack on its first packet and remains active; the next bounded step is pair-reindex hardening."
+    "notes":  "S334-S336 completed. Split rotation was inert for the transition-orbit generator, so the branch remains active but the next step must be a non-inert fairness test."
 }
