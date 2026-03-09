@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T23:55:00Z",
+    "timestamp_utc": "2026-03-11T00:10:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S305"
+        "S308"
     ],
     "active_workers": {},
     "next_actions": [
-        "Keep the chart-transition line in memo-only posture and design one token-invariant chart-transition task.",
-        "Do not reopen execution on the current chart-transition task after the token-renaming robustness failure.",
-        "Preserve the original chart-transition packet and full symbolic fairness ladder as internal reference evidence only."
+        "Keep the chart-transition line memo-only and require explicit latent-state token-invariance diagnostics before any implementation approval.",
+        "Do not reopen execution on the failed token-sensitive task.",
+        "Use the token-invariant chart-transition scaffold as the only preserved restart path for this line."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,15 +28,15 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The chart-transition line is currently blocked on token-convention sensitivity; any future restart must make token identity a nuisance variable by construction."
+        "The token-invariant chart-transition line is still blocked until latent-state invariance diagnostics are specified concretely enough to support an implementation gate."
     ],
     "last_test_run": "Execution-only packet for token-renaming hardening on synthetic_dual_chart_transition_manifold_response",
     "recent_changes": [
-        "docs/research/q-rope-chart-transition-token-renaming-hardening-v1.md",
-        "docs/research/q-rope-chart-transition-post-token-renaming-decision-v1.md",
-        "docs/research/q-rope-token-invariant-chart-transition-task-design-v1.md",
+        "docs/research/q-rope-token-invariant-chart-transition-task-spec-v1.md",
+        "docs/research/q-rope-token-invariant-chart-transition-restart-scaffold-v1.md",
+        "docs/research/q-rope-token-invariant-chart-transition-approval-candidate-v1.md",
         "docs/evidence/E001-evidence-log.md",
         "logs/checkpoint.json"
     ],
-    "notes": "S303-S305 completed. The chart-transition witness failed the fixed token-renaming hardening step on the primary metric; the line is back in memo-only posture with a token-invariant task-design requirement."
+    "notes": "S306-S308 completed. The chart-transition line is preserved as a token-invariant approval-candidate only; implementation remains gated on explicit latent-state invariance diagnostics."
 }
