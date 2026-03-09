@@ -956,3 +956,38 @@ def test_phase_sensitive_phase_insensitive_control_runs() -> None:
     assert metrics["data_mode"].endswith("readout_symbolic_phase_insensitive_regressor+head_linear")
     assert diagnostics["feature_order"] == ["sin_uv", "cos_v_plus_w"]
     assert diagnostics["phase_offset_absent"] is True
+
+
+def test_latent_phase_manifold_loader_path() -> None:
+    rows, mode = load_dataset_samples(dataset="synthetic_dual_latent_phase_manifold_residual_response", seed=42)
+    assert len(rows) == 64
+    assert mode == "synthetic_dual_latent_phase_manifold_residual_response"
+
+
+def test_latent_phase_manifold_witness_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_latent_phase_manifold_residual_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_latent_phase",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_relational_witness_latent_phase+head_linear")
+    assert metrics["extra_metrics"]["mae"] >= 0.0
+    assert "latent_phase_hint" in diagnostics["feature_order"]
+    assert diagnostics["bounded_feature_audit_pass"] is True
+    assert diagnostics["anti_collapse_pass"] is True
+
+
+def test_latent_phase_global_phase_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_latent_phase_manifold_residual_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_global_phase_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_global_phase_regressor+head_linear")
+    assert diagnostics["feature_order"] == ["global_phase_backbone", "global_phase_curvature"]
+    assert diagnostics["latent_neighborhood_absent"] is True
+    assert diagnostics["global_phase_only"] is True
