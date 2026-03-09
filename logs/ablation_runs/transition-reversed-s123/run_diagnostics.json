@@ -1,0 +1,20 @@
+{
+  "feature_order": [
+    "transition_backbone",
+    "transition_phase_reversed",
+    "transition_curvature_reversed"
+  ],
+  "coefficients": {
+    "transition_backbone": 0.867912,
+    "transition_phase_reversed": 0.223641,
+    "transition_curvature_reversed": -0.00156
+  },
+  "intercept": 0.001972,
+  "forbidden_inputs_absent": true,
+  "mae": 0.173478,
+  "rank_correlation": 0.768455,
+  "calibration_slope": 0.888042,
+  "chart_id_absent": true,
+  "transition_family_only": true,
+  "transition_direction_reversed": true
+}

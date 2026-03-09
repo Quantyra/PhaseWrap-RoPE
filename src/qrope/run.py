@@ -249,6 +249,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_additive_regressor": 1,
         "V_control_symbolic_transition_unordered_regressor": 1,
         "V_control_symbolic_transition_permuted_regressor": 1,
+        "V_control_symbolic_transition_reversed_regressor": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -391,6 +392,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_unordered_regressor+head_linear"
         elif variant == "V_control_symbolic_transition_permuted_regressor":
             data_mode = f"{data_mode}+readout_symbolic_transition_permuted_regressor+head_linear"
+        elif variant == "V_control_symbolic_transition_reversed_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_transition_reversed_regressor+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -634,6 +637,8 @@ def run_quantum_backend(
         return run_transition_unordered_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_permuted_regressor":
         return run_transition_permuted_symbolic_regressor(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_transition_reversed_regressor":
+        return run_transition_reversed_symbolic_regressor(train=train, test=test, validation=validation)
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
@@ -1056,6 +1061,29 @@ def chart_transition_permuted_params(payload: dict[str, Any]) -> tuple[float, fl
         (3, 3): (-math.pi / 10.0, math.pi / 8.0),
     }
     return params[(permutation[source_chart], permutation[dest_chart])]
+
+
+def chart_transition_reversed_params(payload: dict[str, Any]) -> tuple[float, float]:
+    source_chart, dest_chart = chart_transition_pair(payload)
+    params = {
+        (0, 0): (-math.pi / 4.0, math.pi / 10.0),
+        (0, 1): (math.pi / 6.0, -math.pi / 7.0),
+        (0, 2): (math.pi / 3.0, math.pi / 9.0),
+        (0, 3): (-math.pi / 8.0, -math.pi / 5.0),
+        (1, 0): (math.pi / 5.0, math.pi / 8.0),
+        (1, 1): (-math.pi / 6.0, -math.pi / 9.0),
+        (1, 2): (math.pi / 2.8, math.pi / 11.0),
+        (1, 3): (-math.pi / 7.0, math.pi / 6.0),
+        (2, 0): (math.pi / 2.6, -math.pi / 8.0),
+        (2, 1): (-math.pi / 5.5, math.pi / 7.0),
+        (2, 2): (math.pi / 3.4, -math.pi / 10.0),
+        (2, 3): (-math.pi / 9.0, math.pi / 5.0),
+        (3, 0): (math.pi / 7.0, -math.pi / 6.0),
+        (3, 1): (-math.pi / 3.8, math.pi / 9.0),
+        (3, 2): (math.pi / 4.5, -math.pi / 7.0),
+        (3, 3): (-math.pi / 10.0, math.pi / 8.0),
+    }
+    return params[(dest_chart, source_chart)]
 
 
 def chart_transition_unordered_params(payload: dict[str, Any]) -> tuple[float, float]:
@@ -1803,6 +1831,37 @@ def symbolic_transition_permuted_features(text: str) -> dict[str, object]:
         "chart_id_absent": True,
         "transition_family_only": True,
         "transition_table_permuted": True,
+    }
+
+
+def symbolic_transition_reversed_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    phi_transition, psi_transition = chart_transition_reversed_params(payload)
+    features = {
+        "transition_backbone": round(math.sin(math.pi * sector_magnitude_delta * ordered_content_delta), 6),
+        "transition_phase_reversed": round(
+            0.28
+            * math.sin(
+                math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.45 * orientation_delta)
+                + phi_transition
+            ),
+            6,
+        ),
+        "transition_curvature_reversed": round(
+            0.20 * math.cos(math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_transition),
+            6,
+        ),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "forbidden_inputs_absent": True,
+        "chart_id_absent": True,
+        "transition_family_only": True,
+        "transition_direction_reversed": True,
     }
 
 
@@ -3047,6 +3106,33 @@ def run_transition_permuted_symbolic_regressor(
     diagnostics["chart_id_absent"] = all(bool(result.get("chart_id_absent", False)) for result in test_results)
     diagnostics["transition_family_only"] = all(bool(result.get("transition_family_only", False)) for result in test_results)
     diagnostics["transition_table_permuted"] = all(bool(result.get("transition_table_permuted", False)) for result in test_results)
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_transition_reversed_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_transition_reversed_features(text=text) for text, _ in train]
+    validation_results = [symbolic_transition_reversed_features(text=text) for text, _ in validation]
+    test_results = [symbolic_transition_reversed_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["chart_id_absent"] = all(bool(result.get("chart_id_absent", False)) for result in test_results)
+    diagnostics["transition_family_only"] = all(bool(result.get("transition_family_only", False)) for result in test_results)
+    diagnostics["transition_direction_reversed"] = all(
+        bool(result.get("transition_direction_reversed", False)) for result in test_results
+    )
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 

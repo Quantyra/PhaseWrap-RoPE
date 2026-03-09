@@ -1,0 +1,7 @@
+run_id,variant,seed,mae,rank_correlation,calibration_slope,accuracy,f1
+transition-witness-r-s42,V_future_relational_witness_chart_transition,42,0.085553,0.841105,0.986232,0.0,0.0
+transition-witness-r-s123,V_future_relational_witness_chart_transition,123,0.075881,0.9241,0.999487,0.0,0.0
+transition-witness-r-s777,V_future_relational_witness_chart_transition,777,0.259146,0.980807,0.984721,0.0,0.0
+transition-reversed-s42,V_control_symbolic_transition_reversed_regressor,42,0.162881,0.699299,1.008325,0.0,0.0
+transition-reversed-s123,V_control_symbolic_transition_reversed_regressor,123,0.173478,0.768455,0.888042,0.0,0.0
+transition-reversed-s777,V_control_symbolic_transition_reversed_regressor,777,0.225981,0.625621,0.9273,0.0,0.0
