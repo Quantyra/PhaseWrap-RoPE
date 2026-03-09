@@ -252,6 +252,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_reversed_regressor": 1,
         "V_control_symbolic_transition_bidirectional_regressor": 1,
         "V_control_symbolic_transition_cross_direction_regressor": 1,
+        "V_control_symbolic_transition_quadratic_regressor": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -400,6 +401,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_bidirectional_regressor+head_linear"
         elif variant == "V_control_symbolic_transition_cross_direction_regressor":
             data_mode = f"{data_mode}+readout_symbolic_transition_cross_direction_regressor+head_linear"
+        elif variant == "V_control_symbolic_transition_quadratic_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_transition_quadratic_regressor+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -649,6 +652,8 @@ def run_quantum_backend(
         return run_transition_bidirectional_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_cross_direction_regressor":
         return run_transition_cross_direction_symbolic_regressor(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_transition_quadratic_regressor":
+        return run_transition_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
@@ -1966,6 +1971,64 @@ def symbolic_transition_cross_direction_features(text: str) -> dict[str, object]
         "chart_id_absent": True,
         "transition_family_only": True,
         "transition_cross_direction_only": True,
+    }
+
+
+def symbolic_transition_quadratic_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    phi_forward, psi_forward = chart_transition_params(payload)
+    phi_reversed, psi_reversed = chart_transition_reversed_params(payload)
+    transition_backbone = round(math.sin(math.pi * sector_magnitude_delta * ordered_content_delta), 6)
+    transition_phase_forward = round(
+        0.28
+        * math.sin(
+            math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.45 * orientation_delta)
+            + phi_forward
+        ),
+        6,
+    )
+    transition_curvature_forward = round(
+        0.20 * math.cos(math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_forward),
+        6,
+    )
+    transition_phase_reversed = round(
+        0.28
+        * math.sin(
+            math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.45 * orientation_delta)
+            + phi_reversed
+        ),
+        6,
+    )
+    transition_curvature_reversed = round(
+        0.20 * math.cos(math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_reversed),
+        6,
+    )
+    features = {
+        "transition_backbone": transition_backbone,
+        "transition_phase_forward": transition_phase_forward,
+        "transition_curvature_forward": transition_curvature_forward,
+        "transition_phase_reversed": transition_phase_reversed,
+        "transition_curvature_reversed": transition_curvature_reversed,
+        "transition_backbone_sq": round(transition_backbone * transition_backbone, 6),
+        "transition_phase_forward_sq": round(transition_phase_forward * transition_phase_forward, 6),
+        "transition_curvature_forward_sq": round(transition_curvature_forward * transition_curvature_forward, 6),
+        "transition_phase_reversed_sq": round(transition_phase_reversed * transition_phase_reversed, 6),
+        "transition_curvature_reversed_sq": round(transition_curvature_reversed * transition_curvature_reversed, 6),
+        "transition_phase_cross": round(transition_phase_forward * transition_phase_reversed, 6),
+        "transition_curvature_cross": round(transition_curvature_forward * transition_curvature_reversed, 6),
+        "transition_backbone_phase_forward": round(transition_backbone * transition_phase_forward, 6),
+        "transition_backbone_phase_reversed": round(transition_backbone * transition_phase_reversed, 6),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "forbidden_inputs_absent": True,
+        "chart_id_absent": True,
+        "transition_family_only": True,
+        "transition_quadratic_only": True,
     }
 
 
@@ -3290,6 +3353,33 @@ def run_transition_cross_direction_symbolic_regressor(
     diagnostics["transition_family_only"] = all(bool(result.get("transition_family_only", False)) for result in test_results)
     diagnostics["transition_cross_direction_only"] = all(
         bool(result.get("transition_cross_direction_only", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_transition_quadratic_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_transition_quadratic_features(text=text) for text, _ in train]
+    validation_results = [symbolic_transition_quadratic_features(text=text) for text, _ in validation]
+    test_results = [symbolic_transition_quadratic_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["chart_id_absent"] = all(bool(result.get("chart_id_absent", False)) for result in test_results)
+    diagnostics["transition_family_only"] = all(bool(result.get("transition_family_only", False)) for result in test_results)
+    diagnostics["transition_quadratic_only"] = all(
+        bool(result.get("transition_quadratic_only", False)) for result in test_results
     )
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
