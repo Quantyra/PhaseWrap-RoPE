@@ -66,12 +66,14 @@ def generate_dual_sector_agreement_binary_bundle(
     seed: int,
     split_rotation: int = 0,
     slot_swap: int = 0,
+    token_permutation: str = "identity",
 ) -> SyntheticDatasetBundle:
     return generate_dual_sector_bundle(
         seed=seed,
         dataset_name="synthetic_dual_sector_agreement_binary",
         split_rotation=split_rotation,
         slot_swap=slot_swap,
+        token_permutation=token_permutation,
     )
 
 
@@ -144,6 +146,7 @@ def generate_dual_sector_bundle(
     dataset_name: str,
     split_rotation: int = 0,
     slot_swap: int = 0,
+    token_permutation: str = "identity",
 ) -> SyntheticDatasetBundle:
     rng = random.Random(f"{dataset_name}:{seed}")
     single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
@@ -183,6 +186,8 @@ def generate_dual_sector_bundle(
                 sample_b = bucket_b[idx]
                 if slot_swap:
                     sample_a, sample_b = sample_b, sample_a
+                sample_a = apply_token_permutation_to_sample(sample_a, token_permutation)
+                sample_b = apply_token_permutation_to_sample(sample_b, token_permutation)
                 pair_grouped[(sector_a, sector_b)].append(
                     build_dual_sample(sample_a=sample_a, sample_b=sample_b)
                 )
@@ -209,6 +214,7 @@ def generate_dual_sector_bundle(
         seed=seed,
         split_rotation=split_rotation,
         slot_swap=slot_swap,
+        token_permutation=token_permutation,
         train=sorted(train, key=dual_sample_sort_key),
         validation=sorted(validation, key=dual_sample_sort_key),
         test=sorted(test, key=dual_sample_sort_key),
@@ -276,6 +282,38 @@ def render_dual_sample_text(sample_a: SyntheticSample, sample_b: SyntheticSample
     return (
         f"a_lt:{sample_a.left_token} a_rt:{sample_a.right_token} a_lp:{sample_a.left_pos} a_rp:{sample_a.right_pos} a_off:{sample_a.offset:+d} "
         f"b_lt:{sample_b.left_token} b_rt:{sample_b.right_token} b_lp:{sample_b.left_pos} b_rp:{sample_b.right_pos} b_off:{sample_b.offset:+d}"
+    )
+
+
+def apply_token_permutation_to_sample(sample: SyntheticSample, token_permutation: str) -> SyntheticSample:
+    if token_permutation == "identity":
+        return sample
+    token_maps = {
+        "cdab": {
+            "A": "C",
+            "B": "D",
+            "C": "A",
+            "D": "B",
+        }
+    }
+    if token_permutation not in token_maps:
+        raise ValueError(f"Unsupported token_permutation: {token_permutation}")
+    mapping = token_maps[token_permutation]
+    return SyntheticSample(
+        text=render_sample_text(
+            left_token=mapping[sample.left_token],
+            right_token=mapping[sample.right_token],
+            left_pos=sample.left_pos,
+            right_pos=sample.right_pos,
+            offset=sample.offset,
+        ),
+        label=sample.label,
+        left_token=mapping[sample.left_token],
+        right_token=mapping[sample.right_token],
+        left_pos=sample.left_pos,
+        right_pos=sample.right_pos,
+        offset=sample.offset,
+        offset_abs=sample.offset_abs,
     )
 
 
@@ -359,6 +397,7 @@ def build_dual_bundle_diagnostics(
     seed: int,
     split_rotation: int,
     slot_swap: int,
+    token_permutation: str,
     train: list[DualSyntheticSample],
     validation: list[DualSyntheticSample],
     test: list[DualSyntheticSample],
@@ -373,6 +412,7 @@ def build_dual_bundle_diagnostics(
         "seed": seed,
         "split_rotation": split_rotation,
         "slot_swap": slot_swap,
+        "token_permutation": token_permutation,
         "sequence_length": SEQUENCE_LENGTH,
         "vocabulary": list(TOKENS),
         "offsets": list(OFFSETS),

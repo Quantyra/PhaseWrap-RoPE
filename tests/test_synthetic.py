@@ -110,3 +110,23 @@ def test_dual_sector_agreement_slot_swap_preserves_labels_and_changes_order() ->
     expected = {(swap_text(text), label) for text, label in base.train}
     observed = set(swapped.train)
     assert observed == expected
+
+
+def test_dual_sector_agreement_token_permutation_preserves_labels_and_renames_tokens() -> None:
+    base = generate_dual_sector_agreement_binary_bundle(seed=42, token_permutation="identity")
+    renamed = generate_dual_sector_agreement_binary_bundle(seed=42, token_permutation="cdab")
+    assert base.train != renamed.train
+    assert renamed.diagnostics["token_permutation"] == "cdab"
+
+    mapping = {"A": "C", "B": "D", "C": "A", "D": "B"}
+
+    def rename_text(text: str) -> str:
+        parts = {item.split(":", 1)[0]: item.split(":", 1)[1] for item in text.split()}
+        return (
+            f"a_lt:{mapping[parts['a_lt']]} a_rt:{mapping[parts['a_rt']]} a_lp:{parts['a_lp']} a_rp:{parts['a_rp']} a_off:{parts['a_off']} "
+            f"b_lt:{mapping[parts['b_lt']]} b_rt:{mapping[parts['b_rt']]} b_lp:{parts['b_lp']} b_rp:{parts['b_rp']} b_off:{parts['b_off']}"
+        )
+
+    expected = {(rename_text(text), label) for text, label in base.train}
+    observed = set(renamed.train)
+    assert observed == expected
