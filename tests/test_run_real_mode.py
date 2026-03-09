@@ -17,6 +17,9 @@ from qrope.run import (
     symbolic_dual_cross_interaction_features,
     symbolic_dual_interaction_features,
     symbolic_dual_sector_features,
+    symbolic_triple_parity_features,
+    symbolic_triple_orientation_features,
+    symbolic_triple_two_family_features,
     symbolic_relational_features,
     stratified_calibration_split,
 )
@@ -453,8 +456,11 @@ def test_parse_dual_synthetic_pair_text_extracts_sectors() -> None:
     assert payload["sector_b"] == "N_large"
     assert payload["content_family_a"] == "crossed"
     assert payload["content_family_b"] == "crossed"
+    assert payload["orientation_a"] == "forward"
+    assert payload["orientation_b"] == "forward"
     assert payload["sign_agreement"] is False
     assert payload["content_agreement"] is True
+    assert payload["orientation_agreement"] is True
 
 
 def test_symbolic_dual_sector_features_use_two_one_hot_blocks() -> None:
@@ -511,6 +517,38 @@ def test_symbolic_dual_cross_interaction_features_use_agreement_one_hot() -> Non
     ]
     assert result["features"]["cross_diff__same"] == 1.0
     assert sum(result["features"].values()) == 1.0
+
+
+def test_symbolic_triple_orientation_features_use_orientation_pair_one_hot() -> None:
+    result = symbolic_triple_orientation_features(
+        "a_lt:A a_rt:C a_lp:1 a_rp:3 a_off:+2 b_lt:B b_rt:A b_lp:7 b_rp:4 b_off:-3"
+    )
+    assert result["feature_order"] == [
+        "orientation_forward__forward",
+        "orientation_forward__reverse",
+        "orientation_reverse__forward",
+        "orientation_reverse__reverse",
+    ]
+    assert result["features"]["orientation_forward__reverse"] == 1.0
+    assert sum(result["features"].values()) == 1.0
+
+
+def test_symbolic_triple_two_family_features_use_three_pairwise_blocks() -> None:
+    result = symbolic_triple_two_family_features(
+        "a_lt:A a_rt:C a_lp:1 a_rp:3 a_off:+2 b_lt:B b_rt:A b_lp:7 b_rp:4 b_off:-3"
+    )
+    assert "sc_same__same" in result["feature_order"]
+    assert "so_same__diff" in result["feature_order"]
+    assert "co_same__diff" in result["feature_order"]
+    assert sum(result["features"].values()) == 3.0
+
+
+def test_symbolic_triple_parity_features_use_single_parity_feature() -> None:
+    result = symbolic_triple_parity_features(
+        "a_lt:A a_rt:C a_lp:1 a_rp:3 a_off:+2 b_lt:B b_rt:A b_lp:7 b_rp:4 b_off:-3"
+    )
+    assert result["feature_order"] == ["triple_even_parity"]
+    assert result["features"]["triple_even_parity"] in {0.0, 1.0}
 
 
 def test_dual_sector_agreement_loader_path() -> None:
@@ -632,4 +670,56 @@ def test_dual_symbolic_cross_interaction_runs_on_content_agreement_packet() -> N
     diagnostics = metrics["run_diagnostics"]
     assert metrics["data_mode"].endswith("readout_symbolic_dual_cross_interaction+head_logreg")
     assert "cross_same__same" in diagnostics["feature_order"]
+    assert diagnostics["forbidden_inputs_absent"] is True
+
+
+def test_triple_family_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_content_parity_coupling_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_triple",
+    )
+    assert metrics["data_mode"].endswith("readout_relational_witness_triple+head_logreg")
+    assert metrics["dataset_diagnostics"]["dataset"] == "synthetic_dual_content_parity_coupling_binary"
+    assert metrics["run_diagnostics"]["bounded_feature_audit_pass"] is True
+    assert metrics["run_diagnostics"]["forbidden_inputs_absent"] is True
+
+
+def test_triple_symbolic_orientation_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_content_parity_coupling_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_orientation_only",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_orientation_only+head_logreg")
+    assert "orientation_forward__forward" in diagnostics["feature_order"]
+    assert diagnostics["forbidden_inputs_absent"] is True
+
+
+def test_triple_symbolic_two_family_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_content_parity_coupling_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_two_family_bounded",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_two_family_bounded+head_logreg")
+    assert "sc_same__same" in diagnostics["feature_order"]
+    assert diagnostics["forbidden_inputs_absent"] is True
+
+
+def test_triple_symbolic_three_family_parity_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_content_parity_coupling_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_three_family_parity",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_three_family_parity+head_logreg")
+    assert diagnostics["feature_order"] == ["triple_even_parity"]
     assert diagnostics["forbidden_inputs_absent"] is True

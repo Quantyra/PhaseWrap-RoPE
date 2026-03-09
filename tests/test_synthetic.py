@@ -1,9 +1,11 @@
 from qrope.synthetic import (
     content_family_name,
+    generate_dual_content_parity_coupling_binary_bundle,
     generate_dual_sector_agreement_binary_bundle,
     generate_dual_sector_content_agreement_binary_bundle,
     generate_sector_parity_binary_bundle,
     generate_signed_offset_binary_bundle,
+    token_orientation_name,
 )
 
 
@@ -190,3 +192,44 @@ def test_dual_sector_content_agreement_labels_follow_xnor_rule() -> None:
             parts["b_lt"], parts["b_rt"]
         )
         assert label == (1 if sign_agreement == content_agreement else 0)
+
+
+def test_token_orientation_name_is_pair_relational() -> None:
+    assert token_orientation_name("A", "B") == "forward"
+    assert token_orientation_name("A", "C") == "forward"
+    assert token_orientation_name("A", "D") == "reverse"
+    assert token_orientation_name("C", "A") == "forward"
+
+
+def test_dual_content_parity_coupling_bundle_is_balanced() -> None:
+    bundle = generate_dual_content_parity_coupling_binary_bundle(seed=42)
+    for split in ("train", "validation", "test"):
+        summary = bundle.diagnostics["splits"][split]
+        assert summary["class_balance_ok"] is True
+        assert summary["sector_pair_balance_ok"] is True
+        assert summary["sector_slot_balance_ok"] is True
+        assert summary["content_slot_balance_ok"] is True
+        assert summary["orientation_slot_balance_ok"] is True
+
+
+def test_dual_content_parity_coupling_labels_follow_even_parity_rule() -> None:
+    bundle = generate_dual_content_parity_coupling_binary_bundle(seed=42)
+    rows = bundle.train[:10] + bundle.validation[:10] + bundle.test[:10]
+    positive_sectors = {"P_small", "P_large"}
+    for text, label in rows:
+        parts = {item.split(":", 1)[0]: item.split(":", 1)[1] for item in text.split()}
+        sector_a = ("P_small" if 0 < int(parts["a_off"]) <= 2 else
+                    "P_large" if int(parts["a_off"]) > 0 else
+                    "N_small" if abs(int(parts["a_off"])) <= 2 else "N_large")
+        sector_b = ("P_small" if 0 < int(parts["b_off"]) <= 2 else
+                    "P_large" if int(parts["b_off"]) > 0 else
+                    "N_small" if abs(int(parts["b_off"])) <= 2 else "N_large")
+        sign_agreement = (sector_a in positive_sectors) == (sector_b in positive_sectors)
+        content_agreement = content_family_name(parts["a_lt"], parts["a_rt"]) == content_family_name(
+            parts["b_lt"], parts["b_rt"]
+        )
+        orientation_agreement = token_orientation_name(parts["a_lt"], parts["a_rt"]) == token_orientation_name(
+            parts["b_lt"], parts["b_rt"]
+        )
+        parity = int(sign_agreement) ^ int(content_agreement) ^ int(orientation_agreement)
+        assert label == (1 if parity == 0 else 0)

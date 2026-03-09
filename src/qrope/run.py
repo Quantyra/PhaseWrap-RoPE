@@ -31,9 +31,11 @@ from .qsim import (
 from .synthetic import diagnostics_to_jsonable, generate_signed_offset_binary_bundle
 from .synthetic import (
     content_family_name,
+    generate_dual_content_parity_coupling_binary_bundle,
     generate_dual_sector_agreement_binary_bundle,
     generate_dual_sector_content_agreement_binary_bundle,
     generate_sector_parity_binary_bundle,
+    token_orientation_name,
 )
 
 RELATIONAL_WITNESS_FEATURE_GROUPS = {
@@ -206,6 +208,13 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_dual_sector_interaction": 1,
         "V_control_symbolic_dual_content_interaction": 1,
         "V_control_symbolic_dual_cross_interaction": 1,
+        "V_future_relational_witness_triple": 24,
+        "V_control_symbolic_sector_only": 1,
+        "V_control_symbolic_content_only": 1,
+        "V_control_symbolic_orientation_only": 1,
+        "V_control_symbolic_sign_content_cross": 1,
+        "V_control_symbolic_two_family_bounded": 1,
+        "V_control_symbolic_three_family_parity": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -283,6 +292,20 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_dual_content_interaction+head_logreg"
         elif variant == "V_control_symbolic_dual_cross_interaction":
             data_mode = f"{data_mode}+readout_symbolic_dual_cross_interaction+head_logreg"
+        elif variant == "V_future_relational_witness_triple":
+            data_mode = f"{data_mode}+readout_relational_witness_triple+head_logreg"
+        elif variant == "V_control_symbolic_sector_only":
+            data_mode = f"{data_mode}+readout_symbolic_sector_only+head_logreg"
+        elif variant == "V_control_symbolic_content_only":
+            data_mode = f"{data_mode}+readout_symbolic_content_only+head_logreg"
+        elif variant == "V_control_symbolic_orientation_only":
+            data_mode = f"{data_mode}+readout_symbolic_orientation_only+head_logreg"
+        elif variant == "V_control_symbolic_sign_content_cross":
+            data_mode = f"{data_mode}+readout_symbolic_sign_content_cross+head_logreg"
+        elif variant == "V_control_symbolic_two_family_bounded":
+            data_mode = f"{data_mode}+readout_symbolic_two_family_bounded+head_logreg"
+        elif variant == "V_control_symbolic_three_family_parity":
+            data_mode = f"{data_mode}+readout_symbolic_three_family_parity+head_logreg"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -465,6 +488,20 @@ def run_quantum_backend(
         return run_dual_symbolic_content_control_backend(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_dual_cross_interaction":
         return run_dual_symbolic_cross_control_backend(train=train, test=test, validation=validation)
+    if variant == "V_future_relational_witness_triple":
+        return run_triple_relational_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_control_symbolic_sector_only":
+        return run_dual_symbolic_interaction_control_backend(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_content_only":
+        return run_dual_symbolic_content_control_backend(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_orientation_only":
+        return run_triple_symbolic_orientation_control_backend(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_sign_content_cross":
+        return run_dual_symbolic_cross_control_backend(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_two_family_bounded":
+        return run_triple_symbolic_two_family_control_backend(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_three_family_parity":
+        return run_triple_symbolic_three_family_parity_control_backend(train=train, test=test, validation=validation)
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
@@ -648,9 +685,12 @@ def parse_dual_synthetic_pair_text(text: str) -> dict[str, Any]:
     sector_b = offset_sector(int(parts["b_off"]))
     content_family_a = content_family_name(parts["a_lt"], parts["a_rt"])
     content_family_b = content_family_name(parts["b_lt"], parts["b_rt"])
+    orientation_a = token_orientation_name(parts["a_lt"], parts["a_rt"])
+    orientation_b = token_orientation_name(parts["b_lt"], parts["b_rt"])
     positive_sectors = {"P_small", "P_large"}
     sign_agreement = (sector_a in positive_sectors) == (sector_b in positive_sectors)
     content_agreement = content_family_a == content_family_b
+    orientation_agreement = orientation_a == orientation_b
     return {
         "obs_a": f"lt:{parts['a_lt']} rt:{parts['a_rt']} lp:{int(parts['a_lp'])} rp:{int(parts['a_rp'])} off:{int(parts['a_off']):+d}",
         "obs_b": f"lt:{parts['b_lt']} rt:{parts['b_rt']} lp:{int(parts['b_lp'])} rp:{int(parts['b_rp'])} off:{int(parts['b_off']):+d}",
@@ -658,8 +698,11 @@ def parse_dual_synthetic_pair_text(text: str) -> dict[str, Any]:
         "sector_b": sector_b,
         "content_family_a": content_family_a,
         "content_family_b": content_family_b,
+        "orientation_a": orientation_a,
+        "orientation_b": orientation_b,
         "sign_agreement": sign_agreement,
         "content_agreement": content_agreement,
+        "orientation_agreement": orientation_agreement,
     }
 
 
@@ -784,6 +827,78 @@ def symbolic_dual_cross_interaction_features(text: str) -> dict[str, object]:
     }
 
 
+def symbolic_triple_orientation_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    feature_order = [
+        "orientation_forward__forward",
+        "orientation_forward__reverse",
+        "orientation_reverse__forward",
+        "orientation_reverse__reverse",
+    ]
+    active = f"orientation_{payload['orientation_a']}__{payload['orientation_b']}"
+    features = {name: 1.0 if name == active else 0.0 for name in feature_order}
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "orientation_a": payload["orientation_a"],
+        "orientation_b": payload["orientation_b"],
+        "orientation_agreement": payload["orientation_agreement"],
+        "forbidden_inputs_absent": True,
+    }
+
+
+def symbolic_triple_two_family_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    sign_agreement = "same" if payload["sign_agreement"] else "diff"
+    content_agreement = "same" if payload["content_agreement"] else "diff"
+    orientation_agreement = "same" if payload["orientation_agreement"] else "diff"
+    feature_order = [
+        "sc_same__same",
+        "sc_same__diff",
+        "sc_diff__same",
+        "sc_diff__diff",
+        "so_same__same",
+        "so_same__diff",
+        "so_diff__same",
+        "so_diff__diff",
+        "co_same__same",
+        "co_same__diff",
+        "co_diff__same",
+        "co_diff__diff",
+    ]
+    active = {
+        f"sc_{sign_agreement}__{content_agreement}",
+        f"so_{sign_agreement}__{orientation_agreement}",
+        f"co_{content_agreement}__{orientation_agreement}",
+    }
+    features = {name: 1.0 if name in active else 0.0 for name in feature_order}
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "sign_agreement": payload["sign_agreement"],
+        "content_agreement": payload["content_agreement"],
+        "orientation_agreement": payload["orientation_agreement"],
+        "forbidden_inputs_absent": True,
+    }
+
+
+def symbolic_triple_parity_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    parity_even = (
+        1.0
+        if (int(payload["sign_agreement"]) ^ int(payload["content_agreement"]) ^ int(payload["orientation_agreement"])) == 0
+        else 0.0
+    )
+    return {
+        "feature_order": ["triple_even_parity"],
+        "features": {"triple_even_parity": parity_even},
+        "sign_agreement": payload["sign_agreement"],
+        "content_agreement": payload["content_agreement"],
+        "orientation_agreement": payload["orientation_agreement"],
+        "forbidden_inputs_absent": True,
+    }
+
+
 def dual_content_witness_features(text: str, seed: int) -> dict[str, object]:
     payload = parse_dual_synthetic_pair_text(text)
     base = dual_relational_witness_features(text=text, seed=seed)
@@ -808,6 +923,42 @@ def dual_content_witness_features(text: str, seed: int) -> dict[str, object]:
         "content_family_b": payload["content_family_b"],
         "sign_agreement": payload["sign_agreement"],
         "content_agreement": payload["content_agreement"],
+        "forbidden_inputs_absent": True,
+        "bounded_feature_audit_pass": True,
+    }
+
+
+def triple_relational_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    base = dual_content_witness_features(text=text, seed=seed)
+    orientation_agreement = 1.0 if payload["orientation_agreement"] else 0.0
+    orientation_disagreement = 1.0 - orientation_agreement
+    triple_even_parity = (
+        1.0
+        if (int(payload["sign_agreement"]) ^ int(payload["content_agreement"]) ^ int(payload["orientation_agreement"])) == 0
+        else -1.0
+    )
+    feature_order = list(base["feature_order"]) + [
+        "orientation_agreement",
+        "orientation_disagreement",
+        "triple_even_parity",
+    ]
+    features = dict(base["features"])
+    features["orientation_agreement"] = orientation_agreement
+    features["orientation_disagreement"] = orientation_disagreement
+    features["triple_even_parity"] = triple_even_parity
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "sector_a": payload["sector_a"],
+        "sector_b": payload["sector_b"],
+        "content_family_a": payload["content_family_a"],
+        "content_family_b": payload["content_family_b"],
+        "orientation_a": payload["orientation_a"],
+        "orientation_b": payload["orientation_b"],
+        "sign_agreement": payload["sign_agreement"],
+        "content_agreement": payload["content_agreement"],
+        "orientation_agreement": payload["orientation_agreement"],
         "forbidden_inputs_absent": True,
         "bounded_feature_audit_pass": True,
     }
@@ -1135,6 +1286,179 @@ def run_dual_symbolic_cross_control_backend(
     train_results = [symbolic_dual_cross_interaction_features(text=text) for text, _ in train]
     validation_results = [symbolic_dual_cross_interaction_features(text=text) for text, _ in validation]
     test_results = [symbolic_dual_cross_interaction_features(text=text) for text, _ in test]
+
+    feature_order = list(train_results[0]["feature_order"]) if train_results else []
+    train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
+    validation_matrix = [[float(result["features"][name]) for name in feature_order] for result in validation_results]
+    test_matrix = [[float(result["features"][name]) for name in feature_order] for result in test_results]
+
+    train_labels = [label for _, label in train]
+    validation_labels = [label for _, label in validation]
+    test_labels = [label for _, label in test]
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    y_pred = [1 if score >= threshold else 0 for score in test_scores]
+
+    diagnostics = build_dual_symbolic_control_run_diagnostics(
+        rows=test,
+        results=test_results,
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+    )
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, y_pred)
+    f1 = compute_f1_binary(test_labels, y_pred)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_triple_relational_witness_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    seed: int,
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+
+    train_results = [triple_relational_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [triple_relational_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [triple_relational_witness_features(text=text, seed=seed) for text, _ in test]
+
+    feature_order = list(train_results[0]["feature_order"]) if train_results else []
+    train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
+    validation_matrix = [[float(result["features"][name]) for name in feature_order] for result in validation_results]
+    test_matrix = [[float(result["features"][name]) for name in feature_order] for result in test_results]
+
+    train_labels = [label for _, label in train]
+    validation_labels = [label for _, label in validation]
+    test_labels = [label for _, label in test]
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    y_pred = [1 if score >= threshold else 0 for score in test_scores]
+
+    diagnostics = build_dual_relational_witness_run_diagnostics(
+        rows=test,
+        results=test_results,
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+    )
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, y_pred)
+    f1 = compute_f1_binary(test_labels, y_pred)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_triple_symbolic_orientation_control_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+
+    train_results = [symbolic_triple_orientation_features(text=text) for text, _ in train]
+    validation_results = [symbolic_triple_orientation_features(text=text) for text, _ in validation]
+    test_results = [symbolic_triple_orientation_features(text=text) for text, _ in test]
+
+    feature_order = list(train_results[0]["feature_order"]) if train_results else []
+    train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
+    validation_matrix = [[float(result["features"][name]) for name in feature_order] for result in validation_results]
+    test_matrix = [[float(result["features"][name]) for name in feature_order] for result in test_results]
+
+    train_labels = [label for _, label in train]
+    validation_labels = [label for _, label in validation]
+    test_labels = [label for _, label in test]
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    y_pred = [1 if score >= threshold else 0 for score in test_scores]
+
+    diagnostics = build_dual_symbolic_control_run_diagnostics(
+        rows=test,
+        results=test_results,
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+    )
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, y_pred)
+    f1 = compute_f1_binary(test_labels, y_pred)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_triple_symbolic_two_family_control_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+
+    train_results = [symbolic_triple_two_family_features(text=text) for text, _ in train]
+    validation_results = [symbolic_triple_two_family_features(text=text) for text, _ in validation]
+    test_results = [symbolic_triple_two_family_features(text=text) for text, _ in test]
+
+    feature_order = list(train_results[0]["feature_order"]) if train_results else []
+    train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
+    validation_matrix = [[float(result["features"][name]) for name in feature_order] for result in validation_results]
+    test_matrix = [[float(result["features"][name]) for name in feature_order] for result in test_results]
+
+    train_labels = [label for _, label in train]
+    validation_labels = [label for _, label in validation]
+    test_labels = [label for _, label in test]
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    y_pred = [1 if score >= threshold else 0 for score in test_scores]
+
+    diagnostics = build_dual_symbolic_control_run_diagnostics(
+        rows=test,
+        results=test_results,
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+    )
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, y_pred)
+    f1 = compute_f1_binary(test_labels, y_pred)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_triple_symbolic_three_family_parity_control_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+
+    train_results = [symbolic_triple_parity_features(text=text) for text, _ in train]
+    validation_results = [symbolic_triple_parity_features(text=text) for text, _ in validation]
+    test_results = [symbolic_triple_parity_features(text=text) for text, _ in test]
 
     feature_order = list(train_results[0]["feature_order"]) if train_results else []
     train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
@@ -1565,6 +1889,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_dual_sector_content_agreement_binary",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_dual_content_parity_coupling_binary":
+        bundle = generate_dual_content_parity_coupling_binary_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_dual_content_parity_coupling_binary",
             "dataset_diagnostics": bundle.diagnostics,
         }
 
