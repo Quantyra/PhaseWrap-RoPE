@@ -13,6 +13,8 @@ from qrope.run import (
     load_dataset_samples,
     parse_dual_synthetic_pair_text,
     run_real_experiment,
+    symbolic_dual_content_interaction_features,
+    symbolic_dual_cross_interaction_features,
     symbolic_dual_interaction_features,
     symbolic_dual_sector_features,
     symbolic_relational_features,
@@ -449,6 +451,10 @@ def test_parse_dual_synthetic_pair_text_extracts_sectors() -> None:
     )
     assert payload["sector_a"] == "P_small"
     assert payload["sector_b"] == "N_large"
+    assert payload["content_family_a"] == "crossed"
+    assert payload["content_family_b"] == "crossed"
+    assert payload["sign_agreement"] is False
+    assert payload["content_agreement"] is True
 
 
 def test_symbolic_dual_sector_features_use_two_one_hot_blocks() -> None:
@@ -476,6 +482,34 @@ def test_symbolic_dual_interaction_features_use_single_pair_one_hot() -> None:
     )
     assert result["feature_order"][0] == "pair_P_small__P_small"
     assert result["features"]["pair_P_small__N_large"] == 1.0
+    assert sum(result["features"].values()) == 1.0
+
+
+def test_symbolic_dual_content_interaction_features_use_content_pair_one_hot() -> None:
+    result = symbolic_dual_content_interaction_features(
+        "a_lt:A a_rt:C a_lp:1 a_rp:3 a_off:+2 b_lt:B b_rt:D b_lp:7 b_rp:4 b_off:-3"
+    )
+    assert result["feature_order"] == [
+        "content_aligned__aligned",
+        "content_aligned__crossed",
+        "content_crossed__aligned",
+        "content_crossed__crossed",
+    ]
+    assert result["features"]["content_aligned__aligned"] == 1.0
+    assert sum(result["features"].values()) == 1.0
+
+
+def test_symbolic_dual_cross_interaction_features_use_agreement_one_hot() -> None:
+    result = symbolic_dual_cross_interaction_features(
+        "a_lt:A a_rt:C a_lp:1 a_rp:3 a_off:+2 b_lt:B b_rt:D b_lp:7 b_rp:4 b_off:-3"
+    )
+    assert result["feature_order"] == [
+        "cross_same__same",
+        "cross_same__diff",
+        "cross_diff__same",
+        "cross_diff__diff",
+    ]
+    assert result["features"]["cross_diff__same"] == 1.0
     assert sum(result["features"].values()) == 1.0
 
 
@@ -546,4 +580,56 @@ def test_dual_symbolic_interaction_control_runs_on_dual_sector_agreement_packet(
     diagnostics = metrics["run_diagnostics"]
     assert metrics["data_mode"].endswith("readout_symbolic_dual_interaction+head_logreg")
     assert "pair_P_small__P_small" in diagnostics["feature_order"]
+    assert diagnostics["forbidden_inputs_absent"] is True
+
+
+def test_dual_sector_content_agreement_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_sector_content_agreement_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_dual_content",
+    )
+    assert metrics["data_mode"].endswith("readout_relational_witness_dual_content+head_logreg")
+    assert metrics["dataset_diagnostics"]["dataset"] == "synthetic_dual_sector_content_agreement_binary"
+    assert metrics["run_diagnostics"]["bounded_feature_audit_pass"] is True
+    assert metrics["run_diagnostics"]["forbidden_inputs_absent"] is True
+
+
+def test_dual_symbolic_sector_interaction_runs_on_content_agreement_packet() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_sector_content_agreement_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_dual_sector_interaction",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_dual_sector_interaction+head_logreg")
+    assert "pair_P_small__P_small" in diagnostics["feature_order"]
+    assert diagnostics["forbidden_inputs_absent"] is True
+
+
+def test_dual_symbolic_content_interaction_runs_on_content_agreement_packet() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_sector_content_agreement_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_dual_content_interaction",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_dual_content_interaction+head_logreg")
+    assert "content_aligned__aligned" in diagnostics["feature_order"]
+    assert diagnostics["forbidden_inputs_absent"] is True
+
+
+def test_dual_symbolic_cross_interaction_runs_on_content_agreement_packet() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_sector_content_agreement_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_dual_cross_interaction",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_dual_cross_interaction+head_logreg")
+    assert "cross_same__same" in diagnostics["feature_order"]
     assert diagnostics["forbidden_inputs_absent"] is True
