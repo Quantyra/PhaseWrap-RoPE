@@ -1,0 +1,315 @@
+{
+  "dataset": "synthetic_dual_chart_transition_manifold_response",
+  "seed": 123,
+  "split_rotation": 0,
+  "slot_swap": 0,
+  "token_permutation": "cdab",
+  "pair_reindex": 0,
+  "sequence_length": 12,
+  "vocabulary": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "offsets": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "splits": {
+    "train": {
+      "size": 32,
+      "class_counts": {
+        "-1.085751": 1,
+        "-0.968549": 1,
+        "-0.656044": 1,
+        "-0.594847": 1,
+        "-0.563552": 1,
+        "-0.505247": 1,
+        "-0.462528": 1,
+        "-0.435869": 1,
+        "-0.382586": 2,
+        "-0.273712": 1,
+        "-0.248132": 2,
+        "-0.209769": 1,
+        "-0.153151": 1,
+        "-0.151464": 1,
+        "-0.038858": 1,
+        "0.033457": 1,
+        "0.055652": 2,
+        "0.145251": 3,
+        "0.36873": 1,
+        "0.415002": 2,
+        "0.418709": 1,
+        "0.587798": 1,
+        "1.086099": 1,
+        "1.097038": 1,
+        "1.155343": 1,
+        "1.236531": 1
+      },
+      "sector_pair_counts": {
+        "N_large|N_large": 2,
+        "N_large|N_small": 2,
+        "N_large|P_large": 2,
+        "N_large|P_small": 2,
+        "N_small|N_large": 2,
+        "N_small|N_small": 2,
+        "N_small|P_large": 2,
+        "N_small|P_small": 2,
+        "P_large|N_large": 2,
+        "P_large|N_small": 2,
+        "P_large|P_large": 2,
+        "P_large|P_small": 2,
+        "P_small|N_large": 2,
+        "P_small|N_small": 2,
+        "P_small|P_large": 2,
+        "P_small|P_small": 2
+      },
+      "sector_a_counts": {
+        "N_large": 8,
+        "N_small": 8,
+        "P_large": 8,
+        "P_small": 8
+      },
+      "sector_b_counts": {
+        "N_large": 8,
+        "N_small": 8,
+        "P_large": 8,
+        "P_small": 8
+      },
+      "content_a_counts": {
+        "aligned": 32
+      },
+      "content_b_counts": {
+        "aligned": 16,
+        "crossed": 16
+      },
+      "orientation_a_counts": {
+        "forward": 16,
+        "reverse": 16
+      },
+      "orientation_b_counts": {
+        "forward": 32
+      },
+      "sign_agreement_counts": {
+        "false": 16,
+        "true": 16
+      },
+      "content_agreement_counts": {
+        "false": 16,
+        "true": 16
+      },
+      "orientation_agreement_counts": {
+        "false": 16,
+        "true": 16
+      },
+      "class_balance_ok": true,
+      "sector_pair_balance_ok": true,
+      "sector_slot_balance_ok": true,
+      "content_slot_balance_ok": true,
+      "orientation_slot_balance_ok": true,
+      "target_mean": -0.0,
+      "target_min": -1.085751,
+      "target_max": 1.236531,
+      "within_state_target_means": {
+        "000": -0.0,
+        "011": -0.0,
+        "100": -0.0,
+        "111": -0.0
+      },
+      "within_state_target_ranges": {
+        "000": 1.243842,
+        "011": 2.322282,
+        "100": 1.013556,
+        "111": 2.065587
+      },
+      "within_state_variation_ok": true,
+      "coarse_tuple_mean_abs_max": 0.0
+    },
+    "validation": {
+      "size": 16,
+      "class_counts": {
+        "-0.81824": 1,
+        "-0.804803": 1,
+        "-0.668219": 1,
+        "-0.654782": 1,
+        "-0.419234": 1,
+        "-0.087344": 3,
+        "-0.052981": 1,
+        "0.326109": 1,
+        "0.339546": 2,
+        "0.528081": 1,
+        "0.711193": 2,
+        "0.72463": 1
+      },
+      "sector_pair_counts": {
+        "N_large|N_large": 1,
+        "N_large|N_small": 1,
+        "N_large|P_large": 1,
+        "N_large|P_small": 1,
+        "N_small|N_large": 1,
+        "N_small|N_small": 1,
+        "N_small|P_large": 1,
+        "N_small|P_small": 1,
+        "P_large|N_large": 1,
+        "P_large|N_small": 1,
+        "P_large|P_large": 1,
+        "P_large|P_small": 1,
+        "P_small|N_large": 1,
+        "P_small|N_small": 1,
+        "P_small|P_large": 1,
+        "P_small|P_small": 1
+      },
+      "sector_a_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "sector_b_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "content_a_counts": {
+        "crossed": 16
+      },
+      "content_b_counts": {
+        "crossed": 16
+      },
+      "orientation_a_counts": {
+        "forward": 16
+      },
+      "orientation_b_counts": {
+        "reverse": 16
+      },
+      "sign_agreement_counts": {
+        "false": 8,
+        "true": 8
+      },
+      "content_agreement_counts": {
+        "true": 16
+      },
+      "orientation_agreement_counts": {
+        "false": 16
+      },
+      "class_balance_ok": true,
+      "sector_pair_balance_ok": true,
+      "sector_slot_balance_ok": true,
+      "content_slot_balance_ok": true,
+      "orientation_slot_balance_ok": true,
+      "target_mean": 0.0,
+      "target_min": -0.81824,
+      "target_max": 0.72463,
+      "within_state_target_means": {
+        "010": 0.0,
+        "110": 0.0
+      },
+      "within_state_target_ranges": {
+        "010": 1.529433,
+        "110": 1.529433
+      },
+      "within_state_variation_ok": true,
+      "coarse_tuple_mean_abs_max": 0.0
+    },
+    "test": {
+      "size": 16,
+      "class_counts": {
+        "-0.342824": 1,
+        "-0.322755": 1,
+        "-0.182066": 1,
+        "-0.146502": 1,
+        "-0.128827": 1,
+        "-0.112509": 1,
+        "0.01109": 2,
+        "0.031931": 1,
+        "0.048249": 1,
+        "0.06669": 1,
+        "0.07381": 1,
+        "0.171848": 2,
+        "0.227448": 1,
+        "0.421483": 1
+      },
+      "sector_pair_counts": {
+        "N_large|N_large": 1,
+        "N_large|N_small": 1,
+        "N_large|P_large": 1,
+        "N_large|P_small": 1,
+        "N_small|N_large": 1,
+        "N_small|N_small": 1,
+        "N_small|P_large": 1,
+        "N_small|P_small": 1,
+        "P_large|N_large": 1,
+        "P_large|N_small": 1,
+        "P_large|P_large": 1,
+        "P_large|P_small": 1,
+        "P_small|N_large": 1,
+        "P_small|N_small": 1,
+        "P_small|P_large": 1,
+        "P_small|P_small": 1
+      },
+      "sector_a_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "sector_b_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "content_a_counts": {
+        "crossed": 16
+      },
+      "content_b_counts": {
+        "aligned": 16
+      },
+      "orientation_a_counts": {
+        "reverse": 16
+      },
+      "orientation_b_counts": {
+        "reverse": 16
+      },
+      "sign_agreement_counts": {
+        "false": 8,
+        "true": 8
+      },
+      "content_agreement_counts": {
+        "false": 16
+      },
+      "orientation_agreement_counts": {
+        "true": 16
+      },
+      "class_balance_ok": true,
+      "sector_pair_balance_ok": true,
+      "sector_slot_balance_ok": true,
+      "content_slot_balance_ok": true,
+      "orientation_slot_balance_ok": true,
+      "target_mean": 0.0,
+      "target_min": -0.342824,
+      "target_max": 0.421483,
+      "within_state_target_means": {
+        "001": 0.0,
+        "101": 0.0
+      },
+      "within_state_target_ranges": {
+        "001": 0.764307,
+        "101": 0.550203
+      },
+      "within_state_variation_ok": true,
+      "coarse_tuple_mean_abs_max": 0.0
+    }
+  },
+  "leakage_checks": {
+    "class_balanced": true,
+    "sector_pair_balanced": true,
+    "sector_slot_balanced": true,
+    "token_identity_not_in_label_rule": true,
+    "single_sector_shortcut_note": "Label depends on agreement between sector_a and sector_b; no single sector identity determines the class."
+  }
+}

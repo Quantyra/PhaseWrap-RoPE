@@ -1,0 +1,313 @@
+{
+  "dataset": "synthetic_dual_chart_transition_manifold_response",
+  "seed": 777,
+  "split_rotation": 0,
+  "slot_swap": 0,
+  "token_permutation": "cdab",
+  "pair_reindex": 0,
+  "sequence_length": 12,
+  "vocabulary": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "offsets": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "splits": {
+    "train": {
+      "size": 32,
+      "class_counts": {
+        "-0.956366": 1,
+        "-0.909923": 1,
+        "-0.855312": 1,
+        "-0.772783": 1,
+        "-0.712907": 1,
+        "-0.623459": 1,
+        "-0.560522": 1,
+        "-0.519391": 1,
+        "-0.330575": 1,
+        "-0.238464": 1,
+        "-0.229221": 1,
+        "-0.122284": 1,
+        "0.057073": 2,
+        "0.088388": 2,
+        "0.154609": 1,
+        "0.204758": 1,
+        "0.230862": 1,
+        "0.240773": 3,
+        "0.267287": 2,
+        "0.269021": 1,
+        "0.311867": 1,
+        "0.464252": 1,
+        "0.530935": 1,
+        "0.543293": 1,
+        "0.767417": 1,
+        "0.891275": 1,
+        "0.915102": 1
+      },
+      "sector_pair_counts": {
+        "N_large|N_large": 2,
+        "N_large|N_small": 2,
+        "N_large|P_large": 2,
+        "N_large|P_small": 2,
+        "N_small|N_large": 2,
+        "N_small|N_small": 2,
+        "N_small|P_large": 2,
+        "N_small|P_small": 2,
+        "P_large|N_large": 2,
+        "P_large|N_small": 2,
+        "P_large|P_large": 2,
+        "P_large|P_small": 2,
+        "P_small|N_large": 2,
+        "P_small|N_small": 2,
+        "P_small|P_large": 2,
+        "P_small|P_small": 2
+      },
+      "sector_a_counts": {
+        "N_large": 8,
+        "N_small": 8,
+        "P_large": 8,
+        "P_small": 8
+      },
+      "sector_b_counts": {
+        "N_large": 8,
+        "N_small": 8,
+        "P_large": 8,
+        "P_small": 8
+      },
+      "content_a_counts": {
+        "aligned": 32
+      },
+      "content_b_counts": {
+        "aligned": 16,
+        "crossed": 16
+      },
+      "orientation_a_counts": {
+        "forward": 16,
+        "reverse": 16
+      },
+      "orientation_b_counts": {
+        "forward": 32
+      },
+      "sign_agreement_counts": {
+        "false": 16,
+        "true": 16
+      },
+      "content_agreement_counts": {
+        "false": 16,
+        "true": 16
+      },
+      "orientation_agreement_counts": {
+        "false": 16,
+        "true": 16
+      },
+      "class_balance_ok": true,
+      "sector_pair_balance_ok": true,
+      "sector_slot_balance_ok": true,
+      "content_slot_balance_ok": true,
+      "orientation_slot_balance_ok": true,
+      "target_mean": -0.0,
+      "target_min": -0.956366,
+      "target_max": 0.915102,
+      "within_state_target_means": {
+        "000": -0.0,
+        "011": 0.0,
+        "100": 0.0,
+        "111": -0.0
+      },
+      "within_state_target_ranges": {
+        "000": 1.2562,
+        "011": 1.801198,
+        "100": 1.237035,
+        "111": 1.871468
+      },
+      "within_state_variation_ok": true,
+      "coarse_tuple_mean_abs_max": 0.0
+    },
+    "validation": {
+      "size": 16,
+      "class_counts": {
+        "-1.00418": 1,
+        "-0.850447": 1,
+        "-0.421158": 2,
+        "-0.310022": 2,
+        "-0.121487": 1,
+        "-0.120988": 2,
+        "0.063026": 1,
+        "0.067571": 1,
+        "0.363196": 1,
+        "0.375232": 1,
+        "0.76041": 2,
+        "1.290601": 1
+      },
+      "sector_pair_counts": {
+        "N_large|N_large": 1,
+        "N_large|N_small": 1,
+        "N_large|P_large": 1,
+        "N_large|P_small": 1,
+        "N_small|N_large": 1,
+        "N_small|N_small": 1,
+        "N_small|P_large": 1,
+        "N_small|P_small": 1,
+        "P_large|N_large": 1,
+        "P_large|N_small": 1,
+        "P_large|P_large": 1,
+        "P_large|P_small": 1,
+        "P_small|N_large": 1,
+        "P_small|N_small": 1,
+        "P_small|P_large": 1,
+        "P_small|P_small": 1
+      },
+      "sector_a_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "sector_b_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "content_a_counts": {
+        "crossed": 16
+      },
+      "content_b_counts": {
+        "crossed": 16
+      },
+      "orientation_a_counts": {
+        "forward": 16
+      },
+      "orientation_b_counts": {
+        "reverse": 16
+      },
+      "sign_agreement_counts": {
+        "false": 8,
+        "true": 8
+      },
+      "content_agreement_counts": {
+        "true": 16
+      },
+      "orientation_agreement_counts": {
+        "false": 16
+      },
+      "class_balance_ok": true,
+      "sector_pair_balance_ok": true,
+      "sector_slot_balance_ok": true,
+      "content_slot_balance_ok": true,
+      "orientation_slot_balance_ok": true,
+      "target_mean": -0.0,
+      "target_min": -1.00418,
+      "target_max": 1.290601,
+      "within_state_target_means": {
+        "010": -0.0,
+        "110": -0.0
+      },
+      "within_state_target_ranges": {
+        "010": 2.294781,
+        "110": 1.181568
+      },
+      "within_state_variation_ok": true,
+      "coarse_tuple_mean_abs_max": 0.0
+    },
+    "test": {
+      "size": 16,
+      "class_counts": {
+        "-0.688558": 1,
+        "-0.215212": 3,
+        "-0.179648": 1,
+        "-0.169554": 2,
+        "-0.13399": 1,
+        "-0.001215": 1,
+        "0.138702": 2,
+        "0.23996": 1,
+        "0.24708": 1,
+        "0.337309": 2,
+        "0.549095": 1
+      },
+      "sector_pair_counts": {
+        "N_large|N_large": 1,
+        "N_large|N_small": 1,
+        "N_large|P_large": 1,
+        "N_large|P_small": 1,
+        "N_small|N_large": 1,
+        "N_small|N_small": 1,
+        "N_small|P_large": 1,
+        "N_small|P_small": 1,
+        "P_large|N_large": 1,
+        "P_large|N_small": 1,
+        "P_large|P_large": 1,
+        "P_large|P_small": 1,
+        "P_small|N_large": 1,
+        "P_small|N_small": 1,
+        "P_small|P_large": 1,
+        "P_small|P_small": 1
+      },
+      "sector_a_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "sector_b_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "content_a_counts": {
+        "crossed": 16
+      },
+      "content_b_counts": {
+        "aligned": 16
+      },
+      "orientation_a_counts": {
+        "reverse": 16
+      },
+      "orientation_b_counts": {
+        "reverse": 16
+      },
+      "sign_agreement_counts": {
+        "false": 8,
+        "true": 8
+      },
+      "content_agreement_counts": {
+        "false": 16
+      },
+      "orientation_agreement_counts": {
+        "true": 16
+      },
+      "class_balance_ok": true,
+      "sector_pair_balance_ok": true,
+      "sector_slot_balance_ok": true,
+      "content_slot_balance_ok": true,
+      "orientation_slot_balance_ok": true,
+      "target_mean": 0.0,
+      "target_min": -0.688558,
+      "target_max": 0.549095,
+      "within_state_target_means": {
+        "001": 0.0,
+        "101": 0.0
+      },
+      "within_state_target_ranges": {
+        "001": 1.025867,
+        "101": 0.764307
+      },
+      "within_state_variation_ok": true,
+      "coarse_tuple_mean_abs_max": 0.0
+    }
+  },
+  "leakage_checks": {
+    "class_balanced": true,
+    "sector_pair_balanced": true,
+    "sector_slot_balanced": true,
+    "token_identity_not_in_label_rule": true,
+    "single_sector_shortcut_note": "Label depends on agreement between sector_a and sector_b; no single sector identity determines the class."
+  }
+}
