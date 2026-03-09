@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T15:15:00Z",
+    "timestamp_utc": "2026-03-10T15:35:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S252"
+        "S254"
     ],
     "active_workers": {},
     "next_actions": [
-        "Keep the phase-sensitive manifold path at approval-candidate posture until a strict implementation gate is written.",
-        "Do not reopen implementation until the gate fixes the candidate, control stack, and packet without ambiguity.",
-        "Keep the current nonlinear manifold task closed with no further packet expansion."
+        "Implement only the approved phase-sensitive manifold task, witness candidate, and fixed control stack.",
+        "Run the fixed three-seed local packet on sim_quantum_statevector.",
+        "Emit centering, feature-audit, and regression diagnostics for all variants."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,17 +28,15 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The phase-sensitive manifold path is only approval-candidate; implementation still needs to prove the phase-insensitive nonlinear controls are bounded correctly."
+        "The phase-sensitive manifold branch is newly approved and still needs empirical validation against the fixed nonlinear control stack."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-phase-sensitive-manifold-task-spec-v1.md",
-        "docs/research/q-rope-phase-sensitive-manifold-restart-scaffold-v1.md",
-        "docs/research/q-rope-phase-sensitive-manifold-approval-candidate-v1.md",
-        "stories/S250-phase-sensitive-manifold-task-specification.md",
-        "stories/S251-phase-sensitive-manifold-restart-scaffold.md",
-        "stories/S252-phase-sensitive-manifold-approval-candidate-memo.md",
+        "docs/research/q-rope-phase-sensitive-manifold-implementation-approval-gate-v1.md",
+        "docs/research/q-rope-phase-sensitive-manifold-implementation-plan-v1.md",
+        "stories/S253-phase-sensitive-manifold-implementation-approval-gate.md",
+        "stories/S254-phase-sensitive-manifold-implementation-plan.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S250-S252 completed. The next nonlinear line is now a phase-sensitive manifold path with one exact task, one fixed control stack that includes the prior successful nonlinear family, and approval-candidate status, but implementation remains closed pending a strict gate."
+    "notes": "S253-S254 completed. The phase-sensitive manifold path is implementation-approved under a strictly bounded local synthetic packet with one witness candidate and four controls."
 }
