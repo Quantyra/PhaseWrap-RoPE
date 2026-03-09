@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-11T00:45:00Z",
+    "timestamp_utc": "2026-03-11T01:05:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S313"
+        "S315"
     ],
     "active_workers": {},
     "next_actions": [
-        "Draft the explicit implementation-approval gate memo for the token-invariant chart-transition line.",
-        "Do not reopen implementation or experiments until that gate is approved.",
-        "Keep the line memo-only and bound to the latent-state invariance contract."
+        "Implement the token-invariant chart-transition task generator with paired latent-state render diagnostics.",
+        "Stop immediately if latent-state invariance fails.",
+        "If invariance passes, run the fixed local-only, zero-credit packet against the bounded control stack."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,15 +28,14 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The token-invariant chart-transition line is ready for an approval-gate decision, but implementation remains blocked until that gate explicitly passes."
+        "The token-invariant chart-transition branch is approved only conditionally; implementation must stop immediately if paired latent-state invariance diagnostics fail."
     ],
     "last_test_run": "Execution-only packet for token-renaming hardening on synthetic_dual_chart_transition_manifold_response",
     "recent_changes": [
-        "docs/research/q-rope-token-invariant-chart-transition-restart-scaffold-v1.md",
-        "docs/research/q-rope-token-invariant-chart-transition-approval-candidate-v1.md",
-        "docs/research/q-rope-token-invariant-scaffold-binding-v1.md",
+        "docs/research/q-rope-token-invariant-chart-transition-implementation-approval-gate-v1.md",
+        "docs/research/q-rope-token-invariant-chart-transition-implementation-plan-v1.md",
         "docs/evidence/E001-evidence-log.md",
         "logs/checkpoint.json"
     ],
-    "notes": "S312-S313 completed. The token-invariant chart-transition line now has a fully bound latent-state invariance contract; the next valid move is an implementation-approval gate memo."
+    "notes": "S314-S315 completed. The token-invariant chart-transition line is now implementation-approved under a strict invariance-first gate and fixed control packet."
 }
