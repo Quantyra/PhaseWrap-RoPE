@@ -1,15 +1,15 @@
 {
-    "timestamp_utc": "2026-03-10T13:25:00Z",
+    "timestamp_utc": "2026-03-10T13:45:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S238"
+        "S241"
     ],
     "active_workers": {},
     "next_actions": [
-        "Preserve the nonlinear analog manifold task as the next memo-only continuous direction.",
-        "Do not reopen implementation until a future restart brief proves coarse lookup near-null and additive analog insufficiency by construction.",
+        "Keep the nonlinear manifold path at approval-candidate posture until a strict implementation gate is written.",
+        "Do not reopen implementation until the gate fixes the candidate, additive controls, and packet without ambiguity.",
         "Keep the orthogonalized continuous branch closed with no further packet expansion."
     ],
     "risks_or_blocks": [
@@ -29,18 +29,17 @@
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
         "Orthogonalized continuous branch weakened the coarse-state shortcut but remained beatable by stronger additive analog symbolic controls.",
-        "Future continuous tasks must suppress both coarse lookup and simple additive analog shortcuts by construction."
+        "The nonlinear manifold path is only approval-candidate; its additive insufficiency still needs to be enforced operationally at implementation-gate time."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-orthogonalized-continuous-implementation-v1.md",
-        "docs/research/q-rope-orthogonalized-continuous-first-packet-v1.md",
-        "docs/research/q-rope-orthogonalized-continuous-decision-memo-v1.md",
-        "docs/research/q-rope-nonlinear-analog-manifold-task-design-v1.md",
-        "stories/S236-orthogonalized-continuous-implementation.md",
-        "stories/S237-orthogonalized-continuous-decision-memo.md",
-        "stories/S238-nonlinear-analog-manifold-task-design.md",
+        "docs/research/q-rope-nonlinear-manifold-task-spec-v1.md",
+        "docs/research/q-rope-nonlinear-manifold-restart-scaffold-v1.md",
+        "docs/research/q-rope-nonlinear-manifold-approval-candidate-v1.md",
+        "stories/S239-nonlinear-manifold-task-specification.md",
+        "stories/S240-nonlinear-manifold-restart-scaffold.md",
+        "stories/S241-nonlinear-manifold-approval-candidate-memo.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S236-S238 completed. The orthogonalized continuous branch improved fairness against the coarse lookup baseline but still lost to stronger additive analog controls, so the line returns to memo-only posture with nonlinear analog manifold design preserved as the next future angle."
+    "notes": "S239-S241 completed. The next continuous line is now a nonlinear manifold path with one exact task, one fixed additive control stack, and approval-candidate status, but implementation remains closed pending a strict gate."
 }
