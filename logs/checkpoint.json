@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-10T09:35:00Z",
+    "timestamp_utc":  "2026-03-10T09:50:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S216"
+                              "S220"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Keep the relational-witness line memo-only on `synthetic_dual_continuous_coupled_response`.",
-                         "Do not reopen implementation until the continuous target is reviewed as an approval candidate.",
-                         "Keep the future regression control stack explicit and bounded."
+                         "Implement the continuous relational target, one candidate, and the fixed symbolic regression controls only.",
+                         "Run the fixed first packet on seeds 42, 123, 777.",
+                         "Emit auditable regression diagnostics for all variants."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -33,12 +33,15 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-continuous-relational-target-task-spec-v1.md",
-                           "docs/research/q-rope-continuous-relational-target-restart-scaffold-v1.md",
-                           "stories/S215-continuous-relational-target-task-spec.md",
-                           "stories/S216-continuous-relational-target-restart-scaffold.md",
+                           "docs/research/q-rope-continuous-target-approval-candidate-v1.md",
+                           "docs/research/q-rope-continuous-target-implementation-approval-gate-v1.md",
+                           "docs/research/q-rope-continuous-target-implementation-plan-v1.md",
+                           "stories/S217-continuous-target-approval-candidate-memo.md",
+                           "stories/S218-continuous-target-implementation-approval-gate.md",
+                           "stories/S219-continuous-target-implementation-plan.md",
+                           "stories/S220-continuous-target-implementation.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S215-S216 completed. The next preserved branch is a continuous relational response task with bounded symbolic regression controls."
+    "notes":  "S217-S219 completed. The continuous relational target path is approved for one strictly bounded local synthetic implementation phase."
 }
