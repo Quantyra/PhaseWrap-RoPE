@@ -9,5 +9,13 @@
 - it removes token identity from the target by construction rather than trying to harden after the fact
 - it preserves the strongest surviving mechanism idea from the chart-transition line: ordered transition geometry
 
-## Remaining gate
-- implementation approval should depend on explicit latent-state invariance diagnostics, not just a prose claim
+## Hardened remaining gate
+Implementation approval is blocked until the task specification, scaffold, and eventual generator contract all require the following latent-state diagnostics on paired token-permuted renders of the same latent states:
+- `latent_target_invariance_pass = true`
+- `latent_target_max_abs_delta = 0`
+- `token_view_balance_pass = true`
+
+## Consequence
+- still memo-only
+- still no implementation
+- next valid move is an implementation-approval gate memo that references this invariance contract directly
