@@ -1,18 +1,18 @@
 ﻿{
-    "timestamp_utc":  "2026-03-10T05:12:00Z",
+    "timestamp_utc":  "2026-03-10T05:22:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S196"
+                              "S197"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Define one exact harder dual task around sector-sign and content-family agreement.",
-                         "Fix the derived variables and label rule explicitly.",
-                         "Keep the branch memo-only until the task is fully specified."
+                         "Bind the harder dual content-coupled task to one fixed restart scaffold.",
+                         "Keep future candidate/control posture explicit at memo level.",
+                         "Do not reopen implementation until the harder task scaffold is fixed."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S195 completed. The next memo-only step is exact specification of the harder dual content-coupled task."
+    "notes":  "S196 completed. The next memo-only step is to bind the harder dual content-coupled task to one fixed restart scaffold."
 }
