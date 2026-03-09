@@ -1,4 +1,4 @@
-# Story template
+﻿# Story template
 
 ## Story ID and title
 S188 - Dual-sector post-rotation decision
@@ -36,3 +36,5 @@ As a research lead, I want the split-rotation hardening result interpreted corre
 
 ## Cycle time
 - Start: 2026-03-08 18:15 (Pacific/Honolulu)
+- End: 2026-03-08 18:18 (Pacific/Honolulu)
+
