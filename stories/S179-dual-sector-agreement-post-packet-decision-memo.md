@@ -18,6 +18,7 @@ As a research lead, I want the harder witness branch reassessed after the first 
 
 ## Evidence and references
 - `docs/research/q-rope-dual-sector-agreement-first-packet-v1.md`
+- `docs/research/q-rope-dual-sector-agreement-post-packet-decision-v1.md`
 
 ## Out of scope
 - Immediate benchmark expansion
@@ -35,3 +36,4 @@ As a research lead, I want the harder witness branch reassessed after the first 
 
 ## Cycle time
 - Start: 2026-03-08 14:40 (Pacific/Honolulu)
+- End: 2026-03-08 14:48 (Pacific/Honolulu)

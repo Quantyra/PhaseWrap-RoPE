@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-10T00:40:00Z",
+    "timestamp_utc":  "2026-03-10T00:48:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S179"
+                              "S180"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Interpret the first dual-sector packet at branch level.",
-                         "Select one bounded hardening step rather than broadening immediately.",
-                         "Do not open benchmark or remote work in the next step."
+                         "Define the bounded slot-swap hardening control for the dual-sector task.",
+                         "Keep the same seeds, backend, candidate, and symbolic control.",
+                         "Do not broaden beyond the symmetry question."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S178 completed. The harder dual-sector task produced the first clean differentiating witness result against a bounded symbolic control; the next step is a branch-level hardening decision, not expansion."
+    "notes":  "S179 completed. The dual-sector witness branch remains active; the next bounded step is slot-swap hardening before any broader move."
 }
