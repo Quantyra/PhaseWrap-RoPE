@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-10T12:35:00Z",
+    "timestamp_utc":  "2026-03-10T12:50:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S234"
+                              "S235"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Translate the approved orthogonalized continuous path into a strict implementation plan.",
-                         "Fix writable scope, first packet, and exact residual control stack before reopening code.",
-                         "Keep the implementation phase local-only, zero-credit, and single-candidate."
+                         "Implement `synthetic_dual_orthogonalized_continuous_response` and the fixed candidate/control stack only.",
+                         "Run the fixed three-seed packet on `sim_quantum_statevector`.",
+                         "Emit auditable orthogonalization and regression diagnostics for all variants."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -33,12 +33,10 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-orthogonalized-continuous-approval-candidate-v1.md",
-                           "docs/research/q-rope-orthogonalized-continuous-implementation-approval-gate-v1.md",
-                           "stories/S233-orthogonalized-continuous-approval-candidate-memo.md",
-                           "stories/S234-orthogonalized-continuous-implementation-approval-gate.md",
+                           "docs/research/q-rope-orthogonalized-continuous-implementation-plan-v1.md",
+                           "stories/S235-orthogonalized-continuous-implementation-plan.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S233-S234 completed. The orthogonalized continuous line has been approved for one strictly bounded local synthetic implementation phase."
+    "notes":  "S235 completed. The orthogonalized continuous branch now has a strict implementation plan and is ready for one bounded local packet."
 }
