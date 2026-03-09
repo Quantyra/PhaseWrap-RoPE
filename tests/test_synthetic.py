@@ -1,5 +1,6 @@
 from qrope.synthetic import (
     content_family_name,
+    generate_chart_transition_token_invariant_response_bundle,
     generate_dual_continuous_coupled_response_bundle,
     generate_dual_latent_phase_manifold_residual_response_bundle,
     generate_dual_local_atlas_manifold_response_bundle,
@@ -251,7 +252,20 @@ def test_dual_continuous_coupled_response_bundle_is_balanced() -> None:
         assert summary["sector_slot_balance_ok"] is True
         assert summary["content_slot_balance_ok"] is True
         assert summary["orientation_slot_balance_ok"] is True
-        assert -1.0 <= summary["target_min"] <= summary["target_max"] <= 1.0
+    assert -1.0 <= summary["target_min"] <= summary["target_max"] <= 1.0
+
+
+def test_chart_transition_token_invariant_bundle_emits_required_latent_diagnostics() -> None:
+    bundle = generate_chart_transition_token_invariant_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_chart_transition_token_invariant_response"
+    assert diagnostics["latent_target_invariance_pass"] is True
+    assert diagnostics["latent_target_max_abs_delta"] == 0.0
+    assert diagnostics["latent_render_pair_count"] > 0
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["token_view_counts"]["train"]["identity"] == diagnostics["token_view_counts"]["train"]["cdab"]
+    assert diagnostics["token_view_counts"]["validation"]["identity"] == diagnostics["token_view_counts"]["validation"]["cdab"]
+    assert diagnostics["token_view_counts"]["test"]["identity"] == diagnostics["token_view_counts"]["test"]["cdab"]
 
 
 def test_dual_continuous_coupled_response_labels_follow_rule() -> None:

@@ -1,0 +1,20 @@
+{
+  "feature_order": [
+    "transition_backbone",
+    "transition_phase_unordered",
+    "transition_curvature_unordered"
+  ],
+  "coefficients": {
+    "transition_backbone": 0.164052,
+    "transition_phase_unordered": 0.405101,
+    "transition_curvature_unordered": 0.014371
+  },
+  "intercept": 0.010563,
+  "forbidden_inputs_absent": true,
+  "mae": 0.262961,
+  "rank_correlation": 0.357064,
+  "calibration_slope": 1.035739,
+  "token_identity_absent": true,
+  "transition_family_only": true,
+  "ordered_transition_absent": true
+}

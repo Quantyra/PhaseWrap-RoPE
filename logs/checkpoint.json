@@ -1,41 +1,46 @@
-{
-    "timestamp_utc": "2026-03-11T01:05:00Z",
-    "current_epic_id": "E001",
-    "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
-    "current_epic_status": "Paused",
-    "current_story_ids": [
-        "S315"
-    ],
-    "active_workers": {},
-    "next_actions": [
-        "Implement the token-invariant chart-transition task generator with paired latent-state render diagnostics.",
-        "Stop immediately if latent-state invariance fails.",
-        "If invariance passes, run the fixed local-only, zero-credit packet against the bounded control stack."
-    ],
-    "risks_or_blocks": [
-        "Novelty remains conditional until empirical ablation results are collected.",
-        "Benchmark breadth risk remains if phase-1 includes only text classification.",
-        "Cloud provider API/platform changes may require periodic strategy updates.",
-        "Current matrix is fully real-mode but based on small handcrafted local datasets.",
-        "Local handcrafted datasets may not reflect production distributions.",
-        "Quandela remote path currently supports a provider-accepted minimal circuit and reduced slice size rather than a matched full benchmark matrix.",
-        "IBM open-instance backend availability and latency may vary across sessions.",
-        "Matched remote evidence is still limited to one dataset, one seed, and non-identical circuit families.",
-        "Current `V2` asymmetry across providers may be seed-sensitive and should not be over-interpreted.",
-        "The Quandela adapter currently has a provider-rejected parameter regime that blocks some seeds.",
-        "Retry/cache-reset hardening improved but did not eliminate Quandela coverage gaps.",
-        "Sample-level skip policy still leaves some Quandela seed/variant combinations non-viable.",
-        "Direct Quandela execution depends on maintaining sufficient provider credits.",
-        "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
-        "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The token-invariant chart-transition branch is approved only conditionally; implementation must stop immediately if paired latent-state invariance diagnostics fail."
-    ],
-    "last_test_run": "Execution-only packet for token-renaming hardening on synthetic_dual_chart_transition_manifold_response",
-    "recent_changes": [
-        "docs/research/q-rope-token-invariant-chart-transition-implementation-approval-gate-v1.md",
-        "docs/research/q-rope-token-invariant-chart-transition-implementation-plan-v1.md",
-        "docs/evidence/E001-evidence-log.md",
-        "logs/checkpoint.json"
-    ],
-    "notes": "S314-S315 completed. The token-invariant chart-transition line is now implementation-approved under a strict invariance-first gate and fixed control packet."
+﻿{
+    "timestamp_utc":  "2026-03-11T02:10:00Z",
+    "current_epic_id":  "E001",
+    "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
+    "current_epic_status":  "Paused",
+    "current_story_ids":  [
+                              "S319"
+                          ],
+    "active_workers":  {
+
+                       },
+    "next_actions":  [
+                         "Design the memo-only `synthetic_transition_orbit_response` task family.",
+                         "Collapse token identity into orbit-equivalence classes at task construction time.",
+                         "Keep execution closed until a new restart scaffold and approval gate exist."
+                     ],
+    "risks_or_blocks":  [
+                            "Novelty remains conditional until empirical ablation results are collected.",
+                            "Benchmark breadth risk remains if phase-1 includes only text classification.",
+                            "Cloud provider API/platform changes may require periodic strategy updates.",
+                            "Current matrix is fully real-mode but based on small handcrafted local datasets.",
+                            "Local handcrafted datasets may not reflect production distributions.",
+                            "Quandela remote path currently supports a provider-accepted minimal circuit and reduced slice size rather than a matched full benchmark matrix.",
+                            "IBM open-instance backend availability and latency may vary across sessions.",
+                            "Matched remote evidence is still limited to one dataset, one seed, and non-identical circuit families.",
+                            "Current `V2` asymmetry across providers may be seed-sensitive and should not be over-interpreted.",
+                            "The Quandela adapter currently has a provider-rejected parameter regime that blocks some seeds.",
+                            "Retry/cache-reset hardening improved but did not eliminate Quandela coverage gaps.",
+                            "Sample-level skip policy still leaves some Quandela seed/variant combinations non-viable.",
+                            "Direct Quandela execution depends on maintaining sufficient provider credits.",
+                            "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
+                            "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
+                            "The token-invariant chart-transition branch has been stopped after losing to all approved controls on mean MAE.",
+                            "The preserved next angle is memo-only and must not reopen execution without a new restart scaffold."
+                        ],
+    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
+    "recent_changes":  [
+                           "docs/research/q-rope-token-invariant-chart-transition-implementation-v1.md",
+                           "docs/research/q-rope-token-invariant-chart-transition-first-packet-v1.md",
+                           "docs/research/q-rope-token-invariant-chart-transition-decision-memo-v1.md",
+                           "docs/research/q-rope-transition-orbit-task-design-v1.md",
+                           "docs/evidence/E001-evidence-log.md",
+                           "logs/checkpoint.json"
+                       ],
+    "notes":  "S316-S319 completed. The token-invariant chart-transition line passed invariance diagnostics but failed the fixed packet on mean MAE, so the branch is closed and the next angle is memo-only `synthetic_transition_orbit_response`."
 }

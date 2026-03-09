@@ -231,6 +231,38 @@ def test_synthetic_sector_parity_binary_loader_path() -> None:
     assert mode == "synthetic_sector_parity_binary"
 
 
+def test_synthetic_chart_transition_token_invariant_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_chart_transition_token_invariant_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_chart_transition_invariant",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_chart_transition_token_invariant_response+readout_relational_witness_chart_transition_invariant+head_linear"
+    )
+    assert diagnostics["latent_target_invariance_pass"] is True
+    assert diagnostics["latent_target_max_abs_delta"] == 0.0
+    assert diagnostics["latent_render_pair_count"] > 0
+    assert diagnostics["token_view_balance_pass"] is True
+
+
+def test_chart_transition_invariant_control_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_chart_transition_token_invariant_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_additive_regressor",
+    )
+    assert metrics["data_mode"].startswith(
+        "synthetic_chart_transition_token_invariant_response+readout_symbolic_transition_additive_regressor+head_linear"
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["token_identity_absent"] is True
+    assert diagnostics["transition_family_only"] is True
+
+
 def test_synthetic_offset_binary_quantum_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_offset_binary",

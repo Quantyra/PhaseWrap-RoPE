@@ -1,0 +1,28 @@
+{
+  "feature_order": [
+    "sign_agreement",
+    "sign_disagreement",
+    "orientation_agreement",
+    "orientation_disagreement",
+    "sector_magnitude_delta",
+    "orientation_delta",
+    "chart_transition_invariant_hint"
+  ],
+  "coefficients": {
+    "sign_agreement": 0.080938,
+    "sign_disagreement": -0.082287,
+    "orientation_agreement": 0.101785,
+    "orientation_disagreement": -0.103134,
+    "sector_magnitude_delta": -0.104554,
+    "orientation_delta": 0.053488,
+    "chart_transition_invariant_hint": 0.225408
+  },
+  "intercept": -0.001277,
+  "forbidden_inputs_absent": true,
+  "mae": 0.277765,
+  "rank_correlation": -0.177092,
+  "calibration_slope": -0.024153,
+  "bounded_feature_audit_pass": true,
+  "token_identity_absent": true,
+  "anti_collapse_pass": true
+}
