@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-10T12:20:00Z",
+    "timestamp_utc":  "2026-03-10T12:35:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S232"
+                              "S234"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Keep the orthogonalized continuous line at memo-only scope.",
-                         "Elevate the orthogonalized task from scaffold to approval-candidate only if the residual control stack stays explicit.",
-                         "Do not reopen implementation until a future brief proves coarse lookup nullness and control fairness."
+                         "Translate the approved orthogonalized continuous path into a strict implementation plan.",
+                         "Fix writable scope, first packet, and exact residual control stack before reopening code.",
+                         "Keep the implementation phase local-only, zero-credit, and single-candidate."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -33,12 +33,12 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-orthogonalized-continuous-task-spec-v1.md",
-                           "docs/research/q-rope-orthogonalized-continuous-restart-scaffold-v1.md",
-                           "stories/S231-orthogonalized-continuous-task-spec.md",
-                           "stories/S232-orthogonalized-continuous-restart-scaffold.md",
+                           "docs/research/q-rope-orthogonalized-continuous-approval-candidate-v1.md",
+                           "docs/research/q-rope-orthogonalized-continuous-implementation-approval-gate-v1.md",
+                           "stories/S233-orthogonalized-continuous-approval-candidate-memo.md",
+                           "stories/S234-orthogonalized-continuous-implementation-approval-gate.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S231-S232 completed. The continuous line remains memo-only, now anchored to one exact orthogonalized task designed to de-power coarse-state lookup by construction."
+    "notes":  "S233-S234 completed. The orthogonalized continuous line has been approved for one strictly bounded local synthetic implementation phase."
 }
