@@ -34,6 +34,16 @@ class SyntheticDatasetBundle:
     diagnostics: dict[str, Any]
 
 
+@dataclass(frozen=True)
+class DualSyntheticSample:
+    text: str
+    label: int
+    sector_a: str
+    sector_b: str
+    sample_a: SyntheticSample
+    sample_b: SyntheticSample
+
+
 def generate_signed_offset_binary_bundle(seed: int, split_rotation: int = 0) -> SyntheticDatasetBundle:
     return generate_sector_bundle(
         seed=seed,
@@ -48,6 +58,14 @@ def generate_sector_parity_binary_bundle(seed: int, split_rotation: int = 0) -> 
         seed=seed,
         dataset_name="synthetic_sector_parity_binary",
         label_mode="sector_parity",
+        split_rotation=split_rotation,
+    )
+
+
+def generate_dual_sector_agreement_binary_bundle(seed: int, split_rotation: int = 0) -> SyntheticDatasetBundle:
+    return generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_dual_sector_agreement_binary",
         split_rotation=split_rotation,
     )
 
@@ -116,6 +134,80 @@ def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_
     )
 
 
+def generate_dual_sector_bundle(seed: int, dataset_name: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
+    rng = random.Random(f"{dataset_name}:{seed}")
+    single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
+
+    for left_token in TOKENS:
+        for right_token in TOKENS:
+            for magnitude in OFFSETS:
+                for base_left in range(SEQUENCE_LENGTH - magnitude):
+                    pos_sample = build_sample(
+                        left_token=left_token,
+                        right_token=right_token,
+                        left_pos=base_left,
+                        right_pos=base_left + magnitude,
+                        label_mode="offset_sign",
+                    )
+                    neg_sample = build_sample(
+                        left_token=left_token,
+                        right_token=right_token,
+                        left_pos=base_left + magnitude,
+                        right_pos=base_left,
+                        label_mode="offset_sign",
+                    )
+                    single_grouped[offset_sector_name(pos_sample.offset)].append(pos_sample)
+                    single_grouped[offset_sector_name(neg_sample.offset)].append(neg_sample)
+
+    pair_grouped: dict[tuple[str, str], list[DualSyntheticSample]] = defaultdict(list)
+    sectors = ("P_small", "P_large", "N_small", "N_large")
+    for sector_a in sectors:
+        for sector_b in sectors:
+            bucket_a = list(single_grouped[sector_a])
+            bucket_b = list(single_grouped[sector_b])
+            rng.shuffle(bucket_a)
+            rng.shuffle(bucket_b)
+            required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+            for idx in range(required):
+                sample_a = bucket_a[idx]
+                sample_b = bucket_b[idx]
+                pair_grouped[(sector_a, sector_b)].append(
+                    build_dual_sample(sample_a=sample_a, sample_b=sample_b)
+                )
+
+    train: list[DualSyntheticSample] = []
+    validation: list[DualSyntheticSample] = []
+    test: list[DualSyntheticSample] = []
+    for key in sorted(pair_grouped):
+        bucket = list(pair_grouped[key])
+        required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+        stride = required
+        rotation_offset = (split_rotation % max(1, len(bucket) // stride)) * stride
+        rotated = bucket[rotation_offset:] + bucket[:rotation_offset]
+        train.extend(rotated[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(rotated[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(rotated[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+
+    train_rows = [(sample.text, sample.label) for sample in sorted(train, key=dual_sample_sort_key)]
+    validation_rows = [(sample.text, sample.label) for sample in sorted(validation, key=dual_sample_sort_key)]
+    test_rows = [(sample.text, sample.label) for sample in sorted(test, key=dual_sample_sort_key)]
+
+    diagnostics = build_dual_bundle_diagnostics(
+        dataset_name=dataset_name,
+        seed=seed,
+        split_rotation=split_rotation,
+        train=sorted(train, key=dual_sample_sort_key),
+        validation=sorted(validation, key=dual_sample_sort_key),
+        test=sorted(test, key=dual_sample_sort_key),
+    )
+    return SyntheticDatasetBundle(
+        train=train_rows,
+        validation=validation_rows,
+        test=test_rows,
+        diagnostics=diagnostics,
+    )
+
+
 def label_from_offset(offset: int, label_mode: str) -> int:
     if label_mode == "offset_sign":
         return 1 if offset > 0 else 0
@@ -148,8 +240,30 @@ def build_sample(left_token: str, right_token: str, left_pos: int, right_pos: in
     )
 
 
+def build_dual_sample(sample_a: SyntheticSample, sample_b: SyntheticSample) -> DualSyntheticSample:
+    sector_a = offset_sector_name(sample_a.offset)
+    sector_b = offset_sector_name(sample_b.offset)
+    label = 1 if sector_sign_family(sector_a) == sector_sign_family(sector_b) else 0
+    text = render_dual_sample_text(sample_a=sample_a, sample_b=sample_b)
+    return DualSyntheticSample(
+        text=text,
+        label=label,
+        sector_a=sector_a,
+        sector_b=sector_b,
+        sample_a=sample_a,
+        sample_b=sample_b,
+    )
+
+
 def render_sample_text(left_token: str, right_token: str, left_pos: int, right_pos: int, offset: int) -> str:
     return f"lt:{left_token} rt:{right_token} lp:{left_pos} rp:{right_pos} off:{offset:+d}"
+
+
+def render_dual_sample_text(sample_a: SyntheticSample, sample_b: SyntheticSample) -> str:
+    return (
+        f"a_lt:{sample_a.left_token} a_rt:{sample_a.right_token} a_lp:{sample_a.left_pos} a_rp:{sample_a.right_pos} a_off:{sample_a.offset:+d} "
+        f"b_lt:{sample_b.left_token} b_rt:{sample_b.right_token} b_lp:{sample_b.left_pos} b_rp:{sample_b.right_pos} b_off:{sample_b.offset:+d}"
+    )
 
 
 def sample_sort_key(sample: SyntheticSample) -> tuple[Any, ...]:
@@ -161,6 +275,31 @@ def sample_sort_key(sample: SyntheticSample) -> tuple[Any, ...]:
         sample.left_pos,
         sample.right_pos,
     )
+
+
+def dual_sample_sort_key(sample: DualSyntheticSample) -> tuple[Any, ...]:
+    return (
+        sample.label,
+        sample.sector_a,
+        sample.sector_b,
+        sample.sample_a.left_token,
+        sample.sample_a.right_token,
+        sample.sample_a.left_pos,
+        sample.sample_b.left_token,
+        sample.sample_b.right_token,
+        sample.sample_b.left_pos,
+    )
+
+
+def offset_sector_name(offset: int) -> str:
+    magnitude = abs(offset)
+    if offset > 0:
+        return "P_small" if magnitude in {1, 2} else "P_large"
+    return "N_small" if magnitude in {1, 2} else "N_large"
+
+
+def sector_sign_family(sector: str) -> str:
+    return "positive" if sector.startswith("P_") else "negative"
 
 
 def build_bundle_diagnostics(
@@ -202,6 +341,43 @@ def build_bundle_diagnostics(
     return diagnostics
 
 
+def build_dual_bundle_diagnostics(
+    dataset_name: str,
+    seed: int,
+    split_rotation: int,
+    train: list[DualSyntheticSample],
+    validation: list[DualSyntheticSample],
+    test: list[DualSyntheticSample],
+) -> dict[str, Any]:
+    splits = {
+        "train": train,
+        "validation": validation,
+        "test": test,
+    }
+    diagnostics = {
+        "dataset": dataset_name,
+        "seed": seed,
+        "split_rotation": split_rotation,
+        "sequence_length": SEQUENCE_LENGTH,
+        "vocabulary": list(TOKENS),
+        "offsets": list(OFFSETS),
+        "splits": {},
+        "leakage_checks": {},
+    }
+    for name, rows in splits.items():
+        diagnostics["splits"][name] = summarize_dual_split(rows)
+    diagnostics["leakage_checks"] = {
+        "class_balanced": all(split["class_balance_ok"] for split in diagnostics["splits"].values()),
+        "sector_pair_balanced": all(split["sector_pair_balance_ok"] for split in diagnostics["splits"].values()),
+        "sector_slot_balanced": all(split["sector_slot_balance_ok"] for split in diagnostics["splits"].values()),
+        "token_identity_not_in_label_rule": True,
+        "single_sector_shortcut_note": (
+            "Label depends on agreement between sector_a and sector_b; no single sector identity determines the class."
+        ),
+    }
+    return diagnostics
+
+
 def summarize_split(rows: list[SyntheticSample]) -> dict[str, Any]:
     class_counts = Counter(sample.label for sample in rows)
     offset_counts = Counter(sample.offset for sample in rows)
@@ -221,6 +397,23 @@ def summarize_split(rows: list[SyntheticSample]) -> dict[str, Any]:
         "class_balance_ok": class_counts.get(0, 0) == class_counts.get(1, 0),
         "offset_abs_balance_ok": len(set(offset_abs_counts.values())) <= 1,
         "token_pair_balance_ok": token_pair_balance_ok(rows),
+    }
+
+
+def summarize_dual_split(rows: list[DualSyntheticSample]) -> dict[str, Any]:
+    class_counts = Counter(sample.label for sample in rows)
+    sector_pair_counts = Counter(f"{sample.sector_a}|{sample.sector_b}" for sample in rows)
+    sector_a_counts = Counter(sample.sector_a for sample in rows)
+    sector_b_counts = Counter(sample.sector_b for sample in rows)
+    return {
+        "size": len(rows),
+        "class_counts": dict(sorted(class_counts.items())),
+        "sector_pair_counts": dict(sorted(sector_pair_counts.items())),
+        "sector_a_counts": dict(sorted(sector_a_counts.items())),
+        "sector_b_counts": dict(sorted(sector_b_counts.items())),
+        "class_balance_ok": class_counts.get(0, 0) == class_counts.get(1, 0),
+        "sector_pair_balance_ok": len(set(sector_pair_counts.values())) <= 1,
+        "sector_slot_balance_ok": len(set(sector_a_counts.values())) <= 1 and len(set(sector_b_counts.values())) <= 1,
     }
 
 

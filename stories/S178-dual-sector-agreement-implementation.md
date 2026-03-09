@@ -21,6 +21,7 @@ As a research lead, I want the harder witness task implemented under the fixed b
 
 ## Evidence and references
 - `docs/research/q-rope-dual-sector-agreement-implementation-plan-v1.md`
+- `docs/research/q-rope-dual-sector-agreement-first-packet-v1.md`
 
 ## Out of scope
 - Additional tasks
@@ -39,3 +40,4 @@ As a research lead, I want the harder witness task implemented under the fixed b
 
 ## Cycle time
 - Start: 2026-03-08 14:24 (Pacific/Honolulu)
+- End: 2026-03-08 14:40 (Pacific/Honolulu)

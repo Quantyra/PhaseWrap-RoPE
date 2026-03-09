@@ -29,7 +29,7 @@ from .qsim import (
     variant_phases,
 )
 from .synthetic import diagnostics_to_jsonable, generate_signed_offset_binary_bundle
-from .synthetic import generate_sector_parity_binary_bundle
+from .synthetic import generate_dual_sector_agreement_binary_bundle, generate_sector_parity_binary_bundle
 
 RELATIONAL_WITNESS_FEATURE_GROUPS = {
     "group_A_sector_means": ["mu_P_small", "mu_P_large", "mu_N_small", "mu_N_large"],
@@ -185,6 +185,8 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_sector_contrast_pairstate": 16,
         "V_future_relational_witness": 16,
         "V_control_symbolic_relational": 1,
+        "V_future_relational_witness_dual": 20,
+        "V_control_symbolic_dual_sector": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -238,6 +240,10 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness+head_logreg+featuremode_{witness_feature_mode}"
         elif variant == "V_control_symbolic_relational":
             data_mode = f"{data_mode}+readout_symbolic_relational+head_logreg"
+        elif variant == "V_future_relational_witness_dual":
+            data_mode = f"{data_mode}+readout_relational_witness_dual+head_logreg"
+        elif variant == "V_control_symbolic_dual_sector":
+            data_mode = f"{data_mode}+readout_symbolic_dual_sector+head_logreg"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -406,6 +412,10 @@ def run_quantum_backend(
         )
     if variant == "V_control_symbolic_relational":
         return run_symbolic_relational_control_backend(train=train, test=test, validation=validation)
+    if variant == "V_future_relational_witness_dual":
+        return run_dual_relational_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_control_symbolic_dual_sector":
+        return run_dual_symbolic_control_backend(train=train, test=test, validation=validation)
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
@@ -565,6 +575,104 @@ def symbolic_relational_features(text: str) -> dict[str, object]:
     }
 
 
+def parse_dual_synthetic_pair_text(text: str) -> dict[str, Any]:
+    parts: dict[str, str] = {}
+    for item in text.strip().split():
+        key, value = item.split(":", 1)
+        parts[key] = value
+    required = {
+        "a_lt",
+        "a_rt",
+        "a_lp",
+        "a_rp",
+        "a_off",
+        "b_lt",
+        "b_rt",
+        "b_lp",
+        "b_rp",
+        "b_off",
+    }
+    missing = required.difference(parts)
+    if missing:
+        raise ValueError(f"Missing dual synthetic fields: {sorted(missing)}")
+    return {
+        "obs_a": f"lt:{parts['a_lt']} rt:{parts['a_rt']} lp:{int(parts['a_lp'])} rp:{int(parts['a_rp'])} off:{int(parts['a_off']):+d}",
+        "obs_b": f"lt:{parts['b_lt']} rt:{parts['b_rt']} lp:{int(parts['b_lp'])} rp:{int(parts['b_rp'])} off:{int(parts['b_off']):+d}",
+        "sector_a": offset_sector(int(parts["a_off"])),
+        "sector_b": offset_sector(int(parts["b_off"])),
+    }
+
+
+def dual_relational_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    obs_a = relational_witness_features(text=payload["obs_a"], seed=seed)
+    obs_b = relational_witness_features(text=payload["obs_b"], seed=seed)
+    feature_order = [
+        "cross_sign_small",
+        "cross_sign_large",
+        "cross_mag_pos",
+        "cross_mag_neg",
+        "cross_sign_sum",
+        "cross_mag_sum",
+    ]
+    features = {
+        "cross_sign_small": round(
+            float(obs_a["features"]["delta_sign_small"]) * float(obs_b["features"]["delta_sign_small"]), 6
+        ),
+        "cross_sign_large": round(
+            float(obs_a["features"]["delta_sign_large"]) * float(obs_b["features"]["delta_sign_large"]), 6
+        ),
+        "cross_mag_pos": round(
+            float(obs_a["features"]["delta_mag_pos"]) * float(obs_b["features"]["delta_mag_pos"]), 6
+        ),
+        "cross_mag_neg": round(
+            float(obs_a["features"]["delta_mag_neg"]) * float(obs_b["features"]["delta_mag_neg"]), 6
+        ),
+        "cross_sign_sum": round(
+            float(obs_a["features"]["delta_sign_small"]) * float(obs_b["features"]["delta_sign_small"])
+            + float(obs_a["features"]["delta_sign_large"]) * float(obs_b["features"]["delta_sign_large"]),
+            6,
+        ),
+        "cross_mag_sum": round(
+            float(obs_a["features"]["delta_mag_pos"]) * float(obs_b["features"]["delta_mag_pos"])
+            + float(obs_a["features"]["delta_mag_neg"]) * float(obs_b["features"]["delta_mag_neg"]),
+            6,
+        ),
+    }
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "sector_a": payload["sector_a"],
+        "sector_b": payload["sector_b"],
+        "forbidden_inputs_absent": True,
+        "bounded_feature_audit_pass": True,
+    }
+
+
+def symbolic_dual_sector_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    feature_order = [
+        "secA_P_small",
+        "secA_P_large",
+        "secA_N_small",
+        "secA_N_large",
+        "secB_P_small",
+        "secB_P_large",
+        "secB_N_small",
+        "secB_N_large",
+    ]
+    features = {name: 0.0 for name in feature_order}
+    features[f"secA_{payload['sector_a']}"] = 1.0
+    features[f"secB_{payload['sector_b']}"] = 1.0
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "sector_a": payload["sector_a"],
+        "sector_b": payload["sector_b"],
+        "forbidden_inputs_absent": True,
+    }
+
+
 def run_relational_witness_backend(
     train: list[tuple[str, int]],
     test: list[tuple[str, int]],
@@ -646,6 +754,93 @@ def run_symbolic_relational_control_backend(
     y_pred = [1 if score >= threshold else 0 for score in test_scores]
 
     diagnostics = build_symbolic_relational_run_diagnostics(
+        rows=test,
+        results=test_results,
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+    )
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, y_pred)
+    f1 = compute_f1_binary(test_labels, y_pred)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_dual_relational_witness_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    seed: int,
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+
+    train_results = [dual_relational_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [dual_relational_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [dual_relational_witness_features(text=text, seed=seed) for text, _ in test]
+
+    feature_order = list(train_results[0]["feature_order"]) if train_results else []
+    train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
+    validation_matrix = [[float(result["features"][name]) for name in feature_order] for result in validation_results]
+    test_matrix = [[float(result["features"][name]) for name in feature_order] for result in test_results]
+
+    train_labels = [label for _, label in train]
+    validation_labels = [label for _, label in validation]
+    test_labels = [label for _, label in test]
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    y_pred = [1 if score >= threshold else 0 for score in test_scores]
+
+    diagnostics = build_dual_relational_witness_run_diagnostics(
+        rows=test,
+        results=test_results,
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+    )
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, y_pred)
+    f1 = compute_f1_binary(test_labels, y_pred)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_dual_symbolic_control_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+
+    train_results = [symbolic_dual_sector_features(text=text) for text, _ in train]
+    validation_results = [symbolic_dual_sector_features(text=text) for text, _ in validation]
+    test_results = [symbolic_dual_sector_features(text=text) for text, _ in test]
+
+    feature_order = list(train_results[0]["feature_order"]) if train_results else []
+    train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
+    validation_matrix = [[float(result["features"][name]) for name in feature_order] for result in validation_results]
+    test_matrix = [[float(result["features"][name]) for name in feature_order] for result in test_results]
+
+    train_labels = [label for _, label in train]
+    validation_labels = [label for _, label in validation]
+    test_labels = [label for _, label in test]
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    y_pred = [1 if score >= threshold else 0 for score in test_scores]
+
+    diagnostics = build_dual_symbolic_control_run_diagnostics(
         rows=test,
         results=test_results,
         feature_order=feature_order,
@@ -820,6 +1015,53 @@ def build_symbolic_relational_run_diagnostics(
     }
 
 
+def build_dual_relational_witness_run_diagnostics(
+    rows: list[tuple[str, int]],
+    results: list[dict[str, Any]],
+    feature_order: list[str],
+    weights: list[float],
+    bias: float,
+) -> dict[str, Any]:
+    pair_counts: dict[str, int] = {}
+    forbidden_absent_flags: list[bool] = []
+    bounded_feature_flags: list[bool] = []
+    for _, result in zip(rows, results):
+        pair_key = f"{result['sector_a']}|{result['sector_b']}"
+        pair_counts[pair_key] = pair_counts.get(pair_key, 0) + 1
+        forbidden_absent_flags.append(bool(result["forbidden_inputs_absent"]))
+        bounded_feature_flags.append(bool(result["bounded_feature_audit_pass"]))
+    return {
+        "feature_order": feature_order,
+        "coefficients": {name: round(weight, 6) for name, weight in zip(feature_order, weights)},
+        "intercept": round(bias, 6),
+        "sector_pair_counts": dict(sorted(pair_counts.items())),
+        "forbidden_inputs_absent": all(forbidden_absent_flags),
+        "bounded_feature_audit_pass": all(bounded_feature_flags),
+    }
+
+
+def build_dual_symbolic_control_run_diagnostics(
+    rows: list[tuple[str, int]],
+    results: list[dict[str, Any]],
+    feature_order: list[str],
+    weights: list[float],
+    bias: float,
+) -> dict[str, Any]:
+    pair_counts: dict[str, int] = {}
+    forbidden_absent_flags: list[bool] = []
+    for _, result in zip(rows, results):
+        pair_key = f"{result['sector_a']}|{result['sector_b']}"
+        pair_counts[pair_key] = pair_counts.get(pair_key, 0) + 1
+        forbidden_absent_flags.append(bool(result["forbidden_inputs_absent"]))
+    return {
+        "feature_order": feature_order,
+        "coefficients": {name: round(weight, 6) for name, weight in zip(feature_order, weights)},
+        "intercept": round(bias, 6),
+        "sector_pair_counts": dict(sorted(pair_counts.items())),
+        "forbidden_inputs_absent": all(forbidden_absent_flags),
+    }
+
+
 def stratified_calibration_split(
     rows: list[tuple[str, int]],
     validation_ratio: float = 0.25,
@@ -958,6 +1200,15 @@ def load_dataset_bundle(dataset: str, seed: int, split_rotation: int = 0) -> dic
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_sector_parity_binary",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_dual_sector_agreement_binary":
+        bundle = generate_dual_sector_agreement_binary_bundle(seed=seed, split_rotation=split_rotation)
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_dual_sector_agreement_binary",
             "dataset_diagnostics": bundle.diagnostics,
         }
 

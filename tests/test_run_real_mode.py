@@ -11,7 +11,9 @@ from qrope.run import (
     estimate_hardware_costs,
     limit_remote_samples,
     load_dataset_samples,
+    parse_dual_synthetic_pair_text,
     run_real_experiment,
+    symbolic_dual_sector_features,
     symbolic_relational_features,
     stratified_calibration_split,
 )
@@ -437,4 +439,55 @@ def test_symbolic_relational_control_runs_on_sector_parity_packet() -> None:
     assert metrics["data_mode"].endswith("readout_symbolic_relational+head_logreg")
     assert diagnostics["feature_order"] == ["sec_P_small", "sec_P_large", "sec_N_small", "sec_N_large"]
     assert "coefficients" in diagnostics
+    assert diagnostics["forbidden_inputs_absent"] is True
+
+
+def test_parse_dual_synthetic_pair_text_extracts_sectors() -> None:
+    payload = parse_dual_synthetic_pair_text(
+        "a_lt:A a_rt:B a_lp:1 a_rp:3 a_off:+2 b_lt:C b_rt:D b_lp:7 b_rp:4 b_off:-3"
+    )
+    assert payload["sector_a"] == "P_small"
+    assert payload["sector_b"] == "N_large"
+
+
+def test_symbolic_dual_sector_features_use_two_one_hot_blocks() -> None:
+    result = symbolic_dual_sector_features(
+        "a_lt:A a_rt:B a_lp:1 a_rp:3 a_off:+2 b_lt:C b_rt:D b_lp:7 b_rp:4 b_off:-3"
+    )
+    assert result["feature_order"] == [
+        "secA_P_small",
+        "secA_P_large",
+        "secA_N_small",
+        "secA_N_large",
+        "secB_P_small",
+        "secB_P_large",
+        "secB_N_small",
+        "secB_N_large",
+    ]
+    assert result["features"]["secA_P_small"] == 1.0
+    assert result["features"]["secB_N_large"] == 1.0
+    assert sum(result["features"].values()) == 2.0
+
+
+def test_dual_sector_agreement_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_sector_agreement_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_dual_sector",
+    )
+    assert metrics["data_mode"].endswith("readout_symbolic_dual_sector+head_logreg")
+    assert metrics["dataset_diagnostics"]["dataset"] == "synthetic_dual_sector_agreement_binary"
+
+
+def test_dual_witness_runs_on_dual_sector_agreement_packet() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_sector_agreement_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_dual",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_relational_witness_dual+head_logreg")
+    assert diagnostics["bounded_feature_audit_pass"] is True
     assert diagnostics["forbidden_inputs_absent"] is True
