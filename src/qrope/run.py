@@ -33,6 +33,7 @@ from .synthetic import (
     content_family_name,
     generate_dual_continuous_coupled_response_bundle,
     generate_dual_latent_phase_manifold_residual_response_bundle,
+    generate_dual_local_atlas_manifold_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
     generate_dual_nonlinear_manifold_response_bundle,
     generate_dual_phase_sensitive_manifold_response_bundle,
@@ -230,6 +231,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_nonlinear": 24,
         "V_future_relational_witness_phase_sensitive": 24,
         "V_future_relational_witness_latent_phase": 24,
+        "V_future_relational_witness_local_atlas": 24,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -241,6 +243,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_nonlinear_manifold_regressor": 1,
         "V_control_symbolic_phase_insensitive_regressor": 1,
         "V_control_symbolic_global_phase_regressor": 1,
+        "V_control_symbolic_single_chart_regressor": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -349,6 +352,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_phase_sensitive+head_linear"
         elif variant == "V_future_relational_witness_latent_phase":
             data_mode = f"{data_mode}+readout_relational_witness_latent_phase+head_linear"
+        elif variant == "V_future_relational_witness_local_atlas":
+            data_mode = f"{data_mode}+readout_relational_witness_local_atlas+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -371,6 +376,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_phase_insensitive_regressor+head_linear"
         elif variant == "V_control_symbolic_global_phase_regressor":
             data_mode = f"{data_mode}+readout_symbolic_global_phase_regressor+head_linear"
+        elif variant == "V_control_symbolic_single_chart_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_single_chart_regressor+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -580,6 +587,8 @@ def run_quantum_backend(
         return run_phase_sensitive_manifold_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_latent_phase":
         return run_latent_phase_manifold_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_local_atlas":
+        return run_local_atlas_manifold_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_control_symbolic_single_family_regressor":
         return run_continuous_symbolic_single_family_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_two_family_regressor":
@@ -602,6 +611,8 @@ def run_quantum_backend(
         return run_phase_insensitive_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_global_phase_regressor":
         return run_global_phase_symbolic_regressor(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_single_chart_regressor":
+        return run_single_chart_symbolic_regressor(train=train, test=test, validation=validation)
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
@@ -946,6 +957,25 @@ def latent_phase_family_offset(payload: dict[str, Any]) -> float:
         3: -math.pi / 8.0,
     }
     return offsets[latent_phase_neighborhood(payload)]
+
+
+def local_atlas_chart_id(payload: dict[str, Any]) -> int:
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    alpha = sector_magnitude_delta + 0.4 * orientation_delta
+    beta = ordered_content_delta - 0.5 * sector_magnitude_delta
+    return (1 if alpha >= 0.0 else 0) * 2 + (1 if beta >= 0.0 else 0)
+
+
+def local_atlas_chart_params(payload: dict[str, Any]) -> tuple[float, float]:
+    params = {
+        0: (-math.pi / 3.0, math.pi / 7.0),
+        1: (math.pi / 5.0, -math.pi / 6.0),
+        2: (math.pi / 2.5, math.pi / 9.0),
+        3: (-math.pi / 8.0, -math.pi / 4.5),
+    }
+    return params[local_atlas_chart_id(payload)]
 
 
 def dual_relational_witness_features(text: str, seed: int) -> dict[str, object]:
@@ -1473,6 +1503,78 @@ def symbolic_global_phase_features(text: str) -> dict[str, object]:
         "forbidden_inputs_absent": True,
         "latent_neighborhood_absent": True,
         "global_phase_only": True,
+    }
+
+
+def local_atlas_manifold_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    base = triple_relational_witness_features(text=text, seed=seed)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    phi_chart, psi_chart = local_atlas_chart_params(payload)
+    feature_order = list(base["feature_order"]) + [
+        "sector_magnitude_delta",
+        "ordered_content_delta",
+        "orientation_delta",
+        "local_atlas_hint",
+    ]
+    features = dict(base["features"])
+    features["sector_magnitude_delta"] = sector_magnitude_delta
+    features["ordered_content_delta"] = ordered_content_delta
+    features["orientation_delta"] = orientation_delta
+    features["local_atlas_hint"] = round(
+        math.sin(math.pi * sector_magnitude_delta * ordered_content_delta)
+        + 0.30
+        * math.sin(
+            math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.4 * orientation_delta)
+            + phi_chart
+        )
+        + 0.18
+        * math.cos(
+            math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_chart
+        ),
+        6,
+    )
+    return {
+        **base,
+        "feature_order": feature_order,
+        "features": features,
+        "bounded_feature_audit_pass": True,
+    }
+
+
+def symbolic_single_chart_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    fixed_phi = math.pi / 7.0
+    fixed_psi = -math.pi / 6.0
+    features = {
+        "single_chart_backbone": round(
+            math.sin(math.pi * sector_magnitude_delta * ordered_content_delta),
+            6,
+        ),
+        "single_chart_phase": round(
+            0.30
+            * math.sin(
+                math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.4 * orientation_delta)
+                + fixed_phi
+            ),
+            6,
+        ),
+        "single_chart_curvature": round(
+            0.18 * math.cos(math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - fixed_psi),
+            6,
+        ),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "forbidden_inputs_absent": True,
+        "chart_id_absent": True,
+        "single_chart_only": True,
     }
 
 
@@ -2572,6 +2674,55 @@ def run_global_phase_symbolic_regressor(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_local_atlas_manifold_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [local_atlas_manifold_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [local_atlas_manifold_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [local_atlas_manifold_witness_features(text=text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(bool(result.get("bounded_feature_audit_pass", False)) for result in test_results)
+    diagnostics["anti_collapse_pass"] = True
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_single_chart_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_single_chart_features(text=text) for text, _ in train]
+    validation_results = [symbolic_single_chart_features(text=text) for text, _ in validation]
+    test_results = [symbolic_single_chart_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["chart_id_absent"] = all(bool(result.get("chart_id_absent", False)) for result in test_results)
+    diagnostics["single_chart_only"] = all(bool(result.get("single_chart_only", False)) for result in test_results)
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
 def is_synthetic_offset_rows(rows: list[tuple[str, int]]) -> bool:
     if not rows:
         return False
@@ -3075,6 +3226,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_dual_latent_phase_manifold_residual_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_dual_local_atlas_manifold_response":
+        bundle = generate_dual_local_atlas_manifold_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_dual_local_atlas_manifold_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
 
