@@ -224,6 +224,24 @@ def generate_dual_latent_phase_manifold_residual_response_bundle(
     )
 
 
+def generate_dual_local_atlas_manifold_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    return generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_dual_local_atlas_manifold_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="local_atlas_manifold_response",
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
@@ -359,6 +377,7 @@ def generate_dual_sector_bundle(
                 "nonlinear_manifold_response",
                 "phase_sensitive_manifold_response",
                 "latent_phase_manifold_residual_response",
+                "local_atlas_manifold_response",
             }:
                 pair_grouped[(sector_a, sector_b)].extend(
                     build_balanced_triple_pairs(
@@ -401,6 +420,7 @@ def generate_dual_sector_bundle(
         "nonlinear_manifold_response",
         "phase_sensitive_manifold_response",
         "latent_phase_manifold_residual_response",
+        "local_atlas_manifold_response",
     }:
         combined = train + validation + test
         centered = orthogonalize_dual_samples_by_coarse_tuple(combined)
@@ -679,6 +699,29 @@ def build_dual_sample(sample_a: SyntheticSample, sample_b: SyntheticSample, labe
             math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - 0.5 * latent_phi
         )
         label = round(global_backbone + 0.35 * local_phase_term + 0.20 * local_curvature_term, 6)
+    elif label_mode == "local_atlas_manifold_response":
+        sector_magnitude_delta = normalized_sector_magnitude_delta(sample_a, sample_b)
+        ordered_content_delta = ordered_content_delta_score(sample_a, sample_b)
+        orientation_delta = orientation_delta_score(sample_a, sample_b)
+        alpha = sector_magnitude_delta + 0.4 * orientation_delta
+        beta = ordered_content_delta - 0.5 * sector_magnitude_delta
+        chart_id = (1 if alpha >= 0.0 else 0) * 2 + (1 if beta >= 0.0 else 0)
+        chart_params = {
+            0: (-math.pi / 3.0, math.pi / 7.0),
+            1: (math.pi / 5.0, -math.pi / 6.0),
+            2: (math.pi / 2.5, math.pi / 9.0),
+            3: (-math.pi / 8.0, -math.pi / 4.5),
+        }
+        phi_chart, psi_chart = chart_params[chart_id]
+        global_backbone = math.sin(math.pi * sector_magnitude_delta * ordered_content_delta)
+        chart_phase_term = math.sin(
+            math.pi * (sector_magnitude_delta - orientation_delta) * (ordered_content_delta + 0.4 * orientation_delta)
+            + phi_chart
+        )
+        chart_curvature_term = math.cos(
+            math.pi * (sector_magnitude_delta + ordered_content_delta) * orientation_delta - psi_chart
+        )
+        label = round(global_backbone + 0.30 * chart_phase_term + 0.18 * chart_curvature_term, 6)
     else:
         raise ValueError(f"Unsupported dual label_mode: {label_mode}")
     text = render_dual_sample_text(sample_a=sample_a, sample_b=sample_b)

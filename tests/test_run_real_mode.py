@@ -991,3 +991,42 @@ def test_latent_phase_global_phase_control_runs() -> None:
     assert diagnostics["feature_order"] == ["global_phase_backbone", "global_phase_curvature"]
     assert diagnostics["latent_neighborhood_absent"] is True
     assert diagnostics["global_phase_only"] is True
+
+
+def test_local_atlas_manifold_loader_path() -> None:
+    rows, mode = load_dataset_samples(dataset="synthetic_dual_local_atlas_manifold_response", seed=42)
+    assert len(rows) == 64
+    assert mode == "synthetic_dual_local_atlas_manifold_response"
+
+
+def test_local_atlas_manifold_witness_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_local_atlas_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_local_atlas",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_relational_witness_local_atlas+head_linear")
+    assert metrics["extra_metrics"]["mae"] >= 0.0
+    assert "local_atlas_hint" in diagnostics["feature_order"]
+    assert diagnostics["bounded_feature_audit_pass"] is True
+    assert diagnostics["anti_collapse_pass"] is True
+
+
+def test_local_atlas_single_chart_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_local_atlas_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_single_chart_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_single_chart_regressor+head_linear")
+    assert diagnostics["feature_order"] == [
+        "single_chart_backbone",
+        "single_chart_phase",
+        "single_chart_curvature",
+    ]
+    assert diagnostics["chart_id_absent"] is True
+    assert diagnostics["single_chart_only"] is True
