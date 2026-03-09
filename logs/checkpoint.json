@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T22:10:00Z",
+    "timestamp_utc": "2026-03-10T22:40:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S293"
+        "S296"
     ],
     "active_workers": {},
     "next_actions": [
-        "Keep the chart-transition manifold branch active and pressure-test it with one bounded cross-direction transition interaction control.",
-        "Do not broaden the task or add new candidate branches until the cross-direction interaction-control result is known.",
-        "Keep the fixed chart-transition packet plus unordered, permutation, reversal, and bidirectional control results as the reference baseline."
+        "Keep the chart-transition manifold branch active and pressure-test it with one bounded quadratic transition-family control.",
+        "Do not broaden the task or add new candidate branches until the quadratic-control result is known.",
+        "Keep the fixed chart-transition packet plus unordered, permutation, reversal, bidirectional, and cross-direction control results as the reference baseline."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,16 +28,16 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The chart-transition branch is still vulnerable to a fairness failure if one bounded family of forward-reversed interaction terms is already sufficient."
+        "The chart-transition branch is still vulnerable to a fairness failure if one fixed quadratic basis over the declared transition-family features is already sufficient."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
         "src/qrope/run.py",
         "tests/test_run_real_mode.py",
-        "docs/research/q-rope-chart-transition-bidirectional-control-v1.md",
-        "docs/research/q-rope-chart-transition-post-bidirectional-decision-v1.md",
-        "docs/research/q-rope-transition-cross-direction-control-plan-v1.md",
+        "docs/research/q-rope-chart-transition-cross-direction-control-v1.md",
+        "docs/research/q-rope-chart-transition-post-cross-direction-decision-v1.md",
+        "docs/research/q-rope-transition-quadratic-control-plan-v1.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S291-S293 completed. The chart-transition manifold branch survived the transition-bidirectional control; the next bounded fairness test is the cross-direction interaction control."
+    "notes": "S294-S296 completed. The chart-transition manifold branch survived the cross-direction interaction control; the next bounded fairness test is the quadratic transition-family control."
 }
