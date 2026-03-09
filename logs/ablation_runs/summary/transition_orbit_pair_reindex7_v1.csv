@@ -1,0 +1,7 @@
+run_id,variant,seed,mae,rank_corr,calibration_slope,pair_reindex,token_identity_absent
+orbit-witness-pr7-s42,V_future_relational_witness_transition_orbit,42,0.13102,0.890199,1.263098,7,True
+orbit-witness-pr7-s123,V_future_relational_witness_transition_orbit,123,0.0974,0.952941,1.028099,7,True
+orbit-witness-pr7-s777,V_future_relational_witness_transition_orbit,777,0.081621,0.932943,1.025109,7,True
+orbit-xdir-pr7-s42,V_control_symbolic_transition_cross_direction_regressor,42,0.096836,0.843825,1.230459,7,False
+orbit-xdir-pr7-s123,V_control_symbolic_transition_cross_direction_regressor,123,0.110272,0.890361,1.024487,7,False
+orbit-xdir-pr7-s777,V_control_symbolic_transition_cross_direction_regressor,777,0.074996,0.932645,1.138897,7,False
