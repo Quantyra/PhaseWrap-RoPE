@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-10T12:05:00Z",
+    "timestamp_utc":  "2026-03-10T12:20:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S230"
+                              "S232"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Keep the continuous line at memo-only scope.",
-                         "Design one orthogonalized continuous target whose coarse agreement states have near-zero standalone predictive value.",
-                         "Require a future restart brief to prove coarse lookup weakness before any new implementation is approved."
+                         "Keep the orthogonalized continuous line at memo-only scope.",
+                         "Elevate the orthogonalized task from scaffold to approval-candidate only if the residual control stack stays explicit.",
+                         "Do not reopen implementation until a future brief proves coarse lookup nullness and control fairness."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -33,15 +33,12 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-state-sensitive-continuous-implementation-v1.md",
-                           "docs/research/q-rope-state-sensitive-continuous-first-packet-v1.md",
-                           "docs/research/q-rope-state-sensitive-continuous-decision-memo-v1.md",
-                           "docs/research/q-rope-orthogonalized-continuous-task-design-v1.md",
-                           "stories/S228-state-sensitive-continuous-implementation.md",
-                           "stories/S229-state-sensitive-continuous-decision-memo.md",
-                           "stories/S230-orthogonalized-continuous-task-design.md",
+                           "docs/research/q-rope-orthogonalized-continuous-task-spec-v1.md",
+                           "docs/research/q-rope-orthogonalized-continuous-restart-scaffold-v1.md",
+                           "stories/S231-orthogonalized-continuous-task-spec.md",
+                           "stories/S232-orthogonalized-continuous-restart-scaffold.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S228-S230 completed. The state-sensitive continuous branch failed its bounded packet and the line has returned to memo-only posture with an orthogonalized continuous target preserved as the next angle."
+    "notes":  "S231-S232 completed. The continuous line remains memo-only, now anchored to one exact orthogonalized task designed to de-power coarse-state lookup by construction."
 }
