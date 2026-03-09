@@ -151,6 +151,24 @@ def generate_dual_state_sensitive_continuous_response_bundle(
     )
 
 
+def generate_dual_orthogonalized_continuous_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    return generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_dual_orthogonalized_continuous_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="orthogonalized_continuous_response",
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
@@ -279,7 +297,11 @@ def generate_dual_sector_bundle(
                         pair_reindex=pair_reindex,
                     )
                 )
-            elif label_mode in {"continuous_coupled_response", "state_sensitive_continuous_response"}:
+            elif label_mode in {
+                "continuous_coupled_response",
+                "state_sensitive_continuous_response",
+                "orthogonalized_continuous_response",
+            }:
                 pair_grouped[(sector_a, sector_b)].extend(
                     build_balanced_triple_pairs(
                         bucket_a=bucket_a,
@@ -315,6 +337,13 @@ def generate_dual_sector_bundle(
         train.extend(rotated[:TRAIN_COUNT_PER_BUCKET])
         validation.extend(rotated[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
         test.extend(rotated[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+
+    if label_mode == "orthogonalized_continuous_response":
+        combined = train + validation + test
+        centered = orthogonalize_dual_samples_by_coarse_tuple(combined)
+        train = centered[: len(train)]
+        validation = centered[len(train) : len(train) + len(validation)]
+        test = centered[len(train) + len(validation) :]
 
     train_rows = [(sample.text, sample.label) for sample in sorted(train, key=dual_sample_sort_key)]
     validation_rows = [(sample.text, sample.label) for sample in sorted(validation, key=dual_sample_sort_key)]
@@ -528,6 +557,15 @@ def build_dual_sample(sample_a: SyntheticSample, sample_b: SyntheticSample, labe
             + 0.10 * (content_term * ordered_content_delta),
             6,
         )
+    elif label_mode == "orthogonalized_continuous_response":
+        sector_magnitude_delta = normalized_sector_magnitude_delta(sample_a, sample_b)
+        ordered_content_delta = ordered_content_delta_score(sample_a, sample_b)
+        label = round(
+            0.45 * sector_magnitude_delta
+            + 0.35 * ordered_content_delta
+            + 0.20 * (sector_magnitude_delta * ordered_content_delta),
+            6,
+        )
     else:
         raise ValueError(f"Unsupported dual label_mode: {label_mode}")
     text = render_dual_sample_text(sample_a=sample_a, sample_b=sample_b)
@@ -610,6 +648,37 @@ def ordered_content_delta_score(sample_a: SyntheticSample, sample_b: SyntheticSa
     score_a = (token_ordinal(sample_a.left_token) - token_ordinal(sample_a.right_token)) / 3.0
     score_b = (token_ordinal(sample_b.left_token) - token_ordinal(sample_b.right_token)) / 3.0
     return round(0.5 * (score_a - score_b), 6)
+
+
+def coarse_tuple_key(sample: DualSyntheticSample) -> tuple[bool, bool, bool]:
+    return (
+        sector_sign_family(sample.sector_a) == sector_sign_family(sample.sector_b),
+        content_family_name(sample.sample_a.left_token, sample.sample_a.right_token)
+        == content_family_name(sample.sample_b.left_token, sample.sample_b.right_token),
+        token_orientation_name(sample.sample_a.left_token, sample.sample_a.right_token)
+        == token_orientation_name(sample.sample_b.left_token, sample.sample_b.right_token),
+    )
+
+
+def orthogonalize_dual_samples_by_coarse_tuple(rows: list[DualSyntheticSample]) -> list[DualSyntheticSample]:
+    grouped: dict[tuple[bool, bool, bool], list[DualSyntheticSample]] = defaultdict(list)
+    for sample in rows:
+        grouped[coarse_tuple_key(sample)].append(sample)
+    means = {
+        key: (sum(float(sample.label) for sample in group) / len(group) if group else 0.0)
+        for key, group in grouped.items()
+    }
+    return [
+        DualSyntheticSample(
+            text=sample.text,
+            label=round(float(sample.label) - means[coarse_tuple_key(sample)], 6),
+            sector_a=sample.sector_a,
+            sector_b=sample.sector_b,
+            sample_a=sample.sample_a,
+            sample_b=sample.sample_b,
+        )
+        for sample in rows
+    ]
 
 
 def sample_sort_key(sample: SyntheticSample) -> tuple[Any, ...]:
@@ -789,6 +858,10 @@ def summarize_dual_split(rows: list[DualSyntheticSample]) -> dict[str, Any]:
         f"{int(key[0])}{int(key[1])}{int(key[2])}": round(max(vals) - min(vals), 6)
         for key, vals in sorted(within_state_groups.items())
     }
+    within_state_means = {
+        f"{int(key[0])}{int(key[1])}{int(key[2])}": round(sum(vals) / len(vals), 6)
+        for key, vals in sorted(within_state_groups.items())
+    }
     return {
         "size": len(rows),
         "class_counts": dict(sorted(class_counts.items())),
@@ -810,8 +883,10 @@ def summarize_dual_split(rows: list[DualSyntheticSample]) -> dict[str, Any]:
         "target_mean": round(sum(target_values) / len(target_values), 6) if target_values else 0.0,
         "target_min": round(min(target_values), 6) if target_values else 0.0,
         "target_max": round(max(target_values), 6) if target_values else 0.0,
+        "within_state_target_means": within_state_means,
         "within_state_target_ranges": within_state_ranges,
         "within_state_variation_ok": any(value > 0.0 for value in within_state_ranges.values()),
+        "coarse_tuple_mean_abs_max": round(max((abs(value) for value in within_state_means.values()), default=0.0), 6),
     }
 
 

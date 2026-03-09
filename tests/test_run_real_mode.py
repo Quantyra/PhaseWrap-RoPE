@@ -841,3 +841,37 @@ def test_state_sensitive_symbolic_full_declared_runs() -> None:
     assert metrics["data_mode"].endswith("readout_symbolic_full_declared_regressor+head_linear")
     assert "ordered_content_delta" in diagnostics["feature_order"]
     assert "sector_magnitude_delta" in diagnostics["feature_order"]
+
+
+def test_orthogonalized_continuous_loader_path() -> None:
+    rows, mode = load_dataset_samples(dataset="synthetic_dual_orthogonalized_continuous_response", seed=42)
+    assert len(rows) == 64
+    assert mode == "synthetic_dual_orthogonalized_continuous_response"
+
+
+def test_orthogonalized_continuous_witness_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_orthogonalized_continuous_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_orthogonalized",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_relational_witness_orthogonalized+head_linear")
+    assert metrics["extra_metrics"]["mae"] >= 0.0
+    assert "analog_residual_hint" in diagnostics["feature_order"]
+    assert diagnostics["bounded_feature_audit_pass"] is True
+    assert diagnostics["anti_collapse_pass"] is True
+
+
+def test_orthogonalized_full_declared_residual_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_orthogonalized_continuous_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_full_declared_residual_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_full_declared_residual_regressor+head_linear")
+    assert "ordered_content_delta" in diagnostics["feature_order"]
+    assert "sector_magnitude_delta" in diagnostics["feature_order"]
