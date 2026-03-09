@@ -1,0 +1,7 @@
+run_id,variant,seed,split_rotation,accuracy,f1
+vcontrol-dual-symbolic-s42-rot1,V_control_symbolic_dual_sector,42,1,0.5,0.666667
+vcontrol-dual-symbolic-s123-rot1,V_control_symbolic_dual_sector,123,1,0.5,0.666667
+vcontrol-dual-symbolic-s777-rot1,V_control_symbolic_dual_sector,777,1,0.5,0.666667
+vfuture-witness-dual-s42-rot1,V_future_relational_witness_dual,42,1,1.0,1.0
+vfuture-witness-dual-s123-rot1,V_future_relational_witness_dual,123,1,1.0,1.0
+vfuture-witness-dual-s777-rot1,V_future_relational_witness_dual,777,1,1.0,1.0
