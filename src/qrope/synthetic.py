@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import random
 from collections import Counter, defaultdict
 from dataclasses import dataclass
@@ -169,6 +170,24 @@ def generate_dual_orthogonalized_continuous_response_bundle(
     )
 
 
+def generate_dual_nonlinear_manifold_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    return generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_dual_nonlinear_manifold_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="nonlinear_manifold_response",
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
@@ -301,6 +320,7 @@ def generate_dual_sector_bundle(
                 "continuous_coupled_response",
                 "state_sensitive_continuous_response",
                 "orthogonalized_continuous_response",
+                "nonlinear_manifold_response",
             }:
                 pair_grouped[(sector_a, sector_b)].extend(
                     build_balanced_triple_pairs(
@@ -338,7 +358,7 @@ def generate_dual_sector_bundle(
         validation.extend(rotated[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
         test.extend(rotated[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
 
-    if label_mode == "orthogonalized_continuous_response":
+    if label_mode in {"orthogonalized_continuous_response", "nonlinear_manifold_response"}:
         combined = train + validation + test
         centered = orthogonalize_dual_samples_by_coarse_tuple(combined)
         train = centered[: len(train)]
@@ -566,6 +586,16 @@ def build_dual_sample(sample_a: SyntheticSample, sample_b: SyntheticSample, labe
             + 0.20 * (sector_magnitude_delta * ordered_content_delta),
             6,
         )
+    elif label_mode == "nonlinear_manifold_response":
+        sector_magnitude_delta = normalized_sector_magnitude_delta(sample_a, sample_b)
+        ordered_content_delta = ordered_content_delta_score(sample_a, sample_b)
+        orientation_delta = orientation_delta_score(sample_a, sample_b)
+        label = round(
+            math.sin(math.pi * sector_magnitude_delta * ordered_content_delta)
+            + 0.5 * (1.0 if sector_magnitude_delta >= 0.0 else -1.0) * orientation_delta
+            - 0.25 * math.cos(math.pi * ordered_content_delta),
+            6,
+        )
     else:
         raise ValueError(f"Unsupported dual label_mode: {label_mode}")
     text = render_dual_sample_text(sample_a=sample_a, sample_b=sample_b)
@@ -648,6 +678,12 @@ def ordered_content_delta_score(sample_a: SyntheticSample, sample_b: SyntheticSa
     score_a = (token_ordinal(sample_a.left_token) - token_ordinal(sample_a.right_token)) / 3.0
     score_b = (token_ordinal(sample_b.left_token) - token_ordinal(sample_b.right_token)) / 3.0
     return round(0.5 * (score_a - score_b), 6)
+
+
+def orientation_delta_score(sample_a: SyntheticSample, sample_b: SyntheticSample) -> float:
+    score_a = (token_ordinal(sample_a.right_token) - token_ordinal(sample_a.left_token)) / 3.0
+    score_b = (token_ordinal(sample_b.right_token) - token_ordinal(sample_b.left_token)) / 3.0
+    return round(0.5 * (score_a + score_b), 6)
 
 
 def coarse_tuple_key(sample: DualSyntheticSample) -> tuple[bool, bool, bool]:
