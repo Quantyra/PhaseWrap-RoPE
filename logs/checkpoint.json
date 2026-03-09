@@ -1,15 +1,15 @@
 {
-    "timestamp_utc": "2026-03-10T19:20:00Z",
+    "timestamp_utc": "2026-03-10T19:35:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S273"
+        "S276"
     ],
     "active_workers": {},
     "next_actions": [
-        "Preserve the chart-transition manifold residual-response line as the next memo-only direction.",
-        "Do not reopen implementation until a future restart brief proves insufficiency of coarse lookup, additive analog, current nonlinear, phase-insensitive, bounded global-phase, and bounded single-chart control families.",
+        "Keep the chart-transition manifold line memo-only until a future implementation-approval gate proves the transition operator and bounded transition-additive control are sufficiently explicit.",
+        "Do not reopen implementation until the chart-transition manifold path has a strict approval gate with a bounded local-only, zero-credit first packet.",
         "Keep the current local atlas manifold task closed with no further packet expansion."
     ],
     "risks_or_blocks": [
@@ -28,19 +28,19 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The local atlas manifold task is exhausted as a uniqueness test because bounded nonlinear, phase-insensitive, and single-chart symbolic controls beat the witness on the primary metric."
+        "The local atlas manifold task is exhausted as a uniqueness test because bounded nonlinear, phase-insensitive, and single-chart symbolic controls beat the witness on the primary metric.",
+        "The chart-transition manifold path is still memo-only and may fail if its transition-sensitive residual can be approximated by a bounded transition-additive symbolic comparator."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "src/qrope/synthetic.py",
-        "src/qrope/run.py",
-        "tests/test_synthetic.py",
-        "tests/test_run_real_mode.py",
         "docs/research/q-rope-local-atlas-manifold-implementation-v1.md",
         "docs/research/q-rope-local-atlas-manifold-first-packet-v1.md",
         "docs/research/q-rope-local-atlas-manifold-decision-memo-v1.md",
         "docs/research/q-rope-chart-transition-manifold-task-design-v1.md",
+        "docs/research/q-rope-chart-transition-manifold-task-spec-v1.md",
+        "docs/research/q-rope-chart-transition-manifold-restart-scaffold-v1.md",
+        "docs/research/q-rope-chart-transition-manifold-approval-candidate-v1.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S271-S273 completed. The local atlas manifold branch failed its first bounded packet and returns to memo-only posture, with chart-transition manifold design preserved as the next future angle."
+    "notes": "S274-S276 completed. The next preserved direction is the chart-transition manifold residual-response line, now elevated to approval-candidate posture but still memo-only until a future implementation gate is written and passed."
 }
