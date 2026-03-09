@@ -1069,3 +1069,22 @@ def test_chart_transition_additive_control_runs() -> None:
     ]
     assert diagnostics["chart_id_absent"] is True
     assert diagnostics["transition_family_only"] is True
+
+
+def test_chart_transition_unordered_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_chart_transition_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_unordered_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_transition_unordered_regressor+head_linear")
+    assert diagnostics["feature_order"] == [
+        "transition_backbone",
+        "transition_phase_unordered",
+        "transition_curvature_unordered",
+    ]
+    assert diagnostics["chart_id_absent"] is True
+    assert diagnostics["transition_family_only"] is True
+    assert diagnostics["ordered_transition_absent"] is True
