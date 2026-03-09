@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-10T07:35:00Z",
+    "timestamp_utc":  "2026-03-10T08:10:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S203"
+                              "S205"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Preserve the relational-witness line at memo level on a harder symbolic-resistant task.",
-                         "Define `synthetic_dual_content_parity_coupling_binary` concretely before any new approval discussion.",
-                         "Do not reopen implementation until the harder task is memo-complete and explicitly approved."
+                         "Keep the relational-witness line memo-only on `synthetic_dual_content_parity_coupling_binary`.",
+                         "Do not reopen implementation until the triple-family task is reviewed as an approval candidate.",
+                         "Keep the future control stack explicit and bounded."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -33,19 +33,12 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "src/qrope/synthetic.py",
-                           "src/qrope/run.py",
-                           "tests/test_synthetic.py",
-                           "tests/test_run_real_mode.py",
-                           "docs/research/q-rope-dual-content-coupled-implementation-v1.md",
-                           "docs/research/q-rope-dual-content-coupled-first-packet-v1.md",
-                           "docs/research/q-rope-dual-content-coupled-post-packet-decision-v1.md",
-                           "docs/research/q-rope-harder-witness-task-design-v1.md",
-                           "stories/S202-dual-content-coupled-post-packet-decision.md",
-                           "stories/S203-harder-witness-task-design-memo.md",
-                           "logs/ablation_runs/summary/dual_content_coupled_v1.csv",
+                           "docs/research/q-rope-dual-content-parity-coupling-task-spec-v1.md",
+                           "docs/research/q-rope-dual-content-parity-coupling-restart-scaffold-v1.md",
+                           "stories/S204-dual-content-parity-coupling-task-spec.md",
+                           "stories/S205-dual-content-parity-coupling-restart-scaffold.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S201 completed. The harder dual content-coupled task beat sector-only and content-only controls, but the bounded cross-family symbolic control matched it exactly. The branch returns to memo-only harder-task design under S203."
+    "notes":  "S204-S205 completed. The next preserved branch is a triple-family relational witness task that adds orientation agreement to the exhausted sign/content agreement structure."
 }
