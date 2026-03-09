@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-11T04:35:00Z",
+    "timestamp_utc":  "2026-03-11T05:05:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S341"
+                              "S345"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Execute the fixed transition-orbit packet under one orbit-preserving token renaming.",
-                         "Compare the witness against the strongest current symbolic baseline on the renamed-task packet.",
-                         "Keep the branch local-only, zero-credit, and label-preserving."
+                         "Define and execute one label-preserving chart-id relabel hardening packet for the transition-orbit branch.",
+                         "Compare the witness against the strongest current symbolic baseline on the relabeled packet.",
+                         "Treat token renaming as inert and do not count it as new robustness evidence."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -37,13 +37,15 @@
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-permuted-control-plan-v1.md",
-                           "docs/research/q-rope-transition-orbit-permuted-control-v1.md",
-                           "docs/research/q-rope-transition-orbit-post-permuted-decision-v1.md",
-                           "docs/research/q-rope-transition-orbit-orbit-preserving-token-hardening-plan-v1.md",
-                           "stories/S341-transition-orbit-orbit-preserving-token-hardening.md",
+                           "docs/research/q-rope-transition-orbit-token-renaming-hardening-v1.md",
+                           "docs/research/q-rope-transition-orbit-post-token-renaming-decision-v1.md",
+                           "docs/research/q-rope-transition-orbit-chart-relabel-hardening-plan-v1.md",
+                           "stories/S342-transition-orbit-token-renaming-hardening.md",
+                           "stories/S343-transition-orbit-post-token-renaming-decision.md",
+                           "stories/S344-transition-orbit-chart-relabel-hardening-plan.md",
+                           "stories/S345-transition-orbit-chart-relabel-hardening.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S337-S340 completed. The orbit-canonical permuted control stayed materially weaker than the witness, so the branch remains active and advances to one label-preserving orbit-family token-renaming hardening step."
+    "notes":  "S342-S345 completed for planning/decision. Orbit-preserving token renaming was inert under orbit-canonical rendering, so the branch stays active but advances only to a non-inert chart-id relabel hardening packet."
 }

@@ -1,0 +1,7 @@
+run_id,variant,seed,mae,rank_corr,calibration_slope,token_permutation,orbit_target_invariance_pass,token_identity_absent
+orbit-witness-cdab-s42,V_future_relational_witness_transition_orbit,42,0.095241,0.854198,1.300595,orbit_canonical,True,True
+orbit-witness-cdab-s123,V_future_relational_witness_transition_orbit,123,0.054621,0.935294,0.879397,orbit_canonical,True,True
+orbit-witness-cdab-s777,V_future_relational_witness_transition_orbit,777,0.119693,0.752024,1.237451,orbit_canonical,True,True
+orbit-xdir-cdab-s42,V_control_symbolic_transition_cross_direction_regressor,42,0.121523,0.876573,1.439507,orbit_canonical,True,False
+orbit-xdir-cdab-s123,V_control_symbolic_transition_cross_direction_regressor,123,0.089415,0.739488,0.723464,orbit_canonical,True,False
+orbit-xdir-cdab-s777,V_control_symbolic_transition_cross_direction_regressor,777,0.118849,0.698157,1.065492,orbit_canonical,True,False
