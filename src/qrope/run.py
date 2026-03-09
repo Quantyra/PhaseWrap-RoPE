@@ -76,11 +76,13 @@ def main() -> None:
         synthetic_split_rotation = int(dataset_block.get("split_rotation", 0))
         synthetic_slot_swap = int(dataset_block.get("slot_swap", 0))
         synthetic_token_permutation = str(dataset_block.get("token_permutation", "identity"))
+        synthetic_pair_reindex = int(dataset_block.get("pair_reindex", 0))
     else:
         dataset = str(dataset_block)
         synthetic_split_rotation = 0
         synthetic_slot_swap = 0
         synthetic_token_permutation = "identity"
+        synthetic_pair_reindex = 0
     seed = int(config.get("run", {}).get("seed", 0))
     backend_block = config.get("backend", "unknown")
     if isinstance(backend_block, dict):
@@ -127,6 +129,7 @@ def main() -> None:
             synthetic_split_rotation=synthetic_split_rotation,
             synthetic_slot_swap=synthetic_slot_swap,
             synthetic_token_permutation=synthetic_token_permutation,
+            synthetic_pair_reindex=synthetic_pair_reindex,
         )
         accuracy = real_metrics["accuracy"]
         f1 = real_metrics["f1"]
@@ -211,6 +214,7 @@ def run_real_experiment(
     synthetic_split_rotation: int = 0,
     synthetic_slot_swap: int = 0,
     synthetic_token_permutation: str = "identity",
+    synthetic_pair_reindex: int = 0,
 ) -> dict[str, Any]:
     bundle = load_dataset_bundle(
         dataset,
@@ -218,6 +222,7 @@ def run_real_experiment(
         split_rotation=synthetic_split_rotation,
         slot_swap=synthetic_slot_swap,
         token_permutation=synthetic_token_permutation,
+        pair_reindex=synthetic_pair_reindex,
     )
     data_mode = bundle["data_mode"]
     dataset_diagnostics = bundle.get("dataset_diagnostics")
@@ -1203,6 +1208,7 @@ def load_dataset_bundle(
     split_rotation: int = 0,
     slot_swap: int = 0,
     token_permutation: str = "identity",
+    pair_reindex: int = 0,
 ) -> dict[str, Any]:
     if dataset == "synthetic_offset_binary":
         bundle = generate_signed_offset_binary_bundle(seed=seed, split_rotation=split_rotation)
@@ -1228,6 +1234,7 @@ def load_dataset_bundle(
             split_rotation=split_rotation,
             slot_swap=slot_swap,
             token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
         )
         return {
             "train": bundle.train,
@@ -1258,6 +1265,7 @@ def load_dataset_samples(
     split_rotation: int = 0,
     slot_swap: int = 0,
     token_permutation: str = "identity",
+    pair_reindex: int = 0,
 ) -> tuple[list[tuple[str, int]], str]:
     bundle = load_dataset_bundle(
         dataset,
@@ -1265,6 +1273,7 @@ def load_dataset_samples(
         split_rotation=split_rotation,
         slot_swap=slot_swap,
         token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
     )
     if "rows" in bundle:
         return bundle["rows"], bundle["data_mode"]
