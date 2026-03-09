@@ -1,0 +1,19 @@
+{
+  "feature_order": [
+    "single_chart_backbone",
+    "single_chart_phase",
+    "single_chart_curvature"
+  ],
+  "coefficients": {
+    "single_chart_backbone": 0.865145,
+    "single_chart_phase": 0.199737,
+    "single_chart_curvature": 0.097339
+  },
+  "intercept": -0.030715,
+  "forbidden_inputs_absent": true,
+  "mae": 0.165648,
+  "rank_correlation": 0.768455,
+  "calibration_slope": 0.93873,
+  "chart_id_absent": true,
+  "single_chart_only": true
+}

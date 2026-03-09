@@ -1,0 +1,17 @@
+{
+  "feature_order": [
+    "global_phase_backbone",
+    "global_phase_curvature"
+  ],
+  "coefficients": {
+    "global_phase_backbone": 0.26057,
+    "global_phase_curvature": -0.202941
+  },
+  "intercept": 0.01713,
+  "forbidden_inputs_absent": true,
+  "mae": 0.240603,
+  "rank_correlation": 0.634473,
+  "calibration_slope": 2.156857,
+  "latent_neighborhood_absent": true,
+  "global_phase_only": true
+}

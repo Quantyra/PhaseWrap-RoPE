@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T19:55:00Z",
+    "timestamp_utc": "2026-03-10T20:20:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S278"
+        "S281"
     ],
     "active_workers": {},
     "next_actions": [
-        "Implement the chart-transition manifold path only within the approved bounded scope.",
-        "Run the fixed local-only, zero-credit three-seed packet with one witness candidate and seven fixed controls.",
-        "Stop the branch immediately after the first packet unless the candidate beats every control on the primary regression metric."
+        "Keep the chart-transition manifold branch active and pressure-test it with one bounded unordered-transition control.",
+        "Do not broaden the task or add new candidate branches until the unordered-transition control result is known.",
+        "Keep the fixed chart-transition packet and current witness result as the reference baseline."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,17 +28,19 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The chart-transition manifold branch may still fail if its ordered transition-sensitive residual is recoverable by a bounded transition-additive symbolic comparator."
+        "The chart-transition branch is still vulnerable to a fairness failure if unordered transition structure is already sufficient."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-chart-transition-manifold-task-design-v1.md",
-        "docs/research/q-rope-chart-transition-manifold-task-spec-v1.md",
-        "docs/research/q-rope-chart-transition-manifold-restart-scaffold-v1.md",
-        "docs/research/q-rope-chart-transition-manifold-approval-candidate-v1.md",
-        "docs/research/q-rope-chart-transition-manifold-implementation-approval-gate-v1.md",
-        "docs/research/q-rope-chart-transition-manifold-implementation-plan-v1.md",
+        "src/qrope/synthetic.py",
+        "src/qrope/run.py",
+        "tests/test_synthetic.py",
+        "tests/test_run_real_mode.py",
+        "docs/research/q-rope-chart-transition-manifold-implementation-v1.md",
+        "docs/research/q-rope-chart-transition-manifold-first-packet-v1.md",
+        "docs/research/q-rope-chart-transition-post-packet-decision-v1.md",
+        "docs/research/q-rope-unordered-transition-control-plan-v1.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S277-S278 completed. The chart-transition manifold branch is now implementation-approved, but only for one strictly bounded local synthetic packet against the fixed seven-control stack."
+    "notes": "S279-S281 completed. The chart-transition manifold branch stayed active after beating the fixed control stack on its first packet; the next bounded fairness test is the unordered-transition control."
 }

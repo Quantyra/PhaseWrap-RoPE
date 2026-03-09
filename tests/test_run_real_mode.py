@@ -1030,3 +1030,42 @@ def test_local_atlas_single_chart_control_runs() -> None:
     ]
     assert diagnostics["chart_id_absent"] is True
     assert diagnostics["single_chart_only"] is True
+
+
+def test_chart_transition_manifold_loader_path() -> None:
+    rows, mode = load_dataset_samples(dataset="synthetic_dual_chart_transition_manifold_response", seed=42)
+    assert len(rows) == 64
+    assert mode == "synthetic_dual_chart_transition_manifold_response"
+
+
+def test_chart_transition_manifold_witness_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_chart_transition_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_chart_transition",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_relational_witness_chart_transition+head_linear")
+    assert metrics["extra_metrics"]["mae"] >= 0.0
+    assert "chart_transition_hint" in diagnostics["feature_order"]
+    assert diagnostics["bounded_feature_audit_pass"] is True
+    assert diagnostics["anti_collapse_pass"] is True
+
+
+def test_chart_transition_additive_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_chart_transition_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_additive_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_transition_additive_regressor+head_linear")
+    assert diagnostics["feature_order"] == [
+        "transition_backbone",
+        "transition_phase",
+        "transition_curvature",
+    ]
+    assert diagnostics["chart_id_absent"] is True
+    assert diagnostics["transition_family_only"] is True
