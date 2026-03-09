@@ -1,18 +1,18 @@
 ﻿{
-    "timestamp_utc":  "2026-03-10T04:25:00Z",
+    "timestamp_utc":  "2026-03-10T04:35:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S190"
+                              "S191"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Implement one deterministic pair-reindex control in the dual-sector generator.",
-                         "Rerun the fixed six-run packet with the same candidate, control, and seeds.",
-                         "Compare the reindexed packet directly against the prior hardening packets."
+                         "Interpret the pair-reindex packet against the prior hardening packets.",
+                         "Decide whether the branch remains active after meaningful pairing perturbation.",
+                         "Select one next bounded pressure test only."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S189 completed. The next bounded hardening step is pair-reindex execution on the dual-sector task with the same candidate, control, and seeds."
+    "notes":  "S190 completed. The next bounded step is the post-pair-reindex decision memo for the dual-sector branch."
 }

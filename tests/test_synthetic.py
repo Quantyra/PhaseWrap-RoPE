@@ -130,3 +130,26 @@ def test_dual_sector_agreement_token_permutation_preserves_labels_and_renames_to
     expected = {(rename_text(text), label) for text, label in base.train}
     observed = set(renamed.train)
     assert observed == expected
+
+
+def test_dual_sector_agreement_pair_reindex_changes_pairing_but_preserves_labels() -> None:
+    base = generate_dual_sector_agreement_binary_bundle(seed=42, pair_reindex=0)
+    reindexed = generate_dual_sector_agreement_binary_bundle(seed=42, pair_reindex=1)
+    assert base.train != reindexed.train
+    assert reindexed.diagnostics["pair_reindex"] == 1
+
+    def sector_label_counts(rows: list[tuple[str, int]]) -> dict[tuple[str, str, int], int]:
+        counts: dict[tuple[str, str, int], int] = {}
+        for text, label in rows:
+            parts = {item.split(":", 1)[0]: item.split(":", 1)[1] for item in text.split()}
+            sector_a = ("P_small" if 0 < int(parts["a_off"]) <= 2 else
+                        "P_large" if int(parts["a_off"]) > 0 else
+                        "N_small" if abs(int(parts["a_off"])) <= 2 else "N_large")
+            sector_b = ("P_small" if 0 < int(parts["b_off"]) <= 2 else
+                        "P_large" if int(parts["b_off"]) > 0 else
+                        "N_small" if abs(int(parts["b_off"])) <= 2 else "N_large")
+            key = (sector_a, sector_b, label)
+            counts[key] = counts.get(key, 0) + 1
+        return counts
+
+    assert sector_label_counts(base.train) == sector_label_counts(reindexed.train)

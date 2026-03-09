@@ -502,6 +502,17 @@ def test_dual_sector_agreement_token_permutation_flows_through_runner() -> None:
     assert metrics["dataset_diagnostics"]["token_permutation"] == "cdab"
 
 
+def test_dual_sector_agreement_pair_reindex_flows_through_runner() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_sector_agreement_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_dual_sector",
+        synthetic_pair_reindex=1,
+    )
+    assert metrics["dataset_diagnostics"]["pair_reindex"] == 1
+
+
 def test_dual_witness_runs_on_dual_sector_agreement_packet() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_dual_sector_agreement_binary",

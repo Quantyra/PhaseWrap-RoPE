@@ -67,6 +67,7 @@ def generate_dual_sector_agreement_binary_bundle(
     split_rotation: int = 0,
     slot_swap: int = 0,
     token_permutation: str = "identity",
+    pair_reindex: int = 0,
 ) -> SyntheticDatasetBundle:
     return generate_dual_sector_bundle(
         seed=seed,
@@ -74,6 +75,7 @@ def generate_dual_sector_agreement_binary_bundle(
         split_rotation=split_rotation,
         slot_swap=slot_swap,
         token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
     )
 
 
@@ -147,6 +149,7 @@ def generate_dual_sector_bundle(
     split_rotation: int = 0,
     slot_swap: int = 0,
     token_permutation: str = "identity",
+    pair_reindex: int = 0,
 ) -> SyntheticDatasetBundle:
     rng = random.Random(f"{dataset_name}:{seed}")
     single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
@@ -183,7 +186,7 @@ def generate_dual_sector_bundle(
             required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
             for idx in range(required):
                 sample_a = bucket_a[idx]
-                sample_b = bucket_b[idx]
+                sample_b = bucket_b[(idx + pair_reindex) % required]
                 if slot_swap:
                     sample_a, sample_b = sample_b, sample_a
                 sample_a = apply_token_permutation_to_sample(sample_a, token_permutation)
@@ -215,6 +218,7 @@ def generate_dual_sector_bundle(
         split_rotation=split_rotation,
         slot_swap=slot_swap,
         token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
         train=sorted(train, key=dual_sample_sort_key),
         validation=sorted(validation, key=dual_sample_sort_key),
         test=sorted(test, key=dual_sample_sort_key),
@@ -398,6 +402,7 @@ def build_dual_bundle_diagnostics(
     split_rotation: int,
     slot_swap: int,
     token_permutation: str,
+    pair_reindex: int,
     train: list[DualSyntheticSample],
     validation: list[DualSyntheticSample],
     test: list[DualSyntheticSample],
@@ -413,6 +418,7 @@ def build_dual_bundle_diagnostics(
         "split_rotation": split_rotation,
         "slot_swap": slot_swap,
         "token_permutation": token_permutation,
+        "pair_reindex": pair_reindex,
         "sequence_length": SEQUENCE_LENGTH,
         "vocabulary": list(TOKENS),
         "offsets": list(OFFSETS),
