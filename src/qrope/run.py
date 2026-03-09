@@ -234,6 +234,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_full_declared_regressor": 1,
         "V_control_symbolic_full_declared_residual_regressor": 1,
         "V_control_symbolic_full_declared_additive_regressor": 1,
+        "V_control_symbolic_nonlinear_manifold_regressor": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -354,6 +355,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_full_declared_residual_regressor+head_linear"
         elif variant == "V_control_symbolic_full_declared_additive_regressor":
             data_mode = f"{data_mode}+readout_symbolic_full_declared_additive_regressor+head_linear"
+        elif variant == "V_control_symbolic_nonlinear_manifold_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_nonlinear_manifold_regressor+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -575,6 +578,8 @@ def run_quantum_backend(
         return run_orthogonalized_symbolic_full_declared_residual_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_full_declared_additive_regressor":
         return run_nonlinear_symbolic_full_declared_additive_regressor(train=train, test=test, validation=validation)
+    if variant == "V_control_symbolic_nonlinear_manifold_regressor":
+        return run_nonlinear_symbolic_control_regressor(train=train, test=test, validation=validation)
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"} and pairstate_control_mode not in PAIRSTATE_CONTROL_MODES:
         raise ValueError(f"Unsupported pairstate control mode: {pairstate_control_mode}")
     if variant in {"V_pairstate_relational", "V_future_sector_contrast_pairstate"}:
@@ -1279,6 +1284,26 @@ def symbolic_nonlinear_full_declared_additive_features(text: str) -> dict[str, o
         "sector_magnitude_delta": state_sensitive_sector_magnitude_delta(payload),
         "ordered_content_delta": state_sensitive_ordered_content_delta(payload),
         "orientation_delta": nonlinear_orientation_delta(payload),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "forbidden_inputs_absent": True,
+    }
+
+
+def symbolic_nonlinear_manifold_features(text: str) -> dict[str, object]:
+    payload = parse_dual_synthetic_pair_text(text)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    features = {
+        "sin_uv": round(math.sin(math.pi * sector_magnitude_delta * ordered_content_delta), 6),
+        "signed_orientation": round(
+            0.5 * (1.0 if sector_magnitude_delta >= 0.0 else -1.0) * orientation_delta,
+            6,
+        ),
+        "cos_v": round(-0.25 * math.cos(math.pi * ordered_content_delta), 6),
     }
     return {
         "feature_order": list(features.keys()),
@@ -2253,6 +2278,27 @@ def run_nonlinear_symbolic_full_declared_additive_regressor(
     train_results = [symbolic_nonlinear_full_declared_additive_features(text=text) for text, _ in train]
     validation_results = [symbolic_nonlinear_full_declared_additive_features(text=text) for text, _ in validation]
     test_results = [symbolic_nonlinear_full_declared_additive_features(text=text) for text, _ in test]
+    return run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+
+
+def run_nonlinear_symbolic_control_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_nonlinear_manifold_features(text=text) for text, _ in train]
+    validation_results = [symbolic_nonlinear_manifold_features(text=text) for text, _ in validation]
+    test_results = [symbolic_nonlinear_manifold_features(text=text) for text, _ in test]
     return run_continuous_backend_from_results(
         train_results,
         validation_results,

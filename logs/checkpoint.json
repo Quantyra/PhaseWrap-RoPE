@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T14:35:00Z",
+    "timestamp_utc": "2026-03-10T14:55:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S246"
+        "S249"
     ],
     "active_workers": {},
     "next_actions": [
-        "Preserve the nonlinear manifold branch as active after the first packet win.",
-        "Define and approve one bounded nonlinear symbolic control before any further execution.",
-        "Do not broaden the task, branch, or benchmark scope in this phase."
+        "Preserve the phase-sensitive manifold task as the next memo-only nonlinear direction.",
+        "Do not reopen implementation until a future restart brief proves insufficiency of coarse lookup, additive analog controls, and the current direct nonlinear symbolic control family.",
+        "Keep the current nonlinear manifold task closed with no further packet expansion."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,19 +28,16 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The nonlinear manifold branch has only been tested against additive symbolic controls so far; its next fairness test is a bounded nonlinear symbolic baseline."
+        "The current nonlinear manifold task is exhausted as a uniqueness test because a bounded direct nonlinear symbolic control now matches or beats the witness on the primary metric."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "src/qrope/synthetic.py",
         "src/qrope/run.py",
-        "tests/test_synthetic.py",
         "tests/test_run_real_mode.py",
-        "docs/research/q-rope-nonlinear-manifold-implementation-v1.md",
-        "docs/research/q-rope-nonlinear-manifold-first-packet-v1.md",
-        "docs/research/q-rope-nonlinear-manifold-post-packet-decision-v1.md",
-        "docs/research/q-rope-nonlinear-symbolic-control-plan-v1.md",
+        "docs/research/q-rope-nonlinear-symbolic-control-v1.md",
+        "docs/research/q-rope-nonlinear-manifold-post-control-decision-v1.md",
+        "docs/research/q-rope-phase-sensitive-manifold-task-design-v1.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S244-S246 completed. The nonlinear manifold branch passed its first bounded packet against all approved additive controls and remains active, with one bounded nonlinear symbolic control preserved as the next fairness test."
+    "notes": "S247-S249 completed. The nonlinear manifold branch beat additive controls but lost its uniqueness test against the bounded nonlinear symbolic control, so the current task returns to memo-only posture and the next preserved angle is a phase-sensitive manifold residual response family."
 }
