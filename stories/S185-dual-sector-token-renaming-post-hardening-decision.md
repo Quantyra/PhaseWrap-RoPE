@@ -1,4 +1,4 @@
-# Story template
+﻿# Story template
 
 ## Story ID and title
 S185 - Dual-sector token-renaming post-hardening decision
@@ -36,3 +36,5 @@ As a research lead, I want the dual-sector witness branch reassessed after token
 
 ## Cycle time
 - Start: 2026-03-08 17:50 (Pacific/Honolulu)
+- End: 2026-03-08 17:55 (Pacific/Honolulu)
+

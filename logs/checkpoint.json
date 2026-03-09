@@ -1,18 +1,18 @@
 ﻿{
-    "timestamp_utc":  "2026-03-10T03:50:00Z",
+    "timestamp_utc":  "2026-03-10T03:56:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S185"
+                              "S186"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Interpret the token-renaming packet against the original and slot-swap packets.",
-                         "Decide whether the branch remains active after lexical hardening.",
-                         "Select one next bounded hardening step only."
+                         "Define one deterministic split-rotation control for the dual-sector task.",
+                         "Keep labels and packet scope unchanged.",
+                         "Rerun only after the split-rotation plan is explicitly recorded."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -120,5 +120,5 @@
                            "logs/ablation_runs/v4-yelp-local-s42/metrics.json",
                            "logs/ablation_runs/v4-yelp-qsim-s42/metrics.json"
                        ],
-    "notes":  "S184 completed. The next bounded step is the post-hardening decision memo for the dual-sector token-renaming result."
+    "notes":  "S185 completed. The next bounded hardening step is split-rotation planning on the dual-sector task with the same candidate, control, and seeds."
 }
