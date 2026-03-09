@@ -2,6 +2,7 @@ from qrope.synthetic import (
     content_family_name,
     generate_dual_continuous_coupled_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
+    generate_dual_state_sensitive_continuous_response_bundle,
     generate_dual_sector_agreement_binary_bundle,
     generate_dual_sector_content_agreement_binary_bundle,
     generate_sector_parity_binary_bundle,
@@ -268,4 +269,52 @@ def test_dual_continuous_coupled_response_labels_follow_rule() -> None:
         ) else -1.0
         expected = round(0.8 * (0.5 * sign_term + 0.3 * content_term + 0.2 * orientation_term)
                          + 0.2 * (sign_term * content_term * orientation_term), 6)
+        assert label == expected
+
+
+def test_dual_state_sensitive_continuous_response_bundle_preserves_within_state_variation() -> None:
+    bundle = generate_dual_state_sensitive_continuous_response_bundle(seed=42)
+    for split in ("train", "validation", "test"):
+        summary = bundle.diagnostics["splits"][split]
+        assert summary["sector_pair_balance_ok"] is True
+        assert summary["sector_slot_balance_ok"] is True
+        assert summary["content_slot_balance_ok"] is True
+        assert summary["orientation_slot_balance_ok"] is True
+        assert summary["within_state_variation_ok"] is True
+
+
+def test_dual_state_sensitive_continuous_response_labels_follow_rule() -> None:
+    bundle = generate_dual_state_sensitive_continuous_response_bundle(seed=42)
+    rows = bundle.train[:10] + bundle.validation[:10] + bundle.test[:10]
+    positive_sectors = {"P_small", "P_large"}
+    token_index = {"A": 0, "B": 1, "C": 2, "D": 3}
+    for text, label in rows:
+        parts = {item.split(":", 1)[0]: item.split(":", 1)[1] for item in text.split()}
+        sector_a = ("P_small" if 0 < int(parts["a_off"]) <= 2 else
+                    "P_large" if int(parts["a_off"]) > 0 else
+                    "N_small" if abs(int(parts["a_off"])) <= 2 else "N_large")
+        sector_b = ("P_small" if 0 < int(parts["b_off"]) <= 2 else
+                    "P_large" if int(parts["b_off"]) > 0 else
+                    "N_small" if abs(int(parts["b_off"])) <= 2 else "N_large")
+        sign_term = 1.0 if ((sector_a in positive_sectors) == (sector_b in positive_sectors)) else -1.0
+        content_term = 1.0 if content_family_name(parts["a_lt"], parts["a_rt"]) == content_family_name(
+            parts["b_lt"], parts["b_rt"]
+        ) else -1.0
+        orientation_term = 1.0 if token_orientation_name(parts["a_lt"], parts["a_rt"]) == token_orientation_name(
+            parts["b_lt"], parts["b_rt"]
+        ) else -1.0
+        sector_magnitude_delta = round((abs(int(parts["a_off"])) - abs(int(parts["b_off"]))) / 3.0, 6)
+        score_a = (token_index[parts["a_lt"]] - token_index[parts["a_rt"]]) / 3.0
+        score_b = (token_index[parts["b_lt"]] - token_index[parts["b_rt"]]) / 3.0
+        ordered_content_delta = round(0.5 * (score_a - score_b), 6)
+        expected = round(
+            0.25 * sign_term
+            + 0.15 * content_term
+            + 0.10 * orientation_term
+            + 0.15 * sector_magnitude_delta
+            + 0.10 * ordered_content_delta
+            + 0.15 * (sign_term * sector_magnitude_delta)
+            + 0.10 * (content_term * ordered_content_delta),
+            6,
+        )
         assert label == expected

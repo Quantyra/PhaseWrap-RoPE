@@ -133,6 +133,24 @@ def generate_dual_continuous_coupled_response_bundle(
     )
 
 
+def generate_dual_state_sensitive_continuous_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    return generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_dual_state_sensitive_continuous_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="state_sensitive_continuous_response",
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
@@ -261,7 +279,7 @@ def generate_dual_sector_bundle(
                         pair_reindex=pair_reindex,
                     )
                 )
-            elif label_mode == "continuous_coupled_response":
+            elif label_mode in {"continuous_coupled_response", "state_sensitive_continuous_response"}:
                 pair_grouped[(sector_a, sector_b)].extend(
                     build_balanced_triple_pairs(
                         bucket_a=bucket_a,
@@ -270,7 +288,7 @@ def generate_dual_sector_bundle(
                         token_permutation=token_permutation,
                         slot_swap=slot_swap,
                         pair_reindex=pair_reindex,
-                        label_mode="continuous_coupled_response",
+                        label_mode=label_mode,
                     )
                 )
             else:
@@ -487,6 +505,29 @@ def build_dual_sample(sample_a: SyntheticSample, sample_b: SyntheticSample, labe
         base = 0.5 * sign_term + 0.3 * content_term + 0.2 * orientation_term
         curvature = sign_term * content_term * orientation_term
         label = round(0.8 * base + 0.2 * curvature, 6)
+    elif label_mode == "state_sensitive_continuous_response":
+        sign_agreement = sector_sign_family(sector_a) == sector_sign_family(sector_b)
+        content_agreement = content_family_name(sample_a.left_token, sample_a.right_token) == content_family_name(
+            sample_b.left_token, sample_b.right_token
+        )
+        orientation_agreement = token_orientation_name(sample_a.left_token, sample_a.right_token) == token_orientation_name(
+            sample_b.left_token, sample_b.right_token
+        )
+        sign_term = 1.0 if sign_agreement else -1.0
+        content_term = 1.0 if content_agreement else -1.0
+        orientation_term = 1.0 if orientation_agreement else -1.0
+        sector_magnitude_delta = normalized_sector_magnitude_delta(sample_a, sample_b)
+        ordered_content_delta = ordered_content_delta_score(sample_a, sample_b)
+        label = round(
+            0.25 * sign_term
+            + 0.15 * content_term
+            + 0.10 * orientation_term
+            + 0.15 * sector_magnitude_delta
+            + 0.10 * ordered_content_delta
+            + 0.15 * (sign_term * sector_magnitude_delta)
+            + 0.10 * (content_term * ordered_content_delta),
+            6,
+        )
     else:
         raise ValueError(f"Unsupported dual label_mode: {label_mode}")
     text = render_dual_sample_text(sample_a=sample_a, sample_b=sample_b)
@@ -555,6 +596,20 @@ def token_orientation_name(left_token: str, right_token: str) -> str:
     token_index = {"A": 0, "B": 1, "C": 2, "D": 3}
     delta = (token_index[right_token] - token_index[left_token]) % 4
     return "forward" if delta in {1, 2} else "reverse"
+
+
+def token_ordinal(token: str) -> int:
+    return {"A": 0, "B": 1, "C": 2, "D": 3}[token]
+
+
+def normalized_sector_magnitude_delta(sample_a: SyntheticSample, sample_b: SyntheticSample) -> float:
+    return round((sample_a.offset_abs - sample_b.offset_abs) / 3.0, 6)
+
+
+def ordered_content_delta_score(sample_a: SyntheticSample, sample_b: SyntheticSample) -> float:
+    score_a = (token_ordinal(sample_a.left_token) - token_ordinal(sample_a.right_token)) / 3.0
+    score_b = (token_ordinal(sample_b.left_token) - token_ordinal(sample_b.right_token)) / 3.0
+    return round(0.5 * (score_a - score_b), 6)
 
 
 def sample_sort_key(sample: SyntheticSample) -> tuple[Any, ...]:
@@ -720,6 +775,20 @@ def summarize_dual_split(rows: list[DualSyntheticSample]) -> dict[str, Any]:
         for sample in rows
     )
     target_values = [float(sample.label) for sample in rows]
+    within_state_groups: dict[tuple[bool, bool, bool], list[float]] = defaultdict(list)
+    for sample in rows:
+        key = (
+            sector_sign_family(sample.sector_a) == sector_sign_family(sample.sector_b),
+            content_family_name(sample.sample_a.left_token, sample.sample_a.right_token)
+            == content_family_name(sample.sample_b.left_token, sample.sample_b.right_token),
+            token_orientation_name(sample.sample_a.left_token, sample.sample_a.right_token)
+            == token_orientation_name(sample.sample_b.left_token, sample.sample_b.right_token),
+        )
+        within_state_groups[key].append(float(sample.label))
+    within_state_ranges = {
+        f"{int(key[0])}{int(key[1])}{int(key[2])}": round(max(vals) - min(vals), 6)
+        for key, vals in sorted(within_state_groups.items())
+    }
     return {
         "size": len(rows),
         "class_counts": dict(sorted(class_counts.items())),
@@ -741,6 +810,8 @@ def summarize_dual_split(rows: list[DualSyntheticSample]) -> dict[str, Any]:
         "target_mean": round(sum(target_values) / len(target_values), 6) if target_values else 0.0,
         "target_min": round(min(target_values), 6) if target_values else 0.0,
         "target_max": round(max(target_values), 6) if target_values else 0.0,
+        "within_state_target_ranges": within_state_ranges,
+        "within_state_variation_ok": any(value > 0.0 for value in within_state_ranges.values()),
     }
 
 
