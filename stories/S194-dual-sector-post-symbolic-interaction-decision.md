@@ -1,4 +1,4 @@
-# Story template
+﻿# Story template
 
 ## Story ID and title
 S194 - Dual-sector post symbolic-interaction decision
@@ -36,3 +36,5 @@ As a research lead, I want the dual-sector witness branch reassessed after the s
 
 ## Cycle time
 - Start: 2026-03-08 18:58 (Pacific/Honolulu)
+- End: 2026-03-08 19:01 (Pacific/Honolulu)
+
