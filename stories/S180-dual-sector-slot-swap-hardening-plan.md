@@ -18,6 +18,7 @@ As a research lead, I want the next hardening step defined around slot-swap symm
 
 ## Evidence and references
 - `docs/research/q-rope-dual-sector-agreement-post-packet-decision-v1.md`
+- `docs/research/q-rope-dual-sector-slot-swap-hardening-plan-v1.md`
 - `docs/research/q-rope-dual-sector-agreement-first-packet-v1.md`
 
 ## Out of scope
@@ -36,3 +37,4 @@ As a research lead, I want the next hardening step defined around slot-swap symm
 
 ## Cycle time
 - Start: 2026-03-08 14:48 (Pacific/Honolulu)
+- End: 2026-03-08 14:55 (Pacific/Honolulu)
