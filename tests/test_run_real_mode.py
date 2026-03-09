@@ -922,3 +922,37 @@ def test_nonlinear_manifold_symbolic_control_runs() -> None:
     diagnostics = metrics["run_diagnostics"]
     assert metrics["data_mode"].endswith("readout_symbolic_nonlinear_manifold_regressor+head_linear")
     assert diagnostics["feature_order"] == ["sin_uv", "signed_orientation", "cos_v"]
+
+
+def test_phase_sensitive_manifold_loader_path() -> None:
+    rows, mode = load_dataset_samples(dataset="synthetic_dual_phase_sensitive_manifold_response", seed=42)
+    assert len(rows) == 64
+    assert mode == "synthetic_dual_phase_sensitive_manifold_response"
+
+
+def test_phase_sensitive_manifold_witness_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_phase_sensitive_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_phase_sensitive",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_relational_witness_phase_sensitive+head_linear")
+    assert metrics["extra_metrics"]["mae"] >= 0.0
+    assert "phase_sensitive_hint" in diagnostics["feature_order"]
+    assert diagnostics["bounded_feature_audit_pass"] is True
+    assert diagnostics["anti_collapse_pass"] is True
+
+
+def test_phase_sensitive_phase_insensitive_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_phase_sensitive_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_phase_insensitive_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_phase_insensitive_regressor+head_linear")
+    assert diagnostics["feature_order"] == ["sin_uv", "cos_v_plus_w"]
+    assert diagnostics["phase_offset_absent"] is True

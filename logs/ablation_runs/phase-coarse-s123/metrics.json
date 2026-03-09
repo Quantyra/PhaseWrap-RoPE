@@ -1,0 +1,17 @@
+{
+  "run_id": "phase-coarse-s123",
+  "variant": "V_control_symbolic_coarse_lookup_regressor",
+  "dataset": "synthetic_dual_phase_sensitive_manifold_response",
+  "seed": 123,
+  "backend": "sim_quantum_statevector",
+  "run_mode": "real",
+  "dry_run": false,
+  "data_mode": "synthetic_dual_phase_sensitive_manifold_response+readout_symbolic_coarse_lookup_regressor+head_linear",
+  "accuracy": 0.0,
+  "f1": 0.0,
+  "train_loss_final": 0.39990119905357996,
+  "eval_loss": 0.31982556261119105,
+  "mae": 0.319826,
+  "rank_correlation": 0.027176,
+  "calibration_slope": -0.334862
+}

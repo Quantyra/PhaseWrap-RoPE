@@ -1,0 +1,16 @@
+variant,seed,mae,rank_correlation,calibration_slope
+V_future_relational_witness_phase_sensitive,42,0.185833,0.886272,0.798012
+V_future_relational_witness_phase_sensitive,123,0.591296,0.891675,0.861888
+V_future_relational_witness_phase_sensitive,777,0.670216,0.937971,0.967667
+V_control_symbolic_coarse_lookup_regressor,42,0.256479,0.108947,0.401955
+V_control_symbolic_coarse_lookup_regressor,123,0.319826,0.027176,-0.334862
+V_control_symbolic_coarse_lookup_regressor,777,0.289665,0.027237,2.003994
+V_control_symbolic_analog_only_regressor,42,0.224873,0.318635,0.650319
+V_control_symbolic_analog_only_regressor,123,0.348281,-0.196287,-0.530367
+V_control_symbolic_analog_only_regressor,777,0.314706,-0.046166,-0.782577
+V_control_symbolic_nonlinear_manifold_regressor,42,0.165775,0.991806,1.009878
+V_control_symbolic_nonlinear_manifold_regressor,123,0.177232,0.945746,1.231845
+V_control_symbolic_nonlinear_manifold_regressor,777,0.262299,0.857787,0.78754
+V_control_symbolic_phase_insensitive_regressor,42,0.097654,0.991806,1.462711
+V_control_symbolic_phase_insensitive_regressor,123,0.536957,0.990357,1.202408
+V_control_symbolic_phase_insensitive_regressor,777,0.470029,0.858429,0.777027

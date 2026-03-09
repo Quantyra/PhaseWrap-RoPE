@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T15:35:00Z",
+    "timestamp_utc": "2026-03-10T16:00:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S254"
+        "S257"
     ],
     "active_workers": {},
     "next_actions": [
-        "Implement only the approved phase-sensitive manifold task, witness candidate, and fixed control stack.",
-        "Run the fixed three-seed local packet on sim_quantum_statevector.",
-        "Emit centering, feature-audit, and regression diagnostics for all variants."
+        "Preserve the latent phase manifold task as the next memo-only nonlinear direction.",
+        "Do not reopen implementation until a future restart brief proves insufficiency of coarse lookup, additive analog controls, and the current nonlinear plus phase-insensitive control families.",
+        "Keep the current phase-sensitive manifold task closed with no further packet expansion."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,15 +28,19 @@
         "Direct Quandela execution depends on maintaining sufficient provider credits.",
         "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
         "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-        "The phase-sensitive manifold branch is newly approved and still needs empirical validation against the fixed nonlinear control stack."
+        "The current phase-sensitive manifold task is exhausted as a uniqueness test because both the nonlinear manifold control and the new phase-insensitive control beat the witness on the primary metric."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-phase-sensitive-manifold-implementation-approval-gate-v1.md",
-        "docs/research/q-rope-phase-sensitive-manifold-implementation-plan-v1.md",
-        "stories/S253-phase-sensitive-manifold-implementation-approval-gate.md",
-        "stories/S254-phase-sensitive-manifold-implementation-plan.md",
+        "src/qrope/synthetic.py",
+        "src/qrope/run.py",
+        "tests/test_synthetic.py",
+        "tests/test_run_real_mode.py",
+        "docs/research/q-rope-phase-sensitive-manifold-implementation-v1.md",
+        "docs/research/q-rope-phase-sensitive-manifold-first-packet-v1.md",
+        "docs/research/q-rope-phase-sensitive-manifold-decision-memo-v1.md",
+        "docs/research/q-rope-latent-phase-manifold-task-design-v1.md",
         "docs/evidence/E001-evidence-log.md"
     ],
-    "notes": "S253-S254 completed. The phase-sensitive manifold path is implementation-approved under a strictly bounded local synthetic packet with one witness candidate and four controls."
+    "notes": "S255-S257 completed. The phase-sensitive manifold branch failed its first bounded packet against the fixed nonlinear control stack and returns to memo-only posture, with latent phase manifold design preserved as the next future angle."
 }

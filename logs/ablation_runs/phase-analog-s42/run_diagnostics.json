@@ -1,0 +1,15 @@
+{
+  "feature_order": [
+    "sector_magnitude_delta",
+    "ordered_content_delta"
+  ],
+  "coefficients": {
+    "sector_magnitude_delta": 0.218019,
+    "ordered_content_delta": -0.0[REDACTED-RECEIPT-ID]2
+  },
+  "intercept": -0.003306,
+  "forbidden_inputs_absent": true,
+  "mae": 0.224873,
+  "rank_correlation": 0.318635,
+  "calibration_slope": 0.650319
+}

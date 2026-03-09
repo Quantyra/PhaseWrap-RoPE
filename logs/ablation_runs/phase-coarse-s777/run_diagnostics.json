@@ -1,0 +1,17 @@
+{
+  "feature_order": [
+    "sign_agreement",
+    "content_agreement",
+    "orientation_agreement"
+  ],
+  "coefficients": {
+    "sign_agreement": 0.0,
+    "content_agreement": -0.0,
+    "orientation_agreement": -0.0
+  },
+  "intercept": 0.0,
+  "forbidden_inputs_absent": true,
+  "mae": 0.289665,
+  "rank_correlation": 0.027237,
+  "calibration_slope": 2.003994
+}

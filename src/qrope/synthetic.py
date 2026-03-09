@@ -188,6 +188,24 @@ def generate_dual_nonlinear_manifold_response_bundle(
     )
 
 
+def generate_dual_phase_sensitive_manifold_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    return generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_dual_phase_sensitive_manifold_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="phase_sensitive_manifold_response",
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
@@ -321,6 +339,7 @@ def generate_dual_sector_bundle(
                 "state_sensitive_continuous_response",
                 "orthogonalized_continuous_response",
                 "nonlinear_manifold_response",
+                "phase_sensitive_manifold_response",
             }:
                 pair_grouped[(sector_a, sector_b)].extend(
                     build_balanced_triple_pairs(
@@ -358,7 +377,7 @@ def generate_dual_sector_bundle(
         validation.extend(rotated[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
         test.extend(rotated[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
 
-    if label_mode in {"orthogonalized_continuous_response", "nonlinear_manifold_response"}:
+    if label_mode in {"orthogonalized_continuous_response", "nonlinear_manifold_response", "phase_sensitive_manifold_response"}:
         combined = train + validation + test
         centered = orthogonalize_dual_samples_by_coarse_tuple(combined)
         train = centered[: len(train)]
@@ -596,6 +615,23 @@ def build_dual_sample(sample_a: SyntheticSample, sample_b: SyntheticSample, labe
             - 0.25 * math.cos(math.pi * ordered_content_delta),
             6,
         )
+    elif label_mode == "phase_sensitive_manifold_response":
+        sign_agreement = sector_sign_family(sector_a) == sector_sign_family(sector_b)
+        content_agreement = content_family_name(sample_a.left_token, sample_a.right_token) == content_family_name(
+            sample_b.left_token, sample_b.right_token
+        )
+        orientation_agreement = token_orientation_name(sample_a.left_token, sample_a.right_token) == token_orientation_name(
+            sample_b.left_token, sample_b.right_token
+        )
+        sector_magnitude_delta = normalized_sector_magnitude_delta(sample_a, sample_b)
+        ordered_content_delta = ordered_content_delta_score(sample_a, sample_b)
+        orientation_delta = orientation_delta_score(sample_a, sample_b)
+        phi = phase_family_offset(sign_agreement, content_agreement, orientation_agreement)
+        label = round(
+            math.sin(math.pi * sector_magnitude_delta * ordered_content_delta + phi)
+            + 0.35 * math.cos(math.pi * (ordered_content_delta + orientation_delta)),
+            6,
+        )
     else:
         raise ValueError(f"Unsupported dual label_mode: {label_mode}")
     text = render_dual_sample_text(sample_a=sample_a, sample_b=sample_b)
@@ -684,6 +720,17 @@ def orientation_delta_score(sample_a: SyntheticSample, sample_b: SyntheticSample
     score_a = (token_ordinal(sample_a.right_token) - token_ordinal(sample_a.left_token)) / 3.0
     score_b = (token_ordinal(sample_b.right_token) - token_ordinal(sample_b.left_token)) / 3.0
     return round(0.5 * (score_a + score_b), 6)
+
+
+def phase_family_offset(sign_agreement: bool, content_agreement: bool, orientation_agreement: bool) -> float:
+    family = (int(sign_agreement), int(content_agreement) ^ int(orientation_agreement))
+    offsets = {
+        (0, 0): -math.pi / 4.0,
+        (0, 1): math.pi / 8.0,
+        (1, 0): math.pi / 4.0,
+        (1, 1): -math.pi / 8.0,
+    }
+    return offsets[family]
 
 
 def coarse_tuple_key(sample: DualSyntheticSample) -> tuple[bool, bool, bool]:

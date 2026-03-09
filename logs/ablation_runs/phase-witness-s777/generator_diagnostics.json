@@ -1,0 +1,305 @@
+{
+  "dataset": "synthetic_dual_phase_sensitive_manifold_response",
+  "seed": 777,
+  "split_rotation": 0,
+  "slot_swap": 0,
+  "token_permutation": "identity",
+  "pair_reindex": 0,
+  "sequence_length": 12,
+  "vocabulary": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "offsets": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "splits": {
+    "train": {
+      "size": 32,
+      "class_counts": {
+        "-1.59902": 1,
+        "-1.153928": 1,
+        "-0.557043": 1,
+        "-0.298225": 2,
+        "-0.252952": 1,
+        "-0.108096": 1,
+        "-0.100846": 4,
+        "0.027574": 2,
+        "0.036136": 7,
+        "0.074013": 1,
+        "0.206663": 2,
+        "0.226776": 1,
+        "0.340193": 2,
+        "0.360306": 1,
+        "0.511265": 1,
+        "0.519104": 3,
+        "0.539394": 1
+      },
+      "sector_pair_counts": {
+        "N_large|N_large": 2,
+        "N_large|N_small": 2,
+        "N_large|P_large": 2,
+        "N_large|P_small": 2,
+        "N_small|N_large": 2,
+        "N_small|N_small": 2,
+        "N_small|P_large": 2,
+        "N_small|P_small": 2,
+        "P_large|N_large": 2,
+        "P_large|N_small": 2,
+        "P_large|P_large": 2,
+        "P_large|P_small": 2,
+        "P_small|N_large": 2,
+        "P_small|N_small": 2,
+        "P_small|P_large": 2,
+        "P_small|P_small": 2
+      },
+      "sector_a_counts": {
+        "N_large": 8,
+        "N_small": 8,
+        "P_large": 8,
+        "P_small": 8
+      },
+      "sector_b_counts": {
+        "N_large": 8,
+        "N_small": 8,
+        "P_large": 8,
+        "P_small": 8
+      },
+      "content_a_counts": {
+        "aligned": 32
+      },
+      "content_b_counts": {
+        "aligned": 16,
+        "crossed": 16
+      },
+      "orientation_a_counts": {
+        "forward": 16,
+        "reverse": 16
+      },
+      "orientation_b_counts": {
+        "forward": 32
+      },
+      "sign_agreement_counts": {
+        "false": 16,
+        "true": 16
+      },
+      "content_agreement_counts": {
+        "false": 16,
+        "true": 16
+      },
+      "orientation_agreement_counts": {
+        "false": 16,
+        "true": 16
+      },
+      "class_balance_ok": true,
+      "sector_pair_balance_ok": true,
+      "sector_slot_balance_ok": true,
+      "content_slot_balance_ok": true,
+      "orientation_slot_balance_ok": true,
+      "target_mean": 0.0,
+      "target_min": -1.59902,
+      "target_max": 0.539394,
+      "within_state_target_means": {
+        "000": 0.0,
+        "011": 0.0,
+        "100": 0.0,
+        "111": -0.0
+      },
+      "within_state_target_ranges": {
+        "000": 1.068308,
+        "011": 0.289088,
+        "100": 2.138414,
+        "111": 1.673032
+      },
+      "within_state_variation_ok": true,
+      "coarse_tuple_mean_abs_max": 0.0
+    },
+    "validation": {
+      "size": 16,
+      "class_counts": {
+        "-0.784917": 1,
+        "-0.703331": 1,
+        "-0.445853": 2,
+        "-0.389752": 1,
+        "-0.178331": 1,
+        "-0.17833": 1,
+        "-0.152946": 1,
+        "0.079147": 1,
+        "0.114574": 1,
+        "0.114575": 2,
+        "0.583473": 1,
+        "0.583475": 2,
+        "1.106019": 1
+      },
+      "sector_pair_counts": {
+        "N_large|N_large": 1,
+        "N_large|N_small": 1,
+        "N_large|P_large": 1,
+        "N_large|P_small": 1,
+        "N_small|N_large": 1,
+        "N_small|N_small": 1,
+        "N_small|P_large": 1,
+        "N_small|P_small": 1,
+        "P_large|N_large": 1,
+        "P_large|N_small": 1,
+        "P_large|P_large": 1,
+        "P_large|P_small": 1,
+        "P_small|N_large": 1,
+        "P_small|N_small": 1,
+        "P_small|P_large": 1,
+        "P_small|P_small": 1
+      },
+      "sector_a_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "sector_b_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "content_a_counts": {
+        "crossed": 16
+      },
+      "content_b_counts": {
+        "crossed": 16
+      },
+      "orientation_a_counts": {
+        "forward": 16
+      },
+      "orientation_b_counts": {
+        "reverse": 16
+      },
+      "sign_agreement_counts": {
+        "false": 8,
+        "true": 8
+      },
+      "content_agreement_counts": {
+        "true": 16
+      },
+      "orientation_agreement_counts": {
+        "false": 16
+      },
+      "class_balance_ok": true,
+      "sector_pair_balance_ok": true,
+      "sector_slot_balance_ok": true,
+      "content_slot_balance_ok": true,
+      "orientation_slot_balance_ok": true,
+      "target_mean": 0.0,
+      "target_min": -0.784917,
+      "target_max": 1.106019,
+      "within_state_target_means": {
+        "010": 0.0,
+        "110": -0.0
+      },
+      "within_state_target_ranges": {
+        "010": 1.368392,
+        "110": 1.80935
+      },
+      "within_state_variation_ok": true,
+      "coarse_tuple_mean_abs_max": 0.0
+    },
+    "test": {
+      "size": 16,
+      "class_counts": {
+        "-0.531926": 1,
+        "-0.369642": 3,
+        "-0.333835": 1,
+        "-0.216072": 1,
+        "-0.077781": 1,
+        "-0.048781": 1,
+        "0.076836": 2,
+        "0.207273": 2,
+        "0.337799": 1,
+        "0.405364": 1,
+        "0.4159": 1,
+        "0.590045": 1
+      },
+      "sector_pair_counts": {
+        "N_large|N_large": 1,
+        "N_large|N_small": 1,
+        "N_large|P_large": 1,
+        "N_large|P_small": 1,
+        "N_small|N_large": 1,
+        "N_small|N_small": 1,
+        "N_small|P_large": 1,
+        "N_small|P_small": 1,
+        "P_large|N_large": 1,
+        "P_large|N_small": 1,
+        "P_large|P_large": 1,
+        "P_large|P_small": 1,
+        "P_small|N_large": 1,
+        "P_small|N_small": 1,
+        "P_small|P_large": 1,
+        "P_small|P_small": 1
+      },
+      "sector_a_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "sector_b_counts": {
+        "N_large": 4,
+        "N_small": 4,
+        "P_large": 4,
+        "P_small": 4
+      },
+      "content_a_counts": {
+        "crossed": 16
+      },
+      "content_b_counts": {
+        "aligned": 16
+      },
+      "orientation_a_counts": {
+        "reverse": 16
+      },
+      "orientation_b_counts": {
+        "reverse": 16
+      },
+      "sign_agreement_counts": {
+        "false": 8,
+        "true": 8
+      },
+      "content_agreement_counts": {
+        "false": 16
+      },
+      "orientation_agreement_counts": {
+        "true": 16
+      },
+      "class_balance_ok": true,
+      "sector_pair_balance_ok": true,
+      "sector_slot_balance_ok": true,
+      "content_slot_balance_ok": true,
+      "orientation_slot_balance_ok": true,
+      "target_mean": 0.0,
+      "target_min": -0.531926,
+      "target_max": 0.590045,
+      "within_state_target_means": {
+        "001": 0.0,
+        "101": 0.0
+      },
+      "within_state_target_ranges": {
+        "001": 0.775006,
+        "101": 1.121971
+      },
+      "within_state_variation_ok": true,
+      "coarse_tuple_mean_abs_max": 0.0
+    }
+  },
+  "leakage_checks": {
+    "class_balanced": true,
+    "sector_pair_balanced": true,
+    "sector_slot_balanced": true,
+    "token_identity_not_in_label_rule": true,
+    "single_sector_shortcut_note": "Label depends on agreement between sector_a and sector_b; no single sector identity determines the class."
+  }
+}

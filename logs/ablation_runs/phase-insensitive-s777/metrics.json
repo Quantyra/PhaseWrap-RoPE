@@ -1,0 +1,17 @@
+{
+  "run_id": "phase-insensitive-s777",
+  "variant": "V_control_symbolic_phase_insensitive_regressor",
+  "dataset": "synthetic_dual_phase_sensitive_manifold_response",
+  "seed": 777,
+  "backend": "sim_quantum_statevector",
+  "run_mode": "real",
+  "dry_run": false,
+  "data_mode": "synthetic_dual_phase_sensitive_manifold_response+readout_symbolic_phase_insensitive_regressor+head_linear",
+  "accuracy": 0.0,
+  "f1": 0.0,
+  "train_loss_final": 0.19249342344302434,
+  "eval_loss": 0.47002854820181544,
+  "mae": 0.470029,
+  "rank_correlation": 0.858429,
+  "calibration_slope": 0.777027
+}

@@ -1,0 +1,17 @@
+{
+  "run_id": "phase-witness-s123",
+  "variant": "V_future_relational_witness_phase_sensitive",
+  "dataset": "synthetic_dual_phase_sensitive_manifold_response",
+  "seed": 123,
+  "backend": "sim_quantum_statevector",
+  "run_mode": "real",
+  "dry_run": false,
+  "data_mode": "synthetic_dual_phase_sensitive_manifold_response+readout_relational_witness_phase_sensitive+head_linear",
+  "accuracy": 0.0,
+  "f1": 0.0,
+  "train_loss_final": 0.0057447432045661835,
+  "eval_loss": 0.5912957983563601,
+  "mae": 0.591296,
+  "rank_correlation": 0.891675,
+  "calibration_slope": 0.861888
+}

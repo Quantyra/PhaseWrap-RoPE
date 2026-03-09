@@ -1,0 +1,16 @@
+{
+  "feature_order": [
+    "sin_uv",
+    "cos_v_plus_w"
+  ],
+  "coefficients": {
+    "sin_uv": 0.719466,
+    "cos_v_plus_w": 0.984033
+  },
+  "intercept": 0.077641,
+  "forbidden_inputs_absent": true,
+  "mae": 0.536957,
+  "rank_correlation": 0.990357,
+  "calibration_slope": 1.202408,
+  "phase_offset_absent": true
+}

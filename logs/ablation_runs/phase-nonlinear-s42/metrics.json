@@ -1,0 +1,17 @@
+{
+  "run_id": "phase-nonlinear-s42",
+  "variant": "V_control_symbolic_nonlinear_manifold_regressor",
+  "dataset": "synthetic_dual_phase_sensitive_manifold_response",
+  "seed": 42,
+  "backend": "sim_quantum_statevector",
+  "run_mode": "real",
+  "dry_run": false,
+  "data_mode": "synthetic_dual_phase_sensitive_manifold_response+readout_symbolic_nonlinear_manifold_regressor+head_linear",
+  "accuracy": 0.0,
+  "f1": 0.0,
+  "train_loss_final": 0.24952787520198702,
+  "eval_loss": 0.1657752047784703,
+  "mae": 0.165775,
+  "rank_correlation": 0.991806,
+  "calibration_slope": 1.009878
+}

@@ -1,0 +1,17 @@
+{
+  "run_id": "phase-analog-s42",
+  "variant": "V_control_symbolic_analog_only_regressor",
+  "dataset": "synthetic_dual_phase_sensitive_manifold_response",
+  "seed": 42,
+  "backend": "sim_quantum_statevector",
+  "run_mode": "real",
+  "dry_run": false,
+  "data_mode": "synthetic_dual_phase_sensitive_manifold_response+readout_symbolic_analog_only_regressor+head_linear",
+  "accuracy": 0.0,
+  "f1": 0.0,
+  "train_loss_final": 0.3639136612287924,
+  "eval_loss": 0.22487292034036824,
+  "mae": 0.224873,
+  "rank_correlation": 0.318635,
+  "calibration_slope": 0.650319
+}

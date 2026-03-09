@@ -1,0 +1,17 @@
+{
+  "feature_order": [
+    "sin_uv",
+    "signed_orientation",
+    "cos_v"
+  ],
+  "coefficients": {
+    "sin_uv": 0.777543,
+    "signed_orientation": 0.059824,
+    "cos_v": -0.280405
+  },
+  "intercept": 0.139748,
+  "forbidden_inputs_absent": true,
+  "mae": 0.262299,
+  "rank_correlation": 0.857787,
+  "calibration_slope": 0.78754
+}
