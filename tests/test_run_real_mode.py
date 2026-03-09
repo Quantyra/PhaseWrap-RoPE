@@ -1126,3 +1126,24 @@ def test_chart_transition_reversed_control_runs() -> None:
     assert diagnostics["chart_id_absent"] is True
     assert diagnostics["transition_family_only"] is True
     assert diagnostics["transition_direction_reversed"] is True
+
+
+def test_chart_transition_bidirectional_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_dual_chart_transition_manifold_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_bidirectional_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert metrics["data_mode"].endswith("readout_symbolic_transition_bidirectional_regressor+head_linear")
+    assert diagnostics["feature_order"] == [
+        "transition_backbone",
+        "transition_phase_forward",
+        "transition_curvature_forward",
+        "transition_phase_reversed",
+        "transition_curvature_reversed",
+    ]
+    assert diagnostics["chart_id_absent"] is True
+    assert diagnostics["transition_family_only"] is True
+    assert diagnostics["transition_direction_bidirectional"] is True
