@@ -18,6 +18,7 @@ As a research lead, I want the approved harder witness task translated into one 
 
 ## Evidence and references
 - `docs/research/q-rope-dual-sector-agreement-implementation-approval-gate-v1.md`
+- `docs/research/q-rope-dual-sector-agreement-implementation-plan-v1.md`
 
 ## Out of scope
 - Implementation itself
@@ -35,3 +36,4 @@ As a research lead, I want the approved harder witness task translated into one 
 
 ## Cycle time
 - Start: 2026-03-08 14:17 (Pacific/Honolulu)
+- End: 2026-03-08 14:24 (Pacific/Honolulu)
