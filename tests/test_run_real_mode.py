@@ -341,6 +341,38 @@ def test_transition_orbit_rank_lookup_control_backend_runs() -> None:
     assert diagnostics["coarse_state_only"] is True
 
 
+def test_transition_orbit_pairwise_order_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_pairwise_order_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_transition_orbit_order",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_transition_orbit_pairwise_order_binary+readout_relational_witness_transition_orbit_order+head_linear"
+    )
+    assert diagnostics["coarse_order_lookup_near_null_pass"] is True
+    assert diagnostics["within_state_pair_count_min"] >= 2
+    assert diagnostics["pair_label_balance_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+
+
+def test_transition_orbit_pairwise_order_lookup_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_pairwise_order_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_order_lookup",
+    )
+    assert metrics["data_mode"].startswith(
+        "synthetic_transition_orbit_pairwise_order_binary+readout_symbolic_transition_order_lookup+head_linear"
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["token_identity_absent"] is True
+    assert diagnostics["coarse_state_only"] is True
+
+
 def test_synthetic_offset_binary_quantum_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_offset_binary",

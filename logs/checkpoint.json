@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-11T08:00:00Z",
+    "timestamp_utc":  "2026-03-11T08:20:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S369"
+                              "S373"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Implement synthetic_transition_orbit_pairwise_order_binary inside the bounded local-only scope.",
-                         "Stop immediately if coarse-order lookup is not near-null or within-state pair counts collapse.",
-                         "Run the fixed 15-run first packet and decide the branch from accuracy and F1."
+                         "Design a listwise transition-orbit ranking task that makes full within-state ordering the primary target.",
+                         "Bind bounded symbolic ranking baselines directly into the restart scaffold before any approval discussion.",
+                         "Keep the line memo-only until the listwise ranking branch is explicit enough for an approval-candidate review."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -40,14 +40,23 @@
                             "The preserved order-only line is still memo-only and must not reopen code until bounded symbolic order controls are formally bound into an approval gate.",
                             "The pairwise-order task must still prove that coarse-state lookup is near-null and that labels vary within the same coarse transition state.",
                             "The pairwise-order line is now implementation-approved, but only for one bounded local packet and only if the generator proves within-state order variation and near-null coarse lookup.",
-                            "This line must not inherit the stopped rank-band MAE gate; its primary metrics are classification accuracy and F1."
+                            "This line must not inherit the stopped rank-band MAE gate; its primary metrics are classification accuracy and F1.",
+                            "The pairwise-order branch is stopped after failing both primary classification metrics against bounded symbolic controls.",
+                            "Any continuation on this line now requires a materially different listwise ranking task rather than another pairwise binary restatement."
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-pairwise-order-implementation-approval-gate-v1.md",
-                           "docs/research/q-rope-transition-orbit-pairwise-order-implementation-plan-v1.md",
+                           "src/qrope/synthetic.py",
+                           "src/qrope/run.py",
+                           "tests/test_synthetic.py",
+                           "tests/test_run_real_mode.py",
+                           "docs/research/q-rope-transition-orbit-pairwise-order-implementation-v1.md",
+                           "docs/research/q-rope-transition-orbit-pairwise-order-first-packet-v1.md",
+                           "docs/research/q-rope-transition-orbit-pairwise-order-decision-memo-v1.md",
+                           "docs/research/q-rope-transition-orbit-listwise-ranking-task-design-v1.md",
+                           "logs/ablation_runs/summary/transition_orbit_pairwise_order_v1.csv",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S368-S369 completed. The transition-orbit pairwise-order line is now implementation-approved in one strictly bounded local-only phase with fixed symbolic order controls and explicit generator stop conditions."
+    "notes":  "S370-S373 completed. The bounded pairwise-order transition-orbit branch executed cleanly but failed the approved classification gate. The line returns to memo-only posture with one preserved listwise ranking direction."
 }

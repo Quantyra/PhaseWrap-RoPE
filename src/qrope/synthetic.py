@@ -601,6 +601,159 @@ def generate_transition_orbit_rank_band_response_bundle(
     )
 
 
+def generate_transition_orbit_pairwise_order_binary_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "orbit_canonical",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_transition_orbit_pairwise_order_binary:{seed}")
+    single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
+
+    for left_token in TOKENS:
+        for right_token in TOKENS:
+            for magnitude in OFFSETS:
+                for base_left in range(SEQUENCE_LENGTH - magnitude):
+                    pos_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left,
+                            right_pos=base_left + magnitude,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    neg_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left + magnitude,
+                            right_pos=base_left,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    single_grouped[offset_sector_name(pos_sample.offset)].append(pos_sample)
+                    single_grouped[offset_sector_name(neg_sample.offset)].append(neg_sample)
+
+    coarse_candidates: dict[tuple[int, int], list[DualSyntheticSample]] = defaultdict(list)
+    sectors = ("P_small", "P_large", "N_small", "N_large")
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+
+    for sector_a in sectors:
+        for sector_b in sectors:
+            bucket_a = list(single_grouped[sector_a])
+            bucket_b = list(single_grouped[sector_b])
+            rng.shuffle(bucket_a)
+            rng.shuffle(bucket_b)
+            pair_count = min(len(bucket_a), len(bucket_b))
+            for idx in range(pair_count):
+                sample_a = bucket_a[idx]
+                sample_b = bucket_b[(idx + pair_reindex) % pair_count]
+                if slot_swap:
+                    sample_a, sample_b = sample_b, sample_a
+                dual = build_dual_sample(sample_a=sample_a, sample_b=sample_b, label_mode="chart_transition_orbit_response")
+                payload = parse_dual_sample_text(dual.text)
+                coarse_candidates[chart_transition_pair(payload)].append(dual)
+
+    train: list[tuple[str, int]] = []
+    validation: list[tuple[str, int]] = []
+    test: list[tuple[str, int]] = []
+    train_state_labels: dict[str, list[int]] = defaultdict(list)
+    state_pair_counts: dict[str, int] = {}
+
+    for key in sorted(coarse_candidates):
+        bucket = sorted(coarse_candidates[key], key=lambda row: orbit_transition_band_delta(row.sample_a, row.sample_b))
+        if len(bucket) < required:
+            continue
+        if len(bucket) == required:
+            chosen = bucket
+        else:
+            max_index = len(bucket) - 1
+            spread_indices = [0, max_index // 3, (2 * max_index) // 3, max_index]
+            deduped: list[int] = []
+            for idx in spread_indices:
+                if idx not in deduped:
+                    deduped.append(idx)
+            cursor = 0
+            while len(deduped) < required and cursor <= max_index:
+                if cursor not in deduped:
+                    deduped.append(cursor)
+                cursor += 1
+            chosen = [bucket[idx] for idx in sorted(deduped[:required])]
+
+        comparison_specs = [(0, 1), (3, 2), (0, 3), (2, 1)]
+        comparisons: list[tuple[str, int]] = []
+        for left_idx, right_idx in comparison_specs:
+            sample_u = chosen[left_idx]
+            sample_v = chosen[right_idx]
+            label = int(left_idx > right_idx)
+            comparisons.append((render_transition_pairwise_text(sample_u, sample_v), label))
+
+        assignment = (0, 1, 2, 3) if (key[0] + key[1]) % 2 == 0 else (2, 3, 1, 0)
+        arranged = [comparisons[idx] for idx in assignment]
+        state_key = f"{key[0]}->{key[1]}"
+        state_pair_counts[state_key] = len(arranged)
+        train.extend(arranged[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(arranged[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(arranged[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        train_state_labels[state_key].extend(label for _, label in arranged[:TRAIN_COUNT_PER_BUCKET])
+
+    def label_counts(rows: list[tuple[str, int]]) -> dict[str, int]:
+        return {str(key): value for key, value in sorted(Counter(label for _, label in rows).items())}
+
+    token_support_u: set[str] = set()
+    token_support_v: set[str] = set()
+    for text, _ in train + validation + test:
+        payload = parse_transition_pairwise_text(text)
+        token_support_u.update(
+            {
+                payload["u"]["sample_a"].left_token,
+                payload["u"]["sample_a"].right_token,
+                payload["u"]["sample_b"].left_token,
+                payload["u"]["sample_b"].right_token,
+            }
+        )
+        token_support_v.update(
+            {
+                payload["v"]["sample_a"].left_token,
+                payload["v"]["sample_a"].right_token,
+                payload["v"]["sample_b"].left_token,
+                payload["v"]["sample_b"].right_token,
+            }
+        )
+
+    train_state_means = {state: round(sum(labels) / len(labels), 6) for state, labels in train_state_labels.items() if labels}
+    unique_train_means = sorted(set(train_state_means.values()))
+    label_counter = Counter(label for _, label in train + validation + test)
+    diagnostics = {
+        "dataset": "synthetic_transition_orbit_pairwise_order_binary",
+        "seed": seed,
+        "split_rotation": split_rotation,
+        "slot_swap": slot_swap,
+        "token_permutation": token_permutation,
+        "pair_reindex": pair_reindex,
+        "splits": {
+            "train": {"size": len(train), "label_counts": label_counts(train)},
+            "validation": {"size": len(validation), "label_counts": label_counts(validation)},
+            "test": {"size": len(test), "label_counts": label_counts(test)},
+        },
+        "coarse_order_lookup_near_null_pass": len(unique_train_means) == 1 and unique_train_means[0] == 0.5,
+        "within_state_pair_count_min": min(state_pair_counts.values()) if state_pair_counts else 0,
+        "pair_label_balance_pass": len(set(label_counter.values())) == 1 if label_counter else False,
+        "token_view_balance_pass": token_support_u == token_support_v and token_support_u == {"A", "B"},
+        "coarse_state_train_means": dict(sorted(train_state_means.items())),
+        "per_state_pair_counts": dict(sorted(state_pair_counts.items())),
+        "pair_label_counts": {str(key): value for key, value in sorted(label_counter.items())},
+    }
+    return SyntheticDatasetBundle(
+        train=sorted(train),
+        validation=sorted(validation),
+        test=sorted(test),
+        diagnostics=diagnostics,
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
@@ -1245,6 +1398,15 @@ def render_dual_sample_text(sample_a: SyntheticSample, sample_b: SyntheticSample
     )
 
 
+def render_transition_pairwise_text(sample_u: DualSyntheticSample, sample_v: DualSyntheticSample) -> str:
+    return (
+        f"u_a_lt:{sample_u.sample_a.left_token} u_a_rt:{sample_u.sample_a.right_token} u_a_lp:{sample_u.sample_a.left_pos} u_a_rp:{sample_u.sample_a.right_pos} u_a_off:{sample_u.sample_a.offset:+d} "
+        f"u_b_lt:{sample_u.sample_b.left_token} u_b_rt:{sample_u.sample_b.right_token} u_b_lp:{sample_u.sample_b.left_pos} u_b_rp:{sample_u.sample_b.right_pos} u_b_off:{sample_u.sample_b.offset:+d} "
+        f"v_a_lt:{sample_v.sample_a.left_token} v_a_rt:{sample_v.sample_a.right_token} v_a_lp:{sample_v.sample_a.left_pos} v_a_rp:{sample_v.sample_a.right_pos} v_a_off:{sample_v.sample_a.offset:+d} "
+        f"v_b_lt:{sample_v.sample_b.left_token} v_b_rt:{sample_v.sample_b.right_token} v_b_lp:{sample_v.sample_b.left_pos} v_b_rp:{sample_v.sample_b.right_pos} v_b_off:{sample_v.sample_b.offset:+d}"
+    )
+
+
 def parse_dual_sample_text(text: str) -> dict[str, Any]:
     fields: dict[str, Any] = {}
     for chunk in text.split():
@@ -1286,6 +1448,34 @@ def parse_dual_sample_text(text: str) -> dict[str, Any]:
         offset_abs=abs(fields["b_off"]),
     )
     return fields
+
+
+def parse_transition_pairwise_text(text: str) -> dict[str, Any]:
+    fields: dict[str, Any] = {}
+    for chunk in text.split():
+        key, value = chunk.split(":", 1)
+        if key.endswith(("_lp", "_rp", "_off")):
+            fields[key] = int(value)
+        else:
+            fields[key] = value
+
+    def build_prefixed_dual(prefix: str) -> dict[str, Any]:
+        dual_text = (
+            f"a_lt:{fields[f'{prefix}_a_lt']} a_rt:{fields[f'{prefix}_a_rt']} a_lp:{fields[f'{prefix}_a_lp']} a_rp:{fields[f'{prefix}_a_rp']} a_off:{fields[f'{prefix}_a_off']:+d} "
+            f"b_lt:{fields[f'{prefix}_b_lt']} b_rt:{fields[f'{prefix}_b_rt']} b_lp:{fields[f'{prefix}_b_lp']} b_rp:{fields[f'{prefix}_b_rp']} b_off:{fields[f'{prefix}_b_off']:+d}"
+        )
+        payload = parse_dual_sample_text(dual_text)
+        payload["dual_text"] = dual_text
+        return payload
+
+    payload_u = build_prefixed_dual("u")
+    payload_v = build_prefixed_dual("v")
+    return {
+        "u": payload_u,
+        "v": payload_v,
+        "coarse_state_u": chart_transition_pair(payload_u),
+        "coarse_state_v": chart_transition_pair(payload_v),
+    }
 
 
 def apply_token_permutation_to_sample(sample: SyntheticSample, token_permutation: str) -> SyntheticSample:

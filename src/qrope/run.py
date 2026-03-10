@@ -44,7 +44,9 @@ from .synthetic import (
     generate_dual_state_sensitive_continuous_response_bundle,
     generate_dual_sector_agreement_binary_bundle,
     generate_dual_sector_content_agreement_binary_bundle,
+    generate_transition_orbit_pairwise_order_binary_bundle,
     generate_transition_orbit_rank_band_response_bundle,
+    parse_transition_pairwise_text,
     generate_sector_parity_binary_bundle,
     token_orientation_name,
 )
@@ -240,6 +242,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_chart_transition_invariant": 24,
         "V_future_relational_witness_transition_orbit": 24,
         "V_future_relational_witness_transition_orbit_rank": 24,
+        "V_future_relational_witness_transition_orbit_order": 24,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -263,6 +266,10 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_orbit_additive_regressor": 1,
         "V_control_symbolic_transition_orbit_permuted_regressor": 1,
         "V_control_symbolic_transition_orbit_rank_lookup": 1,
+        "V_control_symbolic_transition_order_lookup": 1,
+        "V_control_symbolic_transition_order_cross_direction": 1,
+        "V_control_symbolic_transition_order_quadratic": 1,
+        "V_control_symbolic_transition_order_orbit_permuted": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -382,6 +389,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_rank":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_rank+head_linear"
+        elif variant == "V_future_relational_witness_transition_orbit_order":
+            data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_order+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -428,6 +437,14 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_orbit_permuted_regressor+head_linear"
         elif variant == "V_control_symbolic_transition_orbit_rank_lookup":
             data_mode = f"{data_mode}+readout_symbolic_transition_orbit_rank_lookup+head_linear"
+        elif variant == "V_control_symbolic_transition_order_lookup":
+            data_mode = f"{data_mode}+readout_symbolic_transition_order_lookup+head_linear"
+        elif variant == "V_control_symbolic_transition_order_cross_direction":
+            data_mode = f"{data_mode}+readout_symbolic_transition_order_cross_direction+head_linear"
+        elif variant == "V_control_symbolic_transition_order_quadratic":
+            data_mode = f"{data_mode}+readout_symbolic_transition_order_quadratic+head_linear"
+        elif variant == "V_control_symbolic_transition_order_orbit_permuted":
+            data_mode = f"{data_mode}+readout_symbolic_transition_order_orbit_permuted+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -648,6 +665,8 @@ def run_quantum_backend(
         return run_transition_orbit_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_rank":
         return run_transition_orbit_rank_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_transition_orbit_order":
+        return run_transition_orbit_order_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_control_symbolic_single_family_regressor":
         return run_continuous_symbolic_single_family_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_two_family_regressor":
@@ -698,6 +717,14 @@ def run_quantum_backend(
         return run_transition_orbit_permuted_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_rank_band_response" and variant == "V_control_symbolic_transition_orbit_rank_lookup":
         return run_transition_orbit_rank_lookup_symbolic_regressor(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_pairwise_order_binary" and variant == "V_control_symbolic_transition_order_lookup":
+        return run_transition_order_lookup_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_pairwise_order_binary" and variant == "V_control_symbolic_transition_order_cross_direction":
+        return run_transition_order_cross_direction_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_pairwise_order_binary" and variant == "V_control_symbolic_transition_order_quadratic":
+        return run_transition_order_quadratic_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_pairwise_order_binary" and variant == "V_control_symbolic_transition_order_orbit_permuted":
+        return run_transition_order_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_quadratic_regressor":
         return run_transition_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_cubic_regressor":
@@ -1999,6 +2026,114 @@ def symbolic_transition_orbit_rank_lookup_features(text: str) -> dict[str, objec
         "forbidden_inputs_absent": True,
         "token_identity_absent": True,
         "coarse_state_only": True,
+    }
+
+
+def transition_orbit_order_pair_features(text: str) -> dict[str, Any]:
+    payload = parse_transition_pairwise_text(text)
+    return payload
+
+
+def transition_orbit_order_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = transition_orbit_order_pair_features(text)
+    u_base = transition_orbit_rank_witness_features(text=payload["u"]["dual_text"], seed=seed)
+    v_base = transition_orbit_rank_witness_features(text=payload["v"]["dual_text"], seed=seed)
+    feature_order = list(u_base["feature_order"])
+    features = {
+        name: round(float(u_base["features"][name]) - float(v_base["features"][name]), 6)
+        for name in feature_order
+    }
+    coarse_state = payload["coarse_state_u"]
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "coarse_state": f"{coarse_state[0]}->{coarse_state[1]}",
+        "forbidden_inputs_absent": True,
+        "token_identity_absent": True,
+        "bounded_feature_audit_pass": True,
+    }
+
+
+def symbolic_transition_order_lookup_features(text: str) -> dict[str, object]:
+    payload = transition_orbit_order_pair_features(text)
+    source_chart, dest_chart = payload["coarse_state_u"]
+    feature_order: list[str] = []
+    features: dict[str, float] = {}
+    for src in range(4):
+        for dst in range(4):
+            key = f"coarse_state_{src}_{dst}"
+            feature_order.append(key)
+            features[key] = 1.0 if (src, dst) == (source_chart, dest_chart) else 0.0
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "coarse_state": f"{source_chart}->{dest_chart}",
+        "forbidden_inputs_absent": True,
+        "token_identity_absent": True,
+        "coarse_state_only": True,
+    }
+
+
+def _pairwise_delta_features(
+    left: dict[str, object],
+    right: dict[str, object],
+    transform: str = "linear",
+) -> tuple[list[str], dict[str, float]]:
+    base_names = list(left["feature_order"])
+    feature_order: list[str] = []
+    features: dict[str, float] = {}
+    for name in base_names:
+        delta = round(float(left["features"][name]) - float(right["features"][name]), 6)
+        feature_name = f"delta_{name}"
+        feature_order.append(feature_name)
+        features[feature_name] = delta
+        if transform == "quadratic":
+            sq_name = f"sq_{name}"
+            feature_order.append(sq_name)
+            features[sq_name] = round(delta * delta, 6)
+    return feature_order, features
+
+
+def symbolic_transition_order_cross_direction_features(text: str) -> dict[str, object]:
+    payload = transition_orbit_order_pair_features(text)
+    left = symbolic_transition_orbit_additive_features(text=payload["u"]["dual_text"])
+    right = symbolic_transition_orbit_additive_features(text=payload["v"]["dual_text"])
+    feature_order, features = _pairwise_delta_features(left, right, transform="linear")
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "coarse_state": f"{payload['coarse_state_u'][0]}->{payload['coarse_state_u'][1]}",
+        "forbidden_inputs_absent": True,
+        "token_identity_absent": True,
+    }
+
+
+def symbolic_transition_order_quadratic_features(text: str) -> dict[str, object]:
+    payload = transition_orbit_order_pair_features(text)
+    left = symbolic_transition_orbit_additive_features(text=payload["u"]["dual_text"])
+    right = symbolic_transition_orbit_additive_features(text=payload["v"]["dual_text"])
+    feature_order, features = _pairwise_delta_features(left, right, transform="quadratic")
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "coarse_state": f"{payload['coarse_state_u'][0]}->{payload['coarse_state_u'][1]}",
+        "forbidden_inputs_absent": True,
+        "token_identity_absent": True,
+    }
+
+
+def symbolic_transition_order_orbit_permuted_features(text: str) -> dict[str, object]:
+    payload = transition_orbit_order_pair_features(text)
+    left = symbolic_transition_orbit_permuted_features(text=payload["u"]["dual_text"])
+    right = symbolic_transition_orbit_permuted_features(text=payload["v"]["dual_text"])
+    feature_order, features = _pairwise_delta_features(left, right, transform="linear")
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "coarse_state": f"{payload['coarse_state_u'][0]}->{payload['coarse_state_u'][1]}",
+        "forbidden_inputs_absent": True,
+        "token_identity_absent": True,
+        "transition_table_permuted": True,
     }
 
 
@@ -3880,6 +4015,154 @@ def run_transition_orbit_rank_lookup_symbolic_regressor(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def build_transition_order_run_diagnostics(
+    results: list[dict[str, Any]],
+    feature_order: list[str],
+    weights: list[float],
+    bias: float,
+) -> dict[str, Any]:
+    coarse_state_counts: dict[str, int] = {}
+    forbidden_absent_flags: list[bool] = []
+    token_identity_flags: list[bool] = []
+    bounded_feature_flags: list[bool] = []
+    coarse_state_only_flags: list[bool] = []
+    transition_table_permuted_flags: list[bool] = []
+    for result in results:
+        coarse_state = str(result.get("coarse_state", "unknown"))
+        coarse_state_counts[coarse_state] = coarse_state_counts.get(coarse_state, 0) + 1
+        forbidden_absent_flags.append(bool(result.get("forbidden_inputs_absent", False)))
+        token_identity_flags.append(bool(result.get("token_identity_absent", False)))
+        if "bounded_feature_audit_pass" in result:
+            bounded_feature_flags.append(bool(result["bounded_feature_audit_pass"]))
+        if "coarse_state_only" in result:
+            coarse_state_only_flags.append(bool(result["coarse_state_only"]))
+        if "transition_table_permuted" in result:
+            transition_table_permuted_flags.append(bool(result["transition_table_permuted"]))
+    diagnostics = {
+        "feature_order": feature_order,
+        "coefficients": {name: round(weight, 6) for name, weight in zip(feature_order, weights)},
+        "intercept": round(bias, 6),
+        "coarse_state_counts": dict(sorted(coarse_state_counts.items())),
+        "forbidden_inputs_absent": all(forbidden_absent_flags),
+        "token_identity_absent": all(token_identity_flags),
+    }
+    if bounded_feature_flags:
+        diagnostics["bounded_feature_audit_pass"] = all(bounded_feature_flags)
+    if coarse_state_only_flags:
+        diagnostics["coarse_state_only"] = all(coarse_state_only_flags)
+    if transition_table_permuted_flags:
+        diagnostics["transition_table_permuted"] = all(transition_table_permuted_flags)
+    return diagnostics
+
+
+def run_transition_order_backend_from_results(
+    train_results: list[dict[str, Any]],
+    validation_results: list[dict[str, Any]],
+    test_results: list[dict[str, Any]],
+    train_labels: list[int],
+    validation_labels: list[int],
+    test_labels: list[int],
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    feature_order = list(train_results[0]["feature_order"]) if train_results else []
+    train_matrix = [[float(result["features"][name]) for name in feature_order] for result in train_results]
+    validation_matrix = [[float(result["features"][name]) for name in feature_order] for result in validation_results]
+    test_matrix = [[float(result["features"][name]) for name in feature_order] for result in test_results]
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    y_pred = [1 if score >= threshold else 0 for score in test_scores]
+    diagnostics = build_transition_order_run_diagnostics(
+        results=test_results,
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+    )
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, y_pred)
+    f1 = compute_f1_binary(test_labels, y_pred)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_transition_orbit_order_witness_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    seed: int,
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+    train_results = [transition_orbit_order_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [transition_orbit_order_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [transition_orbit_order_witness_features(text=text, seed=seed) for text, _ in test]
+    return run_transition_order_backend_from_results(
+        train_results, validation_results, test_results, [label for _, label in train], [label for _, label in validation], [label for _, label in test]
+    )
+
+
+def run_transition_order_lookup_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+    train_results = [symbolic_transition_order_lookup_features(text=text) for text, _ in train]
+    validation_results = [symbolic_transition_order_lookup_features(text=text) for text, _ in validation]
+    test_results = [symbolic_transition_order_lookup_features(text=text) for text, _ in test]
+    return run_transition_order_backend_from_results(
+        train_results, validation_results, test_results, [label for _, label in train], [label for _, label in validation], [label for _, label in test]
+    )
+
+
+def run_transition_order_cross_direction_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+    train_results = [symbolic_transition_order_cross_direction_features(text=text) for text, _ in train]
+    validation_results = [symbolic_transition_order_cross_direction_features(text=text) for text, _ in validation]
+    test_results = [symbolic_transition_order_cross_direction_features(text=text) for text, _ in test]
+    return run_transition_order_backend_from_results(
+        train_results, validation_results, test_results, [label for _, label in train], [label for _, label in validation], [label for _, label in test]
+    )
+
+
+def run_transition_order_quadratic_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+    train_results = [symbolic_transition_order_quadratic_features(text=text) for text, _ in train]
+    validation_results = [symbolic_transition_order_quadratic_features(text=text) for text, _ in validation]
+    test_results = [symbolic_transition_order_quadratic_features(text=text) for text, _ in test]
+    return run_transition_order_backend_from_results(
+        train_results, validation_results, test_results, [label for _, label in train], [label for _, label in validation], [label for _, label in test]
+    )
+
+
+def run_transition_order_orbit_permuted_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+    train_results = [symbolic_transition_order_orbit_permuted_features(text=text) for text, _ in train]
+    validation_results = [symbolic_transition_order_orbit_permuted_features(text=text) for text, _ in validation]
+    test_results = [symbolic_transition_order_orbit_permuted_features(text=text) for text, _ in test]
+    return run_transition_order_backend_from_results(
+        train_results, validation_results, test_results, [label for _, label in train], [label for _, label in validation], [label for _, label in test]
+    )
+
+
 def run_transition_invariant_additive_symbolic_regressor(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -4768,6 +5051,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_transition_orbit_rank_band_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_transition_orbit_pairwise_order_binary":
+        bundle = generate_transition_orbit_pairwise_order_binary_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_transition_orbit_pairwise_order_binary",
             "dataset_diagnostics": bundle.diagnostics,
         }
 
