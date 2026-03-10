@@ -1,0 +1,22 @@
+{
+  "V_future_relational_witness_transition_orbit_topk_pair_margin_invariant": {
+    "mae": 0.4497566666666667,
+    "rank_correlation": -0.0015959999999999887
+  },
+  "V_control_symbolic_transition_topk_pair_margin_invariant_lookup": {
+    "mae": 0.5,
+    "rank_correlation": 0.0
+  },
+  "V_control_symbolic_transition_topk_pair_margin_invariant_cross_direction": {
+    "mae": 0.49535766666666664,
+    "rank_correlation": 0.4644726666666667
+  },
+  "V_control_symbolic_transition_topk_pair_margin_invariant_quadratic": {
+    "mae": 0.[REDACTED-RECEIPT-ID]7833333333333,
+    "rank_correlation": 0.4644726666666667
+  },
+  "V_control_symbolic_transition_topk_pair_margin_invariant_orbit_permuted": {
+    "mae": 0.493315,
+    "rank_correlation": 0.3706176666666667
+  }
+}
