@@ -692,3 +692,7 @@ Use one row per evidence item.
 - EL-485 (2026-03-11): S564 bound the top-k pair-order drift line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
 - EL-486 (2026-03-11): S565 elevated the top-k pair-order drift line to approval-candidate posture while keeping it memo-only.
 
+
+- EL-487 (2026-03-11): S566 approved one strictly bounded implementation phase for the slot-invariant top-k pair-order drift line.
+- EL-488 (2026-03-11): S567 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the top-k pair-order drift packet.
+
