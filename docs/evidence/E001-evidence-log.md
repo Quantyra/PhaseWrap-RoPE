@@ -711,3 +711,8 @@ Use one row per evidence item.
 - EL-496 (2026-03-11): S575 approved one strictly bounded implementation phase for the slot-invariant top-k pair-order signed-drift line.
 - EL-497 (2026-03-11): S576 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the top-k pair-order signed-drift packet.
 
+
+- EL-498 (2026-03-11): S577 implemented the bounded slot-invariant top-k pair-order signed-drift branch and validated it with 228 focused tests passing.
+- EL-499 (2026-03-11): S578 ran the fixed three-seed packet; the witness led on mae but lost on rank_correlation against bounded controls.
+- EL-500 (2026-03-11): S579 stopped the slot-invariant top-k pair-order signed-drift execution branch under the declared two-metric gate.
+- EL-501 (2026-03-11): S580 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_consistency_binary as the next memo-only angle.
