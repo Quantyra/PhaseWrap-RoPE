@@ -662,3 +662,7 @@ Use one row per evidence item.
 - EL-467 (2026-03-10): S546 bound the top-k pair-order agreement line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
 - EL-468 (2026-03-10): S547 elevated the top-k pair-order agreement line to approval-candidate posture while keeping it memo-only.
 
+
+- EL-469 (2026-03-10): S548 approved one strictly bounded implementation phase for the slot-invariant top-k pair-order agreement line.
+- EL-470 (2026-03-10): S549 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the top-k pair-order agreement packet.
+
