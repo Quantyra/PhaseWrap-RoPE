@@ -588,3 +588,6 @@ Use one row per evidence item.
 - EL-400 (2026-03-10): S479 ran the fixed slot-invariant channel-order packet and found that the witness led on mean accuracy while all latent slot-invariance hard-stop diagnostics passed on all three seeds.
 - EL-401 (2026-03-10): S480 stopped the slot-invariant channel-order execution branch because the witness did not lead the packet on both declared primary metrics: the bounded quadratic control led on F1.
 - EL-402 (2026-03-10): S481 preserved synthetic_transition_orbit_slot_invariant_channel_order_margin_response as the next memo-only angle because the remaining unresolved question is separation strength under slot-invariant ordering, not the same binary decision target.
+- EL-403 (2026-03-10): S482 fixed synthetic_transition_orbit_slot_invariant_channel_order_margin_response as the next exact task and made latent slot invariance plus coarse margin-null conditions explicit in the generator contract.
+- EL-404 (2026-03-10): S483 bound the slot-invariant margin line to one fixed future candidate, one bounded symbolic control stack, one fixed three-seed packet, and one hard-stop latent invariance gate.
+- EL-405 (2026-03-10): S484 elevated the slot-invariant channel-order margin line to approval-candidate posture while keeping implementation closed pending a dedicated implementation-approval gate.
