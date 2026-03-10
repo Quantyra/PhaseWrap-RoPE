@@ -524,3 +524,9 @@ Use one row per evidence item.
 - EL-353 (2026-03-11): Approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_sign_flip_contrast_binary with a fixed control stack and hard-stop generator diagnostics.
 
 - EL-354 (2026-03-11): Fixed the sign-flip contrast implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
+
+- EL-355 (2026-03-11): Implemented the bounded transition-orbit sign-flip contrast branch and validated the local synthetic path with 183 focused tests passing.
+
+- EL-356 (2026-03-11): The fixed sign-flip contrast packet passed generator diagnostics but the witness lost on both primary metrics and the bounded lookup control solved the task outright.
+
+- EL-357 (2026-03-11): Stopped the sign-flip contrast execution branch and preserved synthetic_transition_orbit_asymmetric_sign_localization_binary as the next memo-only angle.

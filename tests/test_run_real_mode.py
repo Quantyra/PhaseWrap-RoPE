@@ -537,6 +537,40 @@ def test_transition_orbit_sign_consistency_lookup_control_runs() -> None:
     assert diagnostics["coarse_state_only"] is True
 
 
+def test_transition_orbit_sign_flip_contrast_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_sign_flip_contrast_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_transition_orbit_sign_flip_contrast",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_transition_orbit_sign_flip_contrast_binary+readout_relational_witness_transition_orbit_sign_flip_contrast+head_linear"
+    )
+    assert diagnostics["coarse_flip_lookup_near_null_pass"] is True
+    assert diagnostics["within_state_flip_variation_pass"] is True
+    assert diagnostics["paired_context_diversity_pass"] is True
+    assert diagnostics["flip_label_balance_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert metrics["run_diagnostics"]["consistency_target_mode"] == "paired_sign_flip_hold"
+
+
+def test_transition_orbit_sign_flip_lookup_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_sign_flip_contrast_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_flip_lookup",
+    )
+    assert metrics["data_mode"].startswith(
+        "synthetic_transition_orbit_sign_flip_contrast_binary+readout_symbolic_transition_flip_lookup+head_linear"
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["consistency_target_mode"] == "paired_sign_flip_hold"
+    assert diagnostics["coarse_state_only"] is True
+
+
 def test_synthetic_offset_binary_quantum_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_offset_binary",

@@ -1,0 +1,21 @@
+{
+  "feature_order": [
+    "transition_backbone",
+    "transition_phase_permuted",
+    "transition_curvature_permuted"
+  ],
+  "coefficients": {
+    "transition_backbone": 0.011717,
+    "transition_phase_permuted": -0.070758,
+    "transition_curvature_permuted": -0.082474
+  },
+  "intercept": -4.977352,
+  "coarse_state_counts": {
+    "unknown": 88
+  },
+  "forbidden_inputs_absent": true,
+  "token_identity_absent": true,
+  "transition_table_permuted": true,
+  "consistency_target_mode": "paired_sign_flip_hold",
+  "paired_context_target": true
+}

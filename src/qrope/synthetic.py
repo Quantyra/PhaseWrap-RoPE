@@ -1617,6 +1617,40 @@ def generate_transition_orbit_sign_consistency_binary_bundle(
     )
 
 
+def generate_transition_orbit_sign_flip_contrast_binary_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "orbit_canonical",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    bundle = generate_transition_orbit_sign_consistency_binary_bundle(
+        seed=seed,
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+    )
+
+    def invert(rows: list[tuple[str, int]]) -> list[tuple[str, int]]:
+        return [(text, 1 - int(label)) for text, label in rows]
+
+    diagnostics = dict(bundle.diagnostics)
+    diagnostics["dataset"] = "synthetic_transition_orbit_sign_flip_contrast_binary"
+    diagnostics["coarse_flip_lookup_near_null_pass"] = diagnostics.pop("coarse_consistency_lookup_near_null_pass")
+    diagnostics["within_state_flip_variation_pass"] = diagnostics.pop("within_state_consistency_variation_pass")
+    diagnostics["flip_label_balance_pass"] = diagnostics.pop("consistency_label_balance_pass")
+    diagnostics["state_flip_means"] = diagnostics.pop("state_consistency_means")
+    diagnostics["global_flip_mean"] = diagnostics.pop("global_consistency_mean")
+    diagnostics["per_state_pair_counts"] = diagnostics["per_state_pair_counts"]
+    return SyntheticDatasetBundle(
+        train=sorted(invert(bundle.train)),
+        validation=sorted(invert(bundle.validation)),
+        test=sorted(invert(bundle.test)),
+        diagnostics=diagnostics,
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)

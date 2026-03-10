@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T17:20:00Z",
+  "timestamp_utc": "2026-03-11T17:40:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S432"
+    "S436"
   ],
   "active_workers": {},
   "next_actions": [
-    "Implement synthetic_transition_orbit_sign_flip_contrast_binary inside the approved local-only scope.",
-    "Stop immediately if the generator fails coarse flip lookup or paired-context diversity diagnostics.",
-    "Run the fixed three-seed packet and decide the branch from accuracy and F1 only."
+    "Specify synthetic_transition_orbit_asymmetric_sign_localization_binary exactly.",
+    "Bind bounded symbolic localization controls into its restart scaffold.",
+    "Keep the line memo-only until a new approval-candidate review is explicit."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -18,17 +18,19 @@
     "Cloud provider API/platform changes may require periodic strategy updates.",
     "Current matrix is fully real-mode but based on small handcrafted local datasets.",
     "Local handcrafted datasets may not reflect production distributions.",
-    "The transition-orbit sign-consistency execution branch is stopped after the witness lost mean accuracy to bounded controls and all models collapsed to zero positive-class F1.",
-    "The sign-flip contrast line is newly implementation-approved but still tightly bounded to one local synthetic packet.",
-    "No remote work, task expansion, or control-family expansion is allowed on this line."
+    "The transition-orbit sign-flip contrast execution branch is stopped after the bounded lookup control solved the task outright and the witness lost both primary metrics.",
+    "The preserved asymmetric sign-localization line is memo-only and must not reopen the failed sign-flip contrast task.",
+    "No implementation is allowed again until the asymmetric localization task and bounded symbolic controls are explicit."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-sign-flip-contrast-task-spec-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-flip-contrast-restart-scaffold-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-flip-contrast-approval-candidate-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-flip-contrast-implementation-approval-gate-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-flip-contrast-implementation-plan-v1.md"
+    "src/qrope/synthetic.py",
+    "src/qrope/run.py",
+    "docs/research/q-rope-transition-orbit-sign-flip-contrast-implementation-v1.md",
+    "docs/research/q-rope-transition-orbit-sign-flip-contrast-first-packet-v1.md",
+    "docs/research/q-rope-transition-orbit-sign-flip-contrast-decision-memo-v1.md",
+    "docs/research/q-rope-transition-orbit-asymmetric-sign-localization-task-design-v1.md",
+    "logs/ablation_runs/summary/transition_orbit_sign_flip_contrast_v1.csv"
   ],
-  "notes": "S431-S432 completed. The transition-orbit sign-flip contrast line is implementation-approved under a strictly bounded local synthetic scope. The next legitimate move is implementation only inside that boundary."
+  "notes": "S433-S436 completed. The transition-orbit sign-flip contrast execution branch is stopped. The only preserved next line is the memo-only asymmetric sign-localization task direction."
 }

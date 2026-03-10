@@ -46,6 +46,7 @@ from .synthetic import (
     generate_dual_sector_content_agreement_binary_bundle,
     generate_transition_orbit_listwise_ranking_bundle,
     generate_transition_orbit_sign_consistency_binary_bundle,
+    generate_transition_orbit_sign_flip_contrast_binary_bundle,
     generate_transition_orbit_signed_margin_response_bundle,
     generate_transition_orbit_sign_only_binary_bundle,
     generate_transition_orbit_order_margin_response_bundle,
@@ -256,6 +257,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_transition_orbit_signed_margin": 24,
         "V_future_relational_witness_transition_orbit_sign_only": 24,
         "V_future_relational_witness_transition_orbit_sign_consistency": 24,
+        "V_future_relational_witness_transition_orbit_sign_flip_contrast": 24,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -299,6 +301,10 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_consistency_cross_direction": 1,
         "V_control_symbolic_transition_consistency_quadratic": 1,
         "V_control_symbolic_transition_consistency_orbit_permuted": 1,
+        "V_control_symbolic_transition_flip_lookup": 1,
+        "V_control_symbolic_transition_flip_cross_direction": 1,
+        "V_control_symbolic_transition_flip_quadratic": 1,
+        "V_control_symbolic_transition_flip_orbit_permuted": 1,
         "V_control_symbolic_transition_sign_lookup": 1,
         "V_control_symbolic_transition_sign_cross_direction": 1,
         "V_control_symbolic_transition_sign_quadratic": 1,
@@ -434,6 +440,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_sign_only+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_sign_consistency":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_sign_consistency+head_linear"
+        elif variant == "V_future_relational_witness_transition_orbit_sign_flip_contrast":
+            data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_sign_flip_contrast+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -520,6 +528,14 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_consistency_quadratic+head_linear"
         elif variant == "V_control_symbolic_transition_consistency_orbit_permuted":
             data_mode = f"{data_mode}+readout_symbolic_transition_consistency_orbit_permuted+head_linear"
+        elif variant == "V_control_symbolic_transition_flip_lookup":
+            data_mode = f"{data_mode}+readout_symbolic_transition_flip_lookup+head_linear"
+        elif variant == "V_control_symbolic_transition_flip_cross_direction":
+            data_mode = f"{data_mode}+readout_symbolic_transition_flip_cross_direction+head_linear"
+        elif variant == "V_control_symbolic_transition_flip_quadratic":
+            data_mode = f"{data_mode}+readout_symbolic_transition_flip_quadratic+head_linear"
+        elif variant == "V_control_symbolic_transition_flip_orbit_permuted":
+            data_mode = f"{data_mode}+readout_symbolic_transition_flip_orbit_permuted+head_linear"
         elif variant == "V_control_symbolic_transition_sign_lookup":
             data_mode = f"{data_mode}+readout_symbolic_transition_sign_lookup+head_linear"
         elif variant == "V_control_symbolic_transition_sign_cross_direction":
@@ -760,6 +776,8 @@ def run_quantum_backend(
         return run_transition_orbit_sign_only_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_sign_consistency":
         return run_transition_orbit_sign_consistency_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_transition_orbit_sign_flip_contrast":
+        return run_transition_orbit_sign_flip_contrast_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_control_symbolic_single_family_regressor":
         return run_continuous_symbolic_single_family_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_two_family_regressor":
@@ -858,6 +876,14 @@ def run_quantum_backend(
         return run_transition_consistency_quadratic_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_sign_consistency_binary" and variant == "V_control_symbolic_transition_consistency_orbit_permuted":
         return run_transition_consistency_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_sign_flip_contrast_binary" and variant == "V_control_symbolic_transition_flip_lookup":
+        return run_transition_flip_lookup_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_sign_flip_contrast_binary" and variant == "V_control_symbolic_transition_flip_cross_direction":
+        return run_transition_flip_cross_direction_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_sign_flip_contrast_binary" and variant == "V_control_symbolic_transition_flip_quadratic":
+        return run_transition_flip_quadratic_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_sign_flip_contrast_binary" and variant == "V_control_symbolic_transition_flip_orbit_permuted":
+        return run_transition_flip_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_quadratic_regressor":
         return run_transition_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_cubic_regressor":
@@ -5124,6 +5150,71 @@ def run_transition_consistency_orbit_permuted_symbolic_backend(
     return _run_transition_consistency_symbolic_backend(train, test, validation, symbolic_transition_list_orbit_permuted_results)
 
 
+def run_transition_orbit_sign_flip_contrast_witness_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    seed: int,
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    train_loss, eval_loss, accuracy, f1, diagnostics = run_transition_orbit_sign_consistency_witness_backend(
+        train=train,
+        test=test,
+        seed=seed,
+        validation=validation,
+    )
+    diagnostics["consistency_target_mode"] = "paired_sign_flip_hold"
+    diagnostics["paired_context_target"] = True
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_transition_flip_lookup_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    train_loss, eval_loss, accuracy, f1, diagnostics = run_transition_consistency_lookup_symbolic_backend(
+        train, test, validation
+    )
+    diagnostics["consistency_target_mode"] = "paired_sign_flip_hold"
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_transition_flip_cross_direction_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    train_loss, eval_loss, accuracy, f1, diagnostics = run_transition_consistency_cross_direction_symbolic_backend(
+        train, test, validation
+    )
+    diagnostics["consistency_target_mode"] = "paired_sign_flip_hold"
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_transition_flip_quadratic_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    train_loss, eval_loss, accuracy, f1, diagnostics = run_transition_consistency_quadratic_symbolic_backend(
+        train, test, validation
+    )
+    diagnostics["consistency_target_mode"] = "paired_sign_flip_hold"
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_transition_flip_orbit_permuted_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    train_loss, eval_loss, accuracy, f1, diagnostics = run_transition_consistency_orbit_permuted_symbolic_backend(
+        train, test, validation
+    )
+    diagnostics["consistency_target_mode"] = "paired_sign_flip_hold"
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
 def run_transition_orbit_order_margin_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -6300,6 +6391,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_transition_orbit_sign_consistency_binary",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_transition_orbit_sign_flip_contrast_binary":
+        bundle = generate_transition_orbit_sign_flip_contrast_binary_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_transition_orbit_sign_flip_contrast_binary",
             "dataset_diagnostics": bundle.diagnostics,
         }
 
