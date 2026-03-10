@@ -600,3 +600,5 @@ Use one row per evidence item.
 - EL-412 (2026-03-10): S491 fixed synthetic_transition_orbit_slot_invariant_channel_order_rank_only as the next exact memo-only task and made latent slot invariance plus coarse rank-null conditions explicit in the generator contract.
 - EL-413 (2026-03-10): S492 bound the slot-invariant rank-only line to one fixed future candidate, one bounded symbolic control stack, one fixed three-seed packet, and one hard-stop latent invariance gate.
 - EL-414 (2026-03-10): S493 elevated the slot-invariant channel-order rank-only line to approval-candidate posture while keeping implementation closed pending a dedicated implementation-approval gate.
+- EL-415 (2026-03-10): S494 approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_slot_invariant_channel_order_rank_only with a fixed symbolic control stack and latent slot-invariance plus coarse rank-null hard-stop diagnostics.
+- EL-416 (2026-03-10): S495 fixed the slot-invariant rank-only implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
