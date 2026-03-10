@@ -696,3 +696,9 @@ Use one row per evidence item.
 - EL-487 (2026-03-11): S566 approved one strictly bounded implementation phase for the slot-invariant top-k pair-order drift line.
 - EL-488 (2026-03-11): S567 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the top-k pair-order drift packet.
 
+
+- EL-489 (2026-03-11): S568 implemented the bounded slot-invariant top-k pair-order drift branch and validated it with 225 focused tests passing.
+- EL-490 (2026-03-11): S569 ran the fixed three-seed packet; the witness led on mae but lost on rank_correlation against bounded controls.
+- EL-491 (2026-03-11): S570 stopped the slot-invariant top-k pair-order drift execution branch under the declared gate.
+- EL-492 (2026-03-11): S571 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_drift_response as the next memo-only angle.
+
