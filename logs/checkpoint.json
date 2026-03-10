@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T14:45:00Z",
+  "timestamp_utc": "2026-03-11T15:00:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S412"
+    "S414"
   ],
   "active_workers": {},
   "next_actions": [
-    "Write the implementation-approval gate for synthetic_transition_orbit_sign_only_binary.",
-    "Keep the sign-only generator contract unchanged.",
-    "Reopen code only if that gate is explicitly approved."
+    "Implement synthetic_transition_orbit_sign_only_binary inside the bounded local scope.",
+    "Stop immediately if the generator fails the sign-only hard-stop diagnostics.",
+    "Run the fixed three-seed packet and decide the branch from accuracy and F1 only."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -19,14 +19,13 @@
     "Current matrix is fully real-mode but based on small handcrafted local datasets.",
     "Local handcrafted datasets may not reflect production distributions.",
     "The transition-orbit signed-margin execution branch is stopped after mixed performance on its two declared primary metrics.",
-    "The sign-only line is approval-candidate only and must not reopen the failed signed-margin task.",
-    "Implementation remains blocked until sign-only generator diagnostics prove coarse sign lookup is near-null."
+    "The sign-only line is implementation-approved only for one bounded local synthetic packet and must not reopen the failed signed-margin task.",
+    "This line must not widen the symbolic control family or leave the sign-only generator contract."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-sign-only-task-spec-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-only-restart-scaffold-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-only-approval-candidate-v1.md"
+    "docs/research/q-rope-transition-orbit-sign-only-implementation-approval-gate-v1.md",
+    "docs/research/q-rope-transition-orbit-sign-only-implementation-plan-v1.md"
   ],
-  "notes": "S410-S412 completed. The transition-orbit sign-only line is now approval-candidate but remains memo-only until a dedicated implementation gate is written and approved."
+  "notes": "S413-S414 completed. The transition-orbit sign-only line is implementation-approved in one strictly bounded local-only phase with fixed controls and explicit generator stop conditions."
 }
