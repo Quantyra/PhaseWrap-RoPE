@@ -572,3 +572,6 @@ Use one row per evidence item.
 - EL-384 (2026-03-10): S464 ran the fixed pair_reindex=1 hardening packet for the active channel-order branch and found that all generator diagnostics passed but the retained-model means matched the base packet exactly.
 - EL-385 (2026-03-10): S465 kept the channel-order branch active but did not count pair_reindex=1 as new robustness evidence because the perturbation was effectively inert at the branch level.
 - EL-386 (2026-03-10): S466 fixed pair_reindex=7 as the next bounded hardening step because it is the smallest deeper non-inert pairing perturbation that does not widen the branch.
+- EL-387 (2026-03-10): S467 ran the fixed pair_reindex=7 hardening packet for the active channel-order branch and found that all generator diagnostics passed but the retained-model means still matched the base packet exactly.
+- EL-388 (2026-03-10): S468 kept the channel-order branch active but retired pair-reindex escalation as a useful hardening family because both tested reindex perturbations were inert.
+- EL-389 (2026-03-10): S469 fixed slot_swap=1 as the next bounded structural hardening step for the active channel-order branch.
