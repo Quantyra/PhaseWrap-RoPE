@@ -530,3 +530,9 @@ Use one row per evidence item.
 - EL-356 (2026-03-11): The fixed sign-flip contrast packet passed generator diagnostics but the witness lost on both primary metrics and the bounded lookup control solved the task outright.
 
 - EL-357 (2026-03-11): Stopped the sign-flip contrast execution branch and preserved synthetic_transition_orbit_asymmetric_sign_localization_binary as the next memo-only angle.
+
+- EL-358 (2026-03-11): Specified synthetic_transition_orbit_asymmetric_sign_localization_binary with explicit asymmetric channel-localization supervision and rejection rules.
+
+- EL-359 (2026-03-11): Bound the asymmetric sign-localization line to one fixed candidate and bounded symbolic localization control stack under a memo-only restart scaffold.
+
+- EL-360 (2026-03-11): Elevated the asymmetric sign-localization line to approval-candidate posture while keeping implementation closed pending a dedicated approval gate.
