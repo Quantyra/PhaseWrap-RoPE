@@ -1,33 +1,35 @@
 {
-  "timestamp_utc": "2026-03-10T14:51:00Z",
-  "current_epic_id": "E001",
-  "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
-  "current_epic_status": "Paused",
-  "current_story_ids": [
-    "S469"
-  ],
-  "active_workers": {},
-  "next_actions": [
-    "Run the fixed slot_swap=1 hardening packet on synthetic_transition_orbit_channel_order_response.",
-    "Keep the witness and strongest retained symbolic baselines fixed.",
-    "Stop the branch if the witness loses the declared classification gate under that structural perturbation."
-  ],
-  "risks_or_blocks": [
-    "Novelty remains conditional until empirical ablation results are collected.",
-    "Benchmark breadth risk remains if phase-1 includes only text classification.",
-    "Cloud provider API/platform changes may require periodic strategy updates.",
-    "Current matrix is fully real-mode but based on small handcrafted local datasets.",
-    "Local handcrafted datasets may not reflect production distributions.",
-    "The transition-orbit channel-order branch is active but only narrowly ahead of the strongest retained control.",
-    "Both tested pair-reindex perturbations were inert for this task and did not strengthen the branch.",
-    "No remote work, task expansion, or control-family expansion is allowed on this line."
-  ],
-  "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
-  "recent_changes": [
-    "docs/research/q-rope-transition-orbit-channel-order-deeper-pair-reindex-hardening-v1.md",
-    "docs/research/q-rope-transition-orbit-channel-order-post-deeper-pair-reindex-decision-v1.md",
-    "docs/research/q-rope-transition-orbit-channel-order-slot-swap-hardening-plan-v1.md",
-    "logs/ablation_runs/summary/transition_orbit_channel_order_pair_reindex7_v1.csv"
-  ],
-  "notes": "S467-S468 completed. The fixed pair_reindex=7 packet was valid but still inert for the transition-orbit channel-order branch. S469 advances to slot_swap=1 as the next bounded structural hardening step."
+    "timestamp_utc":  "2026-03-10T15:20:00Z",
+    "current_epic_id":  "E001",
+    "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
+    "current_epic_status":  "Paused",
+    "current_story_ids":  [
+                              "S472"
+                          ],
+    "active_workers":  {
+
+                       },
+    "next_actions":  [
+                         "Specify synthetic_transition_orbit_slot_invariant_channel_order_response exactly.",
+                         "Bind bounded symbolic slot-invariant channel-order controls into its restart scaffold.",
+                         "Keep the line memo-only until a new approval-candidate review is explicit."
+                     ],
+    "risks_or_blocks":  [
+                            "Novelty remains conditional until empirical ablation results are collected.",
+                            "Benchmark breadth risk remains if phase-1 includes only text classification.",
+                            "Cloud provider API/platform changes may require periodic strategy updates.",
+                            "Current matrix is fully real-mode but based on small handcrafted local datasets.",
+                            "Local handcrafted datasets may not reflect production distributions.",
+                            "The transition-orbit channel-order execution branch was stopped after a valid slot_swap=1 hardening packet.",
+                            "Any continuation must remove slot identity as a nuisance variable by construction before implementation reopens.",
+                            "No remote work, task expansion, or control-family expansion is allowed on this line."
+                        ],
+    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
+    "recent_changes":  [
+                           "docs/research/q-rope-transition-orbit-channel-order-slot-swap-hardening-v1.md",
+                           "docs/research/q-rope-transition-orbit-channel-order-post-slot-swap-decision-v1.md",
+                           "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-task-design-v1.md",
+                           "logs/ablation_runs/summary/transition_orbit_channel_order_slot_swap_v1.csv"
+                       ],
+    "notes":  "S470-S471 completed. The fixed slot_swap=1 packet was valid and non-inert for the transition-orbit channel-order branch, and the witness lost the declared classification gate. S472 preserves a slot-invariant channel-order task as the next memo-only angle."
 }

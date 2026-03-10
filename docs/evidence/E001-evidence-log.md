@@ -575,3 +575,7 @@ Use one row per evidence item.
 - EL-387 (2026-03-10): S467 ran the fixed pair_reindex=7 hardening packet for the active channel-order branch and found that all generator diagnostics passed but the retained-model means still matched the base packet exactly.
 - EL-388 (2026-03-10): S468 kept the channel-order branch active but retired pair-reindex escalation as a useful hardening family because both tested reindex perturbations were inert.
 - EL-389 (2026-03-10): S469 fixed slot_swap=1 as the next bounded structural hardening step for the active channel-order branch.
+- EL-390 (2026-03-10): S470 reran the transition-orbit channel-order slot-swap packet with an explicit dataset.slot_swap=1 override and confirmed that all retained runs recorded slot_swap=1 in run diagnostics.
+- EL-391 (2026-03-10): The valid slot_swap=1 packet was non-inert and changed the branch outcome: the witness lost both primary metrics to the strongest retained control and lost F1 to the other retained control as well.
+- EL-392 (2026-03-10): S471 stopped the transition-orbit channel-order execution branch because the witness failed the declared classification gate under a non-inert structural perturbation.
+- EL-393 (2026-03-10): S472 preserved synthetic_transition_orbit_slot_invariant_channel_order_response as the next memo-only angle because any continuation must remove slot identity as a nuisance variable by construction.
