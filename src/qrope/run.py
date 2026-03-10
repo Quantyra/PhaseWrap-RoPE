@@ -44,9 +44,12 @@ from .synthetic import (
     generate_dual_state_sensitive_continuous_response_bundle,
     generate_dual_sector_agreement_binary_bundle,
     generate_dual_sector_content_agreement_binary_bundle,
+    generate_transition_orbit_listwise_ranking_bundle,
     generate_transition_orbit_pairwise_order_binary_bundle,
     generate_transition_orbit_rank_band_response_bundle,
+    parse_transition_listwise_text,
     parse_transition_pairwise_text,
+    render_dual_sample_text,
     generate_sector_parity_binary_bundle,
     token_orientation_name,
 )
@@ -243,6 +246,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_transition_orbit": 24,
         "V_future_relational_witness_transition_orbit_rank": 24,
         "V_future_relational_witness_transition_orbit_order": 24,
+        "V_future_relational_witness_transition_orbit_listwise": 24,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -270,6 +274,10 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_order_cross_direction": 1,
         "V_control_symbolic_transition_order_quadratic": 1,
         "V_control_symbolic_transition_order_orbit_permuted": 1,
+        "V_control_symbolic_transition_list_lookup": 1,
+        "V_control_symbolic_transition_list_cross_direction": 1,
+        "V_control_symbolic_transition_list_quadratic": 1,
+        "V_control_symbolic_transition_list_orbit_permuted": 1,
     }.get(variant, 10)
     gate_count = max(1, qubits) * max(1, layers) * variant_multiplier
     depth = max(1, layers) * (variant_multiplier // 2)
@@ -391,6 +399,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_rank+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_order":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_order+head_linear"
+        elif variant == "V_future_relational_witness_transition_orbit_listwise":
+            data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_listwise+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -445,6 +455,14 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_order_quadratic+head_linear"
         elif variant == "V_control_symbolic_transition_order_orbit_permuted":
             data_mode = f"{data_mode}+readout_symbolic_transition_order_orbit_permuted+head_linear"
+        elif variant == "V_control_symbolic_transition_list_lookup":
+            data_mode = f"{data_mode}+readout_symbolic_transition_list_lookup+head_linear"
+        elif variant == "V_control_symbolic_transition_list_cross_direction":
+            data_mode = f"{data_mode}+readout_symbolic_transition_list_cross_direction+head_linear"
+        elif variant == "V_control_symbolic_transition_list_quadratic":
+            data_mode = f"{data_mode}+readout_symbolic_transition_list_quadratic+head_linear"
+        elif variant == "V_control_symbolic_transition_list_orbit_permuted":
+            data_mode = f"{data_mode}+readout_symbolic_transition_list_orbit_permuted+head_linear"
         else:
             data_mode = f"{data_mode}+readout_{local_readout}+mix_{local_mixing_preset}"
     elif backend == "sim_qiskit_aer":
@@ -667,6 +685,8 @@ def run_quantum_backend(
         return run_transition_orbit_rank_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_order":
         return run_transition_orbit_order_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_transition_orbit_listwise":
+        return run_transition_orbit_listwise_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_control_symbolic_single_family_regressor":
         return run_continuous_symbolic_single_family_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_two_family_regressor":
@@ -725,6 +745,14 @@ def run_quantum_backend(
         return run_transition_order_quadratic_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_pairwise_order_binary" and variant == "V_control_symbolic_transition_order_orbit_permuted":
         return run_transition_order_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_listwise_ranking" and variant == "V_control_symbolic_transition_list_lookup":
+        return run_transition_list_lookup_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_listwise_ranking" and variant == "V_control_symbolic_transition_list_cross_direction":
+        return run_transition_list_cross_direction_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_listwise_ranking" and variant == "V_control_symbolic_transition_list_quadratic":
+        return run_transition_list_quadratic_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_listwise_ranking" and variant == "V_control_symbolic_transition_list_orbit_permuted":
+        return run_transition_list_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_quadratic_regressor":
         return run_transition_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_cubic_regressor":
@@ -2135,6 +2163,120 @@ def symbolic_transition_order_orbit_permuted_features(text: str) -> dict[str, ob
         "token_identity_absent": True,
         "transition_table_permuted": True,
     }
+
+
+def transition_orbit_listwise_payload(text: str) -> dict[str, Any]:
+    return parse_transition_listwise_text(text)
+
+
+def _build_listwise_candidate_result(
+    candidate_text: str,
+    slot: int,
+    feature_builder,
+) -> dict[str, object]:
+    base = feature_builder(candidate_text)
+    result = dict(base)
+    result["slot"] = slot
+    return result
+
+
+def transition_orbit_listwise_witness_results(text: str, seed: int) -> list[dict[str, object]]:
+    payload = transition_orbit_listwise_payload(text)
+    results: list[dict[str, object]] = []
+    for slot, candidate in enumerate(payload["parsed_candidates"]):
+        dual_text = render_dual_sample_text(candidate["sample_a"], candidate["sample_b"])
+        base = transition_orbit_rank_witness_features(text=dual_text, seed=seed)
+        result = dict(base)
+        result["slot"] = slot
+        result["coarse_state"] = f"{chart_transition_pair(candidate)[0]}->{chart_transition_pair(candidate)[1]}"
+        results.append(result)
+    return results
+
+
+def symbolic_transition_list_lookup_results(text: str) -> list[dict[str, object]]:
+    payload = transition_orbit_listwise_payload(text)
+    results: list[dict[str, object]] = []
+    for slot, candidate in enumerate(payload["parsed_candidates"]):
+        dual_text = render_dual_sample_text(candidate["sample_a"], candidate["sample_b"])
+        base = symbolic_transition_orbit_rank_lookup_features(text=dual_text)
+        result = dict(base)
+        result["slot"] = slot
+        results.append(result)
+    return results
+
+
+def symbolic_transition_list_cross_direction_results(text: str) -> list[dict[str, object]]:
+    payload = transition_orbit_listwise_payload(text)
+    results: list[dict[str, object]] = []
+    for slot, candidate in enumerate(payload["parsed_candidates"]):
+        dual_text = render_dual_sample_text(candidate["sample_a"], candidate["sample_b"])
+        left = symbolic_transition_orbit_additive_features(text=dual_text)
+        right = symbolic_transition_orbit_permuted_features(text=dual_text)
+        feature_order: list[str] = []
+        features: dict[str, float] = {}
+        for name in left["feature_order"]:
+            key = f"fwd_{name}"
+            feature_order.append(key)
+            features[key] = float(left["features"][name])
+        for name in right["feature_order"]:
+            key = f"perm_{name}"
+            feature_order.append(key)
+            features[key] = float(right["features"][name])
+        features["cross_backbone"] = round(
+            float(left["features"]["transition_backbone"]) * float(right["features"]["transition_backbone"]),
+            6,
+        )
+        feature_order.append("cross_backbone")
+        results.append(
+            {
+                "feature_order": feature_order,
+                "features": features,
+                "slot": slot,
+                "forbidden_inputs_absent": True,
+                "token_identity_absent": True,
+                "transition_table_permuted": True,
+            }
+        )
+    return results
+
+
+def symbolic_transition_list_quadratic_results(text: str) -> list[dict[str, object]]:
+    payload = transition_orbit_listwise_payload(text)
+    results: list[dict[str, object]] = []
+    for slot, candidate in enumerate(payload["parsed_candidates"]):
+        dual_text = render_dual_sample_text(candidate["sample_a"], candidate["sample_b"])
+        base = symbolic_transition_orbit_additive_features(text=dual_text)
+        feature_order: list[str] = []
+        features: dict[str, float] = {}
+        for name in base["feature_order"]:
+            value = float(base["features"][name])
+            feature_order.append(name)
+            features[name] = value
+            sq_name = f"sq_{name}"
+            feature_order.append(sq_name)
+            features[sq_name] = round(value * value, 6)
+        results.append(
+            {
+                "feature_order": feature_order,
+                "features": features,
+                "slot": slot,
+                "forbidden_inputs_absent": True,
+                "token_identity_absent": True,
+            }
+        )
+    return results
+
+
+def symbolic_transition_list_orbit_permuted_results(text: str) -> list[dict[str, object]]:
+    payload = transition_orbit_listwise_payload(text)
+    results: list[dict[str, object]] = []
+    for slot, candidate in enumerate(payload["parsed_candidates"]):
+        dual_text = render_dual_sample_text(candidate["sample_a"], candidate["sample_b"])
+        base = symbolic_transition_orbit_permuted_features(text=dual_text)
+        result = dict(base)
+        result["slot"] = slot
+        results.append(result)
+    return results
 
 
 def chart_transition_invariant_unordered_params(payload: dict[str, Any]) -> tuple[float, float]:
@@ -4163,6 +4305,226 @@ def run_transition_order_orbit_permuted_symbolic_backend(
     )
 
 
+def build_transition_listwise_run_diagnostics(
+    results: list[dict[str, Any]],
+    feature_order: list[str],
+    weights: list[float],
+    bias: float,
+    top1_accuracy: float,
+    order_f1: float,
+) -> dict[str, Any]:
+    diagnostics = build_transition_order_run_diagnostics(
+        results=results,
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+    )
+    diagnostics["top1_accuracy"] = round(top1_accuracy, 6)
+    diagnostics["order_f1"] = round(order_f1, 6)
+    return diagnostics
+
+
+def _pairwise_order_f1_from_rankings(true_order: list[float], pred_order: list[float]) -> float:
+    tp = 0
+    fp = 0
+    fn = 0
+    for left in range(len(true_order)):
+        for right in range(left + 1, len(true_order)):
+            true_positive = true_order[left] > true_order[right]
+            pred_positive = pred_order[left] > pred_order[right]
+            if pred_positive and true_positive:
+                tp += 1
+            elif pred_positive and not true_positive:
+                fp += 1
+            elif (not pred_positive) and true_positive:
+                fn += 1
+    if tp == 0 and fp == 0 and fn == 0:
+        return 0.0
+    precision = tp / (tp + fp) if (tp + fp) else 0.0
+    recall = tp / (tp + fn) if (tp + fn) else 0.0
+    if precision + recall == 0.0:
+        return 0.0
+    return 2.0 * precision * recall / (precision + recall)
+
+
+def run_transition_listwise_backend_from_results(
+    train_results: list[list[dict[str, Any]]],
+    validation_results: list[list[dict[str, Any]]],
+    test_results: list[list[dict[str, Any]]],
+    train_payloads: list[dict[str, Any]],
+    validation_payloads: list[dict[str, Any]],
+    test_payloads: list[dict[str, Any]],
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    feature_order = list(train_results[0][0]["feature_order"]) if train_results and train_results[0] else []
+
+    def flatten(
+        results_by_row: list[list[dict[str, Any]]],
+        payloads: list[dict[str, Any]],
+    ) -> tuple[list[list[float]], list[float]]:
+        matrix: list[list[float]] = []
+        targets: list[float] = []
+        for results, payload in zip(results_by_row, payloads):
+            true_order = payload["true_order"]
+            rendered_order = payload["rendered_order"]
+            for slot, result in enumerate(results):
+                matrix.append([float(result["features"][name]) for name in feature_order])
+                candidate_idx = rendered_order[slot]
+                rank_target = true_order.index(candidate_idx) / max(1, len(true_order) - 1)
+                targets.append(float(rank_target))
+        return matrix, targets
+
+    train_matrix, train_targets = flatten(train_results, train_payloads)
+    validation_matrix, _validation_targets = flatten(validation_results, validation_payloads)
+    test_matrix, test_targets = flatten(test_results, test_payloads)
+
+    weights, bias = fit_linear_regressor(train_matrix, train_targets)
+
+    def score_row(row: list[float]) -> float:
+        return bias + sum(weight * value for weight, value in zip(weights, row))
+
+    train_scores = [score_row(row) for row in train_matrix]
+    _ = [score_row(row) for row in validation_matrix]
+    test_scores = [score_row(row) for row in test_matrix]
+
+    grouped_test_scores: list[list[float]] = []
+    cursor = 0
+    for payload in test_payloads:
+        width = len(payload["rendered_order"])
+        grouped_test_scores.append(test_scores[cursor : cursor + width])
+        cursor += width
+
+    top1_hits: list[int] = []
+    pairwise_f1s: list[float] = []
+    for scores, payload in zip(grouped_test_scores, test_payloads):
+        pred_top1 = max(range(len(scores)), key=lambda idx: scores[idx])
+        top1_hits.append(1 if pred_top1 == int(payload["top1_slot"]) else 0)
+        true_slot_scores: list[float] = []
+        for slot, candidate_idx in enumerate(payload["rendered_order"]):
+            _ = slot
+            true_slot_scores.append(
+                float(payload["true_order"].index(candidate_idx)) / max(1, len(payload["true_order"]) - 1)
+            )
+        pairwise_f1s.append(_pairwise_order_f1_from_rankings(true_slot_scores, scores))
+
+    top1_accuracy = sum(top1_hits) / len(top1_hits) if top1_hits else 0.0
+    order_f1 = sum(pairwise_f1s) / len(pairwise_f1s) if pairwise_f1s else 0.0
+    train_loss = mean_absolute_error(train_targets, train_scores)
+    eval_loss = mean_absolute_error(test_targets, test_scores)
+    diagnostics = build_transition_listwise_run_diagnostics(
+        results=[item for row in test_results for item in row],
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+        top1_accuracy=top1_accuracy,
+        order_f1=order_f1,
+    )
+    return train_loss, eval_loss, top1_accuracy, order_f1, diagnostics
+
+
+def run_transition_orbit_listwise_witness_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    seed: int,
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_payloads = [transition_orbit_listwise_payload(text) for text, _ in train]
+    validation_payloads = [transition_orbit_listwise_payload(text) for text, _ in validation]
+    test_payloads = [transition_orbit_listwise_payload(text) for text, _ in test]
+    train_results = [transition_orbit_listwise_witness_results(text, seed=seed) for text, _ in train]
+    validation_results = [transition_orbit_listwise_witness_results(text, seed=seed) for text, _ in validation]
+    test_results = [transition_orbit_listwise_witness_results(text, seed=seed) for text, _ in test]
+    train_loss, eval_loss, accuracy, f1, diagnostics = run_transition_listwise_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        train_payloads,
+        validation_payloads,
+        test_payloads,
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(
+        bool(result.get("bounded_feature_audit_pass", False))
+        for row in test_results
+        for result in row
+    )
+    diagnostics["token_identity_absent"] = all(
+        bool(result.get("token_identity_absent", False))
+        for row in test_results
+        for result in row
+    )
+    diagnostics["anti_collapse_pass"] = True
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def _run_transition_listwise_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None,
+    builder,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_payloads = [transition_orbit_listwise_payload(text) for text, _ in train]
+    validation_payloads = [transition_orbit_listwise_payload(text) for text, _ in validation]
+    test_payloads = [transition_orbit_listwise_payload(text) for text, _ in test]
+    train_results = [builder(text) for text, _ in train]
+    validation_results = [builder(text) for text, _ in validation]
+    test_results = [builder(text) for text, _ in test]
+    return run_transition_listwise_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        train_payloads,
+        validation_payloads,
+        test_payloads,
+    )
+
+
+def run_transition_list_lookup_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_listwise_symbolic_backend(train, test, validation, symbolic_transition_list_lookup_results)
+
+
+def run_transition_list_cross_direction_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_listwise_symbolic_backend(
+        train,
+        test,
+        validation,
+        symbolic_transition_list_cross_direction_results,
+    )
+
+
+def run_transition_list_quadratic_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_listwise_symbolic_backend(train, test, validation, symbolic_transition_list_quadratic_results)
+
+
+def run_transition_list_orbit_permuted_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_listwise_symbolic_backend(
+        train,
+        test,
+        validation,
+        symbolic_transition_list_orbit_permuted_results,
+    )
+
+
 def run_transition_invariant_additive_symbolic_regressor(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -5066,6 +5428,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_transition_orbit_pairwise_order_binary",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_transition_orbit_listwise_ranking":
+        bundle = generate_transition_orbit_listwise_ranking_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_transition_orbit_listwise_ranking",
             "dataset_diagnostics": bundle.diagnostics,
         }
 

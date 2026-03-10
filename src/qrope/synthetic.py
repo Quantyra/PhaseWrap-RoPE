@@ -754,6 +754,171 @@ def generate_transition_orbit_pairwise_order_binary_bundle(
     )
 
 
+def render_transition_listwise_text(
+    candidates: list[DualSyntheticSample],
+    rendered_order: list[int],
+    true_order: list[int],
+) -> str:
+    payload = {
+        "candidates": [render_dual_sample_text(candidates[idx].sample_a, candidates[idx].sample_b) for idx in rendered_order],
+        "rendered_order": rendered_order,
+        "true_order": true_order,
+        "top1_slot": rendered_order.index(true_order[-1]),
+    }
+    return json.dumps(payload, separators=(",", ":"))
+
+
+def parse_transition_listwise_text(text: str) -> dict[str, Any]:
+    payload = json.loads(text)
+    candidates: list[dict[str, Any]] = []
+    for dual_text in payload["candidates"]:
+        candidates.append(parse_dual_sample_text(dual_text))
+    payload["parsed_candidates"] = candidates
+    return payload
+
+
+def generate_transition_orbit_listwise_ranking_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "orbit_canonical",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_transition_orbit_listwise_ranking:{seed}")
+    single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
+
+    for left_token in TOKENS:
+        for right_token in TOKENS:
+            for magnitude in OFFSETS:
+                for base_left in range(SEQUENCE_LENGTH - magnitude):
+                    pos_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left,
+                            right_pos=base_left + magnitude,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    neg_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left + magnitude,
+                            right_pos=base_left,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    single_grouped[offset_sector_name(pos_sample.offset)].append(pos_sample)
+                    single_grouped[offset_sector_name(neg_sample.offset)].append(neg_sample)
+
+    coarse_candidates: dict[tuple[int, int], list[DualSyntheticSample]] = defaultdict(list)
+    sectors = ("P_small", "P_large", "N_small", "N_large")
+    lists_per_state = 4
+    items_per_list = 4
+    required = lists_per_state * items_per_list
+
+    for sector_a in sectors:
+        for sector_b in sectors:
+            bucket_a = list(single_grouped[sector_a])
+            bucket_b = list(single_grouped[sector_b])
+            rng.shuffle(bucket_a)
+            rng.shuffle(bucket_b)
+            pair_count = min(len(bucket_a), len(bucket_b))
+            for idx in range(pair_count):
+                sample_a = bucket_a[idx]
+                sample_b = bucket_b[(idx + pair_reindex) % pair_count]
+                if slot_swap:
+                    sample_a, sample_b = sample_b, sample_a
+                dual = build_dual_sample(sample_a=sample_a, sample_b=sample_b, label_mode="chart_transition_orbit_response")
+                payload = parse_dual_sample_text(dual.text)
+                coarse_candidates[chart_transition_pair(payload)].append(dual)
+
+    train: list[tuple[str, int]] = []
+    validation: list[tuple[str, int]] = []
+    test: list[tuple[str, int]] = []
+    top1_train_positions: dict[str, list[int]] = defaultdict(list)
+    list_counts: dict[str, int] = {}
+    rank_position_counts = Counter()
+
+    render_permutations = [
+        [3, 0, 1, 2],
+        [0, 1, 2, 3],
+        [1, 3, 0, 2],
+        [2, 0, 3, 1],
+    ]
+
+    for key in sorted(coarse_candidates):
+        bucket = sorted(coarse_candidates[key], key=lambda row: orbit_transition_band_delta(row.sample_a, row.sample_b))
+        if len(bucket) < required:
+            continue
+        step = max(1, len(bucket) // required)
+        chosen = [bucket[min(i * step, len(bucket) - 1)] for i in range(required)]
+        state_key = f"{key[0]}->{key[1]}"
+        rows_for_state: list[tuple[str, int, int]] = []
+        for list_idx in range(lists_per_state):
+            subset = chosen[list_idx * items_per_list : (list_idx + 1) * items_per_list]
+            if len(subset) < items_per_list:
+                continue
+            true_order = [0, 1, 2, 3]
+            rendered_order = render_permutations[list_idx]
+            text = render_transition_listwise_text(subset, rendered_order=rendered_order, true_order=true_order)
+            top1_slot = rendered_order.index(3)
+            rows_for_state.append((text, 0, top1_slot))
+            rank_position_counts.update({str(top1_slot): 1})
+
+        if len(rows_for_state) != lists_per_state:
+            continue
+        list_counts[state_key] = len(rows_for_state)
+        train.extend((text, 0) for text, _, _ in rows_for_state[:2])
+        validation.append((rows_for_state[2][0], 0))
+        test.append((rows_for_state[3][0], 0))
+        top1_train_positions[state_key].extend([rows_for_state[0][2], rows_for_state[1][2]])
+
+    train_state_means = {
+        state: round(sum(values) / len(values), 6) for state, values in top1_train_positions.items() if values
+    }
+    unique_train_means = sorted(set(train_state_means.values()))
+    token_support = set()
+    for text, _ in train + validation + test:
+        payload = parse_transition_listwise_text(text)
+        for candidate in payload["parsed_candidates"]:
+            token_support.update(
+                {
+                    candidate["sample_a"].left_token,
+                    candidate["sample_a"].right_token,
+                    candidate["sample_b"].left_token,
+                    candidate["sample_b"].right_token,
+                }
+            )
+    diagnostics = {
+        "dataset": "synthetic_transition_orbit_listwise_ranking",
+        "seed": seed,
+        "split_rotation": split_rotation,
+        "slot_swap": slot_swap,
+        "token_permutation": token_permutation,
+        "pair_reindex": pair_reindex,
+        "splits": {
+            "train": {"size": len(train)},
+            "validation": {"size": len(validation)},
+            "test": {"size": len(test)},
+        },
+        "coarse_list_lookup_near_null_pass": len(unique_train_means) == 1 and unique_train_means[0] == 1.5,
+        "within_state_list_count_min": min(list_counts.values()) if list_counts else 0,
+        "rank_position_balance_pass": len(set(rank_position_counts.values())) == 1 if rank_position_counts else False,
+        "token_view_balance_pass": token_support == {"A", "B"},
+        "coarse_state_train_top1_means": dict(sorted(train_state_means.items())),
+        "per_state_list_counts": dict(sorted(list_counts.items())),
+        "rank_position_counts": dict(sorted(rank_position_counts.items())),
+    }
+    return SyntheticDatasetBundle(
+        train=sorted(train),
+        validation=sorted(validation),
+        test=sorted(test),
+        diagnostics=diagnostics,
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)
