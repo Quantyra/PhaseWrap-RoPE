@@ -813,6 +813,36 @@ def generate_transition_orbit_slot_invariant_topk_pair_order_agreement_binary_bu
     )
 
 
+def generate_transition_orbit_slot_invariant_topk_pair_order_stability_binary_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "orbit_canonical",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    bundle = generate_transition_orbit_slot_invariant_topk_pair_order_agreement_binary_bundle(
+        seed=seed,
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+    )
+    diagnostics = dict(bundle.diagnostics)
+    diagnostics["dataset"] = "synthetic_transition_orbit_slot_invariant_topk_pair_order_stability_binary"
+    diagnostics["coarse_slot_topk_pair_stability_lookup_near_null_pass"] = diagnostics.pop(
+        "coarse_slot_topk_pair_order_lookup_near_null_pass"
+    )
+    diagnostics["within_state_topk_pair_stability_variation_pass"] = diagnostics.pop(
+        "within_state_topk_pair_order_variation_pass"
+    )
+    return SyntheticDatasetBundle(
+        train=bundle.train,
+        validation=bundle.validation,
+        test=bundle.test,
+        diagnostics=diagnostics,
+    )
+
+
 def render_transition_listwise_text(
     candidates: list[DualSyntheticSample],
     rendered_order: list[int],
