@@ -1,59 +1,47 @@
 {
-    "timestamp_utc":  "2026-03-11T08:50:00Z",
-    "current_epic_id":  "E001",
-    "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
-    "current_epic_status":  "Paused",
-    "current_story_ids":  [
-                              "S378"
-                          ],
-    "active_workers":  {
-
-                       },
-    "next_actions":  [
-                         "Implement synthetic_transition_orbit_listwise_ranking inside the bounded local-only scope.",
-                         "Stop immediately if coarse-list lookup is not near-null or within-state list counts collapse.",
-                         "Run the fixed 15-run first packet and decide the branch from the primary listwise metrics."
-                     ],
-    "risks_or_blocks":  [
-                            "Novelty remains conditional until empirical ablation results are collected.",
-                            "Benchmark breadth risk remains if phase-1 includes only text classification.",
-                            "Cloud provider API/platform changes may require periodic strategy updates.",
-                            "Current matrix is fully real-mode but based on small handcrafted local datasets.",
-                            "Local handcrafted datasets may not reflect production distributions.",
-                            "Quandela remote path currently supports a provider-accepted minimal circuit and reduced slice size rather than a matched full benchmark matrix.",
-                            "IBM open-instance backend availability and latency may vary across sessions.",
-                            "Matched remote evidence is still limited to one dataset, one seed, and non-identical circuit families.",
-                            "Current `V2` asymmetry across providers may be seed-sensitive and should not be over-interpreted.",
-                            "The Quandela adapter currently has a provider-rejected parameter regime that blocks some seeds.",
-                            "Retry/cache-reset hardening improved but did not eliminate Quandela coverage gaps.",
-                            "Sample-level skip policy still leaves some Quandela seed/variant combinations non-viable.",
-                            "Direct Quandela execution depends on maintaining sufficient provider credits.",
-                            "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
-                            "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-                            "The token-invariant chart-transition branch has been stopped after losing to all approved controls on mean MAE.",
-                            "The preserved next angle is memo-only and must not reopen execution without a new restart scaffold.",
-                            "Split rotation remains inert for the current transition-orbit generator and should not be counted as new robustness evidence.",
-                            "The transition-orbit execution branch has been stopped after losing mean MAE under deeper pair reindex hardening.",
-                            "Any continuation on this line now requires a new memo-level rank-stable task scaffold.",
-                            "The corrected rank-band transition-orbit packet showed stronger witness rank structure but still failed the active MAE-first gate against bounded symbolic controls.",
-                            "The only preserved signal from the rank-band branch is ordinal, so direct reuse of the stopped regression task would be methodologically invalid.",
-                            "The preserved order-only line is still memo-only and must not reopen code until bounded symbolic order controls are formally bound into an approval gate.",
-                            "The pairwise-order task must still prove that coarse-state lookup is near-null and that labels vary within the same coarse transition state.",
-                            "The pairwise-order line is now implementation-approved, but only for one bounded local packet and only if the generator proves within-state order variation and near-null coarse lookup.",
-                            "This line must not inherit the stopped rank-band MAE gate; its primary metrics are classification accuracy and F1.",
-                            "The pairwise-order branch is stopped after failing both primary classification metrics against bounded symbolic controls.",
-                            "Any continuation on this line now requires a materially different listwise ranking task rather than another pairwise binary restatement.",
-                            "The listwise ranking line is still memo-only and must not reopen code until bounded symbolic ranking controls are formally bound into an approval gate.",
-                            "The listwise task must still prove that coarse-state list lookup is near-null and that ranking variation occurs entirely within the same coarse transition state.",
-                            "The listwise ranking line is now implementation-approved, but only for one bounded local packet and only if the generator proves within-state list variation and near-null coarse list lookup.",
-                            "This line must not collapse back into pairwise classification or magnitude regression during implementation."
-                        ],
-    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
-    "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-listwise-ranking-implementation-approval-gate-v1.md",
-                           "docs/research/q-rope-transition-orbit-listwise-ranking-implementation-plan-v1.md",
-                           "docs/evidence/E001-evidence-log.md",
-                           "logs/checkpoint.json"
-                       ],
-    "notes":  "S377-S378 completed. The transition-orbit listwise ranking line is now implementation-approved in one strictly bounded local-only phase with fixed symbolic ranking controls and explicit generator stop conditions."
+  "timestamp_utc": "2026-03-11T10:45:00Z",
+  "current_epic_id": "E001",
+  "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
+  "current_epic_status": "Paused",
+  "current_story_ids": [
+    "S382"
+  ],
+  "active_workers": {},
+  "next_actions": [
+    "Implement the bounded token-renaming hardening packet on synthetic_transition_orbit_listwise_ranking.",
+    "Keep the candidate and strongest symbolic baselines fixed on the same listwise task.",
+    "Stop the branch if the witness loses the primary listwise metric under the nuisance renaming."
+  ],
+  "risks_or_blocks": [
+    "Novelty remains conditional until empirical ablation results are collected.",
+    "Benchmark breadth risk remains if phase-1 includes only text classification.",
+    "Cloud provider API/platform changes may require periodic strategy updates.",
+    "Current matrix is fully real-mode but based on small handcrafted local datasets.",
+    "Local handcrafted datasets may not reflect production distributions.",
+    "Quandela remote path currently supports a provider-accepted minimal circuit and reduced slice size rather than a matched full benchmark matrix.",
+    "IBM open-instance backend availability and latency may vary across sessions.",
+    "Matched remote evidence is still limited to one dataset, one seed, and non-identical circuit families.",
+    "Current `V2` asymmetry across providers may be seed-sensitive and should not be over-interpreted.",
+    "The Quandela adapter currently has a provider-rejected parameter regime that blocks some seeds.",
+    "Retry/cache-reset hardening improved but did not eliminate Quandela coverage gaps.",
+    "Sample-level skip policy still leaves some Quandela seed/variant combinations non-viable.",
+    "Direct Quandela execution depends on maintaining sufficient provider credits.",
+    "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
+    "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
+    "The listwise ranking line survived the first packet only weakly: it tied the strongest controls on top-1 accuracy rather than leading outright.",
+    "The next bounded step must test robustness, not widen the control family or the task."
+  ],
+  "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
+  "recent_changes": [
+    "src/qrope/synthetic.py",
+    "src/qrope/run.py",
+    "tests/test_synthetic.py",
+    "tests/test_run_real_mode.py",
+    "docs/research/q-rope-transition-orbit-listwise-ranking-implementation-v1.md",
+    "docs/research/q-rope-transition-orbit-listwise-ranking-first-packet-v1.md",
+    "docs/research/q-rope-transition-orbit-listwise-ranking-decision-memo-v1.md",
+    "docs/research/q-rope-transition-orbit-listwise-token-renaming-hardening-plan-v1.md",
+    "logs/ablation_runs/summary/transition_orbit_listwise_v1.csv"
+  ],
+  "notes": "S379-S382 completed. The transition-orbit listwise ranking line stays active after the first packet because the witness tied the strongest controls on top-1 accuracy and led on order-F1. The next bounded step is token-renaming hardening on the same task."
 }
