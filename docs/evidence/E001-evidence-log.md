@@ -609,3 +609,5 @@ Use one row per evidence item.
 - EL-421 (2026-03-10): S500 fixed synthetic_transition_orbit_slot_invariant_channel_order_topk_consistency_binary as the next exact memo-only task and made latent slot invariance plus coarse top-k-null conditions explicit in the generator contract.
 - EL-422 (2026-03-10): S501 bound the slot-invariant top-k consistency line to one fixed future candidate, one bounded symbolic control stack, one fixed three-seed packet, and one hard-stop latent invariance gate.
 - EL-423 (2026-03-10): S502 elevated the slot-invariant channel-order top-k consistency line to approval-candidate posture while keeping implementation closed pending a dedicated approval gate.
+- EL-424 (2026-03-10): S503 approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_slot_invariant_channel_order_topk_consistency_binary with a fixed symbolic control stack and latent slot-invariance plus coarse top-k-null hard-stop diagnostics.
+- EL-425 (2026-03-10): S504 fixed the slot-invariant top-k consistency implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
