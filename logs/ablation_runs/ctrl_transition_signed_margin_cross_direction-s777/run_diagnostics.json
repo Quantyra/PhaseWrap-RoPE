@@ -1,0 +1,32 @@
+{
+  "feature_order": [
+    "fwd_transition_backbone",
+    "fwd_transition_phase",
+    "fwd_transition_curvature",
+    "perm_transition_backbone",
+    "perm_transition_phase_permuted",
+    "perm_transition_curvature_permuted",
+    "cross_backbone"
+  ],
+  "coefficients": {
+    "fwd_transition_backbone": -0.055301,
+    "fwd_transition_phase": 0.010564,
+    "fwd_transition_curvature": -0.00964,
+    "perm_transition_backbone": -0.055301,
+    "perm_transition_phase_permuted": -0.021819,
+    "perm_transition_curvature_permuted": -0.021891,
+    "cross_backbone": 0.027627
+  },
+  "intercept": -0.04794,
+  "coarse_state_counts": {
+    "unknown": 44
+  },
+  "forbidden_inputs_absent": true,
+  "token_identity_absent": true,
+  "transition_table_permuted": true,
+  "top1_accuracy": 0.0,
+  "order_f1": 0.0,
+  "margin_target_mode": "signed_top2_gap",
+  "top1_only_shortcut_absent": true,
+  "sign_agreement_accuracy": 0.0
+}

@@ -1088,6 +1088,169 @@ def generate_transition_orbit_order_margin_response_bundle(
     )
 
 
+def generate_transition_orbit_signed_margin_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "orbit_canonical",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_transition_orbit_signed_margin_response:{seed}")
+    single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
+
+    for left_token in TOKENS:
+        for right_token in TOKENS:
+            for magnitude in OFFSETS:
+                for base_left in range(SEQUENCE_LENGTH - magnitude):
+                    pos_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left,
+                            right_pos=base_left + magnitude,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    neg_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left + magnitude,
+                            right_pos=base_left,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    single_grouped[offset_sector_name(pos_sample.offset)].append(pos_sample)
+                    single_grouped[offset_sector_name(neg_sample.offset)].append(neg_sample)
+
+    coarse_candidates: dict[tuple[int, int], list[DualSyntheticSample]] = defaultdict(list)
+    sectors = ("P_small", "P_large", "N_small", "N_large")
+    lists_per_state = 4
+    items_per_list = 4
+    required = lists_per_state * items_per_list
+
+    for sector_a in sectors:
+        for sector_b in sectors:
+            bucket_a = list(single_grouped[sector_a])
+            bucket_b = list(single_grouped[sector_b])
+            rng.shuffle(bucket_a)
+            rng.shuffle(bucket_b)
+            pair_count = min(len(bucket_a), len(bucket_b))
+            for idx in range(pair_count):
+                sample_a = bucket_a[idx]
+                sample_b = bucket_b[(idx + pair_reindex) % pair_count]
+                if slot_swap:
+                    sample_a, sample_b = sample_b, sample_a
+                dual = build_dual_sample(sample_a=sample_a, sample_b=sample_b, label_mode="chart_transition_orbit_response")
+                payload = parse_dual_sample_text(dual.text)
+                coarse_candidates[chart_transition_pair(payload)].append(dual)
+
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_signed_means: dict[str, list[float]] = defaultdict(list)
+    list_counts: dict[str, int] = {}
+    token_support = set()
+
+    render_permutations = [
+        [3, 0, 1, 2],
+        [0, 1, 2, 3],
+        [1, 3, 0, 2],
+        [2, 0, 3, 1],
+    ]
+
+    for key in sorted(coarse_candidates):
+        bucket = sorted(coarse_candidates[key], key=lambda row: orbit_transition_band_delta(row.sample_a, row.sample_b))
+        if len(bucket) < required:
+            continue
+        step = max(1, len(bucket) // required)
+        chosen = [bucket[min(i * step, len(bucket) - 1)] for i in range(required)]
+        state_key = f"{key[0]}->{key[1]}"
+        raw_signed: list[float] = []
+        subsets: list[list[DualSyntheticSample]] = []
+        for list_idx in range(lists_per_state):
+            subset = chosen[list_idx * items_per_list : (list_idx + 1) * items_per_list]
+            if len(subset) < items_per_list:
+                continue
+            subsets.append(subset)
+            latent = [orbit_transition_band_delta(item.sample_a, item.sample_b) for item in subset]
+            raw_signed.append(latent[-1] - latent[-2])
+        if len(subsets) != lists_per_state:
+            continue
+
+        sorted_signed_indices = sorted(range(len(raw_signed)), key=lambda idx: (raw_signed[idx], idx))
+        centered_template = [-0.12, -0.04, 0.04, 0.12]
+        adjusted_signed = [0.0] * len(raw_signed)
+        for rank, idx in enumerate(sorted_signed_indices):
+            adjusted_signed[idx] = round(centered_template[rank], 6)
+
+        rows_for_state: list[tuple[str, float]] = []
+        for list_idx, subset in enumerate(subsets):
+            signed_margin = adjusted_signed[list_idx]
+            true_scores = [0.0, 0.2, round(0.6 - signed_margin / 2.0, 6), round(0.6 + signed_margin / 2.0, 6)]
+            rendered_order = render_permutations[list_idx]
+            text = render_transition_listwise_text(
+                subset,
+                rendered_order=rendered_order,
+                true_order=[0, 1, 2, 3],
+                true_scores=true_scores,
+            )
+            rows_for_state.append((text, signed_margin))
+            state_signed_means[state_key].append(signed_margin)
+            payload = parse_transition_listwise_text(text)
+            for candidate in payload["parsed_candidates"]:
+                token_support.update(
+                    {
+                        candidate["sample_a"].left_token,
+                        candidate["sample_a"].right_token,
+                        candidate["sample_b"].left_token,
+                        candidate["sample_b"].right_token,
+                    }
+                )
+
+        list_counts[state_key] = len(rows_for_state)
+        train.extend(rows_for_state[:2])
+        validation.append(rows_for_state[2])
+        test.append(rows_for_state[3])
+
+    state_mean_map = {state: round(sum(values) / len(values), 6) for state, values in state_signed_means.items() if values}
+    global_mean = round(sum(state_mean_map.values()) / len(state_mean_map), 6) if state_mean_map else 0.0
+    coarse_signed_margin_lookup_near_null_pass = all(abs(value - global_mean) <= 1e-6 for value in state_mean_map.values())
+    within_state_signed_margin_variation_pass = all(
+        (max(values) - min(values)) > 0.0 for values in state_signed_means.values() if values
+    )
+    signed_margin_values = [value for values in state_signed_means.values() for value in values]
+    positive = sum(1 for value in signed_margin_values if value > 0.0)
+    negative = sum(1 for value in signed_margin_values if value < 0.0)
+    signed_margin_balance_pass = positive == negative and positive > 0
+    diagnostics = {
+        "dataset": "synthetic_transition_orbit_signed_margin_response",
+        "seed": seed,
+        "split_rotation": split_rotation,
+        "slot_swap": slot_swap,
+        "token_permutation": token_permutation,
+        "pair_reindex": pair_reindex,
+        "splits": {
+            "train": {"size": len(train)},
+            "validation": {"size": len(validation)},
+            "test": {"size": len(test)},
+        },
+        "coarse_signed_margin_lookup_near_null_pass": coarse_signed_margin_lookup_near_null_pass,
+        "within_state_signed_margin_variation_pass": within_state_signed_margin_variation_pass,
+        "signed_margin_balance_pass": signed_margin_balance_pass,
+        "token_view_balance_pass": token_support == {"A", "B"},
+        "state_signed_margin_means": dict(sorted(state_mean_map.items())),
+        "global_signed_margin_mean": global_mean,
+        "per_state_list_counts": dict(sorted(list_counts.items())),
+    }
+    return SyntheticDatasetBundle(
+        train=sorted(train),
+        validation=sorted(validation),
+        test=sorted(test),
+        diagnostics=diagnostics,
+    )
+
+
 def generate_sector_bundle(seed: int, dataset_name: str, label_mode: str, split_rotation: int = 0) -> SyntheticDatasetBundle:
     rng = random.Random(f"synthetic_offset_binary:{seed}")
     grouped: dict[tuple[int, int, str, str], list[SyntheticSample]] = defaultdict(list)

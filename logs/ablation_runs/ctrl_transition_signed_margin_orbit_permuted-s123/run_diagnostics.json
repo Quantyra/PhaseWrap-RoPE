@@ -1,0 +1,24 @@
+{
+  "feature_order": [
+    "transition_backbone",
+    "transition_phase_permuted",
+    "transition_curvature_permuted"
+  ],
+  "coefficients": {
+    "transition_backbone": -0.125049,
+    "transition_phase_permuted": -0.046063,
+    "transition_curvature_permuted": -0.026531
+  },
+  "intercept": -0.043825,
+  "coarse_state_counts": {
+    "unknown": 44
+  },
+  "forbidden_inputs_absent": true,
+  "token_identity_absent": true,
+  "transition_table_permuted": true,
+  "top1_accuracy": 0.0,
+  "order_f1": 0.0,
+  "margin_target_mode": "signed_top2_gap",
+  "top1_only_shortcut_absent": true,
+  "sign_agreement_accuracy": 0.0
+}

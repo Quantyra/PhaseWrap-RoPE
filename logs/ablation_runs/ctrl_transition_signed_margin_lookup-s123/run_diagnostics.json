@@ -1,0 +1,50 @@
+{
+  "feature_order": [
+    "coarse_state_0_0",
+    "coarse_state_0_1",
+    "coarse_state_0_2",
+    "coarse_state_0_3",
+    "coarse_state_1_0",
+    "coarse_state_1_1",
+    "coarse_state_1_2",
+    "coarse_state_1_3",
+    "coarse_state_2_0",
+    "coarse_state_2_1",
+    "coarse_state_2_2",
+    "coarse_state_2_3",
+    "coarse_state_3_0",
+    "coarse_state_3_1",
+    "coarse_state_3_2",
+    "coarse_state_3_3"
+  ],
+  "coefficients": {
+    "coarse_state_0_0": -0.038581,
+    "coarse_state_0_1": -0.038581,
+    "coarse_state_0_2": 0.0,
+    "coarse_state_0_3": 0.0,
+    "coarse_state_1_0": 0.077159,
+    "coarse_state_1_1": -0.038581,
+    "coarse_state_1_2": 0.115739,
+    "coarse_state_1_3": -0.038581,
+    "coarse_state_2_0": -0.038581,
+    "coarse_state_2_1": 0.077159,
+    "coarse_state_2_2": 0.0,
+    "coarse_state_2_3": -0.038581,
+    "coarse_state_3_0": 0.0,
+    "coarse_state_3_1": 0.0,
+    "coarse_state_3_2": -0.038581,
+    "coarse_state_3_3": -0.038581
+  },
+  "intercept": -0.040125,
+  "coarse_state_counts": {
+    "unknown": 44
+  },
+  "forbidden_inputs_absent": true,
+  "token_identity_absent": true,
+  "coarse_state_only": true,
+  "top1_accuracy": 0.0,
+  "order_f1": 0.0,
+  "margin_target_mode": "signed_top2_gap",
+  "top1_only_shortcut_absent": true,
+  "sign_agreement_accuracy": 0.0
+}
