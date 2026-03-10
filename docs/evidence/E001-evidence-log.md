@@ -514,3 +514,9 @@ Use one row per evidence item.
 - EL-348 (2026-03-11): The fixed sign-consistency packet passed generator diagnostics but the witness lost on mean accuracy to the strongest bounded controls and all models collapsed to zero positive-class F1.
 
 - EL-349 (2026-03-11): Stopped the sign-consistency execution branch and preserved synthetic_transition_orbit_sign_flip_contrast_binary as the next memo-only angle.
+
+- EL-350 (2026-03-11): Specified synthetic_transition_orbit_sign_flip_contrast_binary with explicit flip-versus-hold supervision under controlled paired-context perturbation.
+
+- EL-351 (2026-03-11): Bound the sign-flip contrast line to one fixed candidate and bounded symbolic flip control stack under a memo-only restart scaffold.
+
+- EL-352 (2026-03-11): Elevated the sign-flip contrast line to approval-candidate posture while keeping implementation closed pending a dedicated approval gate.
