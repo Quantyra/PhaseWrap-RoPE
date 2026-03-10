@@ -12,6 +12,7 @@ from qrope.synthetic import (
     generate_transition_orbit_channel_order_response_bundle,
     generate_transition_orbit_slot_invariant_channel_order_response_bundle,
     generate_transition_orbit_slot_invariant_channel_order_margin_response_bundle,
+    generate_transition_orbit_slot_invariant_channel_order_rank_only_bundle,
     generate_transition_orbit_signed_margin_response_bundle,
     generate_transition_orbit_pairwise_order_binary_bundle,
     generate_transition_orbit_rank_band_response_bundle,
@@ -425,6 +426,17 @@ def test_transition_orbit_slot_invariant_channel_order_margin_bundle_emits_requi
     assert diagnostics["slot_view_balance_pass"] is True
     assert diagnostics["coarse_slot_margin_lookup_near_null_pass"] is True
     assert diagnostics["within_state_margin_variation_pass"] is True
+
+
+def test_transition_orbit_slot_invariant_channel_order_rank_only_bundle_emits_required_diagnostics() -> None:
+    bundle = generate_transition_orbit_slot_invariant_channel_order_rank_only_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_transition_orbit_slot_invariant_channel_order_rank_only"
+    assert diagnostics["latent_slot_invariance_pass"] is True
+    assert diagnostics["latent_slot_max_abs_delta"] == 0
+    assert diagnostics["slot_view_balance_pass"] is True
+    assert diagnostics["coarse_slot_rank_lookup_near_null_pass"] is True
+    assert diagnostics["within_state_rank_variation_pass"] is True
 
 
 def test_dual_continuous_coupled_response_labels_follow_rule() -> None:

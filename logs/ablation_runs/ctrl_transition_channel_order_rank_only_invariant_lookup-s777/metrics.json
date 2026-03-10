@@ -1,0 +1,17 @@
+{
+  "run_id": "ctrl_transition_channel_order_rank_only_invariant_lookup-s777",
+  "variant": "V_control_symbolic_transition_channel_order_rank_only_invariant_lookup",
+  "dataset": "synthetic_transition_orbit_slot_invariant_channel_order_rank_only",
+  "seed": 777,
+  "backend": "sim_quantum_statevector",
+  "accuracy": 0.0,
+  "f1": 0.0,
+  "order_f1": 0.0,
+  "train_loss_final": 0.3333333333333333,
+  "eval_loss": 0.3333333333333333,
+  "wall_time_sec": 0.0,
+  "timestamp_utc": "2026-03-10T16:29:14.492014Z",
+  "dry_run": false,
+  "run_mode": "real",
+  "data_mode": "synthetic_transition_orbit_slot_invariant_channel_order_rank_only+readout_symbolic_transition_channel_order_rank_only_invariant_lookup+head_linear"
+}

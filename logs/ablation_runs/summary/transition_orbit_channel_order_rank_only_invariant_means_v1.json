@@ -1,0 +1,27 @@
+{
+  "V_future_relational_witness_transition_orbit_channel_order_rank_only_invariant": {
+    "accuracy": 0.151515,
+    "f1": 0.344733,
+    "order_f1": 0.344733
+  },
+  "V_control_symbolic_transition_channel_order_rank_only_invariant_lookup": {
+    "accuracy": 0.0,
+    "f1": 0.0,
+    "order_f1": 0.0
+  },
+  "V_control_symbolic_transition_channel_order_rank_only_invariant_cross_direction": {
+    "accuracy": 0.181818,
+    "f1": 0.315152,
+    "order_f1": 0.315152
+  },
+  "V_control_symbolic_transition_channel_order_rank_only_invariant_quadratic": {
+    "accuracy": 0.151515,
+    "f1": 0.227706,
+    "order_f1": 0.227705
+  },
+  "V_control_symbolic_transition_channel_order_rank_only_invariant_orbit_permuted": {
+    "accuracy": 0.181818,
+    "f1": 0.327273,
+    "order_f1": 0.327273
+  }
+}

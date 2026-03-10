@@ -1,0 +1,17 @@
+{
+  "run_id": "ctrl_transition_channel_order_rank_only_invariant_quadratic-s42",
+  "variant": "V_control_symbolic_transition_channel_order_rank_only_invariant_quadratic",
+  "dataset": "synthetic_transition_orbit_slot_invariant_channel_order_rank_only",
+  "seed": 42,
+  "backend": "sim_quantum_statevector",
+  "accuracy": 0.18181818181818182,
+  "f1": 0.21558441558441557,
+  "order_f1": 0.215584,
+  "train_loss_final": 0.3279029559113376,
+  "eval_loss": 0.33341907299293055,
+  "wall_time_sec": 0.0,
+  "timestamp_utc": "2026-03-10T16:29:15.953208Z",
+  "dry_run": false,
+  "run_mode": "real",
+  "data_mode": "synthetic_transition_orbit_slot_invariant_channel_order_rank_only+readout_symbolic_transition_channel_order_rank_only_invariant_quadratic+head_linear"
+}
