@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T11:45:00Z",
+  "timestamp_utc": "2026-03-11T12:00:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S391"
+    "S394"
   ],
   "active_workers": {},
   "next_actions": [
-    "Keep the transition-orbit line memo-only after the stopped listwise branch.",
-    "Design synthetic_transition_orbit_order_margin_response before any new approval discussion.",
-    "Do not reopen execution on synthetic_transition_orbit_listwise_ranking."
+    "Keep the transition-orbit line memo-only on synthetic_transition_orbit_order_margin_response.",
+    "Bind bounded symbolic margin controls directly into the future approval gate.",
+    "Do not reopen execution on the stopped listwise task."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -22,21 +22,14 @@
     "IBM open-instance backend availability and latency may vary across sessions.",
     "Matched remote evidence is still limited to one dataset, one seed, and non-identical circuit families.",
     "Current `V2` asymmetry across providers may be seed-sensitive and should not be over-interpreted.",
-    "The Quandela adapter currently has a provider-rejected parameter regime that blocks some seeds.",
-    "Retry/cache-reset hardening improved but did not eliminate Quandela coverage gaps.",
-    "Sample-level skip policy still leaves some Quandela seed/variant combinations non-viable.",
-    "Direct Quandela execution depends on maintaining sufficient provider credits.",
-    "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
-    "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-    "The transition-orbit listwise branch is stopped after losing top-1 accuracy under deeper pair-reindex hardening.",
-    "Only the order-signal residue is preserved, and that residue must not be overclaimed as a surviving execution result."
+    "The transition-orbit listwise execution branch is stopped after losing top-1 accuracy under deeper pair-reindex hardening.",
+    "The preserved order-margin line is still memo-only and must not reopen code until margin-specific generator diagnostics and bounded symbolic controls are bound into an approval gate."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-listwise-deeper-pair-reindex-hardening-v1.md",
-    "docs/research/q-rope-transition-orbit-listwise-deeper-pair-reindex-decision-memo-v1.md",
-    "docs/research/q-rope-transition-orbit-order-margin-task-design-v1.md",
-    "logs/ablation_runs/summary/chart_transition_listwise_pair_reindex7_v1.csv"
+    "docs/research/q-rope-transition-orbit-order-margin-task-spec-v1.md",
+    "docs/research/q-rope-transition-orbit-order-margin-restart-scaffold-v1.md",
+    "docs/research/q-rope-transition-orbit-order-margin-approval-candidate-v1.md"
   ],
-  "notes": "S389-S391 completed. The transition-orbit listwise execution branch is stopped after pair_reindex = 7 because the witness lost top-1 accuracy to both retained symbolic controls. The line returns to memo-only posture with one preserved order-margin task angle."
+  "notes": "S392-S394 completed. The transition-orbit line remains memo-only on the preserved order-margin task. The next valid move is to bind bounded symbolic margin controls and generator diagnostics into an implementation approval gate."
 }
