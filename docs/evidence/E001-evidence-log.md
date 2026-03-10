@@ -638,3 +638,7 @@ Use one row per evidence item.
 - EL-450 (2026-03-10): S529 elevated the slot-invariant channel-order top-k preference line to approval-candidate posture while keeping implementation closed pending a dedicated approval gate.
 - EL-451 (2026-03-10): S530 approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary with a fixed symbolic control stack and latent slot-invariance plus coarse top-k preference-null hard-stop diagnostics.
 - EL-452 (2026-03-10): S531 fixed the slot-invariant top-k preference implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
+- EL-453 (2026-03-10): S532 implemented the bounded synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary branch and validated the local synthetic path with 213 focused tests passing.
+- EL-454 (2026-03-10): S533 ran the fixed slot-invariant top-k preference packet and found that the witness lost on both declared primary metrics against multiple bounded controls.
+- EL-455 (2026-03-10): S534 stopped the slot-invariant top-k preference execution branch because the witness did not clear the fixed control stack on accuracy or F1.
+- EL-456 (2026-03-10): S535 preserved synthetic_transition_orbit_slot_invariant_topk_pair_margin_response as the next memo-only angle because the remaining unresolved question is preference separation strength under the same slot-invariance contract, not hard binary top-k preference classification.

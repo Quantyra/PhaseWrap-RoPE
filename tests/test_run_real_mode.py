@@ -873,6 +873,39 @@ def test_transition_orbit_slot_invariant_channel_order_topk_rank_only_lookup_con
     assert 0.0 <= metrics["f1"] <= 1.0
 
 
+def test_transition_orbit_slot_invariant_channel_order_topk_preference_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_transition_orbit_channel_order_topk_preference_invariant",
+    )
+    assert (
+        metrics["data_mode"]
+        == "synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary+readout_relational_witness_transition_orbit_channel_order_topk_preference_invariant+head_linear"
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert diagnostics["latent_slot_invariance_pass"] is True
+    assert diagnostics["latent_slot_max_abs_delta"] == 0
+    assert diagnostics["slot_view_balance_pass"] is True
+    assert diagnostics["coarse_slot_topk_preference_lookup_near_null_pass"] is True
+
+
+def test_transition_orbit_slot_invariant_channel_order_topk_preference_lookup_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_channel_order_topk_preference_invariant_lookup",
+    )
+    assert (
+        metrics["data_mode"]
+        == "synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary+readout_symbolic_transition_channel_order_topk_preference_invariant_lookup+head_linear"
+    )
+    assert 0.0 <= metrics["accuracy"] <= 1.0
+    assert 0.0 <= metrics["f1"] <= 1.0
+
+
 def test_synthetic_offset_binary_quantum_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_offset_binary",
