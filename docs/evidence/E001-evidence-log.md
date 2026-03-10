@@ -560,3 +560,6 @@ Use one row per evidence item.
 - EL-372 (2026-03-10): S452 ran the fixed channel-advantage packet and found that all generator hard-stop diagnostics passed, but the witness was numerically unstable on seeds 42 and 777 and lost mean MAE to every approved bounded control.
 - EL-373 (2026-03-10): S453 stopped the transition-orbit channel-advantage execution branch because the witness failed the primary regression metric decisively and weak rank correlation was not enough to keep the branch alive.
 - EL-374 (2026-03-10): S454 preserved synthetic_transition_orbit_channel_order_response as the next memo-only angle because the remaining unresolved question is relative channel ordering rather than raw channel-effect magnitude.
+- EL-375 (2026-03-10): S455 fixed synthetic_transition_orbit_channel_order_response as the next exact memo-only task, making relative channel ordering primary and removing raw channel-effect magnitude from the supervised target.
+- EL-376 (2026-03-10): S456 bound the channel-order line to one fixed future candidate, one bounded symbolic control stack, one fixed three-seed packet, and one explicit generator hard-stop contract.
+- EL-377 (2026-03-10): S457 elevated the channel-order line to approval-candidate posture while keeping implementation closed pending a dedicated implementation-approval gate.

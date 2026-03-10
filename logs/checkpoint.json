@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-10T14:05:00Z",
+  "timestamp_utc": "2026-03-10T14:15:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S454"
+    "S457"
   ],
   "active_workers": {},
   "next_actions": [
-    "Specify synthetic_transition_orbit_channel_order_response exactly as a memo-only task.",
-    "Bind bounded symbolic channel-order controls into its restart scaffold before any approval discussion.",
-    "Keep the line memo-only until the task is explicit enough for a new approval-candidate review."
+    "Write the implementation-approval gate for synthetic_transition_orbit_channel_order_response.",
+    "Bind the bounded symbolic channel-order controls directly into that gate.",
+    "Reopen code only if that gate is explicitly approved."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -19,17 +19,14 @@
     "Current matrix is fully real-mode but based on small handcrafted local datasets.",
     "Local handcrafted datasets may not reflect production distributions.",
     "The transition-orbit channel-advantage execution branch is stopped after the witness became numerically unstable and lost mean MAE to every approved bounded control.",
-    "The next line is memo-only channel-order design; no implementation is currently approved.",
-    "No remote work, task expansion, or control-family expansion is allowed on this stopped branch."
+    "The channel-order line is approval-candidate only; implementation is still closed pending a dedicated approval gate.",
+    "No remote work, task expansion, or control-family expansion is allowed on this line."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "src/qrope/synthetic.py",
-    "src/qrope/run.py",
-    "docs/research/q-rope-transition-orbit-channel-advantage-implementation-v1.md",
-    "docs/research/q-rope-transition-orbit-channel-advantage-first-packet-v1.md",
-    "docs/research/q-rope-transition-orbit-channel-advantage-decision-memo-v1.md",
-    "docs/research/q-rope-transition-orbit-channel-order-task-design-v1.md"
+    "docs/research/q-rope-transition-orbit-channel-order-task-spec-v1.md",
+    "docs/research/q-rope-transition-orbit-channel-order-restart-scaffold-v1.md",
+    "docs/research/q-rope-transition-orbit-channel-order-approval-candidate-v1.md"
   ],
-  "notes": "S451-S453 completed. The transition-orbit channel-advantage branch is closed after a valid packet with passing generator diagnostics showed witness numerical instability and decisive MAE failure versus the bounded symbolic controls. S454 preserves the next line at memo-only scope."
+  "notes": "S455-S457 completed. The next preserved line is synthetic_transition_orbit_channel_order_response, elevated to approval-candidate posture with a fixed bounded symbolic control stack and no implementation approval yet."
 }
