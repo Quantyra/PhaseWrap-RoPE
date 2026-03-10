@@ -470,6 +470,39 @@ def test_transition_orbit_signed_margin_lookup_control_runs() -> None:
     assert diagnostics["coarse_state_only"] is True
 
 
+def test_transition_orbit_sign_only_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_sign_only_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_transition_orbit_sign_only",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_transition_orbit_sign_only_binary+readout_relational_witness_transition_orbit_sign_only+head_linear"
+    )
+    assert diagnostics["coarse_sign_lookup_near_null_pass"] is True
+    assert diagnostics["within_state_sign_variation_pass"] is True
+    assert diagnostics["sign_label_balance_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert metrics["run_diagnostics"]["sign_target_mode"] == "top2_direction_only"
+
+
+def test_transition_orbit_sign_only_lookup_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_sign_only_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_sign_lookup",
+    )
+    assert metrics["data_mode"].startswith(
+        "synthetic_transition_orbit_sign_only_binary+readout_symbolic_transition_sign_lookup+head_linear"
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["sign_target_mode"] == "top2_direction_only"
+    assert diagnostics["coarse_state_only"] is True
+
+
 def test_synthetic_offset_binary_quantum_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_offset_binary",
