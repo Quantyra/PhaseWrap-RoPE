@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T18:15:00Z",
+    "timestamp_utc": "2026-03-10T19:25:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S513"
+        "S517"
     ],
     "active_workers": {},
     "next_actions": [
-        "Implement synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response.",
-        "Stop immediately if the hard-stop diagnostics fail.",
-        "Run the fixed three-seed packet and decide the branch from MAE and rank_correlation only."
+        "Specify synthetic_transition_orbit_slot_invariant_channel_order_topk_rank_only exactly.",
+        "Bind bounded symbolic invariant top-k rank controls into its scaffold.",
+        "Keep the line memo-only until a new approval-candidate review is explicit."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -18,15 +18,16 @@
         "Cloud provider API/platform changes may require periodic strategy updates.",
         "Current matrix is fully real-mode but based on small handcrafted local datasets.",
         "Local handcrafted datasets may not reflect production distributions.",
-        "The slot-invariant top-k consistency branch stopped after tying bounded controls on accuracy with zero positive-class F1 across the packet.",
-        "Any continuation must keep slot identity a nuisance variable by construction and avoid reopening the same binary top-k target without a different objective family.",
+        "The slot-invariant top-k margin branch stopped after mixed leadership: the witness led on MAE but lost the declared rank-correlation gate to bounded controls.",
+        "Any continuation must make top-k rank structure primary under the same latent slot-invariance contract and avoid reopening the same top-k margin objective.",
         "No remote work, task expansion, or control-family expansion is allowed on this line."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-margin-task-spec-v1.md",
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-margin-restart-scaffold-v1.md",
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-margin-approval-candidate-v1.md"
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-margin-implementation-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-margin-first-packet-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-margin-decision-memo-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-rank-only-task-design-v1.md"
     ],
-    "notes": "S512-S513 completed. The slot-invariant top-k margin line is implementation-approved within a strict local synthetic boundary. The next step is bounded implementation and a fixed three-seed packet under MAE and rank_correlation."
+    "notes": "S514-S517 completed. The slot-invariant top-k margin branch is stopped after mixed leadership on MAE vs rank_correlation. The next line is memo-only top-k rank structure under the same slot-invariance contract."
 }

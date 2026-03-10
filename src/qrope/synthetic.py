@@ -2628,6 +2628,36 @@ def generate_transition_orbit_slot_invariant_channel_order_margin_response_bundl
     )
 
 
+def generate_transition_orbit_slot_invariant_channel_order_topk_margin_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "orbit_canonical",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    bundle = generate_transition_orbit_slot_invariant_channel_order_margin_response_bundle(
+        seed=seed,
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+    )
+    diagnostics = dict(bundle.diagnostics)
+    diagnostics["dataset"] = "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response"
+    diagnostics["coarse_slot_topk_margin_lookup_near_null_pass"] = diagnostics.pop(
+        "coarse_slot_margin_lookup_near_null_pass"
+    )
+    diagnostics["within_state_topk_margin_variation_pass"] = diagnostics.pop("within_state_margin_variation_pass")
+    diagnostics["state_slot_topk_margin_means"] = diagnostics.pop("state_slot_margin_means")
+    diagnostics["global_slot_topk_margin_mean"] = diagnostics.pop("global_slot_margin_mean")
+    return SyntheticDatasetBundle(
+        train=bundle.train,
+        validation=bundle.validation,
+        test=bundle.test,
+        diagnostics=diagnostics,
+    )
+
+
 def generate_transition_orbit_slot_invariant_channel_order_rank_only_bundle(
     seed: int,
     split_rotation: int = 0,

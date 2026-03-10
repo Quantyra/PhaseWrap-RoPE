@@ -1,0 +1,17 @@
+{
+  "run_id": "transition-orbit-topk-margin-quadratic-s123",
+  "variant": "V_control_symbolic_transition_channel_order_topk_margin_invariant_quadratic",
+  "dataset": "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response",
+  "seed": 123,
+  "backend": "sim_quantum_statevector",
+  "accuracy": 0.0,
+  "f1": 0.0,
+  "train_loss_final": 0.24548468963332154,
+  "eval_loss": 0.25002381235424803,
+  "run_mode": "real",
+  "dry_run": false,
+  "data_mode": "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response+readout_symbolic_transition_channel_order_topk_margin_invariant_quadratic+head_linear",
+  "mae": 0.497857,
+  "rank_correlation": 0.316761,
+  "calibration_slope": 0.0
+}

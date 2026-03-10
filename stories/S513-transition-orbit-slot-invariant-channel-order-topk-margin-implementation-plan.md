@@ -1,6 +1,6 @@
 # S513 Transition Orbit Slot-Invariant Channel-Order Top-K Margin Implementation Plan
 
-Status: active
+Status: complete
 Date: 2026-03-10
 
 ## Outcome

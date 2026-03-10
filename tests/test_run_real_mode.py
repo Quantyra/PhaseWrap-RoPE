@@ -741,6 +741,39 @@ def test_transition_orbit_slot_invariant_channel_order_margin_lookup_control_run
     assert 0.0 <= metrics["f1"] <= 1.0
 
 
+def test_transition_orbit_slot_invariant_channel_order_topk_margin_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_transition_orbit_channel_order_topk_margin_invariant",
+    )
+    assert (
+        metrics["data_mode"]
+        == "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response+readout_relational_witness_transition_orbit_channel_order_topk_margin_invariant+head_linear"
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert diagnostics["latent_slot_invariance_pass"] is True
+    assert diagnostics["latent_slot_max_abs_delta"] == 0
+    assert diagnostics["slot_view_balance_pass"] is True
+    assert diagnostics["coarse_slot_topk_margin_lookup_near_null_pass"] is True
+
+
+def test_transition_orbit_slot_invariant_channel_order_topk_margin_lookup_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_channel_order_topk_margin_invariant_lookup",
+    )
+    assert (
+        metrics["data_mode"]
+        == "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response+readout_symbolic_transition_channel_order_topk_margin_invariant_lookup+head_linear"
+    )
+    assert "mae" in metrics["extra_metrics"]
+    assert "rank_correlation" in metrics["extra_metrics"]
+
+
 def test_transition_orbit_slot_invariant_channel_order_rank_only_loader_path() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_transition_orbit_slot_invariant_channel_order_rank_only",

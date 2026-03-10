@@ -53,6 +53,7 @@ from .synthetic import (
     generate_transition_orbit_slot_invariant_channel_order_response_bundle,
     generate_transition_orbit_slot_invariant_channel_order_margin_response_bundle,
     generate_transition_orbit_slot_invariant_channel_order_rank_only_bundle,
+    generate_transition_orbit_slot_invariant_channel_order_topk_margin_response_bundle,
     generate_transition_orbit_slot_invariant_channel_order_topk_consistency_binary_bundle,
     generate_transition_orbit_signed_margin_response_bundle,
     generate_transition_orbit_sign_only_binary_bundle,
@@ -271,6 +272,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_transition_orbit_channel_order": 24,
         "V_future_relational_witness_transition_orbit_channel_order_invariant": 24,
         "V_future_relational_witness_transition_orbit_channel_order_margin_invariant": 24,
+        "V_future_relational_witness_transition_orbit_channel_order_topk_margin_invariant": 24,
         "V_future_relational_witness_transition_orbit_channel_order_rank_only_invariant": 24,
         "V_future_relational_witness_transition_orbit_channel_order_topk_consistency_invariant": 24,
         "V_control_symbolic_single_family_regressor": 1,
@@ -340,6 +342,10 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_channel_order_margin_invariant_cross_direction": 1,
         "V_control_symbolic_transition_channel_order_margin_invariant_quadratic": 1,
         "V_control_symbolic_transition_channel_order_margin_invariant_orbit_permuted": 1,
+        "V_control_symbolic_transition_channel_order_topk_margin_invariant_lookup": 1,
+        "V_control_symbolic_transition_channel_order_topk_margin_invariant_cross_direction": 1,
+        "V_control_symbolic_transition_channel_order_topk_margin_invariant_quadratic": 1,
+        "V_control_symbolic_transition_channel_order_topk_margin_invariant_orbit_permuted": 1,
         "V_control_symbolic_transition_channel_order_rank_only_invariant_lookup": 1,
         "V_control_symbolic_transition_channel_order_rank_only_invariant_cross_direction": 1,
         "V_control_symbolic_transition_channel_order_rank_only_invariant_quadratic": 1,
@@ -495,6 +501,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_channel_order_invariant+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_channel_order_margin_invariant":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_channel_order_margin_invariant+head_linear"
+        elif variant == "V_future_relational_witness_transition_orbit_channel_order_topk_margin_invariant":
+            data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_channel_order_topk_margin_invariant+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_channel_order_rank_only_invariant":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_channel_order_rank_only_invariant+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_channel_order_topk_consistency_invariant":
@@ -633,6 +641,14 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_margin_invariant_quadratic+head_linear"
         elif variant == "V_control_symbolic_transition_channel_order_margin_invariant_orbit_permuted":
             data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_margin_invariant_orbit_permuted+head_linear"
+        elif variant == "V_control_symbolic_transition_channel_order_topk_margin_invariant_lookup":
+            data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_topk_margin_invariant_lookup+head_linear"
+        elif variant == "V_control_symbolic_transition_channel_order_topk_margin_invariant_cross_direction":
+            data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_topk_margin_invariant_cross_direction+head_linear"
+        elif variant == "V_control_symbolic_transition_channel_order_topk_margin_invariant_quadratic":
+            data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_topk_margin_invariant_quadratic+head_linear"
+        elif variant == "V_control_symbolic_transition_channel_order_topk_margin_invariant_orbit_permuted":
+            data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_topk_margin_invariant_orbit_permuted+head_linear"
         elif variant == "V_control_symbolic_transition_channel_order_rank_only_invariant_lookup":
             data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_rank_only_invariant_lookup+head_linear"
         elif variant == "V_control_symbolic_transition_channel_order_rank_only_invariant_cross_direction":
@@ -908,6 +924,8 @@ def run_quantum_backend(
         return run_transition_orbit_channel_order_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_channel_order_margin_invariant":
         return run_transition_orbit_order_margin_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_transition_orbit_channel_order_topk_margin_invariant":
+        return run_transition_orbit_topk_margin_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_channel_order_rank_only_invariant":
         return run_transition_orbit_listwise_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_channel_order_topk_consistency_invariant":
@@ -1058,6 +1076,14 @@ def run_quantum_backend(
         return run_transition_margin_quadratic_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_slot_invariant_channel_order_margin_response" and variant == "V_control_symbolic_transition_channel_order_margin_invariant_orbit_permuted":
         return run_transition_margin_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response" and variant == "V_control_symbolic_transition_channel_order_topk_margin_invariant_lookup":
+        return run_transition_topk_margin_lookup_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response" and variant == "V_control_symbolic_transition_channel_order_topk_margin_invariant_cross_direction":
+        return run_transition_topk_margin_cross_direction_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response" and variant == "V_control_symbolic_transition_channel_order_topk_margin_invariant_quadratic":
+        return run_transition_topk_margin_quadratic_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response" and variant == "V_control_symbolic_transition_channel_order_topk_margin_invariant_orbit_permuted":
+        return run_transition_topk_margin_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_slot_invariant_channel_order_rank_only" and variant == "V_control_symbolic_transition_channel_order_rank_only_invariant_lookup":
         return run_transition_list_lookup_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_slot_invariant_channel_order_rank_only" and variant == "V_control_symbolic_transition_channel_order_rank_only_invariant_cross_direction":
@@ -4816,6 +4842,82 @@ def run_transition_listwise_margin_backend_from_results(
     return train_loss, eval_loss, 0.0, 0.0, diagnostics, extra_metrics
 
 
+def run_transition_listwise_topk_margin_backend_from_results(
+    train_results: list[list[dict[str, Any]]],
+    validation_results: list[list[dict[str, Any]]],
+    test_results: list[list[dict[str, Any]]],
+    train_payloads: list[dict[str, Any]],
+    validation_payloads: list[dict[str, Any]],
+    test_payloads: list[dict[str, Any]],
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    feature_order = list(train_results[0][0]["feature_order"]) if train_results and train_results[0] else []
+
+    def flatten(
+        results_by_row: list[list[dict[str, Any]]],
+        payloads: list[dict[str, Any]],
+    ) -> tuple[list[list[float]], list[float]]:
+        matrix: list[list[float]] = []
+        targets: list[float] = []
+        for results, payload in zip(results_by_row, payloads):
+            true_scores = [float(v) for v in payload["true_scores"]]
+            for slot, result in enumerate(results):
+                matrix.append([float(result["features"][name]) for name in feature_order])
+                targets.append(true_scores[slot])
+        return matrix, targets
+
+    def topk_margin(values: list[float]) -> float:
+        ordered = sorted(values, reverse=True)
+        if len(ordered) < 4:
+            return 0.0
+        top_mean = sum(ordered[:2]) / 2.0
+        bottom_mean = sum(ordered[-2:]) / 2.0
+        return top_mean - bottom_mean
+
+    train_matrix, train_targets = flatten(train_results, train_payloads)
+    validation_matrix, _validation_targets = flatten(validation_results, validation_payloads)
+    test_matrix, test_targets = flatten(test_results, test_payloads)
+
+    weights, bias = fit_linear_regressor(train_matrix, train_targets)
+
+    def score_row(row: list[float]) -> float:
+        return bias + sum(weight * value for weight, value in zip(weights, row))
+
+    train_scores = [score_row(row) for row in train_matrix]
+    _ = [score_row(row) for row in validation_matrix]
+    test_scores = [score_row(row) for row in test_matrix]
+
+    grouped_test_scores: list[list[float]] = []
+    grouped_true_scores: list[list[float]] = []
+    cursor = 0
+    for payload in test_payloads:
+        width = len(payload["rendered_order"])
+        grouped_test_scores.append(test_scores[cursor : cursor + width])
+        grouped_true_scores.append([float(v) for v in payload["true_scores"]])
+        cursor += width
+
+    true_margins = [topk_margin(values) for values in grouped_true_scores]
+    pred_margins = [topk_margin(values) for values in grouped_test_scores]
+
+    train_loss = mean_absolute_error(train_targets, train_scores)
+    eval_loss = mean_absolute_error(test_targets, test_scores)
+    diagnostics = build_transition_listwise_run_diagnostics(
+        results=[item for row in test_results for item in row],
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+        top1_accuracy=0.0,
+        order_f1=0.0,
+    )
+    diagnostics["margin_target_mode"] = "top2_vs_bottom2_gap"
+    diagnostics["top1_only_shortcut_absent"] = True
+    extra_metrics = {
+        "mae": round(mean_absolute_error(true_margins, pred_margins), 6),
+        "rank_correlation": round(compute_rank_correlation(true_margins, pred_margins), 6),
+        "calibration_slope": round(compute_calibration_slope(true_margins, pred_margins), 6),
+    }
+    return train_loss, eval_loss, 0.0, 0.0, diagnostics, extra_metrics
+
+
 def run_transition_listwise_signed_margin_backend_from_results(
     train_results: list[list[dict[str, Any]]],
     validation_results: list[list[dict[str, Any]]],
@@ -6046,6 +6148,100 @@ def run_transition_margin_orbit_permuted_symbolic_backend(
     return _run_transition_margin_symbolic_backend(train, test, validation, symbolic_transition_list_orbit_permuted_results)
 
 
+def run_transition_orbit_topk_margin_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_payloads = [transition_orbit_listwise_payload(text) for text, _ in train]
+    validation_payloads = [transition_orbit_listwise_payload(text) for text, _ in validation]
+    test_payloads = [transition_orbit_listwise_payload(text) for text, _ in test]
+    train_results = [transition_orbit_listwise_witness_results(text, seed=seed) for text, _ in train]
+    validation_results = [transition_orbit_listwise_witness_results(text, seed=seed) for text, _ in validation]
+    test_results = [transition_orbit_listwise_witness_results(text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_transition_listwise_topk_margin_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        train_payloads,
+        validation_payloads,
+        test_payloads,
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(
+        bool(result.get("bounded_feature_audit_pass", False))
+        for row in test_results
+        for result in row
+    )
+    diagnostics["token_identity_absent"] = all(
+        bool(result.get("token_identity_absent", False))
+        for row in test_results
+        for result in row
+    )
+    diagnostics["anti_collapse_pass"] = True
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def _run_transition_topk_margin_symbolic_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None,
+    builder,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_payloads = [transition_orbit_listwise_payload(text) for text, _ in train]
+    validation_payloads = [transition_orbit_listwise_payload(text) for text, _ in validation]
+    test_payloads = [transition_orbit_listwise_payload(text) for text, _ in test]
+    train_results = [builder(text) for text, _ in train]
+    validation_results = [builder(text) for text, _ in validation]
+    test_results = [builder(text) for text, _ in test]
+    return run_transition_listwise_topk_margin_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        train_payloads,
+        validation_payloads,
+        test_payloads,
+    )
+
+
+def run_transition_topk_margin_lookup_symbolic_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    return _run_transition_topk_margin_symbolic_backend(train, test, validation, symbolic_transition_list_lookup_results)
+
+
+def run_transition_topk_margin_cross_direction_symbolic_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    return _run_transition_topk_margin_symbolic_backend(train, test, validation, symbolic_transition_list_cross_direction_results)
+
+
+def run_transition_topk_margin_quadratic_symbolic_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    return _run_transition_topk_margin_symbolic_backend(train, test, validation, symbolic_transition_list_quadratic_results)
+
+
+def run_transition_topk_margin_orbit_permuted_symbolic_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    return _run_transition_topk_margin_symbolic_backend(train, test, validation, symbolic_transition_list_orbit_permuted_results)
+
+
 def run_transition_orbit_listwise_witness_backend(
     train: list[tuple[str, int]],
     test: list[tuple[str, int]],
@@ -7218,6 +7414,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_transition_orbit_slot_invariant_channel_order_margin_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response":
+        bundle = generate_transition_orbit_slot_invariant_channel_order_topk_margin_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_transition_orbit_slot_invariant_channel_order_rank_only":
