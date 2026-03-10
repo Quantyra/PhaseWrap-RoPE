@@ -677,3 +677,7 @@ Use one row per evidence item.
 - EL-476 (2026-03-10): S555 bound the top-k pair-order stability line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
 - EL-477 (2026-03-10): S556 elevated the top-k pair-order stability line to approval-candidate posture while keeping it memo-only.
 
+
+- EL-478 (2026-03-10): S557 approved one strictly bounded implementation phase for the slot-invariant top-k pair-order stability line.
+- EL-479 (2026-03-10): S558 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the top-k pair-order stability packet.
+
