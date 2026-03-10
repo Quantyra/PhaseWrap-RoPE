@@ -651,3 +651,9 @@ Use one row per evidence item.
 - EL-460 (2026-03-10): S539 approved one strictly bounded implementation phase for the slot-invariant top-k pair-margin line.
 - EL-461 (2026-03-10): S540 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the top-k pair-margin packet.
 
+
+- EL-462 (2026-03-10): S541 implemented the bounded slot-invariant top-k pair-margin branch and validated it with 216 focused tests passing.
+- EL-463 (2026-03-10): S542 ran the fixed three-seed packet; the witness led on mae but lost to bounded controls on rank_correlation.
+- EL-464 (2026-03-10): S543 stopped the slot-invariant top-k pair-margin execution branch under the declared two-metric gate.
+- EL-465 (2026-03-10): S544 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_agreement_binary as the next memo-only angle.
+
