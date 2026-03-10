@@ -1,6 +1,6 @@
 # S484 Transition Orbit Slot-Invariant Channel-Order Margin Approval Candidate
 
-Status: active
+Status: completed
 Date: 2026-03-10
 
 ## Outcome

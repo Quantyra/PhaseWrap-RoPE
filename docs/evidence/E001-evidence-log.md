@@ -591,3 +591,5 @@ Use one row per evidence item.
 - EL-403 (2026-03-10): S482 fixed synthetic_transition_orbit_slot_invariant_channel_order_margin_response as the next exact task and made latent slot invariance plus coarse margin-null conditions explicit in the generator contract.
 - EL-404 (2026-03-10): S483 bound the slot-invariant margin line to one fixed future candidate, one bounded symbolic control stack, one fixed three-seed packet, and one hard-stop latent invariance gate.
 - EL-405 (2026-03-10): S484 elevated the slot-invariant channel-order margin line to approval-candidate posture while keeping implementation closed pending a dedicated implementation-approval gate.
+- EL-406 (2026-03-10): S485 approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_slot_invariant_channel_order_margin_response with a fixed symbolic control stack and latent slot-invariance plus coarse margin-null hard-stop diagnostics.
+- EL-407 (2026-03-10): S486 fixed the slot-invariant channel-order margin implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
