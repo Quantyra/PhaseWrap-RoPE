@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T00:10:00Z",
+  "timestamp_utc": "2026-03-11T00:20:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S562"
+    "S565"
   ],
   "active_workers": {},
   "next_actions": [
-    "Specify synthetic_transition_orbit_slot_invariant_topk_pair_order_drift_response exactly.",
-    "Bind bounded symbolic invariant top-k pair-order drift controls into its scaffold.",
-    "Keep it memo-only until a new approval-candidate review is explicit."
+    "Write the implementation-approval gate for synthetic_transition_orbit_slot_invariant_topk_pair_order_drift_response.",
+    "Bind latent slot-invariance and coarse top-k pair-order drift null diagnostics directly into that gate.",
+    "Reopen code only if that gate is explicitly approved."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -24,10 +24,9 @@
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-stability-implementation-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-stability-first-packet-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-stability-decision-memo-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-drift-task-design-v1.md"
+    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-drift-task-spec-v1.md",
+    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-drift-restart-scaffold-v1.md",
+    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-drift-approval-candidate-v1.md"
   ],
-  "notes": "S559-S562 completed. The slot-invariant top-k pair-order stability branch is stopped. The next line is memo-only top-k pair-order drift under the same slot-invariance contract."
+  "notes": "S563-S565 completed. The next line is memo-only slot-invariant top-k pair-order drift. Implementation remains blocked pending a dedicated approval gate."
 }
