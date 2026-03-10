@@ -569,3 +569,6 @@ Use one row per evidence item.
 - EL-381 (2026-03-10): S461 ran the fixed channel-order packet and found that the witness tied the strongest retained control on mean accuracy while leading the full control stack on mean F1, with all generator hard-stop diagnostics passing.
 - EL-382 (2026-03-10): S462 kept the transition-orbit channel-order execution branch active because the witness did not lose the declared classification gate on the fixed first packet.
 - EL-383 (2026-03-10): S463 fixed pair_reindex=1 as the next bounded hardening step because it is the smallest non-inert perturbation that changes concrete within-state pairings without widening the branch.
+- EL-384 (2026-03-10): S464 ran the fixed pair_reindex=1 hardening packet for the active channel-order branch and found that all generator diagnostics passed but the retained-model means matched the base packet exactly.
+- EL-385 (2026-03-10): S465 kept the channel-order branch active but did not count pair_reindex=1 as new robustness evidence because the perturbation was effectively inert at the branch level.
+- EL-386 (2026-03-10): S466 fixed pair_reindex=7 as the next bounded hardening step because it is the smallest deeper non-inert pairing perturbation that does not widen the branch.
