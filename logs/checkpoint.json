@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T17:10:00Z",
+  "timestamp_utc": "2026-03-11T17:20:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S430"
+    "S432"
   ],
   "active_workers": {},
   "next_actions": [
-    "Write the implementation-approval gate for synthetic_transition_orbit_sign_flip_contrast_binary.",
-    "Require generator proof that coarse flip lookup and paired-view collapse are near-null before reopening code.",
-    "Keep the line memo-only until a new implementation gate is explicitly approved."
+    "Implement synthetic_transition_orbit_sign_flip_contrast_binary inside the approved local-only scope.",
+    "Stop immediately if the generator fails coarse flip lookup or paired-context diversity diagnostics.",
+    "Run the fixed three-seed packet and decide the branch from accuracy and F1 only."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -19,18 +19,16 @@
     "Current matrix is fully real-mode but based on small handcrafted local datasets.",
     "Local handcrafted datasets may not reflect production distributions.",
     "The transition-orbit sign-consistency execution branch is stopped after the witness lost mean accuracy to bounded controls and all models collapsed to zero positive-class F1.",
-    "The preserved sign-flip contrast line is memo-only and must not reopen the failed sign-consistency task.",
-    "No implementation is allowed until a dedicated sign-flip contrast approval gate binds the paired-context generator diagnostics formally."
+    "The sign-flip contrast line is newly implementation-approved but still tightly bounded to one local synthetic packet.",
+    "No remote work, task expansion, or control-family expansion is allowed on this line."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-sign-consistency-implementation-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-consistency-first-packet-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-consistency-decision-memo-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-flip-contrast-task-design-v1.md",
     "docs/research/q-rope-transition-orbit-sign-flip-contrast-task-spec-v1.md",
     "docs/research/q-rope-transition-orbit-sign-flip-contrast-restart-scaffold-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-flip-contrast-approval-candidate-v1.md"
+    "docs/research/q-rope-transition-orbit-sign-flip-contrast-approval-candidate-v1.md",
+    "docs/research/q-rope-transition-orbit-sign-flip-contrast-implementation-approval-gate-v1.md",
+    "docs/research/q-rope-transition-orbit-sign-flip-contrast-implementation-plan-v1.md"
   ],
-  "notes": "S428-S430 completed. The transition-orbit sign-flip contrast line is now an approval-candidate memo path only. The next legitimate move is a dedicated implementation gate, not code."
+  "notes": "S431-S432 completed. The transition-orbit sign-flip contrast line is implementation-approved under a strictly bounded local synthetic scope. The next legitimate move is implementation only inside that boundary."
 }

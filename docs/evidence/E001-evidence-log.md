@@ -520,3 +520,7 @@ Use one row per evidence item.
 - EL-351 (2026-03-11): Bound the sign-flip contrast line to one fixed candidate and bounded symbolic flip control stack under a memo-only restart scaffold.
 
 - EL-352 (2026-03-11): Elevated the sign-flip contrast line to approval-candidate posture while keeping implementation closed pending a dedicated approval gate.
+
+- EL-353 (2026-03-11): Approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_sign_flip_contrast_binary with a fixed control stack and hard-stop generator diagnostics.
+
+- EL-354 (2026-03-11): Fixed the sign-flip contrast implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
