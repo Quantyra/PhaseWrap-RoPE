@@ -1,6 +1,6 @@
 # S472 Transition Orbit Slot-Invariant Channel-Order Task Design
 
-Status: active
+Status: completed
 Date: 2026-03-10
 
 ## Outcome

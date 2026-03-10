@@ -579,3 +579,6 @@ Use one row per evidence item.
 - EL-391 (2026-03-10): The valid slot_swap=1 packet was non-inert and changed the branch outcome: the witness lost both primary metrics to the strongest retained control and lost F1 to the other retained control as well.
 - EL-392 (2026-03-10): S471 stopped the transition-orbit channel-order execution branch because the witness failed the declared classification gate under a non-inert structural perturbation.
 - EL-393 (2026-03-10): S472 preserved synthetic_transition_orbit_slot_invariant_channel_order_response as the next memo-only angle because any continuation must remove slot identity as a nuisance variable by construction.
+- EL-394 (2026-03-10): S473 fixed synthetic_transition_orbit_slot_invariant_channel_order_response as the next exact task and made latent slot invariance an explicit generator contract.
+- EL-395 (2026-03-10): S474 bound the slot-invariant channel-order line to one fixed future candidate, one bounded symbolic control stack, one fixed three-seed packet, and one hard-stop latent invariance gate.
+- EL-396 (2026-03-10): S475 elevated the slot-invariant channel-order line to approval-candidate posture while keeping implementation closed pending a dedicated implementation-approval gate.
