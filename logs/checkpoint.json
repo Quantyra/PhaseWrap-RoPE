@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T20:20:00Z",
+    "timestamp_utc": "2026-03-10T20:30:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S529"
+        "S531"
     ],
     "active_workers": {},
     "next_actions": [
-        "Write the implementation-approval gate for synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary.",
-        "Bind the latent slot-invariance and coarse top-k preference-null diagnostics directly into that gate.",
-        "Reopen code only if that gate is explicitly approved."
+        "Implement synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary.",
+        "Stop immediately if the hard-stop diagnostics fail.",
+        "Run the fixed three-seed packet and decide the branch from accuracy and F1 only."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -24,9 +24,8 @@
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-preference-task-spec-v1.md",
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-preference-restart-scaffold-v1.md",
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-preference-approval-candidate-v1.md"
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-preference-implementation-approval-gate-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-preference-implementation-plan-v1.md"
     ],
-    "notes": "S527-S529 completed. The slot-invariant top-k preference line is now approval-candidate and remains memo-only pending a dedicated implementation gate."
+    "notes": "S530-S531 completed. The slot-invariant top-k preference line is implementation-approved within a strict local synthetic boundary."
 }
