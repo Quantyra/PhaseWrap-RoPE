@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T18:05:00Z",
+    "timestamp_utc": "2026-03-10T18:15:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S511"
+        "S513"
     ],
     "active_workers": {},
     "next_actions": [
-        "Write the implementation-approval gate for synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response.",
-        "Bind the latent slot-invariance and coarse top-k margin-null diagnostics directly into that gate.",
-        "Reopen code only if that gate is explicitly approved."
+        "Implement synthetic_transition_orbit_slot_invariant_channel_order_topk_margin_response.",
+        "Stop immediately if the hard-stop diagnostics fail.",
+        "Run the fixed three-seed packet and decide the branch from MAE and rank_correlation only."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -24,10 +24,9 @@
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-consistency-implementation-v1.md",
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-consistency-first-packet-v1.md",
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-consistency-decision-memo-v1.md",
-        "logs/ablation_runs/summary/transition_orbit_channel_order_topk_consistency_invariant_v1.csv"
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-margin-task-spec-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-margin-restart-scaffold-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-margin-approval-candidate-v1.md"
     ],
-    "notes": "S509-S511 completed. The slot-invariant top-k margin line is now fixed as an exact memo-only task with a bounded symbolic control stack, a fixed three-seed packet, and a hard-stop latent slot-invariance contract. Implementation remains closed pending a dedicated approval gate."
+    "notes": "S512-S513 completed. The slot-invariant top-k margin line is implementation-approved within a strict local synthetic boundary. The next step is bounded implementation and a fixed three-seed packet under MAE and rank_correlation."
 }
