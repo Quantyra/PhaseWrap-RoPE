@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T11:30:00Z",
+  "timestamp_utc": "2026-03-11T11:45:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S388"
+    "S391"
   ],
   "active_workers": {},
   "next_actions": [
-    "Implement the bounded deeper pair-reindex packet on synthetic_transition_orbit_listwise_ranking.",
-    "Keep the witness and strongest symbolic baselines fixed on the same listwise task.",
-    "Stop the branch if the witness loses the primary listwise metric under pair_reindex = 7."
+    "Keep the transition-orbit line memo-only after the stopped listwise branch.",
+    "Design synthetic_transition_orbit_order_margin_response before any new approval discussion.",
+    "Do not reopen execution on synthetic_transition_orbit_listwise_ranking."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -28,16 +28,15 @@
     "Direct Quandela execution depends on maintaining sufficient provider credits.",
     "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
     "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
-    "The listwise ranking line survived the first packet only weakly: it tied the strongest controls on top-1 accuracy rather than leading outright.",
-    "The token-renaming hardening packet was inert under orbit-canonical rendering and does not count as new robustness evidence.",
-    "The next bounded step is deeper pair perturbation, not branch expansion."
+    "The transition-orbit listwise branch is stopped after losing top-1 accuracy under deeper pair-reindex hardening.",
+    "Only the order-signal residue is preserved, and that residue must not be overclaimed as a surviving execution result."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-listwise-pair-reindex-hardening-v1.md",
-    "docs/research/q-rope-transition-orbit-listwise-post-pair-reindex-decision-v1.md",
-    "docs/research/q-rope-transition-orbit-listwise-deeper-pair-reindex-hardening-plan-v1.md",
-    "logs/ablation_runs/summary/chart_transition_listwise_pair_reindex_v1.csv"
+    "docs/research/q-rope-transition-orbit-listwise-deeper-pair-reindex-hardening-v1.md",
+    "docs/research/q-rope-transition-orbit-listwise-deeper-pair-reindex-decision-memo-v1.md",
+    "docs/research/q-rope-transition-orbit-order-margin-task-design-v1.md",
+    "logs/ablation_runs/summary/chart_transition_listwise_pair_reindex7_v1.csv"
   ],
-  "notes": "S386-S388 completed. The first non-inert pair-reindex hardening packet strengthened the transition-orbit listwise branch: the witness stayed ahead of the retained symbolic controls on both top-1 accuracy and order-F1. The next bounded step is pair_reindex = 7 hardening on the same task."
+  "notes": "S389-S391 completed. The transition-orbit listwise execution branch is stopped after pair_reindex = 7 because the witness lost top-1 accuracy to both retained symbolic controls. The line returns to memo-only posture with one preserved order-margin task angle."
 }
