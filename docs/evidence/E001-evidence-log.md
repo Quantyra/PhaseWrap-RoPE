@@ -565,3 +565,7 @@ Use one row per evidence item.
 - EL-377 (2026-03-10): S457 elevated the channel-order line to approval-candidate posture while keeping implementation closed pending a dedicated implementation-approval gate.
 - EL-378 (2026-03-10): S458 approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_channel_order_response with a fixed control stack and hard-stop generator diagnostics.
 - EL-379 (2026-03-10): S459 fixed the channel-order implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
+- EL-380 (2026-03-10): S460 implemented the bounded synthetic_transition_orbit_channel_order_response branch, added the fixed symbolic channel-order control stack, and validated the local path with 192 focused tests passing.
+- EL-381 (2026-03-10): S461 ran the fixed channel-order packet and found that the witness tied the strongest retained control on mean accuracy while leading the full control stack on mean F1, with all generator hard-stop diagnostics passing.
+- EL-382 (2026-03-10): S462 kept the transition-orbit channel-order execution branch active because the witness did not lose the declared classification gate on the fixed first packet.
+- EL-383 (2026-03-10): S463 fixed pair_reindex=1 as the next bounded hardening step because it is the smallest non-inert perturbation that changes concrete within-state pairings without widening the branch.

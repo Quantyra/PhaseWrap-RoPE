@@ -1,0 +1,39 @@
+{
+  "dataset": "synthetic_transition_orbit_channel_order_response",
+  "seed": 123,
+  "split_rotation": 0,
+  "slot_swap": 0,
+  "token_permutation": "identity",
+  "pair_reindex": 0,
+  "splits": {
+    "train": {
+      "size": 10
+    },
+    "validation": {
+      "size": 5
+    },
+    "test": {
+      "size": 5
+    }
+  },
+  "coarse_channel_order_lookup_near_null_pass": true,
+  "within_state_channel_order_variation_pass": true,
+  "paired_channel_diversity_pass": true,
+  "channel_order_balance_pass": true,
+  "token_view_balance_pass": true,
+  "state_channel_order_means": {
+    "1->0": 0.5,
+    "1->2": 0.5,
+    "2->1": 0.5,
+    "2->3": 0.5,
+    "3->3": 0.5
+  },
+  "global_channel_order_mean": 0.5,
+  "per_state_triplet_counts": {
+    "1->0": 4,
+    "1->2": 4,
+    "2->1": 4,
+    "2->3": 4,
+    "3->3": 4
+  }
+}

@@ -640,6 +640,43 @@ def test_transition_orbit_channel_advantage_lookup_control_runs() -> None:
     assert diagnostics["channel_advantage_target_mode"] == "signed_left_minus_right_effect"
 
 
+def test_transition_orbit_channel_order_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_channel_order_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_transition_orbit_channel_order",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_transition_orbit_channel_order_response+readout_relational_witness_transition_orbit_channel_order+head_linear"
+    )
+    assert diagnostics["coarse_channel_order_lookup_near_null_pass"] is True
+    assert diagnostics["within_state_channel_order_variation_pass"] is True
+    assert diagnostics["paired_channel_diversity_pass"] is True
+    assert diagnostics["channel_order_balance_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert metrics["run_diagnostics"]["channel_order_target_mode"] == "binary_left_vs_right_order"
+    assert 0.0 <= metrics["accuracy"] <= 1.0
+    assert 0.0 <= metrics["f1"] <= 1.0
+
+
+def test_transition_orbit_channel_order_lookup_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_channel_order_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_channel_order_lookup",
+    )
+    assert metrics["data_mode"].startswith(
+        "synthetic_transition_orbit_channel_order_response+readout_symbolic_transition_channel_order_lookup+head_linear"
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["channel_order_target_mode"] == "binary_left_vs_right_order"
+    assert 0.0 <= metrics["accuracy"] <= 1.0
+    assert 0.0 <= metrics["f1"] <= 1.0
+
+
 def test_synthetic_offset_binary_quantum_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_offset_binary",

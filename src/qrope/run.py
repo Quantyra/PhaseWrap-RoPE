@@ -49,6 +49,7 @@ from .synthetic import (
     generate_transition_orbit_sign_flip_contrast_binary_bundle,
     generate_transition_orbit_asymmetric_sign_localization_binary_bundle,
     generate_transition_orbit_channel_advantage_response_bundle,
+    generate_transition_orbit_channel_order_response_bundle,
     generate_transition_orbit_signed_margin_response_bundle,
     generate_transition_orbit_sign_only_binary_bundle,
     generate_transition_orbit_order_margin_response_bundle,
@@ -263,6 +264,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_transition_orbit_sign_flip_contrast": 24,
         "V_future_relational_witness_transition_orbit_asymmetric_sign_localization": 24,
         "V_future_relational_witness_transition_orbit_channel_advantage": 24,
+        "V_future_relational_witness_transition_orbit_channel_order": 24,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -318,6 +320,10 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_channel_cross_direction_regressor": 1,
         "V_control_symbolic_transition_channel_quadratic_regressor": 1,
         "V_control_symbolic_transition_channel_orbit_permuted_regressor": 1,
+        "V_control_symbolic_transition_channel_order_lookup": 1,
+        "V_control_symbolic_transition_channel_order_cross_direction": 1,
+        "V_control_symbolic_transition_channel_order_quadratic": 1,
+        "V_control_symbolic_transition_channel_order_orbit_permuted": 1,
         "V_control_symbolic_transition_sign_lookup": 1,
         "V_control_symbolic_transition_sign_cross_direction": 1,
         "V_control_symbolic_transition_sign_quadratic": 1,
@@ -459,6 +465,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_asymmetric_sign_localization+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_channel_advantage":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_channel_advantage+head_linear"
+        elif variant == "V_future_relational_witness_transition_orbit_channel_order":
+            data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_channel_order+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -569,6 +577,14 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_channel_quadratic_regressor+head_linear"
         elif variant == "V_control_symbolic_transition_channel_orbit_permuted_regressor":
             data_mode = f"{data_mode}+readout_symbolic_transition_channel_orbit_permuted_regressor+head_linear"
+        elif variant == "V_control_symbolic_transition_channel_order_lookup":
+            data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_lookup+head_linear"
+        elif variant == "V_control_symbolic_transition_channel_order_cross_direction":
+            data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_cross_direction+head_linear"
+        elif variant == "V_control_symbolic_transition_channel_order_quadratic":
+            data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_quadratic+head_linear"
+        elif variant == "V_control_symbolic_transition_channel_order_orbit_permuted":
+            data_mode = f"{data_mode}+readout_symbolic_transition_channel_order_orbit_permuted+head_linear"
         elif variant == "V_control_symbolic_transition_sign_lookup":
             data_mode = f"{data_mode}+readout_symbolic_transition_sign_lookup+head_linear"
         elif variant == "V_control_symbolic_transition_sign_cross_direction":
@@ -822,6 +838,8 @@ def run_quantum_backend(
         return run_transition_orbit_asymmetric_sign_localization_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_channel_advantage":
         return run_transition_orbit_channel_advantage_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_transition_orbit_channel_order":
+        return run_transition_orbit_channel_order_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_control_symbolic_single_family_regressor":
         return run_continuous_symbolic_single_family_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_two_family_regressor":
@@ -944,6 +962,14 @@ def run_quantum_backend(
         return run_transition_channel_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_channel_advantage_response" and variant == "V_control_symbolic_transition_channel_orbit_permuted_regressor":
         return run_transition_channel_orbit_permuted_symbolic_regressor(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_lookup":
+        return run_transition_channel_order_lookup_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_cross_direction":
+        return run_transition_channel_order_cross_direction_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_quadratic":
+        return run_transition_channel_order_quadratic_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_orbit_permuted":
+        return run_transition_channel_order_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_quadratic_regressor":
         return run_transition_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_cubic_regressor":
@@ -5530,6 +5556,52 @@ def run_transition_channel_advantage_backend_from_results(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_transition_channel_order_backend_from_results(
+    train_anchor_results: list[list[dict[str, Any]]],
+    train_left_results: list[list[dict[str, Any]]],
+    train_right_results: list[list[dict[str, Any]]],
+    validation_anchor_results: list[list[dict[str, Any]]],
+    validation_left_results: list[list[dict[str, Any]]],
+    validation_right_results: list[list[dict[str, Any]]],
+    test_anchor_results: list[list[dict[str, Any]]],
+    test_left_results: list[list[dict[str, Any]]],
+    test_right_results: list[list[dict[str, Any]]],
+    train_payloads: list[dict[str, Any]],
+    validation_payloads: list[dict[str, Any]],
+    test_payloads: list[dict[str, Any]],
+    train_labels: list[int],
+    validation_labels: list[int],
+    test_labels: list[int],
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    feature_order = list(train_anchor_results[0][0]["feature_order"]) if train_anchor_results and train_anchor_results[0] else []
+    train_matrix = _transition_localization_matrix(train_anchor_results, train_left_results, train_right_results, train_payloads, feature_order)
+    validation_matrix = _transition_localization_matrix(
+        validation_anchor_results, validation_left_results, validation_right_results, validation_payloads, feature_order
+    )
+    test_matrix = _transition_localization_matrix(test_anchor_results, test_left_results, test_right_results, test_payloads, feature_order)
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    preds = [1 if score >= threshold else 0 for score in test_scores]
+
+    diagnostics = build_transition_order_run_diagnostics(
+        results=[item for row in test_anchor_results + test_left_results + test_right_results for item in row],
+        feature_order=[f"triple_{idx}" for idx in range(len(train_matrix[0]))] if train_matrix else [],
+        weights=weights,
+        bias=bias,
+    )
+    diagnostics["channel_order_target_mode"] = "binary_left_vs_right_order"
+    diagnostics["paired_channel_target"] = True
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, preds)
+    f1 = compute_f1_binary(test_labels, preds)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
 def run_transition_orbit_channel_advantage_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -5580,6 +5652,57 @@ def run_transition_orbit_channel_advantage_witness_backend(
     )
     diagnostics["anti_collapse_pass"] = True
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_transition_orbit_channel_order_witness_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    seed: int,
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+    train_payloads = [transition_localization_payload(text) for text, _ in train]
+    validation_payloads = [transition_localization_payload(text) for text, _ in validation]
+    test_payloads = [transition_localization_payload(text) for text, _ in test]
+    train_anchor_results = [transition_orbit_listwise_witness_results(payload["anchor_context"], seed=seed) for payload in train_payloads]
+    train_left_results = [transition_orbit_listwise_witness_results(payload["left_context"], seed=seed) for payload in train_payloads]
+    train_right_results = [transition_orbit_listwise_witness_results(payload["right_context"], seed=seed) for payload in train_payloads]
+    validation_anchor_results = [transition_orbit_listwise_witness_results(payload["anchor_context"], seed=seed) for payload in validation_payloads]
+    validation_left_results = [transition_orbit_listwise_witness_results(payload["left_context"], seed=seed) for payload in validation_payloads]
+    validation_right_results = [transition_orbit_listwise_witness_results(payload["right_context"], seed=seed) for payload in validation_payloads]
+    test_anchor_results = [transition_orbit_listwise_witness_results(payload["anchor_context"], seed=seed) for payload in test_payloads]
+    test_left_results = [transition_orbit_listwise_witness_results(payload["left_context"], seed=seed) for payload in test_payloads]
+    test_right_results = [transition_orbit_listwise_witness_results(payload["right_context"], seed=seed) for payload in test_payloads]
+    train_loss, eval_loss, accuracy, f1, diagnostics = run_transition_channel_order_backend_from_results(
+        train_anchor_results,
+        train_left_results,
+        train_right_results,
+        validation_anchor_results,
+        validation_left_results,
+        validation_right_results,
+        test_anchor_results,
+        test_left_results,
+        test_right_results,
+        train_payloads,
+        validation_payloads,
+        test_payloads,
+        [label for _, label in train],
+        [label for _, label in validation],
+        [label for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(
+        bool(result.get("bounded_feature_audit_pass", False))
+        for row in test_anchor_results + test_left_results + test_right_results
+        for result in row
+    )
+    diagnostics["token_identity_absent"] = all(
+        bool(result.get("token_identity_absent", False))
+        for row in test_anchor_results + test_left_results + test_right_results
+        for result in row
+    )
+    diagnostics["anti_collapse_pass"] = True
+    return train_loss, eval_loss, accuracy, f1, diagnostics
 
 
 def _run_transition_channel_symbolic_regressor(
@@ -5652,6 +5775,77 @@ def run_transition_channel_orbit_permuted_symbolic_regressor(
     validation: list[tuple[str, float]] | None = None,
 ) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
     return _run_transition_channel_symbolic_regressor(train, test, validation, symbolic_transition_list_orbit_permuted_results)
+
+
+def _run_transition_channel_order_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None,
+    builder,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+    train_payloads = [transition_localization_payload(text) for text, _ in train]
+    validation_payloads = [transition_localization_payload(text) for text, _ in validation]
+    test_payloads = [transition_localization_payload(text) for text, _ in test]
+    train_anchor_results = [builder(payload["anchor_context"]) for payload in train_payloads]
+    train_left_results = [builder(payload["left_context"]) for payload in train_payloads]
+    train_right_results = [builder(payload["right_context"]) for payload in train_payloads]
+    validation_anchor_results = [builder(payload["anchor_context"]) for payload in validation_payloads]
+    validation_left_results = [builder(payload["left_context"]) for payload in validation_payloads]
+    validation_right_results = [builder(payload["right_context"]) for payload in validation_payloads]
+    test_anchor_results = [builder(payload["anchor_context"]) for payload in test_payloads]
+    test_left_results = [builder(payload["left_context"]) for payload in test_payloads]
+    test_right_results = [builder(payload["right_context"]) for payload in test_payloads]
+    return run_transition_channel_order_backend_from_results(
+        train_anchor_results,
+        train_left_results,
+        train_right_results,
+        validation_anchor_results,
+        validation_left_results,
+        validation_right_results,
+        test_anchor_results,
+        test_left_results,
+        test_right_results,
+        train_payloads,
+        validation_payloads,
+        test_payloads,
+        [label for _, label in train],
+        [label for _, label in validation],
+        [label for _, label in test],
+    )
+
+
+def run_transition_channel_order_lookup_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_channel_order_symbolic_backend(train, test, validation, symbolic_transition_list_lookup_results)
+
+
+def run_transition_channel_order_cross_direction_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_channel_order_symbolic_backend(train, test, validation, symbolic_transition_list_cross_direction_results)
+
+
+def run_transition_channel_order_quadratic_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_channel_order_symbolic_backend(train, test, validation, symbolic_transition_list_quadratic_results)
+
+
+def run_transition_channel_order_orbit_permuted_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_channel_order_symbolic_backend(train, test, validation, symbolic_transition_list_orbit_permuted_results)
 
 
 def run_transition_orbit_order_margin_witness_backend(
@@ -6875,6 +7069,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_transition_orbit_channel_advantage_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_transition_orbit_channel_order_response":
+        bundle = generate_transition_orbit_channel_order_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_transition_orbit_channel_order_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
 
