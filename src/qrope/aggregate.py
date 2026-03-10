@@ -24,7 +24,7 @@ def main() -> None:
         with metrics_file.open("r", encoding="utf-8") as f:
             rows.append(json.load(f))
 
-    fieldnames = [
+    preferred_order = [
         "run_id",
         "variant",
         "dataset",
@@ -32,6 +32,9 @@ def main() -> None:
         "backend",
         "accuracy",
         "f1",
+        "mae",
+        "rank_correlation",
+        "calibration_slope",
         "train_loss_final",
         "eval_loss",
         "qubit_count",
@@ -45,6 +48,11 @@ def main() -> None:
         "run_mode",
         "data_mode",
     ]
+    seen_fields: set[str] = set()
+    for row in rows:
+        seen_fields.update(row.keys())
+    fieldnames = [name for name in preferred_order if name in seen_fields]
+    fieldnames.extend(sorted(seen_fields - set(fieldnames)))
     with output_path.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()

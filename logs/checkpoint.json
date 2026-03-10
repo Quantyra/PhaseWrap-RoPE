@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T12:15:00Z",
+  "timestamp_utc": "2026-03-11T13:25:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S396"
+    "S400"
   ],
   "active_workers": {},
   "next_actions": [
-    "Implement the bounded synthetic_transition_orbit_order_margin_response branch.",
-    "Stop immediately if the generator fails the margin-specific hard-stop diagnostics.",
-    "Run the fixed three-seed packet and decide the branch from MAE and rank correlation only."
+    "Specify synthetic_transition_orbit_signed_margin_response exactly.",
+    "Bind bounded symbolic signed-margin controls into the restart scaffold.",
+    "Keep the line memo-only until a new approval-candidate review is explicit."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -18,14 +18,17 @@
     "Cloud provider API/platform changes may require periodic strategy updates.",
     "Current matrix is fully real-mode but based on small handcrafted local datasets.",
     "Local handcrafted datasets may not reflect production distributions.",
-    "The transition-orbit listwise execution branch is stopped after losing top-1 accuracy under deeper pair-reindex hardening.",
-    "The preserved order-margin line is now implementation-approved, but only for one bounded local synthetic packet and only if margin-specific generator diagnostics pass.",
-    "This line must not reopen the stopped listwise task or widen the symbolic control family."
+    "The transition-orbit order-margin execution branch is stopped after failing the rank-correlation part of its declared two-metric gate.",
+    "The preserved signed-margin line is memo-only and must not reopen the failed order-margin task.",
+    "No implementation is allowed again until a signed-margin task spec and bounded symbolic control stack are explicit."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-order-margin-implementation-approval-gate-v1.md",
-    "docs/research/q-rope-transition-orbit-order-margin-implementation-plan-v1.md"
+    "docs/research/q-rope-transition-orbit-order-margin-implementation-v1.md",
+    "docs/research/q-rope-transition-orbit-order-margin-first-packet-v1.md",
+    "docs/research/q-rope-transition-orbit-order-margin-decision-memo-v1.md",
+    "docs/research/q-rope-transition-orbit-signed-margin-task-design-v1.md",
+    "logs/ablation_runs/summary/transition_orbit_order_margin_v1.csv"
   ],
-  "notes": "S395-S396 completed. The transition-orbit order-margin line is implementation-approved in one strictly bounded local-only phase with fixed controls and explicit generator stop conditions."
+  "notes": "S397-S400 completed. The transition-orbit order-margin execution branch is stopped. The only preserved next line is the memo-only signed-margin task direction."
 }

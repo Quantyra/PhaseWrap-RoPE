@@ -758,12 +758,19 @@ def render_transition_listwise_text(
     candidates: list[DualSyntheticSample],
     rendered_order: list[int],
     true_order: list[int],
+    true_scores: list[float] | None = None,
 ) -> str:
+    if true_scores is None:
+        denom = max(1, len(true_order) - 1)
+        score_by_candidate = {candidate_idx: round(true_order.index(candidate_idx) / denom, 6) for candidate_idx in true_order}
+    else:
+        score_by_candidate = {candidate_idx: round(float(score), 6) for candidate_idx, score in enumerate(true_scores)}
     payload = {
         "candidates": [render_dual_sample_text(candidates[idx].sample_a, candidates[idx].sample_b) for idx in rendered_order],
         "rendered_order": rendered_order,
         "true_order": true_order,
         "top1_slot": rendered_order.index(true_order[-1]),
+        "true_scores": [score_by_candidate[idx] for idx in rendered_order],
     }
     return json.dumps(payload, separators=(",", ":"))
 
@@ -910,6 +917,168 @@ def generate_transition_orbit_listwise_ranking_bundle(
         "coarse_state_train_top1_means": dict(sorted(train_state_means.items())),
         "per_state_list_counts": dict(sorted(list_counts.items())),
         "rank_position_counts": dict(sorted(rank_position_counts.items())),
+    }
+    return SyntheticDatasetBundle(
+        train=sorted(train),
+        validation=sorted(validation),
+        test=sorted(test),
+        diagnostics=diagnostics,
+    )
+
+
+def generate_transition_orbit_order_margin_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "orbit_canonical",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_transition_orbit_order_margin_response:{seed}")
+    single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
+
+    for left_token in TOKENS:
+        for right_token in TOKENS:
+            for magnitude in OFFSETS:
+                for base_left in range(SEQUENCE_LENGTH - magnitude):
+                    pos_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left,
+                            right_pos=base_left + magnitude,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    neg_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left + magnitude,
+                            right_pos=base_left,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    single_grouped[offset_sector_name(pos_sample.offset)].append(pos_sample)
+                    single_grouped[offset_sector_name(neg_sample.offset)].append(neg_sample)
+
+    coarse_candidates: dict[tuple[int, int], list[DualSyntheticSample]] = defaultdict(list)
+    sectors = ("P_small", "P_large", "N_small", "N_large")
+    lists_per_state = 4
+    items_per_list = 4
+    required = lists_per_state * items_per_list
+
+    for sector_a in sectors:
+        for sector_b in sectors:
+            bucket_a = list(single_grouped[sector_a])
+            bucket_b = list(single_grouped[sector_b])
+            rng.shuffle(bucket_a)
+            rng.shuffle(bucket_b)
+            pair_count = min(len(bucket_a), len(bucket_b))
+            for idx in range(pair_count):
+                sample_a = bucket_a[idx]
+                sample_b = bucket_b[(idx + pair_reindex) % pair_count]
+                if slot_swap:
+                    sample_a, sample_b = sample_b, sample_a
+                dual = build_dual_sample(sample_a=sample_a, sample_b=sample_b, label_mode="chart_transition_orbit_response")
+                payload = parse_dual_sample_text(dual.text)
+                coarse_candidates[chart_transition_pair(payload)].append(dual)
+
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_margin_means: dict[str, list[float]] = defaultdict(list)
+    state_top1_slots: dict[str, list[int]] = defaultdict(list)
+    list_counts: dict[str, int] = {}
+    token_support = set()
+
+    render_permutations = [
+        [3, 0, 1, 2],
+        [0, 1, 2, 3],
+        [1, 3, 0, 2],
+        [2, 0, 3, 1],
+    ]
+
+    for key in sorted(coarse_candidates):
+        bucket = sorted(coarse_candidates[key], key=lambda row: orbit_transition_band_delta(row.sample_a, row.sample_b))
+        if len(bucket) < required:
+            continue
+        step = max(1, len(bucket) // required)
+        chosen = [bucket[min(i * step, len(bucket) - 1)] for i in range(required)]
+        state_key = f"{key[0]}->{key[1]}"
+        raw_margins: list[float] = []
+        subsets: list[list[DualSyntheticSample]] = []
+        for list_idx in range(lists_per_state):
+            subset = chosen[list_idx * items_per_list : (list_idx + 1) * items_per_list]
+            if len(subset) < items_per_list:
+                continue
+            subsets.append(subset)
+            latent = [orbit_transition_band_delta(item.sample_a, item.sample_b) for item in subset]
+            raw_margins.append(latent[-1] - latent[-2])
+        if len(subsets) != lists_per_state:
+            continue
+        sorted_margin_indices = sorted(range(len(raw_margins)), key=lambda idx: (raw_margins[idx], idx))
+        centered_template = [-0.06, -0.02, 0.02, 0.06]
+        adjusted_margins = [0.15] * len(raw_margins)
+        for rank, idx in enumerate(sorted_margin_indices):
+            adjusted_margins[idx] = round(0.15 + centered_template[rank], 6)
+
+        rows_for_state: list[tuple[str, float, int]] = []
+        for list_idx, subset in enumerate(subsets):
+            margin = adjusted_margins[list_idx]
+            true_scores = [0.0, 0.2, round(0.6 - margin / 2.0, 6), round(0.6 + margin / 2.0, 6)]
+            rendered_order = render_permutations[list_idx]
+            text = render_transition_listwise_text(
+                subset,
+                rendered_order=rendered_order,
+                true_order=[0, 1, 2, 3],
+                true_scores=true_scores,
+            )
+            payload = parse_transition_listwise_text(text)
+            top1_slot = int(payload["top1_slot"])
+            rows_for_state.append((text, margin, top1_slot))
+            state_margin_means[state_key].append(margin)
+            state_top1_slots[state_key].append(top1_slot)
+            for candidate in payload["parsed_candidates"]:
+                token_support.update(
+                    {
+                        candidate["sample_a"].left_token,
+                        candidate["sample_a"].right_token,
+                        candidate["sample_b"].left_token,
+                        candidate["sample_b"].right_token,
+                    }
+                )
+
+        list_counts[state_key] = len(rows_for_state)
+        train.extend((text, margin) for text, margin, _ in rows_for_state[:2])
+        validation.append((rows_for_state[2][0], rows_for_state[2][1]))
+        test.append((rows_for_state[3][0], rows_for_state[3][1]))
+
+    state_mean_map = {state: round(sum(values) / len(values), 6) for state, values in state_margin_means.items() if values}
+    global_mean = round(sum(state_mean_map.values()) / len(state_mean_map), 6) if state_mean_map else 0.0
+    coarse_margin_lookup_near_null_pass = all(abs(value - global_mean) <= 1e-6 for value in state_mean_map.values())
+    within_state_margin_variation_pass = all(
+        (max(values) - min(values)) > 0.0 for values in state_margin_means.values() if values
+    )
+    top1_only_shortcut_absent = all(len(set(values)) > 1 for values in state_top1_slots.values() if values)
+    diagnostics = {
+        "dataset": "synthetic_transition_orbit_order_margin_response",
+        "seed": seed,
+        "split_rotation": split_rotation,
+        "slot_swap": slot_swap,
+        "token_permutation": token_permutation,
+        "pair_reindex": pair_reindex,
+        "splits": {
+            "train": {"size": len(train)},
+            "validation": {"size": len(validation)},
+            "test": {"size": len(test)},
+        },
+        "coarse_margin_lookup_near_null_pass": coarse_margin_lookup_near_null_pass,
+        "within_state_margin_variation_pass": within_state_margin_variation_pass,
+        "top1_only_shortcut_absent": top1_only_shortcut_absent,
+        "token_view_balance_pass": token_support == {"A", "B"},
+        "state_margin_means": dict(sorted(state_mean_map.items())),
+        "global_margin_mean": global_mean,
+        "per_state_list_counts": dict(sorted(list_counts.items())),
     }
     return SyntheticDatasetBundle(
         train=sorted(train),
