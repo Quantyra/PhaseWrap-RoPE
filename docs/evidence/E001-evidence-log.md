@@ -584,3 +584,7 @@ Use one row per evidence item.
 - EL-396 (2026-03-10): S475 elevated the slot-invariant channel-order line to approval-candidate posture while keeping implementation closed pending a dedicated implementation-approval gate.
 - EL-397 (2026-03-10): S476 approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_slot_invariant_channel_order_response with a fixed symbolic control stack and latent slot-invariance hard-stop diagnostics.
 - EL-398 (2026-03-10): S477 fixed the slot-invariant channel-order implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
+- EL-399 (2026-03-10): S478 implemented the bounded synthetic_transition_orbit_slot_invariant_channel_order_response branch and validated the local synthetic path with 195 focused tests passing.
+- EL-400 (2026-03-10): S479 ran the fixed slot-invariant channel-order packet and found that the witness led on mean accuracy while all latent slot-invariance hard-stop diagnostics passed on all three seeds.
+- EL-401 (2026-03-10): S480 stopped the slot-invariant channel-order execution branch because the witness did not lead the packet on both declared primary metrics: the bounded quadratic control led on F1.
+- EL-402 (2026-03-10): S481 preserved synthetic_transition_orbit_slot_invariant_channel_order_margin_response as the next memo-only angle because the remaining unresolved question is separation strength under slot-invariant ordering, not the same binary decision target.
