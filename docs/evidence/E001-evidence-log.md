@@ -720,3 +720,6 @@ Use one row per evidence item.
 - EL-502 (2026-03-11): S581 fixed synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_consistency_binary as the next exact memo-only task.
 - EL-503 (2026-03-11): S582 bound the signed-consistency line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
 - EL-504 (2026-03-11): S583 elevated the slot-invariant top-k pair-order signed-consistency line to approval-candidate posture while keeping it memo-only.
+
+- EL-505 (2026-03-11): S584 approved one strictly bounded local synthetic implementation phase for the slot-invariant top-k pair-order signed-consistency line.
+- EL-506 (2026-03-11): S585 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the signed-consistency packet.
