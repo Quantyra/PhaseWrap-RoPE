@@ -582,3 +582,5 @@ Use one row per evidence item.
 - EL-394 (2026-03-10): S473 fixed synthetic_transition_orbit_slot_invariant_channel_order_response as the next exact task and made latent slot invariance an explicit generator contract.
 - EL-395 (2026-03-10): S474 bound the slot-invariant channel-order line to one fixed future candidate, one bounded symbolic control stack, one fixed three-seed packet, and one hard-stop latent invariance gate.
 - EL-396 (2026-03-10): S475 elevated the slot-invariant channel-order line to approval-candidate posture while keeping implementation closed pending a dedicated implementation-approval gate.
+- EL-397 (2026-03-10): S476 approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_slot_invariant_channel_order_response with a fixed symbolic control stack and latent slot-invariance hard-stop diagnostics.
+- EL-398 (2026-03-10): S477 fixed the slot-invariant channel-order implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
