@@ -666,3 +666,9 @@ Use one row per evidence item.
 - EL-469 (2026-03-10): S548 approved one strictly bounded implementation phase for the slot-invariant top-k pair-order agreement line.
 - EL-470 (2026-03-10): S549 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the top-k pair-order agreement packet.
 
+
+- EL-471 (2026-03-10): S550 implemented the bounded slot-invariant top-k pair-order agreement branch and validated it with 219 focused tests passing.
+- EL-472 (2026-03-10): S551 ran the fixed three-seed packet; the witness lost both declared primary metrics to multiple bounded controls.
+- EL-473 (2026-03-10): S552 stopped the slot-invariant top-k pair-order agreement execution branch under the declared gate.
+- EL-474 (2026-03-10): S553 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_stability_binary as the next memo-only angle.
+
