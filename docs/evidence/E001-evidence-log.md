@@ -563,3 +563,5 @@ Use one row per evidence item.
 - EL-375 (2026-03-10): S455 fixed synthetic_transition_orbit_channel_order_response as the next exact memo-only task, making relative channel ordering primary and removing raw channel-effect magnitude from the supervised target.
 - EL-376 (2026-03-10): S456 bound the channel-order line to one fixed future candidate, one bounded symbolic control stack, one fixed three-seed packet, and one explicit generator hard-stop contract.
 - EL-377 (2026-03-10): S457 elevated the channel-order line to approval-candidate posture while keeping implementation closed pending a dedicated implementation-approval gate.
+- EL-378 (2026-03-10): S458 approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_channel_order_response with a fixed control stack and hard-stop generator diagnostics.
+- EL-379 (2026-03-10): S459 fixed the channel-order implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
