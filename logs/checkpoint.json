@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-11T08:20:00Z",
+    "timestamp_utc":  "2026-03-11T08:35:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S373"
+                              "S376"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Design a listwise transition-orbit ranking task that makes full within-state ordering the primary target.",
-                         "Bind bounded symbolic ranking baselines directly into the restart scaffold before any approval discussion.",
-                         "Keep the line memo-only until the listwise ranking branch is explicit enough for an approval-candidate review."
+                         "Write the implementation-approval gate for synthetic_transition_orbit_listwise_ranking.",
+                         "Bind the bounded symbolic ranking controls directly into that approval gate.",
+                         "Keep the line memo-only until the listwise gate is explicitly approved."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -42,21 +42,17 @@
                             "The pairwise-order line is now implementation-approved, but only for one bounded local packet and only if the generator proves within-state order variation and near-null coarse lookup.",
                             "This line must not inherit the stopped rank-band MAE gate; its primary metrics are classification accuracy and F1.",
                             "The pairwise-order branch is stopped after failing both primary classification metrics against bounded symbolic controls.",
-                            "Any continuation on this line now requires a materially different listwise ranking task rather than another pairwise binary restatement."
+                            "Any continuation on this line now requires a materially different listwise ranking task rather than another pairwise binary restatement.",
+                            "The listwise ranking line is still memo-only and must not reopen code until bounded symbolic ranking controls are formally bound into an approval gate.",
+                            "The listwise task must still prove that coarse-state list lookup is near-null and that ranking variation occurs entirely within the same coarse transition state."
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "src/qrope/synthetic.py",
-                           "src/qrope/run.py",
-                           "tests/test_synthetic.py",
-                           "tests/test_run_real_mode.py",
-                           "docs/research/q-rope-transition-orbit-pairwise-order-implementation-v1.md",
-                           "docs/research/q-rope-transition-orbit-pairwise-order-first-packet-v1.md",
-                           "docs/research/q-rope-transition-orbit-pairwise-order-decision-memo-v1.md",
-                           "docs/research/q-rope-transition-orbit-listwise-ranking-task-design-v1.md",
-                           "logs/ablation_runs/summary/transition_orbit_pairwise_order_v1.csv",
+                           "docs/research/q-rope-transition-orbit-listwise-ranking-task-spec-v1.md",
+                           "docs/research/q-rope-transition-orbit-listwise-ranking-restart-scaffold-v1.md",
+                           "docs/research/q-rope-transition-orbit-listwise-ranking-approval-candidate-v1.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S370-S373 completed. The bounded pairwise-order transition-orbit branch executed cleanly but failed the approved classification gate. The line returns to memo-only posture with one preserved listwise ranking direction."
+    "notes":  "S374-S376 completed. The stopped pairwise-order branch now continues only as a memo-level listwise ranking line, with one exact task, one restart scaffold, and approval-candidate posture but no implementation authorization."
 }
