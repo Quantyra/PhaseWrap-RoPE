@@ -1,35 +1,33 @@
 {
-    "timestamp_utc":  "2026-03-10T16:15:00Z",
-    "current_epic_id":  "E001",
-    "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
-    "current_epic_status":  "Paused",
-    "current_story_ids":  [
-                              "S490"
-                          ],
-    "active_workers":  {
-
-                       },
-    "next_actions":  [
-                         "Specify synthetic_transition_orbit_slot_invariant_channel_order_rank_only exactly.",
-                         "Bind bounded symbolic invariant ranking controls into its restart scaffold.",
-                         "Keep the line memo-only until a new approval-candidate review is explicit."
-                     ],
-    "risks_or_blocks":  [
-                            "Novelty remains conditional until empirical ablation results are collected.",
-                            "Benchmark breadth risk remains if phase-1 includes only text classification.",
-                            "Cloud provider API/platform changes may require periodic strategy updates.",
-                            "Current matrix is fully real-mode but based on small handcrafted local datasets.",
-                            "Local handcrafted datasets may not reflect production distributions.",
-                            "The slot-invariant channel-order margin branch stopped after mixed leadership across MAE and rank correlation.",
-                            "Any continuation must keep slot identity a nuisance variable by construction and avoid reopening the same margin target without a different objective family.",
-                            "No remote work, task expansion, or control-family expansion is allowed on this line."
-                        ],
-    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
-    "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-margin-implementation-v1.md",
-                           "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-margin-first-packet-v1.md",
-                           "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-margin-decision-memo-v1.md",
-                           "logs/ablation_runs/summary/transition_orbit_channel_order_margin_invariant_v1.csv"
-                       ],
-    "notes":  "S487-S489 completed. The slot-invariant channel-order margin packet passed all generator hard-stop diagnostics and the witness led on MAE, but bounded controls led on rank correlation. S490 preserves a rank-only task as the next memo-only angle."
+    "timestamp_utc": "2026-03-10T16:40:00Z",
+    "current_epic_id": "E001",
+    "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
+    "current_epic_status": "Paused",
+    "current_story_ids": [
+        "S493"
+    ],
+    "active_workers": {},
+    "next_actions": [
+        "Write the implementation-approval gate for synthetic_transition_orbit_slot_invariant_channel_order_rank_only.",
+        "Bind the latent slot-invariance and coarse rank-null diagnostics directly into that gate.",
+        "Reopen code only if that gate is explicitly approved."
+    ],
+    "risks_or_blocks": [
+        "Novelty remains conditional until empirical ablation results are collected.",
+        "Benchmark breadth risk remains if phase-1 includes only text classification.",
+        "Cloud provider API/platform changes may require periodic strategy updates.",
+        "Current matrix is fully real-mode but based on small handcrafted local datasets.",
+        "Local handcrafted datasets may not reflect production distributions.",
+        "The slot-invariant channel-order margin branch stopped after mixed leadership across MAE and rank correlation.",
+        "Any continuation must keep slot identity a nuisance variable by construction and avoid reopening the same margin target without a different objective family.",
+        "No remote work, task expansion, or control-family expansion is allowed on this line."
+    ],
+    "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
+    "recent_changes": [
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-margin-implementation-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-margin-first-packet-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-margin-decision-memo-v1.md",
+        "logs/ablation_runs/summary/transition_orbit_channel_order_margin_invariant_v1.csv"
+    ],
+    "notes": "S491-S493 completed. The slot-invariant rank-only line is now fixed as an exact memo-only task with a bounded symbolic control stack, a fixed three-seed packet, and a hard-stop latent slot-invariance contract. Implementation remains closed pending a dedicated approval gate."
 }
