@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T10:45:00Z",
+  "timestamp_utc": "2026-03-11T11:15:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S382"
+    "S385"
   ],
   "active_workers": {},
   "next_actions": [
-    "Implement the bounded token-renaming hardening packet on synthetic_transition_orbit_listwise_ranking.",
-    "Keep the candidate and strongest symbolic baselines fixed on the same listwise task.",
-    "Stop the branch if the witness loses the primary listwise metric under the nuisance renaming."
+    "Implement the bounded pair-reindex hardening packet on synthetic_transition_orbit_listwise_ranking.",
+    "Keep the witness and strongest symbolic baselines fixed on the same listwise task.",
+    "Stop the branch if the witness loses the primary listwise metric under pair_reindex = 1."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -29,19 +29,15 @@
     "Scaleway fallback will introduce a new account/project/API-key onboarding dependency if we keep it on the roadmap.",
     "Official docs still do not expose an exact credit-per-run formula for direct Quandela usage.",
     "The listwise ranking line survived the first packet only weakly: it tied the strongest controls on top-1 accuracy rather than leading outright.",
-    "The next bounded step must test robustness, not widen the control family or the task."
+    "The token-renaming hardening packet was inert under orbit-canonical rendering and does not count as new robustness evidence.",
+    "The next bounded step must be a non-inert pairing perturbation, not another nuisance rename."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "src/qrope/synthetic.py",
-    "src/qrope/run.py",
-    "tests/test_synthetic.py",
-    "tests/test_run_real_mode.py",
-    "docs/research/q-rope-transition-orbit-listwise-ranking-implementation-v1.md",
-    "docs/research/q-rope-transition-orbit-listwise-ranking-first-packet-v1.md",
-    "docs/research/q-rope-transition-orbit-listwise-ranking-decision-memo-v1.md",
-    "docs/research/q-rope-transition-orbit-listwise-token-renaming-hardening-plan-v1.md",
-    "logs/ablation_runs/summary/transition_orbit_listwise_v1.csv"
+    "docs/research/q-rope-transition-orbit-listwise-token-renaming-hardening-v1.md",
+    "docs/research/q-rope-transition-orbit-listwise-post-token-renaming-decision-v1.md",
+    "docs/research/q-rope-transition-orbit-listwise-pair-reindex-hardening-plan-v1.md",
+    "logs/ablation_runs/summary/chart_transition_listwise_cdab_v1.csv"
   ],
-  "notes": "S379-S382 completed. The transition-orbit listwise ranking line stays active after the first packet because the witness tied the strongest controls on top-1 accuracy and led on order-F1. The next bounded step is token-renaming hardening on the same task."
+  "notes": "S383-S385 completed. The token-renaming hardening packet was inert for the listwise transition-orbit task, so the branch stays active without counting that packet as new evidence. The next bounded step is pair_reindex = 1 hardening on the same task."
 }
