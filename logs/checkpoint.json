@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-11T08:35:00Z",
+    "timestamp_utc":  "2026-03-11T08:50:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S376"
+                              "S378"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Write the implementation-approval gate for synthetic_transition_orbit_listwise_ranking.",
-                         "Bind the bounded symbolic ranking controls directly into that approval gate.",
-                         "Keep the line memo-only until the listwise gate is explicitly approved."
+                         "Implement synthetic_transition_orbit_listwise_ranking inside the bounded local-only scope.",
+                         "Stop immediately if coarse-list lookup is not near-null or within-state list counts collapse.",
+                         "Run the fixed 15-run first packet and decide the branch from the primary listwise metrics."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -44,15 +44,16 @@
                             "The pairwise-order branch is stopped after failing both primary classification metrics against bounded symbolic controls.",
                             "Any continuation on this line now requires a materially different listwise ranking task rather than another pairwise binary restatement.",
                             "The listwise ranking line is still memo-only and must not reopen code until bounded symbolic ranking controls are formally bound into an approval gate.",
-                            "The listwise task must still prove that coarse-state list lookup is near-null and that ranking variation occurs entirely within the same coarse transition state."
+                            "The listwise task must still prove that coarse-state list lookup is near-null and that ranking variation occurs entirely within the same coarse transition state.",
+                            "The listwise ranking line is now implementation-approved, but only for one bounded local packet and only if the generator proves within-state list variation and near-null coarse list lookup.",
+                            "This line must not collapse back into pairwise classification or magnitude regression during implementation."
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-listwise-ranking-task-spec-v1.md",
-                           "docs/research/q-rope-transition-orbit-listwise-ranking-restart-scaffold-v1.md",
-                           "docs/research/q-rope-transition-orbit-listwise-ranking-approval-candidate-v1.md",
+                           "docs/research/q-rope-transition-orbit-listwise-ranking-implementation-approval-gate-v1.md",
+                           "docs/research/q-rope-transition-orbit-listwise-ranking-implementation-plan-v1.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S374-S376 completed. The stopped pairwise-order branch now continues only as a memo-level listwise ranking line, with one exact task, one restart scaffold, and approval-candidate posture but no implementation authorization."
+    "notes":  "S377-S378 completed. The transition-orbit listwise ranking line is now implementation-approved in one strictly bounded local-only phase with fixed symbolic ranking controls and explicit generator stop conditions."
 }
