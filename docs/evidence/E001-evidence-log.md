@@ -716,3 +716,7 @@ Use one row per evidence item.
 - EL-499 (2026-03-11): S578 ran the fixed three-seed packet; the witness led on mae but lost on rank_correlation against bounded controls.
 - EL-500 (2026-03-11): S579 stopped the slot-invariant top-k pair-order signed-drift execution branch under the declared two-metric gate.
 - EL-501 (2026-03-11): S580 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_consistency_binary as the next memo-only angle.
+
+- EL-502 (2026-03-11): S581 fixed synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_consistency_binary as the next exact memo-only task.
+- EL-503 (2026-03-11): S582 bound the signed-consistency line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
+- EL-504 (2026-03-11): S583 elevated the slot-invariant top-k pair-order signed-consistency line to approval-candidate posture while keeping it memo-only.
