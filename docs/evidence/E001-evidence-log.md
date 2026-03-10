@@ -702,3 +702,8 @@ Use one row per evidence item.
 - EL-491 (2026-03-11): S570 stopped the slot-invariant top-k pair-order drift execution branch under the declared gate.
 - EL-492 (2026-03-11): S571 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_drift_response as the next memo-only angle.
 
+
+- EL-493 (2026-03-11): S572 fixed synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_drift_response as the next exact memo-only task.
+- EL-494 (2026-03-11): S573 bound the top-k pair-order signed-drift line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
+- EL-495 (2026-03-11): S574 elevated the top-k pair-order signed-drift line to approval-candidate posture while keeping it memo-only.
+
