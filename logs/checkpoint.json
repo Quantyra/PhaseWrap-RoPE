@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-10T22:55:00Z",
+  "timestamp_utc": "2026-03-10T23:15:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S544"
+    "S547"
   ],
   "active_workers": {},
   "next_actions": [
-    "Specify synthetic_transition_orbit_slot_invariant_topk_pair_order_agreement_binary exactly.",
-    "Bind bounded symbolic invariant top-k pair-order agreement controls into its scaffold.",
-    "Keep it memo-only until a new approval-candidate review is explicit."
+    "Write the implementation-approval gate for synthetic_transition_orbit_slot_invariant_topk_pair_order_agreement_binary.",
+    "Bind latent slot-invariance and coarse top-k pair-order null diagnostics directly into that gate.",
+    "Reopen code only if that gate is explicitly approved."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -24,10 +24,9 @@
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-margin-implementation-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-margin-first-packet-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-margin-decision-memo-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-agreement-task-design-v1.md"
+    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-agreement-task-spec-v1.md",
+    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-agreement-restart-scaffold-v1.md",
+    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-agreement-approval-candidate-v1.md"
   ],
-  "notes": "S541-S544 completed. The slot-invariant top-k pair-margin branch is stopped. The next line is memo-only top-k pair-order agreement under the same slot-invariance contract."
+  "notes": "S545-S547 completed. The next line is memo-only slot-invariant top-k pair-order agreement. Implementation remains blocked pending a dedicated approval gate."
 }

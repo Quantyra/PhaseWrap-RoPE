@@ -657,3 +657,8 @@ Use one row per evidence item.
 - EL-464 (2026-03-10): S543 stopped the slot-invariant top-k pair-margin execution branch under the declared two-metric gate.
 - EL-465 (2026-03-10): S544 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_agreement_binary as the next memo-only angle.
 
+
+- EL-466 (2026-03-10): S545 fixed synthetic_transition_orbit_slot_invariant_topk_pair_order_agreement_binary as the next exact memo-only task.
+- EL-467 (2026-03-10): S546 bound the top-k pair-order agreement line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
+- EL-468 (2026-03-10): S547 elevated the top-k pair-order agreement line to approval-candidate posture while keeping it memo-only.
+
