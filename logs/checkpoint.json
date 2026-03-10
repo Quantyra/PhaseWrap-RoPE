@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T16:20:00Z",
+  "timestamp_utc": "2026-03-11T16:55:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S423"
+    "S427"
   ],
   "active_workers": {},
   "next_actions": [
-    "Implement synthetic_transition_orbit_sign_consistency_binary inside the approved local-only scope.",
-    "Stop immediately if the generator fails coarse consistency lookup or paired-context diversity diagnostics.",
-    "Run the fixed three-seed packet and decide the branch from accuracy and F1 only."
+    "Specify synthetic_transition_orbit_sign_flip_contrast_binary exactly.",
+    "Bind bounded symbolic flip/hold controls into its restart scaffold.",
+    "Keep the line memo-only until a new approval-candidate review is explicit."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -18,17 +18,19 @@
     "Cloud provider API/platform changes may require periodic strategy updates.",
     "Current matrix is fully real-mode but based on small handcrafted local datasets.",
     "Local handcrafted datasets may not reflect production distributions.",
-    "The transition-orbit sign-only execution branch is stopped after bounded symbolic controls tied witness accuracy and exceeded witness F1.",
-    "The sign-consistency line is newly implementation-approved but still tightly bounded to one local synthetic packet.",
-    "No remote work, task expansion, or control-family expansion is allowed on this line."
+    "The transition-orbit sign-consistency execution branch is stopped after the witness lost mean accuracy to bounded controls and no model recovered positive-class F1.",
+    "The preserved sign-flip contrast line is memo-only and must not reopen the failed sign-consistency task.",
+    "No implementation is allowed again until the sign-flip contrast task and bounded symbolic controls are explicit."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-sign-consistency-task-spec-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-consistency-restart-scaffold-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-consistency-approval-candidate-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-consistency-implementation-approval-gate-v1.md",
-    "docs/research/q-rope-transition-orbit-sign-consistency-implementation-plan-v1.md"
+    "src/qrope/synthetic.py",
+    "src/qrope/run.py",
+    "docs/research/q-rope-transition-orbit-sign-consistency-implementation-v1.md",
+    "docs/research/q-rope-transition-orbit-sign-consistency-first-packet-v1.md",
+    "docs/research/q-rope-transition-orbit-sign-consistency-decision-memo-v1.md",
+    "docs/research/q-rope-transition-orbit-sign-flip-contrast-task-design-v1.md",
+    "logs/ablation_runs/summary/transition_orbit_sign_consistency_v1.csv"
   ],
-  "notes": "S422-S423 completed. The transition-orbit sign-consistency line is implementation-approved under a strictly bounded local synthetic scope. The next legitimate move is implementation only inside that boundary."
+  "notes": "S424-S427 completed. The transition-orbit sign-consistency execution branch is stopped. The only preserved next line is the memo-only sign-flip contrast task direction."
 }

@@ -508,3 +508,9 @@ Use one row per evidence item.
 - EL-345 (2026-03-11): Approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_sign_consistency_binary with a fixed control stack and hard-stop generator diagnostics.
 
 - EL-346 (2026-03-11): Fixed the sign-consistency implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
+
+- EL-347 (2026-03-11): Implemented the bounded transition-orbit sign-consistency branch and validated the local synthetic path with 180 focused tests passing.
+
+- EL-348 (2026-03-11): The fixed sign-consistency packet passed generator diagnostics but the witness lost on mean accuracy to the strongest bounded controls and all models collapsed to zero positive-class F1.
+
+- EL-349 (2026-03-11): Stopped the sign-consistency execution branch and preserved synthetic_transition_orbit_sign_flip_contrast_binary as the next memo-only angle.
