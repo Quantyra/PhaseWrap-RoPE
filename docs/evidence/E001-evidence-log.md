@@ -552,3 +552,7 @@ Use one row per evidence item.
 - EL-367 (2026-03-10): Bound the channel-advantage line to one fixed candidate and bounded symbolic channel-advantage control stack under a memo-only restart scaffold.
 
 - EL-368 (2026-03-10): Elevated the channel-advantage line to approval-candidate posture while keeping implementation closed pending a dedicated approval gate.
+
+- EL-369 (2026-03-10): Approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_channel_advantage_response with a fixed regressor control stack and hard-stop generator diagnostics.
+
+- EL-370 (2026-03-10): Fixed the channel-advantage implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
