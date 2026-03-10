@@ -1,0 +1,26 @@
+{
+  "feature_order": [
+    "transition_backbone",
+    "sq_transition_backbone",
+    "transition_phase",
+    "sq_transition_phase",
+    "transition_curvature",
+    "sq_transition_curvature"
+  ],
+  "coefficients": {
+    "transition_backbone": 0.044627,
+    "sq_transition_backbone": 0.000283,
+    "transition_phase": 0.0674,
+    "sq_transition_phase": 0.023056,
+    "transition_curvature": 0.044344,
+    "sq_transition_curvature": 0.047064
+  },
+  "intercept": 4.972211,
+  "coarse_state_counts": {
+    "unknown": 132
+  },
+  "forbidden_inputs_absent": true,
+  "token_identity_absent": true,
+  "localization_target_mode": "asymmetric_sign_channel",
+  "paired_channel_target": true
+}

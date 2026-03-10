@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T18:15:00Z",
+  "timestamp_utc": "2026-03-11T18:35:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S441"
+    "S445"
   ],
   "active_workers": {},
   "next_actions": [
-    "Implement synthetic_transition_orbit_asymmetric_sign_localization_binary inside the approved local-only scope.",
-    "Stop immediately if the generator fails coarse localization lookup or paired-channel diversity diagnostics.",
-    "Run the fixed three-seed packet and decide the branch from accuracy and F1 only."
+    "Specify synthetic_transition_orbit_channel_advantage_response exactly.",
+    "Bind bounded symbolic channel-advantage controls into its restart scaffold.",
+    "Keep the line memo-only until a new approval-candidate review is explicit."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -18,17 +18,19 @@
     "Cloud provider API/platform changes may require periodic strategy updates.",
     "Current matrix is fully real-mode but based on small handcrafted local datasets.",
     "Local handcrafted datasets may not reflect production distributions.",
-    "The transition-orbit sign-flip contrast execution branch is stopped after the bounded lookup control solved the task outright and the witness lost both primary metrics.",
-    "The asymmetric sign-localization line is newly implementation-approved but still tightly bounded to one local synthetic packet.",
-    "No remote work, task expansion, or control-family expansion is allowed on this line."
+    "The transition-orbit asymmetric sign-localization execution branch is stopped after the witness lost mean accuracy to bounded controls and all models collapsed to zero positive-class F1.",
+    "The preserved channel-advantage line is memo-only and must not reopen the failed asymmetric localization task.",
+    "No implementation is allowed again until the channel-advantage task and bounded symbolic controls are explicit."
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-asymmetric-sign-localization-task-spec-v1.md",
-    "docs/research/q-rope-transition-orbit-asymmetric-sign-localization-restart-scaffold-v1.md",
-    "docs/research/q-rope-transition-orbit-asymmetric-sign-localization-approval-candidate-v1.md",
-    "docs/research/q-rope-transition-orbit-asymmetric-sign-localization-implementation-approval-gate-v1.md",
-    "docs/research/q-rope-transition-orbit-asymmetric-sign-localization-implementation-plan-v1.md"
+    "src/qrope/synthetic.py",
+    "src/qrope/run.py",
+    "docs/research/q-rope-transition-orbit-asymmetric-sign-localization-implementation-v1.md",
+    "docs/research/q-rope-transition-orbit-asymmetric-sign-localization-first-packet-v1.md",
+    "docs/research/q-rope-transition-orbit-asymmetric-sign-localization-decision-memo-v1.md",
+    "docs/research/q-rope-transition-orbit-channel-advantage-task-design-v1.md",
+    "logs/ablation_runs/summary/transition_orbit_asymmetric_sign_localization_v1.csv"
   ],
-  "notes": "S440-S441 completed. The transition-orbit asymmetric sign-localization line is implementation-approved under a strictly bounded local synthetic scope. The next legitimate move is implementation only inside that boundary."
+  "notes": "S442-S445 completed. The transition-orbit asymmetric sign-localization execution branch is stopped. The only preserved next line is the memo-only channel-advantage task direction."
 }

@@ -1,0 +1,29 @@
+{
+  "feature_order": [
+    "fwd_transition_backbone",
+    "fwd_transition_phase",
+    "fwd_transition_curvature",
+    "perm_transition_backbone",
+    "perm_transition_phase_permuted",
+    "perm_transition_curvature_permuted",
+    "cross_backbone"
+  ],
+  "coefficients": {
+    "fwd_transition_backbone": 0.074739,
+    "fwd_transition_phase": -0.001715,
+    "fwd_transition_curvature": 0.096124,
+    "perm_transition_backbone": 0.043177,
+    "perm_transition_phase_permuted": 0.076454,
+    "perm_transition_curvature_permuted": 0.015244,
+    "cross_backbone": 0.00073
+  },
+  "intercept": 4.935056,
+  "coarse_state_counts": {
+    "unknown": 132
+  },
+  "forbidden_inputs_absent": true,
+  "token_identity_absent": true,
+  "transition_table_permuted": true,
+  "localization_target_mode": "asymmetric_sign_channel",
+  "paired_channel_target": true
+}

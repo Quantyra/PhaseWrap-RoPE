@@ -806,6 +806,31 @@ def parse_transition_consistency_text(text: str) -> dict[str, Any]:
     return payload
 
 
+def render_transition_localization_text(
+    anchor_context: str,
+    left_context: str,
+    right_context: str,
+    channel_key: str,
+) -> str:
+    return json.dumps(
+        {
+            "anchor_context": anchor_context,
+            "left_context": left_context,
+            "right_context": right_context,
+            "channel_key": channel_key,
+        },
+        separators=(",", ":"),
+    )
+
+
+def parse_transition_localization_text(text: str) -> dict[str, Any]:
+    payload = json.loads(text)
+    payload["parsed_anchor_context"] = parse_transition_listwise_text(payload["anchor_context"])
+    payload["parsed_left_context"] = parse_transition_listwise_text(payload["left_context"])
+    payload["parsed_right_context"] = parse_transition_listwise_text(payload["right_context"])
+    return payload
+
+
 def generate_transition_orbit_listwise_ranking_bundle(
     seed: int,
     split_rotation: int = 0,
@@ -1647,6 +1672,175 @@ def generate_transition_orbit_sign_flip_contrast_binary_bundle(
         train=sorted(invert(bundle.train)),
         validation=sorted(invert(bundle.validation)),
         test=sorted(invert(bundle.test)),
+        diagnostics=diagnostics,
+    )
+
+
+def generate_transition_orbit_asymmetric_sign_localization_binary_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "orbit_canonical",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_transition_orbit_asymmetric_sign_localization_binary:{seed}")
+    single_grouped: dict[str, list[SyntheticSample]] = defaultdict(list)
+
+    for left_token in TOKENS:
+        for right_token in TOKENS:
+            for magnitude in OFFSETS:
+                for base_left in range(SEQUENCE_LENGTH - magnitude):
+                    pos_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left,
+                            right_pos=base_left + magnitude,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    neg_sample = canonicalize_orbit_sample(
+                        build_sample(
+                            left_token=left_token,
+                            right_token=right_token,
+                            left_pos=base_left + magnitude,
+                            right_pos=base_left,
+                            label_mode="offset_sign",
+                        )
+                    )
+                    single_grouped[offset_sector_name(pos_sample.offset)].append(pos_sample)
+                    single_grouped[offset_sector_name(neg_sample.offset)].append(neg_sample)
+
+    coarse_candidates: dict[tuple[int, int], list[DualSyntheticSample]] = defaultdict(list)
+    sectors = ("P_small", "P_large", "N_small", "N_large")
+    lists_per_state = 4
+    items_per_list = 4
+    required = lists_per_state * items_per_list
+
+    for sector_a in sectors:
+        for sector_b in sectors:
+            bucket_a = list(single_grouped[sector_a])
+            bucket_b = list(single_grouped[sector_b])
+            rng.shuffle(bucket_a)
+            rng.shuffle(bucket_b)
+            pair_count = min(len(bucket_a), len(bucket_b))
+            for idx in range(pair_count):
+                sample_a = bucket_a[idx]
+                sample_b = bucket_b[(idx + pair_reindex) % pair_count]
+                if slot_swap:
+                    sample_a, sample_b = sample_b, sample_a
+                dual = build_dual_sample(sample_a=sample_a, sample_b=sample_b, label_mode="chart_transition_orbit_response")
+                payload = parse_dual_sample_text(dual.text)
+                coarse_candidates[chart_transition_pair(payload)].append(dual)
+
+    train: list[tuple[str, int]] = []
+    validation: list[tuple[str, int]] = []
+    test: list[tuple[str, int]] = []
+    state_localization_means: dict[str, list[float]] = defaultdict(list)
+    state_channel_types: dict[str, set[str]] = defaultdict(set)
+    list_counts: dict[str, int] = {}
+    token_support = set()
+
+    render_permutations = [
+        [3, 0, 1, 2],
+        [0, 1, 2, 3],
+        [1, 3, 0, 2],
+        [2, 0, 3, 1],
+    ]
+
+    for key in sorted(coarse_candidates):
+        bucket = sorted(coarse_candidates[key], key=lambda row: orbit_transition_band_delta(row.sample_a, row.sample_b))
+        if len(bucket) < required:
+            continue
+        step = max(1, len(bucket) // required)
+        chosen = [bucket[min(i * step, len(bucket) - 1)] for i in range(required)]
+        state_key = f"{key[0]}->{key[1]}"
+        raw_signed: list[float] = []
+        rendered_lists: list[str] = []
+        for list_idx in range(lists_per_state):
+            subset = chosen[list_idx * items_per_list : (list_idx + 1) * items_per_list]
+            if len(subset) < items_per_list:
+                continue
+            latent = [orbit_transition_band_delta(item.sample_a, item.sample_b) for item in subset]
+            raw_signed.append(latent[-1] - latent[-2])
+            rendered_lists.append(
+                render_transition_listwise_text(
+                    subset,
+                    rendered_order=render_permutations[list_idx],
+                    true_order=[0, 1, 2, 3],
+                    true_scores=[0.0, 0.2, 0.65, 0.55],
+                )
+            )
+        if len(rendered_lists) != lists_per_state:
+            continue
+
+        sorted_signed_indices = sorted(range(len(raw_signed)), key=lambda idx: (raw_signed[idx], idx))
+        low_a, low_b, high_a, high_b = sorted_signed_indices
+        row_specs = [
+            (low_a, high_a, low_b, 1, "L"),
+            (low_b, high_b, low_a, 1, "L"),
+            (high_a, high_b, low_a, 0, "R"),
+            (high_b, high_a, low_b, 0, "R"),
+        ]
+        rows_for_state: list[tuple[str, int]] = []
+        for anchor_idx, left_idx, right_idx, label, channel_key in row_specs:
+            text = render_transition_localization_text(
+                rendered_lists[anchor_idx],
+                rendered_lists[left_idx],
+                rendered_lists[right_idx],
+                channel_key=channel_key,
+            )
+            rows_for_state.append((text, label))
+            state_localization_means[state_key].append(float(label))
+            state_channel_types[state_key].add(channel_key)
+            payload = parse_transition_localization_text(text)
+            for context_key in ("parsed_anchor_context", "parsed_left_context", "parsed_right_context"):
+                for candidate in payload[context_key]["parsed_candidates"]:
+                    token_support.update(
+                        {
+                            candidate["sample_a"].left_token,
+                            candidate["sample_a"].right_token,
+                            candidate["sample_b"].left_token,
+                            candidate["sample_b"].right_token,
+                        }
+                    )
+
+        list_counts[state_key] = len(rows_for_state)
+        train.extend(rows_for_state[:2])
+        validation.append(rows_for_state[2])
+        test.append(rows_for_state[3])
+
+    state_mean_map = {
+        state: round(sum(values) / len(values), 6)
+        for state, values in state_localization_means.items()
+        if values
+    }
+    global_mean = round(sum(state_mean_map.values()) / len(state_mean_map), 6) if state_mean_map else 0.0
+    diagnostics = {
+        "dataset": "synthetic_transition_orbit_asymmetric_sign_localization_binary",
+        "seed": seed,
+        "split_rotation": split_rotation,
+        "slot_swap": slot_swap,
+        "token_permutation": token_permutation,
+        "pair_reindex": pair_reindex,
+        "splits": {
+            "train": {"size": len(train)},
+            "validation": {"size": len(validation)},
+            "test": {"size": len(test)},
+        },
+        "coarse_localization_lookup_near_null_pass": all(abs(value - global_mean) <= 1e-6 for value in state_mean_map.values()),
+        "within_state_localization_variation_pass": all(len(set(values)) > 1 for values in state_localization_means.values() if values),
+        "paired_channel_diversity_pass": all(len(values) > 1 for values in state_channel_types.values() if values),
+        "localization_label_balance_pass": sum(label for _, label in train + validation + test) * 2 == len(train + validation + test),
+        "token_view_balance_pass": token_support == {"A", "B"},
+        "state_localization_means": dict(sorted(state_mean_map.items())),
+        "global_localization_mean": global_mean,
+        "per_state_triplet_counts": dict(sorted(list_counts.items())),
+    }
+    return SyntheticDatasetBundle(
+        train=sorted(train),
+        validation=sorted(validation),
+        test=sorted(test),
         diagnostics=diagnostics,
     )
 

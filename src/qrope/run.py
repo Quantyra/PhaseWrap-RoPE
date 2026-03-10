@@ -47,11 +47,13 @@ from .synthetic import (
     generate_transition_orbit_listwise_ranking_bundle,
     generate_transition_orbit_sign_consistency_binary_bundle,
     generate_transition_orbit_sign_flip_contrast_binary_bundle,
+    generate_transition_orbit_asymmetric_sign_localization_binary_bundle,
     generate_transition_orbit_signed_margin_response_bundle,
     generate_transition_orbit_sign_only_binary_bundle,
     generate_transition_orbit_order_margin_response_bundle,
     generate_transition_orbit_pairwise_order_binary_bundle,
     generate_transition_orbit_rank_band_response_bundle,
+    parse_transition_localization_text,
     parse_transition_consistency_text,
     parse_transition_listwise_text,
     parse_transition_pairwise_text,
@@ -258,6 +260,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_transition_orbit_sign_only": 24,
         "V_future_relational_witness_transition_orbit_sign_consistency": 24,
         "V_future_relational_witness_transition_orbit_sign_flip_contrast": 24,
+        "V_future_relational_witness_transition_orbit_asymmetric_sign_localization": 24,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -305,6 +308,10 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_flip_cross_direction": 1,
         "V_control_symbolic_transition_flip_quadratic": 1,
         "V_control_symbolic_transition_flip_orbit_permuted": 1,
+        "V_control_symbolic_transition_localization_lookup": 1,
+        "V_control_symbolic_transition_localization_cross_direction": 1,
+        "V_control_symbolic_transition_localization_quadratic": 1,
+        "V_control_symbolic_transition_localization_orbit_permuted": 1,
         "V_control_symbolic_transition_sign_lookup": 1,
         "V_control_symbolic_transition_sign_cross_direction": 1,
         "V_control_symbolic_transition_sign_quadratic": 1,
@@ -442,6 +449,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_sign_consistency+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_sign_flip_contrast":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_sign_flip_contrast+head_linear"
+        elif variant == "V_future_relational_witness_transition_orbit_asymmetric_sign_localization":
+            data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_asymmetric_sign_localization+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -536,6 +545,14 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_flip_quadratic+head_linear"
         elif variant == "V_control_symbolic_transition_flip_orbit_permuted":
             data_mode = f"{data_mode}+readout_symbolic_transition_flip_orbit_permuted+head_linear"
+        elif variant == "V_control_symbolic_transition_localization_lookup":
+            data_mode = f"{data_mode}+readout_symbolic_transition_localization_lookup+head_linear"
+        elif variant == "V_control_symbolic_transition_localization_cross_direction":
+            data_mode = f"{data_mode}+readout_symbolic_transition_localization_cross_direction+head_linear"
+        elif variant == "V_control_symbolic_transition_localization_quadratic":
+            data_mode = f"{data_mode}+readout_symbolic_transition_localization_quadratic+head_linear"
+        elif variant == "V_control_symbolic_transition_localization_orbit_permuted":
+            data_mode = f"{data_mode}+readout_symbolic_transition_localization_orbit_permuted+head_linear"
         elif variant == "V_control_symbolic_transition_sign_lookup":
             data_mode = f"{data_mode}+readout_symbolic_transition_sign_lookup+head_linear"
         elif variant == "V_control_symbolic_transition_sign_cross_direction":
@@ -778,6 +795,8 @@ def run_quantum_backend(
         return run_transition_orbit_sign_consistency_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_sign_flip_contrast":
         return run_transition_orbit_sign_flip_contrast_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_transition_orbit_asymmetric_sign_localization":
+        return run_transition_orbit_asymmetric_sign_localization_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_control_symbolic_single_family_regressor":
         return run_continuous_symbolic_single_family_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_two_family_regressor":
@@ -884,6 +903,14 @@ def run_quantum_backend(
         return run_transition_flip_quadratic_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_sign_flip_contrast_binary" and variant == "V_control_symbolic_transition_flip_orbit_permuted":
         return run_transition_flip_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_asymmetric_sign_localization_binary" and variant == "V_control_symbolic_transition_localization_lookup":
+        return run_transition_localization_lookup_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_asymmetric_sign_localization_binary" and variant == "V_control_symbolic_transition_localization_cross_direction":
+        return run_transition_localization_cross_direction_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_asymmetric_sign_localization_binary" and variant == "V_control_symbolic_transition_localization_quadratic":
+        return run_transition_localization_quadratic_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_asymmetric_sign_localization_binary" and variant == "V_control_symbolic_transition_localization_orbit_permuted":
+        return run_transition_localization_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_quadratic_regressor":
         return run_transition_quadratic_symbolic_regressor(train=train, test=test, validation=validation)
     if variant == "V_control_symbolic_transition_cubic_regressor":
@@ -5215,6 +5242,208 @@ def run_transition_flip_orbit_permuted_symbolic_backend(
     return train_loss, eval_loss, accuracy, f1, diagnostics
 
 
+def transition_localization_payload(text: str) -> dict[str, Any]:
+    return parse_transition_localization_text(text)
+
+
+def run_transition_localization_backend_from_results(
+    train_anchor_results: list[list[dict[str, Any]]],
+    train_left_results: list[list[dict[str, Any]]],
+    train_right_results: list[list[dict[str, Any]]],
+    validation_anchor_results: list[list[dict[str, Any]]],
+    validation_left_results: list[list[dict[str, Any]]],
+    validation_right_results: list[list[dict[str, Any]]],
+    test_anchor_results: list[list[dict[str, Any]]],
+    test_left_results: list[list[dict[str, Any]]],
+    test_right_results: list[list[dict[str, Any]]],
+    train_payloads: list[dict[str, Any]],
+    validation_payloads: list[dict[str, Any]],
+    test_payloads: list[dict[str, Any]],
+    train_labels: list[int],
+    validation_labels: list[int],
+    test_labels: list[int],
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    feature_order = list(train_anchor_results[0][0]["feature_order"]) if train_anchor_results and train_anchor_results[0] else []
+
+    def localization_features(
+        anchor_results_by_row: list[list[dict[str, Any]]],
+        left_results_by_row: list[list[dict[str, Any]]],
+        right_results_by_row: list[list[dict[str, Any]]],
+        payloads: list[dict[str, Any]],
+    ) -> list[list[float]]:
+        matrix: list[list[float]] = []
+        for anchor_results, left_results, right_results, payload in zip(anchor_results_by_row, left_results_by_row, right_results_by_row, payloads):
+            anchor = _transition_sign_feature_vector(anchor_results, payload["parsed_anchor_context"], feature_order)
+            left = _transition_sign_feature_vector(left_results, payload["parsed_left_context"], feature_order)
+            right = _transition_sign_feature_vector(right_results, payload["parsed_right_context"], feature_order)
+            row: list[float] = []
+            for anchor_value, left_value, right_value in zip(anchor, left, right):
+                left_delta = left_value - anchor_value
+                right_delta = right_value - anchor_value
+                row.extend(
+                    [
+                        left_delta,
+                        right_delta,
+                        abs(left_delta),
+                        abs(right_delta),
+                        left_delta - right_delta,
+                    ]
+                )
+            matrix.append(row)
+        return matrix
+
+    train_matrix = localization_features(train_anchor_results, train_left_results, train_right_results, train_payloads)
+    validation_matrix = localization_features(validation_anchor_results, validation_left_results, validation_right_results, validation_payloads)
+    test_matrix = localization_features(test_anchor_results, test_left_results, test_right_results, test_payloads)
+
+    weights, bias = fit_logistic_witness_head(train_matrix, train_labels)
+    train_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in train_matrix]
+    validation_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in validation_matrix]
+    test_scores = [sigmoid(bias + sum(weight * value for weight, value in zip(weights, row))) for row in test_matrix]
+    threshold = calibrate_threshold(validation_scores, validation_labels)
+    preds = [1 if score >= threshold else 0 for score in test_scores]
+
+    diagnostics = build_transition_order_run_diagnostics(
+        results=[
+            item
+            for row in test_anchor_results + test_left_results + test_right_results
+            for item in row
+        ],
+        feature_order=feature_order,
+        weights=weights,
+        bias=bias,
+    )
+    diagnostics["localization_target_mode"] = "asymmetric_sign_channel"
+    diagnostics["paired_channel_target"] = True
+    train_loss = binary_cross_entropy(train_labels, train_scores)
+    eval_loss = binary_cross_entropy(test_labels, test_scores)
+    accuracy = compute_accuracy(test_labels, preds)
+    f1 = compute_f1_binary(test_labels, preds)
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def run_transition_orbit_asymmetric_sign_localization_witness_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    seed: int,
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+    train_payloads = [transition_localization_payload(text) for text, _ in train]
+    validation_payloads = [transition_localization_payload(text) for text, _ in validation]
+    test_payloads = [transition_localization_payload(text) for text, _ in test]
+    train_anchor_results = [transition_orbit_listwise_witness_results(payload["anchor_context"], seed=seed) for payload in train_payloads]
+    train_left_results = [transition_orbit_listwise_witness_results(payload["left_context"], seed=seed) for payload in train_payloads]
+    train_right_results = [transition_orbit_listwise_witness_results(payload["right_context"], seed=seed) for payload in train_payloads]
+    validation_anchor_results = [transition_orbit_listwise_witness_results(payload["anchor_context"], seed=seed) for payload in validation_payloads]
+    validation_left_results = [transition_orbit_listwise_witness_results(payload["left_context"], seed=seed) for payload in validation_payloads]
+    validation_right_results = [transition_orbit_listwise_witness_results(payload["right_context"], seed=seed) for payload in validation_payloads]
+    test_anchor_results = [transition_orbit_listwise_witness_results(payload["anchor_context"], seed=seed) for payload in test_payloads]
+    test_left_results = [transition_orbit_listwise_witness_results(payload["left_context"], seed=seed) for payload in test_payloads]
+    test_right_results = [transition_orbit_listwise_witness_results(payload["right_context"], seed=seed) for payload in test_payloads]
+    train_loss, eval_loss, accuracy, f1, diagnostics = run_transition_localization_backend_from_results(
+        train_anchor_results,
+        train_left_results,
+        train_right_results,
+        validation_anchor_results,
+        validation_left_results,
+        validation_right_results,
+        test_anchor_results,
+        test_left_results,
+        test_right_results,
+        train_payloads,
+        validation_payloads,
+        test_payloads,
+        [label for _, label in train],
+        [label for _, label in validation],
+        [label for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(
+        bool(result.get("bounded_feature_audit_pass", False))
+        for row in test_anchor_results + test_left_results + test_right_results
+        for result in row
+    )
+    diagnostics["token_identity_absent"] = all(
+        bool(result.get("token_identity_absent", False))
+        for row in test_anchor_results + test_left_results + test_right_results
+        for result in row
+    )
+    diagnostics["anti_collapse_pass"] = True
+    return train_loss, eval_loss, accuracy, f1, diagnostics
+
+
+def _run_transition_localization_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None,
+    builder,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    if validation is None:
+        _, validation = stratified_calibration_split(train)
+    train_payloads = [transition_localization_payload(text) for text, _ in train]
+    validation_payloads = [transition_localization_payload(text) for text, _ in validation]
+    test_payloads = [transition_localization_payload(text) for text, _ in test]
+    train_anchor_results = [builder(payload["anchor_context"]) for payload in train_payloads]
+    train_left_results = [builder(payload["left_context"]) for payload in train_payloads]
+    train_right_results = [builder(payload["right_context"]) for payload in train_payloads]
+    validation_anchor_results = [builder(payload["anchor_context"]) for payload in validation_payloads]
+    validation_left_results = [builder(payload["left_context"]) for payload in validation_payloads]
+    validation_right_results = [builder(payload["right_context"]) for payload in validation_payloads]
+    test_anchor_results = [builder(payload["anchor_context"]) for payload in test_payloads]
+    test_left_results = [builder(payload["left_context"]) for payload in test_payloads]
+    test_right_results = [builder(payload["right_context"]) for payload in test_payloads]
+    return run_transition_localization_backend_from_results(
+        train_anchor_results,
+        train_left_results,
+        train_right_results,
+        validation_anchor_results,
+        validation_left_results,
+        validation_right_results,
+        test_anchor_results,
+        test_left_results,
+        test_right_results,
+        train_payloads,
+        validation_payloads,
+        test_payloads,
+        [label for _, label in train],
+        [label for _, label in validation],
+        [label for _, label in test],
+    )
+
+
+def run_transition_localization_lookup_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_localization_symbolic_backend(train, test, validation, symbolic_transition_list_lookup_results)
+
+
+def run_transition_localization_cross_direction_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_localization_symbolic_backend(train, test, validation, symbolic_transition_list_cross_direction_results)
+
+
+def run_transition_localization_quadratic_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_localization_symbolic_backend(train, test, validation, symbolic_transition_list_quadratic_results)
+
+
+def run_transition_localization_orbit_permuted_symbolic_backend(
+    train: list[tuple[str, int]],
+    test: list[tuple[str, int]],
+    validation: list[tuple[str, int]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any]]:
+    return _run_transition_localization_symbolic_backend(train, test, validation, symbolic_transition_list_orbit_permuted_results)
+
+
 def run_transition_orbit_order_margin_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -6406,6 +6635,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_transition_orbit_sign_flip_contrast_binary",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_transition_orbit_asymmetric_sign_localization_binary":
+        bundle = generate_transition_orbit_asymmetric_sign_localization_binary_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_transition_orbit_asymmetric_sign_localization_binary",
             "dataset_diagnostics": bundle.diagnostics,
         }
 

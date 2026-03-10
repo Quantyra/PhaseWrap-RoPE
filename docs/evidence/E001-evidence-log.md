@@ -540,3 +540,9 @@ Use one row per evidence item.
 - EL-361 (2026-03-11): Approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_asymmetric_sign_localization_binary with a fixed control stack and hard-stop generator diagnostics.
 
 - EL-362 (2026-03-11): Fixed the asymmetric sign-localization implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
+
+- EL-363 (2026-03-11): Implemented the bounded transition-orbit asymmetric sign-localization branch and validated the local synthetic path with 186 focused tests passing.
+
+- EL-364 (2026-03-11): The fixed asymmetric localization packet passed generator diagnostics but the witness lost on mean accuracy to bounded controls and all models collapsed to zero positive-class F1.
+
+- EL-365 (2026-03-11): Stopped the asymmetric localization execution branch and preserved synthetic_transition_orbit_channel_advantage_response as the next memo-only angle.
