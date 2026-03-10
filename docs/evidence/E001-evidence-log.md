@@ -672,3 +672,8 @@ Use one row per evidence item.
 - EL-473 (2026-03-10): S552 stopped the slot-invariant top-k pair-order agreement execution branch under the declared gate.
 - EL-474 (2026-03-10): S553 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_stability_binary as the next memo-only angle.
 
+
+- EL-475 (2026-03-10): S554 fixed synthetic_transition_orbit_slot_invariant_topk_pair_order_stability_binary as the next exact memo-only task.
+- EL-476 (2026-03-10): S555 bound the top-k pair-order stability line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
+- EL-477 (2026-03-10): S556 elevated the top-k pair-order stability line to approval-candidate posture while keeping it memo-only.
+
