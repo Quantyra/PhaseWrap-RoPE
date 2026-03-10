@@ -1,6 +1,6 @@
 # S526 Transition Orbit Slot-Invariant Channel-Order Top-K Preference Task Design
 
-Status: active
+Status: complete
 Date: 2026-03-10
 
 ## Outcome

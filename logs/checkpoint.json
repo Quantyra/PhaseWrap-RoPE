@@ -1,16 +1,16 @@
 {
-    "timestamp_utc": "2026-03-10T20:05:00Z",
+    "timestamp_utc": "2026-03-10T20:20:00Z",
     "current_epic_id": "E001",
     "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status": "Paused",
     "current_story_ids": [
-        "S526"
+        "S529"
     ],
     "active_workers": {},
     "next_actions": [
-        "Specify synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary exactly.",
-        "Bind bounded symbolic invariant top-k preference controls into its scaffold.",
-        "Keep the line memo-only until a new approval-candidate review is explicit."
+        "Write the implementation-approval gate for synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary.",
+        "Bind the latent slot-invariance and coarse top-k preference-null diagnostics directly into that gate.",
+        "Reopen code only if that gate is explicitly approved."
     ],
     "risks_or_blocks": [
         "Novelty remains conditional until empirical ablation results are collected.",
@@ -19,15 +19,14 @@
         "Current matrix is fully real-mode but based on small handcrafted local datasets.",
         "Local handcrafted datasets may not reflect production distributions.",
         "The slot-invariant top-k rank-only branch stopped after mixed leadership: the witness led on order-F1 but bounded controls led on accuracy.",
-        "Any continuation must keep latent slot invariance by construction and avoid reopening the same top-k rank objective under a new label.",
+        "Any continuation must keep latent slot invariance by construction and avoid reopening the same full top-k rank objective under a new label.",
         "No remote work, task expansion, or control-family expansion is allowed on this line."
     ],
     "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes": [
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-rank-only-implementation-v1.md",
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-rank-only-first-packet-v1.md",
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-rank-only-decision-memo-v1.md",
-        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-preference-task-design-v1.md"
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-preference-task-spec-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-preference-restart-scaffold-v1.md",
+        "docs/research/q-rope-transition-orbit-slot-invariant-channel-order-topk-preference-approval-candidate-v1.md"
     ],
-    "notes": "S523-S526 completed. The slot-invariant top-k rank-only branch is stopped after mixed leadership on accuracy vs order-F1. The next line is memo-only top-k pairwise preference under the same slot-invariance contract."
+    "notes": "S527-S529 completed. The slot-invariant top-k preference line is now approval-candidate and remains memo-only pending a dedicated implementation gate."
 }
