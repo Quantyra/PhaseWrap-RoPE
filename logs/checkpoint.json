@@ -1,18 +1,18 @@
 {
-    "timestamp_utc":  "2026-03-11T07:45:00Z",
+    "timestamp_utc":  "2026-03-11T08:00:00Z",
     "current_epic_id":  "E001",
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
     "current_story_ids":  [
-                              "S367"
+                              "S369"
                           ],
     "active_workers":  {
 
                        },
     "next_actions":  [
-                         "Write the implementation-approval gate for synthetic_transition_orbit_pairwise_order_binary.",
-                         "Bind the bounded symbolic order controls directly into that approval gate.",
-                         "Keep the line memo-only until the pairwise-order gate is explicitly approved."
+                         "Implement synthetic_transition_orbit_pairwise_order_binary inside the bounded local-only scope.",
+                         "Stop immediately if coarse-order lookup is not near-null or within-state pair counts collapse.",
+                         "Run the fixed 15-run first packet and decide the branch from accuracy and F1."
                      ],
     "risks_or_blocks":  [
                             "Novelty remains conditional until empirical ablation results are collected.",
@@ -38,15 +38,16 @@
                             "The corrected rank-band transition-orbit packet showed stronger witness rank structure but still failed the active MAE-first gate against bounded symbolic controls.",
                             "The only preserved signal from the rank-band branch is ordinal, so direct reuse of the stopped regression task would be methodologically invalid.",
                             "The preserved order-only line is still memo-only and must not reopen code until bounded symbolic order controls are formally bound into an approval gate.",
-                            "The pairwise-order task must still prove that coarse-state lookup is near-null and that labels vary within the same coarse transition state."
+                            "The pairwise-order task must still prove that coarse-state lookup is near-null and that labels vary within the same coarse transition state.",
+                            "The pairwise-order line is now implementation-approved, but only for one bounded local packet and only if the generator proves within-state order variation and near-null coarse lookup.",
+                            "This line must not inherit the stopped rank-band MAE gate; its primary metrics are classification accuracy and F1."
                         ],
     "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-pairwise-order-task-spec-v1.md",
-                           "docs/research/q-rope-transition-orbit-pairwise-order-restart-scaffold-v1.md",
-                           "docs/research/q-rope-transition-orbit-pairwise-order-approval-candidate-v1.md",
+                           "docs/research/q-rope-transition-orbit-pairwise-order-implementation-approval-gate-v1.md",
+                           "docs/research/q-rope-transition-orbit-pairwise-order-implementation-plan-v1.md",
                            "docs/evidence/E001-evidence-log.md",
                            "logs/checkpoint.json"
                        ],
-    "notes":  "S365-S367 completed. The stopped rank-band branch now continues only as a memo-level pairwise-order line, with one exact task, one restart scaffold, and approval-candidate posture but no implementation authorization."
+    "notes":  "S368-S369 completed. The transition-orbit pairwise-order line is now implementation-approved in one strictly bounded local-only phase with fixed symbolic order controls and explicit generator stop conditions."
 }
