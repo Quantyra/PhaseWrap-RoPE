@@ -723,3 +723,8 @@ Use one row per evidence item.
 
 - EL-505 (2026-03-11): S584 approved one strictly bounded local synthetic implementation phase for the slot-invariant top-k pair-order signed-consistency line.
 - EL-506 (2026-03-11): S585 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the signed-consistency packet.
+
+- EL-507 (2026-03-11): S586 implemented the bounded slot-invariant top-k pair-order signed-consistency branch and validated it with 231 focused tests passing.
+- EL-508 (2026-03-11): S587 ran the fixed three-seed packet; the witness lost both declared primary classification metrics to bounded controls.
+- EL-509 (2026-03-11): S588 stopped the slot-invariant top-k pair-order signed-consistency execution branch under the declared gate.
+- EL-510 (2026-03-11): S589 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_consistency_binary as the next memo-only angle.
