@@ -546,3 +546,9 @@ Use one row per evidence item.
 - EL-364 (2026-03-11): The fixed asymmetric localization packet passed generator diagnostics but the witness lost on mean accuracy to bounded controls and all models collapsed to zero positive-class F1.
 
 - EL-365 (2026-03-11): Stopped the asymmetric localization execution branch and preserved synthetic_transition_orbit_channel_advantage_response as the next memo-only angle.
+
+- EL-366 (2026-03-10): Specified synthetic_transition_orbit_channel_advantage_response with explicit signed relative channel-effect supervision and rejection rules.
+
+- EL-367 (2026-03-10): Bound the channel-advantage line to one fixed candidate and bounded symbolic channel-advantage control stack under a memo-only restart scaffold.
+
+- EL-368 (2026-03-10): Elevated the channel-advantage line to approval-candidate posture while keeping implementation closed pending a dedicated approval gate.
