@@ -642,3 +642,8 @@ Use one row per evidence item.
 - EL-454 (2026-03-10): S533 ran the fixed slot-invariant top-k preference packet and found that the witness lost on both declared primary metrics against multiple bounded controls.
 - EL-455 (2026-03-10): S534 stopped the slot-invariant top-k preference execution branch because the witness did not clear the fixed control stack on accuracy or F1.
 - EL-456 (2026-03-10): S535 preserved synthetic_transition_orbit_slot_invariant_topk_pair_margin_response as the next memo-only angle because the remaining unresolved question is preference separation strength under the same slot-invariance contract, not hard binary top-k preference classification.
+
+- EL-457 (2026-03-10): S536 fixed synthetic_transition_orbit_slot_invariant_topk_pair_margin_response as the next exact memo-only task.
+- EL-458 (2026-03-10): S537 bound the top-k pair-margin line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
+- EL-459 (2026-03-10): S538 elevated the top-k pair-margin line to approval-candidate posture while keeping it memo-only.
+
