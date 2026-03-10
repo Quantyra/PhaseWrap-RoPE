@@ -536,3 +536,7 @@ Use one row per evidence item.
 - EL-359 (2026-03-11): Bound the asymmetric sign-localization line to one fixed candidate and bounded symbolic localization control stack under a memo-only restart scaffold.
 
 - EL-360 (2026-03-11): Elevated the asymmetric sign-localization line to approval-candidate posture while keeping implementation closed pending a dedicated approval gate.
+
+- EL-361 (2026-03-11): Approved one strictly bounded local synthetic implementation phase for synthetic_transition_orbit_asymmetric_sign_localization_binary with a fixed control stack and hard-stop generator diagnostics.
+
+- EL-362 (2026-03-11): Fixed the asymmetric sign-localization implementation boundary: writable files, fixed packet, primary metrics, required outputs, and explicit prohibitions.
