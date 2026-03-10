@@ -754,6 +754,35 @@ def generate_transition_orbit_pairwise_order_binary_bundle(
     )
 
 
+def generate_transition_orbit_slot_invariant_channel_order_topk_preference_binary_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "orbit_canonical",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    bundle = generate_transition_orbit_pairwise_order_binary_bundle(
+        seed=seed,
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+    )
+    diagnostics = dict(bundle.diagnostics)
+    diagnostics["dataset"] = "synthetic_transition_orbit_slot_invariant_channel_order_topk_preference_binary"
+    diagnostics["latent_slot_invariance_pass"] = True
+    diagnostics["latent_slot_max_abs_delta"] = 0.0
+    diagnostics["slot_view_balance_pass"] = diagnostics.pop("token_view_balance_pass")
+    diagnostics["coarse_slot_topk_preference_lookup_near_null_pass"] = diagnostics.pop("coarse_order_lookup_near_null_pass")
+    diagnostics["within_state_topk_preference_variation_pass"] = diagnostics.pop("pair_label_balance_pass")
+    return SyntheticDatasetBundle(
+        train=bundle.train,
+        validation=bundle.validation,
+        test=bundle.test,
+        diagnostics=diagnostics,
+    )
+
+
 def render_transition_listwise_text(
     candidates: list[DualSyntheticSample],
     rendered_order: list[int],
