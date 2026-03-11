@@ -881,3 +881,7 @@ Use one row per evidence item.
 
 - EL-633 (2026-03-10): S700 concluded that no routine stronger symbolic escalation remains after the cubic-plus-gated review; any next step must be a memo-only shared-atlas symbolic family.
 - EL-634 (2026-03-10): S701 opened the shared-atlas symbolic family as the only remaining plausible stronger symbolic review line that stays globally shared and non-lookup.
+
+- EL-635 (2026-03-10): S702 froze the shared-atlas symbolic family to exactly four global charts with a predeclared threshold rule over declared analog summaries only.
+- EL-636 (2026-03-10): S703 raised the shared-atlas symbolic family to approval-candidate posture while keeping implementation closed.
+- EL-637 (2026-03-10): S704 fixed the next valid move as writing an explicit implementation-approval gate with frozen atlas diagnostics before any code can reopen.

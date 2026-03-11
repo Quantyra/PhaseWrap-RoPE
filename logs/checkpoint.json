@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Preserve the current symbolic-insufficiency witness result as the standing internal benchmark.",
-                         "Define the shared-atlas symbolic family completely at memo level before any code reopens.",
-                         "Reject any future symbolic review that introduces latent-path ids, hidden tuple lookups, or uncontrolled chart growth."
+                         "Write the explicit implementation-approval gate for the shared-atlas symbolic family.",
+                         "Bind frozen atlas diagnostics directly into that gate before any code reopens.",
+                         "Keep the current symbolic-insufficiency witness result as the standing internal benchmark until the atlas gate is approved."
                      ],
-    "repo_posture":  "memo_only_shared_atlas_symbolic_review",
+    "repo_posture":  "memo_only_shared_atlas_gate_planning",
     "risks":  [
-                  "If the shared-atlas family is allowed to fit chart regions from hidden latent structure, the fairness review collapses into lookup behavior.",
-                  "If chart count or interaction family grows after seeing packet outcomes, the current benchmark loses auditability."
+                  "If the shared-atlas chart rule expands beyond the frozen four-chart contract, the fairness review collapses into basis creep.",
+                  "If chart membership is allowed to depend on hidden latent structure, the atlas family becomes a lookup surrogate and the review is invalid."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -713,9 +713,11 @@
                                 "S696",
                                 "S697",
                                 "S698",
-                                "S700"
+                                "S700",
+                                "S702",
+                                "S703"
                             ],
     "current_story_ids":  [
-                              "S701"
+                              "S704"
                           ]
 }
