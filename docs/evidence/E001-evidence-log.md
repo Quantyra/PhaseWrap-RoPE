@@ -940,3 +940,7 @@ Use one row per evidence item.
 - EL-667 (2026-03-11): S733 bound the dual-atlas residual-gating family to one fixed future scaffold, task, backend, seeds, and required frozen-family audits.
 - EL-668 (2026-03-11): S734 preserved the dual-atlas residual-gating family as the next memo-only approval-candidate line while keeping implementation closed.
 
+
+- EL-669 (2026-03-11): S735 wrote the explicit implementation-approval gate for the dual-atlas residual-gating symbolic family and froze the 4x4 lattice, two residual channels, and all allowed interactions at gate level.
+- EL-670 (2026-03-11): S736 concluded that the dual-atlas residual-gating line is specific enough for one bounded implementation-planning step while keeping code closed in this step.
+
