@@ -851,3 +851,6 @@ Use one row per evidence item.
 - EL-605 (2026-03-10): S676 ran the fixed `pair_reindex=7` hardening packet; the deeper perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
 - EL-606 (2026-03-10): S677 kept the symbolic-insufficiency branch active after deeper pair reindex and selected a composite token-plus-slot hardening packet as the next bounded step.
 - EL-607 (2026-03-10): S678 fixed the composite `token_permutation=cdab` plus `slot_swap=1` packet as the next bounded hardening step for the symbolic-insufficiency branch.
+- EL-608 (2026-03-10): S678 ran the fixed composite `token_permutation=cdab` plus `slot_swap=1` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
+- EL-609 (2026-03-10): S679 kept the symbolic-insufficiency branch active after composite token-plus-slot hardening and rejected symbolic-family widening as the next move.
+- EL-610 (2026-03-10): S680 fixed the composite `token_permutation=cdab` plus `pair_reindex=7` packet as the next bounded hardening step for the symbolic-insufficiency branch.

@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Run the fixed composite hardening packet for `synthetic_symbolic_insufficiency_transition_response` with `token_permutation=cdab` and `slot_swap=1`.",
+                         "Run the fixed composite hardening packet for `synthetic_symbolic_insufficiency_transition_response` with `token_permutation=cdab` and `pair_reindex=7`.",
                          "Keep the frozen symbolic basis unchanged and rerun only the witness and the symbolic-insufficiency control on seeds `42`, `123`, and `777`.",
                          "Stop the branch if the witness loses either declared packet metric under the composite perturbation, or record the packet as inert if nothing moves."
                      ],
     "repo_posture":  "implementation_active_bounded",
     "risks":  [
-                  "If the witness advantage collapses under the composite nuisance-and-structure perturbation, the branch loses most of its remaining robustness value.",
-                  "If the composite perturbation is inert, the next step should switch perturbation family rather than stack more token or slot variants."
+                  "If the witness advantage collapses under the composite nuisance-plus-deeper-pair perturbation, the branch loses most of its remaining robustness value.",
+                  "If the composite perturbation is inert, the next step should switch perturbation family rather than stack more token or pair variants."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -697,9 +697,11 @@
                                 "S674",
                                 "S675",
                                 "S676",
-                                "S677"
+                                "S677",
+                                "S678",
+                                "S679"
                             ],
     "current_story_ids":  [
-                              "S678"
+                              "S680"
                           ]
 }
