@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the explicit implementation-approval gate for the dual-atlas transition-cubic symbolic family.",
-                         "Freeze the transition-cubic basis mechanically in that gate.",
-                         "Reopen code only if that gate is explicitly approved."
+                         "Write the bounded implementation plan for the dual-atlas transition-cubic symbolic control.",
+                         "Freeze transition-cubic definitions, lattice size, and allowed transition-cubic interactions mechanically in that plan.",
+                         "Reopen code only after the bounded plan is accepted."
                      ],
-    "repo_posture":  "memo_only_dual_atlas_transition_cubic_review",
+    "repo_posture":  "memo_only_dual_atlas_transition_cubic_gate_decision",
     "risks":  [
-                  "If the transition-cubic family grows beyond the two declared channels, the fairness review becomes invalid.",
+                  "If the transition-cubic family grows beyond the two declared directional cubic channels, the fairness review becomes invalid.",
                   "If hidden lookup behavior or uncontrolled higher-order growth appears, the future packet must be discarded."
               ],
     "completed_story_ids":  [
@@ -793,9 +793,10 @@
                                 "S780",
                                 "S781",
                                 "S782",
-                                "S783"
+                                "S783",
+                                "S785"
                             ],
     "current_story_ids":  [
-                              "S784"
+                              "S786"
                           ]
 }
