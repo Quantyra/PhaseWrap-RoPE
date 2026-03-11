@@ -909,3 +909,8 @@ Use one row per evidence item.
 - EL-651 (2026-03-11): S717 fixed the residual-atlas implementation plan to one control, one task, eight directional chart transitions, and one frozen residual interaction set.
 - EL-652 (2026-03-11): S718 concluded that the residual-atlas line is specific enough for one bounded implementation cycle and rejected any broader code reopening.
 
+
+- EL-653 (2026-03-11): S719 implemented exactly one residual-atlas symbolic control family under the frozen four-chart and eight-transition contract and validated it with the focused suite passing.
+- EL-654 (2026-03-11): S720 ran the fixed three-seed residual-atlas packet on synthetic_symbolic_insufficiency_transition_response; the witness beat the residual-atlas control on both mae and ank_correlation across all three seeds.
+- EL-655 (2026-03-11): S721 concluded that the residual-atlas control did not catch up, so the symbolic-insufficiency witness remains the standing internal benchmark under a stronger fairness bar.
+

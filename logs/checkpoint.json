@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement exactly one residual-atlas symbolic control: V_control_symbolic_symbolic_insufficiency_regressor_residual_atlas.",
-                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, and 777.",
-                         "Stop the line immediately if the residual-atlas control matches or beats the witness on both declared packet metrics."
+                         "Preserve the symbolic-insufficiency witness as the standing internal benchmark.",
+                         "Do not reopen code unless a materially stronger symbolic family is declared at memo level.",
+                         "If fairness review continues, define that stronger symbolic basis before any new implementation gate."
                      ],
-    "repo_posture":  "bounded_residual_atlas_implementation",
+    "repo_posture":  "memo_only_preserved_positive_result",
     "risks":  [
-                  "If transition features drift beyond the frozen eight directional transitions, the review becomes invalid.",
-                  "If any residual interaction beyond the three declared analog residuals appears, the packet must be discarded."
+                  "If a future symbolic family reintroduces hidden lookup structure, the fairness review becomes invalid.",
+                  "If the benchmark is widened without a frozen symbolic basis, the current positive result loses audit value."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -728,9 +728,12 @@
                                 "S715",
                                 "S716",
                                 "S717",
-                                "S718"
+                                "S718",
+                                "S719",
+                                "S720",
+                                "S721"
                             ],
     "current_story_ids":  [
-                              "S718"
+                              "S721"
                           ]
 }

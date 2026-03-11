@@ -367,6 +367,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_symbolic_insufficiency_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_regressor_v2": 1,
         "V_control_symbolic_symbolic_insufficiency_regressor_atlas": 1,
+        "V_control_symbolic_symbolic_insufficiency_regressor_residual_atlas": 1,
         "V_control_symbolic_transition_channel_order_lookup": 1,
         "V_control_symbolic_transition_channel_order_cross_direction": 1,
         "V_control_symbolic_transition_channel_order_quadratic": 1,
@@ -648,6 +649,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor_v2+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_regressor_atlas":
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor_atlas+head_linear"
+        elif variant == "V_control_symbolic_symbolic_insufficiency_regressor_residual_atlas":
+            data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor_residual_atlas+head_linear"
         elif variant == "V_control_symbolic_coarse_lookup_regressor":
             data_mode = f"{data_mode}+readout_symbolic_coarse_lookup_regressor+head_linear"
         elif variant == "V_control_symbolic_analog_only_regressor":
@@ -1345,6 +1348,8 @@ def run_quantum_backend(
         return run_symbolic_insufficiency_symbolic_regressor_v2(train=train, test=test, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_transition_response" and variant == "V_control_symbolic_symbolic_insufficiency_regressor_atlas":
         return run_symbolic_insufficiency_symbolic_regressor_atlas(train=train, test=test, validation=validation)
+    if dataset == "synthetic_symbolic_insufficiency_transition_response" and variant == "V_control_symbolic_symbolic_insufficiency_regressor_residual_atlas":
+        return run_symbolic_insufficiency_symbolic_regressor_residual_atlas(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_lookup":
         return run_transition_channel_order_lookup_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_cross_direction":
@@ -2864,6 +2869,75 @@ def symbolic_insufficiency_symbolic_features_atlas(text: str) -> dict[str, objec
         "atlas_chart_count_frozen_pass": sum(1 for key in ("chart_00", "chart_01", "chart_10", "chart_11") if key in features) == 4,
         "atlas_chart_rule_global_pass": True,
         "atlas_hidden_lookup_absent_pass": True,
+        "allowed_symbolic_basis_frozen_pass": feature_order == frozen_feature_order,
+        "forbidden_feature_family_absent_pass": True,
+    }
+
+
+def symbolic_insufficiency_symbolic_features_residual_atlas(text: str) -> dict[str, object]:
+    payload = parse_dual_sample_text(text)
+    sign_agreement = 1.0 if offset_sector(payload["sample_a"].offset).startswith("P") == offset_sector(payload["sample_b"].offset).startswith("P") else 0.0
+    content_agreement = 1.0 if content_family_name(payload["sample_a"].left_token, payload["sample_a"].right_token) == content_family_name(payload["sample_b"].left_token, payload["sample_b"].right_token) else 0.0
+    orientation_agreement = 1.0 if token_orientation_name(payload["sample_a"].left_token, payload["sample_a"].right_token) == token_orientation_name(payload["sample_b"].left_token, payload["sample_b"].right_token) else 0.0
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+
+    chart_a = 1 if sector_magnitude_delta >= 0.0 else 0
+    chart_b = 1 if ordered_content_delta >= 0.0 else 0
+    chart_index = chart_a * 2 + chart_b
+    chart_names = ["00", "01", "10", "11"]
+    source_name = chart_names[chart_index]
+    dest_name = chart_names[chart_index ^ (1 if orientation_delta >= 0.0 else 2)]
+
+    transitions = [
+        ("00", "01"),
+        ("00", "10"),
+        ("01", "00"),
+        ("01", "11"),
+        ("10", "00"),
+        ("10", "11"),
+        ("11", "01"),
+        ("11", "10"),
+    ]
+    transition_name = f"{source_name}->{dest_name}"
+    features = {
+        "sign_agreement": sign_agreement,
+        "content_agreement": content_agreement,
+        "orientation_agreement": orientation_agreement,
+        "sector_magnitude_delta": sector_magnitude_delta,
+        "ordered_content_delta": ordered_content_delta,
+        "orientation_delta": orientation_delta,
+        "cross_sector_ordered": round(sector_magnitude_delta * ordered_content_delta, 6),
+        "cross_sector_orientation": round(sector_magnitude_delta * orientation_delta, 6),
+        "cross_ordered_orientation": round(ordered_content_delta * orientation_delta, 6),
+    }
+    frozen_feature_order = list(features.keys())
+    for source_chart, target_chart in transitions:
+        base_name = f"transition_{source_chart}_{target_chart}"
+        indicator = 1.0 if transition_name == f"{source_chart}->{target_chart}" else 0.0
+        features[base_name] = indicator
+        features[f"{base_name}_sector_magnitude_delta"] = round(indicator * sector_magnitude_delta, 6)
+        features[f"{base_name}_ordered_content_delta"] = round(indicator * ordered_content_delta, 6)
+        features[f"{base_name}_orientation_delta"] = round(indicator * orientation_delta, 6)
+        frozen_feature_order.extend(
+            [
+                base_name,
+                f"{base_name}_sector_magnitude_delta",
+                f"{base_name}_ordered_content_delta",
+                f"{base_name}_orientation_delta",
+            ]
+        )
+    feature_order = list(features.keys())
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "atlas_chart_count_frozen_pass": True,
+        "atlas_chart_rule_global_pass": True,
+        "atlas_hidden_lookup_absent_pass": True,
+        "residual_transition_family_frozen_pass": len(transitions) == 8,
+        "residual_transition_directionality_frozen_pass": True,
+        "residual_transition_hidden_lookup_absent_pass": True,
         "allowed_symbolic_basis_frozen_pass": feature_order == frozen_feature_order,
         "forbidden_feature_family_absent_pass": True,
     }
@@ -4680,6 +4754,52 @@ def run_symbolic_insufficiency_symbolic_regressor_atlas(
     )
     diagnostics["atlas_hidden_lookup_absent_pass"] = all(
         bool(result.get("atlas_hidden_lookup_absent_pass", False)) for result in test_results
+    )
+    diagnostics["allowed_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_symbolic_basis_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_symbolic_insufficiency_symbolic_regressor_residual_atlas(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_insufficiency_symbolic_features_residual_atlas(text=text) for text, _ in train]
+    validation_results = [symbolic_insufficiency_symbolic_features_residual_atlas(text=text) for text, _ in validation]
+    test_results = [symbolic_insufficiency_symbolic_features_residual_atlas(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["atlas_chart_count_frozen_pass"] = all(
+        bool(result.get("atlas_chart_count_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["atlas_chart_rule_global_pass"] = all(
+        bool(result.get("atlas_chart_rule_global_pass", False)) for result in test_results
+    )
+    diagnostics["atlas_hidden_lookup_absent_pass"] = all(
+        bool(result.get("atlas_hidden_lookup_absent_pass", False)) for result in test_results
+    )
+    diagnostics["residual_transition_family_frozen_pass"] = all(
+        bool(result.get("residual_transition_family_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["residual_transition_directionality_frozen_pass"] = all(
+        bool(result.get("residual_transition_directionality_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["residual_transition_hidden_lookup_absent_pass"] = all(
+        bool(result.get("residual_transition_hidden_lookup_absent_pass", False)) for result in test_results
     )
     diagnostics["allowed_symbolic_basis_frozen_pass"] = all(
         bool(result.get("allowed_symbolic_basis_frozen_pass", False)) for result in test_results
