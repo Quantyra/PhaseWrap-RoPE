@@ -59,6 +59,7 @@ from .synthetic import (
     generate_transition_orbit_slot_invariant_topk_pair_order_agreement_binary_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_signed_flip_consistency_binary_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_signed_flip_stability_binary_bundle,
+    generate_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_signed_consistency_binary_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_stability_binary_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_drift_response_bundle,
@@ -288,6 +289,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_transition_orbit_topk_pair_order_signed_consistency_invariant": 24,
         "V_future_relational_witness_transition_orbit_topk_pair_order_signed_flip_consistency_invariant": 24,
         "V_future_relational_witness_transition_orbit_topk_pair_order_signed_flip_stability_invariant": 24,
+        "V_future_relational_witness_transition_orbit_topk_pair_order_signed_flip_persistence_invariant": 24,
         "V_future_relational_witness_transition_orbit_topk_pair_order_stability_invariant": 24,
         "V_future_relational_witness_transition_orbit_topk_pair_order_drift_invariant": 24,
         "V_future_relational_witness_transition_orbit_topk_pair_order_signed_drift_invariant": 24,
@@ -386,6 +388,10 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_topk_pair_order_signed_flip_stability_invariant_cross_direction": 1,
         "V_control_symbolic_transition_topk_pair_order_signed_flip_stability_invariant_quadratic": 1,
         "V_control_symbolic_transition_topk_pair_order_signed_flip_stability_invariant_orbit_permuted": 1,
+        "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_lookup": 1,
+        "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_cross_direction": 1,
+        "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_quadratic": 1,
+        "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_orbit_permuted": 1,
         "V_control_symbolic_transition_topk_pair_order_stability_invariant_lookup": 1,
         "V_control_symbolic_transition_topk_pair_order_stability_invariant_cross_direction": 1,
         "V_control_symbolic_transition_topk_pair_order_stability_invariant_quadratic": 1,
@@ -573,6 +579,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_topk_pair_order_signed_flip_consistency_invariant+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_topk_pair_order_signed_flip_stability_invariant":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_topk_pair_order_signed_flip_stability_invariant+head_linear"
+        elif variant == "V_future_relational_witness_transition_orbit_topk_pair_order_signed_flip_persistence_invariant":
+            data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_topk_pair_order_signed_flip_persistence_invariant+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_topk_pair_order_stability_invariant":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_topk_pair_order_stability_invariant+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_topk_pair_order_drift_invariant":
@@ -769,6 +777,14 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_transition_topk_pair_order_signed_flip_stability_invariant_quadratic+head_linear"
         elif variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_stability_invariant_orbit_permuted":
             data_mode = f"{data_mode}+readout_symbolic_transition_topk_pair_order_signed_flip_stability_invariant_orbit_permuted+head_linear"
+        elif variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_lookup":
+            data_mode = f"{data_mode}+readout_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_lookup+head_linear"
+        elif variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_cross_direction":
+            data_mode = f"{data_mode}+readout_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_cross_direction+head_linear"
+        elif variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_quadratic":
+            data_mode = f"{data_mode}+readout_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_quadratic+head_linear"
+        elif variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_orbit_permuted":
+            data_mode = f"{data_mode}+readout_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_orbit_permuted+head_linear"
         elif variant == "V_control_symbolic_transition_topk_pair_order_stability_invariant_lookup":
             data_mode = f"{data_mode}+readout_symbolic_transition_topk_pair_order_stability_invariant_lookup+head_linear"
         elif variant == "V_control_symbolic_transition_topk_pair_order_stability_invariant_cross_direction":
@@ -1096,6 +1112,8 @@ def run_quantum_backend(
         return run_transition_orbit_order_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_topk_pair_order_signed_flip_stability_invariant":
         return run_transition_orbit_order_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if variant == "V_future_relational_witness_transition_orbit_topk_pair_order_signed_flip_persistence_invariant":
+        return run_transition_orbit_order_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_topk_pair_order_stability_invariant":
         return run_transition_orbit_order_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if variant == "V_future_relational_witness_transition_orbit_topk_pair_order_drift_invariant":
@@ -1303,6 +1321,14 @@ def run_quantum_backend(
     if dataset == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_stability_binary" and variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_stability_invariant_quadratic":
         return run_transition_order_quadratic_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_stability_binary" and variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_stability_invariant_orbit_permuted":
+        return run_transition_order_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary" and variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_lookup":
+        return run_transition_order_lookup_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary" and variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_cross_direction":
+        return run_transition_order_cross_direction_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary" and variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_quadratic":
+        return run_transition_order_quadratic_symbolic_backend(train=train, test=test, validation=validation)
+    if dataset == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary" and variant == "V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_orbit_permuted":
         return run_transition_order_orbit_permuted_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_slot_invariant_topk_pair_order_stability_binary" and variant == "V_control_symbolic_transition_topk_pair_order_stability_invariant_lookup":
         return run_transition_order_lookup_symbolic_backend(train=train, test=test, validation=validation)
@@ -7764,6 +7790,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_stability_binary",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary":
+        bundle = generate_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_transition_orbit_slot_invariant_topk_pair_order_stability_binary":

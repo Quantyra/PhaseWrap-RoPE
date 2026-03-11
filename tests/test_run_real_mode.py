@@ -1086,6 +1086,44 @@ def test_transition_orbit_slot_invariant_topk_pair_order_signed_flip_stability_l
     assert 0.0 <= metrics["f1"] <= 1.0
 
 
+def test_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_loader_path() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_transition_orbit_topk_pair_order_signed_flip_persistence_invariant",
+    )
+    assert (
+        metrics["data_mode"]
+        == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary+readout_relational_witness_transition_orbit_topk_pair_order_signed_flip_persistence_invariant+head_linear"
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert diagnostics["latent_slot_invariance_pass"] is True
+    assert diagnostics["latent_slot_max_abs_delta"] == 0.0
+    assert diagnostics["slot_view_balance_pass"] is True
+    assert diagnostics["coarse_slot_topk_pair_signed_flip_persistence_lookup_near_null_pass"] is True
+    assert diagnostics["within_state_topk_pair_signed_flip_persistence_variation_pass"] is True
+    assert diagnostics["paired_context_diversity_pass"] is True
+    assert diagnostics["signed_flip_persistence_label_balance_pass"] is True
+    assert 0.0 <= metrics["accuracy"] <= 1.0
+    assert 0.0 <= metrics["f1"] <= 1.0
+
+
+def test_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_lookup_control_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_lookup",
+    )
+    assert (
+        metrics["data_mode"]
+        == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary+readout_symbolic_transition_topk_pair_order_signed_flip_persistence_invariant_lookup+head_linear"
+    )
+    assert 0.0 <= metrics["accuracy"] <= 1.0
+    assert 0.0 <= metrics["f1"] <= 1.0
+
+
 def test_transition_orbit_slot_invariant_topk_pair_order_stability_loader_path() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_transition_orbit_slot_invariant_topk_pair_order_stability_binary",

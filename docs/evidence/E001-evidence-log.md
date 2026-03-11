@@ -759,3 +759,8 @@ Use one row per evidence item.
 
 - EL-532 (2026-03-11): S611 approved one strictly bounded local synthetic implementation phase for the slot-invariant top-k pair-order signed-flip persistence line.
 - EL-533 (2026-03-11): S612 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the signed-flip persistence packet.
+
+- EL-534 (2026-03-11): S613 implemented the bounded slot-invariant top-k pair-order signed-flip persistence branch and validated it with 240 focused tests passing.
+- EL-535 (2026-03-11): S614 ran the fixed three-seed packet; the witness lost both declared primary classification metrics to bounded controls.
+- EL-536 (2026-03-11): S615 stopped the slot-invariant top-k pair-order signed-flip persistence execution branch under the declared gate.
+- EL-537 (2026-03-11): S616 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_recurrence_binary as the next memo-only angle.
