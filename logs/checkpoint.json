@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the explicit implementation-approval gate for the dual-atlas transition-residual symbolic family.",
-                         "Freeze the transition-residual basis mechanically in that gate.",
-                         "Reopen code only if that gate is explicitly approved."
+                         "Write the bounded implementation plan for the dual-atlas transition-residual symbolic control.",
+                         "Freeze transition-residual definitions, lattice size, and allowed transition-residual interactions mechanically in that plan.",
+                         "Reopen code only after the bounded plan is accepted."
                      ],
-    "repo_posture":  "memo_only_dual_atlas_transition_residual_review",
+    "repo_posture":  "memo_only_dual_atlas_transition_gate_decision",
     "risks":  [
                   "If the transition-residual family grows beyond the two declared channels, the review becomes invalid.",
                   "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
@@ -764,9 +764,11 @@
                                 "S751",
                                 "S752",
                                 "S753",
-                                "S754"
+                                "S754",
+                                "S755",
+                                "S756"
                             ],
     "current_story_ids":  [
-                              "S754"
+                              "S756"
                           ]
 }

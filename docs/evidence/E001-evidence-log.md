@@ -976,3 +976,7 @@ Use one row per evidence item.
 - EL-687 (2026-03-11): S753 bound the dual-atlas transition-residual family to one fixed future scaffold, task, backend, seeds, and required frozen-family audits.
 - EL-688 (2026-03-11): S754 preserved the dual-atlas transition-residual family as the next memo-only approval-candidate line while keeping implementation closed.
 
+
+- EL-689 (2026-03-11): S755 wrote the explicit implementation-approval gate for the dual-atlas transition-residual symbolic family and froze the 4x4 lattice, residual channels, bilinear channels, transition-residual channels, and all allowed interactions at gate level.
+- EL-690 (2026-03-11): S756 concluded that the dual-atlas transition-residual line is specific enough for one bounded implementation-planning step while keeping code closed in this step.
+
