@@ -801,3 +801,7 @@ Use one row per evidence item.
 - EL-563 (2026-03-11): The signed-flip hysteresis packet passed all hard-stop diagnostics and produced witness means of `accuracy=0.515151`, `f1=0.250000`.
 - EL-564 (2026-03-11): The signed-flip hysteresis witness lost on both declared primary metrics to multiple bounded controls, so the execution branch was stopped.
 - EL-565 (2026-03-11): Preserved `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_memory_binary` as the next memo-only continuation of the slot-invariant signed-flip line.
+
+- EL-566 (2026-03-11): Specified `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_memory_binary` as the next memo-only continuation of the slot-invariant signed-flip line.
+- EL-567 (2026-03-11): Bound the signed-flip memory line to a fixed restart scaffold with one future candidate, one bounded symbolic control stack, and one fixed three-seed local packet.
+- EL-568 (2026-03-11): Elevated the signed-flip memory line to approval-candidate posture while keeping the branch memo-only and implementation-closed.
