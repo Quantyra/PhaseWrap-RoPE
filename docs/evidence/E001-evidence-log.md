@@ -818,3 +818,7 @@ Use one row per evidence item.
 - EL-576 (2026-03-11): Preserved an explicit symbolic-insufficiency task-design line as the next higher-value continuation after repeated bounded symbolic catch-up across transition-orbit branches.
 - EL-577 (2026-03-11): Bound the symbolic-insufficiency line to a restart scaffold that requires a predeclared allowed symbolic family and explicit forbidden-feature family before any implementation approval.
 - EL-578 (2026-03-11): Elevated the symbolic-insufficiency line to approval-candidate posture while keeping the repo in memo-only mode for this branch.
+
+- EL-579 (2026-03-11): Fixed `synthetic_symbolic_insufficiency_transition_response` as the first exact task on the symbolic-insufficiency line.
+- EL-580 (2026-03-11): Declared one allowed symbolic control family and one forbidden feature family before any implementation approval discussion.
+- EL-581 (2026-03-11): Recorded a memo-level insufficiency argument and bound it into the symbolic-insufficiency restart scaffold.
