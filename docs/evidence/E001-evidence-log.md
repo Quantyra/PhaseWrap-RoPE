@@ -1036,3 +1036,6 @@ Use one row per evidence item.
 - EL-726 (2026-03-11): S792 defined one materially stronger memo-only symbolic family beyond transition-cubic by adding exactly two frozen dual-atlas transition-cubic-plus channels.
 - EL-727 (2026-03-11): S793 bound the transition-cubic-plus family to one fixed future restart scaffold with a frozen task, backend, seeds, and audit shape.
 - EL-728 (2026-03-11): S794 raised the transition-cubic-plus family to memo-only approval-candidate posture while keeping code closed.
+
+- EL-729 (2026-03-11): S795 wrote the explicit implementation-approval gate for the dual-atlas transition-cubic-plus symbolic family and froze the cubic-plus basis at gate level before any new code reopened.
+- EL-730 (2026-03-11): S796 concluded that the dual-atlas transition-cubic-plus line is specific enough for one bounded implementation-planning step while keeping code closed in this step.
