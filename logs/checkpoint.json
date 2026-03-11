@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Review whether the stronger-control implementation plan is specific enough for a bounded implementation-approval decision.",
-                         "Keep the current symbolic-insufficiency witness result fixed as the baseline internal reference.",
-                         "Do not reopen code until the stronger-control implementation plan is explicitly approved."
+                         "Implement exactly one stronger symbolic control: V_control_symbolic_symbolic_insufficiency_regressor_v2.",
+                         "Run one fixed packet against the preserved witness baseline on seeds 42, 123, and 777.",
+                         "Stop the branch immediately if the stronger control matches or beats the witness on both declared packet metrics."
                      ],
-    "repo_posture":  "memo_only_stronger_control_plan",
+    "repo_posture":  "bounded_stronger_control_implementation",
     "risks":  [
-                  "If the stronger-control implementation plan drifts beyond the frozen basis, the fairness review becomes invalid.",
-                  "If multiple stronger-control families are allowed to creep in, the branch loses auditability immediately."
+                  "If the stronger control implementation drifts beyond the frozen symbolic basis, the fairness review becomes invalid.",
+                  "If implementation introduces latent-path or microstate-like lookup features, the stronger-control result is not auditable and must be discarded."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -708,9 +708,10 @@
                                 "S687",
                                 "S689",
                                 "S691",
-                                "S693"
+                                "S693",
+                                "S695"
                             ],
     "current_story_ids":  [
-                              "S694"
+                              "S696"
                           ]
 }

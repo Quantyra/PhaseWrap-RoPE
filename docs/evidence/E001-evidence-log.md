@@ -870,3 +870,6 @@ Use one row per evidence item.
 - EL-624 (2026-03-10): S692 recorded that the stronger symbolic basis is now explicit enough for a bounded future implementation cycle, but code remains closed until a concrete stronger-control implementation plan is written.
 - EL-625 (2026-03-10): S693 approved one strictly bounded implementation-planning phase for a stronger symbolic control family while keeping code and execution closed.
 - EL-626 (2026-03-10): S694 fixed the exact stronger-control implementation plan, frozen basis, forbidden feature family, and future packet shape.
+
+- EL-627 (2026-03-10): S695 approved one strictly bounded stronger symbolic control implementation cycle against the preserved symbolic-insufficiency witness baseline.
+- EL-628 (2026-03-10): S696 was opened as the only valid next execution step, with task, seeds, backend, and stronger symbolic basis all fixed in advance.
