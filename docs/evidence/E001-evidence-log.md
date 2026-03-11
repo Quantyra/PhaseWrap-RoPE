@@ -768,3 +768,6 @@ Use one row per evidence item.
 - EL-538 (2026-03-11): S617 fixed synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_recurrence_binary as the next exact memo-only task.
 - EL-539 (2026-03-11): S618 bound the signed-flip recurrence line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
 - EL-540 (2026-03-11): S619 elevated the slot-invariant top-k pair-order signed-flip recurrence line to approval-candidate posture while keeping it memo-only.
+
+- EL-541 (2026-03-11): S620 approved one strictly bounded local synthetic implementation phase for the slot-invariant top-k pair-order signed-flip recurrence line.
+- EL-542 (2026-03-11): S621 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the signed-flip recurrence packet.
