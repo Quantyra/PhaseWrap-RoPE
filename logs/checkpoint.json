@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the bounded implementation plan for the dual-atlas transition-residual symbolic control.",
-                         "Freeze transition-residual definitions, lattice size, and allowed transition-residual interactions mechanically in that plan.",
-                         "Reopen code only after the bounded plan is accepted."
+                         "Implement exactly one dual-atlas transition-residual symbolic control.",
+                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, 777.",
+                         "Stop the line immediately if the transition-residual control matches or beats the witness on both declared packet metrics."
                      ],
-    "repo_posture":  "memo_only_dual_atlas_transition_gate_decision",
+    "repo_posture":  "bounded_dual_atlas_transition_implementation",
     "risks":  [
                   "If the transition-residual family grows beyond the two declared channels, the review becomes invalid.",
                   "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
@@ -766,9 +766,11 @@
                                 "S753",
                                 "S754",
                                 "S755",
-                                "S756"
+                                "S756",
+                                "S757",
+                                "S758"
                             ],
     "current_story_ids":  [
-                              "S756"
+                              "S758"
                           ]
 }
