@@ -966,3 +966,8 @@ Use one row per evidence item.
 - EL-681 (2026-03-11): S747 fixed the bounded implementation plan for the dual-atlas bilinear residual challenger with a frozen 4x4 lattice, two residual channels, two bilinear channels, and one fixed three-seed packet against the standing witness benchmark.
 - EL-682 (2026-03-11): S748 concluded that the dual-atlas bilinear residual line is specific enough for one bounded implementation cycle and rejected any broader code reopening.
 
+
+- EL-683 (2026-03-11): S749 implemented exactly one dual-atlas bilinear residual symbolic challenger under the frozen 4x4 source-destination lattice, two residual channels, and two bilinear channels, and validated it with the focused suite passing.
+- EL-684 (2026-03-11): S750 ran the fixed three-seed dual-atlas bilinear residual packet on synthetic_symbolic_insufficiency_transition_response; the witness beat the challenger on both mae and rank_correlation across all three seeds.
+- EL-685 (2026-03-11): S751 concluded that the dual-atlas bilinear residual control did not catch up, so the symbolic-insufficiency witness remains the standing internal benchmark under the stronger bilinear fairness bar.
+
