@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Run the fixed `slot_swap=1` hardening packet for `synthetic_symbolic_insufficiency_transition_response`.",
+                         "Run the fixed `pair_reindex=7` hardening packet for `synthetic_symbolic_insufficiency_transition_response`.",
                          "Keep the frozen symbolic basis unchanged and rerun only the witness and the symbolic-insufficiency control on seeds `42`, `123`, and `777`.",
-                         "Stop the branch if the witness loses either declared packet metric under the slot perturbation, or record the perturbation as inert if nothing moves."
+                         "Stop the branch if the witness loses either declared packet metric under the deeper pairing perturbation, or record the perturbation as inert if nothing moves."
                      ],
     "repo_posture":  "implementation_active_bounded",
     "risks":  [
-                  "If the witness advantage collapses under slot swapping, the branch loses most of its remaining structural robustness value.",
-                  "If slot swapping is inert, the next hardening step must change structure more directly rather than repeat nuisance perturbations."
+                  "If the witness advantage collapses under a deeper pairing perturbation, the branch loses most of its remaining structural robustness value.",
+                  "If deeper pair reindex is inert, the next hardening step must change structure rather than scale the same perturbation family again."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -693,9 +693,11 @@
                                 "S670",
                                 "S671",
                                 "S672",
-                                "S673"
+                                "S673",
+                                "S674",
+                                "S675"
                             ],
     "current_story_ids":  [
-                              "S674"
+                              "S676"
                           ]
 }
