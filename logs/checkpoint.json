@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the implementation-approval gate for `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_memory_binary`.",
-                         "Bind latent slot-invariance and coarse top-k pair-order signed-flip memory null diagnostics directly into that gate.",
-                         "Reopen code only if that gate is explicitly approved."
+                         "Implement `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_memory_binary`.",
+                         "Stop immediately if the generator fails the hard-stop diagnostics.",
+                         "Run the fixed three-seed packet and decide the branch from `accuracy` and `F1` only."
                      ],
-    "repo_posture":  "memo_only",
+    "repo_posture":  "implementation_approved_bounded",
     "risks":  [
                   "Recent slot-invariant signed-flip branches have repeatedly collapsed to the same bounded symbolic-control pattern; memory must show a materially different classification surface to survive.",
                   "If the memory line reproduces the same packet means as recurrence, persistence, reversion, or hysteresis, the signed-flip family is likely exhausted under the current protocol."
@@ -646,9 +646,13 @@
                                 "S642",
                                 "S643",
                                 "S644",
-                                "S645"
+                                "S645",
+                                "S644",
+                                "S645",
+                                "S646",
+                                "S647"
                             ],
     "current_story_ids":  [
-                              "S646"
+                              "S648"
                           ]
 }

@@ -805,3 +805,7 @@ Use one row per evidence item.
 - EL-566 (2026-03-11): Specified `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_memory_binary` as the next memo-only continuation of the slot-invariant signed-flip line.
 - EL-567 (2026-03-11): Bound the signed-flip memory line to a fixed restart scaffold with one future candidate, one bounded symbolic control stack, and one fixed three-seed local packet.
 - EL-568 (2026-03-11): Elevated the signed-flip memory line to approval-candidate posture while keeping the branch memo-only and implementation-closed.
+
+- EL-569 (2026-03-11): Approved one strictly bounded implementation phase for `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_memory_binary` with fixed candidate, fixed control stack, and fixed three-seed local packet.
+- EL-570 (2026-03-11): Bound the hard-stop generator diagnostics for the signed-flip memory line directly into the implementation approval gate.
+- EL-571 (2026-03-11): Fixed the writable scope and branch decision rule for the signed-flip memory implementation phase.
