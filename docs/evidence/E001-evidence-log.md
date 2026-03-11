@@ -919,3 +919,7 @@ Use one row per evidence item.
 - EL-657 (2026-03-11): S723 bound the dual-atlas family to one fixed future scaffold, task, backend, seeds, and required frozen-family audits.
 - EL-658 (2026-03-11): S724 preserved the dual-atlas family as the only valid next stronger symbolic review line and kept the branch memo-only.
 
+
+- EL-659 (2026-03-11): S725 wrote the explicit implementation-approval gate for the dual-atlas symbolic family and froze the source/destination chart rules, 4x4 lattice, and allowed coupling interactions at gate level.
+- EL-660 (2026-03-11): S726 concluded that the dual-atlas line is specific enough for one bounded implementation-planning step, while keeping code closed in this step.
+

@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write one explicit implementation-approval candidate memo for the dual-atlas symbolic family.",
-                         "Freeze lattice size, chart rules, and allowed coupling interactions directly in that memo.",
-                         "Do not reopen code until the dual-atlas gate is explicit and approved."
+                         "Write one bounded implementation plan for the dual-atlas symbolic family.",
+                         "Freeze lattice size, chart rules, and allowed coupling interactions directly in that plan.",
+                         "Do not reopen code until that implementation plan is complete."
                      ],
-    "repo_posture":  "memo_only_dual_atlas_review",
+    "repo_posture":  "memo_only_dual_atlas_gate_decision",
     "risks":  [
-                  "If the source or destination atlas rules depend on hidden latent tuples, the fairness review becomes invalid.",
-                  "If the coupling lattice grows beyond the frozen 4x4 structure, the benchmark loses audit value."
+                  "If source or destination chart rules are left implicit, the dual-atlas review becomes non-auditable.",
+                  "If the coupling lattice or cell interactions expand beyond the frozen contract, the fairness review becomes invalid."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -734,9 +734,11 @@
                                 "S721",
                                 "S722",
                                 "S723",
-                                "S724"
+                                "S724",
+                                "S725",
+                                "S726"
                             ],
     "current_story_ids":  [
-                              "S724"
+                              "S726"
                           ]
 }
