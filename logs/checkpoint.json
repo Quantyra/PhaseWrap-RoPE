@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write one bounded implementation plan for the dual-atlas symbolic family.",
-                         "Freeze lattice size, chart rules, and allowed coupling interactions directly in that plan.",
-                         "Do not reopen code until that implementation plan is complete."
+                         "Implement exactly one dual-atlas symbolic control: V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas.",
+                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, and 777.",
+                         "Stop the line immediately if the dual-atlas control matches or beats the witness on both declared packet metrics."
                      ],
-    "repo_posture":  "memo_only_dual_atlas_gate_decision",
+    "repo_posture":  "bounded_dual_atlas_implementation",
     "risks":  [
-                  "If source or destination chart rules are left implicit, the dual-atlas review becomes non-auditable.",
-                  "If the coupling lattice or cell interactions expand beyond the frozen contract, the fairness review becomes invalid."
+                  "If the coupling lattice drifts beyond the frozen 4x4 structure, the review becomes invalid.",
+                  "If any cell interaction beyond the three declared analog summaries appears, the packet must be discarded."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -736,9 +736,11 @@
                                 "S723",
                                 "S724",
                                 "S725",
-                                "S726"
+                                "S726",
+                                "S727",
+                                "S728"
                             ],
     "current_story_ids":  [
-                              "S726"
+                              "S728"
                           ]
 }

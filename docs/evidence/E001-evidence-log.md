@@ -923,3 +923,7 @@ Use one row per evidence item.
 - EL-659 (2026-03-11): S725 wrote the explicit implementation-approval gate for the dual-atlas symbolic family and froze the source/destination chart rules, 4x4 lattice, and allowed coupling interactions at gate level.
 - EL-660 (2026-03-11): S726 concluded that the dual-atlas line is specific enough for one bounded implementation-planning step, while keeping code closed in this step.
 
+
+- EL-661 (2026-03-11): S727 fixed the dual-atlas implementation plan to one control, one task, a frozen 4x4 source-destination lattice, and one frozen coupling interaction set.
+- EL-662 (2026-03-11): S728 concluded that the dual-atlas line is specific enough for one bounded implementation cycle and rejected any broader code reopening.
+
