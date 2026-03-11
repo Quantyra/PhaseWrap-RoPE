@@ -888,3 +888,6 @@ Use one row per evidence item.
 
 - EL-638 (2026-03-11): S705 froze the shared-atlas implementation gate with exactly four global charts, a predeclared chart rule, and explicit atlas hard-stop diagnostics.
 - EL-639 (2026-03-11): S706 recorded that the shared-atlas line is now specific enough for one bounded implementation-planning step, while code remains closed until that plan is written.
+
+- EL-640 (2026-03-11): S707 fixed the bounded shared-atlas implementation plan with one control only, one task only, and a frozen four-chart global rule.
+- EL-641 (2026-03-11): S708 recorded that the shared-atlas line is specific enough for one bounded implementation cycle against the standing witness benchmark.

@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the bounded implementation plan for V_control_symbolic_symbolic_insufficiency_regressor_atlas.",
-                         "Keep the standing witness benchmark fixed while defining the atlas control packet.",
-                         "Do not reopen code beyond the atlas control scope."
+                         "Implement exactly one shared-atlas symbolic control: V_control_symbolic_symbolic_insufficiency_regressor_atlas.",
+                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, and 777.",
+                         "Stop the line immediately if the atlas control matches or beats the witness on both declared packet metrics."
                      ],
-    "repo_posture":  "memo_only_shared_atlas_plan_ready",
+    "repo_posture":  "bounded_shared_atlas_implementation",
     "risks":  [
-                  "If the atlas implementation plan changes chart count or chart rule, the fairness review becomes invalid.",
-                  "If atlas features leak latent-path or hidden tuple structure, the control is no longer auditable."
+                  "If the atlas implementation introduces hidden latent-dependent charting, the review becomes invalid.",
+                  "If chart count or atlas interaction family drifts beyond the frozen contract, the packet must be discarded."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -716,9 +716,10 @@
                                 "S700",
                                 "S702",
                                 "S703",
-                                "S705"
+                                "S705",
+                                "S707"
                             ],
     "current_story_ids":  [
-                              "S706"
+                              "S708"
                           ]
 }
