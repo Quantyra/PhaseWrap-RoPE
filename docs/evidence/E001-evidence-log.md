@@ -826,3 +826,7 @@ Use one row per evidence item.
 - EL-582 (2026-03-11): Narrowed the symbolic-insufficiency line to one explicit allowed symbolic basis to prevent symbolic-family creep during later planning.
 - EL-583 (2026-03-11): Refreshed the symbolic-insufficiency line to a hardened approval-candidate with a frozen allowed symbolic basis and explicit forbidden feature family.
 - EL-584 (2026-03-11): Bound the hardened symbolic basis directly into the symbolic-insufficiency restart scaffold and added `allowed_symbolic_basis_frozen_pass` as a required future diagnostic.
+
+- EL-585 (2026-03-11): Raised the symbolic-insufficiency line to an implementation-approval candidate posture while keeping it memo-only.
+- EL-586 (2026-03-11): Fixed the next valid move as writing one explicit implementation-approval gate that enforces the frozen symbolic basis.
+- EL-587 (2026-03-11): Recorded that the line is now conceptually ready for gate review but not for implementation.
