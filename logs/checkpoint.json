@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the bounded implementation plan for the dual-atlas transition-cubic-plus symbolic control.",
-                         "Freeze transition-cubic-plus definitions, lattice size, and allowed transition-cubic-plus interactions mechanically in that plan.",
-                         "Reopen code only after the bounded plan is accepted."
+                         "Implement exactly one dual-atlas transition-cubic-plus symbolic control.",
+                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, 777.",
+                         "Stop the line immediately if the challenger matches or beats the witness on both declared packet metrics."
                      ],
-    "repo_posture":  "memo_only_dual_atlas_transition_cubic_plus_gate_decision",
+    "repo_posture":  "bounded_dual_atlas_transition_cubic_plus_implementation",
     "risks":  [
                   "If the transition-cubic family grows beyond the two declared directional cubic channels, the fairness review becomes invalid.",
                   "If hidden lookup behavior or uncontrolled higher-order growth appears, the future packet must be discarded."
@@ -802,9 +802,11 @@
                                 "S792",
                                 "S793",
                                 "S795",
-                                "S796"
+                                "S796",
+                                "S797",
+                                "S798"
                             ],
     "current_story_ids":  [
-                              "S796"
+                              "S798"
                           ]
 }

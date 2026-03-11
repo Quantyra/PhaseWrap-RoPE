@@ -1039,3 +1039,6 @@ Use one row per evidence item.
 
 - EL-729 (2026-03-11): S795 wrote the explicit implementation-approval gate for the dual-atlas transition-cubic-plus symbolic family and froze the cubic-plus basis at gate level before any new code reopened.
 - EL-730 (2026-03-11): S796 concluded that the dual-atlas transition-cubic-plus line is specific enough for one bounded implementation-planning step while keeping code closed in this step.
+
+- EL-731 (2026-03-11): S797 fixed the bounded implementation plan for the dual-atlas transition-cubic-plus challenger with one frozen task, one fixed packet, and one narrow writable scope.
+- EL-732 (2026-03-11): S798 concluded that the dual-atlas transition-cubic-plus line is specific enough for one bounded implementation cycle and rejected any broader code reopening in this step.
