@@ -1,11 +1,11 @@
-{
+﻿{
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the bounded implementation plan for the dual-atlas transition-bilinear symbolic control.",
-                         "Freeze transition-bilinear definitions, lattice size, and allowed transition-bilinear interactions mechanically in that plan.",
-                         "Reopen code only after the bounded plan is accepted."
+                         "Implement exactly one dual-atlas transition-bilinear symbolic control.",
+                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, and 777.",
+                         "Stop the line immediately if the challenger matches or beats the witness on both declared packet metrics."
                      ],
-    "repo_posture":  "memo_only_dual_atlas_transition_bilinear_gate_decision",
+    "repo_posture":  "bounded_dual_atlas_transition_bilinear_implementation",
     "risks":  [
                   "If the transition-bilinear family grows beyond the two declared channels, the review becomes invalid.",
                   "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
@@ -776,9 +776,11 @@
                                 "S763",
                                 "S764",
                                 "S765",
-                                "S766"
+                                "S766",
+                                "S767",
+                                "S768"
                             ],
     "current_story_ids":  [
-                              "S766"
+                              "S768"
                           ]
 }
