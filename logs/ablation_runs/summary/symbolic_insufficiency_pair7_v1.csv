@@ -1,0 +1,7 @@
+run_id,variant,seed,mae,rank_correlation,calibration_slope
+symbolic-insuff-pair7-witness-s42,V_future_relational_witness_symbolic_insufficiency,42,0.112886,0.926471,0.892982
+symbolic-insuff-pair7-witness-s123,V_future_relational_witness_symbolic_insufficiency,123,0.147604,0.952941,1.023259
+symbolic-insuff-pair7-witness-s777,V_future_relational_witness_symbolic_insufficiency,777,0.134572,0.978661,1.050252
+symbolic-insuff-pair7-control-s42,V_control_symbolic_symbolic_insufficiency_regressor,42,0.280844,-0.016236,0.336758
+symbolic-insuff-pair7-control-s123,V_control_symbolic_symbolic_insufficiency_regressor,123,0.261583,0.341932,0.358423
+symbolic-insuff-pair7-control-s777,V_control_symbolic_symbolic_insufficiency_regressor,777,0.245405,0.507375,1.251214
