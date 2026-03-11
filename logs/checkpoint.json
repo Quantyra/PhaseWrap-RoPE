@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-03-11T06:35:00Z",
+  "timestamp_utc": "2026-03-11T06:55:00Z",
   "current_epic_id": "E001",
   "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
   "current_epic_status": "Paused",
   "current_story_ids": [
-    "S607"
+    "S610"
   ],
   "active_workers": {},
   "next_actions": [
-    "Specify synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary.",
-    "Bind bounded symbolic invariant top-k pair-order signed-flip persistence controls into its scaffold.",
-    "Keep the line memo-only until a new approval-candidate review is explicit."
+    "Write the implementation-approval gate for synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary.",
+    "Bind latent slot-invariance and coarse top-k pair-order signed-flip persistence null diagnostics directly into that gate.",
+    "Reopen code only if that gate is explicitly approved."
   ],
   "risks_or_blocks": [
     "Novelty remains conditional until empirical ablation results are collected.",
@@ -24,10 +24,9 @@
   ],
   "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
   "recent_changes": [
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-stability-implementation-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-stability-first-packet-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-stability-decision-memo-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-persistence-task-design-v1.md"
+    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-persistence-task-spec-v1.md",
+    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-persistence-restart-scaffold-v1.md",
+    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-persistence-approval-candidate-v1.md"
   ],
-  "notes": "S604-S607 completed. The slot-invariant top-k pair-order signed-flip stability execution branch stopped and the line returned to memo-only posture."
+  "notes": "S608-S610 completed. The signed-flip persistence line is now approval-candidate while remaining memo-only."
 }
