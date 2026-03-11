@@ -1,0 +1,7 @@
+"variant","seed","mae","rank_correlation","calibration_slope"
+"V_future_relational_witness_symbolic_insufficiency","42","0.091881","0.987491","0"
+"V_future_relational_witness_symbolic_insufficiency","123","0.140404","0.95","0"
+"V_future_relational_witness_symbolic_insufficiency","777","0.126887","0.964706","0"
+"V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_bilinear_plus","42","0.317326","-0.063516","0"
+"V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_bilinear_plus","123","0.321861","0.116434","0"
+"V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_bilinear_plus","777","0.292448","0.469029","0"

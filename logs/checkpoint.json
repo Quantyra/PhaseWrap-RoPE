@@ -1,14 +1,14 @@
-﻿{
+{
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement exactly one dual-atlas transition-bilinear-plus symbolic control.",
-                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, and 777.",
-                         "Stop the line immediately if the challenger matches or beats the witness on both declared packet metrics."
+                         "Write the explicit implementation-approval gate for the dual-atlas transition-cubic symbolic family.",
+                         "Freeze the transition-cubic basis mechanically in that gate.",
+                         "Reopen code only if that gate is explicitly approved."
                      ],
-    "repo_posture":  "bounded_dual_atlas_transition_bilinear_plus_implementation",
+    "repo_posture":  "memo_only_dual_atlas_transition_cubic_review",
     "risks":  [
-                  "If the transition-bilinear-plus family grows beyond the two declared channels, the review becomes invalid.",
-                  "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
+                  "If the transition-cubic family grows beyond the two declared channels, the fairness review becomes invalid.",
+                  "If hidden lookup behavior or uncontrolled higher-order growth appears, the future packet must be discarded."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -788,9 +788,14 @@
                                 "S775",
                                 "S776",
                                 "S777",
-                                "S778"
+                                "S778",
+                                "S779",
+                                "S780",
+                                "S781",
+                                "S782",
+                                "S783"
                             ],
     "current_story_ids":  [
-                              "S778"
+                              "S784"
                           ]
 }
