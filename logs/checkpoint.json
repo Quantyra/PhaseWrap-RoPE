@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Run the fixed composite hardening packet for `synthetic_symbolic_insufficiency_transition_response` with `slot_swap=1` and `pair_reindex=7`.",
-                         "Keep the frozen symbolic basis unchanged and rerun only the witness and the symbolic-insufficiency control on seeds `42`, `123`, and `777`.",
-                         "Stop the branch if the witness loses either declared packet metric under the composite structural perturbation, or record the packet as inert if nothing moves."
+                         "Review whether the symbolic-insufficiency branch should be preserved as the current best bounded internal result or escalated to a stricter symbolic-family review.",
+                         "Do not add another perturbation packet until the decision gate explicitly defines the next fairness bar.",
+                         "If the line continues, define the next symbolic-family contract at memo level before any new implementation approval."
                      ],
-    "repo_posture":  "implementation_active_bounded",
+    "repo_posture":  "memo_only_decision_gate",
     "risks":  [
-                  "If the witness advantage collapses under the remaining composite structural perturbation, the branch loses most of its residual robustness value.",
-                  "If the packet is inert, the next move should switch perturbation family rather than continue stacking the same nuisance dimensions."
+                  "If the branch continues without a stricter memo-level fairness bar, the repo will drift back into incremental perturbation churn.",
+                  "If the current positive result is not preserved explicitly now, later branches may overwrite the strongest bounded internal evidence in the repo."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -701,9 +701,11 @@
                                 "S678",
                                 "S679",
                                 "S680",
-                                "S681"
+                                "S681",
+                                "S682",
+                                "S683"
                             ],
     "current_story_ids":  [
-                              "S682"
+                              "S684"
                           ]
 }

@@ -857,3 +857,6 @@ Use one row per evidence item.
 - EL-611 (2026-03-10): S680 ran the fixed composite `token_permutation=cdab` plus `pair_reindex=7` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
 - EL-612 (2026-03-10): S681 kept the symbolic-insufficiency branch active after composite token-plus-deeper-pair hardening and selected the remaining composite structural packet as the next bounded step.
 - EL-613 (2026-03-10): S682 fixed the composite `slot_swap=1` plus `pair_reindex=7` packet as the next bounded hardening step for the symbolic-insufficiency branch.
+- EL-614 (2026-03-10): S682 ran the fixed composite `slot_swap=1` plus `pair_reindex=7` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
+- EL-615 (2026-03-10): S683 closed the current bounded hardening cycle and recorded the symbolic-insufficiency branch as the strongest bounded internal positive line in the current repo state.
+- EL-616 (2026-03-10): S684 set the next valid move as a memo-only decision gate rather than another ad hoc perturbation packet.
