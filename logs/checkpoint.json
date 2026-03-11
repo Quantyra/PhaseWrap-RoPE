@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the explicit implementation-approval gate for the stronger symbolic basis on `synthetic_symbolic_insufficiency_transition_response`.",
-                         "Freeze the stronger symbolic basis mechanically in that gate and preserve the current witness result as the baseline comparison point.",
-                         "Do not reopen code until the stronger-basis gate is explicit and approved."
+                         "Decide whether to open one bounded implementation-planning step for the stronger symbolic control family.",
+                         "Keep the current symbolic-insufficiency witness result fixed as the baseline internal reference.",
+                         "Do not reopen code until the stronger-control implementation plan is explicitly approved."
                      ],
-    "repo_posture":  "memo_only_stricter_gate_planning",
+    "repo_posture":  "memo_only_stronger_gate_decision",
     "risks":  [
-                  "If the stronger basis is not frozen mechanically in the next gate, the review loses interpretability and invites symbolic-family creep.",
-                  "If the baseline witness result is not treated as fixed, the stronger review cannot answer whether the branch truly survives a fairer symbolic bar."
+                  "If the stronger symbolic control implementation is not bounded to the frozen basis, the fairness review becomes invalid.",
+                  "If the baseline witness result is not held fixed, the stronger-control comparison will lose auditability."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -706,9 +706,10 @@
                                 "S683",
                                 "S685",
                                 "S687",
-                                "S689"
+                                "S689",
+                                "S691"
                             ],
     "current_story_ids":  [
-                              "S690"
+                              "S692"
                           ]
 }

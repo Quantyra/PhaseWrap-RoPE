@@ -866,3 +866,5 @@ Use one row per evidence item.
 - EL-620 (2026-03-10): S688 preserved the current symbolic-insufficiency result as the baseline internal reference and set the stricter symbolic basis as the next memo-only fairness bar.
 - EL-621 (2026-03-10): S689 refreshed the symbolic-insufficiency implementation-approval candidate to the stricter symbolic basis and preserved the current witness result as the baseline comparison point.
 - EL-622 (2026-03-10): S690 fixed the next valid move as writing one explicit implementation-approval gate for the stronger symbolic basis before any code can reopen.
+- EL-623 (2026-03-10): S691 wrote the explicit implementation-approval gate for the stronger symbolic basis and froze the stronger allowed basis plus forbidden family directly into the gate.
+- EL-624 (2026-03-10): S692 recorded that the stronger symbolic basis is now explicit enough for a bounded future implementation cycle, but code remains closed until a concrete stronger-control implementation plan is written.
