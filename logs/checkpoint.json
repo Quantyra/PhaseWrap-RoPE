@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Preserve the symbolic-insufficiency witness as the standing internal benchmark.",
-                         "Do not reopen code unless a materially stronger symbolic family is declared at memo level.",
-                         "If fairness review continues, define that stronger symbolic basis before any new implementation gate."
+                         "Write one explicit implementation-approval candidate memo for the dual-atlas symbolic family.",
+                         "Freeze lattice size, chart rules, and allowed coupling interactions directly in that memo.",
+                         "Do not reopen code until the dual-atlas gate is explicit and approved."
                      ],
-    "repo_posture":  "memo_only_preserved_positive_result",
+    "repo_posture":  "memo_only_dual_atlas_review",
     "risks":  [
-                  "If a future symbolic family reintroduces hidden lookup structure, the fairness review becomes invalid.",
-                  "If the benchmark is widened without a frozen symbolic basis, the current positive result loses audit value."
+                  "If the source or destination atlas rules depend on hidden latent tuples, the fairness review becomes invalid.",
+                  "If the coupling lattice grows beyond the frozen 4x4 structure, the benchmark loses audit value."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -731,9 +731,12 @@
                                 "S718",
                                 "S719",
                                 "S720",
-                                "S721"
+                                "S721",
+                                "S722",
+                                "S723",
+                                "S724"
                             ],
     "current_story_ids":  [
-                              "S721"
+                              "S724"
                           ]
 }

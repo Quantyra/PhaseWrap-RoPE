@@ -914,3 +914,8 @@ Use one row per evidence item.
 - EL-654 (2026-03-11): S720 ran the fixed three-seed residual-atlas packet on synthetic_symbolic_insufficiency_transition_response; the witness beat the residual-atlas control on both mae and ank_correlation across all three seeds.
 - EL-655 (2026-03-11): S721 concluded that the residual-atlas control did not catch up, so the symbolic-insufficiency witness remains the standing internal benchmark under a stronger fairness bar.
 
+
+- EL-656 (2026-03-11): S722 defined one materially stronger symbolic family beyond the residual-atlas control by adding only a globally frozen dual-atlas coupling family over source and destination chart views.
+- EL-657 (2026-03-11): S723 bound the dual-atlas family to one fixed future scaffold, task, backend, seeds, and required frozen-family audits.
+- EL-658 (2026-03-11): S724 preserved the dual-atlas family as the only valid next stronger symbolic review line and kept the branch memo-only.
+
