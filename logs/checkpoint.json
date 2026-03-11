@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Preserve the symbolic-insufficiency witness as the standing internal benchmark.",
-                         "If further fairness review is desired, define a materially stronger symbolic family before reopening code.",
-                         "Do not run new packets until a new symbolic family is frozen at memo level."
+                         "Write the explicit implementation-approval gate for the dual-atlas bilinear residual symbolic family.",
+                         "Freeze the bilinear residual basis mechanically in that gate.",
+                         "Reopen code only if that gate is explicitly approved."
                      ],
-    "repo_posture":  "memo_only_preserved_positive_result",
+    "repo_posture":  "memo_only_dual_atlas_bilinear_review",
     "risks":  [
-                  "If the residual-gating family grows beyond the two declared residual channels, the review becomes invalid.",
+                  "If the bilinear residual family grows beyond the two declared channels, the review becomes invalid.",
                   "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
               ],
     "completed_story_ids":  [
@@ -751,9 +751,12 @@
                                 "S738",
                                 "S739",
                                 "S740",
-                                "S741"
+                                "S741",
+                                "S742",
+                                "S743",
+                                "S744"
                             ],
     "current_story_ids":  [
-                              "S741"
+                              "S744"
                           ]
 }
