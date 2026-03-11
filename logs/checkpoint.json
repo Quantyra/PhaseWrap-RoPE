@@ -1,9 +1,8 @@
 {
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-recurrence-implementation-v1.md",
-                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-recurrence-first-packet-v1.md",
-                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-recurrence-decision-memo-v1.md",
-                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-task-design-v1.md"
+                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-task-spec-v1.md",
+                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-restart-scaffold-v1.md",
+                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-approval-candidate-v1.md"
                        ],
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
@@ -19,17 +18,17 @@
                             "No remote work, task expansion, or control-family expansion is allowed on this line without a new approval gate."
                         ],
     "next_actions":  [
-                         "Specify synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_reversion_binary.",
-                         "Bind bounded symbolic invariant signed-flip reversion controls into its scaffold.",
-                         "Keep the line memo-only until a new approval-candidate review is explicit."
+                         "Write the implementation-approval gate for synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_reversion_binary.",
+                         "Bind latent slot-invariance and coarse signed-flip reversion null diagnostics directly into that gate.",
+                         "Reopen code only if that gate is explicitly approved."
                      ],
     "current_epic_id":  "E001",
-    "timestamp_utc":  "2026-03-11T14:40:00Z",
+    "timestamp_utc":  "2026-03-11T15:10:00Z",
     "active_workers":  {
 
                        },
     "current_story_ids":  [
-                              "S625"
+                              "S628"
                           ],
-    "notes":  "S622-S625 completed. The signed-flip recurrence execution branch is stopped and the line has returned to memo-only posture."
+    "notes":  "S626-S628 completed. The signed-flip reversion line is now approval-candidate while remaining memo-only."
 }
