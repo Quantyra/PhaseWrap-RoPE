@@ -1,8 +1,7 @@
 {
     "recent_changes":  [
-                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-task-spec-v1.md",
-                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-restart-scaffold-v1.md",
-                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-approval-candidate-v1.md"
+                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-implementation-approval-gate-v1.md",
+                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-implementation-plan-v1.md"
                        ],
     "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
     "current_epic_status":  "Paused",
@@ -18,17 +17,17 @@
                             "No remote work, task expansion, or control-family expansion is allowed on this line without a new approval gate."
                         ],
     "next_actions":  [
-                         "Write the implementation-approval gate for synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_reversion_binary.",
-                         "Bind latent slot-invariance and coarse signed-flip reversion null diagnostics directly into that gate.",
-                         "Reopen code only if that gate is explicitly approved."
+                         "Implement synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_reversion_binary.",
+                         "Stop immediately if the generator fails the hard-stop diagnostics.",
+                         "Run the fixed three-seed packet and decide the branch from accuracy and F1 only."
                      ],
     "current_epic_id":  "E001",
-    "timestamp_utc":  "2026-03-11T15:10:00Z",
+    "timestamp_utc":  "2026-03-11T15:30:00Z",
     "active_workers":  {
 
                        },
     "current_story_ids":  [
-                              "S628"
+                              "S630"
                           ],
-    "notes":  "S626-S628 completed. The signed-flip reversion line is now approval-candidate while remaining memo-only."
+    "notes":  "S629-S630 completed. The signed-flip reversion line is now implementation-approved, but still tightly bounded."
 }
