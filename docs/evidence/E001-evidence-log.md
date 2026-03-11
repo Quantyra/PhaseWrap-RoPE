@@ -732,3 +732,11 @@ Use one row per evidence item.
 - EL-511 (2026-03-11): S590 fixed synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_consistency_binary as the next exact memo-only task.
 - EL-512 (2026-03-11): S591 bound the signed-flip consistency line to one fixed candidate, one bounded symbolic control stack, and one fixed three-seed packet.
 - EL-513 (2026-03-11): S592 elevated the slot-invariant top-k pair-order signed-flip consistency line to approval-candidate posture while keeping it memo-only.
+
+- EL-514 (2026-03-11): S593 approved one strictly bounded local synthetic implementation phase for the slot-invariant top-k pair-order signed-flip consistency line.
+- EL-515 (2026-03-11): S594 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the signed-flip consistency packet.
+
+- EL-516 (2026-03-11): S595 implemented the bounded slot-invariant top-k pair-order signed-flip consistency branch and validated it with 234 focused tests passing.
+- EL-517 (2026-03-11): S596 ran the fixed three-seed packet; the witness lost both declared primary classification metrics to bounded controls.
+- EL-518 (2026-03-11): S597 stopped the slot-invariant top-k pair-order signed-flip consistency execution branch under the declared gate.
+- EL-519 (2026-03-11): S598 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_stability_binary as the next memo-only angle.
