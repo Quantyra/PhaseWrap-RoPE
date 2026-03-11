@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the implementation-approval gate for `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_hysteresis_binary`.",
-                         "Bind latent slot-invariance and coarse top-k pair-order signed-flip hysteresis null diagnostics directly into that gate.",
-                         "Reopen code only if that gate is explicitly approved."
+                         "Implement `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_hysteresis_binary`.",
+                         "Stop immediately if the generator fails the hard-stop diagnostics.",
+                         "Run the fixed three-seed packet and decide the branch from `accuracy` and `F1` only."
                      ],
-    "repo_posture":  "memo_only",
+    "repo_posture":  "implementation_approved_bounded",
     "risks":  [
-                  "Multiple recent slot-invariant top-k signed-flip lines have produced the same bounded symbolic-control pattern; a materially different target family may be needed if hysteresis also collapses.",
-                  "Memo-only continuation remains appropriate until the hysteresis gate is made explicit and approved."
+                  "Recent slot-invariant signed-flip branches have repeatedly collapsed to the same bounded symbolic-control pattern; hysteresis must show a materially different classification surface to survive.",
+                  "If the hysteresis line reproduces the same packet means as recurrence, persistence, or reversion, the signed-flip family is likely exhausted under the current protocol."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -631,9 +631,13 @@
                                 "S618",
                                 "S619",
                                 "S620",
-                                "S621"
+                                "S621",
+                                "S635",
+                                "S636",
+                                "S637",
+                                "S638"
                             ],
     "current_story_ids":  [
-                              "S637"
+                              "S639"
                           ]
 }
