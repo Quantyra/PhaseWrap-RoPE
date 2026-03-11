@@ -953,3 +953,8 @@ Use one row per evidence item.
 - EL-674 (2026-03-11): S740 ran the fixed three-seed dual-atlas residual-gating packet on synthetic_symbolic_insufficiency_transition_response; the witness beat the control on both mae and rank_correlation across all three seeds.
 - EL-675 (2026-03-11): S741 concluded that the dual-atlas residual-gating control did not catch up, so the symbolic-insufficiency witness remains the standing internal benchmark under the stronger residual-gating fairness bar.
 
+
+- EL-676 (2026-03-11): S742 defined one materially stronger symbolic family beyond dual-atlas residual gating by adding only a bounded bilinear residual layer over the same frozen 4x4 source-destination lattice.
+- EL-677 (2026-03-11): S743 bound the dual-atlas bilinear residual family to one fixed future scaffold, task, backend, seeds, and required frozen-family audits.
+- EL-678 (2026-03-11): S744 preserved the dual-atlas bilinear residual family as the next memo-only approval-candidate line while keeping implementation closed.
+
