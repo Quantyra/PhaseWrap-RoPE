@@ -948,3 +948,8 @@ Use one row per evidence item.
 - EL-671 (2026-03-11): S737 fixed the dual-atlas residual-gating implementation plan to one control, one task, a frozen 4x4 lattice, and exactly two declared residual-gating channels.
 - EL-672 (2026-03-11): S738 concluded that the dual-atlas residual-gating line is specific enough for one bounded implementation cycle and rejected any broader code reopening.
 
+
+- EL-673 (2026-03-11): S739 implemented exactly one dual-atlas residual-gating symbolic control family under the frozen 4x4 source-destination lattice and two-channel residual contract and validated it with the focused suite passing.
+- EL-674 (2026-03-11): S740 ran the fixed three-seed dual-atlas residual-gating packet on synthetic_symbolic_insufficiency_transition_response; the witness beat the control on both mae and rank_correlation across all three seeds.
+- EL-675 (2026-03-11): S741 concluded that the dual-atlas residual-gating control did not catch up, so the symbolic-insufficiency witness remains the standing internal benchmark under the stronger residual-gating fairness bar.
+
