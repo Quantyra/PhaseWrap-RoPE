@@ -22,6 +22,7 @@ from qrope.synthetic import (
     generate_transition_orbit_slot_invariant_topk_pair_order_signed_flip_consistency_binary_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_signed_flip_stability_binary_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary_bundle,
+    generate_transition_orbit_slot_invariant_topk_pair_order_signed_flip_recurrence_binary_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_signed_drift_response_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_stability_binary_bundle,
     generate_transition_orbit_slot_invariant_topk_pair_order_drift_response_bundle,
@@ -568,6 +569,19 @@ def test_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence
     assert diagnostics["within_state_topk_pair_signed_flip_persistence_variation_pass"] is True
     assert diagnostics["paired_context_diversity_pass"] is True
     assert diagnostics["signed_flip_persistence_label_balance_pass"] is True
+
+
+def test_transition_orbit_slot_invariant_topk_pair_order_signed_flip_recurrence_bundle_emits_required_diagnostics() -> None:
+    bundle = generate_transition_orbit_slot_invariant_topk_pair_order_signed_flip_recurrence_binary_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_recurrence_binary"
+    assert diagnostics["latent_slot_invariance_pass"] is True
+    assert diagnostics["latent_slot_max_abs_delta"] == 0.0
+    assert diagnostics["slot_view_balance_pass"] is True
+    assert diagnostics["coarse_slot_topk_pair_signed_flip_recurrence_lookup_near_null_pass"] is True
+    assert diagnostics["within_state_topk_pair_signed_flip_recurrence_variation_pass"] is True
+    assert diagnostics["paired_context_diversity_pass"] is True
+    assert diagnostics["signed_flip_recurrence_label_balance_pass"] is True
 
 
 def test_transition_orbit_slot_invariant_topk_pair_order_stability_bundle_emits_required_diagnostics() -> None:

@@ -771,3 +771,8 @@ Use one row per evidence item.
 
 - EL-541 (2026-03-11): S620 approved one strictly bounded local synthetic implementation phase for the slot-invariant top-k pair-order signed-flip recurrence line.
 - EL-542 (2026-03-11): S621 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the signed-flip recurrence packet.
+
+- EL-543 (2026-03-11): S622 implemented the bounded slot-invariant top-k pair-order signed-flip recurrence branch and validated it with 243 focused tests passing.
+- EL-544 (2026-03-11): S623 reran the fixed three-seed packet with corrected config override keys after discarding an invalid initial launch; the witness then lost both declared primary classification metrics to bounded controls.
+- EL-545 (2026-03-11): S624 stopped the slot-invariant top-k pair-order signed-flip recurrence execution branch under the declared gate.
+- EL-546 (2026-03-11): S625 preserved `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_reversion_binary` as the next memo-only angle.

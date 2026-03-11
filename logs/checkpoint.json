@@ -1,31 +1,35 @@
 {
-  "timestamp_utc": "2026-03-11T08:20:00Z",
-  "current_epic_id": "E001",
-  "current_epic_title": "Quantum Rotational Positional Embeddings foundation",
-  "current_epic_status": "Paused",
-  "current_story_ids": [
-    "S621"
-  ],
-  "active_workers": {},
-  "next_actions": [
-    "Implement synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_recurrence_binary.",
-    "Stop immediately if the generator fails the hard-stop diagnostics.",
-    "Run the fixed three-seed packet and decide the branch from accuracy and F1 only."
-  ],
-  "risks_or_blocks": [
-    "Novelty remains conditional until empirical ablation results are collected.",
-    "Benchmark breadth risk remains if phase-1 includes only text classification.",
-    "Cloud provider API/platform changes may require periodic strategy updates.",
-    "Current matrix is fully real-mode but based on small handcrafted local datasets.",
-    "Local handcrafted datasets may not reflect production distributions.",
-    "The slot-invariant top-k pair-order signed-flip persistence branch stopped after bounded controls beat the witness on both declared primary classification metrics.",
-    "Any continuation must preserve latent slot invariance by construction and avoid reopening the same signed-flip persistence objective under a new label.",
-    "No remote work, task expansion, or control-family expansion is allowed on this line without a new approval gate."
-  ],
-  "last_test_run": "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
-  "recent_changes": [
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-recurrence-implementation-approval-gate-v1.md",
-    "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-recurrence-implementation-plan-v1.md"
-  ],
-  "notes": "S620-S621 completed. The signed-flip recurrence line is now implementation-approved, but still tightly bounded."
+    "recent_changes":  [
+                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-recurrence-implementation-v1.md",
+                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-recurrence-first-packet-v1.md",
+                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-recurrence-decision-memo-v1.md",
+                           "docs/research/q-rope-transition-orbit-slot-invariant-topk-pair-order-signed-flip-reversion-task-design-v1.md"
+                       ],
+    "current_epic_title":  "Quantum Rotational Positional Embeddings foundation",
+    "current_epic_status":  "Paused",
+    "last_test_run":  "PYTHONPATH=src python -m pytest tests/test_synthetic.py tests/test_qsim.py tests/test_run_real_mode.py",
+    "risks_or_blocks":  [
+                            "Novelty remains conditional until empirical ablation results are collected.",
+                            "Benchmark breadth risk remains if phase-1 includes only text classification.",
+                            "Cloud provider API/platform changes may require periodic strategy updates.",
+                            "Current matrix is fully real-mode but based on small handcrafted local datasets.",
+                            "Local handcrafted datasets may not reflect production distributions.",
+                            "The slot-invariant top-k pair-order signed-flip recurrence branch stopped after bounded controls beat the witness on both declared primary classification metrics.",
+                            "Any continuation must preserve latent slot invariance by construction and avoid reopening the same signed-flip recurrence objective under a new label.",
+                            "No remote work, task expansion, or control-family expansion is allowed on this line without a new approval gate."
+                        ],
+    "next_actions":  [
+                         "Specify synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_reversion_binary.",
+                         "Bind bounded symbolic invariant signed-flip reversion controls into its scaffold.",
+                         "Keep the line memo-only until a new approval-candidate review is explicit."
+                     ],
+    "current_epic_id":  "E001",
+    "timestamp_utc":  "2026-03-11T14:40:00Z",
+    "active_workers":  {
+
+                       },
+    "current_story_ids":  [
+                              "S625"
+                          ],
+    "notes":  "S622-S625 completed. The signed-flip recurrence execution branch is stopped and the line has returned to memo-only posture."
 }
