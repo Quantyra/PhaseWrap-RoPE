@@ -1052,3 +1052,6 @@ Use one row per evidence item.
 
 - EL-739 (2026-03-11): S805 wrote the explicit implementation-approval gate for the dual-atlas transition-quartic symbolic family and froze the quartic basis at gate level before any new code reopened.
 - EL-740 (2026-03-11): S806 concluded that the dual-atlas transition-quartic line is specific enough for one bounded implementation-planning step while keeping code closed in this step.
+
+- EL-741 (2026-03-11): S807 fixed the bounded implementation plan for the dual-atlas transition-quartic challenger with one frozen task, one fixed packet, and one narrow writable scope.
+- EL-742 (2026-03-11): S808 concluded that the dual-atlas transition-quartic line is specific enough for one bounded implementation cycle and rejected any broader code reopening in this step.
