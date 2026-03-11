@@ -306,6 +306,18 @@ def test_symbolic_insufficiency_symbolic_control_freezes_basis() -> None:
     assert diagnostics["forbidden_feature_family_absent_pass"] is True
 
 
+def test_symbolic_insufficiency_symbolic_control_v2_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_transition_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_symbolic_insufficiency_regressor_v2",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
 def test_transition_orbit_additive_control_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_chart_transition_orbit_response",

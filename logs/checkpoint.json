@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement exactly one stronger symbolic control: V_control_symbolic_symbolic_insufficiency_regressor_v2.",
-                         "Run one fixed packet against the preserved witness baseline on seeds 42, 123, and 777.",
-                         "Stop the branch immediately if the stronger control matches or beats the witness on both declared packet metrics."
+                         "Preserve the stronger-reviewed symbolic-insufficiency witness result as the standing internal benchmark.",
+                         "Do not reopen code until a materially stronger symbolic family is specified at memo level.",
+                         "If the line continues, challenge the benchmark only with a newly frozen symbolic basis and one bounded packet."
                      ],
-    "repo_posture":  "bounded_stronger_control_implementation",
+    "repo_posture":  "memo_only_preserved_positive_result",
     "risks":  [
-                  "If the stronger control implementation drifts beyond the frozen symbolic basis, the fairness review becomes invalid.",
-                  "If implementation introduces latent-path or microstate-like lookup features, the stronger-control result is not auditable and must be discarded."
+                  "If a future symbolic review relaxes the frozen stronger basis, the current benchmark loses comparability.",
+                  "If new implementation work starts without a fresh symbolic-family freeze, the current positive result becomes unauditable."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -709,9 +709,12 @@
                                 "S689",
                                 "S691",
                                 "S693",
-                                "S695"
+                                "S695",
+                                "S696",
+                                "S697",
+                                "S698"
                             ],
     "current_story_ids":  [
-                              "S696"
+                              "S699"
                           ]
 }

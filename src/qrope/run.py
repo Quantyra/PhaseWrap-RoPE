@@ -365,6 +365,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_transition_channel_quadratic_regressor": 1,
         "V_control_symbolic_transition_channel_orbit_permuted_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_regressor": 1,
+        "V_control_symbolic_symbolic_insufficiency_regressor_v2": 1,
         "V_control_symbolic_transition_channel_order_lookup": 1,
         "V_control_symbolic_transition_channel_order_cross_direction": 1,
         "V_control_symbolic_transition_channel_order_quadratic": 1,
@@ -632,12 +633,18 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_channel_order_topk_preference_invariant+head_linear"
         elif variant == "V_future_relational_witness_transition_orbit_channel_order_topk_consistency_invariant":
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_channel_order_topk_consistency_invariant+head_linear"
+        elif variant == "V_future_relational_witness_symbolic_insufficiency":
+            data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_two_family_regressor+head_linear"
         elif variant == "V_control_symbolic_boolean_state_lookup":
             data_mode = f"{data_mode}+readout_symbolic_boolean_state_lookup+head_linear"
+        elif variant == "V_control_symbolic_symbolic_insufficiency_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor+head_linear"
+        elif variant == "V_control_symbolic_symbolic_insufficiency_regressor_v2":
+            data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor_v2+head_linear"
         elif variant == "V_control_symbolic_coarse_lookup_regressor":
             data_mode = f"{data_mode}+readout_symbolic_coarse_lookup_regressor+head_linear"
         elif variant == "V_control_symbolic_analog_only_regressor":
@@ -1331,6 +1338,8 @@ def run_quantum_backend(
         return run_transition_channel_orbit_permuted_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_transition_response" and variant == "V_control_symbolic_symbolic_insufficiency_regressor":
         return run_symbolic_insufficiency_symbolic_regressor(train=train, test=test, validation=validation)
+    if dataset == "synthetic_symbolic_insufficiency_transition_response" and variant == "V_control_symbolic_symbolic_insufficiency_regressor_v2":
+        return run_symbolic_insufficiency_symbolic_regressor_v2(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_lookup":
         return run_transition_channel_order_lookup_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_cross_direction":
@@ -2698,6 +2707,75 @@ def symbolic_insufficiency_symbolic_features(text: str) -> dict[str, object]:
         "sq_sector_magnitude_delta",
         "sq_ordered_content_delta",
         "sq_orientation_delta",
+    ]
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "allowed_symbolic_basis_frozen_pass": feature_order == frozen_feature_order,
+        "forbidden_feature_family_absent_pass": True,
+    }
+
+
+def symbolic_insufficiency_symbolic_features_v2(text: str) -> dict[str, object]:
+    payload = parse_dual_sample_text(text)
+    sign_agreement = 1.0 if offset_sector(payload["sample_a"].offset).startswith("P") == offset_sector(payload["sample_b"].offset).startswith("P") else 0.0
+    content_agreement = 1.0 if content_family_name(payload["sample_a"].left_token, payload["sample_a"].right_token) == content_family_name(payload["sample_b"].left_token, payload["sample_b"].right_token) else 0.0
+    orientation_agreement = 1.0 if token_orientation_name(payload["sample_a"].left_token, payload["sample_a"].right_token) == token_orientation_name(payload["sample_b"].left_token, payload["sample_b"].right_token) else 0.0
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    features = {
+        "sign_agreement": sign_agreement,
+        "content_agreement": content_agreement,
+        "orientation_agreement": orientation_agreement,
+        "sector_magnitude_delta": sector_magnitude_delta,
+        "ordered_content_delta": ordered_content_delta,
+        "orientation_delta": orientation_delta,
+        "cross_sector_ordered": round(sector_magnitude_delta * ordered_content_delta, 6),
+        "cross_sector_orientation": round(sector_magnitude_delta * orientation_delta, 6),
+        "cross_ordered_orientation": round(ordered_content_delta * orientation_delta, 6),
+        "sq_sector_magnitude_delta": round(sector_magnitude_delta * sector_magnitude_delta, 6),
+        "sq_ordered_content_delta": round(ordered_content_delta * ordered_content_delta, 6),
+        "sq_orientation_delta": round(orientation_delta * orientation_delta, 6),
+        "cube_sector_magnitude_delta": round(sector_magnitude_delta * sector_magnitude_delta * sector_magnitude_delta, 6),
+        "cube_ordered_content_delta": round(ordered_content_delta * ordered_content_delta * ordered_content_delta, 6),
+        "cube_orientation_delta": round(orientation_delta * orientation_delta * orientation_delta, 6),
+        "gate_sign_sector_magnitude_delta": round(sign_agreement * sector_magnitude_delta, 6),
+        "gate_sign_ordered_content_delta": round(sign_agreement * ordered_content_delta, 6),
+        "gate_sign_orientation_delta": round(sign_agreement * orientation_delta, 6),
+        "gate_content_sector_magnitude_delta": round(content_agreement * sector_magnitude_delta, 6),
+        "gate_content_ordered_content_delta": round(content_agreement * ordered_content_delta, 6),
+        "gate_content_orientation_delta": round(content_agreement * orientation_delta, 6),
+        "gate_orientation_sector_magnitude_delta": round(orientation_agreement * sector_magnitude_delta, 6),
+        "gate_orientation_ordered_content_delta": round(orientation_agreement * ordered_content_delta, 6),
+        "gate_orientation_delta": round(orientation_agreement * orientation_delta, 6),
+    }
+    feature_order = list(features.keys())
+    frozen_feature_order = [
+        "sign_agreement",
+        "content_agreement",
+        "orientation_agreement",
+        "sector_magnitude_delta",
+        "ordered_content_delta",
+        "orientation_delta",
+        "cross_sector_ordered",
+        "cross_sector_orientation",
+        "cross_ordered_orientation",
+        "sq_sector_magnitude_delta",
+        "sq_ordered_content_delta",
+        "sq_orientation_delta",
+        "cube_sector_magnitude_delta",
+        "cube_ordered_content_delta",
+        "cube_orientation_delta",
+        "gate_sign_sector_magnitude_delta",
+        "gate_sign_ordered_content_delta",
+        "gate_sign_orientation_delta",
+        "gate_content_sector_magnitude_delta",
+        "gate_content_ordered_content_delta",
+        "gate_content_orientation_delta",
+        "gate_orientation_sector_magnitude_delta",
+        "gate_orientation_ordered_content_delta",
+        "gate_orientation_delta",
     ]
     return {
         "feature_order": feature_order,
@@ -4446,6 +4524,34 @@ def run_symbolic_insufficiency_symbolic_regressor(
     train_results = [symbolic_insufficiency_symbolic_features(text=text) for text, _ in train]
     validation_results = [symbolic_insufficiency_symbolic_features(text=text) for text, _ in validation]
     test_results = [symbolic_insufficiency_symbolic_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["allowed_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_symbolic_basis_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_symbolic_insufficiency_symbolic_regressor_v2(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_insufficiency_symbolic_features_v2(text=text) for text, _ in train]
+    validation_results = [symbolic_insufficiency_symbolic_features_v2(text=text) for text, _ in validation]
+    test_results = [symbolic_insufficiency_symbolic_features_v2(text=text) for text, _ in test]
     mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
         train_results,
         validation_results,

@@ -873,3 +873,8 @@ Use one row per evidence item.
 
 - EL-627 (2026-03-10): S695 approved one strictly bounded stronger symbolic control implementation cycle against the preserved symbolic-insufficiency witness baseline.
 - EL-628 (2026-03-10): S696 was opened as the only valid next execution step, with task, seeds, backend, and stronger symbolic basis all fixed in advance.
+
+- EL-629 (2026-03-10): S696 implemented exactly one stronger symbolic control family (V_control_symbolic_symbolic_insufficiency_regressor_v2) under the frozen stronger basis and passed the focused suite.
+- EL-630 (2026-03-10): S697 ran the fixed three-seed stronger-control packet; the witness stayed ahead of the stronger control on both mae and ank_correlation across all three seeds.
+- EL-631 (2026-03-10): S698 concluded that the stronger symbolic control did not catch up, so the symbolic-insufficiency witness branch remains the strongest bounded internal positive result in the repo.
+- EL-632 (2026-03-10): S699 preserved the stronger-reviewed symbolic-insufficiency witness result as the standing internal benchmark and returned the line to memo-only posture.

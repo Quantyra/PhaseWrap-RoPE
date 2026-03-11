@@ -1,6 +1,6 @@
 # Story S696 - Symbolic Insufficiency Stronger-Control Implementation
 
-Status: active
+Status: completed
 Date: 2026-03-10
 
 ## Goal
