@@ -1055,3 +1055,10 @@ Use one row per evidence item.
 
 - EL-741 (2026-03-11): S807 fixed the bounded implementation plan for the dual-atlas transition-quartic challenger with one frozen task, one fixed packet, and one narrow writable scope.
 - EL-742 (2026-03-11): S808 concluded that the dual-atlas transition-quartic line is specific enough for one bounded implementation cycle and rejected any broader code reopening in this step.
+
+- EL-743 (2026-03-11): S809 implemented exactly one bounded dual-atlas transition-quartic challenger under the frozen symbolic-insufficiency fairness contract and validated the updated runner/tests (267 passed).
+- EL-744 (2026-03-11): S810 ran the fixed three-seed witness-vs-transition-quartic packet on synthetic_symbolic_insufficiency_transition_response; the witness stayed ahead on both mae and rank_correlation across all three seeds.
+- EL-745 (2026-03-11): S811 concluded that the transition-quartic challenger did not catch up and the symbolic-insufficiency witness remains the standing internal benchmark.
+- EL-746 (2026-03-11): S812 defined one materially stronger memo-only symbolic family beyond transition-quartic by adding exactly two frozen dual-atlas transition-quartic-plus channels.
+- EL-747 (2026-03-11): S813 bound the transition-quartic-plus family to one fixed future restart scaffold with a frozen task, backend, seeds, and audit shape.
+- EL-748 (2026-03-11): S814 raised the transition-quartic-plus family to memo-only approval-candidate posture while keeping code closed.
