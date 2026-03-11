@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the implementation-approval gate for `synthetic_symbolic_insufficiency_transition_response`.",
-                         "Bind the frozen symbolic basis and `allowed_symbolic_basis_frozen_pass` directly into that gate.",
-                         "Keep the line memo-only until that gate is explicitly approved."
+                         "Implement `synthetic_symbolic_insufficiency_transition_response` under the frozen symbolic basis only.",
+                         "Stop immediately if `allowed_symbolic_basis_frozen_pass` or `forbidden_feature_family_absent_pass` is false.",
+                         "Run the fixed three-seed packet and decide the branch using the predeclared metrics only."
                      ],
-    "repo_posture":  "memo_only",
+    "repo_posture":  "implementation_approved_bounded",
     "risks":  [
-                  "If the future gate does not enforce the frozen symbolic basis mechanically, the line will drift back into the same post-hoc fairness failure mode.",
-                  "Implementation should remain blocked until the gate makes symbolic-family creep impossible by contract."
+                  "If the implementation cannot maintain the frozen symbolic basis mechanically, the line should be stopped immediately rather than patched post hoc.",
+                  "If the task cannot produce both coarse-state nullness and within-state latent variation simultaneously, the branch should be rejected before packet interpretation."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -681,9 +681,13 @@
                                 "S660",
                                 "S661",
                                 "S662",
-                                "S663"
+                                "S663",
+                                "S662",
+                                "S663",
+                                "S664",
+                                "S665"
                             ],
     "current_story_ids":  [
-                              "S664"
+                              "S666"
                           ]
 }

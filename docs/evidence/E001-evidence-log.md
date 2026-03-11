@@ -830,3 +830,7 @@ Use one row per evidence item.
 - EL-585 (2026-03-11): Raised the symbolic-insufficiency line to an implementation-approval candidate posture while keeping it memo-only.
 - EL-586 (2026-03-11): Fixed the next valid move as writing one explicit implementation-approval gate that enforces the frozen symbolic basis.
 - EL-587 (2026-03-11): Recorded that the line is now conceptually ready for gate review but not for implementation.
+
+- EL-588 (2026-03-11): Approved one strictly bounded implementation phase for `synthetic_symbolic_insufficiency_transition_response` under a frozen allowed symbolic basis.
+- EL-589 (2026-03-11): Bound `allowed_symbolic_basis_frozen_pass` and `forbidden_feature_family_absent_pass` directly into the symbolic-insufficiency implementation gate.
+- EL-590 (2026-03-11): Fixed the writable scope and enforcement requirements for the symbolic-insufficiency implementation phase.
