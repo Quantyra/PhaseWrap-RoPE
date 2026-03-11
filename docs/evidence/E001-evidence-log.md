@@ -747,3 +747,8 @@ Use one row per evidence item.
 
 - EL-523 (2026-03-11): S602 approved one strictly bounded local synthetic implementation phase for the slot-invariant top-k pair-order signed-flip stability line.
 - EL-524 (2026-03-11): S603 fixed the implementation boundary, hard-stop diagnostics, and decision metrics for the signed-flip stability packet.
+
+- EL-525 (2026-03-11): S604 implemented the bounded slot-invariant top-k pair-order signed-flip stability branch and validated it with 237 focused tests passing.
+- EL-526 (2026-03-11): S605 ran the fixed three-seed packet; the witness lost both declared primary classification metrics to bounded controls.
+- EL-527 (2026-03-11): S606 stopped the slot-invariant top-k pair-order signed-flip stability execution branch under the declared gate.
+- EL-528 (2026-03-11): S607 preserved synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_persistence_binary as the next memo-only angle.
