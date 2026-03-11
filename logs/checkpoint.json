@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement exactly one dual-atlas symbolic control: V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas.",
-                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, and 777.",
-                         "Stop the line immediately if the dual-atlas control matches or beats the witness on both declared packet metrics."
+                         "Preserve the symbolic-insufficiency witness as the standing internal benchmark.",
+                         "If further fairness review is desired, define a materially stronger symbolic family before reopening code.",
+                         "Do not run new packets until a new symbolic family is frozen at memo level."
                      ],
-    "repo_posture":  "bounded_dual_atlas_implementation",
+    "repo_posture":  "memo_only_preserved_positive_result",
     "risks":  [
                   "If the coupling lattice drifts beyond the frozen 4x4 structure, the review becomes invalid.",
                   "If any cell interaction beyond the three declared analog summaries appears, the packet must be discarded."
@@ -738,9 +738,12 @@
                                 "S725",
                                 "S726",
                                 "S727",
-                                "S728"
+                                "S728",
+                                "S729",
+                                "S730",
+                                "S731"
                             ],
     "current_story_ids":  [
-                              "S728"
+                              "S731"
                           ]
 }

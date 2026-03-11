@@ -930,3 +930,8 @@ Use one row per evidence item.
 
 - EL-656 (2026-03-11): Corrected the persisted residual-atlas challenger artifacts after detecting that an earlier batch writer had stored fallback sim_local outputs instead of the direct residual-atlas control path.
 
+
+- EL-663 (2026-03-11): S729 implemented exactly one dual-atlas symbolic control family under the frozen 4x4 source-destination lattice contract and validated it with the focused suite passing.
+- EL-664 (2026-03-11): S730 ran the fixed three-seed dual-atlas packet on synthetic_symbolic_insufficiency_transition_response; the witness beat the dual-atlas control on both mae and rank_correlation across all three seeds.
+- EL-665 (2026-03-11): S731 concluded that the dual-atlas control did not catch up, so the symbolic-insufficiency witness remains the standing internal benchmark under the stronger dual-atlas fairness bar.
+
