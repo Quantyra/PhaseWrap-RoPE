@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Preserve the symbolic-insufficiency witness as the standing internal benchmark.",
-                         "If further fairness review is desired, define a materially stronger symbolic family before reopening code.",
-                         "Do not run new packets until a new symbolic family is frozen at memo level."
+                         "Write the explicit implementation-approval gate for the dual-atlas residual-gating symbolic family.",
+                         "Freeze the residual-gating basis mechanically in that gate.",
+                         "Reopen code only if that gate is explicitly approved."
                      ],
-    "repo_posture":  "memo_only_preserved_positive_result",
+    "repo_posture":  "memo_only_dual_atlas_residual_review",
     "risks":  [
-                  "If the coupling lattice drifts beyond the frozen 4x4 structure, the review becomes invalid.",
-                  "If any cell interaction beyond the three declared analog summaries appears, the packet must be discarded."
+                  "If the residual-gating family grows beyond the two declared residual channels, the review becomes invalid.",
+                  "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -741,9 +741,12 @@
                                 "S728",
                                 "S729",
                                 "S730",
-                                "S731"
+                                "S731",
+                                "S732",
+                                "S733",
+                                "S734"
                             ],
     "current_story_ids":  [
-                              "S731"
+                              "S734"
                           ]
 }
