@@ -1,14 +1,13 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement exactly one dual-atlas bilinear residual symbolic control.",
-                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, 777.",
-                         "Stop the line immediately if the bilinear residual control matches or beats the witness on both declared packet metrics."
+                         "Preserve the symbolic-insufficiency witness as the standing internal benchmark.",
+                         "If further fairness review is desired, define a materially stronger symbolic family before reopening code again."
                      ],
-    "repo_posture":  "bounded_dual_atlas_bilinear_implementation",
+    "repo_posture":  "memo_only_preserved_positive_result",
     "risks":  [
-                  "If the bilinear residual family grows beyond the two declared channels, the review becomes invalid.",
-                  "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
+                  "If a future symbolic family relaxes the frozen-basis contract, the fairness line becomes non-auditable.",
+                  "If implementation resumes without a materially stronger symbolic-family memo, the benchmark loses decision value."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -758,9 +757,12 @@
                                 "S745",
                                 "S746",
                                 "S747",
-                                "S748"
+                                "S748",
+                                "S749",
+                                "S750",
+                                "S751"
                             ],
     "current_story_ids":  [
-                              "S748"
+                              "S751"
                           ]
 }
