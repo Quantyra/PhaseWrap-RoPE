@@ -864,3 +864,5 @@ Use one row per evidence item.
 - EL-618 (2026-03-10): S686 fixed one stricter memo-only symbolic-family review as the only valid next continuation for the symbolic-insufficiency line.
 - EL-619 (2026-03-10): S687 defined one stricter but still bounded symbolic basis for the symbolic-insufficiency line by adding only bounded cubic analog structure and one bounded gated coarse-indicator modulation family.
 - EL-620 (2026-03-10): S688 preserved the current symbolic-insufficiency result as the baseline internal reference and set the stricter symbolic basis as the next memo-only fairness bar.
+- EL-621 (2026-03-10): S689 refreshed the symbolic-insufficiency implementation-approval candidate to the stricter symbolic basis and preserved the current witness result as the baseline comparison point.
+- EL-622 (2026-03-10): S690 fixed the next valid move as writing one explicit implementation-approval gate for the stronger symbolic basis before any code can reopen.
