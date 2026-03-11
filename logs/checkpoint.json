@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the bounded implementation plan for the dual-atlas residual-gating symbolic control.",
-                         "Freeze residual definitions, lattice size, and allowed residual interactions mechanically in that plan.",
-                         "Reopen code only after the bounded plan is accepted."
+                         "Implement exactly one dual-atlas residual-gating symbolic control: V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_residual.",
+                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, and 777.",
+                         "Stop the line immediately if the residual-gating control matches or beats the witness on both declared packet metrics."
                      ],
-    "repo_posture":  "memo_only_dual_atlas_residual_gate_decision",
+    "repo_posture":  "bounded_dual_atlas_residual_implementation",
     "risks":  [
                   "If the residual-gating family grows beyond the two declared residual channels, the review becomes invalid.",
                   "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
@@ -746,9 +746,11 @@
                                 "S733",
                                 "S734",
                                 "S735",
-                                "S736"
+                                "S736",
+                                "S737",
+                                "S738"
                             ],
     "current_story_ids":  [
-                              "S736"
+                              "S738"
                           ]
 }

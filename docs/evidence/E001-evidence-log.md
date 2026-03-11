@@ -944,3 +944,7 @@ Use one row per evidence item.
 - EL-669 (2026-03-11): S735 wrote the explicit implementation-approval gate for the dual-atlas residual-gating symbolic family and froze the 4x4 lattice, two residual channels, and all allowed interactions at gate level.
 - EL-670 (2026-03-11): S736 concluded that the dual-atlas residual-gating line is specific enough for one bounded implementation-planning step while keeping code closed in this step.
 
+
+- EL-671 (2026-03-11): S737 fixed the dual-atlas residual-gating implementation plan to one control, one task, a frozen 4x4 lattice, and exactly two declared residual-gating channels.
+- EL-672 (2026-03-11): S738 concluded that the dual-atlas residual-gating line is specific enough for one bounded implementation cycle and rejected any broader code reopening.
+
