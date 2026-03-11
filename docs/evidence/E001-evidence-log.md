@@ -796,3 +796,8 @@ Use one row per evidence item.
 - EL-559 (2026-03-11): Approved one strictly bounded implementation phase for `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_hysteresis_binary` with fixed candidate, fixed control stack, and fixed three-seed local packet.
 - EL-560 (2026-03-11): Bound the hard-stop generator diagnostics for the signed-flip hysteresis line directly into the implementation approval gate.
 - EL-561 (2026-03-11): Fixed the writable scope and branch decision rule for the signed-flip hysteresis implementation phase.
+
+- EL-562 (2026-03-11): Implemented the bounded `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_hysteresis_binary` branch with the approved witness/control stack only.
+- EL-563 (2026-03-11): The signed-flip hysteresis packet passed all hard-stop diagnostics and produced witness means of `accuracy=0.515151`, `f1=0.250000`.
+- EL-564 (2026-03-11): The signed-flip hysteresis witness lost on both declared primary metrics to multiple bounded controls, so the execution branch was stopped.
+- EL-565 (2026-03-11): Preserved `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_memory_binary` as the next memo-only continuation of the slot-invariant signed-flip line.
