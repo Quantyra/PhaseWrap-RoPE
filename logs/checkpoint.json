@@ -1,13 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Preserve the symbolic-insufficiency witness as the standing internal benchmark.",
-                         "If further fairness review is desired, define a materially stronger symbolic family before reopening code again."
+                         "Write the explicit implementation-approval gate for the dual-atlas transition-bilinear symbolic family.",
+                         "Freeze the transition-bilinear basis mechanically in that gate.",
+                         "Reopen code only if that gate is explicitly approved."
                      ],
-    "repo_posture":  "memo_only_preserved_positive_result",
+    "repo_posture":  "memo_only_dual_atlas_transition_bilinear_review",
     "risks":  [
-                  "If a future symbolic family relaxes the frozen-basis contract, the fairness line becomes non-auditable.",
-                  "If implementation resumes without a materially stronger symbolic-family memo, the benchmark loses decision value."
+                  "If the transition-bilinear family grows beyond the two declared channels, the review becomes invalid.",
+                  "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -770,9 +771,12 @@
                                 "S758",
                                 "S759",
                                 "S760",
-                                "S761"
+                                "S761",
+                                "S762",
+                                "S763",
+                                "S764"
                             ],
     "current_story_ids":  [
-                              "S761"
+                              "S764"
                           ]
 }

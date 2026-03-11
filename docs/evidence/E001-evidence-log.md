@@ -989,3 +989,8 @@ Use one row per evidence item.
 - EL-694 (2026-03-11): S760 ran the fixed three-seed dual-atlas transition-residual packet on synthetic_symbolic_insufficiency_transition_response; the witness beat the challenger on both mae and rank_correlation across all three seeds.
 - EL-695 (2026-03-11): S761 concluded that the dual-atlas transition-residual control did not catch up, so the symbolic-insufficiency witness remains the standing internal benchmark under the stronger transition-residual fairness bar.
 
+
+- EL-696 (2026-03-11): S762 defined one materially stronger symbolic family beyond the dual-atlas transition-residual control by adding only a bounded directional transition-bilinear layer over the same frozen 4x4 source-destination lattice.
+- EL-697 (2026-03-11): S763 bound the dual-atlas transition-bilinear family to one fixed future scaffold, task, backend, seeds, and required frozen-family audits.
+- EL-698 (2026-03-11): S764 preserved the dual-atlas transition-bilinear family as the next memo-only approval-candidate line while keeping implementation closed.
+
