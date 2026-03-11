@@ -788,3 +788,7 @@ Use one row per evidence item.
 - EL-553 (2026-03-11): S632 ran the fixed three-seed packet; the witness lost both declared primary classification metrics to bounded controls.
 - EL-554 (2026-03-11): S633 stopped the slot-invariant top-k pair-order signed-flip reversion execution branch under the declared gate.
 - EL-555 (2026-03-11): S634 preserved `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_hysteresis_binary` as the next memo-only angle.
+
+- EL-556 (2026-03-11): Specified `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_hysteresis_binary` as the next memo-only continuation of the slot-invariant signed-flip line.
+- EL-557 (2026-03-11): Bound the signed-flip hysteresis line to a fixed restart scaffold with one future candidate, one bounded symbolic control stack, and one fixed three-seed local packet.
+- EL-558 (2026-03-11): Elevated the signed-flip hysteresis line to approval-candidate posture while keeping the branch memo-only and implementation-closed.
