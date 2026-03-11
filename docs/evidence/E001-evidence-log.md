@@ -885,3 +885,6 @@ Use one row per evidence item.
 - EL-635 (2026-03-10): S702 froze the shared-atlas symbolic family to exactly four global charts with a predeclared threshold rule over declared analog summaries only.
 - EL-636 (2026-03-10): S703 raised the shared-atlas symbolic family to approval-candidate posture while keeping implementation closed.
 - EL-637 (2026-03-10): S704 fixed the next valid move as writing an explicit implementation-approval gate with frozen atlas diagnostics before any code can reopen.
+
+- EL-638 (2026-03-11): S705 froze the shared-atlas implementation gate with exactly four global charts, a predeclared chart rule, and explicit atlas hard-stop diagnostics.
+- EL-639 (2026-03-11): S706 recorded that the shared-atlas line is now specific enough for one bounded implementation-planning step, while code remains closed until that plan is written.

@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the explicit implementation-approval gate for the shared-atlas symbolic family.",
-                         "Bind frozen atlas diagnostics directly into that gate before any code reopens.",
-                         "Keep the current symbolic-insufficiency witness result as the standing internal benchmark until the atlas gate is approved."
+                         "Write the bounded implementation plan for V_control_symbolic_symbolic_insufficiency_regressor_atlas.",
+                         "Keep the standing witness benchmark fixed while defining the atlas control packet.",
+                         "Do not reopen code beyond the atlas control scope."
                      ],
-    "repo_posture":  "memo_only_shared_atlas_gate_planning",
+    "repo_posture":  "memo_only_shared_atlas_plan_ready",
     "risks":  [
-                  "If the shared-atlas chart rule expands beyond the frozen four-chart contract, the fairness review collapses into basis creep.",
-                  "If chart membership is allowed to depend on hidden latent structure, the atlas family becomes a lookup surrogate and the review is invalid."
+                  "If the atlas implementation plan changes chart count or chart rule, the fairness review becomes invalid.",
+                  "If atlas features leak latent-path or hidden tuple structure, the control is no longer auditable."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -715,9 +715,10 @@
                                 "S698",
                                 "S700",
                                 "S702",
-                                "S703"
+                                "S703",
+                                "S705"
                             ],
     "current_story_ids":  [
-                              "S704"
+                              "S706"
                           ]
 }
