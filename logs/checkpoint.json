@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement exactly one dual-atlas transition-cubic symbolic control.",
-                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, and 777.",
-                         "Stop the line immediately if the challenger matches or beats the witness on both declared packet metrics."
+                         "Write the explicit implementation-approval gate for the dual-atlas transition-cubic-plus symbolic family.",
+                         "Freeze the transition-cubic-plus basis mechanically in that gate.",
+                         "Reopen code only if that gate is explicitly approved."
                      ],
-    "repo_posture":  "bounded_dual_atlas_transition_cubic_implementation",
+    "repo_posture":  "memo_only_dual_atlas_transition_cubic_plus_review",
     "risks":  [
                   "If the transition-cubic family grows beyond the two declared directional cubic channels, the fairness review becomes invalid.",
                   "If hidden lookup behavior or uncontrolled higher-order growth appears, the future packet must be discarded."
@@ -795,9 +795,14 @@
                                 "S782",
                                 "S783",
                                 "S785",
-                                "S787"
+                                "S787",
+                                "S789",
+                                "S790",
+                                "S791",
+                                "S792",
+                                "S793"
                             ],
     "current_story_ids":  [
-                              "S788"
+                              "S794"
                           ]
 }
