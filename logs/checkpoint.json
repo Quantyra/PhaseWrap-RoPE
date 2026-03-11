@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the explicit implementation-approval gate for the dual-atlas transition-bilinear symbolic family.",
-                         "Freeze the transition-bilinear basis mechanically in that gate.",
-                         "Reopen code only if that gate is explicitly approved."
+                         "Write the bounded implementation plan for the dual-atlas transition-bilinear symbolic control.",
+                         "Freeze transition-bilinear definitions, lattice size, and allowed transition-bilinear interactions mechanically in that plan.",
+                         "Reopen code only after the bounded plan is accepted."
                      ],
-    "repo_posture":  "memo_only_dual_atlas_transition_bilinear_review",
+    "repo_posture":  "memo_only_dual_atlas_transition_bilinear_gate_decision",
     "risks":  [
                   "If the transition-bilinear family grows beyond the two declared channels, the review becomes invalid.",
                   "If any hidden per-cell lookup or bespoke nonlinear transform appears, the packet must be discarded."
@@ -774,9 +774,11 @@
                                 "S761",
                                 "S762",
                                 "S763",
-                                "S764"
+                                "S764",
+                                "S765",
+                                "S766"
                             ],
     "current_story_ids":  [
-                              "S764"
+                              "S766"
                           ]
 }
