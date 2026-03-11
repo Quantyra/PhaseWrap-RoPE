@@ -868,3 +868,5 @@ Use one row per evidence item.
 - EL-622 (2026-03-10): S690 fixed the next valid move as writing one explicit implementation-approval gate for the stronger symbolic basis before any code can reopen.
 - EL-623 (2026-03-10): S691 wrote the explicit implementation-approval gate for the stronger symbolic basis and froze the stronger allowed basis plus forbidden family directly into the gate.
 - EL-624 (2026-03-10): S692 recorded that the stronger symbolic basis is now explicit enough for a bounded future implementation cycle, but code remains closed until a concrete stronger-control implementation plan is written.
+- EL-625 (2026-03-10): S693 approved one strictly bounded implementation-planning phase for a stronger symbolic control family while keeping code and execution closed.
+- EL-626 (2026-03-10): S694 fixed the exact stronger-control implementation plan, frozen basis, forbidden feature family, and future packet shape.
