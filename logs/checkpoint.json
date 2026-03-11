@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Decide whether to open one bounded implementation-planning step for the stronger symbolic control family.",
+                         "Review whether the stronger-control implementation plan is specific enough for a bounded implementation-approval decision.",
                          "Keep the current symbolic-insufficiency witness result fixed as the baseline internal reference.",
                          "Do not reopen code until the stronger-control implementation plan is explicitly approved."
                      ],
-    "repo_posture":  "memo_only_stronger_gate_decision",
+    "repo_posture":  "memo_only_stronger_control_plan",
     "risks":  [
-                  "If the stronger symbolic control implementation is not bounded to the frozen basis, the fairness review becomes invalid.",
-                  "If the baseline witness result is not held fixed, the stronger-control comparison will lose auditability."
+                  "If the stronger-control implementation plan drifts beyond the frozen basis, the fairness review becomes invalid.",
+                  "If multiple stronger-control families are allowed to creep in, the branch loses auditability immediately."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -707,9 +707,10 @@
                                 "S685",
                                 "S687",
                                 "S689",
-                                "S691"
+                                "S691",
+                                "S693"
                             ],
     "current_story_ids":  [
-                              "S692"
+                              "S694"
                           ]
 }
