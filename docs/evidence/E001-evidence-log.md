@@ -845,3 +845,6 @@ Use one row per evidence item.
 - EL-599 (2026-03-10): S672 ran the fixed `pair_reindex=1` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
 - EL-600 (2026-03-10): S673 kept the symbolic-insufficiency branch active after pair reindex and rejected symbolic-family widening as the next move.
 - EL-601 (2026-03-10): S674 fixed `slot_swap=1` as the next bounded structural hardening step for the symbolic-insufficiency branch.
+- EL-602 (2026-03-10): S674 ran the fixed `slot_swap=1` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
+- EL-603 (2026-03-10): S675 kept the symbolic-insufficiency branch active after slot swap and rejected symbolic-family widening as the next move.
+- EL-604 (2026-03-10): S676 fixed `pair_reindex=7` as the next bounded structural hardening step for the symbolic-insufficiency branch.
