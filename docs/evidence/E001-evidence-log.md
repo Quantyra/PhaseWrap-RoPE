@@ -814,3 +814,7 @@ Use one row per evidence item.
 - EL-573 (2026-03-11): The signed-flip memory packet passed all hard-stop diagnostics and produced witness means of `accuracy=0.515151`, `f1=0.250000`.
 - EL-574 (2026-03-11): The signed-flip memory witness lost on both declared primary metrics to multiple bounded controls, so the execution branch was stopped.
 - EL-575 (2026-03-11): Preserved `synthetic_transition_orbit_slot_invariant_topk_pair_order_signed_flip_trace_binary` as the next memo-only continuation of the slot-invariant signed-flip line.
+
+- EL-576 (2026-03-11): Preserved an explicit symbolic-insufficiency task-design line as the next higher-value continuation after repeated bounded symbolic catch-up across transition-orbit branches.
+- EL-577 (2026-03-11): Bound the symbolic-insufficiency line to a restart scaffold that requires a predeclared allowed symbolic family and explicit forbidden-feature family before any implementation approval.
+- EL-578 (2026-03-11): Elevated the symbolic-insufficiency line to approval-candidate posture while keeping the repo in memo-only mode for this branch.
