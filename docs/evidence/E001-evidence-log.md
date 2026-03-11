@@ -1042,3 +1042,10 @@ Use one row per evidence item.
 
 - EL-731 (2026-03-11): S797 fixed the bounded implementation plan for the dual-atlas transition-cubic-plus challenger with one frozen task, one fixed packet, and one narrow writable scope.
 - EL-732 (2026-03-11): S798 concluded that the dual-atlas transition-cubic-plus line is specific enough for one bounded implementation cycle and rejected any broader code reopening in this step.
+
+- EL-733 (2026-03-11): S799 implemented exactly one bounded dual-atlas transition-cubic-plus challenger under the frozen symbolic-insufficiency fairness contract and validated the updated runner/tests (266 passed).
+- EL-734 (2026-03-11): S800 ran the fixed three-seed witness-vs-transition-cubic-plus packet on synthetic_symbolic_insufficiency_transition_response; the witness stayed ahead on both mae and ank_correlation across all three seeds.
+- EL-735 (2026-03-11): S801 concluded that the transition-cubic-plus challenger did not catch up and the symbolic-insufficiency witness remains the standing internal benchmark.
+- EL-736 (2026-03-11): S802 defined one materially stronger memo-only symbolic family beyond transition-cubic-plus by adding exactly two frozen dual-atlas transition-quartic channels.
+- EL-737 (2026-03-11): S803 bound the transition-quartic family to one fixed future restart scaffold with a frozen task, backend, seeds, and audit shape.
+- EL-738 (2026-03-11): S804 raised the transition-quartic family to memo-only approval-candidate posture while keeping code closed.

@@ -375,6 +375,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_bilinear": 1,
         "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_bilinear_plus": 1,
         "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_cubic": 1,
+        "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_cubic_plus": 1,
         "V_control_symbolic_transition_channel_order_lookup": 1,
         "V_control_symbolic_transition_channel_order_cross_direction": 1,
         "V_control_symbolic_transition_channel_order_quadratic": 1,
@@ -672,6 +673,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_bilinear_plus+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_cubic":
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_cubic+head_linear"
+        elif variant == "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_cubic_plus":
+            data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_cubic_plus+head_linear"
         elif variant == "V_control_symbolic_coarse_lookup_regressor":
             data_mode = f"{data_mode}+readout_symbolic_coarse_lookup_regressor+head_linear"
         elif variant == "V_control_symbolic_analog_only_regressor":
@@ -1385,6 +1388,8 @@ def run_quantum_backend(
         return run_symbolic_insufficiency_symbolic_regressor_dual_atlas_transition_bilinear_plus(train=train, test=test, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_transition_response" and variant == "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_cubic":
         return run_symbolic_insufficiency_symbolic_regressor_dual_atlas_transition_cubic(train=train, test=test, validation=validation)
+    if dataset == "synthetic_symbolic_insufficiency_transition_response" and variant == "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_cubic_plus":
+        return run_symbolic_insufficiency_symbolic_regressor_dual_atlas_transition_cubic_plus(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_lookup":
         return run_transition_channel_order_lookup_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_cross_direction":
@@ -3324,6 +3329,71 @@ def symbolic_insufficiency_symbolic_features_dual_atlas_transition_cubic(text: s
         "dual_atlas_transition_bilinear_family_frozen_pass": base["dual_atlas_transition_bilinear_family_frozen_pass"],
         "dual_atlas_transition_bilinear_plus_family_frozen_pass": base["dual_atlas_transition_bilinear_plus_family_frozen_pass"],
         "dual_atlas_transition_cubic_family_frozen_pass": True,
+        "dual_atlas_hidden_lookup_absent_pass": base["dual_atlas_hidden_lookup_absent_pass"],
+        "allowed_symbolic_basis_frozen_pass": feature_order == frozen_feature_order,
+        "forbidden_feature_family_absent_pass": True,
+    }
+
+
+def symbolic_insufficiency_symbolic_features_dual_atlas_transition_cubic_plus(text: str) -> dict[str, object]:
+    base = symbolic_insufficiency_symbolic_features_dual_atlas_transition_cubic(text)
+    payload = parse_dual_sample_text(text)
+    sector_magnitude_delta = state_sensitive_sector_magnitude_delta(payload)
+    ordered_content_delta = state_sensitive_ordered_content_delta(payload)
+    orientation_delta = nonlinear_orientation_delta(payload)
+    orientation_plus_content = round(orientation_delta + ordered_content_delta, 6)
+    sector_times_orientation_times_orientation_plus_content = round(
+        sector_magnitude_delta * orientation_delta * orientation_plus_content, 6
+    )
+
+    source_a = 1 if sector_magnitude_delta >= 0.0 else 0
+    source_b = 1 if ordered_content_delta >= 0.0 else 0
+    dest_a = 1 if sector_magnitude_delta >= 0.0 else 0
+    dest_b = 1 if orientation_delta >= 0.0 else 0
+    source_name = f"{source_a}{source_b}"
+    dest_name = f"{dest_a}{dest_b}"
+    source_sign = 1.0 if source_name in {"10", "11"} else -1.0
+    dest_sign = 1.0 if dest_name in {"10", "11"} else -1.0
+    source_to_dest_sector_times_orientation_times_orientation_plus_content = round(
+        source_sign * sector_times_orientation_times_orientation_plus_content, 6
+    )
+    dest_to_source_sector_times_orientation_times_orientation_plus_content = round(
+        dest_sign * sector_times_orientation_times_orientation_plus_content, 6
+    )
+
+    features = dict(base["features"])
+    frozen_feature_order = list(base["feature_order"])
+    chart_names = ["00", "01", "10", "11"]
+    for source_chart in chart_names:
+        for dest_chart in chart_names:
+            base_name = f"dual_atlas_{source_chart}_{dest_chart}"
+            indicator = features[base_name]
+            source_dest_name = f"{base_name}_source_to_dest_sector_times_orientation_times_orientation_plus_content"
+            dest_source_name = f"{base_name}_dest_to_source_sector_times_orientation_times_orientation_plus_content"
+            features[source_dest_name] = round(
+                indicator * source_to_dest_sector_times_orientation_times_orientation_plus_content, 6
+            )
+            features[dest_source_name] = round(
+                indicator * dest_to_source_sector_times_orientation_times_orientation_plus_content, 6
+            )
+            frozen_feature_order.extend([source_dest_name, dest_source_name])
+
+    feature_order = list(features.keys())
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "source_atlas_chart_count_frozen_pass": base["source_atlas_chart_count_frozen_pass"],
+        "destination_atlas_chart_count_frozen_pass": base["destination_atlas_chart_count_frozen_pass"],
+        "atlas_chart_rule_global_pass": base["atlas_chart_rule_global_pass"],
+        "atlas_hidden_lookup_absent_pass": base["atlas_hidden_lookup_absent_pass"],
+        "dual_atlas_coupling_family_frozen_pass": base["dual_atlas_coupling_family_frozen_pass"],
+        "dual_atlas_residual_family_frozen_pass": base["dual_atlas_residual_family_frozen_pass"],
+        "dual_atlas_bilinear_family_frozen_pass": base["dual_atlas_bilinear_family_frozen_pass"],
+        "dual_atlas_transition_residual_family_frozen_pass": base["dual_atlas_transition_residual_family_frozen_pass"],
+        "dual_atlas_transition_bilinear_family_frozen_pass": base["dual_atlas_transition_bilinear_family_frozen_pass"],
+        "dual_atlas_transition_bilinear_plus_family_frozen_pass": base["dual_atlas_transition_bilinear_plus_family_frozen_pass"],
+        "dual_atlas_transition_cubic_family_frozen_pass": base["dual_atlas_transition_cubic_family_frozen_pass"],
+        "dual_atlas_transition_cubic_plus_family_frozen_pass": True,
         "dual_atlas_hidden_lookup_absent_pass": base["dual_atlas_hidden_lookup_absent_pass"],
         "allowed_symbolic_basis_frozen_pass": feature_order == frozen_feature_order,
         "forbidden_feature_family_absent_pass": True,
@@ -5569,6 +5639,73 @@ def run_symbolic_insufficiency_symbolic_regressor_dual_atlas_transition_cubic(
     )
     diagnostics["dual_atlas_transition_cubic_family_frozen_pass"] = all(
         bool(result.get("dual_atlas_transition_cubic_family_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["dual_atlas_hidden_lookup_absent_pass"] = all(
+        bool(result.get("dual_atlas_hidden_lookup_absent_pass", False)) for result in test_results
+    )
+    diagnostics["allowed_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_symbolic_basis_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_symbolic_insufficiency_symbolic_regressor_dual_atlas_transition_cubic_plus(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_insufficiency_symbolic_features_dual_atlas_transition_cubic_plus(text=text) for text, _ in train]
+    validation_results = [symbolic_insufficiency_symbolic_features_dual_atlas_transition_cubic_plus(text=text) for text, _ in validation]
+    test_results = [symbolic_insufficiency_symbolic_features_dual_atlas_transition_cubic_plus(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["source_atlas_chart_count_frozen_pass"] = all(
+        bool(result.get("source_atlas_chart_count_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["destination_atlas_chart_count_frozen_pass"] = all(
+        bool(result.get("destination_atlas_chart_count_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["atlas_chart_rule_global_pass"] = all(
+        bool(result.get("atlas_chart_rule_global_pass", False)) for result in test_results
+    )
+    diagnostics["atlas_hidden_lookup_absent_pass"] = all(
+        bool(result.get("atlas_hidden_lookup_absent_pass", False)) for result in test_results
+    )
+    diagnostics["dual_atlas_coupling_family_frozen_pass"] = all(
+        bool(result.get("dual_atlas_coupling_family_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["dual_atlas_residual_family_frozen_pass"] = all(
+        bool(result.get("dual_atlas_residual_family_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["dual_atlas_bilinear_family_frozen_pass"] = all(
+        bool(result.get("dual_atlas_bilinear_family_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["dual_atlas_transition_residual_family_frozen_pass"] = all(
+        bool(result.get("dual_atlas_transition_residual_family_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["dual_atlas_transition_bilinear_family_frozen_pass"] = all(
+        bool(result.get("dual_atlas_transition_bilinear_family_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["dual_atlas_transition_bilinear_plus_family_frozen_pass"] = all(
+        bool(result.get("dual_atlas_transition_bilinear_plus_family_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["dual_atlas_transition_cubic_family_frozen_pass"] = all(
+        bool(result.get("dual_atlas_transition_cubic_family_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["dual_atlas_transition_cubic_plus_family_frozen_pass"] = all(
+        bool(result.get("dual_atlas_transition_cubic_plus_family_frozen_pass", False)) for result in test_results
     )
     diagnostics["dual_atlas_hidden_lookup_absent_pass"] = all(
         bool(result.get("dual_atlas_hidden_lookup_absent_pass", False)) for result in test_results

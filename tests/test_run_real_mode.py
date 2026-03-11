@@ -498,6 +498,31 @@ def test_symbolic_insufficiency_symbolic_control_dual_atlas_transition_cubic_fre
     assert diagnostics["forbidden_feature_family_absent_pass"] is True
 
 
+def test_symbolic_insufficiency_symbolic_control_dual_atlas_transition_cubic_plus_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_transition_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_cubic_plus",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["source_atlas_chart_count_frozen_pass"] is True
+    assert diagnostics["destination_atlas_chart_count_frozen_pass"] is True
+    assert diagnostics["atlas_chart_rule_global_pass"] is True
+    assert diagnostics["atlas_hidden_lookup_absent_pass"] is True
+    assert diagnostics["dual_atlas_coupling_family_frozen_pass"] is True
+    assert diagnostics["dual_atlas_residual_family_frozen_pass"] is True
+    assert diagnostics["dual_atlas_bilinear_family_frozen_pass"] is True
+    assert diagnostics["dual_atlas_transition_residual_family_frozen_pass"] is True
+    assert diagnostics["dual_atlas_transition_bilinear_family_frozen_pass"] is True
+    assert diagnostics["dual_atlas_transition_bilinear_plus_family_frozen_pass"] is True
+    assert diagnostics["dual_atlas_transition_cubic_family_frozen_pass"] is True
+    assert diagnostics["dual_atlas_transition_cubic_plus_family_frozen_pass"] is True
+    assert diagnostics["dual_atlas_hidden_lookup_absent_pass"] is True
+    assert diagnostics["allowed_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
 def test_transition_orbit_additive_control_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_chart_transition_orbit_response",
