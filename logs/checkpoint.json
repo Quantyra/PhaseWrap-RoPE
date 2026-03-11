@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Define one exact symbolic-insufficiency task with an explicit allowed symbolic control family.",
-                         "State a concrete insufficiency argument at memo level before any approval discussion.",
-                         "Keep the line memo-only until that argument is specific enough to audit."
+                         "Review whether the symbolic-insufficiency argument is specific enough for an approval-candidate hardening memo.",
+                         "If needed, narrow the allowed symbolic basis further before any implementation gate.",
+                         "Keep the line memo-only until the insufficiency argument is auditable and concrete."
                      ],
     "repo_posture":  "memo_only",
     "risks":  [
-                  "Without a real symbolic-insufficiency argument, this line will collapse into another target reformulation and repeat the same failure pattern.",
-                  "The next branch should be rejected early if it cannot state both the allowed symbolic family and why that family is insufficient."
+                  "If the allowed symbolic family is still too broad or too vague, the line will drift back into post-hoc fairness arguments.",
+                  "If the task cannot guarantee coarse-state nullness and within-state latent variation simultaneously, the insufficiency claim will be weak."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -666,9 +666,14 @@
                                 "S651",
                                 "S652",
                                 "S653",
-                                "S654"
+                                "S654",
+                                "S653",
+                                "S654",
+                                "S655",
+                                "S656",
+                                "S657"
                             ],
     "current_story_ids":  [
-                              "S655"
+                              "S658"
                           ]
 }
