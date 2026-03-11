@@ -1002,3 +1002,12 @@ Use one row per evidence item.
 
 - EL-701 (2026-03-11): S767 fixed the bounded implementation plan for the dual-atlas transition-bilinear challenger with a frozen 4x4 lattice, two residual channels, two bilinear channels, two transition-residual channels, two transition-bilinear channels, and one fixed three-seed packet against the standing witness benchmark.
 - EL-702 (2026-03-11): S768 concluded that the dual-atlas transition-bilinear line is specific enough for one bounded implementation cycle and rejected any broader code reopening.
+
+
+- EL-703 (2026-03-11): S769 implemented exactly one dual-atlas transition-bilinear symbolic challenger under the frozen 4x4 source-destination lattice, residual, bilinear, transition-residual, and transition-bilinear contracts and validated it with the focused suite passing.
+- EL-704 (2026-03-11): S770 ran the fixed three-seed dual-atlas transition-bilinear packet on synthetic_symbolic_insufficiency_transition_response; the witness beat the challenger on both mae and rank_correlation across all three seeds.
+- EL-705 (2026-03-11): S771 concluded that the dual-atlas transition-bilinear control did not catch up, so the symbolic-insufficiency witness remains the standing internal benchmark under the stronger transition-bilinear fairness bar.
+
+- EL-706 (2026-03-11): S772 defined one materially stronger symbolic family beyond the dual-atlas transition-bilinear control by adding only a bounded directional transition-bilinear-plus layer over the same frozen 4x4 source-destination lattice.
+- EL-707 (2026-03-11): S773 bound the dual-atlas transition-bilinear-plus family to one fixed future scaffold, task, backend, seeds, and required frozen-family audits.
+- EL-708 (2026-03-11): S774 preserved the dual-atlas transition-bilinear-plus family as the next memo-only approval-candidate line while keeping implementation closed.
