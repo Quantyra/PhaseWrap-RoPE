@@ -1,11 +1,11 @@
-{
+﻿{
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement synthetic_symbolic_insufficiency_path_response inside the frozen scope.",
-                         "Run exactly one fixed three-seed packet against the bounded path symbolic control.",
-                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+                         "Preserve the transfer-path branch as the active bounded transfer result.",
+                         "If continuing, choose the next perturbation deliberately rather than auto-expanding the branch family.",
+                         "Keep hardware out of scope until transfer validity is judged sufficient."
                      ],
-    "repo_posture":  "bounded_transfer_path_implementation",
+    "repo_posture":  "active_transfer_path_preserved",
     "risks":  [
                   "If the path task collapses to a simple aggregation of one-step responses, transfer evidence will be weak even if the witness leads.",
                   "If path feature extraction leaks latent structure outside the frozen symbolic basis, the transfer packet will be invalid."
@@ -840,6 +840,6 @@
                                 "S855"
                             ],
     "current_story_ids":  [
-                              "S855"
+                              "S867"
                           ]
 }
