@@ -1148,3 +1148,9 @@ Use one row per evidence item.
 - EL-816 (2026-03-11): S875 packaged the standing benchmark and first bounded transfer result into one internal decision-grade result package while keeping hardware and publication out of scope.
 
 - EL-817 (2026-03-11): S876 converted the standing benchmark and bounded transfer result into one concise executive-facing internal summary without reopening experiments or widening claims.
+
+- EL-818 (2026-03-11): S877 opened a second materially different transfer family, synthetic_symbolic_insufficiency_loop_closure_response, at memo level only.
+- EL-819 (2026-03-11): S878 fixed the exact loop-closure transfer task and its required generator diagnostics before any implementation approval.
+- EL-820 (2026-03-11): S879 refreshed the transfer-first scaffold so the second transfer family is bound to one memo-only restart object.
+- EL-821 (2026-03-11): S880 raised the loop-closure transfer line to approval-candidate posture while keeping code closed and hardware out of scope.
+
