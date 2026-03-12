@@ -1192,3 +1192,9 @@ ank_correlation.
 - EL-839 (2026-03-11): S898 ran the fixed pair_reindex=7 hardening packet on synthetic_symbolic_insufficiency_loop_closure_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
 - EL-840 (2026-03-11): S899 closed the first bounded loop hardening cycle and kept the transfer-loop branch active because the bounded symbolic control never matched or beat the witness on both declared packet metrics.
 - EL-841 (2026-03-11): S900 preserved the loop-closure transfer result as sufficient bounded internal transfer evidence and returned the line to a memo-level decision gate.
+
+## EL-842 S901 transfer loop preservation decision
+- Type: Decision
+- Story: S901
+- Artifact: docs/research/q-rope-transfer-loop-preservation-decision-v1.md`r
+- Note: Preserved the loop-closure line as sufficient bounded internal transfer evidence and refreshed the internal package/executive summary to include both transfer families.
