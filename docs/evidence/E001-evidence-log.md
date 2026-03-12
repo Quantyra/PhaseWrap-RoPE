@@ -1105,3 +1105,7 @@ Use one row per evidence item.
 
 - EL-783 (2026-03-11): S843 froze the symbolic-insufficiency witness as the standing internal benchmark and stopped default same-family symbolic escalation.
 - EL-784 (2026-03-11): S844 fixed the admissibility bar for any future symbolic challenger family, requiring conceptual novelty and a frozen bounded basis before code can reopen.
+
+- EL-785 (2026-03-11): S845 fixed transfer-first as the next logical phase from the standing symbolic-insufficiency benchmark and explicitly deferred hardware execution.
+- EL-786 (2026-03-11): S846 defined the first materially different transfer family, `synthetic_symbolic_insufficiency_path_response`, at memo level only.
+- EL-787 (2026-03-11): S847 bound the transfer-first line to one memo-only restart scaffold and kept hardware out of scope until transfer validity is established.

@@ -1,14 +1,14 @@
 {
     "active_epic": "E001",
     "next_actions": [
-        "Preserve the symbolic-insufficiency witness as the standing internal benchmark.",
-        "Do not open another same-family symbolic challenger by default.",
-        "If continuing, require a materially different symbolic family or move to theory/transfer planning before code reopens."
+        "Specify synthetic_symbolic_insufficiency_path_response exactly.",
+        "Bind one bounded symbolic fairness family into the transfer scaffold before any implementation approval.",
+        "Keep hardware execution out of scope until the transfer line is explicit and audited."
     ],
-    "repo_posture": "memo_only_preserved_positive_result",
+    "repo_posture": "memo_only_transfer_first",
     "risks": [
-        "If the next symbolic family is only a higher-order cousin of the current atlas ladder, the review will likely add cost without improving the benchmark decision.",
-        "If code reopens without a memo-level admissibility review, the fairness line becomes open-ended and loses auditability."
+        "If the transfer family is not materially different from the transition-local benchmark, it will not test generality.",
+        "If hardware work reopens before transfer validity is established, backend confounders will dominate the interpretation."
     ],
     "completed_story_ids": [
         "S001",
@@ -826,9 +826,12 @@
         "S841",
         "S842",
         "S843",
-        "S844"
+        "S844",
+        "S845",
+        "S846",
+        "S847"
     ],
     "current_story_ids": [
-        "S844"
+        "S847"
     ]
 }
