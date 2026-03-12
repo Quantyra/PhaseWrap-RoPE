@@ -1284,3 +1284,21 @@ ank_correlation.
 - Story: S921
 - Artifact: docs/research/q-rope-transfer-fork-join-pair-reindex-hardening-plan-v1.md
 - Note: Fixed the next bounded structural hardening step as `pair_reindex=1` while keeping the task, witness, symbolic control, seeds, and backend unchanged.
+
+## EL-856 S922 fork-join pair-reindex hardening
+- Type: Result
+- Story: S922
+- Artifact: docs/research/q-rope-transfer-fork-join-pair-reindex-hardening-v1.md
+- Note: Ran the fixed pair_reindex=1 structural hardening packet on synthetic_symbolic_insufficiency_fork_join_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
+
+## EL-857 S923 fork-join post-pair-reindex decision
+- Type: Decision
+- Story: S923
+- Artifact: docs/research/q-rope-transfer-fork-join-post-pair-reindex-decision-v1.md
+- Note: Kept the fork-join transfer line active because the bounded symbolic control did not match or beat the witness on both declared packet metrics after pair_reindex=1.
+
+## EL-858 S924 fork-join slot-swap hardening plan
+- Type: Decision
+- Story: S924
+- Artifact: docs/research/q-rope-transfer-fork-join-slot-swap-hardening-plan-v1.md
+- Note: Fixed the next bounded structural hardening step as slot_swap=1 while keeping the task, witness, symbolic control, seeds, and backend unchanged.
