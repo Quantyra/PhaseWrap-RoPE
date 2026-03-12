@@ -1226,3 +1226,13 @@ ank_correlation.
 - Story: S908
 - Artifact: docs/research/q-rope-internal-recommendation-memo-v1.md`r
 - Note: Recorded a program-level recommendation to continue the line at low intensity while blocking hardware escalation and externalization.
+
+## EL-847 S909-S912 third transfer family opened
+- Type: Decision
+- Stories: S909-S912
+- Artifacts:
+  - docs/research/q-rope-transfer-fork-join-task-family-design-v1.md`r
+  - docs/research/q-rope-transfer-fork-join-task-spec-v1.md`r
+  - docs/research/q-rope-transfer-first-restart-scaffold-v4.md`r
+  - docs/research/q-rope-transfer-fork-join-approval-candidate-v1.md`r
+- Note: Opened a third materially different transfer family based on fork-join relational topology while keeping execution closed.

@@ -1,11 +1,11 @@
 ﻿{
     "active_epic":  "E001",
     "next_actions":  [
-                         "Use the current package for internal review and program prioritization.",
-                         "Do not reopen execution by default; only open a new line if a materially different transfer family or theory-backed question is justified.",
-                         "Treat the line as continue-at-low-intensity until stronger cross-task evidence exists."
+                         "Treat the current package as sufficient for internal review while the third transfer family is only approval-candidate.",
+                         "Do not reopen execution on the fork-join line until an explicit implementation-approval gate is written.",
+                         "Keep hardware out of scope until the fork-join line either survives or is rejected."
                      ],
-    "repo_posture":  "memo_only_internal_recommendation",
+    "repo_posture":  "memo_only_transfer_fork_join_approval_candidate",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
@@ -853,6 +853,6 @@
                                 "S900"
                             ],
     "current_story_ids":  [
-                              "S908"
+                              "S912"
                           ]
 }
