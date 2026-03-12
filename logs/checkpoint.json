@@ -1,14 +1,14 @@
 {
     "active_epic": "E001",
     "next_actions": [
-        "Run the fixed pair_reindex=1 hardening packet on synthetic_symbolic_insufficiency_loop_closure_response.",
+        "Run the fixed slot_swap=1 hardening packet on synthetic_symbolic_insufficiency_loop_closure_response.",
         "Keep only the loop witness and bounded loop symbolic control on seeds 42/123/777.",
         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
     ],
     "repo_posture": "bounded_transfer_loop_hardening",
     "risks": [
-        "If pair_reindex=1 is inert under the loop construction, the packet will not add real structural evidence.",
-        "If the witness lead disappears under the first structural perturbation, the loop transfer result may still be fragile."
+        "If slot_swap=1 is inert under the loop construction, the packet will not add real structural evidence.",
+        "If the witness lead disappears under slot-swap, the loop transfer result may still be structurally fragile."
     ],
     "completed_story_ids": [
         "S001",
@@ -842,9 +842,11 @@
         "S886",
         "S887",
         "S889",
-        "S890"
+        "S890",
+        "S892",
+        "S893"
     ],
     "current_story_ids": [
-        "S891"
+        "S894"
     ]
 }

@@ -1,0 +1,20 @@
+{
+  "run_id": "transfer-loop-pair1-witness-s777",
+  "label": "witness",
+  "variant": "V_future_relational_witness_symbolic_insufficiency_loop",
+  "dataset": "synthetic_symbolic_insufficiency_loop_closure_response",
+  "seed": 777,
+  "backend": "sim_quantum_statevector",
+  "accuracy": 0.0,
+  "f1": 0.0,
+  "train_loss_final": 0.04717547489742179,
+  "eval_loss": 0.05592800705203183,
+  "dry_run": false,
+  "run_mode": "real",
+  "data_mode": "synthetic_symbolic_insufficiency_loop_closure_response+readout_relational_witness_symbolic_insufficiency_loop+head_linear",
+  "timestamp_utc": "2026-03-12T07:25:38Z",
+  "pair_reindex": 1,
+  "mae": 0.055928,
+  "rank_correlation": 0.325112,
+  "calibration_slope": 0.369755
+}

@@ -1183,3 +1183,6 @@ ank_correlation.
 - EL-830 (2026-03-11): S889 ran the fixed token-renaming hardening packet on synthetic_symbolic_insufficiency_loop_closure_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
 - EL-831 (2026-03-11): S890 kept the transfer-loop branch active because the bounded symbolic control did not match or beat the witness on both declared packet metrics.
 - EL-832 (2026-03-11): S891 fixed the next bounded structural hardening step as pair_reindex=1 while keeping the task, witness, symbolic control, seeds, and backend unchanged.
+- EL-833 (2026-03-11): S892 ran the fixed pair_reindex=1 hardening packet on synthetic_symbolic_insufficiency_loop_closure_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
+- EL-834 (2026-03-11): S893 kept the transfer-loop branch active because the bounded symbolic control did not match or beat the witness on both declared packet metrics after the first structural hardening step.
+- EL-835 (2026-03-11): S894 fixed the next bounded structural hardening step as slot_swap=1 while keeping the task, witness, symbolic control, seeds, and backend unchanged.
