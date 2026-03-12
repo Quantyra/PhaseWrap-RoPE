@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the explicit implementation-approval gate for synthetic_symbolic_insufficiency_braid_crossing_response.",
-                         "Bind the frozen braid symbolic family and generator diagnostics directly into that gate.",
-                         "Keep hardware out of scope until the braid-crossing transfer line survives approval and execution."
+                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_braid_crossing_response.",
+                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
+                         "Reopen code only after that bounded plan is accepted."
                      ],
-    "repo_posture":  "memo_only_transfer_braid_approval_candidate",
+    "repo_posture":  "memo_only_transfer_braid_gate_decision",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
@@ -868,9 +868,11 @@
                                 "S932",
                                 "S933",
                                 "S934",
-                                "S935"
+                                "S935",
+                                "S936",
+                                "S937"
                             ],
     "current_story_ids":  [
-                              "S935"
+                              "S937"
                           ]
 }

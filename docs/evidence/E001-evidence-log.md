@@ -1353,3 +1353,15 @@ ank_correlation.
 - Artifact: docs/research/q-rope-transfer-first-restart-scaffold-v5.md
 - Artifact: docs/research/q-rope-transfer-braid-approval-candidate-v1.md
 - Note: Opened a fourth materially different transfer family based on ordered braid/crossing topology while keeping execution closed and hardware out of scope.
+
+## EL-867 S936 braid implementation approval gate
+- Type: Decision
+- Story: S936
+- Artifact: docs/research/q-rope-transfer-braid-implementation-approval-gate-v1.md
+- Note: Approved one strictly bounded implementation phase for the braid-crossing transfer line while freezing the bounded symbolic family, packet scope, and hard-stop diagnostics.
+
+## EL-868 S937 braid gate decision
+- Type: Decision
+- Story: S937
+- Artifact: docs/research/q-rope-transfer-braid-gate-decision-v1.md
+- Note: Recorded that the braid-crossing transfer line is specific enough for one bounded implementation-planning step, while keeping code closed in this step.
