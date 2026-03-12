@@ -825,6 +825,205 @@ def generate_symbolic_insufficiency_fork_join_response_bundle(
     )
 
 
+def generate_symbolic_insufficiency_braid_crossing_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_symbolic_insufficiency_braid_crossing_response:{seed}")
+    base_bundle = generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_symbolic_insufficiency_transition_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="symbolic_insufficiency_transition_response",
+    )
+    all_rows = [
+        DualSyntheticSample(
+            text=text,
+            label=label,
+            sector_a=offset_sector_name(parse_dual_sample_text(text)["sample_a"].offset),
+            sector_b=offset_sector_name(parse_dual_sample_text(text)["sample_b"].offset),
+            sample_a=parse_dual_sample_text(text)["sample_a"],
+            sample_b=parse_dual_sample_text(text)["sample_b"],
+        )
+        for split_rows in (base_bundle.train, base_bundle.validation, base_bundle.test)
+        for text, label in split_rows
+    ]
+    candidate_rows = list(all_rows)
+    rng.shuffle(candidate_rows)
+    candidate_rows = sorted(candidate_rows[:20], key=lambda row: row.text)
+
+    candidates_by_state: dict[tuple[int, int, int, int, int], list[dict[str, Any]]] = defaultdict(list)
+    for index_u, row_u in enumerate(candidate_rows):
+        for index_v, row_v in enumerate(candidate_rows):
+            if index_v == index_u:
+                continue
+            for index_x, row_x in enumerate(candidate_rows):
+                if index_x in {index_u, index_v}:
+                    continue
+                for index_y, row_y in enumerate(candidate_rows):
+                    if index_y in {index_u, index_v, index_x}:
+                        continue
+                    pre_sign_agree = int(
+                        (sector_sign_family(row_u.sector_a) == sector_sign_family(row_u.sector_b))
+                        == (sector_sign_family(row_v.sector_a) == sector_sign_family(row_v.sector_b))
+                    )
+                    post_sign_agree = int(
+                        (sector_sign_family(row_x.sector_a) == sector_sign_family(row_x.sector_b))
+                        == (sector_sign_family(row_y.sector_a) == sector_sign_family(row_y.sector_b))
+                    )
+                    cross_content_agree = int(
+                        content_family_name(row_u.sample_a.left_token, row_u.sample_a.right_token)
+                        == content_family_name(row_x.sample_a.left_token, row_x.sample_a.right_token)
+                    )
+                    cross_orientation_agree = int(
+                        token_orientation_name(row_v.sample_a.left_token, row_v.sample_a.right_token)
+                        == token_orientation_name(row_y.sample_a.left_token, row_y.sample_a.right_token)
+                    )
+                    channel_balance = int(
+                        (
+                            orientation_delta_score(row_u.sample_a, row_u.sample_b)
+                            + orientation_delta_score(row_y.sample_a, row_y.sample_b)
+                        )
+                        >= (
+                            orientation_delta_score(row_v.sample_a, row_v.sample_b)
+                            + orientation_delta_score(row_x.sample_a, row_x.sample_b)
+                        )
+                    )
+                    coarse_key = (
+                        pre_sign_agree,
+                        post_sign_agree,
+                        cross_content_agree,
+                        cross_orientation_agree,
+                        channel_balance,
+                    )
+
+                    latent_u = symbolic_insufficiency_latent_ids(row_u.sample_a, row_u.sample_b)
+                    latent_v = symbolic_insufficiency_latent_ids(row_v.sample_a, row_v.sample_b)
+                    latent_x = symbolic_insufficiency_latent_ids(row_x.sample_a, row_x.sample_b)
+                    latent_y = symbolic_insufficiency_latent_ids(row_y.sample_a, row_y.sample_b)
+                    phase_u = _symbolic_insufficiency_latent_phase(latent_u)
+                    phase_v = _symbolic_insufficiency_latent_phase(latent_v)
+                    phase_x = _symbolic_insufficiency_latent_phase(latent_x)
+                    phase_y = _symbolic_insufficiency_latent_phase(latent_y)
+                    raw_target = (
+                        0.16 * float(row_u.label)
+                        - 0.11 * float(row_v.label)
+                        + 0.19 * float(row_x.label)
+                        - 0.13 * float(row_y.label)
+                        + 0.17 * math.sin((phase_u - phase_v) - (phase_x - phase_y))
+                        + 0.13 * math.cos((phase_u + phase_x) - (phase_v + phase_y))
+                        + 0.11 * math.sin((phase_u - phase_x) + (phase_v - phase_y))
+                        + 0.09
+                        * math.cos(
+                            (
+                                orientation_delta_score(row_u.sample_a, row_u.sample_b)
+                                + orientation_delta_score(row_y.sample_a, row_y.sample_b)
+                            )
+                            - (
+                                orientation_delta_score(row_v.sample_a, row_v.sample_b)
+                                + orientation_delta_score(row_x.sample_a, row_x.sample_b)
+                            )
+                        )
+                    )
+                    candidates_by_state[coarse_key].append(
+                        {
+                            "text": render_symbolic_insufficiency_braid_text(
+                                row_u.sample_a,
+                                row_u.sample_b,
+                                row_v.sample_a,
+                                row_v.sample_b,
+                                row_x.sample_a,
+                                row_x.sample_b,
+                                row_y.sample_a,
+                                row_y.sample_b,
+                            ),
+                            "raw_target": round(raw_target, 6),
+                            "latent_key": (*latent_u, *latent_v, *latent_x, *latent_y),
+                        }
+                    )
+
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_means: dict[str, float] = {}
+    latent_group_counts: dict[str, int] = {}
+    target_ranges: dict[str, float] = {}
+    token_counts = Counter()
+    channel_counts = Counter()
+    for coarse_key, candidates in sorted(candidates_by_state.items()):
+        if len(candidates) < required:
+            continue
+        ordered = sorted(candidates, key=lambda item: (item["latent_key"], item["text"]))
+        selected: list[dict[str, Any]] = []
+        seen_latents: set[tuple[int, ...]] = set()
+        for item in ordered:
+            if item["latent_key"] not in seen_latents:
+                selected.append(item)
+                seen_latents.add(item["latent_key"])
+            if len(selected) == required:
+                break
+        if len(selected) < required:
+            for item in ordered:
+                if item not in selected:
+                    selected.append(item)
+                if len(selected) == required:
+                    break
+        if len({item["latent_key"] for item in selected}) < 2:
+            continue
+        mean_target = sum(float(item["raw_target"]) for item in selected) / len(selected)
+        centered = [(item["text"], round(float(item["raw_target"]) - mean_target, 6)) for item in selected]
+        train.extend(centered[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(centered[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(centered[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        state_key = "".join(str(part) for part in coarse_key)
+        state_means[state_key] = round(sum(label for _, label in centered) / len(centered), 6)
+        target_ranges[state_key] = round(max(label for _, label in centered) - min(label for _, label in centered), 6)
+        latent_group_counts[state_key] = len({item["latent_key"] for item in selected})
+        for text, _ in centered:
+            payload = parse_symbolic_insufficiency_braid_text(text)
+            for prefix in ("u", "v", "x", "y"):
+                token_counts.update(
+                    [
+                        payload[prefix]["sample_a"].left_token,
+                        payload[prefix]["sample_a"].right_token,
+                        payload[prefix]["sample_b"].left_token,
+                        payload[prefix]["sample_b"].right_token,
+                    ]
+                )
+            channel_counts.update(
+                [
+                    "uv",
+                    "xy",
+                ]
+            )
+
+    diagnostics = {
+        "dataset": "synthetic_symbolic_insufficiency_braid_crossing_response",
+        "coarse_braid_state_null_pass": max((abs(value) for value in state_means.values()), default=1.0) <= 1e-6,
+        "within_braid_state_variation_pass": all(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "latent_braid_diversity_pass": all(value > 1 for value in latent_group_counts.values()) and bool(latent_group_counts),
+        "crossing_target_nontrivial_pass": any(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "token_view_balance_pass": set(token_counts.keys()) == set(TOKENS),
+        "channel_balance_pass": set(channel_counts.keys()) == {"uv", "xy"},
+        "coarse_braid_state_null_max_abs_mean": round(max((abs(value) for value in state_means.values()), default=0.0), 6),
+        "within_braid_state_target_ranges": target_ranges,
+        "latent_braid_group_counts": latent_group_counts,
+    }
+    return SyntheticDatasetBundle(
+        train=train,
+        validation=validation,
+        test=test,
+        diagnostics=diagnostics,
+    )
+
+
 def generate_chart_transition_token_invariant_response_bundle(
     seed: int,
     split_rotation: int = 0,
@@ -5022,6 +5221,54 @@ def parse_symbolic_insufficiency_fork_join_text(text: str) -> dict[str, Any]:
         "b": build_prefixed_dual("b"),
         "c": build_prefixed_dual("c"),
         "r": build_prefixed_dual("r"),
+    }
+
+
+def render_symbolic_insufficiency_braid_text(
+    u_sample_a: SyntheticSample,
+    u_sample_b: SyntheticSample,
+    v_sample_a: SyntheticSample,
+    v_sample_b: SyntheticSample,
+    x_sample_a: SyntheticSample,
+    x_sample_b: SyntheticSample,
+    y_sample_a: SyntheticSample,
+    y_sample_b: SyntheticSample,
+) -> str:
+    return (
+        f"u_a_lt:{u_sample_a.left_token} u_a_rt:{u_sample_a.right_token} u_a_lp:{u_sample_a.left_pos} u_a_rp:{u_sample_a.right_pos} u_a_off:{u_sample_a.offset:+d} "
+        f"u_b_lt:{u_sample_b.left_token} u_b_rt:{u_sample_b.right_token} u_b_lp:{u_sample_b.left_pos} u_b_rp:{u_sample_b.right_pos} u_b_off:{u_sample_b.offset:+d} "
+        f"v_a_lt:{v_sample_a.left_token} v_a_rt:{v_sample_a.right_token} v_a_lp:{v_sample_a.left_pos} v_a_rp:{v_sample_a.right_pos} v_a_off:{v_sample_a.offset:+d} "
+        f"v_b_lt:{v_sample_b.left_token} v_b_rt:{v_sample_b.right_token} v_b_lp:{v_sample_b.left_pos} v_b_rp:{v_sample_b.right_pos} v_b_off:{v_sample_b.offset:+d} "
+        f"x_a_lt:{x_sample_a.left_token} x_a_rt:{x_sample_a.right_token} x_a_lp:{x_sample_a.left_pos} x_a_rp:{x_sample_a.right_pos} x_a_off:{x_sample_a.offset:+d} "
+        f"x_b_lt:{x_sample_b.left_token} x_b_rt:{x_sample_b.right_token} x_b_lp:{x_sample_b.left_pos} x_b_rp:{x_sample_b.right_pos} x_b_off:{x_sample_b.offset:+d} "
+        f"y_a_lt:{y_sample_a.left_token} y_a_rt:{y_sample_a.right_token} y_a_lp:{y_sample_a.left_pos} y_a_rp:{y_sample_a.right_pos} y_a_off:{y_sample_a.offset:+d} "
+        f"y_b_lt:{y_sample_b.left_token} y_b_rt:{y_sample_b.right_token} y_b_lp:{y_sample_b.left_pos} y_b_rp:{y_sample_b.right_pos} y_b_off:{y_sample_b.offset:+d}"
+    )
+
+
+def parse_symbolic_insufficiency_braid_text(text: str) -> dict[str, Any]:
+    fields: dict[str, Any] = {}
+    for chunk in text.split():
+        key, value = chunk.split(":", 1)
+        if key.endswith(("_lp", "_rp", "_off")):
+            fields[key] = int(value)
+        else:
+            fields[key] = value
+
+    def build_prefixed_dual(prefix: str) -> dict[str, Any]:
+        dual_text = (
+            f"a_lt:{fields[f'{prefix}_a_lt']} a_rt:{fields[f'{prefix}_a_rt']} a_lp:{fields[f'{prefix}_a_lp']} a_rp:{fields[f'{prefix}_a_rp']} a_off:{fields[f'{prefix}_a_off']:+d} "
+            f"b_lt:{fields[f'{prefix}_b_lt']} b_rt:{fields[f'{prefix}_b_rt']} b_lp:{fields[f'{prefix}_b_lp']} b_rp:{fields[f'{prefix}_b_rp']} b_off:{fields[f'{prefix}_b_off']:+d}"
+        )
+        payload = parse_dual_sample_text(dual_text)
+        payload["dual_text"] = dual_text
+        return payload
+
+    return {
+        "u": build_prefixed_dual("u"),
+        "v": build_prefixed_dual("v"),
+        "x": build_prefixed_dual("x"),
+        "y": build_prefixed_dual("y"),
     }
 
 

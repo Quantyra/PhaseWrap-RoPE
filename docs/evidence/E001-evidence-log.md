@@ -1377,3 +1377,27 @@ ank_correlation.
 - Story: S939
 - Artifact: docs/research/q-rope-transfer-braid-plan-decision-v1.md
 - Note: Recorded that the braid-crossing transfer line is ready for one bounded implementation cycle under the frozen symbolic family and packet scope.
+
+## EL-871 S940 braid implementation
+- Type: Decision
+- Story: S940
+- Artifact: docs/research/q-rope-transfer-braid-implementation-v1.md
+- Note: Implemented the bounded braid-crossing transfer line, added deterministic generator/render/parse support, and validated the focused test suite.
+
+## EL-872 S941 braid first packet
+- Type: Result
+- Story: S941
+- Artifact: docs/research/q-rope-transfer-braid-first-packet-v1.md
+- Note: Ran the fixed three-seed braid packet on synthetic_symbolic_insufficiency_braid_crossing_response; the witness beat the bounded symbolic control on both mae and rank_correlation in the mean.
+
+## EL-873 S942 braid post-packet decision
+- Type: Decision
+- Story: S942
+- Artifact: docs/research/q-rope-transfer-braid-post-packet-decision-v1.md
+- Note: Kept the braid transfer branch active because the bounded symbolic control did not match or beat the witness on both declared packet metrics.
+
+## EL-874 S943 braid token-renaming hardening plan
+- Type: Decision
+- Story: S943
+- Artifact: docs/research/q-rope-transfer-braid-token-renaming-hardening-plan-v1.md
+- Note: Fixed the next bounded nuisance hardening step as token_permutation=cdab while keeping the task, witness, control, backend, and seeds unchanged.

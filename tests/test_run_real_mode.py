@@ -734,6 +734,40 @@ def test_symbolic_insufficiency_fork_join_symbolic_control_freezes_basis() -> No
     assert diagnostics["forbidden_feature_family_absent_pass"] is True
 
 
+def test_symbolic_insufficiency_braid_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_braid_crossing_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_symbolic_insufficiency_braid",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_symbolic_insufficiency_braid_crossing_response+readout_relational_witness_symbolic_insufficiency_braid+head_linear"
+    )
+    assert diagnostics["coarse_braid_state_null_pass"] is True
+    assert diagnostics["within_braid_state_variation_pass"] is True
+    assert diagnostics["latent_braid_diversity_pass"] is True
+    assert diagnostics["crossing_target_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["channel_balance_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_braid_feature_family_absent_pass"] is True
+
+
+def test_symbolic_insufficiency_braid_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_braid_crossing_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_symbolic_insufficiency_braid_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_braid_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_braid_feature_family_absent_pass"] is True
+
+
 def test_transition_orbit_additive_control_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_chart_transition_orbit_response",

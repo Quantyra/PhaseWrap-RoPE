@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement synthetic_symbolic_insufficiency_braid_crossing_response inside the frozen writable scope.",
-                         "Run exactly one fixed three-seed packet against the bounded braid symbolic control.",
+                         "Run the fixed token-renaming hardening packet with token_permutation=cdab.",
+                         "Keep only the braid witness and bounded braid symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
-    "repo_posture":  "bounded_transfer_braid_implementation",
+    "repo_posture":  "bounded_transfer_braid_hardening",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
@@ -872,9 +872,12 @@
                                 "S936",
                                 "S937",
                                 "S938",
-                                "S939"
+                                "S939",
+                                "S940",
+                                "S941",
+                                "S942"
                             ],
     "current_story_ids":  [
-                              "S939"
+                              "S943"
                           ]
 }
