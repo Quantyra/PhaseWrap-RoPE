@@ -1,11 +1,11 @@
 ﻿{
     "active_epic":  "E001",
     "next_actions":  [
-                         "Use the current benchmark plus two bounded transfer results as the internal review package.",
-                         "Do not reopen execution by default; only open a new line if a materially different transfer family or theory-backed branch is justified.",
-                         "Treat hardware as out of scope until a stronger cross-task rationale exists."
+                         "Use the current benchmark, transfer results, and internal theory note as the internal review package.",
+                         "Do not reopen execution by default; only open a new line if a materially different transfer family or theory-backed question is justified.",
+                         "Keep hardware out of scope until stronger cross-task evidence exists."
                      ],
-    "repo_posture":  "memo_only_theory_reporting_refresh",
+    "repo_posture":  "memo_only_internal_theory_note",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
@@ -853,6 +853,6 @@
                                 "S900"
                             ],
     "current_story_ids":  [
-                              "S905"
+                              "S906"
                           ]
 }

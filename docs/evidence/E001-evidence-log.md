@@ -1208,3 +1208,9 @@ ank_correlation.
   - docs/research/q-rope-witness-separability-hypothesis-memo-v1.md`r
   - docs/research/q-rope-internal-reporting-readiness-memo-v1.md`r
 - Note: Opened the theory-first decomposition track and declared the current package ready for internal review without further execution.
+
+## EL-844 S906 internal theory note
+- Type: Decision
+- Story: S906
+- Artifact: docs/research/q-rope-internal-theory-note-v1.md`r
+- Note: Consolidated the strongest internal theory-level propositions supported by the benchmark plus two bounded transfer families without escalating them into external claims.
