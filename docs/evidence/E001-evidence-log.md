@@ -1419,3 +1419,21 @@ ank_correlation.
 - Story: S946
 - Artifact: docs/research/q-rope-transfer-braid-pair-reindex-hardening-plan-v1.md
 - Note: Fixed the next bounded structural hardening step as pair_reindex=1 while keeping the task, witness, control, backend, and seeds unchanged.
+
+## EL-878 S947 braid pair-reindex hardening
+- Type: Result
+- Story: S947
+- Artifact: docs/research/q-rope-transfer-braid-pair-reindex-hardening-v1.md
+- Note: Ran the fixed pair_reindex=1 structural hardening packet on synthetic_symbolic_insufficiency_braid_crossing_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
+
+## EL-879 S948 braid post-pair-reindex decision
+- Type: Decision
+- Story: S948
+- Artifact: docs/research/q-rope-transfer-braid-post-pair-reindex-decision-v1.md
+- Note: Kept the braid transfer line active because the bounded symbolic control did not match or beat the witness on both declared packet metrics after pair_reindex=1.
+
+## EL-880 S949 braid slot-swap hardening plan
+- Type: Decision
+- Story: S949
+- Artifact: docs/research/q-rope-transfer-braid-slot-swap-hardening-plan-v1.md
+- Note: Fixed the next bounded structural hardening step as slot_swap=1 while keeping the task, witness, control, backend, and seeds unchanged.
