@@ -1,14 +1,14 @@
-﻿{
+{
     "active_epic":  "E001",
     "next_actions":  [
-                         "Preserve the transfer-path branch as the active bounded transfer result.",
-                         "If continuing, choose the next perturbation deliberately rather than auto-expanding the branch family.",
-                         "Keep hardware out of scope until transfer validity is judged sufficient."
+                         "Preserve the transfer-path branch as the current bounded transfer result.",
+                         "If continuing, choose between a materially different second transfer family and a theory/reporting step before hardware.",
+                         "Keep hardware out of scope until cross-task transfer is judged sufficient."
                      ],
-    "repo_posture":  "active_transfer_path_preserved",
+    "repo_posture":  "memo_only_transfer_path_decision_gate",
     "risks":  [
-                  "If the path task collapses to a simple aggregation of one-step responses, transfer evidence will be weak even if the witness leads.",
-                  "If path feature extraction leaks latent structure outside the frozen symbolic basis, the transfer packet will be invalid."
+                  "If the transfer-path result is treated as general too early, the program may overstate what is still a one-family transfer result.",
+                  "If the next step reopens automatic perturbation growth, the line will drift back into open-ended adversarial branching."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -840,6 +840,6 @@
                                 "S855"
                             ],
     "current_story_ids":  [
-                              "S867"
+                              "S870"
                           ]
 }

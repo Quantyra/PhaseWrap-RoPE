@@ -1,0 +1,7 @@
+run_id,variant,seed,mae,rank_correlation,calibration_slope
+transfer-path-pair7-control-s42,V_control_symbolic_symbolic_insufficiency_path_regressor,42,0.225362,-0.452381,-0.280522
+transfer-path-pair7-control-s123,V_control_symbolic_symbolic_insufficiency_path_regressor,123,0.159459,0.595238,1.261934
+transfer-path-pair7-control-s777,V_control_symbolic_symbolic_insufficiency_path_regressor,777,0.194578,0.595238,1.029132
+transfer-path-pair7-witness-s42,V_future_relational_witness_symbolic_insufficiency_path,42,0.182465,0.690476,0.306100
+transfer-path-pair7-witness-s123,V_future_relational_witness_symbolic_insufficiency_path,123,0.078969,0.357143,0.707553
+transfer-path-pair7-witness-s777,V_future_relational_witness_symbolic_insufficiency_path,777,0.141038,0.000000,0.876528

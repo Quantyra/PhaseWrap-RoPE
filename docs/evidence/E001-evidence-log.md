@@ -1135,3 +1135,7 @@ Use one row per evidence item.
 - EL-806 (2026-03-11): S865 fixed the next bounded structural hardening step as slot_swap=1 while keeping the task, witness, control, seeds, and backend unchanged.
 - EL-807 (2026-03-11): S866 ran the fixed slot_swap=1 hardening packet on the transfer-path line; the packet was non-inert and the witness led the bounded symbolic control on both mae and ank_correlation in the mean.
 - EL-808 (2026-03-11): S867 kept the transfer-path branch active after the slot_swap=1 hardening packet and explicitly stopped automatic perturbation growth in this step.
+
+- EL-809 (2026-03-11): S868 ran the bounded pair_reindex=7 hardening packet on the transfer-path line; the packet was non-inert and the witness remained ahead of the bounded symbolic control on both mae and ank_correlation.
+- EL-810 (2026-03-11): S869 kept the transfer-path branch active after the deepest bounded pairing perturbation and explicitly stopped automatic perturbation growth in this step.
+- EL-811 (2026-03-11): S870 synthesized the first bounded transfer hardening cycle and moved the line back to memo-level decision posture before any second transfer family or hardware step.

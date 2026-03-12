@@ -1,0 +1,34 @@
+{
+  "dataset": "synthetic_symbolic_insufficiency_path_response",
+  "coarse_path_state_null_pass": true,
+  "within_path_state_variation_pass": true,
+  "latent_path_diversity_pass": true,
+  "token_view_balance_pass": true,
+  "path_length_balance_pass": true,
+  "coarse_path_state_null_max_abs_mean": 0.0,
+  "within_path_state_target_ranges": {
+    "000": 0.462494,
+    "001": 0.504325,
+    "010": 0.571556,
+    "011": 0.6102,
+    "100": 0.437485,
+    "101": 0.323255,
+    "110": 0.358062,
+    "111": 0.249979
+  },
+  "latent_path_group_counts": {
+    "000": 4,
+    "001": 4,
+    "010": 4,
+    "011": 4,
+    "100": 4,
+    "101": 4,
+    "110": 4,
+    "111": 4
+  },
+  "path_length_values": {
+    "train": 2,
+    "validation": 2,
+    "test": 2
+  }
+}
