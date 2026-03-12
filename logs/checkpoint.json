@@ -1,7 +1,7 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Run the fixed slot_swap=1 structural hardening packet on the fork-join transfer line.",
+                         "Run the fixed pair_reindex=7 deeper structural hardening packet on the fork-join transfer line.",
                          "Keep only the witness and bounded fork-join symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
@@ -858,9 +858,11 @@
                                 "S919",
                                 "S920",
                                 "S922",
-                                "S923"
+                                "S923",
+                                "S925",
+                                "S926"
                             ],
     "current_story_ids":  [
-                              "S924"
+                              "S927"
                           ]
 }

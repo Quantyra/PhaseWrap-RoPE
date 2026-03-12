@@ -1302,3 +1302,21 @@ ank_correlation.
 - Story: S924
 - Artifact: docs/research/q-rope-transfer-fork-join-slot-swap-hardening-plan-v1.md
 - Note: Fixed the next bounded structural hardening step as slot_swap=1 while keeping the task, witness, symbolic control, seeds, and backend unchanged.
+
+## EL-859 S925 fork-join slot-swap hardening
+- Type: Result
+- Story: S925
+- Artifact: docs/research/q-rope-transfer-fork-join-slot-swap-hardening-v1.md
+- Note: Ran the fixed slot_swap=1 structural hardening packet on synthetic_symbolic_insufficiency_fork_join_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
+
+## EL-860 S926 fork-join post-slot-swap decision
+- Type: Decision
+- Story: S926
+- Artifact: docs/research/q-rope-transfer-fork-join-post-slot-swap-decision-v1.md
+- Note: Kept the fork-join transfer line active because the bounded symbolic control did not match or beat the witness on both declared packet metrics after slot_swap=1.
+
+## EL-861 S927 fork-join deeper pair-reindex hardening plan
+- Type: Decision
+- Story: S927
+- Artifact: docs/research/q-rope-transfer-fork-join-deeper-pair-reindex-hardening-plan-v1.md
+- Note: Fixed the next deeper structural hardening step as pair_reindex=7 while keeping the task, witness, symbolic control, seeds, and backend unchanged.
