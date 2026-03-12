@@ -1,7 +1,7 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Run the fixed slot_swap=1 structural hardening packet.",
+                         "Run the fixed pair_reindex=7 deeper structural hardening packet.",
                          "Keep only the braid witness and bounded braid symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
@@ -879,9 +879,11 @@
                                 "S944",
                                 "S945",
                                 "S947",
-                                "S948"
+                                "S948",
+                                "S950",
+                                "S951"
                             ],
     "current_story_ids":  [
-                              "S949"
+                              "S952"
                           ]
 }

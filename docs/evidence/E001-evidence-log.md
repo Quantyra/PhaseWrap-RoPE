@@ -1437,3 +1437,21 @@ ank_correlation.
 - Story: S949
 - Artifact: docs/research/q-rope-transfer-braid-slot-swap-hardening-plan-v1.md
 - Note: Fixed the next bounded structural hardening step as slot_swap=1 while keeping the task, witness, control, backend, and seeds unchanged.
+
+## EL-881 S950 braid slot-swap hardening
+- Type: Result
+- Story: S950
+- Artifact: docs/research/q-rope-transfer-braid-slot-swap-hardening-v1.md
+- Note: Ran the fixed slot_swap=1 structural hardening packet on synthetic_symbolic_insufficiency_braid_crossing_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
+
+## EL-882 S951 braid post-slot-swap decision
+- Type: Decision
+- Story: S951
+- Artifact: docs/research/q-rope-transfer-braid-post-slot-swap-decision-v1.md
+- Note: Kept the braid transfer line active because the bounded symbolic control did not match or beat the witness on both declared packet metrics after slot_swap=1.
+
+## EL-883 S952 braid deeper pair-reindex hardening plan
+- Type: Decision
+- Story: S952
+- Artifact: docs/research/q-rope-transfer-braid-deeper-pair-reindex-hardening-plan-v1.md
+- Note: Fixed the next bounded structural hardening step as pair_reindex=7 while keeping the task, witness, control, backend, and seeds unchanged.
