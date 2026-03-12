@@ -1,11 +1,11 @@
 ﻿{
     "active_epic":  "E001",
     "next_actions":  [
-                         "Treat the current package as sufficient for internal review while the third transfer family is only approval-candidate.",
-                         "Do not reopen execution on the fork-join line until an explicit implementation-approval gate is written.",
-                         "Keep hardware out of scope until the fork-join line either survives or is rejected."
+                         "Implement the fork-join transfer line inside the frozen writable scope only.",
+                         "Run exactly one fixed three-seed packet against the bounded fork-join symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
-    "repo_posture":  "memo_only_transfer_fork_join_approval_candidate",
+    "repo_posture":  "bounded_transfer_fork_join_implementation",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
@@ -853,6 +853,6 @@
                                 "S900"
                             ],
     "current_story_ids":  [
-                              "S912"
+                              "S914"
                           ]
 }
