@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Preserve the symbolic-insufficiency witness and transfer-path result as the current internal result package.",
-                         "If continuing, decide whether a second materially different transfer family is worth opening after theory review.",
-                         "Keep hardware and publication out of scope until stronger cross-task evidence exists."
+                         "Preserve the symbolic-insufficiency witness and transfer-path result as the current internal benchmark package.",
+                         "If continuing, choose deliberately between a second materially different transfer family and a theory-only extension.",
+                         "Keep hardware, publication, and product claims out of scope until stronger cross-task evidence exists."
                      ],
-    "repo_posture":  "memo_only_internal_result_package",
+    "repo_posture":  "memo_only_executive_summary",
     "risks":  [
                   "If the theory memo is overread as a proof of impossibility for all symbolic models, the internal conclusion will be overstated.",
                   "If a second transfer family is opened without a frozen fairness contract, the program will fall back into open-ended branch growth."
@@ -840,6 +840,6 @@
                                 "S855"
                             ],
     "current_story_ids":  [
-                              "S875"
+                              "S876"
                           ]
 }
