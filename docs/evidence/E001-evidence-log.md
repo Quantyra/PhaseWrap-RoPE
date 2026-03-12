@@ -1180,3 +1180,6 @@ ank_correlation.
 - EL-827 (2026-03-11): S886 ran the fixed three-seed witness-vs-control packet on synthetic_symbolic_insufficiency_loop_closure_response; the witness led the bounded symbolic loop control on both mae and rank_correlation across all three seeds.
 - EL-828 (2026-03-11): S887 kept the transfer-loop branch active and rejected packet widening because the witness cleared the declared transfer gate cleanly.
 - EL-829 (2026-03-11): S888 fixed the next bounded nuisance hardening step as token_permutation=cdab while keeping the task, witness, symbolic control, seeds, and backend unchanged.
+- EL-830 (2026-03-11): S889 ran the fixed token-renaming hardening packet on synthetic_symbolic_insufficiency_loop_closure_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
+- EL-831 (2026-03-11): S890 kept the transfer-loop branch active because the bounded symbolic control did not match or beat the witness on both declared packet metrics.
+- EL-832 (2026-03-11): S891 fixed the next bounded structural hardening step as pair_reindex=1 while keeping the task, witness, symbolic control, seeds, and backend unchanged.

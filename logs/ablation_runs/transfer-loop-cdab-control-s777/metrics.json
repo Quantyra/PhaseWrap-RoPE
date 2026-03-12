@@ -1,0 +1,20 @@
+{
+  "run_id": "transfer-loop-cdab-control-s777",
+  "label": "control",
+  "variant": "V_control_symbolic_symbolic_insufficiency_loop_regressor",
+  "dataset": "synthetic_symbolic_insufficiency_loop_closure_response",
+  "seed": 777,
+  "backend": "sim_quantum_statevector",
+  "accuracy": 0.0,
+  "f1": 0.0,
+  "train_loss_final": 0.0739355603155436,
+  "eval_loss": 0.08962825457130992,
+  "dry_run": false,
+  "run_mode": "real",
+  "data_mode": "synthetic_symbolic_insufficiency_loop_closure_response+readout_symbolic_symbolic_insufficiency_loop_regressor+head_linear",
+  "timestamp_utc": "2026-03-12T07:15:52Z",
+  "token_permutation": "cdab",
+  "mae": 0.089628,
+  "rank_correlation": -0.34483,
+  "calibration_slope": -0.209656
+}
