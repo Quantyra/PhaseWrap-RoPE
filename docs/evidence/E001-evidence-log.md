@@ -1253,7 +1253,7 @@ ank_correlation.
 - Type: Result
 - Story: S916
 - Artifact: docs/research/q-rope-transfer-fork-join-first-packet-v1.md
-- Note: Ran the fixed three-seed witness-vs-control packet on synthetic_symbolic_insufficiency_fork_join_response; the witness led the bounded symbolic control on both mae and rank_correlation in the mean.
+- Note: Ran the fixed `token_permutation=cdab` nuisance hardening packet on synthetic_symbolic_insufficiency_fork_join_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
 
 ## EL-851 S917 fork-join post-packet decision
 - Type: Decision
@@ -1266,3 +1266,21 @@ ank_correlation.
 - Story: S918
 - Artifact: docs/research/q-rope-transfer-fork-join-token-renaming-hardening-plan-v1.md
 - Note: Fixed the next bounded nuisance hardening step as `token_permutation=cdab` while keeping the task, witness, symbolic control, seeds, and backend unchanged.
+
+## EL-853 S919 fork-join token-renaming hardening
+- Type: Result
+- Story: S919
+- Artifact: docs/research/q-rope-transfer-fork-join-token-renaming-hardening-v1.md
+- Note: Ran the fixed `token_permutation=cdab` nuisance hardening packet on synthetic_symbolic_insufficiency_fork_join_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
+
+## EL-854 S920 fork-join post-token-renaming decision
+- Type: Decision
+- Story: S920
+- Artifact: docs/research/q-rope-transfer-fork-join-post-token-renaming-decision-v1.md
+- Note: Kept the fork-join transfer line active because the bounded symbolic control did not match or beat the witness on both declared packet metrics after token renaming.
+
+## EL-855 S921 fork-join pair-reindex hardening plan
+- Type: Decision
+- Story: S921
+- Artifact: docs/research/q-rope-transfer-fork-join-pair-reindex-hardening-plan-v1.md
+- Note: Fixed the next bounded structural hardening step as `pair_reindex=1` while keeping the task, witness, symbolic control, seeds, and backend unchanged.

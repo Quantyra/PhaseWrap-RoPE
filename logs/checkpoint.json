@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Run the fixed token-renaming hardening packet on the fork-join transfer line.",
+                         "Run the fixed pair_reindex=1 structural hardening packet on the fork-join transfer line.",
                          "Keep only the witness and bounded fork-join symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
-    "repo_posture":  "bounded_transfer_fork_join_hardening",
+    "repo_posture":  "bounded_transfer_fork_join_structural_hardening",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
@@ -854,9 +854,11 @@
                                 "S900",
                                 "S915",
                                 "S916",
-                                "S917"
+                                "S917",
+                                "S919",
+                                "S920"
                             ],
     "current_story_ids":  [
-                              "S918"
+                              "S921"
                           ]
 }
