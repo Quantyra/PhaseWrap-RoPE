@@ -1109,3 +1109,10 @@ Use one row per evidence item.
 - EL-785 (2026-03-11): S845 fixed transfer-first as the next logical phase from the standing symbolic-insufficiency benchmark and explicitly deferred hardware execution.
 - EL-786 (2026-03-11): S846 defined the first materially different transfer family, `synthetic_symbolic_insufficiency_path_response`, at memo level only.
 - EL-787 (2026-03-11): S847 bound the transfer-first line to one memo-only restart scaffold and kept hardware out of scope until transfer validity is established.
+
+- EL-788 (2026-03-11): S848 fixed the exact transfer-path task `synthetic_symbolic_insufficiency_path_response` at memo level only.
+- EL-789 (2026-03-11): S849 froze the first bounded symbolic fairness family for the transfer-path line before any approval-candidate review.
+- EL-790 (2026-03-11): S850 refreshed the transfer-first scaffold so the next valid move is an approval-candidate review rather than vague planning.
+
+- EL-791 (2026-03-11): S851 raised the transfer-path line to approval-candidate posture while keeping hardware and implementation out of scope.
+- EL-792 (2026-03-11): S851 fixed the next valid move as writing the explicit implementation-approval gate for synthetic_symbolic_insufficiency_path_response under the frozen path symbolic family.
