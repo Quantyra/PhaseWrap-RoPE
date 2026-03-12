@@ -1401,3 +1401,21 @@ ank_correlation.
 - Story: S943
 - Artifact: docs/research/q-rope-transfer-braid-token-renaming-hardening-plan-v1.md
 - Note: Fixed the next bounded nuisance hardening step as token_permutation=cdab while keeping the task, witness, control, backend, and seeds unchanged.
+
+## EL-875 S944 braid token-renaming hardening
+- Type: Result
+- Story: S944
+- Artifact: docs/research/q-rope-transfer-braid-token-renaming-hardening-v1.md
+- Note: Ran the fixed token_permutation=cdab nuisance hardening packet on synthetic_symbolic_insufficiency_braid_crossing_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
+
+## EL-876 S945 braid post-token-renaming decision
+- Type: Decision
+- Story: S945
+- Artifact: docs/research/q-rope-transfer-braid-post-token-renaming-decision-v1.md
+- Note: Kept the braid transfer line active because the bounded symbolic control did not match or beat the witness on both declared packet metrics after token renaming.
+
+## EL-877 S946 braid pair-reindex hardening plan
+- Type: Decision
+- Story: S946
+- Artifact: docs/research/q-rope-transfer-braid-pair-reindex-hardening-plan-v1.md
+- Note: Fixed the next bounded structural hardening step as pair_reindex=1 while keeping the task, witness, control, backend, and seeds unchanged.
