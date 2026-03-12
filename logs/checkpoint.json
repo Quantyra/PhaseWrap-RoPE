@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the explicit implementation-approval gate for synthetic_symbolic_insufficiency_path_response.",
-                         "Bind the frozen path symbolic family and generator diagnostics directly into that gate.",
-                         "Keep hardware execution out of scope until the transfer-path line survives the approval gate."
+                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_path_response.",
+                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
+                         "Reopen code only after the bounded plan is accepted."
                      ],
-    "repo_posture":  "memo_only_transfer_path_approval_candidate",
+    "repo_posture":  "memo_only_transfer_path_gate_decision",
     "risks":  [
-                  "If the path target collapses to a simple aggregation of one-step responses, the transfer claim will be weak.",
-                  "If the path symbolic family is allowed to grow after approval review, transfer comparability with the standing benchmark will be lost."
+                  "If the path task collapses to a simple aggregation of one-step responses, the transfer claim will remain weak.",
+                  "If the bounded path symbolic family grows after the gate, the transfer comparison will lose comparability with the standing benchmark."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -833,9 +833,11 @@
                                 "S848",
                                 "S849",
                                 "S850",
-                                "S851"
+                                "S851",
+                                "S852",
+                                "S853"
                             ],
     "current_story_ids":  [
-                              "S851"
+                              "S853"
                           ]
 }
