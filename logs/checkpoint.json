@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Run the fixed pair_reindex=7 deeper structural hardening packet.",
-                         "Keep only the braid witness and bounded braid symbolic control.",
-                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+                         "Preserve the braid line as archived transfer evidence.",
+                         "Do not reopen braid execution without a materially different braid-family question and a new approval cycle.",
+                         "Prefer other materially different transfer families for new execution."
                      ],
-    "repo_posture":  "bounded_transfer_braid_structural_hardening",
+    "repo_posture":  "memo_only_transfer_braid_archive",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
@@ -881,9 +881,12 @@
                                 "S947",
                                 "S948",
                                 "S950",
-                                "S951"
+                                "S951",
+                                "S953",
+                                "S954",
+                                "S955"
                             ],
     "current_story_ids":  [
-                              "S952"
+                              "S955"
                           ]
 }
