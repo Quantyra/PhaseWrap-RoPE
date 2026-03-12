@@ -1455,3 +1455,21 @@ ank_correlation.
 - Story: S952
 - Artifact: docs/research/q-rope-transfer-braid-deeper-pair-reindex-hardening-plan-v1.md
 - Note: Fixed the next bounded structural hardening step as pair_reindex=7 while keeping the task, witness, control, backend, and seeds unchanged.
+
+## EL-884 S953 braid deeper pair-reindex hardening
+- Type: Result
+- Story: S953
+- Artifact: docs/research/q-rope-transfer-braid-deeper-pair-reindex-hardening-v1.md
+- Note: Ran the fixed pair_reindex=7 deeper structural hardening packet on synthetic_symbolic_insufficiency_braid_crossing_response; the bounded symbolic control matched or beat the witness on both mae and rank_correlation in the mean.
+
+## EL-885 S954 braid deeper pair-reindex decision
+- Type: Decision
+- Story: S954
+- Artifact: docs/research/q-rope-transfer-braid-deeper-pair-reindex-decision-v1.md
+- Note: Stopped the braid transfer execution branch because the bounded symbolic control cleared the active two-metric gate on the deeper structural perturbation.
+
+## EL-886 S955 braid archive note
+- Type: Decision
+- Story: S955
+- Artifact: docs/research/q-rope-transfer-braid-archive-note-v1.md
+- Note: Returned the braid line to memo-only archived transfer posture and ended default braid perturbation expansion.
