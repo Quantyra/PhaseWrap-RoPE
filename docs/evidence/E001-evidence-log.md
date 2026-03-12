@@ -1119,3 +1119,6 @@ Use one row per evidence item.
 
 - EL-793 (2026-03-11): S852 wrote the explicit implementation-approval gate for synthetic_symbolic_insufficiency_path_response and froze the bounded path symbolic family before any code reopened.
 - EL-794 (2026-03-11): S853 concluded that the transfer-path line is specific enough for one bounded implementation-planning step while keeping hardware out of scope and code closed in this step.
+
+- EL-795 (2026-03-11): S854 fixed the bounded implementation plan for synthetic_symbolic_insufficiency_path_response with one frozen task, one fixed packet, one witness candidate, one bounded symbolic control, and one narrow writable scope.
+- EL-796 (2026-03-11): S855 concluded that the transfer-path line is specific enough for one bounded implementation cycle and rejected any broader code reopening in this step.
