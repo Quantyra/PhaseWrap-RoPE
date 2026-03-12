@@ -1,15 +1,15 @@
 ﻿{
     "active_epic":  "E001",
     "next_actions":  [
-                         "Preserve the current witness as the standing internal benchmark with two bounded transfer families.",
-                         "Do not widen the path or loop transfer families by default.",
-                         "Only open a new execution line if it is a materially different transfer family or a theory-backed hardware rationale."
+                         "Use the current benchmark plus two bounded transfer results as the internal review package.",
+                         "Do not reopen execution by default; only open a new line if a materially different transfer family or theory-backed branch is justified.",
+                         "Treat hardware as out of scope until a stronger cross-task rationale exists."
                      ],
-    "repo_posture":  "memo_only_internal_result_package",
+    "repo_posture":  "memo_only_theory_reporting_refresh",
     "risks":  [
-                  "If the team resumes execution without a new gate, transfer lines may drift back into open-ended perturbation growth.",
-                  "If stronger transfer evidence is needed later, a materially different transfer family should be chosen rather than more same-family perturbations.",
-                  "Moving to hardware from this state would add confounds before enough cross-task evidence is established."
+                  "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
+                  "Using the current result for external or hardware claims would overstate the evidence base.",
+                  "If a third transfer family is opened later, it must be structurally different from both path-local and loop-closure families."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -853,6 +853,6 @@
                                 "S900"
                             ],
     "current_story_ids":  [
-                              "S901"
+                              "S905"
                           ]
 }

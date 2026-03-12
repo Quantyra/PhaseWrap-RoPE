@@ -1198,3 +1198,13 @@ ank_correlation.
 - Story: S901
 - Artifact: docs/research/q-rope-transfer-loop-preservation-decision-v1.md`r
 - Note: Preserved the loop-closure line as sufficient bounded internal transfer evidence and refreshed the internal package/executive summary to include both transfer families.
+
+## EL-843 S902-S905 theory-first decomposition refresh
+- Type: Decision
+- Stories: S902-S905
+- Artifacts:
+  - docs/research/q-rope-witness-advantage-decomposition-plan-v1.md`r
+  - docs/research/q-rope-feature-group-decomposition-memo-v1.md`r
+  - docs/research/q-rope-witness-separability-hypothesis-memo-v1.md`r
+  - docs/research/q-rope-internal-reporting-readiness-memo-v1.md`r
+- Note: Opened the theory-first decomposition track and declared the current package ready for internal review without further execution.
