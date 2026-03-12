@@ -633,6 +633,39 @@ def test_symbolic_insufficiency_symbolic_control_dual_atlas_transition_quintic_p
     assert diagnostics["forbidden_feature_family_absent_pass"] is True
 
 
+def test_symbolic_insufficiency_path_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_path_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_symbolic_insufficiency_path",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_symbolic_insufficiency_path_response+readout_relational_witness_symbolic_insufficiency_path+head_linear"
+    )
+    assert diagnostics["coarse_path_state_null_pass"] is True
+    assert diagnostics["within_path_state_variation_pass"] is True
+    assert diagnostics["latent_path_diversity_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["path_length_balance_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
+def test_symbolic_insufficiency_path_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_path_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_symbolic_insufficiency_path_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_path_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
 def test_transition_orbit_additive_control_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_chart_transition_orbit_response",

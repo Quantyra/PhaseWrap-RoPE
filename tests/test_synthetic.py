@@ -37,6 +37,7 @@ from qrope.synthetic import (
     generate_dual_latent_phase_manifold_residual_response_bundle,
     generate_dual_local_atlas_manifold_response_bundle,
     generate_dual_chart_transition_manifold_response_bundle,
+    generate_symbolic_insufficiency_path_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
     generate_dual_nonlinear_manifold_response_bundle,
@@ -234,6 +235,17 @@ def test_dual_sector_content_agreement_labels_follow_xnor_rule() -> None:
             parts["b_lt"], parts["b_rt"]
         )
         assert label == (1 if sign_agreement == content_agreement else 0)
+
+
+def test_symbolic_insufficiency_path_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_symbolic_insufficiency_path_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_symbolic_insufficiency_path_response"
+    assert diagnostics["coarse_path_state_null_pass"] is True
+    assert diagnostics["within_path_state_variation_pass"] is True
+    assert diagnostics["latent_path_diversity_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["path_length_balance_pass"] is True
 
 
 def test_token_orientation_name_is_pair_relational() -> None:

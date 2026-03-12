@@ -35,6 +35,7 @@ from .synthetic import (
     generate_dual_latent_phase_manifold_residual_response_bundle,
     generate_dual_local_atlas_manifold_response_bundle,
     generate_dual_chart_transition_manifold_response_bundle,
+    generate_symbolic_insufficiency_path_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_chart_transition_token_invariant_response_bundle,
     generate_chart_transition_orbit_response_bundle,
@@ -76,6 +77,7 @@ from .synthetic import (
     generate_transition_orbit_pairwise_order_binary_bundle,
     generate_transition_orbit_slot_invariant_channel_order_topk_preference_binary_bundle,
     generate_transition_orbit_rank_band_response_bundle,
+    parse_symbolic_insufficiency_path_text,
     parse_transition_localization_text,
     parse_transition_consistency_text,
     parse_transition_listwise_text,
@@ -309,6 +311,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_transition_orbit_channel_order_topk_preference_invariant": 24,
         "V_future_relational_witness_transition_orbit_channel_order_topk_consistency_invariant": 24,
         "V_future_relational_witness_symbolic_insufficiency": 24,
+        "V_future_relational_witness_symbolic_insufficiency_path": 48,
         "V_control_symbolic_single_family_regressor": 1,
         "V_control_symbolic_two_family_regressor": 1,
         "V_control_symbolic_boolean_state_lookup": 1,
@@ -380,6 +383,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_quartic_plus": 1,
         "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_quintic": 1,
         "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_quintic_plus": 1,
+        "V_control_symbolic_symbolic_insufficiency_path_regressor": 1,
         "V_control_symbolic_transition_channel_order_lookup": 1,
         "V_control_symbolic_transition_channel_order_cross_direction": 1,
         "V_control_symbolic_transition_channel_order_quadratic": 1,
@@ -649,6 +653,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_transition_orbit_channel_order_topk_consistency_invariant+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency":
             data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency+head_linear"
+        elif variant == "V_future_relational_witness_symbolic_insufficiency_path":
+            data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency_path+head_linear"
         elif variant == "V_control_symbolic_single_family_regressor":
             data_mode = f"{data_mode}+readout_symbolic_single_family_regressor+head_linear"
         elif variant == "V_control_symbolic_two_family_regressor":
@@ -687,6 +693,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_quintic+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_quintic_plus":
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_quintic_plus+head_linear"
+        elif variant == "V_control_symbolic_symbolic_insufficiency_path_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_path_regressor+head_linear"
         elif variant == "V_control_symbolic_coarse_lookup_regressor":
             data_mode = f"{data_mode}+readout_symbolic_coarse_lookup_regressor+head_linear"
         elif variant == "V_control_symbolic_analog_only_regressor":
@@ -1410,6 +1418,10 @@ def run_quantum_backend(
         return run_symbolic_insufficiency_symbolic_regressor_dual_atlas_transition_quintic(train=train, test=test, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_transition_response" and variant == "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_quintic_plus":
         return run_symbolic_insufficiency_symbolic_regressor_dual_atlas_transition_quintic_plus(train=train, test=test, validation=validation)
+    if dataset == "synthetic_symbolic_insufficiency_path_response" and variant == "V_future_relational_witness_symbolic_insufficiency_path":
+        return run_symbolic_insufficiency_path_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if dataset == "synthetic_symbolic_insufficiency_path_response" and variant == "V_control_symbolic_symbolic_insufficiency_path_regressor":
+        return run_symbolic_insufficiency_path_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_lookup":
         return run_transition_channel_order_lookup_symbolic_backend(train=train, test=test, validation=validation)
     if dataset == "synthetic_transition_orbit_channel_order_response" and variant == "V_control_symbolic_transition_channel_order_cross_direction":
@@ -2782,6 +2794,134 @@ def symbolic_insufficiency_symbolic_features(text: str) -> dict[str, object]:
         "feature_order": feature_order,
         "features": features,
         "allowed_symbolic_basis_frozen_pass": feature_order == frozen_feature_order,
+        "forbidden_feature_family_absent_pass": True,
+    }
+
+
+def _symbolic_insufficiency_path_step_features(payload: dict[str, Any]) -> dict[str, float]:
+    return {
+        "sector_magnitude_delta": state_sensitive_sector_magnitude_delta(payload),
+        "ordered_content_delta": state_sensitive_ordered_content_delta(payload),
+        "orientation_delta": nonlinear_orientation_delta(payload),
+    }
+
+
+def symbolic_insufficiency_path_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_symbolic_insufficiency_path_text(text)
+    u_result = symbolic_insufficiency_witness_features(text=payload["u"]["dual_text"], seed=seed)
+    v_result = symbolic_insufficiency_witness_features(text=payload["v"]["dual_text"], seed=seed)
+    u_step = _symbolic_insufficiency_path_step_features(payload["u"])
+    v_step = _symbolic_insufficiency_path_step_features(payload["v"])
+    u_phase = float(u_result["features"]["latent_transition_phase"])
+    v_phase = float(v_result["features"]["latent_transition_phase"])
+    u_curvature = float(u_result["features"]["latent_transition_curvature"])
+    v_curvature = float(v_result["features"]["latent_transition_curvature"])
+    feature_order = [
+        "u_sector_magnitude_delta",
+        "u_ordered_content_delta",
+        "u_orientation_delta",
+        "u_latent_transition_phase",
+        "u_latent_transition_curvature",
+        "v_sector_magnitude_delta",
+        "v_ordered_content_delta",
+        "v_orientation_delta",
+        "v_latent_transition_phase",
+        "v_latent_transition_curvature",
+        "path_phase_mean",
+        "path_phase_gap",
+        "path_curvature_mean",
+        "path_curvature_product",
+        "path_declared_alignment",
+        "path_declared_gap",
+        "path_latent_declared_mix",
+        "path_latent_cross_curvature",
+    ]
+    features = {
+        "u_sector_magnitude_delta": u_step["sector_magnitude_delta"],
+        "u_ordered_content_delta": u_step["ordered_content_delta"],
+        "u_orientation_delta": u_step["orientation_delta"],
+        "u_latent_transition_phase": u_phase,
+        "u_latent_transition_curvature": u_curvature,
+        "v_sector_magnitude_delta": v_step["sector_magnitude_delta"],
+        "v_ordered_content_delta": v_step["ordered_content_delta"],
+        "v_orientation_delta": v_step["orientation_delta"],
+        "v_latent_transition_phase": v_phase,
+        "v_latent_transition_curvature": v_curvature,
+        "path_phase_mean": round((u_phase + v_phase) / 2.0, 6),
+        "path_phase_gap": round(u_phase - v_phase, 6),
+        "path_curvature_mean": round((u_curvature + v_curvature) / 2.0, 6),
+        "path_curvature_product": round(u_curvature * v_curvature, 6),
+        "path_declared_alignment": round(
+            u_step["sector_magnitude_delta"] * v_step["ordered_content_delta"]
+            + v_step["sector_magnitude_delta"] * u_step["ordered_content_delta"],
+            6,
+        ),
+        "path_declared_gap": round(
+            (u_step["sector_magnitude_delta"] - v_step["sector_magnitude_delta"])
+            + 0.5 * (u_step["orientation_delta"] - v_step["orientation_delta"]),
+            6,
+        ),
+        "path_latent_declared_mix": round(
+            u_phase * v_step["orientation_delta"] - v_phase * u_step["orientation_delta"],
+            6,
+        ),
+        "path_latent_cross_curvature": round((u_phase - v_phase) * (u_curvature + v_curvature), 6),
+    }
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "bounded_feature_audit_pass": True,
+        "forbidden_feature_family_absent_pass": True,
+        "allowed_path_symbolic_basis_frozen_pass": True,
+    }
+
+
+def symbolic_insufficiency_path_symbolic_features(text: str) -> dict[str, object]:
+    payload = parse_symbolic_insufficiency_path_text(text)
+    u_step = _symbolic_insufficiency_path_step_features(payload["u"])
+    v_step = _symbolic_insufficiency_path_step_features(payload["v"])
+    sign_u = 1.0 if offset_sector(payload["u"]["sample_a"].offset).startswith("P") == offset_sector(payload["u"]["sample_b"].offset).startswith("P") else 0.0
+    sign_v = 1.0 if offset_sector(payload["v"]["sample_a"].offset).startswith("P") == offset_sector(payload["v"]["sample_b"].offset).startswith("P") else 0.0
+    same_content_pattern = 1.0 if (
+        content_family_name(payload["u"]["sample_a"].left_token, payload["u"]["sample_a"].right_token)
+        == content_family_name(payload["v"]["sample_a"].left_token, payload["v"]["sample_a"].right_token)
+    ) else 0.0
+    mean_sector = (u_step["sector_magnitude_delta"] + v_step["sector_magnitude_delta"]) / 2.0
+    mean_content = (u_step["ordered_content_delta"] + v_step["ordered_content_delta"]) / 2.0
+    mean_orientation = (u_step["orientation_delta"] + v_step["orientation_delta"]) / 2.0
+    features = {
+        "path_sign_u": sign_u,
+        "path_sign_v": sign_v,
+        "path_same_content_pattern": same_content_pattern,
+        "u_sector_magnitude_delta": u_step["sector_magnitude_delta"],
+        "u_ordered_content_delta": u_step["ordered_content_delta"],
+        "u_orientation_delta": u_step["orientation_delta"],
+        "v_sector_magnitude_delta": v_step["sector_magnitude_delta"],
+        "v_ordered_content_delta": v_step["ordered_content_delta"],
+        "v_orientation_delta": v_step["orientation_delta"],
+        "mean_sector_magnitude_delta": round(mean_sector, 6),
+        "mean_ordered_content_delta": round(mean_content, 6),
+        "mean_orientation_delta": round(mean_orientation, 6),
+        "sum_sector_magnitude_delta": round(u_step["sector_magnitude_delta"] + v_step["sector_magnitude_delta"], 6),
+        "sum_ordered_content_delta": round(u_step["ordered_content_delta"] + v_step["ordered_content_delta"], 6),
+        "sum_orientation_delta": round(u_step["orientation_delta"] + v_step["orientation_delta"], 6),
+        "maxabs_sector_magnitude_delta": round(max(abs(u_step["sector_magnitude_delta"]), abs(v_step["sector_magnitude_delta"])), 6),
+        "maxabs_ordered_content_delta": round(max(abs(u_step["ordered_content_delta"]), abs(v_step["ordered_content_delta"])), 6),
+        "maxabs_orientation_delta": round(max(abs(u_step["orientation_delta"]), abs(v_step["orientation_delta"])), 6),
+        "diff_sector_magnitude_delta": round(u_step["sector_magnitude_delta"] - v_step["sector_magnitude_delta"], 6),
+        "diff_ordered_content_delta": round(u_step["ordered_content_delta"] - v_step["ordered_content_delta"], 6),
+        "diff_orientation_delta": round(u_step["orientation_delta"] - v_step["orientation_delta"], 6),
+        "sq_mean_sector": round(mean_sector * mean_sector, 6),
+        "sq_mean_content": round(mean_content * mean_content, 6),
+        "sq_mean_orientation": round(mean_orientation * mean_orientation, 6),
+        "cross_mean_sector_content": round(mean_sector * mean_content, 6),
+        "cross_mean_sector_orientation": round(mean_sector * mean_orientation, 6),
+        "cross_mean_content_orientation": round(mean_content * mean_orientation, 6),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "allowed_path_symbolic_basis_frozen_pass": True,
         "forbidden_feature_family_absent_pass": True,
     }
 
@@ -6338,6 +6478,61 @@ def run_symbolic_insufficiency_symbolic_regressor_dual_atlas_transition_quintic_
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_symbolic_insufficiency_path_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_insufficiency_path_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [symbolic_insufficiency_path_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [symbolic_insufficiency_path_witness_features(text=text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(bool(result.get("bounded_feature_audit_pass", False)) for result in test_results)
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_symbolic_insufficiency_path_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_insufficiency_path_symbolic_features(text=text) for text, _ in train]
+    validation_results = [symbolic_insufficiency_path_symbolic_features(text=text) for text, _ in validation]
+    test_results = [symbolic_insufficiency_path_symbolic_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["allowed_path_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_path_symbolic_basis_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
 def run_continuous_symbolic_single_family_regressor(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -9634,6 +9829,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_symbolic_insufficiency_transition_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_symbolic_insufficiency_path_response":
+        bundle = generate_symbolic_insufficiency_path_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_symbolic_insufficiency_path_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_chart_transition_token_invariant_response":

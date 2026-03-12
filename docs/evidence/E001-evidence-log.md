@@ -1122,3 +1122,16 @@ Use one row per evidence item.
 
 - EL-795 (2026-03-11): S854 fixed the bounded implementation plan for synthetic_symbolic_insufficiency_path_response with one frozen task, one fixed packet, one witness candidate, one bounded symbolic control, and one narrow writable scope.
 - EL-796 (2026-03-11): S855 concluded that the transfer-path line is specific enough for one bounded implementation cycle and rejected any broader code reopening in this step.
+
+- EL-797 (2026-03-11): S856 implemented the bounded transfer-path generator, runner dispatch, and focused tests inside the approved writable scope and validated the updated suite (273 passed).
+- EL-798 (2026-03-11): S857 ran the fixed three-seed witness-vs-control packet on synthetic_symbolic_insufficiency_path_response; the witness led the bounded symbolic transfer control on both mae and ank_correlation across all three seeds.
+- EL-799 (2026-03-11): S858 kept the transfer-path branch active and rejected packet widening because the witness cleared the declared transfer gate cleanly.
+- EL-800 (2026-03-11): S859 fixed the next bounded nuisance hardening step as 	oken_permutation=cdab while keeping the task, witness, symbolic control, seeds, and backend unchanged.
+- EL-801 (2026-03-11): S860 ran the fixed token-renaming hardening packet (	oken_permutation=cdab) on the transfer-path line; the packet was non-inert and produced mixed leadership between the witness and bounded symbolic control.
+- EL-802 (2026-03-11): S861 kept the transfer-path branch active under the declared hardening rule because the control did not match or beat the witness on both mae and ank_correlation.
+- EL-803 (2026-03-11): S862 fixed the next bounded structural hardening step as pair_reindex=1 while keeping the task, witness, control, seeds, and backend unchanged.
+- EL-804 (2026-03-11): S863 ran the fixed pair_reindex=1 hardening packet on the transfer-path line; the packet was non-inert and the witness led the bounded symbolic control on both mae and ank_correlation.
+- EL-805 (2026-03-11): S864 kept the transfer-path branch active after the first structural hardening packet because the witness remained ahead on both declared packet metrics.
+- EL-806 (2026-03-11): S865 fixed the next bounded structural hardening step as slot_swap=1 while keeping the task, witness, control, seeds, and backend unchanged.
+- EL-807 (2026-03-11): S866 ran the fixed slot_swap=1 hardening packet on the transfer-path line; the packet was non-inert and the witness led the bounded symbolic control on both mae and ank_correlation in the mean.
+- EL-808 (2026-03-11): S867 kept the transfer-path branch active after the slot_swap=1 hardening packet and explicitly stopped automatic perturbation growth in this step.
