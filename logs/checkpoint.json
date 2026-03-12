@@ -2,13 +2,13 @@
     "active_epic": "E001",
     "next_actions": [
         "Preserve the symbolic-insufficiency witness as the standing internal benchmark.",
-        "If further fairness review is desired, define a materially stronger symbolic family before reopening code again.",
-        "Do not run more same-family perturbation packets by default."
+        "Do not open another same-family symbolic challenger by default.",
+        "If continuing, require a materially different symbolic family or move to theory/transfer planning before code reopens."
     ],
     "repo_posture": "memo_only_preserved_positive_result",
     "risks": [
-        "If a future symbolic family violates the frozen basis contract, any packet on that line must be discarded.",
-        "If future review reopens code without a materially different family definition, the fairness line risks becoming unbounded and non-auditable."
+        "If the next symbolic family is only a higher-order cousin of the current atlas ladder, the review will likely add cost without improving the benchmark decision.",
+        "If code reopens without a memo-level admissibility review, the fairness line becomes open-ended and loses auditability."
     ],
     "completed_story_ids": [
         "S001",
@@ -824,9 +824,11 @@
         "S839",
         "S840",
         "S841",
-        "S842"
+        "S842",
+        "S843",
+        "S844"
     ],
     "current_story_ids": [
-        "S842"
+        "S844"
     ]
 }

@@ -1102,3 +1102,6 @@ Use one row per evidence item.
 - EL-780 (2026-03-11): S840 ran the fixed three-seed witness-vs-transition-quintic-plus packet on synthetic_symbolic_insufficiency_transition_response; the witness stayed ahead on both mae and rank_correlation across all three seeds.
 - EL-781 (2026-03-11): S841 concluded that the transition-quintic-plus challenger did not catch up and the symbolic-insufficiency witness remains the standing internal benchmark.
 - EL-782 (2026-03-11): S842 refreshed the standing benchmark memo to include the quintic-plus challenger and preserve the witness as the current internal reference result.
+
+- EL-783 (2026-03-11): S843 froze the symbolic-insufficiency witness as the standing internal benchmark and stopped default same-family symbolic escalation.
+- EL-784 (2026-03-11): S844 fixed the admissibility bar for any future symbolic challenger family, requiring conceptual novelty and a frozen bounded basis before code can reopen.
