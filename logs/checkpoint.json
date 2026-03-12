@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the explicit implementation-approval gate for synthetic_symbolic_insufficiency_loop_closure_response.",
-                         "Bind the frozen loop symbolic family and loop generator diagnostics directly into that gate.",
-                         "Keep hardware out of scope until the loop-closure transfer line survives approval and execution."
+                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_loop_closure_response.",
+                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
+                         "Reopen code only after that bounded plan is accepted."
                      ],
-    "repo_posture":  "memo_only_transfer_loop_approval_candidate",
+    "repo_posture":  "memo_only_transfer_loop_gate_decision",
     "risks":  [
-                  "If the loop-closure target can be reduced to a disguised path aggregate, the second transfer family will not be materially different.",
-                  "If the loop symbolic family is not frozen before approval, the line will drift back into open-ended fairness expansion."
+                  "If the loop target collapses to a disguised path aggregate, the second transfer family will not be materially different in practice.",
+                  "If the loop symbolic control basis is not enforced mechanically at implementation time, the line will drift back into open-ended fairness expansion."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -840,6 +840,6 @@
                                 "S855"
                             ],
     "current_story_ids":  [
-                              "S880"
+                              "S882"
                           ]
 }
