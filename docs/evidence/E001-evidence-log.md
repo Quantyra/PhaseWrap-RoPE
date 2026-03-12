@@ -1473,3 +1473,21 @@ ank_correlation.
 - Story: S955
 - Artifact: docs/research/q-rope-transfer-braid-archive-note-v1.md
 - Note: Returned the braid line to memo-only archived transfer posture and ended default braid perturbation expansion.
+
+## EL-887 S956 transfer portfolio synthesis
+- Type: Decision
+- Story: S956
+- Artifact: docs/research/q-rope-transfer-portfolio-synthesis-v1.md
+- Note: Consolidated the transfer portfolio into three preserved positive transfer families (`path`, `loop-closure`, `fork-join`) plus one archived negative transfer boundary (`braid`) and used that synthesis to refresh the internal package and executive summary.
+
+## EL-888 S956 internal result package refresh
+- Type: Decision
+- Story: S956
+- Artifact: docs/research/q-rope-internal-result-package-v4.md
+- Note: Refreshed the internal result package so the standing benchmark, preserved transfer lines, and archived braid boundary are all explicit in one decision-grade internal artifact.
+
+## EL-889 S956 executive summary refresh
+- Type: Decision
+- Story: S956
+- Artifact: docs/research/q-rope-executive-summary-v4.md
+- Note: Refreshed the executive summary to reflect the current preserved positive transfer portfolio and the archived braid failure boundary while keeping hardware and externalization out of scope.
