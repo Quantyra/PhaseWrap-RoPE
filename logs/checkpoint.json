@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Preserve the fork-join transfer line as bounded internal transfer evidence.",
-                         "Do not open another default perturbation packet on the fork-join family.",
-                         "Only reopen execution if a materially different transfer question is chosen."
+                         "Preserve the standing benchmark and three bounded transfer results as the current internal package.",
+                         "Do not reopen same-family transfer perturbation loops by default.",
+                         "Only reopen execution for a materially different transfer family or theory-backed fairness challenge."
                      ],
-    "repo_posture":  "memo_only_transfer_fork_join_decision_gate",
+    "repo_posture":  "memo_only_internal_result_package",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
@@ -863,9 +863,10 @@
                                 "S926",
                                 "S928",
                                 "S929",
-                                "S930"
+                                "S930",
+                                "S931"
                             ],
     "current_story_ids":  [
-                              "S930"
+                              "S931"
                           ]
 }

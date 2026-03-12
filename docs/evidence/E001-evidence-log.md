@@ -1338,3 +1338,9 @@ ank_correlation.
 - Story: S930
 - Artifact: docs/research/q-rope-transfer-fork-join-hardening-cycle-synthesis-v1.md
 - Note: Closed the first bounded fork-join hardening cycle and returned the line to a memo-level decision gate.
+
+## EL-865 S931 fork-join preservation decision
+- Type: Decision
+- Story: S931
+- Artifact: docs/research/q-rope-transfer-fork-join-preservation-decision-v1.md
+- Note: Preserved the fork-join line as the third bounded internal transfer result and refreshed the internal package/executive summary to include benchmark plus three transfer families.
