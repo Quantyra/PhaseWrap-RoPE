@@ -1365,3 +1365,15 @@ ank_correlation.
 - Story: S937
 - Artifact: docs/research/q-rope-transfer-braid-gate-decision-v1.md
 - Note: Recorded that the braid-crossing transfer line is specific enough for one bounded implementation-planning step, while keeping code closed in this step.
+
+## EL-869 S938 braid implementation plan
+- Type: Decision
+- Story: S938
+- Artifact: docs/research/q-rope-transfer-braid-implementation-plan-v1.md
+- Note: Fixed the bounded implementation scope, packet shape, diagnostics, and audits for the braid-crossing transfer line.
+
+## EL-870 S939 braid plan decision
+- Type: Decision
+- Story: S939
+- Artifact: docs/research/q-rope-transfer-braid-plan-decision-v1.md
+- Note: Recorded that the braid-crossing transfer line is ready for one bounded implementation cycle under the frozen symbolic family and packet scope.

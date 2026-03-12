@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_braid_crossing_response.",
-                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
-                         "Reopen code only after that bounded plan is accepted."
+                         "Implement synthetic_symbolic_insufficiency_braid_crossing_response inside the frozen writable scope.",
+                         "Run exactly one fixed three-seed packet against the bounded braid symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
-    "repo_posture":  "memo_only_transfer_braid_gate_decision",
+    "repo_posture":  "bounded_transfer_braid_implementation",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
@@ -870,9 +870,11 @@
                                 "S934",
                                 "S935",
                                 "S936",
-                                "S937"
+                                "S937",
+                                "S938",
+                                "S939"
                             ],
     "current_story_ids":  [
-                              "S937"
+                              "S939"
                           ]
 }
