@@ -1,0 +1,12 @@
+{
+  "dataset": {
+    "name": "synthetic_symbolic_insufficiency_transition_response"
+  },
+  "backend": {
+    "name": "sim_quantum_statevector"
+  },
+  "run": {
+    "seed": 123
+  },
+  "variant": "V_control_symbolic_symbolic_insufficiency_regressor_dual_atlas_transition_quintic"
+}

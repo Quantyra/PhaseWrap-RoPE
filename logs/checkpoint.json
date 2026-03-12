@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement exactly one dual-atlas transition-quintic symbolic control.",
-                         "Run one fixed packet against the standing witness benchmark on seeds `42`, `123`, and `777`.",
-                         "Stop the line immediately if the challenger matches or beats the witness on both declared packet metrics."
+                         "Write the implementation-approval gate for the dual-atlas transition-quintic-plus symbolic family.",
+                         "Freeze the transition-quintic-plus basis mechanically in that gate.",
+                         "Reopen code only if that gate is explicitly approved."
                      ],
-    "repo_posture":  "bounded_dual_atlas_transition_quintic_implementation",
+    "repo_posture":  "memo_only_dual_atlas_transition_quintic_plus_review",
     "risks":  [
                   "If the transition-quartic family grows beyond the two declared directional quartic channels, the fairness review becomes invalid.",
                   "If hidden lookup behavior or uncontrolled higher-order growth appears, any future packet must be discarded."
@@ -810,9 +810,15 @@
                                 "S825",
                                 "S826",
                                 "S827",
-                                "S828"
+                                "S828",
+                                "S829",
+                                "S830",
+                                "S831",
+                                "S832",
+                                "S833",
+                                "S834"
                             ],
     "current_story_ids":  [
-                              "S828"
+                              "S834"
                           ]
 }
