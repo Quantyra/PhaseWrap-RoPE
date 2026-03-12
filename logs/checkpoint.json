@@ -1,14 +1,14 @@
 {
     "active_epic": "E001",
     "next_actions": [
-        "Run the fixed pair_reindex=7 hardening packet on synthetic_symbolic_insufficiency_loop_closure_response.",
-        "Keep only the loop witness and bounded loop symbolic control on seeds 42/123/777.",
-        "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+        "Preserve the loop-closure transfer result as sufficient bounded internal transfer evidence.",
+        "Do not widen the loop task or symbolic family by default.",
+        "If execution continues later, require a new memo-level decision gate first."
     ],
-    "repo_posture": "bounded_transfer_loop_hardening",
+    "repo_posture": "memo_only_transfer_loop_decision_gate",
     "risks": [
-        "If pair_reindex=7 is inert under the loop construction, the packet will not add deeper structural evidence.",
-        "If the witness lead disappears under the deeper pairing perturbation, the loop transfer result may still be structurally fragile."
+        "If the team resumes execution without a new gate, the loop line may drift into open-ended perturbation growth again.",
+        "If stronger transfer evidence is needed later, a materially different transfer family should be chosen rather than more same-family loop perturbations."
     ],
     "completed_story_ids": [
         "S001",
@@ -846,9 +846,12 @@
         "S892",
         "S893",
         "S895",
-        "S896"
+        "S896",
+        "S898",
+        "S899",
+        "S900"
     ],
     "current_story_ids": [
-        "S897"
+        "S900"
     ]
 }
