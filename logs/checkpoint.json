@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement exactly one dual-atlas transition-quartic-plus symbolic control.",
-                         "Run one fixed packet against the standing witness benchmark on seeds 42, 123, 777.",
+                         "Implement exactly one dual-atlas transition-quintic symbolic control.",
+                         "Run one fixed packet against the standing witness benchmark on seeds `42`, `123`, and `777`.",
                          "Stop the line immediately if the challenger matches or beats the witness on both declared packet metrics."
                      ],
-    "repo_posture":  "bounded_dual_atlas_transition_quartic_plus_implementation",
+    "repo_posture":  "bounded_dual_atlas_transition_quintic_implementation",
     "risks":  [
                   "If the transition-quartic family grows beyond the two declared directional quartic channels, the fairness review becomes invalid.",
                   "If hidden lookup behavior or uncontrolled higher-order growth appears, any future packet must be discarded."
@@ -640,22 +640,7 @@
                                 "S640",
                                 "S641",
                                 "S642",
-                                "S639",
-                                "S640",
-                                "S641",
-                                "S642",
                                 "S643",
-                                "S644",
-                                "S645",
-                                "S644",
-                                "S645",
-                                "S646",
-                                "S647",
-                                "S647",
-                                "S648",
-                                "S649",
-                                "S650",
-                                "S651",
                                 "S644",
                                 "S645",
                                 "S646",
@@ -667,21 +652,13 @@
                                 "S652",
                                 "S653",
                                 "S654",
-                                "S653",
-                                "S654",
                                 "S655",
-                                "S656",
-                                "S657",
                                 "S656",
                                 "S657",
                                 "S658",
                                 "S659",
                                 "S660",
-                                "S659",
-                                "S660",
                                 "S661",
-                                "S662",
-                                "S663",
                                 "S662",
                                 "S663",
                                 "S664",
@@ -823,9 +800,19 @@
                                 "S815",
                                 "S816",
                                 "S817",
-                                "S818"
+                                "S818",
+                                "S819",
+                                "S820",
+                                "S821",
+                                "S822",
+                                "S823",
+                                "S824",
+                                "S825",
+                                "S826",
+                                "S827",
+                                "S828"
                             ],
     "current_story_ids":  [
-                              "S818"
+                              "S828"
                           ]
 }
