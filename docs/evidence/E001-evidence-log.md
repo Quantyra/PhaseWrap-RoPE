@@ -1214,3 +1214,9 @@ ank_correlation.
 - Story: S906
 - Artifact: docs/research/q-rope-internal-theory-note-v1.md`r
 - Note: Consolidated the strongest internal theory-level propositions supported by the benchmark plus two bounded transfer families without escalating them into external claims.
+
+## EL-845 S907 hardware reopen decision memo
+- Type: Decision
+- Story: S907
+- Artifact: docs/research/q-rope-hardware-reopen-decision-memo-v1.md`r
+- Note: Recorded an explicit no-go on reopening real quantum hardware execution from the current benchmark-plus-transfer package.
