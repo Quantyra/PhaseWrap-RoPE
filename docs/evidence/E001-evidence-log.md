@@ -1236,3 +1236,11 @@ ank_correlation.
   - docs/research/q-rope-transfer-first-restart-scaffold-v4.md`r
   - docs/research/q-rope-transfer-fork-join-approval-candidate-v1.md`r
 - Note: Opened a third materially different transfer family based on fork-join relational topology while keeping execution closed.
+
+## EL-848 S913-S914 fork-join gate and plan
+- Type: Decision
+- Stories: S913-S914
+- Artifacts:
+  - docs/research/q-rope-transfer-fork-join-implementation-approval-gate-v1.md`r
+  - docs/research/q-rope-transfer-fork-join-implementation-plan-v1.md`r
+- Note: Approved one strictly bounded implementation cycle for the fork-join transfer family and froze the writable scope, packet, and audits.
