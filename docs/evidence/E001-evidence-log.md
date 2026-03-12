@@ -1139,3 +1139,7 @@ Use one row per evidence item.
 - EL-809 (2026-03-11): S868 ran the bounded pair_reindex=7 hardening packet on the transfer-path line; the packet was non-inert and the witness remained ahead of the bounded symbolic control on both mae and ank_correlation.
 - EL-810 (2026-03-11): S869 kept the transfer-path branch active after the deepest bounded pairing perturbation and explicitly stopped automatic perturbation growth in this step.
 - EL-811 (2026-03-11): S870 synthesized the first bounded transfer hardening cycle and moved the line back to memo-level decision posture before any second transfer family or hardware step.
+
+- EL-812 (2026-03-11): S871 preserved the transfer-path branch as sufficient bounded internal transfer evidence and declined to open a second transfer family by default.
+- EL-813 (2026-03-11): S872 opened the next phase as a theory-characterization track focused on explaining the witness advantage without starting another execution branch.
+- EL-814 (2026-03-11): S873 fixed the internal reporting outline so the standing benchmark and bounded transfer result can be summarized without widening the experimental scope.
