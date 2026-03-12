@@ -1,14 +1,14 @@
 {
     "active_epic":  "E001",
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_loop_closure_response.",
-                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
-                         "Reopen code only after that bounded plan is accepted."
+                         "Implement synthetic_symbolic_insufficiency_loop_closure_response inside the frozen writable scope.",
+                         "Run exactly one fixed three-seed packet against the bounded loop symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
-    "repo_posture":  "memo_only_transfer_loop_gate_decision",
+    "repo_posture":  "bounded_transfer_loop_implementation",
     "risks":  [
-                  "If the loop target collapses to a disguised path aggregate, the second transfer family will not be materially different in practice.",
-                  "If the loop symbolic control basis is not enforced mechanically at implementation time, the line will drift back into open-ended fairness expansion."
+                  "If the loop target still collapses to a disguised path aggregate, the transfer family will not add real generality evidence.",
+                  "If the implementation introduces undeclared loop summaries, the frozen fairness contract will be broken."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -840,6 +840,6 @@
                                 "S855"
                             ],
     "current_story_ids":  [
-                              "S882"
+                              "S884"
                           ]
 }
