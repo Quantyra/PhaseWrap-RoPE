@@ -38,6 +38,7 @@ from qrope.synthetic import (
     generate_dual_local_atlas_manifold_response_bundle,
     generate_dual_chart_transition_manifold_response_bundle,
     generate_symbolic_insufficiency_loop_closure_response_bundle,
+    generate_symbolic_insufficiency_fork_join_response_bundle,
     generate_symbolic_insufficiency_path_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
@@ -259,6 +260,18 @@ def test_symbolic_insufficiency_loop_bundle_enforces_declared_diagnostics() -> N
     assert diagnostics["token_view_balance_pass"] is True
     assert diagnostics["loop_length_balance_pass"] is True
     assert diagnostics["closure_target_nontrivial_pass"] is True
+
+
+def test_symbolic_insufficiency_fork_join_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_symbolic_insufficiency_fork_join_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_symbolic_insufficiency_fork_join_response"
+    assert diagnostics["coarse_fork_state_null_pass"] is True
+    assert diagnostics["within_fork_state_variation_pass"] is True
+    assert diagnostics["latent_fork_diversity_pass"] is True
+    assert diagnostics["branch_balance_pass"] is True
+    assert diagnostics["rejoin_target_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
 
 
 def test_token_orientation_name_is_pair_relational() -> None:

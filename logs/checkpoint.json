@@ -1,15 +1,16 @@
-﻿{
+{
     "active_epic":  "E001",
     "next_actions":  [
-                         "Implement the fork-join transfer line inside the frozen writable scope only.",
-                         "Run exactly one fixed three-seed packet against the bounded fork-join symbolic control.",
+                         "Run the fixed token-renaming hardening packet on the fork-join transfer line.",
+                         "Keep only the witness and bounded fork-join symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
-    "repo_posture":  "bounded_transfer_fork_join_implementation",
+    "repo_posture":  "bounded_transfer_fork_join_hardening",
     "risks":  [
                   "Reopening execution without a materially different question would likely return the repo to diminishing-returns branch growth.",
                   "Using the current result for external or hardware claims would overstate the evidence base.",
-                  "If a third transfer family is opened later, it must be structurally different from both path-local and loop-closure families."
+                  "If a third transfer family is opened later, it must be structurally different from both path-local and loop-closure families.",
+                  "The fork-join packet is promising but still transfer-local; hardware or external claims would still overstate the evidence."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -850,9 +851,12 @@
                                 "S896",
                                 "S898",
                                 "S899",
-                                "S900"
+                                "S900",
+                                "S915",
+                                "S916",
+                                "S917"
                             ],
     "current_story_ids":  [
-                              "S914"
+                              "S918"
                           ]
 }

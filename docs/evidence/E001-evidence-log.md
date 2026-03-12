@@ -357,7 +357,7 @@ Use one row per evidence item.
 | EL-343 | 2026-03-09 | S300 recorded the bounded cubic transition-family control packet and found that the witness remained stronger on mean MAE and rank correlation, so bounded symbolic basis expansion is no longer closing the gap on the current task. | Internal analysis | S300 chart-transition cubic control result | `docs/research/q-rope-chart-transition-cubic-control-v1.md`; `logs/ablation_runs/summary/chart_transition_cubic_v1.csv` | 2026-03-09 | High | Verified by direct comparison of the six-run witness-vs-cubic-control packet on the fixed task and seeds. |
 | EL-344 | 2026-03-09 | S301 kept the chart-transition branch active after the cubic control but stopped further symbolic basis escalation on this task, because the cubic control did not improve meaningfully over the quadratic control. | Internal analysis | S301 chart-transition post-cubic decision | `docs/research/q-rope-chart-transition-post-cubic-decision-v1.md` | 2026-03-09 | High | Verified by comparing the cubic packet against the prior quadratic packet and seeing no meaningful closure of the witness gap. |
 | EL-345 | 2026-03-09 | S302 fixed the next bounded branch step as a token-renaming hardening packet, using one fixed label-preserving token permutation and no new symbolic families. | Internal analysis | S302 chart-transition token-renaming hardening plan | `docs/research/q-rope-chart-transition-token-renaming-hardening-plan-v1.md` | 2026-03-09 | Medium | Verified by selecting the next most informative bounded step after the symbolic fairness family stopped tightening. |
-| EL-346 | 2026-03-09 | S303 recorded the token-renaming hardening packet and found that the chart-transition witness lost the primary-metric lead to the strongest current symbolic baseline under a fixed label-preserving token permutation. | Internal analysis | S303 chart-transition token-renaming hardening result | `docs/research/q-rope-chart-transition-token-renaming-hardening-v1.md`; `logs/ablation_runs/summary/chart_transition_token_renaming_v1.csv` | 2026-03-09 | High | Verified by direct comparison of the six-run hardening packet with `token_permutation=cdab` on the fixed task and seeds. |
+| EL-346 | 2026-03-09 | S303 recorded the token-renaming hardening packet and found that the chart-transition witness lost the primary-metric lead to the strongest current symbolic baseline under a fixed label-preserving token permutation. | Internal analysis | S303 chart-transition token-renaming hardening result | `docs/research/q-rope-chart-transition-token-renaming-hardening-v1.md`; `logs/ablation_runs/summary/chart_transition_token_renaming_v1.csv` | 2026-03-09 | High | Verified by direct comparison of the six-run hardening packet with `token_permutation=cdab`` on the fixed task and seeds. |
 | EL-347 | 2026-03-09 | S304 stopped the current chart-transition execution branch and returned the line to memo-only posture because the witness failed the hardening rule on the primary metric. | Internal analysis | S304 chart-transition post-token-renaming decision | `docs/research/q-rope-chart-transition-post-token-renaming-decision-v1.md` | 2026-03-09 | High | Verified by the hardening packet showing the witness no longer retained the required MAE lead against the strongest current symbolic baseline. |
 | EL-348 | 2026-03-09 | S305 preserved `synthetic_chart_transition_token_invariant_response` as the next memo-only direction for the chart-transition line, explicitly requiring token identities to be nuisance variables by construction. | Internal analysis | S305 token-invariant chart-transition task design memo | `docs/research/q-rope-token-invariant-chart-transition-task-design-v1.md` | 2026-03-09 | Medium | Verified by converting the observed robustness failure into one exact next task-design requirement instead of continuing execution on the failed task. |
 | EL-349 | 2026-03-09 | S306 converted the chart-transition continuation into one exact token-invariant task, `synthetic_chart_transition_token_invariant_response`, and fixed an immediate rejection rule if target statistics change under fixed token permutation. | Internal analysis | S306 token-invariant chart-transition task specification | `docs/research/q-rope-token-invariant-chart-transition-task-spec-v1.md` | 2026-03-09 | Medium | Verified by making token identity a nuisance variable by construction and binding target invariance to an explicit rejection rule. |
@@ -838,8 +838,8 @@ Use one row per evidence item.
 - EL-592 (2026-03-10): S667 implemented the bounded `synthetic_symbolic_insufficiency_transition_response` branch and validated it with 255 focused tests passing.
 - EL-593 (2026-03-10): S668 ran the fixed three-seed symbolic-insufficiency packet; the witness beat the frozen-basis symbolic control on both declared packet metrics across all three seeds.
 - EL-594 (2026-03-10): S669 kept the symbolic-insufficiency branch active and selected fixed token-renaming hardening as the next bounded fairness step.
-- EL-595 (2026-03-10): S670 fixed one bounded token-renaming hardening packet with `token_permutation=cdab` while keeping the symbolic basis frozen.
-- EL-596 (2026-03-10): S670 ran the fixed `token_permutation=cdab` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
+- EL-595 (2026-03-10): S670 fixed one bounded token-renaming hardening packet with `token_permutation=cdab`` while keeping the symbolic basis frozen.
+- EL-596 (2026-03-10): S670 ran the fixed `token_permutation=cdab`` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
 - EL-597 (2026-03-10): S671 kept the symbolic-insufficiency branch active after token renaming and rejected symbolic-family widening as the next move.
 - EL-598 (2026-03-10): S672 fixed `pair_reindex=1` as the next bounded hardening step for the symbolic-insufficiency branch.
 - EL-599 (2026-03-10): S672 ran the fixed `pair_reindex=1` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
@@ -850,11 +850,11 @@ Use one row per evidence item.
 - EL-604 (2026-03-10): S676 fixed `pair_reindex=7` as the next bounded structural hardening step for the symbolic-insufficiency branch.
 - EL-605 (2026-03-10): S676 ran the fixed `pair_reindex=7` hardening packet; the deeper perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
 - EL-606 (2026-03-10): S677 kept the symbolic-insufficiency branch active after deeper pair reindex and selected a composite token-plus-slot hardening packet as the next bounded step.
-- EL-607 (2026-03-10): S678 fixed the composite `token_permutation=cdab` plus `slot_swap=1` packet as the next bounded hardening step for the symbolic-insufficiency branch.
-- EL-608 (2026-03-10): S678 ran the fixed composite `token_permutation=cdab` plus `slot_swap=1` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
+- EL-607 (2026-03-10): S678 fixed the composite `token_permutation=cdab`` plus `slot_swap=1` packet as the next bounded hardening step for the symbolic-insufficiency branch.
+- EL-608 (2026-03-10): S678 ran the fixed composite `token_permutation=cdab`` plus `slot_swap=1` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
 - EL-609 (2026-03-10): S679 kept the symbolic-insufficiency branch active after composite token-plus-slot hardening and rejected symbolic-family widening as the next move.
-- EL-610 (2026-03-10): S680 fixed the composite `token_permutation=cdab` plus `pair_reindex=7` packet as the next bounded hardening step for the symbolic-insufficiency branch.
-- EL-611 (2026-03-10): S680 ran the fixed composite `token_permutation=cdab` plus `pair_reindex=7` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
+- EL-610 (2026-03-10): S680 fixed the composite `token_permutation=cdab`` plus `pair_reindex=7` packet as the next bounded hardening step for the symbolic-insufficiency branch.
+- EL-611 (2026-03-10): S680 ran the fixed composite `token_permutation=cdab`` plus `pair_reindex=7` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
 - EL-612 (2026-03-10): S681 kept the symbolic-insufficiency branch active after composite token-plus-deeper-pair hardening and selected the remaining composite structural packet as the next bounded step.
 - EL-613 (2026-03-10): S682 fixed the composite `slot_swap=1` plus `pair_reindex=7` packet as the next bounded hardening step for the symbolic-insufficiency branch.
 - EL-614 (2026-03-10): S682 ran the fixed composite `slot_swap=1` plus `pair_reindex=7` hardening packet; the perturbation was non-inert and the witness still beat the frozen-basis symbolic control on both declared packet metrics.
@@ -1135,7 +1135,6 @@ ank_correlation across all three seeds.
 - EL-798 (2026-03-11): S857 ran the fixed three-seed witness-vs-control packet on synthetic_symbolic_insufficiency_path_response; the witness led the bounded symbolic transfer control on both mae and 
 ank_correlation across all three seeds.
 - EL-799 (2026-03-11): S858 kept the transfer-path branch active and rejected packet widening because the witness cleared the declared transfer gate cleanly.
-- EL-800 (2026-03-11): S859 fixed the next bounded nuisance hardening step as 	oken_permutation=cdab while keeping the task, witness, symbolic control, seeds, and backend unchanged.
 - EL-801 (2026-03-11): S860 ran the fixed token-renaming hardening packet (	oken_permutation=cdab) on the transfer-path line; the packet was non-inert and produced mixed leadership between the witness and bounded symbolic control.
 - EL-802 (2026-03-11): S861 kept the transfer-path branch active under the declared hardening rule because the control did not match or beat the witness on both mae and 
 ank_correlation.
@@ -1179,7 +1178,6 @@ ank_correlation.
 - EL-826 (2026-03-11): S885 implemented the bounded loop-closure transfer generator, runner dispatch, and focused tests inside the approved writable scope and validated the updated suite (276 passed).
 - EL-827 (2026-03-11): S886 ran the fixed three-seed witness-vs-control packet on synthetic_symbolic_insufficiency_loop_closure_response; the witness led the bounded symbolic loop control on both mae and rank_correlation across all three seeds.
 - EL-828 (2026-03-11): S887 kept the transfer-loop branch active and rejected packet widening because the witness cleared the declared transfer gate cleanly.
-- EL-829 (2026-03-11): S888 fixed the next bounded nuisance hardening step as token_permutation=cdab while keeping the task, witness, symbolic control, seeds, and backend unchanged.
 - EL-830 (2026-03-11): S889 ran the fixed token-renaming hardening packet on synthetic_symbolic_insufficiency_loop_closure_response; the perturbation was non-inert and the witness remained ahead of the bounded symbolic control on both mae and rank_correlation in the mean.
 - EL-831 (2026-03-11): S890 kept the transfer-loop branch active because the bounded symbolic control did not match or beat the witness on both declared packet metrics.
 - EL-832 (2026-03-11): S891 fixed the next bounded structural hardening step as pair_reindex=1 while keeping the task, witness, symbolic control, seeds, and backend unchanged.
@@ -1244,3 +1242,27 @@ ank_correlation.
   - docs/research/q-rope-transfer-fork-join-implementation-approval-gate-v1.md`r
   - docs/research/q-rope-transfer-fork-join-implementation-plan-v1.md`r
 - Note: Approved one strictly bounded implementation cycle for the fork-join transfer family and froze the writable scope, packet, and audits.
+
+## EL-849 S915 fork-join transfer implementation
+- Type: Decision
+- Story: S915
+- Artifact: docs/research/q-rope-transfer-fork-join-implementation-v1.md
+- Note: Implemented the bounded fork-join transfer branch inside the frozen writable scope and validated the focused suite (279 passed).
+
+## EL-850 S916 fork-join first packet
+- Type: Result
+- Story: S916
+- Artifact: docs/research/q-rope-transfer-fork-join-first-packet-v1.md
+- Note: Ran the fixed three-seed witness-vs-control packet on synthetic_symbolic_insufficiency_fork_join_response; the witness led the bounded symbolic control on both mae and rank_correlation in the mean.
+
+## EL-851 S917 fork-join post-packet decision
+- Type: Decision
+- Story: S917
+- Artifact: docs/research/q-rope-transfer-fork-join-post-packet-decision-v1.md
+- Note: Kept the fork-join transfer line active and rejected packet widening because the bounded symbolic control did not match or beat the witness on either declared packet metric.
+
+## EL-852 S918 fork-join token-renaming hardening plan
+- Type: Decision
+- Story: S918
+- Artifact: docs/research/q-rope-transfer-fork-join-token-renaming-hardening-plan-v1.md
+- Note: Fixed the next bounded nuisance hardening step as `token_permutation=cdab` while keeping the task, witness, symbolic control, seeds, and backend unchanged.
