@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_relay_binding_gate_decision",
+    "repo_posture":  "bounded_transfer_relay_binding_implementation",
     "current_story_ids":  [
-                              "S965"
+                              "S967"
                           ],
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_relay_binding_response.",
-                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
-                         "Reopen code only after the relay-binding plan is accepted."
+                         "Implement synthetic_symbolic_insufficiency_relay_binding_response inside the frozen writable scope.",
+                         "Run exactly one fixed three-seed packet against the bounded relay symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If the relay step compresses into a shallow declared-state tuple, the line will recreate the braid failure pattern in a new surface form.",
-                  "Opening execution before the plan freezes writable scope and packet shape would restart branch churn.",
-                  "Allowing hidden relay-state lookup behavior in the symbolic control would invalidate the survivability screen."
+                  "If the relay step compresses into a shallow declared-state tuple, this line may recreate the braid failure pattern.",
+                  "If implementation drifts beyond the frozen symbolic basis, the fairness contract is invalidated.",
+                  "If extra perturbation packets are added before the base packet is evaluated, the branch will lose interpretability."
               ],
     "completed_story_ids":  [
                                 "S001",

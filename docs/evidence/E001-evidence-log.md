@@ -1545,3 +1545,15 @@ ank_correlation.
 - Story: S965
 - Artifact: docs/research/q-rope-transfer-relay-binding-gate-decision-v1.md
 - Note: Recorded that the relay-binding line is specific enough for one bounded implementation-planning step while keeping execution closed in this boundary.
+
+## EL-897 S966 relay-binding implementation plan
+- Type: Decision
+- Story: S966
+- Artifact: docs/research/q-rope-transfer-relay-binding-implementation-plan-v1.md
+- Note: Froze writable scope, fixed packet shape, generator diagnostics, audits, and stop rule for one bounded relay-binding implementation cycle.
+
+## EL-898 S967 relay-binding plan decision
+- Type: Decision
+- Story: S967
+- Artifact: docs/research/q-rope-transfer-relay-binding-plan-decision-v1.md
+- Note: Recorded that the relay-binding line is specific enough to reopen code for exactly one bounded implementation cycle under the frozen plan.
