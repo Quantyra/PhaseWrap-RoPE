@@ -1694,3 +1694,5 @@ ank_correlation.
 - EL-972 | 2026-03-13 | S1031 | Registered cascade-reconciliation as the active memo-only transfer approval candidate.
 - EL-973 | 2026-03-13 | S1032 | Wrote the explicit implementation-approval gate for the cascade-reconciliation transfer family.
 - EL-974 | 2026-03-13 | S1033 | Recorded that cascade-reconciliation passes to bounded implementation planning only.
+- EL-975 | 2026-03-13 | S1034 | Froze the bounded implementation scope and fixed packet shape for the cascade-reconciliation transfer family.
+- EL-976 | 2026-03-13 | S1035 | Recorded that cascade-reconciliation is ready for one bounded implementation cycle.
