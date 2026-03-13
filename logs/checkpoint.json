@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "low_intensity_continuation",
+    "repo_posture":  "memo_only_transfer_latch_switch_approval_candidate",
     "current_story_ids":  [
-                              "S1002"
+                              "S1005"
                           ],
     "next_actions":  [
-                         "Preserve the benchmark and transfer portfolio as the standing internal asset.",
-                         "Allow memo-only screening of future candidates by default.",
-                         "Reopen execution only for candidates that clear intake, structure, non-compressibility, and fairness gates."
+                         "Write the explicit implementation-approval gate for the latch-switch transfer family.",
+                         "Keep execution closed until the latch-switch fairness contract and diagnostics are frozen.",
+                         "Use the survivor-vs-braid and non-compressibility screens as mandatory front-door checks."
                      ],
     "risks":  [
-                  "If low-intensity continuation is misread as permission for broad new execution, branch churn will return.",
-                  "If hardware or publication is reopened without new evidence, the package will be overstated.",
-                  "If memo-only screening is skipped, candidate quality will drop."
+                  "If the latch and switch phases are not generated independently enough, the task may collapse into a compact symbolic summary.",
+                  "If the candidate is implemented before diagnostics are frozen, fairness drift may undermine interpretability.",
+                  "If latch-switch is treated as just another ordering task, it may recreate braid-like failure."
               ],
     "completed_story_ids":  [
                                 "S001",

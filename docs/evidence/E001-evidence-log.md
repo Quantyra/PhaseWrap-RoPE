@@ -1663,3 +1663,6 @@ ank_correlation.
 - EL-942 | 2026-03-12 | S1000 | Added internal decision checklist to guide preserve/pause/continue choices.
 - EL-943 | 2026-03-12 | S1001 | Marked the current Q-RoPE research cycle as review-ready complete and blocked default further execution.
 - EL-944 | 2026-03-12 | S1002 | Recorded internal review decision to continue at low intensity with screened-candidate-only execution.
+- EL-945 | 2026-03-12 | S1003 | Proposed latch-switch as a structurally new transfer family based on delayed state persistence plus later switching.
+- EL-946 | 2026-03-12 | S1004 | Screened latch-switch against survivor-cluster and braid boundary and advanced it to approval-candidate posture.
+- EL-947 | 2026-03-12 | S1005 | Registered latch-switch as the next memo-only transfer approval candidate.
