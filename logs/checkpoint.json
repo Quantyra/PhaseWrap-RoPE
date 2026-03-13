@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_noncompressibility_screen",
+    "repo_posture":  "memo_only_theory_package_complete",
     "current_story_ids":  [
-                              "S991"
+                              "S994"
                           ],
     "next_actions":  [
-                         "Apply survivor-vs-braid comparison plus deep-reindex non-compressibility before drafting any future transfer gate.",
-                         "Treat the checklist supplement as mandatory for future transfer candidates.",
-                         "Prefer memo-only rejection of compressible candidates over reopening execution."
+                         "Use the current benchmark, transfer portfolio, and non-compressibility theory package for internal review.",
+                         "Do not reopen execution by default.",
+                         "Only admit a new line if it passes intake, survivor-vs-braid screening, and non-compressibility review."
                      ],
     "risks":  [
-                  "If non-compressibility is asserted without concrete rebuttal of failure modes, low-value candidates may still pass intake.",
-                  "If the criterion is applied too loosely, braid-like families may be reintroduced under new names.",
-                  "If the criterion is applied too rigidly, genuinely novel but valid transfer families could be screened out early."
+                  "If the theory note is overread as a universal statement, internal claims may outrun the bounded evidence.",
+                  "If execution is reopened without the full screen, the repo may regress into branch churn.",
+                  "If no internal review happens, the current package may remain underused despite being decision-grade internally."
               ],
     "completed_story_ids":  [
                                 "S001",
