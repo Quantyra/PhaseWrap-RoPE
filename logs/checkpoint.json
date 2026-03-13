@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_structure_theory",
+    "repo_posture":  "memo_only_transfer_intake_process",
     "current_story_ids":  [
-                              "S985"
+                              "S988"
                           ],
     "next_actions":  [
-                         "Use the preserved survivor cluster plus braid boundary as the default screen for any future transfer-family proposal.",
-                         "Do not reopen transfer execution unless a candidate is structurally closer to the survivor cluster than to braid.",
-                         "Prefer theory/reporting over further default execution."
+                         "Require a completed transfer intake memo plus review checklist before drafting any future transfer implementation gate.",
+                         "Use the survivor-cluster versus braid screen as the default front-door filter for new transfer candidates.",
+                         "Prefer memo-only screening over reopening execution by default."
                      ],
     "risks":  [
-                  "If a future transfer family is allowed to proceed without explicit braid comparison, branch churn will return.",
-                  "If structural screening is treated as optional, the repo may revert to low-value transfer proliferation.",
-                  "If the preserved survivor cluster is overgeneralized, internal claims may outrun the actual evidence."
+                  "If teams bypass the intake template, branch churn will resume.",
+                  "If the checklist is treated as advisory instead of mandatory, future transfer quality will degrade.",
+                  "If the survivor cluster is overfit into a dogma, genuinely novel candidates could be screened out too early."
               ],
     "completed_story_ids":  [
                                 "S001",

@@ -1646,3 +1646,6 @@ ank_correlation.
 - EL-925 | 2026-03-12 | S983 | Added transfer portfolio structure theory note comparing survivor cluster to braid boundary.
 - EL-926 | 2026-03-12 | S984 | Added operational survivor-vs-braid structural comparison for future transfer screening.
 - EL-927 | 2026-03-12 | S985 | Updated future transfer selection rule to require braid-relative structural screening before execution.
+- EL-928 | 2026-03-12 | S986 | Added transfer candidate intake template for future memo-only transfer proposals.
+- EL-929 | 2026-03-12 | S987 | Added transfer candidate review checklist tied to survivor-vs-braid screening.
+- EL-930 | 2026-03-12 | S988 | Made transfer intake template and checklist mandatory before future implementation gates.
