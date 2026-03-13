@@ -1611,3 +1611,27 @@ ank_correlation.
 - Story: S972
 - Artifact: docs/research/q-rope-transfer-relay-binding-pair-reindex-hardening-plan-v1.md
 - Note: Froze the next packet as pair_reindex=1 with only the relay witness and bounded symbolic control retained.
+
+## EL-908 S973 relay-binding pair-reindex hardening
+- Type: Decision
+- Story: S973
+- Artifact: docs/research/q-rope-transfer-relay-binding-pair-reindex-hardening-v1.md
+- Note: The first structural relay-binding packet (pair_reindex=1) was non-inert and still left the witness ahead of the bounded symbolic control on both declared packet metrics in the mean.
+
+## EL-909 S973 relay-binding pair-reindex summary csv
+- Type: Decision
+- Story: S973
+- Artifact: logs/ablation_runs/summary/transfer_relay_binding_pair1_v1.csv
+- Note: Recorded the per-seed pair-reindexed relay-binding packet metrics in a compact summary table for audit and reuse.
+
+## EL-910 S974 relay-binding post-pair-reindex decision
+- Type: Decision
+- Story: S974
+- Artifact: docs/research/q-rope-transfer-relay-binding-post-pair-reindex-decision-v1.md
+- Note: Preserved the relay-binding line as active after the first structural hardening step and advanced it to slot-swap hardening.
+
+## EL-911 S975 relay-binding slot-swap plan
+- Type: Decision
+- Story: S975
+- Artifact: docs/research/q-rope-transfer-relay-binding-slot-swap-hardening-plan-v1.md
+- Note: Froze the next retained-model packet as slot_swap=1 under the same relay-binding fairness contract.
