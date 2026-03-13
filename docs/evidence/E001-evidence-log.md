@@ -1662,3 +1662,4 @@ ank_correlation.
 - EL-941 | 2026-03-12 | S999 | Added internal review agenda for leadership review of the current Q-RoPE package.
 - EL-942 | 2026-03-12 | S1000 | Added internal decision checklist to guide preserve/pause/continue choices.
 - EL-943 | 2026-03-12 | S1001 | Marked the current Q-RoPE research cycle as review-ready complete and blocked default further execution.
+- EL-944 | 2026-03-12 | S1002 | Recorded internal review decision to continue at low intensity with screened-candidate-only execution.
