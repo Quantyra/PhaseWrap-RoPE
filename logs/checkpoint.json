@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_transfer_fanin_consensus_implementation",
+    "repo_posture":  "bounded_transfer_fanin_consensus_hardening",
     "current_story_ids":  [
-                              "S1056"
+                              "S1060"
                           ],
     "next_actions":  [
-                         "Implement synthetic_symbolic_insufficiency_fanin_consensus_response inside the frozen writable scope.",
-                         "Run exactly one fixed three-seed packet against the bounded fan-in symbolic control.",
+                         "Run the fixed token_permutation=cdab hardening packet for synthetic_symbolic_insufficiency_fanin_consensus_response.",
+                         "Keep only the fan-in witness and bounded symbolic control in the retained-model packet.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If the fan-in generator leaks latent consensus state directly into declared summaries, the bounded control will become compressive.",
-                  "If writable scope expands beyond the frozen files, the low-intensity continuation rule will be violated.",
-                  "If more than one packet is run before decision, the branch will drift back into uncontrolled execution."
+                  "If token renaming collapses the witness advantage, the line should stop immediately rather than widen.",
+                  "If future packets reuse V0 instead of the dedicated symbolic control, the branch record becomes invalid.",
+                  "If negative mean rank_correlation persists after hardening, the line may be too fragile to justify deeper expansion."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1024,7 +1024,10 @@
                                 "S1053",
                                 "S1054",
                                 "S1055",
-                                "S1056"
+                                "S1056",
+                                "S1057",
+                                "S1058",
+                                "S1059"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
