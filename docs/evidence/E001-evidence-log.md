@@ -1681,3 +1681,7 @@ ank_correlation.
 - EL-960 | 2026-03-13 | S1018 | Recorded that staggered-binding passes to bounded implementation planning only.
 - EL-961 | 2026-03-13 | S1019 | Froze the bounded implementation scope, packet shape, and audit contract for staggered-binding.
 - EL-962 | 2026-03-13 | S1020 | Approved one bounded implementation cycle for staggered-binding.
+- EL-963 | 2026-03-13 | S1021 | Implemented bounded staggered-binding transfer line and validated the focused suite.
+- EL-964 | 2026-03-13 | S1022 | Executed the corrected fixed staggered-binding packet; witness led the bounded symbolic control on mean mae and rank_correlation.
+- EL-965 | 2026-03-13 | S1023 | Preserved the staggered-binding line as active after the first packet and advanced it to token-renaming hardening.
+- EL-966 | 2026-03-13 | S1024 | Froze the next retained-model packet as token_permutation=cdab under the same staggered-binding fairness contract.

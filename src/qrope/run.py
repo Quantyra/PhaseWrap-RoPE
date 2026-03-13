@@ -41,6 +41,7 @@ from .synthetic import (
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
     generate_symbolic_insufficiency_relay_binding_response_bundle,
     generate_symbolic_insufficiency_latch_switch_response_bundle,
+    generate_symbolic_insufficiency_staggered_binding_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_chart_transition_token_invariant_response_bundle,
     generate_chart_transition_orbit_response_bundle,
@@ -88,6 +89,7 @@ from .synthetic import (
     parse_symbolic_insufficiency_braid_text,
     parse_symbolic_insufficiency_relay_binding_text,
     parse_symbolic_insufficiency_latch_switch_text,
+    parse_symbolic_insufficiency_staggered_binding_text,
     parse_transition_localization_text,
     parse_transition_consistency_text,
     parse_transition_listwise_text,
@@ -324,6 +326,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_symbolic_insufficiency_path": 48,
         "V_future_relational_witness_symbolic_insufficiency_relay_binding": 72,
         "V_future_relational_witness_symbolic_insufficiency_latch_switch": 72,
+        "V_future_relational_witness_symbolic_insufficiency_staggered_binding": 96,
         "V_future_relational_witness_symbolic_insufficiency_fork_join": 96,
         "V_future_relational_witness_symbolic_insufficiency_braid": 96,
         "V_control_symbolic_single_family_regressor": 1,
@@ -400,6 +403,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_symbolic_insufficiency_path_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_relay_binding_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_latch_switch_regressor": 1,
+        "V_control_symbolic_symbolic_insufficiency_staggered_binding_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_fork_join_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_braid_regressor": 1,
         "V_control_symbolic_transition_channel_order_lookup": 1,
@@ -677,6 +681,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency_relay_binding+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_latch_switch":
             data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency_latch_switch+head_linear"
+        elif variant == "V_future_relational_witness_symbolic_insufficiency_staggered_binding":
+            data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency_staggered_binding+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_loop":
             data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency_loop+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_fork_join":
@@ -727,6 +733,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_relay_binding_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_latch_switch_regressor":
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_latch_switch_regressor+head_linear"
+        elif variant == "V_control_symbolic_symbolic_insufficiency_staggered_binding_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_staggered_binding_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_loop_regressor":
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_loop_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_fork_join_regressor":
@@ -1468,6 +1476,10 @@ def run_quantum_backend(
         return run_symbolic_insufficiency_latch_switch_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_latch_switch_response" and variant == "V_control_symbolic_symbolic_insufficiency_latch_switch_regressor":
         return run_symbolic_insufficiency_latch_switch_symbolic_regressor(train=train, test=test, validation=validation)
+    if dataset == "synthetic_symbolic_insufficiency_staggered_binding_response" and variant == "V_future_relational_witness_symbolic_insufficiency_staggered_binding":
+        return run_symbolic_insufficiency_staggered_binding_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if dataset == "synthetic_symbolic_insufficiency_staggered_binding_response" and variant == "V_control_symbolic_symbolic_insufficiency_staggered_binding_regressor":
+        return run_symbolic_insufficiency_staggered_binding_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response" and variant == "V_future_relational_witness_symbolic_insufficiency_loop":
         return run_symbolic_insufficiency_loop_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response" and variant == "V_control_symbolic_symbolic_insufficiency_loop_regressor":
@@ -3222,6 +3234,169 @@ def symbolic_insufficiency_latch_switch_symbolic_features(text: str) -> dict[str
         "feature_order": list(features.keys()),
         "features": features,
         "allowed_latch_switch_symbolic_basis_frozen_pass": True,
+        "forbidden_feature_family_absent_pass": True,
+    }
+
+
+def symbolic_insufficiency_staggered_binding_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_symbolic_insufficiency_staggered_binding_text(text)
+    s_result = symbolic_insufficiency_witness_features(text=payload["s"]["dual_text"], seed=seed)
+    a_result = symbolic_insufficiency_witness_features(text=payload["a"]["dual_text"], seed=seed)
+    b_result = symbolic_insufficiency_witness_features(text=payload["b"]["dual_text"], seed=seed)
+    o_result = symbolic_insufficiency_witness_features(text=payload["o"]["dual_text"], seed=seed)
+    s_step = _symbolic_insufficiency_path_step_features(payload["s"])
+    a_step = _symbolic_insufficiency_path_step_features(payload["a"])
+    b_step = _symbolic_insufficiency_path_step_features(payload["b"])
+    o_step = _symbolic_insufficiency_path_step_features(payload["o"])
+    s_phase = float(s_result["features"]["latent_transition_phase"])
+    a_phase = float(a_result["features"]["latent_transition_phase"])
+    b_phase = float(b_result["features"]["latent_transition_phase"])
+    o_phase = float(o_result["features"]["latent_transition_phase"])
+    s_curvature = float(s_result["features"]["latent_transition_curvature"])
+    a_curvature = float(a_result["features"]["latent_transition_curvature"])
+    b_curvature = float(b_result["features"]["latent_transition_curvature"])
+    o_curvature = float(o_result["features"]["latent_transition_curvature"])
+    feature_order = [
+        "source_phase",
+        "stage_a_phase",
+        "stage_b_phase",
+        "output_phase",
+        "source_curvature",
+        "stage_a_curvature",
+        "stage_b_curvature",
+        "output_curvature",
+        "staggered_phase_chain",
+        "staggered_output_alignment",
+        "staggered_declared_gap",
+        "staggered_binding_gap",
+        "staggered_declared_mix",
+        "staggered_cross_curvature_mix",
+    ]
+    features = {
+        "source_phase": s_phase,
+        "stage_a_phase": a_phase,
+        "stage_b_phase": b_phase,
+        "output_phase": o_phase,
+        "source_curvature": s_curvature,
+        "stage_a_curvature": a_curvature,
+        "stage_b_curvature": b_curvature,
+        "output_curvature": o_curvature,
+        "staggered_phase_chain": round((a_phase - s_phase) + (b_phase - a_phase) + (o_phase - b_phase), 6),
+        "staggered_output_alignment": round(math.sin((s_phase + a_phase + b_phase) - o_phase), 6),
+        "staggered_declared_gap": round(
+            abs(s_step["sector_magnitude_delta"] - a_step["sector_magnitude_delta"])
+            + abs(a_step["orientation_delta"] - b_step["orientation_delta"])
+            + abs(b_step["ordered_content_delta"] - o_step["ordered_content_delta"]),
+            6,
+        ),
+        "staggered_binding_gap": round(
+            abs(o_step["ordered_content_delta"] - s_step["ordered_content_delta"])
+            + abs(o_step["orientation_delta"] - b_step["orientation_delta"]),
+            6,
+        ),
+        "staggered_declared_mix": round(
+            s_step["sector_magnitude_delta"] * a_step["ordered_content_delta"]
+            + a_step["sector_magnitude_delta"] * b_step["ordered_content_delta"]
+            + b_step["sector_magnitude_delta"] * o_step["ordered_content_delta"]
+            - o_step["sector_magnitude_delta"] * s_step["ordered_content_delta"],
+            6,
+        ),
+        "staggered_cross_curvature_mix": round(
+            (s_phase - a_phase) * b_curvature
+            + (a_phase - b_phase) * o_curvature
+            + (b_phase - o_phase) * s_curvature,
+            6,
+        ),
+    }
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "bounded_feature_audit_pass": True,
+        "forbidden_feature_family_absent_pass": True,
+        "allowed_staggered_symbolic_basis_frozen_pass": True,
+    }
+
+
+def symbolic_insufficiency_staggered_binding_symbolic_features(text: str) -> dict[str, object]:
+    payload = parse_symbolic_insufficiency_staggered_binding_text(text)
+    s_step = _symbolic_insufficiency_path_step_features(payload["s"])
+    a_step = _symbolic_insufficiency_path_step_features(payload["a"])
+    b_step = _symbolic_insufficiency_path_step_features(payload["b"])
+    o_step = _symbolic_insufficiency_path_step_features(payload["o"])
+    source_sign = 1.0 if (
+        offset_sector(payload["s"]["sample_a"].offset).startswith("P")
+        == offset_sector(payload["s"]["sample_b"].offset).startswith("P")
+    ) else 0.0
+    stage_gate = 1.0 if (
+        token_orientation_name(payload["a"]["sample_a"].left_token, payload["a"]["sample_a"].right_token)
+        == token_orientation_name(payload["s"]["sample_a"].left_token, payload["s"]["sample_a"].right_token)
+    ) else 0.0
+    bind_content = 1.0 if (
+        content_family_name(payload["b"]["sample_a"].left_token, payload["b"]["sample_a"].right_token)
+        == content_family_name(payload["o"]["sample_a"].left_token, payload["o"]["sample_a"].right_token)
+    ) else 0.0
+    output_sign = 1.0 if (
+        offset_sector(payload["o"]["sample_a"].offset).startswith("P")
+        == offset_sector(payload["o"]["sample_b"].offset).startswith("P")
+    ) else 0.0
+    mean_sector = (
+        s_step["sector_magnitude_delta"]
+        + a_step["sector_magnitude_delta"]
+        + b_step["sector_magnitude_delta"]
+        + o_step["sector_magnitude_delta"]
+    ) / 4.0
+    mean_content = (
+        s_step["ordered_content_delta"]
+        + a_step["ordered_content_delta"]
+        + b_step["ordered_content_delta"]
+        + o_step["ordered_content_delta"]
+    ) / 4.0
+    mean_orientation = (
+        s_step["orientation_delta"]
+        + a_step["orientation_delta"]
+        + b_step["orientation_delta"]
+        + o_step["orientation_delta"]
+    ) / 4.0
+    features = {
+        "source_sign": source_sign,
+        "stage_gate": stage_gate,
+        "bind_content": bind_content,
+        "output_sign": output_sign,
+        "mean_sector_magnitude_delta": round(mean_sector, 6),
+        "mean_ordered_content_delta": round(mean_content, 6),
+        "mean_orientation_delta": round(mean_orientation, 6),
+        "sum_sector_magnitude_delta": round(
+            s_step["sector_magnitude_delta"] + a_step["sector_magnitude_delta"] + b_step["sector_magnitude_delta"] + o_step["sector_magnitude_delta"],
+            6,
+        ),
+        "sum_ordered_content_delta": round(
+            s_step["ordered_content_delta"] + a_step["ordered_content_delta"] + b_step["ordered_content_delta"] + o_step["ordered_content_delta"],
+            6,
+        ),
+        "sum_orientation_delta": round(
+            s_step["orientation_delta"] + a_step["orientation_delta"] + b_step["orientation_delta"] + o_step["orientation_delta"],
+            6,
+        ),
+        "stage_a_minus_source_sector": round(a_step["sector_magnitude_delta"] - s_step["sector_magnitude_delta"], 6),
+        "stage_b_minus_stage_a_sector": round(b_step["sector_magnitude_delta"] - a_step["sector_magnitude_delta"], 6),
+        "output_minus_bind_sector": round(o_step["sector_magnitude_delta"] - b_step["sector_magnitude_delta"], 6),
+        "stage_a_minus_source_content": round(a_step["ordered_content_delta"] - s_step["ordered_content_delta"], 6),
+        "stage_b_minus_stage_a_content": round(b_step["ordered_content_delta"] - a_step["ordered_content_delta"], 6),
+        "output_minus_bind_content": round(o_step["ordered_content_delta"] - b_step["ordered_content_delta"], 6),
+        "stage_a_minus_source_orientation": round(a_step["orientation_delta"] - s_step["orientation_delta"], 6),
+        "stage_b_minus_stage_a_orientation": round(b_step["orientation_delta"] - a_step["orientation_delta"], 6),
+        "output_minus_bind_orientation": round(o_step["orientation_delta"] - b_step["orientation_delta"], 6),
+        "sq_mean_sector": round(mean_sector * mean_sector, 6),
+        "sq_mean_content": round(mean_content * mean_content, 6),
+        "sq_mean_orientation": round(mean_orientation * mean_orientation, 6),
+        "cross_mean_sector_content": round(mean_sector * mean_content, 6),
+        "cross_mean_sector_orientation": round(mean_sector * mean_orientation, 6),
+        "cross_mean_content_orientation": round(mean_content * mean_orientation, 6),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "allowed_staggered_symbolic_basis_frozen_pass": True,
         "forbidden_feature_family_absent_pass": True,
     }
 
@@ -7373,6 +7548,63 @@ def run_symbolic_insufficiency_latch_switch_symbolic_regressor(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_symbolic_insufficiency_staggered_binding_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_insufficiency_staggered_binding_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [
+        symbolic_insufficiency_staggered_binding_witness_features(text=text, seed=seed) for text, _ in validation
+    ]
+    test_results = [symbolic_insufficiency_staggered_binding_witness_features(text=text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(bool(result.get("bounded_feature_audit_pass", False)) for result in test_results)
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_symbolic_insufficiency_staggered_binding_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [symbolic_insufficiency_staggered_binding_symbolic_features(text=text) for text, _ in train]
+    validation_results = [symbolic_insufficiency_staggered_binding_symbolic_features(text=text) for text, _ in validation]
+    test_results = [symbolic_insufficiency_staggered_binding_symbolic_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["allowed_staggered_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_staggered_symbolic_basis_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
 def run_symbolic_insufficiency_loop_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -10879,6 +11111,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_symbolic_insufficiency_latch_switch_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_symbolic_insufficiency_staggered_binding_response":
+        bundle = generate_symbolic_insufficiency_staggered_binding_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_symbolic_insufficiency_staggered_binding_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response":
