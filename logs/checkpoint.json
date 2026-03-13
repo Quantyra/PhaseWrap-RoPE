@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_internal_review_ready",
+    "repo_posture":  "review_ready_cycle_complete",
     "current_story_ids":  [
-                              "S1000"
+                              "S1001"
                           ],
     "next_actions":  [
-                         "Use the handoff index, review agenda, and decision checklist for internal review.",
-                         "Do not reopen execution without an explicit screened candidate.",
-                         "Treat the current package as review-ready."
+                         "Use the current package for internal review before reopening any execution.",
+                         "Do not proceed by default into new code or experiment lines.",
+                         "Only reopen execution after an explicit screened-candidate decision."
                      ],
     "risks":  [
-                  "If the review is skipped, the package may remain preserved but unused.",
-                  "If leadership ignores the decision checklist, the line could reopen without enough screening.",
-                  "If the agenda is treated as a technical endorsement rather than a review tool, expectations may drift upward."
+                  "If the cycle-closure marker is ignored, the repo may drift back into automatic protocol expansion.",
+                  "If review does not happen, the package will remain complete but operationally idle.",
+                  "If new work starts without a screened trigger, the current closure state will be bypassed."
               ],
     "completed_story_ids":  [
                                 "S001",
