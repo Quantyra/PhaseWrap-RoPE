@@ -1738,3 +1738,5 @@ ank_correlation.
 - EL-1005 2026-03-13: Refreshed the internal package to preserve an-in consensus as an archived negative transfer boundary alongside raid and staggered-binding.
 
 - EL-1006 2026-03-13: Refreshed the board-level recommendation to reflect the preserved transfer portfolio (path, loop-closure, ork-join, elay-binding, cascade-reconciliation) and archived negative boundaries (raid, staggered-binding, an-in consensus).
+
+- EL-1007 2026-03-13: Opened echo-resolution as a new memo-only screened transfer candidate after preserving the current benchmark and transfer portfolio; the family passed survivor-vs-braid and non-compressibility screening to approval-candidate posture.

@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_internal_result_package",
+    "repo_posture":  "memo_only_transfer_echo_resolution_approval_candidate",
     "current_story_ids":  [
-                              "S1064"
+                              "S1068"
                           ],
     "next_actions":  [
-                         "Use the internal package as the current review-ready portfolio baseline.",
-                         "Do not reopen fan-in consensus execution.",
-                         "Only reopen transfer execution through a materially different screened candidate."
+                         "Write the implementation-approval gate for synthetic_symbolic_insufficiency_echo_resolution_response.",
+                         "Freeze the bounded echo-resolution symbolic family and diagnostics in that gate.",
+                         "Keep hardware out of scope until the echo-resolution line survives approval and execution."
                      ],
     "risks":  [
-                  "If archived negative transfer boundaries are omitted from the internal package, future screening decisions will become overly optimistic.",
-                  "If future transfer candidates resemble fan-in consensus without stronger screening, the repo risks repeating already-failed nuisance-sensitive designs."
+                  "If the echo phase is compressible to coarse summaries, this family will repeat already-known weak transfer behavior.",
+                  "If execution reopens before the bounded symbolic family is frozen, the line will lose fairness discipline."
               ],
     "completed_story_ids":  [
                                 "S001",
