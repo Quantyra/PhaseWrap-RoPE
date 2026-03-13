@@ -1533,3 +1533,15 @@ ank_correlation.
 - Story: S963
 - Artifact: docs/research/q-rope-transfer-relay-binding-approval-candidate-v1.md
 - Note: Elevated the relay-binding line to approval-candidate status while keeping execution closed until an explicit implementation gate is written.
+
+## EL-895 S964 relay-binding implementation approval gate
+- Type: Decision
+- Story: S964
+- Artifact: docs/research/q-rope-transfer-relay-binding-implementation-approval-gate-v1.md
+- Note: Froze the relay-binding witness, bounded symbolic control family, required generator diagnostics, and symbolic-basis audit before any execution could reopen.
+
+## EL-896 S965 relay-binding gate decision
+- Type: Decision
+- Story: S965
+- Artifact: docs/research/q-rope-transfer-relay-binding-gate-decision-v1.md
+- Note: Recorded that the relay-binding line is specific enough for one bounded implementation-planning step while keeping execution closed in this boundary.
