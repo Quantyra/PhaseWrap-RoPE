@@ -1685,3 +1685,6 @@ ank_correlation.
 - EL-964 | 2026-03-13 | S1022 | Executed the corrected fixed staggered-binding packet; witness led the bounded symbolic control on mean mae and rank_correlation.
 - EL-965 | 2026-03-13 | S1023 | Preserved the staggered-binding line as active after the first packet and advanced it to token-renaming hardening.
 - EL-966 | 2026-03-13 | S1024 | Froze the next retained-model packet as token_permutation=cdab under the same staggered-binding fairness contract.
+- EL-967 | 2026-03-13 | S1025 | Completed staggered-binding token-renaming hardening; witness led on mae but control led on mean rank_correlation.
+- EL-968 | 2026-03-13 | S1026 | Stopped the staggered-binding transfer line under the declared two-metric hardening gate.
+- EL-969 | 2026-03-13 | S1027 | Preserved staggered-binding as an archived negative transfer boundary.

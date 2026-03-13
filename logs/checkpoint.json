@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_transfer_staggered_binding_hardening",
+    "repo_posture":  "memo_only_transfer_staggered_binding_archive",
     "current_story_ids":  [
-                              "S1024"
+                              "S1027"
                           ],
     "next_actions":  [
-                         "Run fixed token-renaming hardening with token_permutation=cdab for the staggered-binding line.",
-                         "Keep only the staggered-binding witness and bounded symbolic control.",
-                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+                         "Preserve staggered-binding as an archived negative transfer boundary.",
+                         "Do not reopen the same family by default.",
+                         "Only consider a new staggered variant if it is materially different and passes memo-level screening first."
                      ],
     "risks":  [
-                  "If token renaming collapses the witness advantage, the line should stop at the first nuisance hardening step.",
-                  "If render/parse framing regresses, packet metrics may look weaker or stronger for the wrong reason.",
-                  "If scope expands beyond the frozen witness/control pair, fairness interpretation will degrade."
+                  "Mixed-leadership hardening outcomes can be overinterpreted if archived boundaries are not kept explicit.",
+                  "Reopening the same staggered family without a new mechanism would likely recreate branch churn.",
+                  "Internal package quality degrades if failed transfer boundaries are not preserved alongside positive transfers."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -992,10 +992,15 @@
                                 "S1020",
                                 "S1021",
                                 "S1022",
-                                "S1023"
+                                "S1023",
+                                "S1024",
+                                "S1025",
+                                "S1026",
+                                "S1027"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
-                                        "S1012"
+                                        "S1012",
+                                        "S1027"
                                     ]
 }
