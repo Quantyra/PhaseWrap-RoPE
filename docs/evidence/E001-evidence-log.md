@@ -1641,3 +1641,5 @@ ank_correlation.
 
 - EL-914: Completed relay-binding deeper pair-reindex hardening; witness remained ahead on mean mae and rank_correlation.
 - EL-915: Closed the first relay-binding hardening cycle and preserved the line at a memo-level decision gate.
+
+- EL-916: Preserved relay-binding as the fourth bounded internal transfer result and refreshed the internal package/executive summary.

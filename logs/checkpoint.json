@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_relay_binding_decision_gate",
+    "repo_posture":  "memo_only_internal_result_package",
     "current_story_ids":  [
-                              "S981"
+                              "S982"
                           ],
     "next_actions":  [
-                         "Preserve relay-binding as sufficient bounded internal transfer evidence.",
-                         "Do not open another default perturbation packet on this family.",
-                         "Reopen execution only if a materially different hardening question is chosen explicitly."
+                         "Preserve the standing benchmark and four bounded transfer results as the internal review package.",
+                         "Do not reopen same-family transfer execution by default.",
+                         "Only open a materially different transfer family or theory-backed fairness line if explicitly chosen."
                      ],
     "risks":  [
                   "If relay binding compresses under slot swapping, the line may recreate a braid-style failure boundary.",
@@ -980,7 +980,8 @@
                                 "S977",
                                 "S979",
                                 "S980",
-                                "S981"
+                                "S981",
+                                "S982"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955"
