@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "review_ready_cycle_complete",
+    "repo_posture":  "low_intensity_continuation",
     "current_story_ids":  [
-                              "S1001"
+                              "S1002"
                           ],
     "next_actions":  [
-                         "Use the current package for internal review before reopening any execution.",
-                         "Do not proceed by default into new code or experiment lines.",
-                         "Only reopen execution after an explicit screened-candidate decision."
+                         "Preserve the benchmark and transfer portfolio as the standing internal asset.",
+                         "Allow memo-only screening of future candidates by default.",
+                         "Reopen execution only for candidates that clear intake, structure, non-compressibility, and fairness gates."
                      ],
     "risks":  [
-                  "If the cycle-closure marker is ignored, the repo may drift back into automatic protocol expansion.",
-                  "If review does not happen, the package will remain complete but operationally idle.",
-                  "If new work starts without a screened trigger, the current closure state will be bypassed."
+                  "If low-intensity continuation is misread as permission for broad new execution, branch churn will return.",
+                  "If hardware or publication is reopened without new evidence, the package will be overstated.",
+                  "If memo-only screening is skipped, candidate quality will drop."
               ],
     "completed_story_ids":  [
                                 "S001",
