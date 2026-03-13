@@ -1722,3 +1722,6 @@ ank_correlation.
 
 - EL-994 | 2026-03-13 | S1053 | Wrote the explicit implementation-approval gate for the fan-in consensus transfer line.
 - EL-995 | 2026-03-13 | S1054 | Passed fan-in consensus to bounded implementation planning only.
+
+- EL-996 | 2026-03-13 | S1055 | Froze the bounded implementation scope and packet shape for the fan-in consensus transfer line.
+- EL-997 | 2026-03-13 | S1056 | Approved one bounded implementation cycle for fan-in consensus.
