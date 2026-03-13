@@ -1587,3 +1587,27 @@ ank_correlation.
 - Story: S970
 - Artifact: docs/research/q-rope-transfer-relay-binding-token-renaming-hardening-plan-v1.md
 - Note: Froze the next packet as 	oken_permutation=cdab with only the relay witness and bounded symbolic control retained.
+
+## EL-904 S971 relay-binding token-renaming hardening
+- Type: Decision
+- Story: S971
+- Artifact: docs/research/q-rope-transfer-relay-binding-token-renaming-hardening-v1.md
+- Note: The 	oken_permutation=cdab relay-binding packet was non-inert and still left the witness ahead of the bounded symbolic control on both declared packet metrics in the mean.
+
+## EL-905 S971 relay-binding token-renaming summary csv
+- Type: Decision
+- Story: S971
+- Artifact: logs/ablation_runs/summary/transfer_relay_binding_cdab_v1.csv
+- Note: Recorded the per-seed token-renamed relay-binding packet metrics in a compact summary table for audit and reuse.
+
+## EL-906 S972 relay-binding post-token-renaming decision
+- Type: Decision
+- Story: S972
+- Artifact: docs/research/q-rope-transfer-relay-binding-post-token-renaming-decision-v1.md
+- Note: Preserved the relay-binding line as active after nuisance hardening and advanced it to the first structural hardening step.
+
+## EL-907 S972 relay-binding pair-reindex plan
+- Type: Decision
+- Story: S972
+- Artifact: docs/research/q-rope-transfer-relay-binding-pair-reindex-hardening-plan-v1.md
+- Note: Froze the next packet as pair_reindex=1 with only the relay witness and bounded symbolic control retained.

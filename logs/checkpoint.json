@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_transfer_relay_binding_hardening",
+    "repo_posture":  "bounded_transfer_relay_binding_structural_hardening",
     "current_story_ids":  [
-                              "S970"
+                              "S972"
                           ],
     "next_actions":  [
-                         "Run the fixed token-permutation=cdab hardening packet on synthetic_symbolic_insufficiency_relay_binding_response.",
+                         "Run the fixed pair_reindex=1 hardening packet on synthetic_symbolic_insufficiency_relay_binding_response.",
                          "Keep only the relay-binding witness and bounded symbolic control in the retained packet.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If relay binding compresses under token renaming, the line may recreate the braid-type failure boundary.",
-                  "If future packet launches drift from variant.id or the frozen basis, the fairness contract is invalidated.",
-                  "If extra perturbations are added before the token-renaming packet is evaluated, the branch will lose interpretability."
+                  "If relay binding compresses under the first structural pair reindex, the line may recreate a braid-style failure boundary.",
+                  "If retained-model packets drift beyond the frozen symbolic basis, the fairness contract is invalidated.",
+                  "If extra perturbations are added before pair_reindex=1 is evaluated, the branch will lose interpretability."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -972,7 +972,8 @@
                                 "S955",
                                 "S956",
                                 "S968",
-                                "S969"
+                                "S969",
+                                "S971"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955"
