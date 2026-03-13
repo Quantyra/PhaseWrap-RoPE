@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_echo_resolution_approval_candidate",
+    "repo_posture":  "memo_only_transfer_echo_resolution_gate_decision",
     "current_story_ids":  [
-                              "S1068"
+                              "S1070"
                           ],
     "next_actions":  [
-                         "Write the implementation-approval gate for synthetic_symbolic_insufficiency_echo_resolution_response.",
-                         "Freeze the bounded echo-resolution symbolic family and diagnostics in that gate.",
-                         "Keep hardware out of scope until the echo-resolution line survives approval and execution."
+                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_echo_resolution_response.",
+                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
+                         "Reopen code only after that bounded plan is accepted."
                      ],
     "risks":  [
-                  "If the echo phase is compressible to coarse summaries, this family will repeat already-known weak transfer behavior.",
-                  "If execution reopens before the bounded symbolic family is frozen, the line will lose fairness discipline."
+                  "If the echo-resolution symbolic family is not frozen mechanically before implementation, the line will lose fairness discipline.",
+                  "If hard-stop diagnostics are ignored, weak or compressible packet structure could be mistaken for true transfer evidence."
               ],
     "completed_story_ids":  [
                                 "S001",
