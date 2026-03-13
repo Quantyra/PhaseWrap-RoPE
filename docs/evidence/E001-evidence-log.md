@@ -1736,3 +1736,5 @@ ank_correlation.
 - EL-1004 | 2026-03-13 | S1063 | Preserved fan-in consensus as an archived negative transfer boundary.
 
 - EL-1005 2026-03-13: Refreshed the internal package to preserve an-in consensus as an archived negative transfer boundary alongside raid and staggered-binding.
+
+- EL-1006 2026-03-13: Refreshed the board-level recommendation to reflect the preserved transfer portfolio (path, loop-closure, ork-join, elay-binding, cascade-reconciliation) and archived negative boundaries (raid, staggered-binding, an-in consensus).
