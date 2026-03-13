@@ -1,16 +1,16 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_fanin_consensus_archive",
+    "repo_posture":  "memo_only_internal_result_package",
     "current_story_ids":  [
-                              "S1063"
+                              "S1064"
                           ],
     "next_actions":  [
-                         "Preserve fan-in consensus as an archived negative transfer boundary in the internal package.",
-                         "Do not continue this line into structural hardening.",
+                         "Use the internal package as the current review-ready portfolio baseline.",
+                         "Do not reopen fan-in consensus execution.",
                          "Only reopen transfer execution through a materially different screened candidate."
                      ],
     "risks":  [
-                  "If fan-in consensus is reopened casually, the transfer portfolio will ignore a real nuisance-hardening failure boundary.",
+                  "If archived negative transfer boundaries are omitted from the internal package, future screening decisions will become overly optimistic.",
                   "If future transfer candidates resemble fan-in consensus without stronger screening, the repo risks repeating already-failed nuisance-sensitive designs."
               ],
     "completed_story_ids":  [

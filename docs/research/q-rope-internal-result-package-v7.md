@@ -13,6 +13,7 @@
 ## Archived Negative Boundaries
 - `braid`
 - `staggered-binding`
+- `fan-in consensus`
 
 ## Current Position
 - Internal mechanism result: `yes`

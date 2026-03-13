@@ -1734,3 +1734,5 @@ ank_correlation.
 - EL-1002 | 2026-03-13 | S1061 | Completed fan-in consensus token-renaming hardening; the bounded symbolic control overtook the witness on mean mae and rank_correlation.
 - EL-1003 | 2026-03-13 | S1062 | Stopped the fan-in consensus line under the declared two-metric hardening gate.
 - EL-1004 | 2026-03-13 | S1063 | Preserved fan-in consensus as an archived negative transfer boundary.
+
+- EL-1005 2026-03-13: Refreshed the internal package to preserve an-in consensus as an archived negative transfer boundary alongside raid and staggered-binding.

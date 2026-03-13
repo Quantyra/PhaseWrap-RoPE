@@ -16,6 +16,7 @@
 ## Archived Failure Boundaries
 - `braid`
 - `staggered-binding`
+- `fan-in consensus`
 
 ## Operating Rule
 - No hardware.
