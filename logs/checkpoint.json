@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_board_recommendation",
+    "repo_posture":  "memo_only_internal_use_guidance",
     "current_story_ids":  [
-                              "S995"
+                              "S997"
                           ],
     "next_actions":  [
-                         "Use the board recommendation note as the shortest internal decision document.",
-                         "Do not reopen execution by default.",
-                         "Only evaluate future candidates through the full intake and theory screen."
+                         "Use the internal use memo and checklist as the default operating guide for this line.",
+                         "Do not reopen execution without clearing the intake, screening, and fairness stack.",
+                         "Treat the current benchmark plus transfer portfolio as the standing internal asset."
                      ],
     "risks":  [
-                  "If the board note is read as a product or hardware endorsement, internal expectations will become distorted.",
-                  "If future candidates bypass the screening stack, the program will regress into low-value execution churn.",
-                  "If the archived negative boundary is ignored, internal overconfidence may rise unjustifiably."
+                  "If the internal use guidance is ignored, the line may drift back into low-value execution churn.",
+                  "If braid is omitted from internal presentations, the result may be overstated.",
+                  "If the benchmark is reused without structural screening, future work may dilute the current result."
               ],
     "completed_story_ids":  [
                                 "S001",
