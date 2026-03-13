@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_transfer_relay_binding_structural_hardening",
+    "repo_posture":  "memo_only_transfer_relay_binding_decision_gate",
     "current_story_ids":  [
-                              "S978"
+                              "S981"
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=7 hardening packet on synthetic_symbolic_insufficiency_relay_binding_response.",
-                         "Keep only the relay-binding witness and bounded symbolic control in the retained packet.",
-                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+                         "Preserve relay-binding as sufficient bounded internal transfer evidence.",
+                         "Do not open another default perturbation packet on this family.",
+                         "Reopen execution only if a materially different hardening question is chosen explicitly."
                      ],
     "risks":  [
                   "If relay binding compresses under slot swapping, the line may recreate a braid-style failure boundary.",
@@ -977,7 +977,10 @@
                                 "S973",
                                 "S974",
                                 "S976",
-                                "S977"
+                                "S977",
+                                "S979",
+                                "S980",
+                                "S981"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955"

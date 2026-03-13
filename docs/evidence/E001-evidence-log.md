@@ -1638,3 +1638,6 @@ ank_correlation.
 
 - EL-912: Completed relay-binding slot-swap hardening packet; witness remained ahead of bounded symbolic control on mean mae and rank_correlation.
 - EL-913: Advanced relay-binding line to deeper pair-reindex hardening (pair_reindex=7).
+
+- EL-914: Completed relay-binding deeper pair-reindex hardening; witness remained ahead on mean mae and rank_correlation.
+- EL-915: Closed the first relay-binding hardening cycle and preserved the line at a memo-level decision gate.
