@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_fanin_consensus_approval_candidate",
+    "repo_posture":  "memo_only_transfer_fanin_consensus_gate_decision",
     "current_story_ids":  [
-                              "S1052"
+                              "S1054"
                           ],
     "next_actions":  [
-                         "Write the explicit implementation-approval gate for synthetic_symbolic_insufficiency_fanin_consensus_response.",
-                         "Freeze the bounded fan-in symbolic family and generator diagnostics in that gate.",
-                         "Keep hardware out of scope until the fan-in line survives approval and execution."
+                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_fanin_consensus_response.",
+                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
+                         "Reopen code only after that bounded plan is accepted."
                      ],
     "risks":  [
-                  "If the fan-in task is built from compressible coarse summaries, it will fail the non-compressibility screen immediately.",
-                  "If the candidate drifts toward braid-like crossing structure, it will likely reproduce the archived failure boundary.",
-                  "If execution reopens before the gate is written, the line will bypass the low-intensity screening policy."
+                  "If the fan-in summaries leak latent consensus state directly, the symbolic family will become compressive and the line will lose value.",
+                  "If the implementation plan expands beyond one bounded witness/control packet, low-intensity continuation will be violated.",
+                  "If hardware is reconsidered before bounded transfer execution, the evidence hierarchy will be inverted."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1020,7 +1020,9 @@
                                 "S1049",
                                 "S1050",
                                 "S1051",
-                                "S1052"
+                                "S1052",
+                                "S1053",
+                                "S1054"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
