@@ -1,18 +1,18 @@
 {
     "active_epic": "E001",
-    "repo_posture": "bounded_transfer_cascade_reconciliation_hardening",
+    "repo_posture": "bounded_transfer_cascade_reconciliation_structural_hardening",
     "current_story_ids": [
-        "S1039"
+        "S1045"
     ],
     "next_actions": [
-        "Run the fixed token-renaming hardening packet with token_permutation=cdab.",
+        "Run the fixed slot_swap=1 structural hardening packet.",
         "Keep only the cascade-reconciliation witness and bounded symbolic control.",
         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
     ],
     "risks": [
-        "If token renaming collapses the witness advantage, the line should stop under the declared two-metric gate.",
-        "If latent target construction leaks token identity after renaming, the hardening result would be invalid.",
-        "If scope expands beyond the frozen witness/control packet, fairness interpretation will degrade."
+        "If slot_swap collapses the witness advantage, the line should stop under the declared two-metric gate.",
+        "If slot_swap is implemented inertly, the hardening packet will not add valid robustness evidence.",
+        "If scope expands beyond the retained witness/control packet, fairness interpretation will degrade."
     ],
     "completed_story_ids": [
         "S001",
@@ -1007,7 +1007,12 @@
         "S1035",
         "S1036",
         "S1037",
-        "S1038"
+        "S1038",
+        "S1040",
+        "S1041",
+        "S1042",
+        "S1043",
+        "S1044"
     ],
     "archived_transfer_story_ids": [
         "S955",

@@ -1701,3 +1701,11 @@ ank_correlation.
 - EL-978 | 2026-03-13 | S1037 | Executed the corrected fixed cascade-reconciliation packet; witness led the bounded symbolic control on mean mae and rank_correlation.
 - EL-979 | 2026-03-13 | S1038 | Preserved the cascade-reconciliation line as active after the first packet and advanced it to token-renaming hardening.
 - EL-980 | 2026-03-13 | S1039 | Froze the next retained-model packet as token_permutation=cdab under the same cascade-reconciliation fairness contract.
+
+- EL-981 | 2026-03-13 | S1040 | Completed cascade-reconciliation token-renaming hardening; the witness stayed ahead of the bounded symbolic control on mean mae and rank_correlation.
+- EL-982 | 2026-03-13 | S1041 | Preserved the cascade-reconciliation line as active after token renaming and advanced it to first structural hardening.
+- EL-983 | 2026-03-13 | S1042 | Froze the next retained-model packet as pair_reindex=1 under the same cascade-reconciliation fairness contract.
+
+- EL-984 | 2026-03-13 | S1043 | Completed cascade-reconciliation pair_reindex=1 hardening; the witness stayed ahead of the bounded symbolic control on mean mae and rank_correlation.
+- EL-985 | 2026-03-13 | S1044 | Preserved the cascade-reconciliation line as active after first structural hardening and advanced it to slot_swap=1.
+- EL-986 | 2026-03-13 | S1045 | Froze the next retained-model packet as slot_swap=1 under the same cascade-reconciliation fairness contract.
