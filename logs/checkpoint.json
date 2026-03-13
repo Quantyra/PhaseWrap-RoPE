@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_intake_process",
+    "repo_posture":  "memo_only_transfer_noncompressibility_screen",
     "current_story_ids":  [
-                              "S988"
+                              "S991"
                           ],
     "next_actions":  [
-                         "Require a completed transfer intake memo plus review checklist before drafting any future transfer implementation gate.",
-                         "Use the survivor-cluster versus braid screen as the default front-door filter for new transfer candidates.",
-                         "Prefer memo-only screening over reopening execution by default."
+                         "Apply survivor-vs-braid comparison plus deep-reindex non-compressibility before drafting any future transfer gate.",
+                         "Treat the checklist supplement as mandatory for future transfer candidates.",
+                         "Prefer memo-only rejection of compressible candidates over reopening execution."
                      ],
     "risks":  [
-                  "If teams bypass the intake template, branch churn will resume.",
-                  "If the checklist is treated as advisory instead of mandatory, future transfer quality will degrade.",
-                  "If the survivor cluster is overfit into a dogma, genuinely novel candidates could be screened out too early."
+                  "If non-compressibility is asserted without concrete rebuttal of failure modes, low-value candidates may still pass intake.",
+                  "If the criterion is applied too loosely, braid-like families may be reintroduced under new names.",
+                  "If the criterion is applied too rigidly, genuinely novel but valid transfer families could be screened out early."
               ],
     "completed_story_ids":  [
                                 "S001",

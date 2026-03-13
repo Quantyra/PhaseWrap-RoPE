@@ -1649,3 +1649,6 @@ ank_correlation.
 - EL-928 | 2026-03-12 | S986 | Added transfer candidate intake template for future memo-only transfer proposals.
 - EL-929 | 2026-03-12 | S987 | Added transfer candidate review checklist tied to survivor-vs-braid screening.
 - EL-930 | 2026-03-12 | S988 | Made transfer intake template and checklist mandatory before future implementation gates.
+- EL-931 | 2026-03-12 | S989 | Formalized deep-reindex non-compressibility as a transfer-family screening criterion.
+- EL-932 | 2026-03-12 | S990 | Added non-compressibility checks to the transfer review process.
+- EL-933 | 2026-03-12 | S991 | Recorded transfer screening order combining survivor-vs-braid comparison with non-compressibility checks.
