@@ -1674,3 +1674,6 @@ ank_correlation.
 - EL-953 | 2026-03-13 | S1011 | Executed the corrected fixed latch-switch packet; witness led on rank correlation but control led on mae.
 - EL-954 | 2026-03-13 | S1012 | Stopped the latch-switch transfer branch under the declared two-metric gate and preserved it as a negative boundary.
 - EL-955 | 2026-03-13 | S1013 | Preserved staggered binding as the next memo-only transfer angle.
+- EL-956 | 2026-03-13 | S1014 | Fixed staggered-binding into one exact transfer task with required generator diagnostics.
+- EL-957 | 2026-03-13 | S1015 | Bound the staggered-binding line to one witness and one bounded symbolic fairness family.
+- EL-958 | 2026-03-13 | S1016 | Raised staggered-binding to memo-only approval-candidate posture.
