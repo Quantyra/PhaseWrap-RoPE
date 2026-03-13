@@ -1652,3 +1652,6 @@ ank_correlation.
 - EL-931 | 2026-03-12 | S989 | Formalized deep-reindex non-compressibility as a transfer-family screening criterion.
 - EL-932 | 2026-03-12 | S990 | Added non-compressibility checks to the transfer review process.
 - EL-933 | 2026-03-12 | S991 | Recorded transfer screening order combining survivor-vs-braid comparison with non-compressibility checks.
+- EL-934 | 2026-03-12 | S992 | Connected the non-compressibility criterion directly to the standing witness and preserved transfer portfolio.
+- EL-935 | 2026-03-12 | S993 | Refreshed the theory package to connect witness characterization, braid boundary, and non-compressibility screening.
+- EL-936 | 2026-03-12 | S994 | Recorded that no further execution should reopen by default without passing the full intake and theory screen.
