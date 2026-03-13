@@ -1688,3 +1688,4 @@ ank_correlation.
 - EL-967 | 2026-03-13 | S1025 | Completed staggered-binding token-renaming hardening; witness led on mae but control led on mean rank_correlation.
 - EL-968 | 2026-03-13 | S1026 | Stopped the staggered-binding transfer line under the declared two-metric hardening gate.
 - EL-969 | 2026-03-13 | S1027 | Preserved staggered-binding as an archived negative transfer boundary.
+- EL-970 | 2026-03-13 | S1028 | Refreshed the transfer portfolio and internal package to include staggered-binding as an archived negative transfer boundary.

@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_staggered_binding_archive",
+    "repo_posture":  "memo_only_internal_result_package",
     "current_story_ids":  [
-                              "S1027"
+                              "S1028"
                           ],
     "next_actions":  [
-                         "Preserve staggered-binding as an archived negative transfer boundary.",
-                         "Do not reopen the same family by default.",
-                         "Only consider a new staggered variant if it is materially different and passes memo-level screening first."
+                         "Preserve staggered-binding as an archived negative transfer boundary inside the internal package.",
+                         "Do not reopen staggered-binding by default.",
+                         "Only open a new candidate after memo-level screening against survivor-cluster and failure-boundary rules."
                      ],
     "risks":  [
-                  "Mixed-leadership hardening outcomes can be overinterpreted if archived boundaries are not kept explicit.",
-                  "Reopening the same staggered family without a new mechanism would likely recreate branch churn.",
-                  "Internal package quality degrades if failed transfer boundaries are not preserved alongside positive transfers."
+                  "If archived failure boundaries are omitted from the package, transfer evidence can be overstated.",
+                  "If new candidates are opened without screening, branch churn will resume.",
+                  "If hardware is reconsidered before new evidence, the program will overreach its current basis."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -996,11 +996,13 @@
                                 "S1024",
                                 "S1025",
                                 "S1026",
-                                "S1027"
+                                "S1027",
+                                "S1028"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
                                         "S1012",
+                                        "S1027",
                                         "S1027"
                                     ]
 }
