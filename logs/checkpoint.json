@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_internal_use_guidance",
+    "repo_posture":  "memo_only_internal_handoff_index",
     "current_story_ids":  [
-                              "S997"
+                              "S998"
                           ],
     "next_actions":  [
-                         "Use the internal use memo and checklist as the default operating guide for this line.",
-                         "Do not reopen execution without clearing the intake, screening, and fairness stack.",
-                         "Treat the current benchmark plus transfer portfolio as the standing internal asset."
+                         "Use the internal handoff index as the default entry point for future review of this line.",
+                         "Do not reopen execution by default.",
+                         "Only admit new candidates after intake, screening, and fairness review."
                      ],
     "risks":  [
-                  "If the internal use guidance is ignored, the line may drift back into low-value execution churn.",
-                  "If braid is omitted from internal presentations, the result may be overstated.",
-                  "If the benchmark is reused without structural screening, future work may dilute the current result."
+                  "If the handoff index is not maintained, future reviewers may miss the failure boundary or screening rules.",
+                  "If the package is used without the board recommendation and hardware no-go memo, internal expectations may drift upward.",
+                  "If new work bypasses the handoff index, duplicated effort may reappear."
               ],
     "completed_story_ids":  [
                                 "S001",

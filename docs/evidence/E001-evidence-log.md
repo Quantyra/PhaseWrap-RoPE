@@ -1658,3 +1658,4 @@ ank_correlation.
 - EL-937 | 2026-03-12 | S995 | Added board-style internal recommendation note summarizing the standing benchmark, transfer portfolio, and no-go boundaries.
 - EL-938 | 2026-03-12 | S996 | Added internal use memo translating the benchmark and transfer portfolio into concrete operational guidance.
 - EL-939 | 2026-03-12 | S997 | Added internal use checklist for reuse, execution reopening, and internal presentation.
+- EL-940 | 2026-03-12 | S998 | Added internal handoff index linking the benchmark, transfer portfolio, theory package, and operating rules.
