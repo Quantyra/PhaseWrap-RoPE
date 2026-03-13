@@ -700,6 +700,39 @@ def test_symbolic_insufficiency_relay_symbolic_control_freezes_basis() -> None:
     assert diagnostics["forbidden_feature_family_absent_pass"] is True
 
 
+def test_symbolic_insufficiency_latch_switch_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_latch_switch_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_symbolic_insufficiency_latch_switch",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_symbolic_insufficiency_latch_switch_response+readout_relational_witness_symbolic_insufficiency_latch_switch+head_linear"
+    )
+    assert diagnostics["coarse_latch_switch_state_null_pass"] is True
+    assert diagnostics["within_latch_switch_state_variation_pass"] is True
+    assert diagnostics["latent_latch_switch_diversity_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["latch_switch_target_nontrivial_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
+def test_symbolic_insufficiency_latch_switch_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_latch_switch_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_symbolic_insufficiency_latch_switch_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_latch_switch_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
 def test_symbolic_insufficiency_loop_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_symbolic_insufficiency_loop_closure_response",

@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_transfer_latch_switch_implementation",
+    "repo_posture":  "memo_only_transfer_staggered_binding_design",
     "current_story_ids":  [
-                              "S1009"
+                              "S1013"
                           ],
     "next_actions":  [
-                         "Implement synthetic_symbolic_insufficiency_latch_switch_response inside the frozen writable scope.",
-                         "Run one fixed three-seed packet against the bounded latch-switch symbolic control.",
-                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+                         "Specify synthetic_symbolic_insufficiency_staggered_binding_response exactly.",
+                         "Bind one bounded symbolic fairness family into its scaffold.",
+                         "Keep the line memo-only until a new approval-candidate review is explicit."
                      ],
     "risks":  [
                   "If latch and switch generators leak into a compact declared summary, the control may catch up immediately.",
@@ -981,9 +981,13 @@
                                 "S979",
                                 "S980",
                                 "S981",
-                                "S982"
+                                "S982",
+                                "S1010",
+                                "S1011",
+                                "S1012"
                             ],
     "archived_transfer_story_ids":  [
-                                        "S955"
+                                        "S955",
+                                        "S1012"
                                     ]
 }

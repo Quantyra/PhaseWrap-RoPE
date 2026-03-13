@@ -1670,3 +1670,7 @@ ank_correlation.
 - EL-949 | 2026-03-12 | S1007 | Recorded latch-switch gate decision as pass for bounded implementation planning only.
 - EL-950 | 2026-03-12 | S1008 | Froze bounded implementation scope for latch-switch transfer family.
 - EL-951 | 2026-03-12 | S1009 | Recorded that latch-switch is ready for one bounded implementation cycle.
+- EL-952 | 2026-03-13 | S1010 | Implemented bounded latch-switch transfer line inside the frozen writable scope and validated the focused test suite.
+- EL-953 | 2026-03-13 | S1011 | Executed the corrected fixed latch-switch packet; witness led on rank correlation but control led on mae.
+- EL-954 | 2026-03-13 | S1012 | Stopped the latch-switch transfer branch under the declared two-metric gate and preserved it as a negative boundary.
+- EL-955 | 2026-03-13 | S1013 | Preserved staggered binding as the next memo-only transfer angle.

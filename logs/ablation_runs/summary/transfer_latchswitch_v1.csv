@@ -1,0 +1,7 @@
+"run_id","variant","seed","mae","rank_correlation","calibration_slope"
+"latchswitch-witness-s42","V_future_relational_witness_symbolic_insufficiency_latch_switch","42","0.067675","-0.326471","-0.674304"
+"latchswitch-witness-s123","V_future_relational_witness_symbolic_insufficiency_latch_switch","123","0.07732","0.635294","0.766612"
+"latchswitch-witness-s777","V_future_relational_witness_symbolic_insufficiency_latch_switch","777","0.10473","0.226471","0.102716"
+"latchswitch-control-s42","V_control_symbolic_symbolic_insufficiency_latch_switch_regressor","42","0.0704","-0.223529","-0.540891"
+"latchswitch-control-s123","V_control_symbolic_symbolic_insufficiency_latch_switch_regressor","123","0.075411","0.467647","0.824611"
+"latchswitch-control-s777","V_control_symbolic_symbolic_insufficiency_latch_switch_regressor","777","0.101813","-0.120588","-0.163048"
