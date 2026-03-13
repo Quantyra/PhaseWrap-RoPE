@@ -1668,3 +1668,5 @@ ank_correlation.
 - EL-947 | 2026-03-12 | S1005 | Registered latch-switch as the next memo-only transfer approval candidate.
 - EL-948 | 2026-03-12 | S1006 | Wrote explicit implementation-approval gate for latch-switch transfer family.
 - EL-949 | 2026-03-12 | S1007 | Recorded latch-switch gate decision as pass for bounded implementation planning only.
+- EL-950 | 2026-03-12 | S1008 | Froze bounded implementation scope for latch-switch transfer family.
+- EL-951 | 2026-03-12 | S1009 | Recorded that latch-switch is ready for one bounded implementation cycle.

@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_latch_switch_gate_decision",
+    "repo_posture":  "bounded_transfer_latch_switch_implementation",
     "current_story_ids":  [
-                              "S1007"
+                              "S1009"
                           ],
     "next_actions":  [
-                         "Write the bounded implementation plan for the latch-switch transfer family.",
-                         "Keep execution closed until writable scope and packet contract are frozen.",
-                         "Do not allow symbolic family growth beyond the frozen latch-switch basis."
+                         "Implement synthetic_symbolic_insufficiency_latch_switch_response inside the frozen writable scope.",
+                         "Run one fixed three-seed packet against the bounded latch-switch symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If latch and switch summaries are too correlated, the task may collapse into a compact symbolic shortcut.",
-                  "If diagnostics are weak, the line may look novel while still being symbolically compressible.",
-                  "If execution opens before the plan is frozen, fairness drift may undermine interpretability."
+                  "If latch and switch generators leak into a compact declared summary, the control may catch up immediately.",
+                  "If diagnostics are under-specified in code, the packet may look stronger than it is.",
+                  "If scope expands beyond the frozen writable set, fairness interpretation will degrade."
               ],
     "completed_story_ids":  [
                                 "S001",
