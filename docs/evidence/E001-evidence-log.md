@@ -1515,3 +1515,21 @@ ank_correlation.
 - Story: S960
 - Artifact: docs/research/q-rope-transfer-family-selection-decision-v1.md
 - Note: Recorded that future transfer execution must pass memo-level survivability screening before any new approval-candidate review is allowed.
+
+## EL-892 S961 relay-binding transfer family design
+- Type: Decision
+- Story: S961
+- Artifact: docs/research/q-rope-transfer-relay-binding-task-family-design-v1.md
+- Note: Defined a fifth transfer-family candidate centered on delayed relational binding through ordered source, relay, and bind segments.
+
+## EL-893 S962 relay-binding survivability review
+- Type: Decision
+- Story: S962
+- Artifact: docs/research/q-rope-transfer-relay-binding-survivability-review-v1.md
+- Note: Screened the relay-binding family against the transfer survivability criteria and judged it specific enough to advance to approval-candidate posture.
+
+## EL-894 S963 relay-binding approval candidate
+- Type: Decision
+- Story: S963
+- Artifact: docs/research/q-rope-transfer-relay-binding-approval-candidate-v1.md
+- Note: Elevated the relay-binding line to approval-candidate status while keeping execution closed until an explicit implementation gate is written.

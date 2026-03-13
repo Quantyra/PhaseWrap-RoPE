@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_selection_rule",
+    "repo_posture":  "memo_only_transfer_relay_binding_approval_candidate",
     "current_story_ids":  [
-                              "S960"
+                              "S963"
                           ],
     "next_actions":  [
-                         "Use the transfer survivability criteria as the filter for any future transfer-family proposal.",
-                         "Do not reopen transfer execution by default.",
-                         "Only advance a new transfer line if it is materially different and plausibly non-compressible under deeper reindexing."
+                         "Write the explicit implementation-approval gate for synthetic_symbolic_insufficiency_relay_binding_response.",
+                         "Bind the frozen relay symbolic family and required generator diagnostics directly into that gate.",
+                         "Keep execution closed until the relay-binding gate is explicitly approved."
                      ],
     "risks":  [
-                  "Ignoring the survivability screen would likely restart execution sprawl without improving internal understanding.",
-                  "Treating the current positive lines as universal would overstate the evidence base.",
-                  "Dropping the braid failure boundary from future selection would weaken protocol discipline."
+                  "If the relay step compresses into a shallow declared-state tuple, this line will recreate the braid failure pattern.",
+                  "Opening execution before the relay gate is frozen would restart branch churn without a clean fairness contract.",
+                  "Allowing hidden relay-state lookup behavior in the symbolic control would invalidate the survivability screen."
               ],
     "completed_story_ids":  [
                                 "S001",
