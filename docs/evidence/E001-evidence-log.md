@@ -1730,3 +1730,7 @@ ank_correlation.
 - EL-999 | 2026-03-13 | S1058 | Executed the corrected fixed fan-in consensus packet; the witness led the bounded symbolic control on mean mae and rank_correlation.
 - EL-1000 | 2026-03-13 | S1059 | Preserved the fan-in consensus line as active after the corrected first packet and advanced it to token-renaming hardening.
 - EL-1001 | 2026-03-13 | S1060 | Froze the next retained-model packet as token_permutation=cdab under the same fan-in consensus fairness contract.
+
+- EL-1002 | 2026-03-13 | S1061 | Completed fan-in consensus token-renaming hardening; the bounded symbolic control overtook the witness on mean mae and rank_correlation.
+- EL-1003 | 2026-03-13 | S1062 | Stopped the fan-in consensus line under the declared two-metric hardening gate.
+- EL-1004 | 2026-03-13 | S1063 | Preserved fan-in consensus as an archived negative transfer boundary.
