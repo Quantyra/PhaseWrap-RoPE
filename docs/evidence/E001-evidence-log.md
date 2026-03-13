@@ -1635,3 +1635,6 @@ ank_correlation.
 - Story: S975
 - Artifact: docs/research/q-rope-transfer-relay-binding-slot-swap-hardening-plan-v1.md
 - Note: Froze the next retained-model packet as slot_swap=1 under the same relay-binding fairness contract.
+
+- EL-912: Completed relay-binding slot-swap hardening packet; witness remained ahead of bounded symbolic control on mean mae and rank_correlation.
+- EL-913: Advanced relay-binding line to deeper pair-reindex hardening (pair_reindex=7).
