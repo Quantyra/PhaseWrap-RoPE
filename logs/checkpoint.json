@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_internal_result_package",
+    "repo_posture":  "memo_only_transfer_cascade_reconciliation_approval_candidate",
     "current_story_ids":  [
-                              "S1028"
+                              "S1031"
                           ],
     "next_actions":  [
-                         "Preserve staggered-binding as an archived negative transfer boundary inside the internal package.",
-                         "Do not reopen staggered-binding by default.",
-                         "Only open a new candidate after memo-level screening against survivor-cluster and failure-boundary rules."
+                         "Write the explicit implementation-approval gate for synthetic_symbolic_insufficiency_cascade_reconciliation_response.",
+                         "Bind the frozen bounded symbolic family and required generator diagnostics directly into that gate.",
+                         "Keep execution closed until that gate is explicitly approved."
                      ],
     "risks":  [
-                  "If archived failure boundaries are omitted from the package, transfer evidence can be overstated.",
-                  "If new candidates are opened without screening, branch churn will resume.",
-                  "If hardware is reconsidered before new evidence, the program will overreach its current basis."
+                  "If reconciliation state is recoverable from a compact declared summary, the control will catch up immediately.",
+                  "If the task is too close to staggered-binding or braid structure, branch churn will resume under a new name.",
+                  "If diagnostics are underspecified, the line may look non-compressible without actually being so."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -997,7 +997,9 @@
                                 "S1025",
                                 "S1026",
                                 "S1027",
-                                "S1028"
+                                "S1028",
+                                "S1029",
+                                "S1030"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
