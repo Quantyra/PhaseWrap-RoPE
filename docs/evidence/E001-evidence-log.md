@@ -1679,3 +1679,5 @@ ank_correlation.
 - EL-958 | 2026-03-13 | S1016 | Raised staggered-binding to memo-only approval-candidate posture.
 - EL-959 | 2026-03-13 | S1017 | Wrote the explicit implementation-approval gate for the staggered-binding transfer line.
 - EL-960 | 2026-03-13 | S1018 | Recorded that staggered-binding passes to bounded implementation planning only.
+- EL-961 | 2026-03-13 | S1019 | Froze the bounded implementation scope, packet shape, and audit contract for staggered-binding.
+- EL-962 | 2026-03-13 | S1020 | Approved one bounded implementation cycle for staggered-binding.

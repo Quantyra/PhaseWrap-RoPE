@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_staggered_binding_gate_decision",
+    "repo_posture":  "bounded_transfer_staggered_binding_implementation",
     "current_story_ids":  [
-                              "S1018"
+                              "S1020"
                           ],
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_staggered_binding_response.",
-                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
-                         "Reopen code only after that bounded plan is accepted."
+                         "Implement synthetic_symbolic_insufficiency_staggered_binding_response inside the frozen writable scope.",
+                         "Run exactly one fixed three-seed packet against the bounded staggered-binding symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
                   "If latch and switch generators leak into a compact declared summary, the control may catch up immediately.",
@@ -987,7 +987,8 @@
                                 "S1012",
                                 "S1014",
                                 "S1015",
-                                "S1017"
+                                "S1017",
+                                "S1019"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
