@@ -1,18 +1,18 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_internal_handoff_index",
+    "repo_posture":  "memo_only_internal_review_ready",
     "current_story_ids":  [
-                              "S998"
+                              "S1000"
                           ],
     "next_actions":  [
-                         "Use the internal handoff index as the default entry point for future review of this line.",
-                         "Do not reopen execution by default.",
-                         "Only admit new candidates after intake, screening, and fairness review."
+                         "Use the handoff index, review agenda, and decision checklist for internal review.",
+                         "Do not reopen execution without an explicit screened candidate.",
+                         "Treat the current package as review-ready."
                      ],
     "risks":  [
-                  "If the handoff index is not maintained, future reviewers may miss the failure boundary or screening rules.",
-                  "If the package is used without the board recommendation and hardware no-go memo, internal expectations may drift upward.",
-                  "If new work bypasses the handoff index, duplicated effort may reappear."
+                  "If the review is skipped, the package may remain preserved but unused.",
+                  "If leadership ignores the decision checklist, the line could reopen without enough screening.",
+                  "If the agenda is treated as a technical endorsement rather than a review tool, expectations may drift upward."
               ],
     "completed_story_ids":  [
                                 "S001",

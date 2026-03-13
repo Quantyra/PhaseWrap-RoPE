@@ -1659,3 +1659,5 @@ ank_correlation.
 - EL-938 | 2026-03-12 | S996 | Added internal use memo translating the benchmark and transfer portfolio into concrete operational guidance.
 - EL-939 | 2026-03-12 | S997 | Added internal use checklist for reuse, execution reopening, and internal presentation.
 - EL-940 | 2026-03-12 | S998 | Added internal handoff index linking the benchmark, transfer portfolio, theory package, and operating rules.
+- EL-941 | 2026-03-12 | S999 | Added internal review agenda for leadership review of the current Q-RoPE package.
+- EL-942 | 2026-03-12 | S1000 | Added internal decision checklist to guide preserve/pause/continue choices.
