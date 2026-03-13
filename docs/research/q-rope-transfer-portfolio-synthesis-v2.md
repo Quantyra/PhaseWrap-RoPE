@@ -5,12 +5,14 @@
 - `loop-closure`
 - `fork-join`
 - `relay-binding`
+- `cascade-reconciliation`
 
 ## Archived Negative Transfer Boundaries
 - `braid`
 - `staggered-binding`
+- `fan-in consensus`
 
 ## Interpretation
 - The current survivor cluster is no longer defined only by success cases.
-- `braid` and `staggered-binding` are preserved as explicit failure boundaries.
+- `braid`, `staggered-binding`, and `fan-in consensus` are preserved as explicit failure boundaries.
 - Future transfer candidates should be screened against both positive-survivor structure and archived failure-boundary structure before execution reopens.
