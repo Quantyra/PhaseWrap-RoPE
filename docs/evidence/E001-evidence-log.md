@@ -1879,3 +1879,7 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1106 2026-03-13: Executed the fixed first packet for anchor-offset-signature; the bounded symbolic control kept mean `mae` while the witness kept mean `rank_correlation`.
 - EL-1107 2026-03-13: Stopped anchor-offset-signature at the first packet because mixed leadership was not enough to authorize hardening under the declared bridge gate.
 - EL-1108 2026-03-13: Archived anchor-offset-signature as a negative bridge boundary and refreshed the internal package accordingly.
+
+- EL-1109 2026-03-13: Opened `anchor-betweenness` as the next memo-level bridge-task candidate so the bridge program can test ordered betweenness relative to an anchor-centered frame, not only order, distance, interval membership, or signed offset class.
+- EL-1110 2026-03-13: Reviewed `anchor-betweenness` against the bridge admissibility bar and passed it to approval-candidate posture only.
+- EL-1111 2026-03-13: Kept the next bridge-task line memo-only, with no code reopen before an explicit implementation gate is written.
