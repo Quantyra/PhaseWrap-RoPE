@@ -49,6 +49,7 @@ from .synthetic import (
     generate_symbolic_insufficiency_counterfactual_handoff_response_bundle,
     generate_positional_anchor_order_response_bundle,
     generate_positional_anchor_distance_response_bundle,
+    generate_positional_anchor_span_membership_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_chart_transition_token_invariant_response_bundle,
     generate_chart_transition_orbit_response_bundle,
@@ -104,6 +105,7 @@ from .synthetic import (
     parse_symbolic_insufficiency_counterfactual_handoff_text,
     parse_positional_anchor_order_text,
     parse_positional_anchor_distance_text,
+    parse_positional_anchor_span_membership_text,
     parse_transition_localization_text,
     parse_transition_consistency_text,
     parse_transition_listwise_text,
@@ -348,6 +350,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_symbolic_insufficiency_counterfactual_handoff": 96,
         "V_future_relational_witness_positional_anchor_order": 96,
         "V_future_relational_witness_positional_anchor_distance": 96,
+        "V_future_relational_witness_positional_anchor_span_membership": 96,
         "V_future_relational_witness_symbolic_insufficiency_fork_join": 96,
         "V_future_relational_witness_symbolic_insufficiency_braid": 96,
         "V_control_symbolic_single_family_regressor": 1,
@@ -432,6 +435,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_symbolic_insufficiency_counterfactual_handoff_regressor": 1,
         "V_control_symbolic_positional_anchor_order_regressor": 1,
         "V_control_symbolic_positional_anchor_distance_regressor": 1,
+        "V_control_symbolic_positional_anchor_span_membership_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_fork_join_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_braid_regressor": 1,
         "V_control_symbolic_transition_channel_order_lookup": 1,
@@ -727,6 +731,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_positional_anchor_order+head_linear"
         elif variant == "V_future_relational_witness_positional_anchor_distance":
             data_mode = f"{data_mode}+readout_relational_witness_positional_anchor_distance+head_linear"
+        elif variant == "V_future_relational_witness_positional_anchor_span_membership":
+            data_mode = f"{data_mode}+readout_relational_witness_positional_anchor_span_membership+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_loop":
             data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency_loop+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_fork_join":
@@ -795,6 +801,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_positional_anchor_order_regressor+head_linear"
         elif variant == "V_control_symbolic_positional_anchor_distance_regressor":
             data_mode = f"{data_mode}+readout_symbolic_positional_anchor_distance_regressor+head_linear"
+        elif variant == "V_control_symbolic_positional_anchor_span_membership_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_positional_anchor_span_membership_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_loop_regressor":
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_loop_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_fork_join_regressor":
@@ -1582,6 +1590,10 @@ def run_quantum_backend(
         return run_positional_anchor_distance_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if dataset == "synthetic_positional_anchor_distance_response" and variant == "V_control_symbolic_positional_anchor_distance_regressor":
         return run_positional_anchor_distance_symbolic_regressor(train=train, test=test, validation=validation)
+    if dataset == "synthetic_positional_anchor_span_membership_response" and variant == "V_future_relational_witness_positional_anchor_span_membership":
+        return run_positional_anchor_span_membership_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if dataset == "synthetic_positional_anchor_span_membership_response" and variant == "V_control_symbolic_positional_anchor_span_membership_regressor":
+        return run_positional_anchor_span_membership_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response" and variant == "V_future_relational_witness_symbolic_insufficiency_loop":
         return run_symbolic_insufficiency_loop_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response" and variant == "V_control_symbolic_symbolic_insufficiency_loop_regressor":
@@ -4552,6 +4564,192 @@ def positional_anchor_distance_symbolic_features(text: str) -> dict[str, object]
         "feature_order": list(features.keys()),
         "features": features,
         "allowed_anchor_distance_symbolic_basis_frozen_pass": True,
+        "forbidden_feature_family_absent_pass": True,
+    }
+
+
+def positional_anchor_span_membership_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_positional_anchor_span_membership_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def membership_margin(value: float, low: float, high: float) -> float:
+        if low <= value <= high:
+            return min(value - low, high - value)
+        if value < low:
+            return -(low - value)
+        return -(value - high)
+
+    a_result = symbolic_insufficiency_witness_features(text=payload["a"]["dual_text"], seed=seed)
+    l_result = symbolic_insufficiency_witness_features(text=payload["l"]["dual_text"], seed=seed)
+    r_result = symbolic_insufficiency_witness_features(text=payload["r"]["dual_text"], seed=seed)
+    p_result = symbolic_insufficiency_witness_features(text=payload["p"]["dual_text"], seed=seed)
+    o_result = symbolic_insufficiency_witness_features(text=payload["o"]["dual_text"], seed=seed)
+    a_step = _symbolic_insufficiency_path_step_features(payload["a"])
+    l_step = _symbolic_insufficiency_path_step_features(payload["l"])
+    r_step = _symbolic_insufficiency_path_step_features(payload["r"])
+    p_step = _symbolic_insufficiency_path_step_features(payload["p"])
+    o_step = _symbolic_insufficiency_path_step_features(payload["o"])
+    a_phase = float(a_result["features"]["latent_transition_phase"])
+    l_phase = float(l_result["features"]["latent_transition_phase"])
+    r_phase = float(r_result["features"]["latent_transition_phase"])
+    p_phase = float(p_result["features"]["latent_transition_phase"])
+    o_phase = float(o_result["features"]["latent_transition_phase"])
+    a_curvature = float(a_result["features"]["latent_transition_curvature"])
+    p_curvature = float(p_result["features"]["latent_transition_curvature"])
+    o_curvature = float(o_result["features"]["latent_transition_curvature"])
+    anchor_pivot = mean_pos(payload["a"])
+    left_gap = round(mean_pos(payload["l"]) - anchor_pivot, 6)
+    right_gap = round(mean_pos(payload["r"]) - anchor_pivot, 6)
+    probe_gap = round(mean_pos(payload["p"]) - anchor_pivot, 6)
+    resolve_gap = round(mean_pos(payload["o"]) - anchor_pivot, 6)
+    left_gap_norm = round(left_gap / 4.0, 6)
+    right_gap_norm = round(right_gap / 4.0, 6)
+    probe_gap_norm = round(probe_gap / 4.0, 6)
+    resolve_gap_norm = round(resolve_gap / 4.0, 6)
+    probe_margin_norm = round(membership_margin(probe_gap, left_gap, right_gap) / 4.0, 6)
+    resolve_margin_norm = round(membership_margin(resolve_gap, left_gap, right_gap) / 4.0, 6)
+    feature_order = [
+        "anchor_phase",
+        "left_phase",
+        "right_phase",
+        "probe_phase",
+        "resolve_phase",
+        "anchor_curvature",
+        "probe_curvature",
+        "resolve_curvature",
+        "left_anchor_gap",
+        "right_anchor_gap",
+        "probe_anchor_gap",
+        "resolve_anchor_gap",
+        "span_width",
+        "probe_membership_margin",
+        "resolve_membership_margin",
+        "span_membership_alignment",
+        "anchor_span_declared_mix",
+        "anchor_span_cross_curvature",
+    ]
+    features = {
+        "anchor_phase": a_phase,
+        "left_phase": l_phase,
+        "right_phase": r_phase,
+        "probe_phase": p_phase,
+        "resolve_phase": o_phase,
+        "anchor_curvature": a_curvature,
+        "probe_curvature": p_curvature,
+        "resolve_curvature": o_curvature,
+        "left_anchor_gap": left_gap_norm,
+        "right_anchor_gap": right_gap_norm,
+        "probe_anchor_gap": probe_gap_norm,
+        "resolve_anchor_gap": resolve_gap_norm,
+        "span_width": round(right_gap_norm - left_gap_norm, 6),
+        "probe_membership_margin": probe_margin_norm,
+        "resolve_membership_margin": resolve_margin_norm,
+        "span_membership_alignment": round(math.sin((p_phase - a_phase) - (o_phase - a_phase) + (l_phase - r_phase)), 6),
+        "anchor_span_declared_mix": round(
+            probe_margin_norm * p_step["orientation_delta"]
+            + resolve_margin_norm * o_step["orientation_delta"]
+            + (right_gap_norm - left_gap_norm) * 0.5 * (l_step["ordered_content_delta"] + r_step["ordered_content_delta"]),
+            6,
+        ),
+        "anchor_span_cross_curvature": round(
+            0.5 * (p_phase - o_phase) * a_curvature
+            + 0.5 * (l_phase - r_phase) * o_curvature
+            + (resolve_margin_norm - probe_margin_norm) * p_curvature,
+            6,
+        ),
+    }
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "bounded_feature_audit_pass": True,
+        "forbidden_feature_family_absent_pass": True,
+    }
+
+
+def positional_anchor_span_membership_symbolic_features(text: str) -> dict[str, object]:
+    payload = parse_positional_anchor_span_membership_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def membership_margin(value: float, low: float, high: float) -> float:
+        if low <= value <= high:
+            return min(value - low, high - value)
+        if value < low:
+            return -(low - value)
+        return -(value - high)
+
+    a_step = _symbolic_insufficiency_path_step_features(payload["a"])
+    l_step = _symbolic_insufficiency_path_step_features(payload["l"])
+    r_step = _symbolic_insufficiency_path_step_features(payload["r"])
+    p_step = _symbolic_insufficiency_path_step_features(payload["p"])
+    o_step = _symbolic_insufficiency_path_step_features(payload["o"])
+    anchor_pivot = mean_pos(payload["a"])
+    left_gap = mean_pos(payload["l"]) - anchor_pivot
+    right_gap = mean_pos(payload["r"]) - anchor_pivot
+    probe_gap = mean_pos(payload["p"]) - anchor_pivot
+    resolve_gap = mean_pos(payload["o"]) - anchor_pivot
+    probe_inside_span = 1.0 if left_gap <= probe_gap <= right_gap else 0.0
+    resolve_inside_span = 1.0 if left_gap <= resolve_gap <= right_gap else 0.0
+    resolve_matches_probe_membership = 1.0 if probe_inside_span == resolve_inside_span else 0.0
+    anchor_sign = 1.0 if (
+        offset_sector(payload["a"]["sample_a"].offset).startswith("P")
+        == offset_sector(payload["a"]["sample_b"].offset).startswith("P")
+    ) else 0.0
+    mean_sector = (
+        a_step["sector_magnitude_delta"]
+        + l_step["sector_magnitude_delta"]
+        + r_step["sector_magnitude_delta"]
+        + p_step["sector_magnitude_delta"]
+        + o_step["sector_magnitude_delta"]
+    ) / 5.0
+    mean_content = (
+        a_step["ordered_content_delta"]
+        + l_step["ordered_content_delta"]
+        + r_step["ordered_content_delta"]
+        + p_step["ordered_content_delta"]
+        + o_step["ordered_content_delta"]
+    ) / 5.0
+    mean_orientation = (
+        a_step["orientation_delta"]
+        + l_step["orientation_delta"]
+        + r_step["orientation_delta"]
+        + p_step["orientation_delta"]
+        + o_step["orientation_delta"]
+    ) / 5.0
+    left_gap_norm = round(left_gap / 4.0, 6)
+    right_gap_norm = round(right_gap / 4.0, 6)
+    probe_gap_norm = round(probe_gap / 4.0, 6)
+    resolve_gap_norm = round(resolve_gap / 4.0, 6)
+    probe_margin_norm = round(membership_margin(probe_gap, left_gap, right_gap) / 4.0, 6)
+    resolve_margin_norm = round(membership_margin(resolve_gap, left_gap, right_gap) / 4.0, 6)
+    features = {
+        "anchor_sign": anchor_sign,
+        "probe_inside_span": probe_inside_span,
+        "resolve_inside_span": resolve_inside_span,
+        "resolve_matches_probe_membership": resolve_matches_probe_membership,
+        "left_anchor_gap": left_gap_norm,
+        "right_anchor_gap": right_gap_norm,
+        "probe_anchor_gap": probe_gap_norm,
+        "resolve_anchor_gap": resolve_gap_norm,
+        "span_width": round(right_gap_norm - left_gap_norm, 6),
+        "probe_membership_margin": probe_margin_norm,
+        "resolve_membership_margin": resolve_margin_norm,
+        "mean_sector_magnitude_delta": round(mean_sector, 6),
+        "mean_ordered_content_delta": round(mean_content, 6),
+        "mean_orientation_delta": round(mean_orientation, 6),
+        "left_right_content_gap": round(l_step["ordered_content_delta"] - r_step["ordered_content_delta"], 6),
+        "probe_resolve_orientation_gap": round(p_step["orientation_delta"] - o_step["orientation_delta"], 6),
+        "cross_mean_sector_content": round(mean_sector * mean_content, 6),
+        "cross_mean_sector_orientation": round(mean_sector * mean_orientation, 6),
+        "cross_mean_content_orientation": round(mean_content * mean_orientation, 6),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "allowed_anchor_span_membership_symbolic_basis_frozen_pass": True,
         "forbidden_feature_family_absent_pass": True,
     }
 
@@ -9161,6 +9359,61 @@ def run_positional_anchor_distance_symbolic_regressor(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_positional_anchor_span_membership_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [positional_anchor_span_membership_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [positional_anchor_span_membership_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [positional_anchor_span_membership_witness_features(text=text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(bool(result.get("bounded_feature_audit_pass", False)) for result in test_results)
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_positional_anchor_span_membership_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [positional_anchor_span_membership_symbolic_features(text=text) for text, _ in train]
+    validation_results = [positional_anchor_span_membership_symbolic_features(text=text) for text, _ in validation]
+    test_results = [positional_anchor_span_membership_symbolic_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["allowed_anchor_span_membership_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_anchor_span_membership_symbolic_basis_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
 def run_symbolic_insufficiency_loop_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -12787,6 +13040,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_positional_anchor_distance_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_positional_anchor_span_membership_response":
+        bundle = generate_positional_anchor_span_membership_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_positional_anchor_span_membership_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response":

@@ -1858,3 +1858,9 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1091 2026-03-13: Passed `anchor-span-membership` to bounded implementation planning only, keeping the third bridge-task line memo-only at the gate boundary.
 - EL-1092 2026-03-13: Wrote the bounded implementation plan for `anchor-span-membership`, freezing writable scope, fixed packet shape, and required audits before code reopens.
 - EL-1093 2026-03-13: Passed `anchor-span-membership` to one bounded local implementation cycle only.
+
+- EL-1094 2026-03-13: Implemented the anchor-span-membership bridge-task line inside the frozen writable scope and passed the focused local validation suite (`315 passed`).
+- EL-1095 2026-03-13: Executed the fixed first packet for anchor-span-membership; the witness kept mean `mae` while the control kept mean `rank_correlation`.
+- EL-1096 2026-03-13: Stopped anchor-span-membership at the first packet because mixed leadership was not enough to preserve the line as positive bridge evidence.
+- EL-1097 2026-03-13: Archived anchor-span-membership as a negative bridge boundary and refreshed the internal package accordingly.
+
