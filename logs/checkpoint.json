@@ -1,13 +1,13 @@
 {
     "active_epic": "E001",
-    "repo_posture": "memo_only_transfer_selector_arbitration_gate_decision",
+    "repo_posture": "bounded_transfer_selector_arbitration_implementation",
     "current_story_ids": [
-        "S1085"
+        "S1087"
     ],
     "next_actions": [
-        "Write the bounded implementation plan for synthetic_symbolic_insufficiency_selector_arbitration_response.",
-        "Freeze writable scope, fixed packet shape, and required audits in that plan.",
-        "Reopen code only after that bounded plan is accepted."
+        "Implement synthetic_symbolic_insufficiency_selector_arbitration_response inside the frozen writable scope.",
+        "Run exactly one fixed three-seed packet against the bounded selector-arbitration symbolic control.",
+        "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
     ],
     "risks": [
         "If execution extends beyond the fixed packet, the line will lose bounded-fairness discipline.",
@@ -1040,7 +1040,9 @@
         "S1081",
         "S1082",
         "S1083",
-        "S1084"
+        "S1084",
+        "S1085",
+        "S1086"
     ],
     "archived_transfer_story_ids": [
         "S955",
