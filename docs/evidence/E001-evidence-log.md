@@ -1898,3 +1898,7 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1121 2026-03-13: Completed `pair_reindex=1` hardening for anchor-betweenness; both retained models weakened on rank structure, but the witness stayed ahead on mean `mae` and mean `rank_correlation`.
 - EL-1122 2026-03-13: Fixed `slot_swap=1` as the next structural hardening step for anchor-betweenness.
+
+- EL-1123 2026-03-13: Completed `slot_swap=1` hardening for anchor-betweenness; the bounded symbolic control moved ahead of the witness on mean `mae` and mean `rank_correlation`.
+- EL-1124 2026-03-13: Stopped anchor-betweenness at `slot_swap=1` because the declared bridge gate was cleared by the control.
+- EL-1125 2026-03-13: Archived anchor-betweenness as a negative bridge boundary and refreshed the internal package accordingly.
