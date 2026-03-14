@@ -1794,3 +1794,8 @@ ank_correlation.
 - EL-1040 2026-03-13: Completed counterfactual-handoff deeper pair_reindex=7 hardening; the witness stayed ahead of the bounded symbolic control on mean mae and mean rank_correlation.
 - EL-1041 2026-03-13: Returned the counterfactual-handoff line to a memo-level decision gate after it survived the deeper structural packet.
 - EL-1042 2026-03-13: Preserved the first counterfactual-handoff hardening cycle as sufficient bounded internal transfer evidence pending package-level decision.
+
+- EL-1043 2026-03-13: Preserved counterfactual-handoff as sufficient bounded internal transfer evidence after it survived the full retained-model hardening cycle.
+- EL-1044 2026-03-13: Refreshed the transfer portfolio, internal result package, and executive summary to add counterfactual-handoff to the preserved positive transfer set.
+- EL-1045 2026-03-13: Opened a memo-only bridge-task track because the main missing evidence is now relevance bridge, not more transfer-family count.
+- EL-1046 2026-03-13: Froze the bridge-task admissibility bar so no bridge-task execution can reopen before a memo-level gate is written.
