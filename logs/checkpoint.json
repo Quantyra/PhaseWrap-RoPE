@@ -2,11 +2,11 @@
     "active_epic":  "E001",
     "repo_posture":  "portfolio_saturation_active",
     "current_story_ids":  [
-                              "S1215"
+                              "S1216"
                           ],
     "next_actions":  [
-                         "Use the current transfer and bridge package for internal review.",
-                         "Treat transfer, bridge, and symbolic-fairness classes as closed by default under the saturation protocol.",
+                         "Use the internal review cover memo and linked packet for review.",
+                         "Do not reopen execution by default under active saturation.",
                          "Only reopen execution with an explicit missing-question justification and VP-of-Research approval."
                      ],
     "risks":  [
@@ -1170,7 +1170,8 @@
                                 "S1212",
                                 "S1213",
                                 "S1214",
-                                "S1215"
+                                "S1215",
+                                "S1216"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
