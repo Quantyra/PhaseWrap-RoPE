@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_transfer_counterfactual_handoff_hardening",
+    "repo_posture":  "bounded_transfer_counterfactual_handoff_structural_hardening",
     "current_story_ids":  [
-                              "S1104"
+                              "S1107"
                           ],
     "next_actions":  [
-                         "Run the fixed token_permutation=cdab hardening packet for synthetic_symbolic_insufficiency_counterfactual_handoff_response.",
+                         "Run the fixed pair_reindex=1 structural hardening packet for synthetic_symbolic_insufficiency_counterfactual_handoff_response.",
                          "Keep only the counterfactual-handoff witness and bounded symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If retained-model hardening expands beyond the fixed nuisance packet, the line will lose bounded-fairness discipline.",
-                  "If audit checks are not enforced on the hardening packet, the symbolic control family can drift beyond the approved gate."
+                  "If structural hardening is widened beyond the fixed retained-model packet, the line will lose bounded-fairness discipline.",
+                  "If the narrowed rank-correlation margin is overinterpreted, the branch can be preserved past its actual evidence boundary."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1059,7 +1059,10 @@
                                 "S1101",
                                 "S1102",
                                 "S1103",
-                                "S1104"
+                                "S1104",
+                                "S1105",
+                                "S1106",
+                                "S1107"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
