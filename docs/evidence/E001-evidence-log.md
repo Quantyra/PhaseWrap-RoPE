@@ -1838,3 +1838,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1073 2026-03-13: Kept the second bridge-task line memo-only, with no code reopen before an explicit implementation gate is written.
 - EL-1074 2026-03-13: Wrote the explicit implementation gate for `anchor-distance`, freezing the bounded anchor-relative distance symbolic family, hard-stop diagnostics, and branch stop rule before code reopens.
 - EL-1075 2026-03-13: Passed `anchor-distance` to bounded implementation planning only, keeping the second bridge-task line memo-only at the gate boundary.
+- EL-1076 2026-03-13: Wrote the bounded implementation plan for `anchor-distance`, freezing writable scope, fixed packet shape, and required audits before code reopens.
+- EL-1077 2026-03-13: Passed `anchor-distance` to one bounded local implementation cycle only.
