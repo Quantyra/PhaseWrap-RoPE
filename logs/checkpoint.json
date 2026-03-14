@@ -1,13 +1,13 @@
 {
     "active_epic": "E001",
-    "repo_posture": "memo_only_transfer_selector_arbitration_archive",
+    "repo_posture": "memo_only_internal_result_package",
     "current_story_ids": [
-        "S1091"
+        "S1092"
     ],
     "next_actions": [
-        "Preserve selector-arbitration as an archived negative transfer boundary in the internal package.",
-        "Do not open a nuisance hardening packet on this family.",
-        "Only reopen execution through a materially different screened transfer candidate."
+        "Stop here and use the package for internal review.",
+        "Propose another screened transfer candidate at memo level only.",
+        "Re-center on theory/reporting and stop execution churn."
     ],
     "risks": [
         "If execution extends beyond the fixed packet, the line will lose bounded-fairness discipline.",
@@ -1046,7 +1046,9 @@
         "S1087",
         "S1088",
         "S1089",
-        "S1090"
+        "S1090",
+        "S1091",
+        "S1092"
     ],
     "archived_transfer_story_ids": [
         "S955",

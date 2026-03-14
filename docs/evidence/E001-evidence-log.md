@@ -1762,3 +1762,6 @@ ank_correlation.
 
 - EL-1019 2026-03-13: Implemented the bounded selector-arbitration transfer line, added the matching generator/runtime/tests, and passed the focused local validation suite (`303 passed`).
 - EL-1020 2026-03-13: Executed the fixed first packet for selector-arbitration and stopped the line immediately because the control led mean `mae` while the witness led mean `rank_correlation`, which is insufficient under the two-metric gate.
+
+- EL-1021 2026-03-13: Preserved selector-arbitration in the internal package as an archived negative transfer boundary after the first-packet stop.
+- EL-1022 2026-03-13: Refreshed the transfer portfolio, internal result package, and executive summary so the survivor cluster and archived negative boundaries match the current repo state.
