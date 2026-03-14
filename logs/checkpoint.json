@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "portfolio_saturation_active",
+    "repo_posture":  "low_intensity_no_execution",
     "current_story_ids":  [
-                              "S1217"
+                              "S1218"
                           ],
     "next_actions":  [
-                         "Use the review cover memo and briefing memo for internal review.",
-                         "Do not reopen execution by default under active saturation.",
-                         "Only reopen execution with an explicit missing-question justification and VP-of-Research approval."
+                         "Use the preserved package for internal review and reference.",
+                         "Do not reopen execution by default.",
+                         "Only reopen with an explicit missing-question justification and VP-of-Research approval."
                      ],
     "risks":  [
                   "If bridge branch count is treated as a goal in itself, the program will drift back into low-value execution churn.",
@@ -1172,7 +1172,8 @@
                                 "S1214",
                                 "S1215",
                                 "S1216",
-                                "S1217"
+                                "S1217",
+                                "S1218"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
