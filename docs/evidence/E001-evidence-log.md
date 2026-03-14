@@ -1771,3 +1771,5 @@ ank_correlation.
 - EL-1024 2026-03-13: Wrote the implementation-approval gate for counterfactual-handoff, freezing the bounded symbolic family, hard-stop diagnostics, and stop rule before any code reopens.
 
 - EL-1025 2026-03-13: Wrote the bounded implementation plan for counterfactual-handoff, freezing writable scope, fixed packet shape, and required audits before code reopens.
+
+- EL-1026 2026-03-13: Formalized the Orchestrator as the Q-RoPE VP-of-Research proxy in repo protocol, making program-level research judgment an explicit governed role rather than an implicit conversational convention.
