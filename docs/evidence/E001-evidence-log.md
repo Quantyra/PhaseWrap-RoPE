@@ -1806,3 +1806,6 @@ ank_correlation.
 
 - EL-1050 2026-03-13: Wrote the explicit implementation gate for the anchor-order bridge-task candidate, freezing the bounded symbolic family, diagnostics, and stop rule before any code reopens.
 - EL-1051 2026-03-13: Passed anchor-order to bounded implementation planning only, keeping the bridge-task line memo-only at the gate boundary.
+
+- EL-1052 2026-03-13: Wrote the bounded implementation plan for the anchor-order bridge-task candidate, freezing writable scope, fixed packet shape, and required audits.
+- EL-1053 2026-03-13: Passed anchor-order to one bounded local implementation cycle only.

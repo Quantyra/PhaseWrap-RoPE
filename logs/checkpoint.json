@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_bridge_anchor_order_gate_decision",
+    "repo_posture":  "bounded_bridge_anchor_order_implementation",
     "current_story_ids":  [
-                              "S1127"
+                              "S1129"
                           ],
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_positional_anchor_order_response.",
-                         "Freeze writable scope and fixed packet shape in that plan.",
-                         "Keep the bridge-task line memo-only until the bounded plan is accepted."
+                         "Implement synthetic_positional_anchor_order_response inside the frozen writable scope.",
+                         "Run exactly one fixed three-seed packet against the bounded anchor-relative symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If the bounded plan is written loosely, the bridge-task line will lose the stricter relevance discipline that justifies the pivot.",
-                  "If code reopens before the plan is accepted, the program will revert to execution by inertia."
+                  "If the bridge-task implementation widens beyond the frozen scope, the relevance-bridge evidence will lose protocol discipline.",
+                  "If the first packet is interpreted without the frozen diagnostics and control audit, the bridge-task result will not be decision-grade."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1082,7 +1082,9 @@
                                 "S1124",
                                 "S1125",
                                 "S1126",
-                                "S1127"
+                                "S1127",
+                                "S1128",
+                                "S1129"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
