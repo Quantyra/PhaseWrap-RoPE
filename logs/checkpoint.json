@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_bridge_anchor_betweenness_implementation",
+    "repo_posture":  "bounded_bridge_anchor_betweenness_hardening",
     "current_story_ids":  [
-                              "S1193"
+                              "S1199"
                           ],
     "next_actions":  [
-                         "Implement synthetic_positional_anchor_betweenness_response.",
-                         "Run exactly one fixed three-seed packet against the bounded anchor-relative betweenness symbolic control.",
+                         "Run the fixed pair_reindex=1 hardening packet for synthetic_positional_anchor_betweenness_response.",
+                         "Keep only the witness and bounded symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If anchor-betweenness is specified too close to interval-membership logic, the bridge program will fail to add a materially new positional question.",
-                  "If the first packet is mixed on the two declared metrics, the line must stop immediately instead of drifting into extra hardening."
+                  "If anchor-betweenness is interpreted as broad positional relevance before structural hardening, the bridge portfolio will overstate the evidence.",
+                  "If the line survives nuisance hardening but fails structural hardening, the correct interpretation is boundary-limited relevance rather than a general bridge win."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1148,7 +1148,13 @@
                                 "S1190",
                                 "S1191",
                                 "S1192",
-                                "S1193"
+                                "S1193",
+                                "S1194",
+                                "S1195",
+                                "S1196",
+                                "S1197",
+                                "S1198",
+                                "S1199"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

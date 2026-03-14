@@ -1889,3 +1889,9 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1114 2026-03-13: Wrote the bounded implementation plan for `anchor-betweenness`, freezing writable scope, fixed packet shape, and required audits before code reopens.
 - EL-1115 2026-03-13: Passed `anchor-betweenness` to one bounded local implementation cycle only.
+
+- EL-1116 2026-03-13: Implemented the anchor-betweenness bridge-task line inside the frozen writable scope and passed the focused local validation suite (`321 passed`).
+- EL-1117 2026-03-13: Executed the fixed first packet for anchor-betweenness; the witness led the bounded symbolic control on mean `mae` and mean `rank_correlation`.
+- EL-1118 2026-03-13: Advanced anchor-betweenness to retained nuisance hardening only, not broader expansion.
+- EL-1119 2026-03-13: Completed `token_permutation=cdab` hardening for anchor-betweenness; the witness remained ahead of the bounded symbolic control on both declared packet metrics in the mean.
+- EL-1120 2026-03-13: Fixed `pair_reindex=1` as the next structural hardening step for anchor-betweenness.
