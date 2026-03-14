@@ -1840,3 +1840,15 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1075 2026-03-13: Passed `anchor-distance` to bounded implementation planning only, keeping the second bridge-task line memo-only at the gate boundary.
 - EL-1076 2026-03-13: Wrote the bounded implementation plan for `anchor-distance`, freezing writable scope, fixed packet shape, and required audits before code reopens.
 - EL-1077 2026-03-13: Passed `anchor-distance` to one bounded local implementation cycle only.
+
+- EL-1078 2026-03-13: Implemented the anchor-distance bridge-task line inside the frozen writable scope and passed the focused local validation suite (`312 passed`).
+- EL-1079 2026-03-13: Executed the fixed first packet for anchor-distance; the witness led the bounded symbolic control on mean `mae` and mean `rank_correlation`, but both mean rank correlations were negative.
+- EL-1080 2026-03-13: Advanced anchor-distance only through the retained-model hardening cycle because the first bridge packet was weak.
+
+- EL-1081 2026-03-13: Completed anchor-distance token-renaming hardening; the witness stayed ahead of the bounded symbolic control on mean `mae` and mean `rank_correlation`.
+- EL-1082 2026-03-13: Completed anchor-distance `pair_reindex=1` hardening; the line turned mixed on the two declared packet metrics but did not trigger the stop rule.
+- EL-1083 2026-03-13: Completed anchor-distance `slot_swap=1` hardening; the line stayed mixed on the two declared packet metrics and remained active only because the control never cleared both at once.
+- EL-1084 2026-03-13: Completed anchor-distance deeper `pair_reindex=7` hardening; the line returned to the memo gate after surviving the full retained-model cycle.
+- EL-1085 2026-03-13: Preserved anchor-distance as weak secondary bridge evidence rather than as a strong bridge result.
+- EL-1086 2026-03-13: Refreshed the internal package and executive summary so the bridge portfolio now distinguishes strong anchor-order evidence from weak anchor-distance evidence.
+
