@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_internal_result_package",
+    "repo_posture":  "memo_only_bridge_review_ready",
     "current_story_ids":  [
-                              "S1206"
+                              "S1208"
                           ],
     "next_actions":  [
-                         "Preserve anchor-betweenness as an archived negative bridge boundary in the internal package.",
-                         "Do not reopen execution on anchor-betweenness.",
-                         "Open another bridge-task candidate only if it is materially different from anchor-order, anchor-distance, anchor-span-membership, anchor-offset-signature, and anchor-betweenness."
+                         "Use the current transfer and bridge package for internal review.",
+                         "Do not open another bridge-task candidate by default.",
+                         "Only reopen execution if a materially different candidate answers a missing positional question and clears the existing screens."
                      ],
     "risks":  [
-                  "If anchor-betweenness is interpreted as positive bridge evidence, the bridge portfolio will overstate relevance.",
-                  "If another bridge line reuses ordered frame-betweenness structure too closely, the bridge program will drift back into low-value branch churn."
+                  "If bridge branch count is treated as a goal in itself, the program will drift back into low-value execution churn.",
+                  "If the current selective bridge evidence is overstated as a broad positional win, the repo will overclaim RoPE relevance."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1161,7 +1161,9 @@
                                 "S1203",
                                 "S1204",
                                 "S1205",
-                                "S1206"
+                                "S1206",
+                                "S1207",
+                                "S1208"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
