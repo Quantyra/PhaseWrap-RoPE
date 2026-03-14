@@ -1927,3 +1927,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1139 2026-03-14: Defined the next-question ladder from the saturated internal package toward either one realism-bridge validation step or a defensible evidence ceiling.
 - EL-1140 2026-03-14: Added the realism-bridge gate protocol so the only currently admissible future execution class is an explicitly justified realism-bridge candidate.
+
+- EL-1141 2026-03-14: Added a reusable research planning protocol so future Q-RoPE work must begin from a missing question, decision leverage, a gate ladder, and explicit stop conditions rather than from branch generation.

@@ -29,3 +29,8 @@ Each non-trivial claim must be marked as one of:
 - Conflicting high-impact sources with no resolution path.
 - Missing evidence for central assumptions.
 - Material reproducibility gaps.
+
+
+## Planning Rule
+- Future research cycles must also follow docs/protocols/research-planning.md so new work begins from a missing question, decision leverage, and explicit stop conditions.
+

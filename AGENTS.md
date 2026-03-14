@@ -11,7 +11,7 @@ This repository tracks work for Quantum Rotational Positional Embeddings (QRoPE)
 - Session state: `logs/checkpoint.json`
 
 ## Protocol Expectations
-- Follow Quantyra research and documentation protocols first.
+- Follow Quantyra research and documentation protocols first.`r`n- For future research-cycle design in this repo, also apply `docs/protocols/research-planning.md`.
 - Apply QRoPE repo-specific protocols in `docs/protocols/`.
 - Keep all high-impact technical claims source-tagged and auditable.
 - Record significant decisions as ADRs if adopted in this repo.
@@ -37,5 +37,6 @@ The Orchestrator (Codex) is responsible for:
 - Keep artifacts concise, explicit, and reproducible.
 - Prefer primary sources and clear separation of sourced facts vs inference.
 - Escalate unresolved scientific contradictions instead of forcing closure.
+
 
 

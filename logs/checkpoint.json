@@ -2,11 +2,11 @@
     "active_epic":  "E001",
     "repo_posture":  "realism_bridge_candidate_design_only",
     "current_story_ids":  [
-                              "S1221"
+                              "S1222"
                           ],
     "next_actions":  [
-                         "Decide whether one realism-bridge candidate can be defined under the new gate.",
-                         "Do not open another ordinary transfer or bridge branch.",
+                         "Use the new research planning protocol for any future cycle design.",
+                         "Do not open another branch without a missing-question plan and decision-leverage statement.",
                          "If no realism-bridge candidate can be justified cleanly, treat the current package as the evidence ceiling."
                      ],
     "risks":  [
@@ -1176,7 +1176,8 @@
                                 "S1218",
                                 "S1219",
                                 "S1220",
-                                "S1221"
+                                "S1221",
+                                "S1222"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
