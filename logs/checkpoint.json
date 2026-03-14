@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bridge_review_cycle_complete",
+    "repo_posture":  "portfolio_saturation_active",
     "current_story_ids":  [
-                              "S1214"
+                              "S1215"
                           ],
     "next_actions":  [
                          "Use the current transfer and bridge package for internal review.",
-                         "Do not open another branch by default once an evidence class is decision-sufficient.",
-                         "Only reopen execution with an explicit missing-question justification that clears the new portfolio saturation protocol."
+                         "Treat transfer, bridge, and symbolic-fairness classes as closed by default under the saturation protocol.",
+                         "Only reopen execution with an explicit missing-question justification and VP-of-Research approval."
                      ],
     "risks":  [
                   "If bridge branch count is treated as a goal in itself, the program will drift back into low-value execution churn.",
@@ -1169,7 +1169,8 @@
                                 "S1211",
                                 "S1212",
                                 "S1213",
-                                "S1214"
+                                "S1214",
+                                "S1215"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
