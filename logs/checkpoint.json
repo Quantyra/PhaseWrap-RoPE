@@ -1,13 +1,13 @@
 {
     "active_epic": "E001",
-    "repo_posture": "bounded_transfer_echo_resolution_hardening",
+    "repo_posture": "memo_only_transfer_echo_resolution_archive",
     "current_story_ids": [
-        "S1076"
+        "S1079"
     ],
     "next_actions": [
-        "Run the fixed token_permutation=cdab hardening packet for synthetic_symbolic_insufficiency_echo_resolution_response.",
-        "Keep only the echo-resolution witness and bounded symbolic control.",
-        "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+        "Preserve echo-resolution as an archived negative transfer boundary in the internal package.",
+        "Do not open another default perturbation packet on this family.",
+        "Only reopen execution through a materially different screened transfer candidate."
     ],
     "risks": [
         "If execution extends beyond the fixed packet, the line will lose bounded-fairness discipline.",
@@ -1031,12 +1031,16 @@
         "S1062",
         "S1073",
         "S1074",
-        "S1075"
+        "S1075",
+        "S1076",
+        "S1077",
+        "S1078"
     ],
     "archived_transfer_story_ids": [
         "S955",
         "S1012",
         "S1027",
-        "S1063"
+        "S1063",
+        "S1079"
     ]
 }

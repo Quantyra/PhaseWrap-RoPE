@@ -1747,3 +1747,6 @@ ank_correlation.
 
 - EL-1010 2026-03-13: Implemented the bounded echo-resolution transfer line, added the matching generator/runtime/tests, and passed the focused local validation suite (`300 passed`).
 - EL-1011 2026-03-13: Executed the fixed first packet for echo-resolution and found that the witness beat the bounded symbolic control on mean `mae` and mean `rank_correlation`, advancing the line only to bounded token-renaming hardening.
+
+- EL-1012 2026-03-13: Executed the fixed token-renaming hardening packet for echo-resolution and found mixed leadership: the witness kept mean `mae`, but the bounded symbolic control took mean `rank_correlation`.
+- EL-1013 2026-03-13: Archived echo-resolution as a negative transfer boundary after the first nuisance hardening step, preserving the line as a stop condition rather than a positive transfer result.
