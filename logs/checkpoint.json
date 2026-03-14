@@ -1,13 +1,13 @@
 {
     "active_epic": "E001",
-    "repo_posture": "memo_only_transfer_counterfactual_handoff_approval_candidate",
+    "repo_posture": "memo_only_transfer_counterfactual_handoff_gate_decision",
     "current_story_ids": [
-        "S1095"
+        "S1097"
     ],
     "next_actions": [
-        "Write the implementation-approval gate for synthetic_symbolic_insufficiency_counterfactual_handoff_response.",
-        "Freeze the bounded counterfactual-handoff symbolic family and diagnostics in that gate.",
-        "Reopen code only if that gate is explicitly approved."
+        "Write the bounded implementation plan for synthetic_symbolic_insufficiency_counterfactual_handoff_response.",
+        "Freeze writable scope, fixed packet shape, and required audits in that plan.",
+        "Reopen code only after that bounded plan is accepted."
     ],
     "risks": [
         "If execution extends beyond the fixed packet, the line will lose bounded-fairness discipline.",
@@ -1050,7 +1050,9 @@
         "S1091",
         "S1092",
         "S1093",
-        "S1094"
+        "S1094",
+        "S1095",
+        "S1096"
     ],
     "archived_transfer_story_ids": [
         "S955",
