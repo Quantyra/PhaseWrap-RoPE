@@ -1938,3 +1938,7 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1146 2026-03-14: Wrote the bounded implementation plan for `offset-retrieval`, freezing writable scope, fixed packet shape, and required audits before code reopens.
 - EL-1147 2026-03-14: Passed `offset-retrieval` to one bounded local implementation cycle only.
+
+- EL-1148 2026-03-14: Implemented the bounded `offset-retrieval` realism-bridge line inside the frozen scope and verified the focused synthetic, qsim, and real-mode test suite.
+- EL-1149 2026-03-14: The fixed `offset-retrieval` three-seed packet cleared the declared gate: the witness beat the bounded symbolic control on mean `mae` and mean `rank_correlation`.
+- EL-1150 2026-03-14: Advanced `offset-retrieval` to the retained nuisance-hardening step only; the next valid packet is `token_permutation=cdab` with no broader branch expansion.

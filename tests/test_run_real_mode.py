@@ -1107,6 +1107,41 @@ def test_positional_anchor_betweenness_symbolic_control_freezes_basis() -> None:
     assert diagnostics["forbidden_feature_family_absent_pass"] is True
 
 
+def test_positional_offset_retrieval_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_offset_retrieval_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_positional_offset_retrieval",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_positional_offset_retrieval_response+readout_relational_witness_positional_offset_retrieval+head_linear"
+    )
+    assert diagnostics["coarse_offset_retrieval_state_null_pass"] is True
+    assert diagnostics["within_offset_retrieval_state_variation_pass"] is True
+    assert diagnostics["latent_offset_retrieval_diversity_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["offset_retrieval_length_balance_pass"] is True
+    assert diagnostics["offset_retrieval_target_nontrivial_pass"] is True
+    assert diagnostics["distractor_competition_nontrivial_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_offset_retrieval_feature_family_absent_pass"] is True
+
+
+def test_positional_offset_retrieval_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_offset_retrieval_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_positional_offset_retrieval_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_offset_retrieval_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_offset_retrieval_feature_family_absent_pass"] is True
+
+
 def test_symbolic_insufficiency_loop_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_symbolic_insufficiency_loop_closure_response",

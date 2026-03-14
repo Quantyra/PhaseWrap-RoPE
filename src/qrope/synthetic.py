@@ -3348,6 +3348,212 @@ def generate_positional_anchor_betweenness_response_bundle(
     return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
 
 
+def generate_positional_offset_retrieval_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_positional_offset_retrieval_response:{seed}")
+    base_bundle = generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_symbolic_insufficiency_transition_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="symbolic_insufficiency_transition_response",
+    )
+    all_rows = [
+        DualSyntheticSample(
+            text=text,
+            label=label,
+            sector_a=offset_sector_name(parse_dual_sample_text(text)["sample_a"].offset),
+            sector_b=offset_sector_name(parse_dual_sample_text(text)["sample_b"].offset),
+            sample_a=parse_dual_sample_text(text)["sample_a"],
+            sample_b=parse_dual_sample_text(text)["sample_b"],
+        )
+        for split_rows in (base_bundle.train, base_bundle.validation, base_bundle.test)
+        for text, label in split_rows
+    ]
+    candidate_rows = list(all_rows)
+    rng.shuffle(candidate_rows)
+    candidate_rows = sorted(candidate_rows[:24], key=lambda row: row.text)
+
+    def mean_pos(sample: SyntheticSample) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> int:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0
+        if distance < 2.0:
+            return 1
+        return 2
+
+    candidates_by_state: dict[tuple[int, int, int, int], list[dict[str, Any]]] = defaultdict(list)
+    for index_a, row_a in enumerate(candidate_rows):
+        anchor_pivot = mean_pos(row_a.sample_a)
+        for index_t, row_t in enumerate(candidate_rows):
+            if index_t == index_a:
+                continue
+            target_gap = round(mean_pos(row_t.sample_a) - anchor_pivot, 6)
+            if abs(target_gap) < 0.5:
+                continue
+            target_side = int(target_gap >= 0.0)
+            target_bucket = gap_bucket(target_gap)
+            for index_d, row_d in enumerate(candidate_rows):
+                if index_d in {index_a, index_t}:
+                    continue
+                distractor_gap = round(mean_pos(row_d.sample_a) - anchor_pivot, 6)
+                if abs(distractor_gap) < 0.5 or abs(distractor_gap - target_gap) < 1e-6:
+                    continue
+                distractor_side = int(distractor_gap >= 0.0)
+                distractor_bucket = gap_bucket(distractor_gap)
+                distractor_confusable = int(
+                    distractor_side == target_side and abs(distractor_bucket - target_bucket) <= 1
+                )
+                for index_o, row_o in enumerate(candidate_rows):
+                    if index_o in {index_a, index_t, index_d}:
+                        continue
+                    resolve_gap = round(mean_pos(row_o.sample_a) - anchor_pivot, 6)
+                    if abs(resolve_gap) < 0.5:
+                        continue
+                    resolve_side = int(resolve_gap >= 0.0)
+                    resolve_bucket = gap_bucket(resolve_gap)
+                    resolve_matches_target_offset = int(
+                        resolve_side == target_side and resolve_bucket == target_bucket
+                    )
+                    anchor_sign = int(
+                        sector_sign_family(row_a.sector_a) == sector_sign_family(row_a.sector_b)
+                    )
+                    coarse_key = (
+                        anchor_sign,
+                        target_bucket,
+                        resolve_matches_target_offset,
+                        distractor_confusable,
+                    )
+
+                    latent_a = symbolic_insufficiency_latent_ids(row_a.sample_a, row_a.sample_b)
+                    latent_t = symbolic_insufficiency_latent_ids(row_t.sample_a, row_t.sample_b)
+                    latent_d = symbolic_insufficiency_latent_ids(row_d.sample_a, row_d.sample_b)
+                    latent_o = symbolic_insufficiency_latent_ids(row_o.sample_a, row_o.sample_b)
+                    phase_a = _symbolic_insufficiency_latent_phase(latent_a)
+                    phase_t = _symbolic_insufficiency_latent_phase(latent_t)
+                    phase_d = _symbolic_insufficiency_latent_phase(latent_d)
+                    phase_o = _symbolic_insufficiency_latent_phase(latent_o)
+                    raw_target = (
+                        0.15 * float(row_a.label)
+                        + 0.18 * float(row_t.label)
+                        + 0.10 * float(row_d.label)
+                        + 0.18 * float(row_o.label)
+                        + 0.14 * math.sin((phase_t - phase_a) - (phase_d - phase_a))
+                        + 0.12 * math.cos((phase_o - phase_a) - (phase_t - phase_d))
+                        + 0.09 * math.sin(resolve_gap - target_gap)
+                        + 0.08 * math.cos(distractor_gap - target_gap)
+                        + 0.08 * float(resolve_matches_target_offset)
+                        - 0.07 * float(distractor_confusable)
+                        + 0.06
+                        * math.cos(
+                            orientation_delta_score(row_t.sample_a, row_t.sample_b)
+                            - orientation_delta_score(row_d.sample_a, row_d.sample_b)
+                            + orientation_delta_score(row_o.sample_a, row_o.sample_b)
+                        )
+                    )
+                    candidates_by_state[coarse_key].append(
+                        {
+                            "text": render_positional_offset_retrieval_text(
+                                row_a.sample_a,
+                                row_a.sample_b,
+                                row_t.sample_a,
+                                row_t.sample_b,
+                                row_d.sample_a,
+                                row_d.sample_b,
+                                row_o.sample_a,
+                                row_o.sample_b,
+                            ),
+                            "raw_target": round(raw_target, 6),
+                            "latent_key": (*latent_a, *latent_t, *latent_d, *latent_o),
+                        }
+                    )
+
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_means: dict[str, float] = {}
+    latent_group_counts: dict[str, int] = {}
+    target_ranges: dict[str, float] = {}
+    token_counts = Counter()
+    bucket_counts: dict[str, int] = {}
+    distractor_competition_values: set[int] = set()
+    for coarse_key, candidates in sorted(candidates_by_state.items()):
+        if len(candidates) < required:
+            continue
+        ordered = sorted(candidates, key=lambda item: (item["latent_key"], item["text"]))
+        selected: list[dict[str, Any]] = []
+        seen_latents: set[tuple[int, ...]] = set()
+        for item in ordered:
+            if item["latent_key"] not in seen_latents:
+                selected.append(item)
+                seen_latents.add(item["latent_key"])
+            if len(selected) == required:
+                break
+        if len(selected) < required:
+            for item in ordered:
+                if item not in selected:
+                    selected.append(item)
+                if len(selected) == required:
+                    break
+        if len({item["latent_key"] for item in selected}) < 2:
+            continue
+        mean_target = sum(float(item["raw_target"]) for item in selected) / len(selected)
+        centered = [(item["text"], round(float(item["raw_target"]) - mean_target, 6)) for item in selected]
+        train.extend(centered[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(centered[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(centered[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        state_key = "".join(str(part) for part in coarse_key)
+        state_means[state_key] = round(sum(label for _, label in centered) / len(centered), 6)
+        target_ranges[state_key] = round(max(label for _, label in centered) - min(label for _, label in centered), 6)
+        latent_group_counts[state_key] = len({item["latent_key"] for item in selected})
+        bucket_counts[state_key] = len(selected)
+        distractor_competition_values.add(coarse_key[3])
+        for text, _ in centered:
+            payload = parse_positional_offset_retrieval_text(text)
+            for prefix in ("a", "t", "d", "o"):
+                token_counts.update(
+                    [
+                        payload[prefix]["sample_a"].left_token,
+                        payload[prefix]["sample_a"].right_token,
+                        payload[prefix]["sample_b"].left_token,
+                        payload[prefix]["sample_b"].right_token,
+                    ]
+                )
+
+    diagnostics = {
+        "dataset": "synthetic_positional_offset_retrieval_response",
+        "coarse_offset_retrieval_state_null_pass": max((abs(value) for value in state_means.values()), default=1.0)
+        <= 1e-6,
+        "within_offset_retrieval_state_variation_pass": all(value > 0.0 for value in target_ranges.values())
+        and bool(target_ranges),
+        "latent_offset_retrieval_diversity_pass": all(value > 1 for value in latent_group_counts.values())
+        and bool(latent_group_counts),
+        "token_view_balance_pass": set(token_counts.keys()) == set(TOKENS),
+        "offset_retrieval_length_balance_pass": True,
+        "offset_retrieval_target_nontrivial_pass": any(value > 0.0 for value in target_ranges.values())
+        and bool(target_ranges),
+        "distractor_competition_nontrivial_pass": distractor_competition_values == {0, 1},
+        "offset_retrieval_bucket_counts": bucket_counts,
+        "coarse_offset_retrieval_state_null_max_abs_mean": round(
+            max((abs(value) for value in state_means.values()), default=0.0), 6
+        ),
+        "within_offset_retrieval_state_target_ranges": target_ranges,
+        "latent_offset_retrieval_group_counts": latent_group_counts,
+    }
+    return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
+
+
 def generate_chart_transition_token_invariant_response_bundle(
     seed: int,
     split_rotation: int = 0,
@@ -8024,6 +8230,36 @@ def render_positional_anchor_betweenness_text(
 
 
 def parse_positional_anchor_betweenness_text(text: str) -> dict[str, Any]:
+    parts = [part.strip() for part in text.split("|")]
+    payloads: dict[str, dict[str, Any]] = {}
+    for part in parts:
+        prefix, dual_text = part.split(":", 1)
+        parsed = parse_dual_sample_text(dual_text)
+        payloads[prefix] = {"dual_text": dual_text, **parsed}
+    return payloads
+
+
+def render_positional_offset_retrieval_text(
+    a_sample_a: SyntheticSample,
+    a_sample_b: SyntheticSample,
+    t_sample_a: SyntheticSample,
+    t_sample_b: SyntheticSample,
+    d_sample_a: SyntheticSample,
+    d_sample_b: SyntheticSample,
+    o_sample_a: SyntheticSample,
+    o_sample_b: SyntheticSample,
+) -> str:
+    return " | ".join(
+        [
+            f"a:{render_dual_sample_text(a_sample_a, a_sample_b)}",
+            f"t:{render_dual_sample_text(t_sample_a, t_sample_b)}",
+            f"d:{render_dual_sample_text(d_sample_a, d_sample_b)}",
+            f"o:{render_dual_sample_text(o_sample_a, o_sample_b)}",
+        ]
+    )
+
+
+def parse_positional_offset_retrieval_text(text: str) -> dict[str, Any]:
     parts = [part.strip() for part in text.split("|")]
     payloads: dict[str, dict[str, Any]] = {}
     for part in parts:
