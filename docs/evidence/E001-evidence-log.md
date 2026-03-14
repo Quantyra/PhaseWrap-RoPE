@@ -1769,3 +1769,5 @@ ank_correlation.
 - EL-1023 2026-03-13: Opened counterfactual-handoff as a new memo-only screened transfer candidate after preserving selector-arbitration as an archived boundary; the family passed survivor-vs-boundary and non-compressibility review to approval-candidate posture.
 
 - EL-1024 2026-03-13: Wrote the implementation-approval gate for counterfactual-handoff, freezing the bounded symbolic family, hard-stop diagnostics, and stop rule before any code reopens.
+
+- EL-1025 2026-03-13: Wrote the bounded implementation plan for counterfactual-handoff, freezing writable scope, fixed packet shape, and required audits before code reopens.
