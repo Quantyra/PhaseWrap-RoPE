@@ -1854,3 +1854,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1087 2026-03-13: Opened `anchor-span-membership` as the third memo-level bridge-task candidate so the bridge program can test anchor-defined interval containment, not only order or distance.
 - EL-1088 2026-03-13: Reviewed `anchor-span-membership` against the bridge admissibility bar and passed it to approval-candidate posture only.
 - EL-1089 2026-03-13: Kept the third bridge-task line memo-only, with no code reopen before an explicit implementation gate is written.
+- EL-1090 2026-03-13: Wrote the explicit implementation gate for `anchor-span-membership`, freezing the bounded anchor-relative span-membership symbolic family, hard-stop diagnostics, and branch stop rule before code reopens.
+- EL-1091 2026-03-13: Passed `anchor-span-membership` to bounded implementation planning only, keeping the third bridge-task line memo-only at the gate boundary.

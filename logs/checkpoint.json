@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_bridge_anchor_span_membership_approval_candidate",
+    "repo_posture":  "memo_only_bridge_anchor_span_membership_gate_decision",
     "current_story_ids":  [
-                              "S1165"
+                              "S1167"
                           ],
     "next_actions":  [
-                         "Write the explicit implementation gate for synthetic_positional_anchor_span_membership_response.",
-                         "Freeze the bounded anchor-relative span-membership symbolic family and diagnostics in that gate.",
-                         "Keep the bridge-task line memo-only until that gate is accepted."
+                         "Write the bounded implementation plan for synthetic_positional_anchor_span_membership_response.",
+                         "Freeze writable scope and fixed packet shape in that plan.",
+                         "Keep the bridge-task line memo-only until that bounded plan is accepted."
                      ],
     "risks":  [
-                  "If anchor-span-membership drifts back into generic transfer structure, the bridge portfolio will lose positional specificity.",
-                  "If the candidate is treated as execution-ready before the bounded symbolic family is frozen, the bridge evidence will lose auditability."
+                  "If anchor-span-membership is interpreted before its writable scope is frozen, the bridge-task evidence will lose boundedness.",
+                  "If the symbolic control is widened beyond declared anchor-span-membership summaries, the fairness contract will break."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1120,7 +1120,9 @@
                                 "S1162",
                                 "S1163",
                                 "S1164",
-                                "S1165"
+                                "S1165",
+                                "S1166",
+                                "S1167"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
