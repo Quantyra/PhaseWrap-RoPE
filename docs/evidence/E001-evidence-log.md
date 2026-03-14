@@ -1568,7 +1568,8 @@ ank_correlation.
 - Type: Decision
 - Story: S969
 - Artifact: docs/research/q-rope-transfer-relay-binding-first-packet-v1.md
-- Note: The corrected fixed three-seed relay-binding packet showed the witness ahead of the bounded symbolic control on both mae and ank_correlation.
+- Note: The corrected fixed three-seed relay-binding packet showed the witness ahead of the bounded symbolic control on both mae and 
+ank_correlation.
 
 ## EL-901 S969 relay-binding packet summary csv
 - Type: Decision
@@ -1737,7 +1738,8 @@ ank_correlation.
 
 - EL-1005 2026-03-13: Refreshed the internal package to preserve an-in consensus as an archived negative transfer boundary alongside raid and staggered-binding.
 
-- EL-1006 2026-03-13: Refreshed the board-level recommendation to reflect the preserved transfer portfolio (path, loop-closure, ork-join, elay-binding, cascade-reconciliation) and archived negative boundaries (raid, staggered-binding, an-in consensus).
+- EL-1006 2026-03-13: Refreshed the board-level recommendation to reflect the preserved transfer portfolio (path, loop-closure, ork-join, 
+elay-binding, cascade-reconciliation) and archived negative boundaries (raid, staggered-binding, an-in consensus).
 
 - EL-1007 2026-03-13: Opened echo-resolution as a new memo-only screened transfer candidate after preserving the current benchmark and transfer portfolio; the family passed survivor-vs-braid and non-compressibility screening to approval-candidate posture.
 
@@ -1809,3 +1811,26 @@ ank_correlation.
 
 - EL-1052 2026-03-13: Wrote the bounded implementation plan for the anchor-order bridge-task candidate, freezing writable scope, fixed packet shape, and required audits.
 - EL-1053 2026-03-13: Passed anchor-order to one bounded local implementation cycle only.
+
+- EL-1054 2026-03-13: Implemented the anchor-order bridge-task line inside the frozen writable scope, tightened the feature basis for numerical stability, and passed the focused local validation suite (`309 passed`).
+- EL-1055 2026-03-13: Executed the fixed first packet for anchor-order; the witness led the bounded symbolic control on mean `mae` and mean `rank_correlation`.
+- EL-1056 2026-03-13: Preserved the anchor-order bridge-task line as active after the first packet and advanced it to bounded token-renaming hardening.
+- EL-1057 2026-03-13: Froze the next retained-model packet as `token_permutation=cdab` under the same anchor-order fairness contract.
+
+- EL-1058 2026-03-13: Completed anchor-order token-renaming hardening; the witness stayed ahead of the bounded symbolic control on mean `mae` and mean `rank_correlation`.
+- EL-1059 2026-03-13: Preserved the anchor-order line as active after token renaming and advanced it to first structural hardening.
+- EL-1060 2026-03-13: Froze the next retained-model packet as `pair_reindex=1` under the same anchor-order fairness contract.
+
+- EL-1061 2026-03-13: Completed anchor-order `pair_reindex=1` hardening; the witness stayed ahead of the bounded symbolic control on mean `mae` and mean `rank_correlation`.
+- EL-1062 2026-03-13: Preserved the anchor-order line as active after first structural hardening and advanced it to `slot_swap=1`.
+- EL-1063 2026-03-13: Froze the next retained-model packet as `slot_swap=1` under the same anchor-order fairness contract.
+
+- EL-1064 2026-03-13: Completed anchor-order `slot_swap=1` hardening; the witness stayed ahead of the bounded symbolic control on mean `mae` and mean `rank_correlation`.
+- EL-1065 2026-03-13: Preserved the anchor-order line as active after slot-swap hardening and advanced it to deeper `pair_reindex=7`.
+- EL-1066 2026-03-13: Froze the next retained-model packet as `pair_reindex=7` under the same anchor-order fairness contract.
+
+- EL-1067 2026-03-13: Completed anchor-order deeper `pair_reindex=7` hardening; the witness stayed ahead of the bounded symbolic control on mean `mae` and mean `rank_correlation`.
+- EL-1068 2026-03-13: Returned the anchor-order bridge-task line to a memo-level decision gate after it survived the full bounded hardening cycle.
+- EL-1069 2026-03-13: Preserved anchor-order as the first positive bounded bridge-task relevance result in the internal package.
+- EL-1070 2026-03-13: Refreshed the internal result package and executive summary so the board-level package now includes positive bridge-task evidence, not only transfer evidence.
+

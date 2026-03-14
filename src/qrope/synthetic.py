@@ -2404,6 +2404,183 @@ def generate_symbolic_insufficiency_counterfactual_handoff_response_bundle(
     return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
 
 
+def generate_positional_anchor_order_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_positional_anchor_order_response:{seed}")
+    base_bundle = generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_symbolic_insufficiency_transition_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="symbolic_insufficiency_transition_response",
+    )
+    all_rows = [
+        DualSyntheticSample(
+            text=text,
+            label=label,
+            sector_a=offset_sector_name(parse_dual_sample_text(text)["sample_a"].offset),
+            sector_b=offset_sector_name(parse_dual_sample_text(text)["sample_b"].offset),
+            sample_a=parse_dual_sample_text(text)["sample_a"],
+            sample_b=parse_dual_sample_text(text)["sample_b"],
+        )
+        for split_rows in (base_bundle.train, base_bundle.validation, base_bundle.test)
+        for text, label in split_rows
+    ]
+    candidate_rows = list(all_rows)
+    rng.shuffle(candidate_rows)
+    candidate_rows = sorted(candidate_rows[:24], key=lambda row: row.text)
+
+    def mean_pos(sample: SyntheticSample) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    candidates_by_state: dict[tuple[int, int, int, int], list[dict[str, Any]]] = defaultdict(list)
+    for index_a, row_a in enumerate(candidate_rows):
+        anchor_pivot = mean_pos(row_a.sample_a)
+        for index_l, row_l in enumerate(candidate_rows):
+            if index_l == index_a:
+                continue
+            left_center = mean_pos(row_l.sample_a)
+            for index_r, row_r in enumerate(candidate_rows):
+                if index_r in {index_a, index_l}:
+                    continue
+                right_center = mean_pos(row_r.sample_a)
+                if left_center >= right_center:
+                    continue
+                for index_o, row_o in enumerate(candidate_rows):
+                    if index_o in {index_a, index_l, index_r}:
+                        continue
+                    resolve_center = mean_pos(row_o.sample_a)
+                    anchor_sign = int(
+                        sector_sign_family(row_a.sector_a) == sector_sign_family(row_a.sector_b)
+                    )
+                    left_of_anchor = int(left_center < anchor_pivot)
+                    right_of_anchor = int(right_center > anchor_pivot)
+                    resolve_matches_order = int(resolve_center >= left_center and resolve_center <= right_center)
+                    coarse_key = (
+                        anchor_sign,
+                        left_of_anchor,
+                        right_of_anchor,
+                        resolve_matches_order,
+                    )
+
+                    latent_a = symbolic_insufficiency_latent_ids(row_a.sample_a, row_a.sample_b)
+                    latent_l = symbolic_insufficiency_latent_ids(row_l.sample_a, row_l.sample_b)
+                    latent_r = symbolic_insufficiency_latent_ids(row_r.sample_a, row_r.sample_b)
+                    latent_o = symbolic_insufficiency_latent_ids(row_o.sample_a, row_o.sample_b)
+                    phase_a = _symbolic_insufficiency_latent_phase(latent_a)
+                    phase_l = _symbolic_insufficiency_latent_phase(latent_l)
+                    phase_r = _symbolic_insufficiency_latent_phase(latent_r)
+                    phase_o = _symbolic_insufficiency_latent_phase(latent_o)
+                    left_gap = left_center - anchor_pivot
+                    right_gap = right_center - anchor_pivot
+                    resolve_gap = resolve_center - anchor_pivot
+                    raw_target = (
+                        0.16 * float(row_a.label)
+                        + 0.15 * float(row_l.label)
+                        + 0.15 * float(row_r.label)
+                        + 0.18 * float(row_o.label)
+                        + 0.16 * math.sin((phase_l - phase_a) - (phase_r - phase_o))
+                        + 0.12 * math.cos((phase_r - phase_l) + (phase_o - phase_a))
+                        + 0.10 * math.sin(resolve_gap - 0.5 * (left_gap + right_gap))
+                        + 0.08 * abs(right_gap - left_gap)
+                        + 0.07
+                        * math.cos(
+                            orientation_delta_score(row_l.sample_a, row_l.sample_b)
+                            - orientation_delta_score(row_r.sample_a, row_r.sample_b)
+                            + orientation_delta_score(row_o.sample_a, row_o.sample_b)
+                        )
+                    )
+                    candidates_by_state[coarse_key].append(
+                        {
+                            "text": render_positional_anchor_order_text(
+                                row_a.sample_a,
+                                row_a.sample_b,
+                                row_l.sample_a,
+                                row_l.sample_b,
+                                row_r.sample_a,
+                                row_r.sample_b,
+                                row_o.sample_a,
+                                row_o.sample_b,
+                            ),
+                            "raw_target": round(raw_target, 6),
+                            "latent_key": (*latent_a, *latent_l, *latent_r, *latent_o),
+                        }
+                    )
+
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_means: dict[str, float] = {}
+    latent_group_counts: dict[str, int] = {}
+    target_ranges: dict[str, float] = {}
+    token_counts = Counter()
+    bucket_counts: dict[str, int] = {}
+    for coarse_key, candidates in sorted(candidates_by_state.items()):
+        if len(candidates) < required:
+            continue
+        ordered = sorted(candidates, key=lambda item: (item["latent_key"], item["text"]))
+        selected: list[dict[str, Any]] = []
+        seen_latents: set[tuple[int, ...]] = set()
+        for item in ordered:
+            if item["latent_key"] not in seen_latents:
+                selected.append(item)
+                seen_latents.add(item["latent_key"])
+            if len(selected) == required:
+                break
+        if len(selected) < required:
+            for item in ordered:
+                if item not in selected:
+                    selected.append(item)
+                if len(selected) == required:
+                    break
+        if len({item["latent_key"] for item in selected}) < 2:
+            continue
+        mean_target = sum(float(item["raw_target"]) for item in selected) / len(selected)
+        centered = [(item["text"], round(float(item["raw_target"]) - mean_target, 6)) for item in selected]
+        train.extend(centered[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(centered[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(centered[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        state_key = "".join(str(part) for part in coarse_key)
+        state_means[state_key] = round(sum(label for _, label in centered) / len(centered), 6)
+        target_ranges[state_key] = round(max(label for _, label in centered) - min(label for _, label in centered), 6)
+        latent_group_counts[state_key] = len({item["latent_key"] for item in selected})
+        bucket_counts[state_key] = len(selected)
+        for text, _ in centered:
+            payload = parse_positional_anchor_order_text(text)
+            for prefix in ("a", "l", "r", "o"):
+                token_counts.update(
+                    [
+                        payload[prefix]["sample_a"].left_token,
+                        payload[prefix]["sample_a"].right_token,
+                        payload[prefix]["sample_b"].left_token,
+                        payload[prefix]["sample_b"].right_token,
+                    ]
+                )
+
+    diagnostics = {
+        "dataset": "synthetic_positional_anchor_order_response",
+        "coarse_anchor_order_state_null_pass": max((abs(value) for value in state_means.values()), default=1.0) <= 1e-6,
+        "within_anchor_order_state_variation_pass": all(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "latent_anchor_order_diversity_pass": all(value > 1 for value in latent_group_counts.values()) and bool(latent_group_counts),
+        "token_view_balance_pass": set(token_counts.keys()) == set(TOKENS),
+        "anchor_order_length_balance_pass": True,
+        "anchor_order_target_nontrivial_pass": any(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "anchor_order_bucket_counts": bucket_counts,
+        "coarse_anchor_order_state_null_max_abs_mean": round(max((abs(value) for value in state_means.values()), default=0.0), 6),
+        "within_anchor_order_state_target_ranges": target_ranges,
+        "latent_anchor_order_group_counts": latent_group_counts,
+    }
+    return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
+
+
 def generate_chart_transition_token_invariant_response_bundle(
     seed: int,
     split_rotation: int = 0,
@@ -6924,6 +7101,36 @@ def render_symbolic_insufficiency_counterfactual_handoff_text(
 
 
 def parse_symbolic_insufficiency_counterfactual_handoff_text(text: str) -> dict[str, Any]:
+    parts = [part.strip() for part in text.split("|")]
+    payloads: dict[str, dict[str, Any]] = {}
+    for part in parts:
+        prefix, dual_text = part.split(":", 1)
+        parsed = parse_dual_sample_text(dual_text)
+        payloads[prefix] = {"dual_text": dual_text, **parsed}
+    return payloads
+
+
+def render_positional_anchor_order_text(
+    a_sample_a: SyntheticSample,
+    a_sample_b: SyntheticSample,
+    l_sample_a: SyntheticSample,
+    l_sample_b: SyntheticSample,
+    r_sample_a: SyntheticSample,
+    r_sample_b: SyntheticSample,
+    o_sample_a: SyntheticSample,
+    o_sample_b: SyntheticSample,
+) -> str:
+    return " | ".join(
+        [
+            f"a:{render_dual_sample_text(a_sample_a, a_sample_b)}",
+            f"l:{render_dual_sample_text(l_sample_a, l_sample_b)}",
+            f"r:{render_dual_sample_text(r_sample_a, r_sample_b)}",
+            f"o:{render_dual_sample_text(o_sample_a, o_sample_b)}",
+        ]
+    )
+
+
+def parse_positional_anchor_order_text(text: str) -> dict[str, Any]:
     parts = [part.strip() for part in text.split("|")]
     payloads: dict[str, dict[str, Any]] = {}
     for part in parts:

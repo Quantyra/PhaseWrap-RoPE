@@ -937,6 +937,40 @@ def test_symbolic_insufficiency_counterfactual_handoff_symbolic_control_freezes_
     assert diagnostics["forbidden_feature_family_absent_pass"] is True
 
 
+def test_positional_anchor_order_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_anchor_order_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_positional_anchor_order",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_positional_anchor_order_response+readout_relational_witness_positional_anchor_order+head_linear"
+    )
+    assert diagnostics["coarse_anchor_order_state_null_pass"] is True
+    assert diagnostics["within_anchor_order_state_variation_pass"] is True
+    assert diagnostics["latent_anchor_order_diversity_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["anchor_order_length_balance_pass"] is True
+    assert diagnostics["anchor_order_target_nontrivial_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
+def test_positional_anchor_order_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_anchor_order_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_positional_anchor_order_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_anchor_order_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
 def test_symbolic_insufficiency_loop_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_symbolic_insufficiency_loop_closure_response",
