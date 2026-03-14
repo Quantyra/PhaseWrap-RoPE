@@ -1856,3 +1856,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1089 2026-03-13: Kept the third bridge-task line memo-only, with no code reopen before an explicit implementation gate is written.
 - EL-1090 2026-03-13: Wrote the explicit implementation gate for `anchor-span-membership`, freezing the bounded anchor-relative span-membership symbolic family, hard-stop diagnostics, and branch stop rule before code reopens.
 - EL-1091 2026-03-13: Passed `anchor-span-membership` to bounded implementation planning only, keeping the third bridge-task line memo-only at the gate boundary.
+- EL-1092 2026-03-13: Wrote the bounded implementation plan for `anchor-span-membership`, freezing writable scope, fixed packet shape, and required audits before code reopens.
+- EL-1093 2026-03-13: Passed `anchor-span-membership` to one bounded local implementation cycle only.
