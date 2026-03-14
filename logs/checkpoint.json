@@ -2,7 +2,7 @@
     "active_epic":  "E001",
     "repo_posture":  "bridge_review_cycle_complete",
     "current_story_ids":  [
-                              "S1210"
+                              "S1211"
                           ],
     "next_actions":  [
                          "Use the current transfer and bridge package for internal review.",
@@ -1165,7 +1165,8 @@
                                 "S1207",
                                 "S1208",
                                 "S1209",
-                                "S1210"
+                                "S1210",
+                                "S1211"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

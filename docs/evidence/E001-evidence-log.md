@@ -1908,3 +1908,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1128 2026-03-14: Recorded the bridge-era internal review decision: continue at low intensity with bridge evidence preserved, but do not reopen bridge execution by default.
 - EL-1129 2026-03-14: Marked the bridge cycle as review-ready complete and shifted the repo to explicit review posture rather than implicit execution readiness.
+
+- EL-1130 2026-03-14: Refreshed the internal handoff index so it points to the current transfer portfolio, bridge portfolio, board recommendation, and bridge-cycle closure artifacts.
