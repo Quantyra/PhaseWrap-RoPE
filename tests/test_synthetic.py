@@ -50,6 +50,7 @@ from qrope.synthetic import (
     generate_symbolic_insufficiency_counterfactual_handoff_response_bundle,
     generate_positional_anchor_order_response_bundle,
     generate_positional_anchor_distance_response_bundle,
+    generate_positional_anchor_span_membership_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
@@ -378,6 +379,18 @@ def test_positional_anchor_distance_bundle_enforces_declared_diagnostics() -> No
     assert diagnostics["token_view_balance_pass"] is True
     assert diagnostics["anchor_distance_length_balance_pass"] is True
     assert diagnostics["anchor_distance_target_nontrivial_pass"] is True
+
+
+def test_positional_anchor_span_membership_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_positional_anchor_span_membership_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_positional_anchor_span_membership_response"
+    assert diagnostics["coarse_anchor_span_membership_state_null_pass"] is True
+    assert diagnostics["within_anchor_span_membership_state_variation_pass"] is True
+    assert diagnostics["latent_anchor_span_membership_diversity_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["anchor_span_membership_length_balance_pass"] is True
+    assert diagnostics["anchor_span_membership_target_nontrivial_pass"] is True
 
 
 def test_symbolic_insufficiency_loop_bundle_enforces_declared_diagnostics() -> None:
