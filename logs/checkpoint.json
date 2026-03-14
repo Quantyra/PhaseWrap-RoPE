@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_bridge_anchor_betweenness_approval_candidate",
+    "repo_posture":  "memo_only_bridge_anchor_betweenness_gate_decision",
     "current_story_ids":  [
-                              "S1189"
+                              "S1191"
                           ],
     "next_actions":  [
-                         "Write the explicit implementation gate for synthetic_positional_anchor_betweenness_response.",
-                         "Freeze the bounded anchor-relative betweenness symbolic family and diagnostics in that gate.",
-                         "Keep the bridge-task line memo-only until that gate is accepted."
+                         "Write the bounded implementation plan for synthetic_positional_anchor_betweenness_response.",
+                         "Freeze writable scope and fixed packet shape in that plan.",
+                         "Keep the bridge-task line memo-only until that bounded plan is accepted."
                      ],
     "risks":  [
                   "If anchor-betweenness is specified too close to interval-membership logic, the bridge program will fail to add a materially new positional question.",
@@ -1144,7 +1144,9 @@
                                 "S1186",
                                 "S1187",
                                 "S1188",
-                                "S1189"
+                                "S1189",
+                                "S1190",
+                                "S1191"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

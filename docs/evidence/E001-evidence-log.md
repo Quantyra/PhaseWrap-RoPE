@@ -1883,3 +1883,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1109 2026-03-13: Opened `anchor-betweenness` as the next memo-level bridge-task candidate so the bridge program can test ordered betweenness relative to an anchor-centered frame, not only order, distance, interval membership, or signed offset class.
 - EL-1110 2026-03-13: Reviewed `anchor-betweenness` against the bridge admissibility bar and passed it to approval-candidate posture only.
 - EL-1111 2026-03-13: Kept the next bridge-task line memo-only, with no code reopen before an explicit implementation gate is written.
+
+- EL-1112 2026-03-13: Wrote the explicit implementation gate for `anchor-betweenness`, freezing the bounded anchor-relative betweenness symbolic family, hard-stop diagnostics, and branch stop rule before code reopens.
+- EL-1113 2026-03-13: Passed `anchor-betweenness` to bounded implementation planning only, keeping the bridge-task line memo-only at the gate boundary.
