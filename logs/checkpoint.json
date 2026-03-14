@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "low_intensity_no_execution",
+    "repo_posture":  "realism_bridge_candidate_design_only",
     "current_story_ids":  [
-                              "S1218"
+                              "S1221"
                           ],
     "next_actions":  [
-                         "Use the preserved package for internal review and reference.",
-                         "Do not reopen execution by default.",
-                         "Only reopen with an explicit missing-question justification and VP-of-Research approval."
+                         "Decide whether one realism-bridge candidate can be defined under the new gate.",
+                         "Do not open another ordinary transfer or bridge branch.",
+                         "If no realism-bridge candidate can be justified cleanly, treat the current package as the evidence ceiling."
                      ],
     "risks":  [
-                  "If bridge branch count is treated as a goal in itself, the program will drift back into low-value execution churn.",
-                  "If the current selective bridge evidence is overstated as a broad positional win, the repo will overclaim RoPE relevance."
+                  "If realism-bridge is defined too loosely, branch churn will re-enter under a new name.",
+                  "If the realism-bridge gate is ignored, the repo will drift away from the stated missing-question discipline."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1173,7 +1173,10 @@
                                 "S1215",
                                 "S1216",
                                 "S1217",
-                                "S1218"
+                                "S1218",
+                                "S1219",
+                                "S1220",
+                                "S1221"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
