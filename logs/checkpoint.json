@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_bridge_anchor_offset_signature_gate_decision",
+    "repo_posture":  "bounded_bridge_anchor_offset_signature_implementation",
     "current_story_ids":  [
-                              "S1179"
+                              "S1181"
                           ],
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_positional_anchor_offset_signature_response.",
-                         "Freeze writable scope and fixed packet shape in that plan.",
-                         "Keep the bridge-task line memo-only until that bounded plan is accepted."
+                         "Implement synthetic_positional_anchor_offset_signature_response.",
+                         "Run exactly one fixed three-seed packet against the bounded anchor-relative offset-signature symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
                   "If anchor-offset-signature is specified too close to raw distance bucketing, the bridge program will fail to add a materially new positional question.",
-                  "If the candidate is interpreted as phase-like without a bounded symbolic contract, the repo will overstate RoPE relevance."
+                  "If the first packet is mixed on the two declared metrics, the line must stop immediately instead of drifting into extra hardening."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1134,7 +1134,9 @@
                                 "S1176",
                                 "S1177",
                                 "S1178",
-                                "S1179"
+                                "S1179",
+                                "S1180",
+                                "S1181"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

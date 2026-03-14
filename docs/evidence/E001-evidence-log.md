@@ -1871,3 +1871,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1101 2026-03-13: Wrote the explicit implementation gate for `anchor-offset-signature`, freezing the bounded anchor-relative offset-signature symbolic family, hard-stop diagnostics, and branch stop rule before code reopens.
 - EL-1102 2026-03-13: Passed `anchor-offset-signature` to bounded implementation planning only, keeping the bridge-task line memo-only at the gate boundary.
+
+- EL-1103 2026-03-13: Wrote the bounded implementation plan for `anchor-offset-signature`, freezing writable scope, fixed packet shape, and required audits before code reopens.
+- EL-1104 2026-03-13: Passed `anchor-offset-signature` to one bounded local implementation cycle only.
