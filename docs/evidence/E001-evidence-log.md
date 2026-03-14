@@ -1886,3 +1886,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1112 2026-03-13: Wrote the explicit implementation gate for `anchor-betweenness`, freezing the bounded anchor-relative betweenness symbolic family, hard-stop diagnostics, and branch stop rule before code reopens.
 - EL-1113 2026-03-13: Passed `anchor-betweenness` to bounded implementation planning only, keeping the bridge-task line memo-only at the gate boundary.
+
+- EL-1114 2026-03-13: Wrote the bounded implementation plan for `anchor-betweenness`, freezing writable scope, fixed packet shape, and required audits before code reopens.
+- EL-1115 2026-03-13: Passed `anchor-betweenness` to one bounded local implementation cycle only.
