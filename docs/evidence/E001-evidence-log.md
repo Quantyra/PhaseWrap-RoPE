@@ -1782,3 +1782,7 @@ ank_correlation.
 - EL-1031 2026-03-13: Completed counterfactual-handoff token-renaming hardening; the witness stayed ahead of the bounded symbolic control on mean mae and mean rank_correlation.
 - EL-1032 2026-03-13: Preserved the counterfactual-handoff line as active after token renaming and advanced it to first structural hardening.
 - EL-1033 2026-03-13: Froze the next retained-model packet as pair_reindex=1 under the same counterfactual-handoff fairness contract.
+
+- EL-1034 2026-03-13: Completed counterfactual-handoff pair_reindex=1 hardening; the witness stayed ahead of the bounded symbolic control on mean mae and mean rank_correlation.
+- EL-1035 2026-03-13: Preserved the counterfactual-handoff line as active after first structural hardening and advanced it to slot_swap=1.
+- EL-1036 2026-03-13: Froze the next retained-model packet as slot_swap=1 under the same counterfactual-handoff fairness contract.
