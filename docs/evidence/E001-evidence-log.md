@@ -1757,3 +1757,5 @@ ank_correlation.
 - EL-1016 2026-03-13: Opened selector-arbitration as a new memo-only screened transfer candidate after preserving echo-resolution as an archived boundary; the family passed survivor-vs-boundary and non-compressibility review to approval-candidate posture.
 
 - EL-1017 2026-03-13: Wrote the implementation-approval gate for selector-arbitration, freezing the bounded symbolic family, hard-stop diagnostics, and stop rule before any code reopens.
+
+- EL-1018 2026-03-13: Wrote the bounded implementation plan for selector-arbitration, freezing writable scope, fixed packet shape, and required audits before code reopens.
