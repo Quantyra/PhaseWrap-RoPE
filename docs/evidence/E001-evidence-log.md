@@ -1803,3 +1803,6 @@ ank_correlation.
 - EL-1047 2026-03-13: Opened anchor-order as the first memo-level bridge-task candidate, aimed at relative order around an anchor rather than ordinary transfer-family persistence structure.
 - EL-1048 2026-03-13: Reviewed anchor-order against the bridge-task admissibility bar and passed it to approval-candidate posture.
 - EL-1049 2026-03-13: Kept the bridge-task line memo-only, with no code reopen until an explicit bridge-task implementation gate is written.
+
+- EL-1050 2026-03-13: Wrote the explicit implementation gate for the anchor-order bridge-task candidate, freezing the bounded symbolic family, diagnostics, and stop rule before any code reopens.
+- EL-1051 2026-03-13: Passed anchor-order to bounded implementation planning only, keeping the bridge-task line memo-only at the gate boundary.

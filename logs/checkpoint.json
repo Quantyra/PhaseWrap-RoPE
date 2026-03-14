@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_bridge_anchor_order_approval_candidate",
+    "repo_posture":  "memo_only_bridge_anchor_order_gate_decision",
     "current_story_ids":  [
-                              "S1125"
+                              "S1127"
                           ],
     "next_actions":  [
-                         "Write the explicit implementation gate for synthetic_positional_anchor_order_response.",
-                         "Freeze the bounded anchor-relative symbolic family and diagnostics in that gate.",
-                         "Keep the bridge-task line memo-only until that gate is accepted."
+                         "Write the bounded implementation plan for synthetic_positional_anchor_order_response.",
+                         "Freeze writable scope and fixed packet shape in that plan.",
+                         "Keep the bridge-task line memo-only until the bounded plan is accepted."
                      ],
     "risks":  [
-                  "If anchor-order is underspecified, it can collapse back into generic relational transfer structure instead of a real positional bridge.",
-                  "If the bridge-task gate is skipped, execution pressure can reopen without the stronger relevance discipline this pivot requires."
+                  "If the bounded plan is written loosely, the bridge-task line will lose the stricter relevance discipline that justifies the pivot.",
+                  "If code reopens before the plan is accepted, the program will revert to execution by inertia."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1080,7 +1080,9 @@
                                 "S1122",
                                 "S1123",
                                 "S1124",
-                                "S1125"
+                                "S1125",
+                                "S1126",
+                                "S1127"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
