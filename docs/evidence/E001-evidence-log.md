@@ -1742,3 +1742,5 @@ ank_correlation.
 - EL-1007 2026-03-13: Opened echo-resolution as a new memo-only screened transfer candidate after preserving the current benchmark and transfer portfolio; the family passed survivor-vs-braid and non-compressibility screening to approval-candidate posture.
 
 - EL-1008 2026-03-13: Wrote the implementation-approval gate for echo-resolution, freezing the bounded symbolic family and hard-stop diagnostics before any code reopens.
+
+- EL-1009 2026-03-13: Wrote the bounded implementation plan for echo-resolution, freezing writable scope, fixed packet shape, and required audits before code reopens.

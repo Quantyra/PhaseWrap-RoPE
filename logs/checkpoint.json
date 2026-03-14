@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_transfer_echo_resolution_gate_decision",
+    "repo_posture":  "bounded_transfer_echo_resolution_implementation",
     "current_story_ids":  [
-                              "S1070"
+                              "S1072"
                           ],
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_symbolic_insufficiency_echo_resolution_response.",
-                         "Freeze writable scope, fixed packet shape, and required audits in that plan.",
-                         "Reopen code only after that bounded plan is accepted."
+                         "Implement synthetic_symbolic_insufficiency_echo_resolution_response inside the frozen writable scope.",
+                         "Run exactly one fixed three-seed packet against the bounded echo-resolution symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If the echo-resolution symbolic family is not frozen mechanically before implementation, the line will lose fairness discipline.",
-                  "If hard-stop diagnostics are ignored, weak or compressible packet structure could be mistaken for true transfer evidence."
+                  "If execution extends beyond the fixed packet, the line will lose bounded-fairness discipline.",
+                  "If audit checks are not enforced, the symbolic control family can drift beyond the approved gate."
               ],
     "completed_story_ids":  [
                                 "S001",
