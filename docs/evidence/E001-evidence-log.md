@@ -1759,3 +1759,6 @@ ank_correlation.
 - EL-1017 2026-03-13: Wrote the implementation-approval gate for selector-arbitration, freezing the bounded symbolic family, hard-stop diagnostics, and stop rule before any code reopens.
 
 - EL-1018 2026-03-13: Wrote the bounded implementation plan for selector-arbitration, freezing writable scope, fixed packet shape, and required audits before code reopens.
+
+- EL-1019 2026-03-13: Implemented the bounded selector-arbitration transfer line, added the matching generator/runtime/tests, and passed the focused local validation suite (`303 passed`).
+- EL-1020 2026-03-13: Executed the fixed first packet for selector-arbitration and stopped the line immediately because the control led mean `mae` while the witness led mean `rank_correlation`, which is insufficient under the two-metric gate.

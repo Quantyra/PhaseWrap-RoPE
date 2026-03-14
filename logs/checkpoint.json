@@ -1,13 +1,13 @@
 {
     "active_epic": "E001",
-    "repo_posture": "bounded_transfer_selector_arbitration_implementation",
+    "repo_posture": "memo_only_transfer_selector_arbitration_archive",
     "current_story_ids": [
-        "S1087"
+        "S1091"
     ],
     "next_actions": [
-        "Implement synthetic_symbolic_insufficiency_selector_arbitration_response inside the frozen writable scope.",
-        "Run exactly one fixed three-seed packet against the bounded selector-arbitration symbolic control.",
-        "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+        "Preserve selector-arbitration as an archived negative transfer boundary in the internal package.",
+        "Do not open a nuisance hardening packet on this family.",
+        "Only reopen execution through a materially different screened transfer candidate."
     ],
     "risks": [
         "If execution extends beyond the fixed packet, the line will lose bounded-fairness discipline.",
@@ -1042,13 +1042,18 @@
         "S1083",
         "S1084",
         "S1085",
-        "S1086"
+        "S1086",
+        "S1087",
+        "S1088",
+        "S1089",
+        "S1090"
     ],
     "archived_transfer_story_ids": [
         "S955",
         "S1012",
         "S1027",
         "S1063",
-        "S1079"
+        "S1079",
+        "S1091"
     ]
 }
