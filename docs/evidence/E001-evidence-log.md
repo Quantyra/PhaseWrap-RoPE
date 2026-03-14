@@ -1932,3 +1932,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1142 2026-03-14: Opened `offset-retrieval` as the first memo-level realism-bridge candidate because it targets relative-position retrieval under distractor competition rather than another ordinary bridge relation.
 - EL-1143 2026-03-14: Passed `offset-retrieval` to realism-bridge approval-candidate posture only; execution remains closed pending a dedicated gate.
+
+- EL-1144 2026-03-14: Wrote the dedicated implementation gate for `offset-retrieval`, freezing the bounded offset-retrieval symbolic family, hard-stop diagnostics, and branch stop rule before code reopens.
+- EL-1145 2026-03-14: Passed `offset-retrieval` to bounded implementation planning only, keeping the realism-bridge line memo-only at the gate boundary.
