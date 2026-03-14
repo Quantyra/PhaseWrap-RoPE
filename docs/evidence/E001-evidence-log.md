@@ -1833,4 +1833,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1068 2026-03-13: Returned the anchor-order bridge-task line to a memo-level decision gate after it survived the full bounded hardening cycle.
 - EL-1069 2026-03-13: Preserved anchor-order as the first positive bounded bridge-task relevance result in the internal package.
 - EL-1070 2026-03-13: Refreshed the internal result package and executive summary so the board-level package now includes positive bridge-task evidence, not only transfer evidence.
-
+- EL-1071 2026-03-13: Opened `anchor-distance` as the second memo-level bridge-task candidate so the bridge program can test anchor-relative distance structure, not only anchor-relative order.
+- EL-1072 2026-03-13: Reviewed `anchor-distance` against the bridge admissibility bar and passed it to approval-candidate posture only.
+- EL-1073 2026-03-13: Kept the second bridge-task line memo-only, with no code reopen before an explicit implementation gate is written.
