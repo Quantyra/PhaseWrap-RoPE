@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_bridge_anchor_betweenness_hardening",
+    "repo_posture":  "memo_only_internal_result_package",
     "current_story_ids":  [
-                              "S1202"
+                              "S1206"
                           ],
     "next_actions":  [
-                         "Run the fixed slot_swap=1 hardening packet for synthetic_positional_anchor_betweenness_response.",
-                         "Keep only the witness and bounded symbolic control.",
-                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+                         "Preserve anchor-betweenness as an archived negative bridge boundary in the internal package.",
+                         "Do not reopen execution on anchor-betweenness.",
+                         "Open another bridge-task candidate only if it is materially different from anchor-order, anchor-distance, anchor-span-membership, anchor-offset-signature, and anchor-betweenness."
                      ],
     "risks":  [
-                  "If anchor-betweenness is interpreted as a strong bridge win before the remaining structural hardening closes, the bridge portfolio will overstate the evidence.",
-                  "If the control catches up on slot-swap or deeper reindex, the correct interpretation is boundary-limited bridge relevance rather than a robust survivor."
+                  "If anchor-betweenness is interpreted as positive bridge evidence, the bridge portfolio will overstate relevance.",
+                  "If another bridge line reuses ordered frame-betweenness structure too closely, the bridge program will drift back into low-value branch churn."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1157,7 +1157,11 @@
                                 "S1199",
                                 "S1200",
                                 "S1201",
-                                "S1202"
+                                "S1202",
+                                "S1203",
+                                "S1204",
+                                "S1205",
+                                "S1206"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
