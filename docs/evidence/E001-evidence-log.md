@@ -1864,3 +1864,7 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1096 2026-03-13: Stopped anchor-span-membership at the first packet because mixed leadership was not enough to preserve the line as positive bridge evidence.
 - EL-1097 2026-03-13: Archived anchor-span-membership as a negative bridge boundary and refreshed the internal package accordingly.
 
+
+- EL-1098 2026-03-13: Opened `anchor-offset-signature` as the next memo-level bridge-task candidate so the bridge program can test signed offset-class preservation relative to an anchor, not only order, distance, or interval membership.
+- EL-1099 2026-03-13: Reviewed `anchor-offset-signature` against the bridge admissibility bar and passed it to approval-candidate posture only.
+- EL-1100 2026-03-13: Kept the fourth bridge-task line memo-only, with no code reopen before an explicit implementation gate is written.
