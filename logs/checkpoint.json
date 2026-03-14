@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_realism_bridge_offset_retrieval_gate_decision",
+    "repo_posture":  "bounded_realism_bridge_offset_retrieval_implementation",
     "current_story_ids":  [
-                              "S1227"
+                              "S1229"
                           ],
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_positional_offset_retrieval_response.",
-                         "Freeze writable scope and fixed packet shape in that plan.",
-                         "Keep the realism-bridge line memo-only until that bounded plan is accepted."
+                         "Implement synthetic_positional_offset_retrieval_response.",
+                         "Run exactly one fixed three-seed packet against the bounded offset-retrieval symbolic control.",
+                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
                   "If offset-retrieval is specified too loosely, it will collapse back into another ordinary bridge variant.",
-                  "If the realism-bridge candidate is treated as transformer-adjacent before bounded execution, the repo will overclaim relevance."
+                  "If the first packet is mixed on the two declared metrics, the line must stop immediately instead of drifting into extra hardening."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1182,7 +1182,9 @@
                                 "S1224",
                                 "S1225",
                                 "S1226",
-                                "S1227"
+                                "S1227",
+                                "S1228",
+                                "S1229"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

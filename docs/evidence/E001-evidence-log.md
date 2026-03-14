@@ -1935,3 +1935,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1144 2026-03-14: Wrote the dedicated implementation gate for `offset-retrieval`, freezing the bounded offset-retrieval symbolic family, hard-stop diagnostics, and branch stop rule before code reopens.
 - EL-1145 2026-03-14: Passed `offset-retrieval` to bounded implementation planning only, keeping the realism-bridge line memo-only at the gate boundary.
+
+- EL-1146 2026-03-14: Wrote the bounded implementation plan for `offset-retrieval`, freezing writable scope, fixed packet shape, and required audits before code reopens.
+- EL-1147 2026-03-14: Passed `offset-retrieval` to one bounded local implementation cycle only.
