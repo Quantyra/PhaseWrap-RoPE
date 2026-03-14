@@ -1,13 +1,13 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_bridge_review_ready",
+    "repo_posture":  "bridge_review_cycle_complete",
     "current_story_ids":  [
-                              "S1208"
+                              "S1210"
                           ],
     "next_actions":  [
                          "Use the current transfer and bridge package for internal review.",
                          "Do not open another bridge-task candidate by default.",
-                         "Only reopen execution if a materially different candidate answers a missing positional question and clears the existing screens."
+                         "Only reopen execution if a materially different candidate answers a missing positional question and is explicitly approved."
                      ],
     "risks":  [
                   "If bridge branch count is treated as a goal in itself, the program will drift back into low-value execution churn.",
@@ -1163,7 +1163,9 @@
                                 "S1205",
                                 "S1206",
                                 "S1207",
-                                "S1208"
+                                "S1208",
+                                "S1209",
+                                "S1210"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
