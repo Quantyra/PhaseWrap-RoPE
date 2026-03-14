@@ -1836,3 +1836,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1071 2026-03-13: Opened `anchor-distance` as the second memo-level bridge-task candidate so the bridge program can test anchor-relative distance structure, not only anchor-relative order.
 - EL-1072 2026-03-13: Reviewed `anchor-distance` against the bridge admissibility bar and passed it to approval-candidate posture only.
 - EL-1073 2026-03-13: Kept the second bridge-task line memo-only, with no code reopen before an explicit implementation gate is written.
+- EL-1074 2026-03-13: Wrote the explicit implementation gate for `anchor-distance`, freezing the bounded anchor-relative distance symbolic family, hard-stop diagnostics, and branch stop rule before code reopens.
+- EL-1075 2026-03-13: Passed `anchor-distance` to bounded implementation planning only, keeping the second bridge-task line memo-only at the gate boundary.
