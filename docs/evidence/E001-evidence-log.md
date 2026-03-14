@@ -1851,4 +1851,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1084 2026-03-13: Completed anchor-distance deeper `pair_reindex=7` hardening; the line returned to the memo gate after surviving the full retained-model cycle.
 - EL-1085 2026-03-13: Preserved anchor-distance as weak secondary bridge evidence rather than as a strong bridge result.
 - EL-1086 2026-03-13: Refreshed the internal package and executive summary so the bridge portfolio now distinguishes strong anchor-order evidence from weak anchor-distance evidence.
-
+- EL-1087 2026-03-13: Opened `anchor-span-membership` as the third memo-level bridge-task candidate so the bridge program can test anchor-defined interval containment, not only order or distance.
+- EL-1088 2026-03-13: Reviewed `anchor-span-membership` against the bridge admissibility bar and passed it to approval-candidate posture only.
+- EL-1089 2026-03-13: Kept the third bridge-task line memo-only, with no code reopen before an explicit implementation gate is written.
