@@ -1895,3 +1895,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1118 2026-03-13: Advanced anchor-betweenness to retained nuisance hardening only, not broader expansion.
 - EL-1119 2026-03-13: Completed `token_permutation=cdab` hardening for anchor-betweenness; the witness remained ahead of the bounded symbolic control on both declared packet metrics in the mean.
 - EL-1120 2026-03-13: Fixed `pair_reindex=1` as the next structural hardening step for anchor-betweenness.
+
+- EL-1121 2026-03-13: Completed `pair_reindex=1` hardening for anchor-betweenness; both retained models weakened on rank structure, but the witness stayed ahead on mean `mae` and mean `rank_correlation`.
+- EL-1122 2026-03-13: Fixed `slot_swap=1` as the next structural hardening step for anchor-betweenness.

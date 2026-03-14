@@ -2,16 +2,16 @@
     "active_epic":  "E001",
     "repo_posture":  "bounded_bridge_anchor_betweenness_hardening",
     "current_story_ids":  [
-                              "S1199"
+                              "S1202"
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=1 hardening packet for synthetic_positional_anchor_betweenness_response.",
+                         "Run the fixed slot_swap=1 hardening packet for synthetic_positional_anchor_betweenness_response.",
                          "Keep only the witness and bounded symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If anchor-betweenness is interpreted as broad positional relevance before structural hardening, the bridge portfolio will overstate the evidence.",
-                  "If the line survives nuisance hardening but fails structural hardening, the correct interpretation is boundary-limited relevance rather than a general bridge win."
+                  "If anchor-betweenness is interpreted as a strong bridge win before the remaining structural hardening closes, the bridge portfolio will overstate the evidence.",
+                  "If the control catches up on slot-swap or deeper reindex, the correct interpretation is boundary-limited bridge relevance rather than a robust survivor."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1154,7 +1154,10 @@
                                 "S1196",
                                 "S1197",
                                 "S1198",
-                                "S1199"
+                                "S1199",
+                                "S1200",
+                                "S1201",
+                                "S1202"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
