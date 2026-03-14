@@ -1753,3 +1753,5 @@ ank_correlation.
 
 - EL-1014 2026-03-13: Preserved echo-resolution in the internal package as an archived negative transfer boundary after the token-renaming hardening stop.
 - EL-1015 2026-03-13: Refreshed the transfer portfolio, internal result package, and executive summary so the survivor cluster and archived negative boundaries match the current repo state.
+
+- EL-1016 2026-03-13: Opened selector-arbitration as a new memo-only screened transfer candidate after preserving echo-resolution as an archived boundary; the family passed survivor-vs-boundary and non-compressibility review to approval-candidate posture.
