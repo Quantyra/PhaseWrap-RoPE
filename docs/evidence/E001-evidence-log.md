@@ -1755,3 +1755,5 @@ ank_correlation.
 - EL-1015 2026-03-13: Refreshed the transfer portfolio, internal result package, and executive summary so the survivor cluster and archived negative boundaries match the current repo state.
 
 - EL-1016 2026-03-13: Opened selector-arbitration as a new memo-only screened transfer candidate after preserving echo-resolution as an archived boundary; the family passed survivor-vs-boundary and non-compressibility review to approval-candidate posture.
+
+- EL-1017 2026-03-13: Wrote the implementation-approval gate for selector-arbitration, freezing the bounded symbolic family, hard-stop diagnostics, and stop rule before any code reopens.

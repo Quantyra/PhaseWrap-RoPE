@@ -1,13 +1,13 @@
 {
     "active_epic": "E001",
-    "repo_posture": "memo_only_transfer_selector_arbitration_approval_candidate",
+    "repo_posture": "memo_only_transfer_selector_arbitration_gate_decision",
     "current_story_ids": [
-        "S1083"
+        "S1085"
     ],
     "next_actions": [
-        "Write the implementation-approval gate for synthetic_symbolic_insufficiency_selector_arbitration_response.",
-        "Freeze the bounded selector-arbitration symbolic family and diagnostics in that gate.",
-        "Reopen code only if that gate is explicitly approved."
+        "Write the bounded implementation plan for synthetic_symbolic_insufficiency_selector_arbitration_response.",
+        "Freeze writable scope, fixed packet shape, and required audits in that plan.",
+        "Reopen code only after that bounded plan is accepted."
     ],
     "risks": [
         "If execution extends beyond the fixed packet, the line will lose bounded-fairness discipline.",
@@ -1038,7 +1038,9 @@
         "S1079",
         "S1080",
         "S1081",
-        "S1082"
+        "S1082",
+        "S1083",
+        "S1084"
     ],
     "archived_transfer_story_ids": [
         "S955",
