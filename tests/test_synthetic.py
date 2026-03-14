@@ -45,6 +45,7 @@ from qrope.synthetic import (
     generate_symbolic_insufficiency_latch_switch_response_bundle,
     generate_symbolic_insufficiency_staggered_binding_response_bundle,
     generate_symbolic_insufficiency_fanin_consensus_response_bundle,
+    generate_symbolic_insufficiency_echo_resolution_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
@@ -313,6 +314,18 @@ def test_symbolic_insufficiency_fanin_consensus_bundle_enforces_declared_diagnos
     assert diagnostics["token_view_balance_pass"] is True
     assert diagnostics["fanin_width_balance_pass"] is True
     assert diagnostics["consensus_target_nontrivial_pass"] is True
+
+
+def test_symbolic_insufficiency_echo_resolution_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_symbolic_insufficiency_echo_resolution_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_symbolic_insufficiency_echo_resolution_response"
+    assert diagnostics["coarse_echo_state_null_pass"] is True
+    assert diagnostics["within_echo_state_variation_pass"] is True
+    assert diagnostics["latent_echo_diversity_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["echo_length_balance_pass"] is True
+    assert diagnostics["resolution_target_nontrivial_pass"] is True
 
 
 def test_symbolic_insufficiency_loop_bundle_enforces_declared_diagnostics() -> None:

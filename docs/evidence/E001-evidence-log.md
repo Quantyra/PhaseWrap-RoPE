@@ -1744,3 +1744,6 @@ ank_correlation.
 - EL-1008 2026-03-13: Wrote the implementation-approval gate for echo-resolution, freezing the bounded symbolic family and hard-stop diagnostics before any code reopens.
 
 - EL-1009 2026-03-13: Wrote the bounded implementation plan for echo-resolution, freezing writable scope, fixed packet shape, and required audits before code reopens.
+
+- EL-1010 2026-03-13: Implemented the bounded echo-resolution transfer line, added the matching generator/runtime/tests, and passed the focused local validation suite (`300 passed`).
+- EL-1011 2026-03-13: Executed the fixed first packet for echo-resolution and found that the witness beat the bounded symbolic control on mean `mae` and mean `rank_correlation`, advancing the line only to bounded token-renaming hardening.

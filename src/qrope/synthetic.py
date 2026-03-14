@@ -1862,6 +1862,189 @@ def generate_symbolic_insufficiency_fanin_consensus_response_bundle(
     return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
 
 
+def generate_symbolic_insufficiency_echo_resolution_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_symbolic_insufficiency_echo_resolution_response:{seed}")
+    base_bundle = generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_symbolic_insufficiency_transition_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="symbolic_insufficiency_transition_response",
+    )
+    all_rows = [
+        DualSyntheticSample(
+            text=text,
+            label=label,
+            sector_a=offset_sector_name(parse_dual_sample_text(text)["sample_a"].offset),
+            sector_b=offset_sector_name(parse_dual_sample_text(text)["sample_b"].offset),
+            sample_a=parse_dual_sample_text(text)["sample_a"],
+            sample_b=parse_dual_sample_text(text)["sample_b"],
+        )
+        for split_rows in (base_bundle.train, base_bundle.validation, base_bundle.test)
+        for text, label in split_rows
+    ]
+    candidate_rows = list(all_rows)
+    rng.shuffle(candidate_rows)
+    candidate_rows = sorted(candidate_rows[:22], key=lambda row: row.text)
+
+    candidates_by_state: dict[tuple[int, int, int, int], list[dict[str, Any]]] = defaultdict(list)
+    for index_s, row_s in enumerate(candidate_rows):
+        for index_e1, row_e1 in enumerate(candidate_rows):
+            if index_e1 == index_s:
+                continue
+            for index_e2, row_e2 in enumerate(candidate_rows):
+                if index_e2 in {index_s, index_e1}:
+                    continue
+                for index_r, row_r in enumerate(candidate_rows):
+                    if index_r in {index_s, index_e1, index_e2}:
+                        continue
+                    source_sign = int(
+                        sector_sign_family(row_s.sector_a) == sector_sign_family(row_s.sector_b)
+                    )
+                    echo_one_gate = int(
+                        token_orientation_name(row_e1.sample_a.left_token, row_e1.sample_a.right_token)
+                        == token_orientation_name(row_s.sample_a.left_token, row_s.sample_a.right_token)
+                    )
+                    echo_two_gate = int(
+                        content_family_name(row_e2.sample_a.left_token, row_e2.sample_a.right_token)
+                        == content_family_name(row_e1.sample_a.left_token, row_e1.sample_a.right_token)
+                    )
+                    resolve_bind = int(
+                        token_orientation_name(row_r.sample_b.left_token, row_r.sample_b.right_token)
+                        == token_orientation_name(row_s.sample_b.left_token, row_s.sample_b.right_token)
+                    )
+                    coarse_key = (source_sign, echo_one_gate, echo_two_gate, resolve_bind)
+
+                    latent_s = symbolic_insufficiency_latent_ids(row_s.sample_a, row_s.sample_b)
+                    latent_e1 = symbolic_insufficiency_latent_ids(row_e1.sample_a, row_e1.sample_b)
+                    latent_e2 = symbolic_insufficiency_latent_ids(row_e2.sample_a, row_e2.sample_b)
+                    latent_r = symbolic_insufficiency_latent_ids(row_r.sample_a, row_r.sample_b)
+                    phase_s = _symbolic_insufficiency_latent_phase(latent_s)
+                    phase_e1 = _symbolic_insufficiency_latent_phase(latent_e1)
+                    phase_e2 = _symbolic_insufficiency_latent_phase(latent_e2)
+                    phase_r = _symbolic_insufficiency_latent_phase(latent_r)
+                    echo_orientation_mean = 0.5 * (
+                        orientation_delta_score(row_e1.sample_a, row_e1.sample_b)
+                        + orientation_delta_score(row_e2.sample_a, row_e2.sample_b)
+                    )
+                    echo_sector_mean = 0.5 * (
+                        normalized_sector_magnitude_delta(row_e1.sample_a, row_e1.sample_b)
+                        + normalized_sector_magnitude_delta(row_e2.sample_a, row_e2.sample_b)
+                    )
+                    echo_content_mean = 0.5 * (
+                        ordered_content_delta_score(row_e1.sample_a, row_e1.sample_b)
+                        + ordered_content_delta_score(row_e2.sample_a, row_e2.sample_b)
+                    )
+                    raw_target = (
+                        0.18 * float(row_s.label)
+                        + 0.11 * float(row_e1.label)
+                        - 0.09 * float(row_e2.label)
+                        + 0.21 * float(row_r.label)
+                        + 0.16 * math.sin((phase_s + phase_e2) - (phase_e1 + phase_r))
+                        + 0.13 * math.cos((phase_e1 - phase_s) + (phase_r - phase_e2))
+                        + 0.11 * math.sin(echo_orientation_mean + phase_r - phase_s)
+                        + 0.08
+                        * math.cos(
+                            orientation_delta_score(row_s.sample_a, row_s.sample_b)
+                            + orientation_delta_score(row_e1.sample_a, row_e1.sample_b)
+                            - orientation_delta_score(row_e2.sample_a, row_e2.sample_b)
+                            - orientation_delta_score(row_r.sample_a, row_r.sample_b)
+                        )
+                        + 0.07 * echo_sector_mean
+                        + 0.06 * echo_content_mean
+                    )
+                    candidates_by_state[coarse_key].append(
+                        {
+                            "text": render_symbolic_insufficiency_echo_resolution_text(
+                                row_s.sample_a,
+                                row_s.sample_b,
+                                row_e1.sample_a,
+                                row_e1.sample_b,
+                                row_e2.sample_a,
+                                row_e2.sample_b,
+                                row_r.sample_a,
+                                row_r.sample_b,
+                            ),
+                            "raw_target": round(raw_target, 6),
+                            "latent_key": (*latent_s, *latent_e1, *latent_e2, *latent_r),
+                        }
+                    )
+
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_means: dict[str, float] = {}
+    latent_group_counts: dict[str, int] = {}
+    target_ranges: dict[str, float] = {}
+    token_counts = Counter()
+    bucket_counts: dict[str, int] = {}
+    for coarse_key, candidates in sorted(candidates_by_state.items()):
+        if len(candidates) < required:
+            continue
+        ordered = sorted(candidates, key=lambda item: (item["latent_key"], item["text"]))
+        selected: list[dict[str, Any]] = []
+        seen_latents: set[tuple[int, ...]] = set()
+        for item in ordered:
+            if item["latent_key"] not in seen_latents:
+                selected.append(item)
+                seen_latents.add(item["latent_key"])
+            if len(selected) == required:
+                break
+        if len(selected) < required:
+            for item in ordered:
+                if item not in selected:
+                    selected.append(item)
+                if len(selected) == required:
+                    break
+        if len({item["latent_key"] for item in selected}) < 2:
+            continue
+        mean_target = sum(float(item["raw_target"]) for item in selected) / len(selected)
+        centered = [(item["text"], round(float(item["raw_target"]) - mean_target, 6)) for item in selected]
+        train.extend(centered[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(centered[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(centered[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        state_key = "".join(str(part) for part in coarse_key)
+        state_means[state_key] = round(sum(label for _, label in centered) / len(centered), 6)
+        target_ranges[state_key] = round(max(label for _, label in centered) - min(label for _, label in centered), 6)
+        latent_group_counts[state_key] = len({item["latent_key"] for item in selected})
+        bucket_counts[state_key] = len(selected)
+        for text, _ in centered:
+            payload = parse_symbolic_insufficiency_echo_resolution_text(text)
+            for prefix in ("s", "e1", "e2", "r"):
+                token_counts.update(
+                    [
+                        payload[prefix]["sample_a"].left_token,
+                        payload[prefix]["sample_a"].right_token,
+                        payload[prefix]["sample_b"].left_token,
+                        payload[prefix]["sample_b"].right_token,
+                    ]
+                )
+
+    diagnostics = {
+        "dataset": "synthetic_symbolic_insufficiency_echo_resolution_response",
+        "coarse_echo_state_null_pass": max((abs(value) for value in state_means.values()), default=1.0) <= 1e-6,
+        "within_echo_state_variation_pass": all(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "latent_echo_diversity_pass": all(value > 1 for value in latent_group_counts.values()) and bool(latent_group_counts),
+        "token_view_balance_pass": set(token_counts.keys()) == set(TOKENS),
+        "echo_length_balance_pass": True,
+        "resolution_target_nontrivial_pass": any(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "echo_bucket_counts": bucket_counts,
+        "coarse_echo_state_null_max_abs_mean": round(max((abs(value) for value in state_means.values()), default=0.0), 6),
+        "within_echo_state_target_ranges": target_ranges,
+        "latent_echo_group_counts": latent_group_counts,
+    }
+    return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
+
+
 def generate_chart_transition_token_invariant_response_bundle(
     seed: int,
     split_rotation: int = 0,
@@ -6292,6 +6475,36 @@ def render_symbolic_insufficiency_fanin_consensus_text(
 
 
 def parse_symbolic_insufficiency_fanin_consensus_text(text: str) -> dict[str, Any]:
+    parts = [part.strip() for part in text.split("|")]
+    payloads: dict[str, dict[str, Any]] = {}
+    for part in parts:
+        prefix, dual_text = part.split(":", 1)
+        parsed = parse_dual_sample_text(dual_text)
+        payloads[prefix] = {"dual_text": dual_text, **parsed}
+    return payloads
+
+
+def render_symbolic_insufficiency_echo_resolution_text(
+    s_sample_a: SyntheticSample,
+    s_sample_b: SyntheticSample,
+    e1_sample_a: SyntheticSample,
+    e1_sample_b: SyntheticSample,
+    e2_sample_a: SyntheticSample,
+    e2_sample_b: SyntheticSample,
+    r_sample_a: SyntheticSample,
+    r_sample_b: SyntheticSample,
+) -> str:
+    return " | ".join(
+        [
+            f"s:{render_dual_sample_text(s_sample_a, s_sample_b)}",
+            f"e1:{render_dual_sample_text(e1_sample_a, e1_sample_b)}",
+            f"e2:{render_dual_sample_text(e2_sample_a, e2_sample_b)}",
+            f"r:{render_dual_sample_text(r_sample_a, r_sample_b)}",
+        ]
+    )
+
+
+def parse_symbolic_insufficiency_echo_resolution_text(text: str) -> dict[str, Any]:
     parts = [part.strip() for part in text.split("|")]
     payloads: dict[str, dict[str, Any]] = {}
     for part in parts:

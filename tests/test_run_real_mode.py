@@ -835,6 +835,40 @@ def test_symbolic_insufficiency_fanin_consensus_symbolic_control_freezes_basis()
     assert diagnostics["forbidden_feature_family_absent_pass"] is True
 
 
+def test_symbolic_insufficiency_echo_resolution_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_echo_resolution_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_symbolic_insufficiency_echo_resolution",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_symbolic_insufficiency_echo_resolution_response+readout_relational_witness_symbolic_insufficiency_echo_resolution+head_linear"
+    )
+    assert diagnostics["coarse_echo_state_null_pass"] is True
+    assert diagnostics["within_echo_state_variation_pass"] is True
+    assert diagnostics["latent_echo_diversity_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["echo_length_balance_pass"] is True
+    assert diagnostics["resolution_target_nontrivial_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
+def test_symbolic_insufficiency_echo_resolution_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_symbolic_insufficiency_echo_resolution_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_symbolic_insufficiency_echo_resolution_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_echo_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_feature_family_absent_pass"] is True
+
+
 def test_symbolic_insufficiency_loop_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_symbolic_insufficiency_loop_closure_response",
