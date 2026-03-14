@@ -1765,3 +1765,5 @@ ank_correlation.
 
 - EL-1021 2026-03-13: Preserved selector-arbitration in the internal package as an archived negative transfer boundary after the first-packet stop.
 - EL-1022 2026-03-13: Refreshed the transfer portfolio, internal result package, and executive summary so the survivor cluster and archived negative boundaries match the current repo state.
+
+- EL-1023 2026-03-13: Opened counterfactual-handoff as a new memo-only screened transfer candidate after preserving selector-arbitration as an archived boundary; the family passed survivor-vs-boundary and non-compressibility review to approval-candidate posture.
