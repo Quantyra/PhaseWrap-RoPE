@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_bridge_anchor_offset_signature_implementation",
+    "repo_posture":  "memo_only_internal_result_package",
     "current_story_ids":  [
-                              "S1181"
+                              "S1186"
                           ],
     "next_actions":  [
-                         "Implement synthetic_positional_anchor_offset_signature_response.",
-                         "Run exactly one fixed three-seed packet against the bounded anchor-relative offset-signature symbolic control.",
-                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+                         "Preserve anchor-offset-signature as an archived negative bridge boundary in the internal package.",
+                         "Do not reopen execution on anchor-offset-signature.",
+                         "Open another bridge-task candidate only if it is materially different from anchor-order, anchor-distance, anchor-span-membership, and anchor-offset-signature."
                      ],
     "risks":  [
-                  "If anchor-offset-signature is specified too close to raw distance bucketing, the bridge program will fail to add a materially new positional question.",
-                  "If the first packet is mixed on the two declared metrics, the line must stop immediately instead of drifting into extra hardening."
+                  "If anchor-offset-signature is interpreted as positive bridge evidence, the bridge portfolio will overstate relevance.",
+                  "If another bridge line reuses anchor-relative side or offset-bucket structure too closely, the bridge program will drift back into low-value branch churn."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1136,7 +1136,12 @@
                                 "S1178",
                                 "S1179",
                                 "S1180",
-                                "S1181"
+                                "S1181",
+                                "S1182",
+                                "S1183",
+                                "S1184",
+                                "S1185",
+                                "S1186"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

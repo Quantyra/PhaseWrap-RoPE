@@ -50,6 +50,7 @@ from .synthetic import (
     generate_positional_anchor_order_response_bundle,
     generate_positional_anchor_distance_response_bundle,
     generate_positional_anchor_span_membership_response_bundle,
+    generate_positional_anchor_offset_signature_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_chart_transition_token_invariant_response_bundle,
     generate_chart_transition_orbit_response_bundle,
@@ -106,6 +107,7 @@ from .synthetic import (
     parse_positional_anchor_order_text,
     parse_positional_anchor_distance_text,
     parse_positional_anchor_span_membership_text,
+    parse_positional_anchor_offset_signature_text,
     parse_transition_localization_text,
     parse_transition_consistency_text,
     parse_transition_listwise_text,
@@ -351,6 +353,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_positional_anchor_order": 96,
         "V_future_relational_witness_positional_anchor_distance": 96,
         "V_future_relational_witness_positional_anchor_span_membership": 96,
+        "V_future_relational_witness_positional_anchor_offset_signature": 96,
         "V_future_relational_witness_symbolic_insufficiency_fork_join": 96,
         "V_future_relational_witness_symbolic_insufficiency_braid": 96,
         "V_control_symbolic_single_family_regressor": 1,
@@ -436,6 +439,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_positional_anchor_order_regressor": 1,
         "V_control_symbolic_positional_anchor_distance_regressor": 1,
         "V_control_symbolic_positional_anchor_span_membership_regressor": 1,
+        "V_control_symbolic_positional_anchor_offset_signature_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_fork_join_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_braid_regressor": 1,
         "V_control_symbolic_transition_channel_order_lookup": 1,
@@ -733,6 +737,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_positional_anchor_distance+head_linear"
         elif variant == "V_future_relational_witness_positional_anchor_span_membership":
             data_mode = f"{data_mode}+readout_relational_witness_positional_anchor_span_membership+head_linear"
+        elif variant == "V_future_relational_witness_positional_anchor_offset_signature":
+            data_mode = f"{data_mode}+readout_relational_witness_positional_anchor_offset_signature+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_loop":
             data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency_loop+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_fork_join":
@@ -803,6 +809,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_positional_anchor_distance_regressor+head_linear"
         elif variant == "V_control_symbolic_positional_anchor_span_membership_regressor":
             data_mode = f"{data_mode}+readout_symbolic_positional_anchor_span_membership_regressor+head_linear"
+        elif variant == "V_control_symbolic_positional_anchor_offset_signature_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_positional_anchor_offset_signature_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_loop_regressor":
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_loop_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_fork_join_regressor":
@@ -1594,6 +1602,10 @@ def run_quantum_backend(
         return run_positional_anchor_span_membership_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if dataset == "synthetic_positional_anchor_span_membership_response" and variant == "V_control_symbolic_positional_anchor_span_membership_regressor":
         return run_positional_anchor_span_membership_symbolic_regressor(train=train, test=test, validation=validation)
+    if dataset == "synthetic_positional_anchor_offset_signature_response" and variant == "V_future_relational_witness_positional_anchor_offset_signature":
+        return run_positional_anchor_offset_signature_witness_backend(train=train, test=test, seed=seed, validation=validation)
+    if dataset == "synthetic_positional_anchor_offset_signature_response" and variant == "V_control_symbolic_positional_anchor_offset_signature_regressor":
+        return run_positional_anchor_offset_signature_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response" and variant == "V_future_relational_witness_symbolic_insufficiency_loop":
         return run_symbolic_insufficiency_loop_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response" and variant == "V_control_symbolic_symbolic_insufficiency_loop_regressor":
@@ -4750,6 +4762,189 @@ def positional_anchor_span_membership_symbolic_features(text: str) -> dict[str, 
         "feature_order": list(features.keys()),
         "features": features,
         "allowed_anchor_span_membership_symbolic_basis_frozen_pass": True,
+        "forbidden_feature_family_absent_pass": True,
+    }
+
+
+def positional_anchor_offset_signature_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_positional_anchor_offset_signature_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def offset_bucket(value: float) -> float:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0.0
+        if distance < 2.0:
+            return 1.0
+        return 2.0
+
+    a_result = symbolic_insufficiency_witness_features(text=payload["a"]["dual_text"], seed=seed)
+    p_result = symbolic_insufficiency_witness_features(text=payload["p"]["dual_text"], seed=seed)
+    q_result = symbolic_insufficiency_witness_features(text=payload["q"]["dual_text"], seed=seed)
+    o_result = symbolic_insufficiency_witness_features(text=payload["o"]["dual_text"], seed=seed)
+    a_step = _symbolic_insufficiency_path_step_features(payload["a"])
+    p_step = _symbolic_insufficiency_path_step_features(payload["p"])
+    q_step = _symbolic_insufficiency_path_step_features(payload["q"])
+    o_step = _symbolic_insufficiency_path_step_features(payload["o"])
+    a_phase = float(a_result["features"]["latent_transition_phase"])
+    p_phase = float(p_result["features"]["latent_transition_phase"])
+    q_phase = float(q_result["features"]["latent_transition_phase"])
+    o_phase = float(o_result["features"]["latent_transition_phase"])
+    a_curvature = float(a_result["features"]["latent_transition_curvature"])
+    p_curvature = float(p_result["features"]["latent_transition_curvature"])
+    o_curvature = float(o_result["features"]["latent_transition_curvature"])
+    anchor_pivot = mean_pos(payload["a"])
+    probe_gap = round(mean_pos(payload["p"]) - anchor_pivot, 6)
+    alt_gap = round(mean_pos(payload["q"]) - anchor_pivot, 6)
+    resolve_gap = round(mean_pos(payload["o"]) - anchor_pivot, 6)
+    probe_gap_norm = round(probe_gap / 4.0, 6)
+    alt_gap_norm = round(alt_gap / 4.0, 6)
+    resolve_gap_norm = round(resolve_gap / 4.0, 6)
+    probe_side = 1.0 if probe_gap >= 0.0 else -1.0
+    alt_side = 1.0 if alt_gap >= 0.0 else -1.0
+    resolve_side = 1.0 if resolve_gap >= 0.0 else -1.0
+    probe_bucket = offset_bucket(probe_gap)
+    alt_bucket = offset_bucket(alt_gap)
+    resolve_bucket = offset_bucket(resolve_gap)
+    resolve_matches_probe_signature = 1.0 if (resolve_side == probe_side and resolve_bucket == probe_bucket) else 0.0
+    feature_order = [
+        "anchor_phase",
+        "probe_phase",
+        "alternate_phase",
+        "resolve_phase",
+        "anchor_curvature",
+        "probe_curvature",
+        "resolve_curvature",
+        "probe_anchor_gap",
+        "alternate_anchor_gap",
+        "resolve_anchor_gap",
+        "probe_side",
+        "alternate_side",
+        "resolve_side",
+        "probe_offset_bucket",
+        "alternate_offset_bucket",
+        "resolve_offset_bucket",
+        "resolve_matches_probe_signature",
+        "anchor_offset_declared_mix",
+        "anchor_offset_cross_curvature",
+    ]
+    features = {
+        "anchor_phase": a_phase,
+        "probe_phase": p_phase,
+        "alternate_phase": q_phase,
+        "resolve_phase": o_phase,
+        "anchor_curvature": a_curvature,
+        "probe_curvature": p_curvature,
+        "resolve_curvature": o_curvature,
+        "probe_anchor_gap": probe_gap_norm,
+        "alternate_anchor_gap": alt_gap_norm,
+        "resolve_anchor_gap": resolve_gap_norm,
+        "probe_side": probe_side,
+        "alternate_side": alt_side,
+        "resolve_side": resolve_side,
+        "probe_offset_bucket": probe_bucket,
+        "alternate_offset_bucket": alt_bucket,
+        "resolve_offset_bucket": resolve_bucket,
+        "resolve_matches_probe_signature": resolve_matches_probe_signature,
+        "anchor_offset_declared_mix": round(
+            probe_gap_norm * p_step["ordered_content_delta"]
+            - alt_gap_norm * q_step["ordered_content_delta"]
+            + resolve_gap_norm * o_step["orientation_delta"],
+            6,
+        ),
+        "anchor_offset_cross_curvature": round(
+            0.5 * (p_phase - o_phase) * a_curvature
+            + 0.5 * (probe_gap_norm - resolve_gap_norm) * p_curvature
+            + 0.5 * (alt_gap_norm - probe_gap_norm) * o_curvature,
+            6,
+        ),
+    }
+    return {
+        "feature_order": feature_order,
+        "features": features,
+        "bounded_feature_audit_pass": True,
+        "forbidden_feature_family_absent_pass": True,
+    }
+
+
+def positional_anchor_offset_signature_symbolic_features(text: str) -> dict[str, object]:
+    payload = parse_positional_anchor_offset_signature_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def offset_bucket(value: float) -> float:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0.0
+        if distance < 2.0:
+            return 1.0
+        return 2.0
+
+    a_step = _symbolic_insufficiency_path_step_features(payload["a"])
+    p_step = _symbolic_insufficiency_path_step_features(payload["p"])
+    q_step = _symbolic_insufficiency_path_step_features(payload["q"])
+    o_step = _symbolic_insufficiency_path_step_features(payload["o"])
+    anchor_pivot = mean_pos(payload["a"])
+    probe_gap = mean_pos(payload["p"]) - anchor_pivot
+    alt_gap = mean_pos(payload["q"]) - anchor_pivot
+    resolve_gap = mean_pos(payload["o"]) - anchor_pivot
+    probe_side = 1.0 if probe_gap >= 0.0 else 0.0
+    alt_side = 1.0 if alt_gap >= 0.0 else 0.0
+    resolve_side = 1.0 if resolve_gap >= 0.0 else 0.0
+    probe_bucket = offset_bucket(probe_gap)
+    alt_bucket = offset_bucket(alt_gap)
+    resolve_bucket = offset_bucket(resolve_gap)
+    resolve_matches_probe_signature = 1.0 if (resolve_side == probe_side and resolve_bucket == probe_bucket) else 0.0
+    anchor_sign = 1.0 if (
+        offset_sector(payload["a"]["sample_a"].offset).startswith("P")
+        == offset_sector(payload["a"]["sample_b"].offset).startswith("P")
+    ) else 0.0
+    mean_sector = (
+        a_step["sector_magnitude_delta"]
+        + p_step["sector_magnitude_delta"]
+        + q_step["sector_magnitude_delta"]
+        + o_step["sector_magnitude_delta"]
+    ) / 4.0
+    mean_content = (
+        a_step["ordered_content_delta"]
+        + p_step["ordered_content_delta"]
+        + q_step["ordered_content_delta"]
+        + o_step["ordered_content_delta"]
+    ) / 4.0
+    mean_orientation = (
+        a_step["orientation_delta"]
+        + p_step["orientation_delta"]
+        + q_step["orientation_delta"]
+        + o_step["orientation_delta"]
+    ) / 4.0
+    features = {
+        "anchor_sign": anchor_sign,
+        "probe_side": probe_side,
+        "alternate_side": alt_side,
+        "resolve_side": resolve_side,
+        "probe_offset_bucket": probe_bucket,
+        "alternate_offset_bucket": alt_bucket,
+        "resolve_offset_bucket": resolve_bucket,
+        "resolve_matches_probe_signature": resolve_matches_probe_signature,
+        "probe_anchor_gap": round(probe_gap / 4.0, 6),
+        "alternate_anchor_gap": round(alt_gap / 4.0, 6),
+        "resolve_anchor_gap": round(resolve_gap / 4.0, 6),
+        "mean_sector_magnitude_delta": round(mean_sector, 6),
+        "mean_ordered_content_delta": round(mean_content, 6),
+        "mean_orientation_delta": round(mean_orientation, 6),
+        "probe_alternate_content_gap": round(p_step["ordered_content_delta"] - q_step["ordered_content_delta"], 6),
+        "resolve_probe_orientation_gap": round(o_step["orientation_delta"] - p_step["orientation_delta"], 6),
+        "cross_mean_sector_content": round(mean_sector * mean_content, 6),
+        "cross_mean_sector_orientation": round(mean_sector * mean_orientation, 6),
+        "cross_mean_content_orientation": round(mean_content * mean_orientation, 6),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "allowed_anchor_offset_signature_symbolic_basis_frozen_pass": True,
         "forbidden_feature_family_absent_pass": True,
     }
 
@@ -9414,6 +9609,61 @@ def run_positional_anchor_span_membership_symbolic_regressor(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_positional_anchor_offset_signature_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [positional_anchor_offset_signature_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [positional_anchor_offset_signature_witness_features(text=text, seed=seed) for text, _ in validation]
+    test_results = [positional_anchor_offset_signature_witness_features(text=text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(bool(result.get("bounded_feature_audit_pass", False)) for result in test_results)
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_positional_anchor_offset_signature_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [positional_anchor_offset_signature_symbolic_features(text=text) for text, _ in train]
+    validation_results = [positional_anchor_offset_signature_symbolic_features(text=text) for text, _ in validation]
+    test_results = [positional_anchor_offset_signature_symbolic_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["allowed_anchor_offset_signature_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_anchor_offset_signature_symbolic_basis_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
 def run_symbolic_insufficiency_loop_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -13055,6 +13305,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_positional_anchor_span_membership_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_positional_anchor_offset_signature_response":
+        bundle = generate_positional_anchor_offset_signature_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_positional_anchor_offset_signature_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response":

@@ -1874,3 +1874,8 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1103 2026-03-13: Wrote the bounded implementation plan for `anchor-offset-signature`, freezing writable scope, fixed packet shape, and required audits before code reopens.
 - EL-1104 2026-03-13: Passed `anchor-offset-signature` to one bounded local implementation cycle only.
+
+- EL-1105 2026-03-13: Implemented the anchor-offset-signature bridge-task line inside the frozen writable scope and passed the focused local validation suite (`318 passed`).
+- EL-1106 2026-03-13: Executed the fixed first packet for anchor-offset-signature; the bounded symbolic control kept mean `mae` while the witness kept mean `rank_correlation`.
+- EL-1107 2026-03-13: Stopped anchor-offset-signature at the first packet because mixed leadership was not enough to authorize hardening under the declared bridge gate.
+- EL-1108 2026-03-13: Archived anchor-offset-signature as a negative bridge boundary and refreshed the internal package accordingly.
