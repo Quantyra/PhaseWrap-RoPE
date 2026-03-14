@@ -2,12 +2,12 @@
     "active_epic":  "E001",
     "repo_posture":  "bridge_review_cycle_complete",
     "current_story_ids":  [
-                              "S1213"
+                              "S1214"
                           ],
     "next_actions":  [
-                         "Use the refreshed agenda and checklist for internal review.",
-                         "Do not open another bridge-task candidate by default.",
-                         "Only reopen execution if a materially different candidate answers a missing positional question and is explicitly approved."
+                         "Use the current transfer and bridge package for internal review.",
+                         "Do not open another branch by default once an evidence class is decision-sufficient.",
+                         "Only reopen execution with an explicit missing-question justification that clears the new portfolio saturation protocol."
                      ],
     "risks":  [
                   "If bridge branch count is treated as a goal in itself, the program will drift back into low-value execution churn.",
@@ -1168,7 +1168,8 @@
                                 "S1210",
                                 "S1211",
                                 "S1212",
-                                "S1213"
+                                "S1213",
+                                "S1214"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

@@ -1913,3 +1913,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1131 2026-03-14: Refreshed the internal review agenda so it matches the current transfer plus bridge portfolio.
 - EL-1132 2026-03-14: Refreshed the internal decision checklist so internal review decisions are made against the current evidence base rather than the pre-bridge package.
+
+- EL-1133 2026-03-14: Added a portfolio-level saturation and review protocol so new symbolic, transfer, and bridge branches cannot reopen by inertia once an evidence class is decision-sufficient.
+- EL-1134 2026-03-14: Linked the new saturation protocol into the VP-of-Research proxy role and repo guidance so portfolio-level stopping rules now govern future branch expansion.

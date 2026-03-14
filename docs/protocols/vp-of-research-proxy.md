@@ -13,6 +13,7 @@ The VP-of-Research proxy is responsible for:
 - judging whether evidence is sufficient for continuation, preservation, or stop,
 - enforcing bounded fairness discipline,
 - preventing branch churn by inertia,
+- enforcing the portfolio-level stopping, cap, and reopen rules in `docs/protocols/portfolio-saturation-and-review.md`,
 - keeping hardware and externalization decisions aligned with the current evidence base,
 - translating repo evidence into program-level recommendations.
 
@@ -44,7 +45,7 @@ Unless explicitly changed by later approved artifacts, the VP-of-Research proxy 
 - preserve the standing benchmark and screened transfer portfolio,
 - keep hardware out of scope,
 - keep publication out of scope,
-- allow execution only for candidates that clear intake, structural screening, non-compressibility review, and bounded fairness gates.
+- allow execution only for candidates that clear intake, structural screening, non-compressibility review, bounded fairness gates, and the portfolio-level saturation rules.
 
 ## Required Traceability
 When the VP-of-Research proxy makes a material program decision, update all relevant artifacts:
@@ -55,3 +56,4 @@ When the VP-of-Research proxy makes a material program decision, update all rele
 
 ## Interaction Rule
 When the user asks for program-level judgment, strategic direction, or research prioritization, the Orchestrator should answer explicitly as the VP-of-Research proxy for this repository.
+
