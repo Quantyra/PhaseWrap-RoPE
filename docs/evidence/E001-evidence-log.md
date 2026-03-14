@@ -1799,3 +1799,7 @@ ank_correlation.
 - EL-1044 2026-03-13: Refreshed the transfer portfolio, internal result package, and executive summary to add counterfactual-handoff to the preserved positive transfer set.
 - EL-1045 2026-03-13: Opened a memo-only bridge-task track because the main missing evidence is now relevance bridge, not more transfer-family count.
 - EL-1046 2026-03-13: Froze the bridge-task admissibility bar so no bridge-task execution can reopen before a memo-level gate is written.
+
+- EL-1047 2026-03-13: Opened anchor-order as the first memo-level bridge-task candidate, aimed at relative order around an anchor rather than ordinary transfer-family persistence structure.
+- EL-1048 2026-03-13: Reviewed anchor-order against the bridge-task admissibility bar and passed it to approval-candidate posture.
+- EL-1049 2026-03-13: Kept the bridge-task line memo-only, with no code reopen until an explicit bridge-task implementation gate is written.

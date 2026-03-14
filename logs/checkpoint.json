@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_bridge_task_design",
+    "repo_posture":  "memo_only_bridge_anchor_order_approval_candidate",
     "current_story_ids":  [
-                              "S1122"
+                              "S1125"
                           ],
     "next_actions":  [
-                         "Define one bridge-task candidate that is closer to positional behavior than the current transfer ladder.",
-                         "Keep the bridge-task line memo-only until an explicit implementation gate is written.",
-                         "Do not reopen hardware or ordinary transfer-family churn from this posture."
+                         "Write the explicit implementation gate for synthetic_positional_anchor_order_response.",
+                         "Freeze the bounded anchor-relative symbolic family and diagnostics in that gate.",
+                         "Keep the bridge-task line memo-only until that gate is accepted."
                      ],
     "risks":  [
-                  "If bridge-task work is underspecified, it will collapse back into generic transfer-family churn.",
-                  "If relevance-bridge claims outrun the current evidence, the program will overstate what the portfolio actually supports."
+                  "If anchor-order is underspecified, it can collapse back into generic relational transfer structure instead of a real positional bridge.",
+                  "If the bridge-task gate is skipped, execution pressure can reopen without the stronger relevance discipline this pivot requires."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1077,7 +1077,10 @@
                                 "S1119",
                                 "S1120",
                                 "S1121",
-                                "S1122"
+                                "S1122",
+                                "S1123",
+                                "S1124",
+                                "S1125"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
