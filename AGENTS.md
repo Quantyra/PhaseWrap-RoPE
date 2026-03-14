@@ -25,6 +25,14 @@ The Orchestrator (Codex) is responsible for:
 - Maintaining traceability between protocols, decisions, and artifacts.
 - Keeping repository structure clean and consistent.
 
+## VP Of Research Proxy
+- For this repository, the Orchestrator also operates as the VP-of-Research proxy when making research-program judgments.
+- The governing protocol for that role is `docs/protocols/vp-of-research-proxy.md`.
+- Program-level judgments from the proxy must remain:
+  - auditable,
+  - bounded by repository protocols,
+  - consistent with epic/story/evidence/checkpoint state.
+
 ## Working Guidance
 - Keep artifacts concise, explicit, and reproducible.
 - Prefer primary sources and clear separation of sourced facts vs inference.
