@@ -1,17 +1,17 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_transfer_counterfactual_handoff_structural_hardening",
+    "repo_posture":  "memo_only_transfer_counterfactual_handoff_decision_gate",
     "current_story_ids":  [
-                              "S1113"
+                              "S1116"
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=7 deeper structural hardening packet for synthetic_symbolic_insufficiency_counterfactual_handoff_response.",
-                         "Keep only the counterfactual-handoff witness and bounded symbolic control.",
-                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+                         "Preserve the counterfactual-handoff line as sufficient bounded internal transfer evidence.",
+                         "Do not open another default perturbation packet on this family.",
+                         "Only reopen execution if a materially different transfer question is chosen."
                      ],
     "risks":  [
-                  "If the deeper retained-model packet is skipped, the standard hardening cycle will remain incomplete.",
-                  "If the branch is widened beyond the fixed witness/control pair, the hardening record becomes non-comparable."
+                  "If the line is reopened by inertia instead of decision, the low-intensity program will drift back into branch churn.",
+                  "If the positive cycle is preserved without reference to archived negative boundaries, the transfer portfolio can be overstated."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1068,7 +1068,10 @@
                                 "S1110",
                                 "S1111",
                                 "S1112",
-                                "S1113"
+                                "S1113",
+                                "S1114",
+                                "S1115",
+                                "S1116"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
