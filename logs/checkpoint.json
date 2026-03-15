@@ -1,13 +1,13 @@
 {
-    "active_epic":  "E003",
-    "repo_posture":  "low_intensity_no_execution",
+    "active_epic":  "E004",
+    "repo_posture":  "memo_only_E004_content_alias_candidate_design",
     "current_story_ids":  [
-                              "S1390"
+                              "S1393"
                           ],
     "next_actions":  [
-                         "Use the refreshed package for internal reference and decision support.",
-                         "Keep default execution closed.",
-                         "Reopen only with a materially different missing-question candidate and explicit approval."
+                         "Write the explicit memo-level gate for synthetic_positional_content_alias_disambiguation_response.",
+                         "Freeze the bounded content-alias symbolic family and diagnostics in that gate.",
+                         "Keep implementation and execution closed until that gate is accepted."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1335,7 +1335,10 @@
                                 "S1387",
                                 "S1388",
                                 "S1389",
-                                "S1390"
+                                "S1390",
+                                "S1391",
+                                "S1392",
+                                "S1393"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

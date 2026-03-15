@@ -2072,3 +2072,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1262 2026-03-15: Refreshed the internal review cover, briefing, outcome, agenda, and decision checklist after preserving the E003 position-content survivor.
 - EL-1263 2026-03-15: Refreshed the final internal review decision and review cycle closure after preserving the E003 position-content survivor.
 - EL-1264 2026-03-15: Refreshed the one-page current state operating memo after the E003 review closure.
+- EL-1265 2026-03-15: Opened `E004 - Bounded content-alias disambiguation` as the next stretch-effort epic in the Q-RoPE research program.
+- EL-1266 2026-03-15: Defined the next missing question as bounded positional disambiguation under content alias pressure rather than another clean-gating variant.
+- EL-1267 2026-03-15: Opened `synthetic_positional_content_alias_disambiguation_response` as a memo-only E004 candidate with a gate sketch only.
