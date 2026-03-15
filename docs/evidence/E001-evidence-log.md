@@ -1978,3 +1978,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1173 2026-03-14: Specified `synthetic_positional_key_query_offset_selection_response` as the first successor-class candidate and judged it admissible for one more memo-level gate review only.
 - EL-1174 2026-03-14: Recorded that the next valid move is the candidate-level gate, not implementation or execution.
+
+- EL-1175 2026-03-14: Wrote the candidate-level gate for `synthetic_positional_key_query_offset_selection_response`, freezing the one-of-many selection and bounded symbolic-control requirements.
+- EL-1176 2026-03-14: Passed the candidate only to bounded implementation planning at memo level; execution remains closed.
