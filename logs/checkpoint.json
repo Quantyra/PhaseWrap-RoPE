@@ -1,13 +1,13 @@
 ﻿{
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_successor_dual_anchor_consensus_gate_decision",
+    "repo_posture":  "memo_only_successor_dual_anchor_consensus_plan_decision",
     "current_story_ids":  [
-                              "S1299"
+                              "S1301"
                           ],
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_positional_dual_anchor_offset_consensus_response.",
-                         "Keep implementation and execution closed until the plan is accepted.",
-                         "Stop the candidate if bounded fairness cannot be specified cleanly."
+                         "Reopen code only if synthetic_positional_dual_anchor_offset_consensus_response remains the best missing-question candidate.",
+                         "Keep execution bounded to one fixed three-seed packet if implementation opens.",
+                         "Stop the candidate immediately if implementation collapses to single-anchor scoring or requires fairness blow-up."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1254,7 +1254,9 @@
                                 "S1296",
                                 "S1297",
                                 "S1298",
-                                "S1299"
+                                "S1299",
+                                "S1300",
+                                "S1301"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
