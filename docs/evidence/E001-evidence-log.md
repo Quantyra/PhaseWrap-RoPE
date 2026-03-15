@@ -1989,3 +1989,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1181 2026-03-14: Advanced the successor line to the retained nuisance-hardening packet `token_permutation=cdab` only.
 - EL-1182 2026-03-14: The retained nuisance hardening packet `token_permutation=cdab` for `synthetic_positional_key_query_offset_selection_response` was non-inert and still left the witness ahead on mean `mae` and mean `rank_correlation`.
 - EL-1183 2026-03-14: Advanced the successor line from nuisance hardening to the fixed structural packet `pair_reindex=1` only.
+- EL-1184 2026-03-14: The first structural successor packet `pair_reindex=1` was non-inert and strengthened the witness lead on the declared mean metrics.
+- EL-1185 2026-03-14: Advanced the successor line from `pair_reindex=1` to the fixed structural packet `slot_swap=1` only.

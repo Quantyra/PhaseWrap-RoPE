@@ -2,10 +2,10 @@
     "active_epic":  "E001",
     "repo_posture":  "bounded_successor_key_query_offset_selection_structural_hardening",
     "current_story_ids":  [
-                              "S1276"
+                              "S1279"
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=1 structural hardening packet for synthetic_positional_key_query_offset_selection_response.",
+                         "Run the fixed slot_swap=1 structural hardening packet for synthetic_positional_key_query_offset_selection_response.",
                          "Keep only the witness and bounded symbolic control in the successor packet.",
                          "Stop the line immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
@@ -1231,7 +1231,10 @@
                                 "S1273",
                                 "S1274",
                                 "S1275",
-                                "S1276"
+                                "S1276",
+                                "S1277",
+                                "S1278",
+                                "S1279"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
