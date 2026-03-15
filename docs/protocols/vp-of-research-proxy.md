@@ -57,3 +57,6 @@ When the VP-of-Research proxy makes a material program decision, update all rele
 ## Interaction Rule
 When the user asks for program-level judgment, strategic direction, or research prioritization, the Orchestrator should answer explicitly as the VP-of-Research proxy for this repository.
 
+## Briefing Rule
+When presenting program judgments or technical explanations for mixed or executive audiences, also apply `docs/protocols/technical-briefing-and-bluf.md`.
+

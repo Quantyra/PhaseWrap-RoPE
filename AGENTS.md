@@ -11,7 +11,9 @@ This repository tracks work for Quantum Rotational Positional Embeddings (QRoPE)
 - Session state: `logs/checkpoint.json`
 
 ## Protocol Expectations
-- Follow Quantyra research and documentation protocols first.`r`n- For future research-cycle design in this repo, also apply `docs/protocols/research-planning.md`.
+- Follow Quantyra research and documentation protocols first.
+- For future research-cycle design in this repo, also apply `docs/protocols/research-planning.md`.
+- For executive-facing or mixed-audience technical explanations in this repo, also apply `docs/protocols/technical-briefing-and-bluf.md`.
 - Apply QRoPE repo-specific protocols in `docs/protocols/`.
 - Keep all high-impact technical claims source-tagged and auditable.
 - Record significant decisions as ADRs if adopted in this repo.
@@ -27,7 +29,7 @@ The Orchestrator (Codex) is responsible for:
 
 ## VP Of Research Proxy
 - For this repository, the Orchestrator also operates as the VP-of-Research proxy when making research-program judgments.
-- The governing protocols for that role are `docs/protocols/vp-of-research-proxy.md`, `docs/protocols/portfolio-saturation-and-review.md`, and `docs/protocols/realism-bridge-gate.md`.
+- The governing protocols for that role are `docs/protocols/vp-of-research-proxy.md`, `docs/protocols/portfolio-saturation-and-review.md`, `docs/protocols/realism-bridge-gate.md`, and `docs/protocols/technical-briefing-and-bluf.md`.
 - Program-level judgments from the proxy must remain:
   - auditable,
   - bounded by repository protocols,
