@@ -2037,3 +2037,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1227 2026-03-14: Implemented `synthetic_positional_variable_cardinality_offset_selection_response` inside the frozen `E002` scope without count-specific symbolic families.
 - EL-1228 2026-03-14: The fixed three-seed packet for `synthetic_positional_variable_cardinality_offset_selection_response` produced a witness lead on mean `mae` and mean `rank_correlation` against the bounded symbolic control.
 - EL-1229 2026-03-14: Advanced `E002` only to the retained nuisance-hardening packet `token_permutation=cdab`.
+- EL-1230 2026-03-14: The retained nuisance-hardening packet `token_permutation=cdab` for `synthetic_positional_variable_cardinality_offset_selection_response` was non-inert and still left the witness ahead on the declared mean metrics.
+- EL-1231 2026-03-14: Advanced `E002` only to the fixed structural packet `pair_reindex=1`.
