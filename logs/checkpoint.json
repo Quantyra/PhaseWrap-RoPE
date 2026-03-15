@@ -1,13 +1,13 @@
-﻿{
+{
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_successor_dual_anchor_consensus_plan_decision",
+    "repo_posture":  "bounded_successor_dual_anchor_consensus_hardening",
     "current_story_ids":  [
-                              "S1301"
+                              "S1306"
                           ],
     "next_actions":  [
-                         "Reopen code only if synthetic_positional_dual_anchor_offset_consensus_response remains the best missing-question candidate.",
-                         "Keep execution bounded to one fixed three-seed packet if implementation opens.",
-                         "Stop the candidate immediately if implementation collapses to single-anchor scoring or requires fairness blow-up."
+                         "Run the fixed token_permutation=cdab hardening packet for synthetic_positional_dual_anchor_offset_consensus_response.",
+                         "Keep only V_future_relational_witness_positional_dual_anchor_offset_consensus and V_control_symbolic_positional_dual_anchor_offset_consensus_regressor in scope.",
+                         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1257,7 +1257,11 @@
                                 "S1299",
                                 "S1300",
                                 "S1301",
-                                "S1302"
+                                "S1302",
+                                "S1303",
+                                "S1304",
+                                "S1305",
+                                "S1306"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

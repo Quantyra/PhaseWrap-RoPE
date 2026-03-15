@@ -1176,6 +1176,41 @@ def test_positional_key_query_offset_selection_symbolic_control_freezes_basis() 
     assert diagnostics["forbidden_key_query_selection_feature_family_absent_pass"] is True
 
 
+def test_positional_dual_anchor_offset_consensus_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_dual_anchor_offset_consensus_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_positional_dual_anchor_offset_consensus",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_positional_dual_anchor_offset_consensus_response+readout_relational_witness_positional_dual_anchor_offset_consensus+head_linear"
+    )
+    assert diagnostics["coarse_dual_anchor_consensus_state_null_pass"] is True
+    assert diagnostics["within_dual_anchor_consensus_state_variation_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["dual_anchor_target_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["dual_anchor_noncollapse_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_dual_anchor_consensus_feature_family_absent_pass"] is True
+
+
+def test_positional_dual_anchor_offset_consensus_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_dual_anchor_offset_consensus_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_positional_dual_anchor_offset_consensus_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_dual_anchor_consensus_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_dual_anchor_consensus_feature_family_absent_pass"] is True
+
+
 def test_symbolic_insufficiency_loop_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_symbolic_insufficiency_loop_closure_response",
