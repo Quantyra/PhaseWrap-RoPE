@@ -1,13 +1,13 @@
 ﻿{
     "active_epic":  "E001",
-    "repo_posture":  "low_intensity_no_execution",
+    "repo_posture":  "memo_only_post_successor_missing_question",
     "current_story_ids":  [
-                              "S1293"
+                              "S1297"
                           ],
     "next_actions":  [
-                         "Use the refreshed package for internal reference and decision support.",
-                         "Keep default execution closed.",
-                         "Only reopen with a materially different missing-question candidate and explicit approval."
+                         "Write the explicit memo-level gate for synthetic_positional_dual_anchor_offset_consensus_response.",
+                         "Keep implementation and execution closed.",
+                         "Stop the candidate if the dual-anchor fairness contract cannot stay bounded."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1249,7 +1249,10 @@
                                 "S1291",
                                 "S1292",
                                 "S1293",
-                                "S1294"
+                                "S1294",
+                                "S1295",
+                                "S1296",
+                                "S1297"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
