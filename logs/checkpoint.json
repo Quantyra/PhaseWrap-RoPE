@@ -1,17 +1,17 @@
 ﻿{
     "active_epic":  "E001",
-    "repo_posture":  "bounded_realism_bridge_offset_retrieval_hardening",
+    "repo_posture":  "bounded_realism_bridge_offset_retrieval_structural_hardening",
     "current_story_ids":  [
-                              "S1233"
+                              "S1236"
                           ],
     "next_actions":  [
-                         "Run the fixed token_permutation=cdab packet against the retained offset-retrieval witness and bounded symbolic control.",
+                         "Run the fixed pair_reindex=1 packet against the retained offset-retrieval witness and bounded symbolic control.",
                          "Keep only the witness and bounded symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If the token-renaming packet erases the witness advantage on either declared metric, the realism-bridge line must stop immediately.",
-                  "The base packet cleared the gate, but the witness rank signal is still modest enough that nuisance hardening could expose fragility."
+                  "If pair_reindex=1 erases the witness advantage on either declared metric, the realism-bridge line must stop immediately.",
+                  "The nuisance packet strengthened the line, but structural hardening is the relevant test of positional retrieval robustness."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1188,7 +1188,10 @@
                                 "S1230",
                                 "S1231",
                                 "S1232",
-                                "S1233"
+                                "S1233",
+                                "S1234",
+                                "S1235",
+                                "S1236"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

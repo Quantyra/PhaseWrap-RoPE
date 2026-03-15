@@ -1942,3 +1942,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1148 2026-03-14: Implemented the bounded `offset-retrieval` realism-bridge line inside the frozen scope and verified the focused synthetic, qsim, and real-mode test suite.
 - EL-1149 2026-03-14: The fixed `offset-retrieval` three-seed packet cleared the declared gate: the witness beat the bounded symbolic control on mean `mae` and mean `rank_correlation`.
 - EL-1150 2026-03-14: Advanced `offset-retrieval` to the retained nuisance-hardening step only; the next valid packet is `token_permutation=cdab` with no broader branch expansion.
+
+- EL-1151 2026-03-14: The retained `offset-retrieval` nuisance packet `token_permutation=cdab` was non-inert and the witness stayed ahead of the bounded symbolic control on mean `mae` and mean `rank_correlation`.
+- EL-1152 2026-03-14: Advanced `offset-retrieval` from nuisance hardening to the first structural packet `pair_reindex=1` only.
