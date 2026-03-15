@@ -1,17 +1,17 @@
 ﻿{
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_realism_bridge_offset_retrieval_preserved",
+    "repo_posture":  "realism_bridge_review_ready",
     "current_story_ids":  [
-                              "S1245"
+                              "S1248"
                           ],
     "next_actions":  [
-                         "Use offset-retrieval as preserved realism-bridge evidence in internal review.",
-                         "Do not open another default packet on the offset-retrieval family.",
-                         "Only reopen execution with a new missing-question candidate and approval."
+                         "Use the refreshed board recommendation, opinion memo, and handoff index for internal review.",
+                         "Keep default execution closed.",
+                         "Only reopen with a materially different missing-question candidate and approval."
                      ],
     "risks":  [
-                  "Offset-retrieval strengthens selective positional relevance, but it still does not justify hardware reopening.",
-                  "The program should avoid converting realism-bridge evidence into another branch-count treadmill."
+                  "Offset-retrieval improves relevance evidence, but over-reading it as a NISQ solution would be a category error.",
+                  "Without review discipline, the realism-bridge success could trigger another branch-count treadmill."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1200,7 +1200,10 @@
                                 "S1242",
                                 "S1243",
                                 "S1244",
-                                "S1245"
+                                "S1245",
+                                "S1246",
+                                "S1247",
+                                "S1248"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
