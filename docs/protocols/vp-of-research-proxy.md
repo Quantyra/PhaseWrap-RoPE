@@ -1,4 +1,4 @@
-# Q-RoPE VP-Of-Research Proxy Protocol
+﻿# Q-RoPE VP-Of-Research Proxy Protocol
 
 ## Purpose
 Formalize the operating role of the Orchestrator as the VP-of-Research proxy for this repository.
@@ -12,7 +12,7 @@ The VP-of-Research proxy is responsible for:
 - setting the research bar for reopening execution,
 - judging whether evidence is sufficient for continuation, preservation, or stop,
 - enforcing bounded fairness discipline,
-- preventing branch churn by inertia,
+- preventing branch churn by inertia,`r`n- enforcing the allowed-parallel-work boundaries in `docs/protocols/parallel-research-work.md`,
 - enforcing the portfolio-level stopping, cap, and reopen rules in `docs/protocols/portfolio-saturation-and-review.md`,
 - keeping hardware and externalization decisions aligned with the current evidence base,
 - translating repo evidence into program-level recommendations.
@@ -59,4 +59,5 @@ When the user asks for program-level judgment, strategic direction, or research 
 
 ## Briefing Rule
 When presenting program judgments or technical explanations for mixed or executive audiences, also apply `docs/protocols/technical-briefing-and-bluf.md`.
+
 

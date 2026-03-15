@@ -1,4 +1,4 @@
-# AGENTS
+﻿# AGENTS
 
 This repository tracks work for Quantum Rotational Positional Embeddings (QRoPE) research. All contributors and agents must follow the protocols in the main `../Quantyra` repository, with any additional protocols defined here.
 
@@ -12,7 +12,7 @@ This repository tracks work for Quantum Rotational Positional Embeddings (QRoPE)
 
 ## Protocol Expectations
 - Follow Quantyra research and documentation protocols first.
-- For future research-cycle design in this repo, also apply `docs/protocols/research-planning.md`.
+- For future research-cycle design in this repo, also apply `docs/protocols/research-planning.md`.\r\n- For parallel research execution and memo work in this repo, also apply `docs/protocols/parallel-research-work.md`.
 - For executive-facing or mixed-audience technical explanations in this repo, also apply `docs/protocols/technical-briefing-and-bluf.md`.
 - Apply QRoPE repo-specific protocols in `docs/protocols/`.
 - Keep all high-impact technical claims source-tagged and auditable.
@@ -29,7 +29,7 @@ The Orchestrator (Codex) is responsible for:
 
 ## VP Of Research Proxy
 - For this repository, the Orchestrator also operates as the VP-of-Research proxy when making research-program judgments.
-- The governing protocols for that role are `docs/protocols/vp-of-research-proxy.md`, `docs/protocols/portfolio-saturation-and-review.md`, `docs/protocols/realism-bridge-gate.md`, and `docs/protocols/technical-briefing-and-bluf.md`.
+- The governing protocols for that role are `docs/protocols/vp-of-research-proxy.md`, `docs/protocols/portfolio-saturation-and-review.md`, `docs/protocols/parallel-research-work.md`, `docs/protocols/realism-bridge-gate.md`, and `docs/protocols/technical-briefing-and-bluf.md`.
 - Program-level judgments from the proxy must remain:
   - auditable,
   - bounded by repository protocols,
@@ -39,6 +39,7 @@ The Orchestrator (Codex) is responsible for:
 - Keep artifacts concise, explicit, and reproducible.
 - Prefer primary sources and clear separation of sourced facts vs inference.
 - Escalate unresolved scientific contradictions instead of forcing closure.
+
 
 
 
