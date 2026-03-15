@@ -1,13 +1,13 @@
 {
-    "active_epic": "E002",
-    "repo_posture": "low_intensity_no_execution",
+    "active_epic": "E003",
+    "repo_posture": "memo_only_E003_position_content_candidate_design",
     "current_story_ids": [
-        "S1358"
+        "S1361"
     ],
     "next_actions": [
-        "Use the refreshed package for internal reference and decision support.",
-        "Keep default execution closed.",
-        "Reopen only with a materially different missing-question candidate and explicit approval."
+        "Write the explicit memo-level gate for synthetic_positional_content_gated_offset_selection_response.",
+        "Freeze the bounded position-content symbolic family and diagnostics in that gate.",
+        "Keep implementation and execution closed until that gate is accepted."
     ],
     "risks": [
         "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1306,7 +1306,9 @@
         "S1352",
         "S1353",
         "S1354",
-        "S1356"
+        "S1356",
+        "S1359",
+        "S1360"
     ],
     "archived_transfer_story_ids": [
         "S955",
