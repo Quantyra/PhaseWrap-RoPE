@@ -1995,3 +1995,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1187 2026-03-14: Advanced the successor line from `slot_swap=1` to the deeper structural closure packet `pair_reindex=7` only.
 - EL-1188 2026-03-14: The closure-packet successor hardening `pair_reindex=7` was non-inert and still left the witness ahead on the declared mean metrics.
 - EL-1189 2026-03-14: The first successor-class candidate survived the full bounded hardening cycle and returned to a memo-level decision gate.
+- EL-1190 2026-03-14: Preserved `synthetic_positional_key_query_offset_selection_response` as sufficient bounded successor-class evidence.
+- EL-1191 2026-03-14: Refreshed the internal package, executive summary, board recommendation, research opinion, and handoff index to include the successor-class survivor.

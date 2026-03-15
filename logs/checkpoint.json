@@ -1,13 +1,13 @@
 ﻿{
     "active_epic":  "E001",
-    "repo_posture":  "memo_only_successor_key_query_offset_selection_decision_gate",
+    "repo_posture":  "memo_only_internal_result_package",
     "current_story_ids":  [
-                              "S1285"
+                              "S1286"
                           ],
     "next_actions":  [
-                         "Preserve synthetic_positional_key_query_offset_selection_response as sufficient bounded successor-class evidence.",
-                         "Do not open another default perturbation packet on this family.",
-                         "Only reopen execution if a materially different successor-class question is chosen."
+                         "Use the refreshed internal package for review and reference.",
+                         "Keep default execution closed.",
+                         "Only reopen with a materially different missing-question candidate and explicit approval."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1240,7 +1240,8 @@
                                 "S1282",
                                 "S1283",
                                 "S1284",
-                                "S1285"
+                                "S1285",
+                                "S1286"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
