@@ -2,12 +2,12 @@
     "active_epic":  "E001",
     "repo_posture":  "low_intensity_no_execution",
     "current_story_ids":  [
-                              "S1257"
+                              "S1260"
                           ],
     "next_actions":  [
-                         "Use the post-realism-bridge missing-question memo as the planning entry point.",
-                         "Do not open another realism-bridge branch by default.",
-                         "If continuing, draft one memo-level transformer-adjacent validation design only."
+                         "Use the transformer-adjacent validation design packet to decide whether a successor evidence class should exist.",
+                         "Keep execution closed.",
+                         "If continuing, write a dedicated successor-class gate before any candidate opens."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1212,7 +1212,10 @@
                                 "S1254",
                                 "S1255",
                                 "S1256",
-                                "S1257"
+                                "S1257",
+                                "S1258",
+                                "S1259",
+                                "S1260"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
