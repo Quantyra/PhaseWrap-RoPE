@@ -1984,3 +1984,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1177 2026-03-14: Wrote the bounded implementation plan for `synthetic_positional_key_query_offset_selection_response`, freezing writable scope, packet shape, diagnostics, and audits.
 - EL-1178 2026-03-14: Passed the successor candidate to one bounded implementation cycle only, with fairness drift treated as a stop condition for the class.
+- EL-1179 2026-03-14: Implemented `synthetic_positional_key_query_offset_selection_response` inside the frozen successor-class writable scope and tightened the feature basis after the first draft exposed numerical instability.
+- EL-1180 2026-03-14: The fixed three-seed successor packet for `synthetic_positional_key_query_offset_selection_response` produced a clear witness lead on mean `mae` and mean `rank_correlation`.
+- EL-1181 2026-03-14: Advanced the successor line to the retained nuisance-hardening packet `token_permutation=cdab` only.

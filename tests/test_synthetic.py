@@ -54,6 +54,7 @@ from qrope.synthetic import (
     generate_positional_anchor_offset_signature_response_bundle,
     generate_positional_anchor_betweenness_response_bundle,
     generate_positional_offset_retrieval_response_bundle,
+    generate_positional_key_query_offset_selection_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
@@ -431,6 +432,18 @@ def test_positional_offset_retrieval_bundle_enforces_declared_diagnostics() -> N
     assert diagnostics["offset_retrieval_length_balance_pass"] is True
     assert diagnostics["offset_retrieval_target_nontrivial_pass"] is True
     assert diagnostics["distractor_competition_nontrivial_pass"] is True
+
+
+def test_positional_key_query_offset_selection_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_positional_key_query_offset_selection_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_positional_key_query_offset_selection_response"
+    assert diagnostics["coarse_key_query_selection_state_null_pass"] is True
+    assert diagnostics["within_key_query_selection_state_variation_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["target_selection_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
 
 
 def test_symbolic_insufficiency_loop_bundle_enforces_declared_diagnostics() -> None:

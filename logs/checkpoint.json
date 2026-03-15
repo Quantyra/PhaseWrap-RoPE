@@ -1,13 +1,13 @@
 ﻿{
     "active_epic":  "E001",
-    "repo_posture":  "low_intensity_no_execution",
+    "repo_posture":  "bounded_successor_key_query_offset_selection_hardening",
     "current_story_ids":  [
-                              "S1269"
+                              "S1273"
                           ],
     "next_actions":  [
-                         "Implement synthetic_positional_key_query_offset_selection_response inside the frozen writable scope.",
-                         "Run exactly one fixed three-seed packet against the bounded symbolic control if implementation remains fair.",
-                         "Stop the successor class immediately if implementation causes candidate-set fairness blow-up."
+                         "Run the fixed token_permutation=cdab hardening packet for synthetic_positional_key_query_offset_selection_response.",
+                         "Keep only the witness and bounded symbolic control in the successor packet.",
+                         "Stop the line immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1224,7 +1224,11 @@
                                 "S1266",
                                 "S1267",
                                 "S1268",
-                                "S1269"
+                                "S1269",
+                                "S1270",
+                                "S1271",
+                                "S1272",
+                                "S1273"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
