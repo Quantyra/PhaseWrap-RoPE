@@ -2018,3 +2018,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1208 2026-03-14: Advanced the dual-anchor consensus successor line only to the fixed structural packet `pair_reindex=1`.
 - EL-1209 2026-03-14: The first structural hardening packet `pair_reindex=1` for `synthetic_positional_dual_anchor_offset_consensus_response` was non-inert and strengthened the witness lead on the declared mean metrics.
 - EL-1210 2026-03-14: Advanced the dual-anchor consensus successor line only to the fixed structural packet `slot_swap=1`.
+- EL-1211 2026-03-14: The second structural hardening packet `slot_swap=1` for `synthetic_positional_dual_anchor_offset_consensus_response` was non-inert and still left the witness ahead on the declared mean metrics.
+- EL-1212 2026-03-14: Advanced the dual-anchor consensus successor line only to the deeper closure packet `pair_reindex=7`.

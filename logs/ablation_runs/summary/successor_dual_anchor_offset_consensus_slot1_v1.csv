@@ -1,0 +1,7 @@
+role,seed,variant,slot_swap,mae,rank_correlation,calibration_slope
+witness,42,V_future_relational_witness_positional_dual_anchor_offset_consensus,1,0.034158,0.205812,0.352043
+witness,123,V_future_relational_witness_positional_dual_anchor_offset_consensus,1,0.034196,0.463803,0.830227
+witness,777,V_future_relational_witness_positional_dual_anchor_offset_consensus,1,0.021107,0.241664,0.491991
+control,42,V_control_symbolic_positional_dual_anchor_offset_consensus_regressor,1,0.033831,0.039174,-0.249047
+control,123,V_control_symbolic_positional_dual_anchor_offset_consensus_regressor,1,0.037549,0.455661,1.049102
+control,777,V_control_symbolic_positional_dual_anchor_offset_consensus_regressor,1,0.022705,0.070272,0.105338
