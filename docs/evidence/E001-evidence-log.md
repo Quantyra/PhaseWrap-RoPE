@@ -1945,3 +1945,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1151 2026-03-14: The retained `offset-retrieval` nuisance packet `token_permutation=cdab` was non-inert and the witness stayed ahead of the bounded symbolic control on mean `mae` and mean `rank_correlation`.
 - EL-1152 2026-03-14: Advanced `offset-retrieval` from nuisance hardening to the first structural packet `pair_reindex=1` only.
+
+- EL-1153 2026-03-14: The first structural `offset-retrieval` packet `pair_reindex=1` materially weakened the realism-bridge line, but the control did not beat the witness on both declared mean metrics.
+- EL-1154 2026-03-14: Advanced `offset-retrieval` from `pair_reindex=1` to the retained structural packet `slot_swap=1` only.

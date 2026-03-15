@@ -2,16 +2,16 @@
     "active_epic":  "E001",
     "repo_posture":  "bounded_realism_bridge_offset_retrieval_structural_hardening",
     "current_story_ids":  [
-                              "S1236"
+                              "S1239"
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=1 packet against the retained offset-retrieval witness and bounded symbolic control.",
+                         "Run the fixed slot_swap=1 packet against the retained offset-retrieval witness and bounded symbolic control.",
                          "Keep only the witness and bounded symbolic control.",
                          "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
                      ],
     "risks":  [
-                  "If pair_reindex=1 erases the witness advantage on either declared metric, the realism-bridge line must stop immediately.",
-                  "The nuisance packet strengthened the line, but structural hardening is the relevant test of positional retrieval robustness."
+                  "The structural packet already degraded the witness rank signal below zero; another structural step could collapse the line fully.",
+                  "If slot_swap=1 leaves the control ahead on rank_correlation while narrowing mae further, the deeper cycle may become hard to justify even without a formal stop."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1191,7 +1191,10 @@
                                 "S1233",
                                 "S1234",
                                 "S1235",
-                                "S1236"
+                                "S1236",
+                                "S1237",
+                                "S1238",
+                                "S1239"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
