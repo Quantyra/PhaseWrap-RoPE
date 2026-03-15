@@ -2,12 +2,12 @@
     "active_epic":  "E001",
     "repo_posture":  "low_intensity_no_execution",
     "current_story_ids":  [
-                              "S1255"
+                              "S1257"
                           ],
     "next_actions":  [
-                         "Use the current package as the standing internal reference set.",
-                         "Keep default execution closed.",
-                         "Only reopen with a materially different missing-question candidate and explicit approval."
+                         "Use the post-realism-bridge missing-question memo as the planning entry point.",
+                         "Do not open another realism-bridge branch by default.",
+                         "If continuing, draft one memo-level transformer-adjacent validation design only."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1210,7 +1210,9 @@
                                 "S1252",
                                 "S1253",
                                 "S1254",
-                                "S1255"
+                                "S1255",
+                                "S1256",
+                                "S1257"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
