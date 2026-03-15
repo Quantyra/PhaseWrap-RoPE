@@ -1951,3 +1951,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1155 2026-03-14: The retained `offset-retrieval` structural packet `slot_swap=1` stayed mixed on the declared mean metrics: control kept `mae`, witness kept the less-negative `rank_correlation`.
 - EL-1156 2026-03-14: Advanced `offset-retrieval` to the deeper structural closure packet `pair_reindex=7` only.
+
+- EL-1157 2026-03-14: The deeper `offset-retrieval` closure packet `pair_reindex=7` restored a clear witness lead on mean `mae` and mean `rank_correlation`.
+- EL-1158 2026-03-14: Preserved `offset-retrieval` as positive bounded realism-bridge evidence and returned the line to memo-level posture.
