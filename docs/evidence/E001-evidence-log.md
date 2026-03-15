@@ -1948,3 +1948,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1153 2026-03-14: The first structural `offset-retrieval` packet `pair_reindex=1` materially weakened the realism-bridge line, but the control did not beat the witness on both declared mean metrics.
 - EL-1154 2026-03-14: Advanced `offset-retrieval` from `pair_reindex=1` to the retained structural packet `slot_swap=1` only.
+
+- EL-1155 2026-03-14: The retained `offset-retrieval` structural packet `slot_swap=1` stayed mixed on the declared mean metrics: control kept `mae`, witness kept the less-negative `rank_correlation`.
+- EL-1156 2026-03-14: Advanced `offset-retrieval` to the deeper structural closure packet `pair_reindex=7` only.
