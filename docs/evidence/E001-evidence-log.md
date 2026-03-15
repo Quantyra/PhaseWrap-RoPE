@@ -1991,3 +1991,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1183 2026-03-14: Advanced the successor line from nuisance hardening to the fixed structural packet `pair_reindex=1` only.
 - EL-1184 2026-03-14: The first structural successor packet `pair_reindex=1` was non-inert and strengthened the witness lead on the declared mean metrics.
 - EL-1185 2026-03-14: Advanced the successor line from `pair_reindex=1` to the fixed structural packet `slot_swap=1` only.
+- EL-1186 2026-03-14: The second structural successor packet `slot_swap=1` was non-inert and still left the witness ahead on the declared mean metrics.
+- EL-1187 2026-03-14: Advanced the successor line from `slot_swap=1` to the deeper structural closure packet `pair_reindex=7` only.
