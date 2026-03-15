@@ -2013,3 +2013,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1203 2026-03-14: Implemented `synthetic_positional_dual_anchor_offset_consensus_response` inside the frozen successor-class scope without fairness blow-up or single-anchor collapse.
 - EL-1204 2026-03-14: The fixed three-seed packet for `synthetic_positional_dual_anchor_offset_consensus_response` produced a witness lead on mean `mae` and mean `rank_correlation` against the bounded symbolic control.
 - EL-1205 2026-03-14: Advanced the dual-anchor consensus successor line only to the retained nuisance-hardening packet `token_permutation=cdab`.
+- EL-1206 2026-03-14: The retained nuisance-hardening packet `token_permutation=cdab` for `synthetic_positional_dual_anchor_offset_consensus_response` was non-inert and narrowed the branch.
+- EL-1207 2026-03-14: The dual-anchor consensus line continued because the control led mean `mae` but did not beat the witness on mean `rank_correlation`.
+- EL-1208 2026-03-14: Advanced the dual-anchor consensus successor line only to the fixed structural packet `pair_reindex=1`.

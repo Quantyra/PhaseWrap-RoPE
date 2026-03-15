@@ -1,11 +1,11 @@
 {
     "active_epic":  "E001",
-    "repo_posture":  "bounded_successor_dual_anchor_consensus_hardening",
+    "repo_posture":  "bounded_successor_dual_anchor_consensus_structural_hardening",
     "current_story_ids":  [
-                              "S1306"
+                              "S1309"
                           ],
     "next_actions":  [
-                         "Run the fixed token_permutation=cdab hardening packet for synthetic_positional_dual_anchor_offset_consensus_response.",
+                         "Run the fixed pair_reindex=1 hardening packet for synthetic_positional_dual_anchor_offset_consensus_response.",
                          "Keep only V_future_relational_witness_positional_dual_anchor_offset_consensus and V_control_symbolic_positional_dual_anchor_offset_consensus_regressor in scope.",
                          "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
@@ -1261,7 +1261,10 @@
                                 "S1303",
                                 "S1304",
                                 "S1305",
-                                "S1306"
+                                "S1306",
+                                "S1307",
+                                "S1308",
+                                "S1309"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
