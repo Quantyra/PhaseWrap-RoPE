@@ -2016,3 +2016,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1206 2026-03-14: The retained nuisance-hardening packet `token_permutation=cdab` for `synthetic_positional_dual_anchor_offset_consensus_response` was non-inert and narrowed the branch.
 - EL-1207 2026-03-14: The dual-anchor consensus line continued because the control led mean `mae` but did not beat the witness on mean `rank_correlation`.
 - EL-1208 2026-03-14: Advanced the dual-anchor consensus successor line only to the fixed structural packet `pair_reindex=1`.
+- EL-1209 2026-03-14: The first structural hardening packet `pair_reindex=1` for `synthetic_positional_dual_anchor_offset_consensus_response` was non-inert and strengthened the witness lead on the declared mean metrics.
+- EL-1210 2026-03-14: Advanced the dual-anchor consensus successor line only to the fixed structural packet `slot_swap=1`.
