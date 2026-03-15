@@ -1,17 +1,17 @@
 ﻿{
     "active_epic":  "E001",
-    "repo_posture":  "bounded_realism_bridge_offset_retrieval_structural_hardening",
+    "repo_posture":  "memo_only_realism_bridge_offset_retrieval_preserved",
     "current_story_ids":  [
-                              "S1242"
+                              "S1245"
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=7 packet against the retained offset-retrieval witness and bounded symbolic control.",
-                         "Keep only the witness and bounded symbolic control.",
-                         "Stop the line immediately if the control matches or beats the witness on both mae and rank_correlation."
+                         "Use offset-retrieval as preserved realism-bridge evidence in internal review.",
+                         "Do not open another default packet on the offset-retrieval family.",
+                         "Only reopen execution with a new missing-question candidate and approval."
                      ],
     "risks":  [
-                  "The line has stayed alive on mixed leadership across both structural packets; the deeper closure packet is the last bounded chance to recover a clear witness lead.",
-                  "If pair_reindex=7 remains mixed or flips both metrics, the realism-bridge line should close rather than widen."
+                  "Offset-retrieval strengthens selective positional relevance, but it still does not justify hardware reopening.",
+                  "The program should avoid converting realism-bridge evidence into another branch-count treadmill."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1197,7 +1197,10 @@
                                 "S1239",
                                 "S1240",
                                 "S1241",
-                                "S1242"
+                                "S1242",
+                                "S1243",
+                                "S1244",
+                                "S1245"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
