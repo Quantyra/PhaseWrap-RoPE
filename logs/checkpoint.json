@@ -2,10 +2,10 @@
     "active_epic": "E002",
     "repo_posture": "bounded_E002_variable_cardinality_structural_hardening",
     "current_story_ids": [
-        "S1343"
+        "S1346"
     ],
     "next_actions": [
-        "Run the fixed slot_swap=1 hardening packet for synthetic_positional_variable_cardinality_offset_selection_response.",
+        "Run the fixed pair_reindex=7 hardening packet for synthetic_positional_variable_cardinality_offset_selection_response.",
         "Keep only V_future_relational_witness_positional_variable_cardinality_offset_selection and V_control_symbolic_positional_variable_cardinality_offset_selection_regressor in scope.",
         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
     ],
@@ -1296,7 +1296,9 @@
         "S1339",
         "S1340",
         "S1341",
-        "S1342"
+        "S1342",
+        "S1344",
+        "S1345"
     ],
     "archived_transfer_story_ids": [
         "S955",

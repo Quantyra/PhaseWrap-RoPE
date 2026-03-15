@@ -2041,3 +2041,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1231 2026-03-14: Advanced `E002` only to the fixed structural packet `pair_reindex=1`.
 - EL-1232 2026-03-14: The fixed structural packet `pair_reindex=1` for `synthetic_positional_variable_cardinality_offset_selection_response` was non-inert and still left the witness ahead on the declared mean metrics.
 - EL-1233 2026-03-14: Advanced `E002` only to the fixed structural packet `slot_swap=1`.
+- EL-1234 2026-03-14: The fixed structural packet `slot_swap=1` for `synthetic_positional_variable_cardinality_offset_selection_response` was non-inert and still left the witness ahead on the declared mean metrics.
+- EL-1235 2026-03-14: Advanced `E002` only to the closure packet `pair_reindex=7`.
