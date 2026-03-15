@@ -1,0 +1,7 @@
+role,seed,variant,pair_reindex,mae,rank_correlation,calibration_slope
+witness,42,V_future_relational_witness_positional_variable_cardinality_offset_selection,7,0.05228290826047368,0.406177,0.767041
+witness,123,V_future_relational_witness_positional_variable_cardinality_offset_selection,7,0.05090687113092516,0.340215,1.631598
+witness,777,V_future_relational_witness_positional_variable_cardinality_offset_selection,7,0.040897436751658904,0.216479,0.68019
+control,42,V_control_symbolic_positional_variable_cardinality_offset_selection_regressor,7,0.05612921137942765,0.140778,0.150744
+control,123,V_control_symbolic_positional_variable_cardinality_offset_selection_regressor,7,0.05245916326203847,0.254922,1.122107
+control,777,V_control_symbolic_positional_variable_cardinality_offset_selection_regressor,7,0.043760210958666,-0.201276,0.045276

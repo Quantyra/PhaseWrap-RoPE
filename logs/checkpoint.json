@@ -1,13 +1,13 @@
 {
     "active_epic": "E002",
-    "repo_posture": "bounded_E002_variable_cardinality_structural_hardening",
+    "repo_posture": "memo_only_E002_variable_cardinality_preserved",
     "current_story_ids": [
-        "S1346"
+        "S1350"
     ],
     "next_actions": [
-        "Run the fixed pair_reindex=7 hardening packet for synthetic_positional_variable_cardinality_offset_selection_response.",
-        "Keep only V_future_relational_witness_positional_variable_cardinality_offset_selection and V_control_symbolic_positional_variable_cardinality_offset_selection_regressor in scope.",
-        "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
+        "Use the refreshed package for internal review and reference.",
+        "Keep default execution closed.",
+        "Reopen only with a materially different missing-question candidate and explicit approval."
     ],
     "risks": [
         "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1298,7 +1298,10 @@
         "S1341",
         "S1342",
         "S1344",
-        "S1345"
+        "S1345",
+        "S1347",
+        "S1348",
+        "S1349"
     ],
     "archived_transfer_story_ids": [
         "S955",
