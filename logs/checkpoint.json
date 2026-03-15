@@ -1,13 +1,13 @@
 {
     "active_epic":  "E004",
-    "repo_posture":  "memo_only_E004_content_alias_candidate_design",
+    "repo_posture":  "memo_only_E004_content_alias_gate_decision",
     "current_story_ids":  [
-                              "S1393"
+                              "S1395"
                           ],
     "next_actions":  [
-                         "Write the explicit memo-level gate for synthetic_positional_content_alias_disambiguation_response.",
-                         "Freeze the bounded content-alias symbolic family and diagnostics in that gate.",
-                         "Keep implementation and execution closed until that gate is accepted."
+                         "Write the bounded implementation plan for synthetic_positional_content_alias_disambiguation_response.",
+                         "Freeze writable scope and fixed packet shape in that plan.",
+                         "Keep implementation and execution closed until that plan is accepted."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1338,7 +1338,9 @@
                                 "S1390",
                                 "S1391",
                                 "S1392",
-                                "S1393"
+                                "S1393",
+                                "S1394",
+                                "S1395"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
