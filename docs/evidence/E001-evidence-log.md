@@ -1954,3 +1954,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1157 2026-03-14: The deeper `offset-retrieval` closure packet `pair_reindex=7` restored a clear witness lead on mean `mae` and mean `rank_correlation`.
 - EL-1158 2026-03-14: Preserved `offset-retrieval` as positive bounded realism-bridge evidence and returned the line to memo-level posture.
+
+- EL-1159 2026-03-14: Refreshed the research opinion after preserving `offset-retrieval`; the best current claim is now selective positional relevance with one surviving realism-bridge retrieval task.
+- EL-1160 2026-03-14: Refreshed the board recommendation and handoff index so internal review starts from the actual post-realism-bridge package rather than the older bridge-only posture.
