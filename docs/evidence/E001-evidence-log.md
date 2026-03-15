@@ -2064,3 +2064,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1254 2026-03-14: Advanced E003 only to the fixed structural hardening packet `pair_reindex=1`.
 - EL-1255 2026-03-14: The fixed structural packet `pair_reindex=1` for the E003 position-content line was non-inert and left the witness ahead on both declared mean packet metrics.
 - EL-1256 2026-03-14: Advanced E003 only to the fixed structural hardening packet `slot_swap=1`.
+- EL-1257 2026-03-15: The fixed structural packet `slot_swap=1` for the E003 position-content line was non-inert and left the witness ahead on both declared mean packet metrics.
+- EL-1258 2026-03-15: Advanced E003 only to the closure packet `pair_reindex=7`.
