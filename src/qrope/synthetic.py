@@ -3772,6 +3772,273 @@ def generate_positional_key_query_offset_selection_response_bundle(
     return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
 
 
+def generate_positional_dual_anchor_offset_consensus_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_positional_dual_anchor_offset_consensus_response:{seed}")
+    base_bundle = generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_symbolic_insufficiency_transition_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="symbolic_insufficiency_transition_response",
+    )
+    all_rows = [
+        DualSyntheticSample(
+            text=text,
+            label=label,
+            sector_a=offset_sector_name(parse_dual_sample_text(text)["sample_a"].offset),
+            sector_b=offset_sector_name(parse_dual_sample_text(text)["sample_b"].offset),
+            sample_a=parse_dual_sample_text(text)["sample_a"],
+            sample_b=parse_dual_sample_text(text)["sample_b"],
+        )
+        for split_rows in (base_bundle.train, base_bundle.validation, base_bundle.test)
+        for text, label in split_rows
+    ]
+    candidate_rows = list(all_rows)
+    rng.shuffle(candidate_rows)
+    candidate_rows = sorted(candidate_rows[:20], key=lambda row: row.text)
+
+    def mean_pos(sample: SyntheticSample) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> int:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0
+        if distance < 2.0:
+            return 1
+        return 2
+
+    def anchor_rule(row: DualSyntheticSample) -> tuple[int, int, float]:
+        desired_gap = round(mean_pos(row.sample_b) - mean_pos(row.sample_a), 6)
+        return int(desired_gap >= 0.0), gap_bucket(desired_gap), round(desired_gap / 4.0, 6)
+
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    candidates_by_state: dict[tuple[int, int, int, int, int, int], list[dict[str, Any]]] = defaultdict(list)
+    for anchor0_index, anchor0_row in enumerate(candidate_rows):
+        anchor0_side, anchor0_bucket, anchor0_gap_norm = anchor_rule(anchor0_row)
+        anchor0_pivot = mean_pos(anchor0_row.sample_a)
+        for anchor1_index, anchor1_row in enumerate(candidate_rows):
+            if anchor1_index == anchor0_index:
+                continue
+            anchor1_side, anchor1_bucket, anchor1_gap_norm = anchor_rule(anchor1_row)
+            anchor1_pivot = mean_pos(anchor1_row.sample_a)
+            if anchor0_side == anchor1_side and anchor0_bucket == anchor1_bucket:
+                continue
+            remaining_indices = [
+                index for index in range(len(candidate_rows)) if index not in {anchor0_index, anchor1_index}
+            ]
+            for combo in itertools.combinations(remaining_indices, 4):
+                raw_candidates: list[dict[str, Any]] = []
+                for candidate_index in combo:
+                    candidate_row = candidate_rows[candidate_index]
+                    gap0 = round(mean_pos(candidate_row.sample_a) - anchor0_pivot, 6)
+                    gap1 = round(mean_pos(candidate_row.sample_a) - anchor1_pivot, 6)
+                    if abs(gap0) < 0.5 or abs(gap1) < 0.5:
+                        raw_candidates = []
+                        break
+                    side0 = int(gap0 >= 0.0)
+                    side1 = int(gap1 >= 0.0)
+                    bucket0 = gap_bucket(gap0)
+                    bucket1 = gap_bucket(gap1)
+                    match0 = int(side0 == anchor0_side and bucket0 == anchor0_bucket)
+                    match1 = int(side1 == anchor1_side and bucket1 == anchor1_bucket)
+                    raw_candidates.append(
+                        {
+                            "row": candidate_row,
+                            "gap0_norm": round(gap0 / 4.0, 6),
+                            "gap1_norm": round(gap1 / 4.0, 6),
+                            "bucket0": bucket0,
+                            "bucket1": bucket1,
+                            "match0": match0,
+                            "match1": match1,
+                            "consensus": int(match0 == 1 and match1 == 1),
+                        }
+                    )
+                if len(raw_candidates) != 4:
+                    continue
+                if sum(item["consensus"] for item in raw_candidates) != 1:
+                    continue
+                partial_count = sum(1 for item in raw_candidates if item["match0"] + item["match1"] == 1)
+                if partial_count == 0:
+                    continue
+                target_candidate = next(item for item in raw_candidates if item["consensus"] == 1)
+                distractors = [item for item in raw_candidates if item["consensus"] == 0]
+                ordered_distractors = sorted(
+                    distractors,
+                    key=lambda item: (
+                        -(item["match0"] + item["match1"]),
+                        abs(item["bucket0"] - anchor0_bucket) + abs(item["bucket1"] - anchor1_bucket),
+                        item["gap0_norm"],
+                        item["gap1_norm"],
+                        item["row"].text,
+                    ),
+                )
+                target_slot = (anchor0_index + anchor1_index + sum(combo)) % 4
+                ordered_candidates = list(ordered_distractors)
+                ordered_candidates.insert(target_slot, target_candidate)
+
+                latent_anchor0 = symbolic_insufficiency_latent_ids(anchor0_row.sample_a, anchor0_row.sample_b)
+                latent_anchor1 = symbolic_insufficiency_latent_ids(anchor1_row.sample_a, anchor1_row.sample_b)
+                latent_candidates = [
+                    symbolic_insufficiency_latent_ids(item["row"].sample_a, item["row"].sample_b)
+                    for item in ordered_candidates
+                ]
+                anchor0_phase = _symbolic_insufficiency_latent_phase(latent_anchor0)
+                anchor1_phase = _symbolic_insufficiency_latent_phase(latent_anchor1)
+                phases = [_symbolic_insufficiency_latent_phase(latent) for latent in latent_candidates]
+                target_phase = phases[target_slot]
+                distractor_phases = [phase for index, phase in enumerate(phases) if index != target_slot]
+                mean_distractor_phase = sum(distractor_phases) / len(distractor_phases)
+                target_gap0 = float(ordered_candidates[target_slot]["gap0_norm"])
+                target_gap1 = float(ordered_candidates[target_slot]["gap1_norm"])
+                mean_distractor_gap0 = sum(
+                    float(item["gap0_norm"]) for index, item in enumerate(ordered_candidates) if index != target_slot
+                ) / 3.0
+                mean_distractor_gap1 = sum(
+                    float(item["gap1_norm"]) for index, item in enumerate(ordered_candidates) if index != target_slot
+                ) / 3.0
+                target_row = ordered_candidates[target_slot]["row"]
+                orientation_mix = sum(
+                    orientation_delta_score(item["row"].sample_a, item["row"].sample_b) for item in ordered_candidates
+                ) / 4.0
+                raw_target = (
+                    0.12 * float(anchor0_row.label)
+                    + 0.12 * float(anchor1_row.label)
+                    + 0.18 * float(target_row.label)
+                    + 0.05
+                    * sum(float(item["row"].label) for index, item in enumerate(ordered_candidates) if index != target_slot)
+                    + 0.12 * math.sin((target_phase - anchor0_phase) - (target_phase - anchor1_phase))
+                    + 0.10 * math.cos((target_gap0 - anchor0_gap_norm) - (target_gap1 - anchor1_gap_norm))
+                    + 0.09 * math.sin((target_phase - mean_distractor_phase) + target_gap0 - mean_distractor_gap1)
+                    + 0.07 * float(target_slot) / 3.0
+                    - 0.08 * float(partial_count) / 3.0
+                    + 0.07 * math.cos(orientation_mix)
+                )
+                state_key = (
+                    anchor0_bucket,
+                    anchor1_bucket,
+                    int(anchor0_side == anchor1_side),
+                    target_slot,
+                    int(partial_count > 1),
+                    int(
+                        sector_sign_family(anchor0_row.sector_a) == sector_sign_family(anchor1_row.sector_a)
+                    ),
+                )
+                candidates_by_state[state_key].append(
+                    {
+                        "text": render_positional_dual_anchor_offset_consensus_text(
+                            anchor0_row.sample_a,
+                            anchor0_row.sample_b,
+                            anchor1_row.sample_a,
+                            anchor1_row.sample_b,
+                            ordered_candidates[0]["row"].sample_a,
+                            ordered_candidates[0]["row"].sample_b,
+                            ordered_candidates[1]["row"].sample_a,
+                            ordered_candidates[1]["row"].sample_b,
+                            ordered_candidates[2]["row"].sample_a,
+                            ordered_candidates[2]["row"].sample_b,
+                            ordered_candidates[3]["row"].sample_a,
+                            ordered_candidates[3]["row"].sample_b,
+                        ),
+                        "raw_target": round(raw_target, 6),
+                        "latent_key": (
+                            *latent_anchor0,
+                            *latent_anchor1,
+                            *(value for latent in latent_candidates for value in latent),
+                        ),
+                        "target_slot": target_slot,
+                        "candidate_count": 4,
+                        "partial_count": partial_count,
+                    }
+                )
+
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_means: dict[str, float] = {}
+    latent_group_counts: dict[str, int] = {}
+    target_ranges: dict[str, float] = {}
+    token_counts = Counter()
+    bucket_counts: dict[str, int] = {}
+    target_slot_values: set[int] = set()
+    candidate_counts: set[int] = set()
+    partial_values: set[int] = set()
+    for coarse_key, candidates in sorted(candidates_by_state.items()):
+        if len(candidates) < required:
+            continue
+        ordered = sorted(candidates, key=lambda item: (item["latent_key"], item["text"]))
+        selected: list[dict[str, Any]] = []
+        seen_latents: set[tuple[int, ...]] = set()
+        for item in ordered:
+            if item["latent_key"] not in seen_latents:
+                selected.append(item)
+                seen_latents.add(item["latent_key"])
+            if len(selected) == required:
+                break
+        if len(selected) < required:
+            for item in ordered:
+                if item not in selected:
+                    selected.append(item)
+                if len(selected) == required:
+                    break
+        if len({item["latent_key"] for item in selected}) < 2:
+            continue
+        mean_target = sum(float(item["raw_target"]) for item in selected) / len(selected)
+        centered = [(item["text"], round(float(item["raw_target"]) - mean_target, 6)) for item in selected]
+        train.extend(centered[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(centered[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(centered[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        state_key = "".join(str(part) for part in coarse_key)
+        state_means[state_key] = round(sum(label for _, label in centered) / len(centered), 6)
+        target_ranges[state_key] = round(max(label for _, label in centered) - min(label for _, label in centered), 6)
+        latent_group_counts[state_key] = len({item["latent_key"] for item in selected})
+        bucket_counts[state_key] = len(selected)
+        target_slot_values.update(item["target_slot"] for item in selected)
+        candidate_counts.update(item["candidate_count"] for item in selected)
+        partial_values.update(item["partial_count"] for item in selected)
+        for text, _ in centered:
+            payload = parse_positional_dual_anchor_offset_consensus_text(text)
+            for prefix in ("a0", "a1", "c0", "c1", "c2", "c3"):
+                token_counts.update(
+                    [
+                        payload[prefix]["sample_a"].left_token,
+                        payload[prefix]["sample_a"].right_token,
+                        payload[prefix]["sample_b"].left_token,
+                        payload[prefix]["sample_b"].right_token,
+                    ]
+                )
+
+    diagnostics = {
+        "dataset": "synthetic_positional_dual_anchor_offset_consensus_response",
+        "coarse_dual_anchor_consensus_state_null_pass": max((abs(value) for value in state_means.values()), default=1.0)
+        <= 1e-6,
+        "within_dual_anchor_consensus_state_variation_pass": all(value > 0.0 for value in target_ranges.values())
+        and bool(target_ranges),
+        "candidate_set_nontrivial_pass": target_slot_values == {0, 1, 2, 3},
+        "dual_anchor_target_nontrivial_pass": any(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "token_view_balance_pass": set(token_counts.keys()) == set(TOKENS),
+        "bounded_candidate_count_pass": candidate_counts == {4},
+        "dual_anchor_noncollapse_pass": bool(partial_values) and max(partial_values) > 0,
+        "dual_anchor_consensus_bucket_counts": bucket_counts,
+        "coarse_dual_anchor_consensus_state_null_max_abs_mean": round(
+            max((abs(value) for value in state_means.values()), default=0.0), 6
+        ),
+        "within_dual_anchor_consensus_state_target_ranges": target_ranges,
+        "latent_dual_anchor_consensus_group_counts": latent_group_counts,
+        "target_slot_values": sorted(target_slot_values),
+        "partial_match_counts": sorted(partial_values),
+    }
+    return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
+
+
 def generate_chart_transition_token_invariant_response_bundle(
     seed: int,
     split_rotation: int = 0,
@@ -8511,6 +8778,42 @@ def render_positional_key_query_offset_selection_text(
 
 
 def parse_positional_key_query_offset_selection_text(text: str) -> dict[str, Any]:
+    parts = [part.strip() for part in text.split("|")]
+    payloads: dict[str, dict[str, Any]] = {}
+    for part in parts:
+        prefix, dual_text = part.split(":", 1)
+        parsed = parse_dual_sample_text(dual_text)
+        payloads[prefix] = {"dual_text": dual_text, **parsed}
+    return payloads
+
+
+def render_positional_dual_anchor_offset_consensus_text(
+    a0_sample_a: SyntheticSample,
+    a0_sample_b: SyntheticSample,
+    a1_sample_a: SyntheticSample,
+    a1_sample_b: SyntheticSample,
+    c0_sample_a: SyntheticSample,
+    c0_sample_b: SyntheticSample,
+    c1_sample_a: SyntheticSample,
+    c1_sample_b: SyntheticSample,
+    c2_sample_a: SyntheticSample,
+    c2_sample_b: SyntheticSample,
+    c3_sample_a: SyntheticSample,
+    c3_sample_b: SyntheticSample,
+) -> str:
+    return " | ".join(
+        [
+            f"a0:{render_dual_sample_text(a0_sample_a, a0_sample_b)}",
+            f"a1:{render_dual_sample_text(a1_sample_a, a1_sample_b)}",
+            f"c0:{render_dual_sample_text(c0_sample_a, c0_sample_b)}",
+            f"c1:{render_dual_sample_text(c1_sample_a, c1_sample_b)}",
+            f"c2:{render_dual_sample_text(c2_sample_a, c2_sample_b)}",
+            f"c3:{render_dual_sample_text(c3_sample_a, c3_sample_b)}",
+        ]
+    )
+
+
+def parse_positional_dual_anchor_offset_consensus_text(text: str) -> dict[str, Any]:
     parts = [part.strip() for part in text.split("|")]
     payloads: dict[str, dict[str, Any]] = {}
     for part in parts:
