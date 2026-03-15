@@ -2056,3 +2056,7 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1246 2026-03-14: Passed the E003 position-content candidate only to bounded implementation planning review; code and execution remain closed.
 - EL-1247 2026-03-14: Wrote the bounded implementation plan for `synthetic_positional_content_gated_offset_selection_response`.
 - EL-1248 2026-03-14: Passed the E003 position-content candidate to one bounded local implementation cycle only.
+- EL-1249 2026-03-14: Implemented `synthetic_positional_content_gated_offset_selection_response` inside the frozen E003 scope while keeping one symbolic family across candidate counts `3/4/5` and content classes `0/1/2`.
+- EL-1250 2026-03-14: The fixed three-seed E003 first packet was mixed: the witness kept mean `rank_correlation` while the bounded symbolic control kept mean `mae`.
+- EL-1251 2026-03-14: Under the declared two-metric gate, the E003 position-content line remains active because the control did not match or beat the witness on both mean packet metrics.
+- EL-1252 2026-03-14: Advanced E003 only to the retained nuisance-hardening packet `token_permutation=cdab`.

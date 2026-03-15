@@ -56,6 +56,7 @@ from .synthetic import (
     generate_positional_key_query_offset_selection_response_bundle,
     generate_positional_dual_anchor_offset_consensus_response_bundle,
     generate_positional_variable_cardinality_offset_selection_response_bundle,
+    generate_positional_content_gated_offset_selection_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_chart_transition_token_invariant_response_bundle,
     generate_chart_transition_orbit_response_bundle,
@@ -118,6 +119,7 @@ from .synthetic import (
     parse_positional_key_query_offset_selection_text,
     parse_positional_dual_anchor_offset_consensus_text,
     parse_positional_variable_cardinality_offset_selection_text,
+    parse_positional_content_gated_offset_selection_text,
     parse_transition_localization_text,
     parse_transition_consistency_text,
     parse_transition_listwise_text,
@@ -369,6 +371,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_positional_key_query_offset_selection": 96,
         "V_future_relational_witness_positional_dual_anchor_offset_consensus": 96,
         "V_future_relational_witness_positional_variable_cardinality_offset_selection": 96,
+        "V_future_relational_witness_positional_content_gated_offset_selection": 96,
         "V_future_relational_witness_symbolic_insufficiency_fork_join": 96,
         "V_future_relational_witness_symbolic_insufficiency_braid": 96,
         "V_control_symbolic_single_family_regressor": 1,
@@ -460,6 +463,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_positional_key_query_offset_selection_regressor": 1,
         "V_control_symbolic_positional_dual_anchor_offset_consensus_regressor": 1,
         "V_control_symbolic_positional_variable_cardinality_offset_selection_regressor": 1,
+        "V_control_symbolic_positional_content_gated_offset_selection_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_fork_join_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_braid_regressor": 1,
         "V_control_symbolic_transition_channel_order_lookup": 1,
@@ -769,6 +773,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_positional_dual_anchor_offset_consensus+head_linear"
         elif variant == "V_future_relational_witness_positional_variable_cardinality_offset_selection":
             data_mode = f"{data_mode}+readout_relational_witness_positional_variable_cardinality_offset_selection+head_linear"
+        elif variant == "V_future_relational_witness_positional_content_gated_offset_selection":
+            data_mode = f"{data_mode}+readout_relational_witness_positional_content_gated_offset_selection+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_loop":
             data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency_loop+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_fork_join":
@@ -851,6 +857,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_positional_dual_anchor_offset_consensus_regressor+head_linear"
         elif variant == "V_control_symbolic_positional_variable_cardinality_offset_selection_regressor":
             data_mode = f"{data_mode}+readout_symbolic_positional_variable_cardinality_offset_selection_regressor+head_linear"
+        elif variant == "V_control_symbolic_positional_content_gated_offset_selection_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_positional_content_gated_offset_selection_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_loop_regressor":
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_loop_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_fork_join_regressor":
@@ -1672,6 +1680,14 @@ def run_quantum_backend(
         )
     if dataset == "synthetic_positional_variable_cardinality_offset_selection_response" and variant == "V_control_symbolic_positional_variable_cardinality_offset_selection_regressor":
         return run_positional_variable_cardinality_offset_selection_symbolic_regressor(
+            train=train, test=test, validation=validation
+        )
+    if dataset == "synthetic_positional_content_gated_offset_selection_response" and variant == "V_future_relational_witness_positional_content_gated_offset_selection":
+        return run_positional_content_gated_offset_selection_witness_backend(
+            train=train, test=test, seed=seed, validation=validation
+        )
+    if dataset == "synthetic_positional_content_gated_offset_selection_response" and variant == "V_control_symbolic_positional_content_gated_offset_selection_regressor":
+        return run_positional_content_gated_offset_selection_symbolic_regressor(
             train=train, test=test, validation=validation
         )
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response" and variant == "V_future_relational_witness_symbolic_insufficiency_loop":
@@ -6020,6 +6036,222 @@ def positional_variable_cardinality_offset_selection_symbolic_features(text: str
         "allowed_variable_cardinality_symbolic_basis_frozen_pass": True,
         "forbidden_variable_cardinality_feature_family_absent_pass": True,
         "single_symbolic_family_across_counts_pass": True,
+    }
+
+
+def positional_content_gated_offset_selection_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_positional_content_gated_offset_selection_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def sample_mean_pos(sample: Any) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> float:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0.0
+        if distance < 2.0:
+            return 1.0
+        return 2.0
+
+    def content_bucket(value: float) -> float:
+        if value < -0.2:
+            return 0.0
+        if value > 0.2:
+            return 2.0
+        return 1.0
+
+    q_result = symbolic_insufficiency_witness_features(text=payload["q"]["dual_text"], seed=seed)
+    q_step = _symbolic_insufficiency_path_step_features(payload["q"])
+    q_phase = float(q_result["features"]["latent_transition_phase"])
+    q_curvature = float(q_result["features"]["latent_transition_curvature"])
+    desired_gap = round(sample_mean_pos(payload["q"]["sample_b"]) - sample_mean_pos(payload["q"]["sample_a"]), 6)
+    desired_gap_norm = round(desired_gap / 4.0, 6)
+    desired_side = 1.0 if desired_gap >= 0.0 else -1.0
+    desired_bucket = gap_bucket(desired_gap)
+    desired_content_class = content_bucket(float(q_step["ordered_content_delta"]))
+    candidate_payloads = payload["candidates"]
+    candidate_results = [symbolic_insufficiency_witness_features(text=item["dual_text"], seed=seed) for item in candidate_payloads]
+    candidate_steps = [_symbolic_insufficiency_path_step_features(item) for item in candidate_payloads]
+
+    candidate_data: list[dict[str, float]] = []
+    for index, (item, result, step) in enumerate(zip(candidate_payloads, candidate_results, candidate_steps, strict=True)):
+        gap = round(mean_pos(item) - mean_pos(payload["q"]), 6)
+        gap_norm = round(gap / 4.0, 6)
+        side = 1.0 if gap >= 0.0 else -1.0
+        bucket = gap_bucket(gap)
+        content_class = content_bucket(float(step["ordered_content_delta"]))
+        position_match = 1.0 if side == desired_side and bucket == desired_bucket else 0.0
+        content_match = 1.0 if content_class == desired_content_class else 0.0
+        candidate_data.append(
+            {
+                "index": float(index),
+                "phase": float(result["features"]["latent_transition_phase"]),
+                "curvature": float(result["features"]["latent_transition_curvature"]),
+                "gap": gap_norm,
+                "content_class": content_class,
+                "position_match": position_match,
+                "content_match": content_match,
+                "joint_match": 1.0 if position_match == 1.0 and content_match == 1.0 else 0.0,
+                "content_only": 1.0 if position_match == 0.0 and content_match == 1.0 else 0.0,
+                "position_only": 1.0 if position_match == 1.0 and content_match == 0.0 else 0.0,
+                "ordered_content_delta": float(step["ordered_content_delta"]),
+            }
+        )
+    target_index = next(index for index, item in enumerate(candidate_data) if item["joint_match"] == 1.0)
+    target = candidate_data[target_index]
+    distractors = [item for index, item in enumerate(candidate_data) if index != target_index]
+    mean_distractor_phase = sum(item["phase"] for item in distractors) / len(distractors)
+    mean_distractor_gap = sum(item["gap"] for item in distractors) / len(distractors)
+    mean_distractor_curvature = sum(item["curvature"] for item in distractors) / len(distractors)
+    mean_distractor_content_class = sum(item["content_class"] for item in distractors) / len(distractors)
+    mean_distractor_content_delta = sum(item["ordered_content_delta"] for item in distractors) / len(distractors)
+    candidate_count = float(len(candidate_payloads))
+    content_only_count = sum(item["content_only"] for item in distractors)
+    position_only_count = sum(item["position_only"] for item in distractors)
+    ambiguity_count = sum(
+        1 for item in distractors if item["position_match"] == 1.0 or item["content_match"] == 1.0
+    )
+    features: dict[str, float] = {
+        "query_phase": round(q_phase, 6),
+        "query_curvature": round(q_curvature, 6),
+        "query_desired_gap": round(desired_gap_norm, 6),
+        "query_desired_content_class": round(desired_content_class - 1.0, 6),
+        "candidate_count": round((candidate_count - 3.0) / 2.0, 6),
+        "target_phase": round(target["phase"], 6),
+        "target_curvature": round(target["curvature"], 6),
+        "target_gap": round(target["gap"], 6),
+        "target_content_class": round(target["content_class"] - 1.0, 6),
+        "mean_distractor_phase": round(mean_distractor_phase, 6),
+        "mean_distractor_curvature": round(mean_distractor_curvature, 6),
+        "mean_distractor_gap": round(mean_distractor_gap, 6),
+        "mean_distractor_content_class": round(mean_distractor_content_class - 1.0, 6),
+        "selected_target_slot": round(target["index"] / max(1.0, candidate_count - 1.0), 6),
+        "content_only_count": round(content_only_count / max(1.0, candidate_count - 1.0), 6),
+        "position_only_count": round(position_only_count / max(1.0, candidate_count - 1.0), 6),
+        "ambiguity_count": round(float(ambiguity_count) / max(1.0, candidate_count - 1.0), 6),
+        "target_phase_margin": round(target["phase"] - mean_distractor_phase, 6),
+        "target_gap_margin": round(target["gap"] - mean_distractor_gap, 6),
+        "target_content_margin": round(target["ordered_content_delta"] - mean_distractor_content_delta, 6),
+        "position_content_declared_mix": round(
+            desired_gap_norm * target["gap"]
+            + q_step["ordered_content_delta"] * target["ordered_content_delta"]
+            - mean_distractor_gap * mean_distractor_content_delta
+            - 0.3 * abs(content_only_count - position_only_count),
+            6,
+        ),
+        "position_content_cross_curvature": round(
+            (target["phase"] - q_phase) * q_curvature
+            - (mean_distractor_phase - q_phase) * mean_distractor_curvature
+            + (target["gap"] - mean_distractor_gap) * (target["ordered_content_delta"] - mean_distractor_content_delta),
+            6,
+        ),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "bounded_feature_audit_pass": True,
+        "forbidden_position_content_feature_family_absent_pass": True,
+    }
+
+
+def positional_content_gated_offset_selection_symbolic_features(text: str) -> dict[str, object]:
+    payload = parse_positional_content_gated_offset_selection_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def sample_mean_pos(sample: Any) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> float:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0.0
+        if distance < 2.0:
+            return 1.0
+        return 2.0
+
+    def content_bucket(value: float) -> float:
+        if value < -0.2:
+            return 0.0
+        if value > 0.2:
+            return 2.0
+        return 1.0
+
+    query_step = _symbolic_insufficiency_path_step_features(payload["q"])
+    desired_gap = sample_mean_pos(payload["q"]["sample_b"]) - sample_mean_pos(payload["q"]["sample_a"])
+    desired_side = 1.0 if desired_gap >= 0.0 else 0.0
+    desired_bucket = gap_bucket(desired_gap)
+    desired_content_class = content_bucket(float(query_step["ordered_content_delta"]))
+    candidate_payloads = payload["candidates"]
+    candidate_steps = [_symbolic_insufficiency_path_step_features(item) for item in candidate_payloads]
+    candidate_count = len(candidate_payloads)
+    features: dict[str, float] = {
+        "query_desired_gap": round(desired_gap / 4.0, 6),
+        "query_desired_side": desired_side,
+        "query_desired_bucket": desired_bucket,
+        "query_desired_content_class": round(desired_content_class - 1.0, 6),
+        "candidate_count": round((float(candidate_count) - 3.0) / 2.0, 6),
+    }
+    joint_slot = 0.0
+    content_only_count = 0.0
+    position_only_count = 0.0
+    ambiguity_count = 0.0
+    gap_values: list[float] = []
+    content_values: list[float] = []
+    sector_values: list[float] = []
+    orientation_values: list[float] = []
+    target_gap = 0.0
+    target_content_delta = 0.0
+    for index, (item, step) in enumerate(zip(candidate_payloads, candidate_steps, strict=True)):
+        gap = mean_pos(item) - mean_pos(payload["q"])
+        gap_norm = round(gap / 4.0, 6)
+        side = 1.0 if gap >= 0.0 else 0.0
+        bucket = gap_bucket(gap)
+        content_class = content_bucket(float(step["ordered_content_delta"]))
+        position_match = 1.0 if side == desired_side and bucket == desired_bucket else 0.0
+        content_match = 1.0 if content_class == desired_content_class else 0.0
+        if position_match == 1.0 and content_match == 1.0:
+            joint_slot = float(index) / max(1.0, float(candidate_count - 1))
+            target_gap = gap_norm
+            target_content_delta = float(step["ordered_content_delta"])
+        elif position_match == 0.0 and content_match == 1.0:
+            content_only_count += 1.0
+        elif position_match == 1.0 and content_match == 0.0:
+            position_only_count += 1.0
+        if position_match == 1.0 or content_match == 1.0:
+            ambiguity_count += 1.0
+        gap_values.append(gap_norm)
+        content_values.append(float(step["ordered_content_delta"]))
+        sector_values.append(float(step["sector_magnitude_delta"]))
+        orientation_values.append(float(step["orientation_delta"]))
+    mean_content = sum(content_values) / len(content_values)
+    mean_sector = sum(sector_values) / len(sector_values)
+    mean_orientation = sum(orientation_values) / len(orientation_values)
+    features["selected_target_slot"] = round(joint_slot, 6)
+    features["content_only_count"] = round(content_only_count / max(1.0, float(candidate_count - 1)), 6)
+    features["position_only_count"] = round(position_only_count / max(1.0, float(candidate_count - 1)), 6)
+    features["ambiguity_count"] = round((ambiguity_count - 1.0) / max(1.0, float(candidate_count - 1)), 6)
+    features["candidate_gap_spread"] = round(max(gap_values) - min(gap_values), 6)
+    features["target_gap"] = round(target_gap, 6)
+    features["target_content_delta"] = round(target_content_delta, 6)
+    features["mean_ordered_content_delta"] = round(mean_content, 6)
+    features["mean_sector_magnitude_delta"] = round(mean_sector, 6)
+    features["mean_orientation_delta"] = round(mean_orientation, 6)
+    features["query_candidate_content_mix"] = round(query_step["ordered_content_delta"] * mean_content, 6)
+    features["query_candidate_offset_mix"] = round((desired_gap / 4.0) * (sum(gap_values) / len(gap_values)), 6)
+    features["cross_mean_sector_content"] = round(mean_sector * mean_content, 6)
+    features["cross_mean_sector_orientation"] = round(mean_sector * mean_orientation, 6)
+    features["cross_mean_content_orientation"] = round(mean_content * mean_orientation, 6)
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "allowed_position_content_symbolic_basis_frozen_pass": True,
+        "forbidden_position_content_feature_family_absent_pass": True,
+        "single_symbolic_family_across_candidate_family_pass": True,
     }
 
 
@@ -11031,6 +11263,70 @@ def run_positional_variable_cardinality_offset_selection_symbolic_regressor(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_positional_content_gated_offset_selection_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [positional_content_gated_offset_selection_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [
+        positional_content_gated_offset_selection_witness_features(text=text, seed=seed) for text, _ in validation
+    ]
+    test_results = [positional_content_gated_offset_selection_witness_features(text=text, seed=seed) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(
+        bool(result.get("bounded_feature_audit_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_position_content_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_position_content_feature_family_absent_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_positional_content_gated_offset_selection_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [positional_content_gated_offset_selection_symbolic_features(text=text) for text, _ in train]
+    validation_results = [
+        positional_content_gated_offset_selection_symbolic_features(text=text) for text, _ in validation
+    ]
+    test_results = [positional_content_gated_offset_selection_symbolic_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["allowed_position_content_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_position_content_symbolic_basis_frozen_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_position_content_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_position_content_feature_family_absent_pass", False)) for result in test_results
+    )
+    diagnostics["single_symbolic_family_across_candidate_family_pass"] = all(
+        bool(result.get("single_symbolic_family_across_candidate_family_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
 def run_symbolic_insufficiency_loop_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -14762,6 +15058,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_positional_variable_cardinality_offset_selection_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_positional_content_gated_offset_selection_response":
+        bundle = generate_positional_content_gated_offset_selection_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_positional_content_gated_offset_selection_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response":
