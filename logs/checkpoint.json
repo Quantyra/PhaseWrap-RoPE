@@ -2,12 +2,12 @@
     "active_epic":  "E001",
     "repo_posture":  "low_intensity_no_execution",
     "current_story_ids":  [
-                              "S1260"
+                              "S1262"
                           ],
     "next_actions":  [
-                         "Use the transformer-adjacent validation design packet to decide whether a successor evidence class should exist.",
-                         "Keep execution closed.",
-                         "If continuing, write a dedicated successor-class gate before any candidate opens."
+                         "Write one candidate-specification memo for synthetic_positional_key_query_offset_selection_response.",
+                         "Keep implementation and execution closed.",
+                         "Stop the successor class if the candidate collapses into realism-bridge or loses bounded fairness."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1215,7 +1215,9 @@
                                 "S1257",
                                 "S1258",
                                 "S1259",
-                                "S1260"
+                                "S1260",
+                                "S1261",
+                                "S1262"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
