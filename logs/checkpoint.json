@@ -2,12 +2,12 @@
     "active_epic":  "E001",
     "repo_posture":  "low_intensity_no_execution",
     "current_story_ids":  [
-                              "S1267"
+                              "S1269"
                           ],
     "next_actions":  [
-                         "Write the bounded implementation plan for synthetic_positional_key_query_offset_selection_response.",
-                         "Keep implementation code closed until that plan is accepted.",
-                         "Stop the successor class if the plan cannot preserve bounded candidate-set fairness."
+                         "Implement synthetic_positional_key_query_offset_selection_response inside the frozen writable scope.",
+                         "Run exactly one fixed three-seed packet against the bounded symbolic control if implementation remains fair.",
+                         "Stop the successor class immediately if implementation causes candidate-set fairness blow-up."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1222,7 +1222,9 @@
                                 "S1264",
                                 "S1265",
                                 "S1266",
-                                "S1267"
+                                "S1267",
+                                "S1268",
+                                "S1269"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
