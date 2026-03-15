@@ -1,13 +1,13 @@
 {
     "active_epic":  "E003",
-    "repo_posture":  "bounded_E003_position_content_structural_hardening",
+    "repo_posture":  "memo_only_E003_position_content_preserved",
     "current_story_ids":  [
-                              "S1378"
+                              "S1382"
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=7 deeper structural hardening packet.",
-                         "Keep only the witness and bounded symbolic control in scope.",
-                         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
+                         "Use the refreshed package for internal review and reference.",
+                         "Keep default execution closed.",
+                         "Reopen only with a materially different missing-question candidate and explicit approval."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1323,7 +1323,11 @@
                                 "S1375",
                                 "S1376",
                                 "S1377",
-                                "S1378"
+                                "S1378",
+                                "S1379",
+                                "S1380",
+                                "S1381",
+                                "S1382"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
