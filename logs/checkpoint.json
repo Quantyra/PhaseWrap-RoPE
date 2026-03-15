@@ -2,12 +2,12 @@
     "active_epic":  "E001",
     "repo_posture":  "realism_bridge_review_ready",
     "current_story_ids":  [
-                              "S1249"
+                              "S1253"
                           ],
     "next_actions":  [
-                         "Use the refreshed review package for internal review.",
-                         "Apply BLUF by default in executive-facing and mixed-audience technical explanations.",
-                         "Keep default execution closed unless a new missing-question candidate is explicitly approved."
+                         "Use the refreshed BLUF review packet for internal review.",
+                         "Keep default execution closed.",
+                         "Only reopen with a materially different missing-question candidate and approval."
                      ],
     "risks":  [
                   "Offset-retrieval improves relevance evidence, but over-reading it as a NISQ solution would be a category error.",
@@ -1204,7 +1204,11 @@
                                 "S1246",
                                 "S1247",
                                 "S1248",
-                                "S1249"
+                                "S1249",
+                                "S1250",
+                                "S1251",
+                                "S1252",
+                                "S1253"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

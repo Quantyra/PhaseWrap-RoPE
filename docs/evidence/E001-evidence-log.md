@@ -1960,3 +1960,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1161 2026-03-14: Added a technical briefing and BLUF protocol so executive-facing and mixed-audience explanations lead with decision, meaning, limits, and the single best next step.
 - EL-1162 2026-03-14: Linked the BLUF briefing protocol into the VP-of-Research proxy protocol and `AGENTS.md`, and fixed the malformed protocol line break in `AGENTS.md`.
+
+- EL-1163 2026-03-14: Refreshed the internal review packet into stricter BLUF form so review starts from the post-realism-bridge package rather than the older bridge-only state.
+- EL-1164 2026-03-14: Updated the review cover, briefing, outcome, agenda, and checklist to make the current recommendation explicit: continue at low intensity with no new execution.
