@@ -2060,3 +2060,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1250 2026-03-14: The fixed three-seed E003 first packet was mixed: the witness kept mean `rank_correlation` while the bounded symbolic control kept mean `mae`.
 - EL-1251 2026-03-14: Under the declared two-metric gate, the E003 position-content line remains active because the control did not match or beat the witness on both mean packet metrics.
 - EL-1252 2026-03-14: Advanced E003 only to the retained nuisance-hardening packet `token_permutation=cdab`.
+- EL-1253 2026-03-14: The retained nuisance-hardening packet `token_permutation=cdab` for the E003 position-content line was non-inert and left the witness ahead on both declared mean packet metrics.
+- EL-1254 2026-03-14: Advanced E003 only to the fixed structural hardening packet `pair_reindex=1`.

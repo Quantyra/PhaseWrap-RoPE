@@ -1,11 +1,11 @@
 {
     "active_epic":  "E003",
-    "repo_posture":  "bounded_E003_position_content_hardening",
+    "repo_posture":  "bounded_E003_position_content_structural_hardening",
     "current_story_ids":  [
-                              "S1369"
+                              "S1372"
                           ],
     "next_actions":  [
-                         "Run the fixed token_permutation=cdab hardening packet.",
+                         "Run the fixed pair_reindex=1 structural hardening packet.",
                          "Keep only the witness and bounded symbolic control in scope.",
                          "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
@@ -1314,7 +1314,10 @@
                                 "S1366",
                                 "S1367",
                                 "S1368",
-                                "S1369"
+                                "S1369",
+                                "S1370",
+                                "S1371",
+                                "S1372"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
