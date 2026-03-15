@@ -1,17 +1,17 @@
 ﻿{
     "active_epic":  "E001",
-    "repo_posture":  "realism_bridge_review_ready",
+    "repo_posture":  "low_intensity_no_execution",
     "current_story_ids":  [
-                              "S1253"
+                              "S1255"
                           ],
     "next_actions":  [
-                         "Use the refreshed BLUF review packet for internal review.",
+                         "Use the current package as the standing internal reference set.",
                          "Keep default execution closed.",
-                         "Only reopen with a materially different missing-question candidate and approval."
+                         "Only reopen with a materially different missing-question candidate and explicit approval."
                      ],
     "risks":  [
-                  "Offset-retrieval improves relevance evidence, but over-reading it as a NISQ solution would be a category error.",
-                  "Without review discipline, the realism-bridge success could trigger another branch-count treadmill."
+                  "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
+                  "Without the reopen rule, the program could drift back into branch churn despite the stronger package."
               ],
     "completed_story_ids":  [
                                 "S001",
@@ -1208,7 +1208,9 @@
                                 "S1250",
                                 "S1251",
                                 "S1252",
-                                "S1253"
+                                "S1253",
+                                "S1254",
+                                "S1255"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
