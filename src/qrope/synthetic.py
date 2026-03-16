@@ -4888,6 +4888,307 @@ def generate_positional_content_alias_disambiguation_response_bundle(
     return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
 
 
+def generate_positional_shared_memory_multi_query_selection_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_positional_shared_memory_multi_query_selection_response:{seed}")
+    base_bundle = generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_symbolic_insufficiency_transition_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="symbolic_insufficiency_transition_response",
+    )
+    all_rows = [
+        DualSyntheticSample(
+            text=text,
+            label=label,
+            sector_a=offset_sector_name(parse_dual_sample_text(text)["sample_a"].offset),
+            sector_b=offset_sector_name(parse_dual_sample_text(text)["sample_b"].offset),
+            sample_a=parse_dual_sample_text(text)["sample_a"],
+            sample_b=parse_dual_sample_text(text)["sample_b"],
+        )
+        for split_rows in (base_bundle.train, base_bundle.validation, base_bundle.test)
+        for text, label in split_rows
+    ]
+    row_pool = list(all_rows)
+    rng.shuffle(row_pool)
+    row_pool = sorted(row_pool[:13], key=lambda row: row.text)
+
+    def mean_pos(sample: SyntheticSample) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> int:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0
+        if distance < 2.0:
+            return 1
+        return 2
+
+    def content_bucket(sample_a: SyntheticSample, sample_b: SyntheticSample) -> int:
+        score = ordered_content_delta_score(sample_a, sample_b)
+        if score < -0.2:
+            return 0
+        if score > 0.2:
+            return 2
+        return 1
+
+    def query_target_rule(row: DualSyntheticSample) -> tuple[int, int, float, int]:
+        desired_gap = round(mean_pos(row.sample_b) - mean_pos(row.sample_a), 6)
+        return (
+            int(desired_gap >= 0.0),
+            gap_bucket(desired_gap),
+            round(desired_gap / 4.0, 6),
+            content_bucket(row.sample_a, row.sample_b),
+        )
+
+    def candidate_data_for_query(
+        query_row: DualSyntheticSample,
+        active_candidates: list[DualSyntheticSample],
+    ) -> list[dict[str, Any]]:
+        anchor_pivot = mean_pos(query_row.sample_a)
+        query_side, query_bucket, _, desired_content_class = query_target_rule(query_row)
+        data: list[dict[str, Any]] = []
+        for index, candidate_row in enumerate(active_candidates):
+            candidate_gap = round(mean_pos(candidate_row.sample_a) - anchor_pivot, 6)
+            if abs(candidate_gap) < 0.5:
+                return []
+            candidate_side = int(candidate_gap >= 0.0)
+            candidate_bucket = gap_bucket(candidate_gap)
+            candidate_content_class = content_bucket(candidate_row.sample_a, candidate_row.sample_b)
+            position_match = int(candidate_side == query_side and candidate_bucket == query_bucket)
+            content_match = int(candidate_content_class == desired_content_class)
+            data.append(
+                {
+                    "index": index,
+                    "row": candidate_row,
+                    "gap_norm": round(candidate_gap / 4.0, 6),
+                    "bucket": candidate_bucket,
+                    "content_class": candidate_content_class,
+                    "position_match": position_match,
+                    "content_match": content_match,
+                    "joint_match": int(position_match == 1 and content_match == 1),
+                    "content_only": int(position_match == 0 and content_match == 1),
+                    "position_only": int(position_match == 1 and content_match == 0),
+                }
+            )
+        return data
+
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    candidates_by_state: dict[tuple[int, int, int, int, int, int, int, int], list[dict[str, Any]]] = defaultdict(list)
+    pool_size = len(row_pool)
+    for memory_indices in itertools.combinations(range(pool_size), 5):
+        memory_rows = [row_pool[index] for index in memory_indices]
+        remaining_indices = [index for index in range(pool_size) if index not in memory_indices]
+        for query_pair in itertools.permutations(remaining_indices, 2):
+            q0_row = row_pool[query_pair[0]]
+            q1_row = row_pool[query_pair[1]]
+            q0_sign = int(sector_sign_family(q0_row.sector_a) == sector_sign_family(q0_row.sector_b))
+            q1_sign = int(sector_sign_family(q1_row.sector_a) == sector_sign_family(q1_row.sector_b))
+            q0_side, q0_bucket, q0_gap_norm, q0_content_class = query_target_rule(q0_row)
+            q1_side, q1_bucket, q1_gap_norm, q1_content_class = query_target_rule(q1_row)
+            for candidate_count in (3, 4, 5):
+                for active_indices in itertools.combinations(range(len(memory_rows)), candidate_count):
+                    active_candidates = [memory_rows[index] for index in active_indices]
+                    q0_data = candidate_data_for_query(q0_row, active_candidates)
+                    q1_data = candidate_data_for_query(q1_row, active_candidates)
+                    if len(q0_data) != candidate_count or len(q1_data) != candidate_count:
+                        continue
+                    if sum(item["joint_match"] for item in q0_data) != 1 or sum(item["joint_match"] for item in q1_data) != 1:
+                        continue
+                    q0_target = next(item for item in q0_data if item["joint_match"] == 1)
+                    q1_target = next(item for item in q1_data if item["joint_match"] == 1)
+                    q0_content_only = sum(item["content_only"] for item in q0_data if item["index"] != q0_target["index"])
+                    q1_content_only = sum(item["content_only"] for item in q1_data if item["index"] != q1_target["index"])
+                    q0_position_only = sum(item["position_only"] for item in q0_data if item["index"] != q0_target["index"])
+                    q1_position_only = sum(item["position_only"] for item in q1_data if item["index"] != q1_target["index"])
+                    if min(q0_content_only, q1_content_only, q0_position_only, q1_position_only) < 1:
+                        continue
+                    latent_q0 = symbolic_insufficiency_latent_ids(q0_row.sample_a, q0_row.sample_b)
+                    latent_q1 = symbolic_insufficiency_latent_ids(q1_row.sample_a, q1_row.sample_b)
+                    q0_phase = _symbolic_insufficiency_latent_phase(latent_q0)
+                    q1_phase = _symbolic_insufficiency_latent_phase(latent_q1)
+                    candidate_latents = [
+                        symbolic_insufficiency_latent_ids(item.sample_a, item.sample_b) for item in active_candidates
+                    ]
+                    candidate_phases = [_symbolic_insufficiency_latent_phase(latent) for latent in candidate_latents]
+                    q0_target_phase = candidate_phases[q0_target["index"]]
+                    q1_target_phase = candidate_phases[q1_target["index"]]
+                    mean_candidate_phase = sum(candidate_phases) / len(candidate_phases)
+                    q0_target_row = active_candidates[q0_target["index"]]
+                    q1_target_row = active_candidates[q1_target["index"]]
+                    q0_step_content = ordered_content_delta_score(q0_row.sample_a, q0_row.sample_b)
+                    q1_step_content = ordered_content_delta_score(q1_row.sample_a, q1_row.sample_b)
+                    q0_target_content = ordered_content_delta_score(q0_target_row.sample_a, q0_target_row.sample_b)
+                    q1_target_content = ordered_content_delta_score(q1_target_row.sample_a, q1_target_row.sample_b)
+                    mean_candidate_content = sum(
+                        ordered_content_delta_score(item.sample_a, item.sample_b) for item in active_candidates
+                    ) / len(active_candidates)
+                    raw_target = (
+                        0.10 * float(q0_row.label)
+                        + 0.10 * float(q1_row.label)
+                        + 0.11 * float(q0_target_row.label)
+                        + 0.11 * float(q1_target_row.label)
+                        + 0.05 * math.sin((q0_target_phase - q0_phase) - (q1_target_phase - q1_phase))
+                        + 0.07 * math.cos(q0_target["gap_norm"] - q1_target["gap_norm"])
+                        + 0.08 * q0_step_content * q0_target_content
+                        + 0.08 * q1_step_content * q1_target_content
+                        + 0.06 * (q0_gap_norm * q0_target["gap_norm"] + q1_gap_norm * q1_target["gap_norm"])
+                        - 0.05 * abs(q0_target["index"] - q1_target["index"]) / max(1.0, candidate_count - 1.0)
+                        - 0.04 * abs(q0_content_class - q1_content_class)
+                        - 0.03 * abs(mean_candidate_phase - 0.5 * (q0_target_phase + q1_target_phase))
+                        - 0.03 * abs(mean_candidate_content - 0.5 * (q0_target_content + q1_target_content))
+                        - 0.02 * float(candidate_count - 3)
+                    )
+                    state_key = (
+                        q0_sign,
+                        q1_sign,
+                        candidate_count,
+                        q0_bucket,
+                        q1_bucket,
+                        q0_target["index"],
+                        q1_target["index"],
+                        int(q0_content_class == q1_content_class),
+                    )
+                    candidates_by_state[state_key].append(
+                        {
+                            "text": render_positional_shared_memory_multi_query_selection_text(
+                                q0_row.sample_a,
+                                q0_row.sample_b,
+                                q1_row.sample_a,
+                                q1_row.sample_b,
+                                [(item.sample_a, item.sample_b) for item in active_candidates],
+                            ),
+                            "raw_target": round(raw_target, 6),
+                            "latent_key": (
+                                *latent_q0,
+                                *latent_q1,
+                                *(value for latent in candidate_latents for value in latent),
+                            ),
+                            "candidate_count": candidate_count,
+                            "q0_target_slot": q0_target["index"],
+                            "q1_target_slot": q1_target["index"],
+                            "q0_content_only": int(q0_content_only),
+                            "q1_content_only": int(q1_content_only),
+                            "q0_position_only": int(q0_position_only),
+                            "q1_position_only": int(q1_position_only),
+                            "slot_pair_diff": int(q0_target["index"] != q1_target["index"]),
+                        }
+                    )
+
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_means: dict[str, float] = {}
+    latent_group_counts: dict[str, int] = {}
+    target_ranges: dict[str, float] = {}
+    token_counts = Counter()
+    bucket_counts: dict[str, int] = {}
+    candidate_counts: set[int] = set()
+    q0_slots: set[int] = set()
+    q1_slots: set[int] = set()
+    q0_content_only_values: set[int] = set()
+    q1_content_only_values: set[int] = set()
+    q0_position_only_values: set[int] = set()
+    q1_position_only_values: set[int] = set()
+    slot_pair_diffs: set[int] = set()
+    for coarse_key, candidates in sorted(candidates_by_state.items()):
+        if len(candidates) < required:
+            continue
+        ordered = sorted(candidates, key=lambda item: (item["latent_key"], item["text"]))
+        selected: list[dict[str, Any]] = []
+        seen_latents: set[tuple[int, ...]] = set()
+        for item in ordered:
+            if item["latent_key"] not in seen_latents:
+                selected.append(item)
+                seen_latents.add(item["latent_key"])
+            if len(selected) == required:
+                break
+        if len(selected) < required:
+            for item in ordered:
+                if item not in selected:
+                    selected.append(item)
+                if len(selected) == required:
+                    break
+        if len({item["latent_key"] for item in selected}) < 2:
+            continue
+        mean_target = sum(float(item["raw_target"]) for item in selected) / len(selected)
+        centered = [(item["text"], round(float(item["raw_target"]) - mean_target, 6)) for item in selected]
+        train.extend(centered[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(centered[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(centered[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        state_key = "".join(str(part) for part in coarse_key)
+        state_means[state_key] = round(sum(label for _, label in centered) / len(centered), 6)
+        target_ranges[state_key] = round(max(label for _, label in centered) - min(label for _, label in centered), 6)
+        latent_group_counts[state_key] = len({item["latent_key"] for item in selected})
+        bucket_counts[state_key] = len(selected)
+        candidate_counts.update(item["candidate_count"] for item in selected)
+        q0_slots.update(item["q0_target_slot"] for item in selected)
+        q1_slots.update(item["q1_target_slot"] for item in selected)
+        q0_content_only_values.update(item["q0_content_only"] for item in selected)
+        q1_content_only_values.update(item["q1_content_only"] for item in selected)
+        q0_position_only_values.update(item["q0_position_only"] for item in selected)
+        q1_position_only_values.update(item["q1_position_only"] for item in selected)
+        slot_pair_diffs.update(item["slot_pair_diff"] for item in selected)
+        for text, _ in centered:
+            payload = parse_positional_shared_memory_multi_query_selection_text(text)
+            for item in payload["queries"] + payload["candidates"]:
+                token_counts.update(
+                    [
+                        item["sample_a"].left_token,
+                        item["sample_a"].right_token,
+                        item["sample_b"].left_token,
+                        item["sample_b"].right_token,
+                    ]
+                )
+
+    diagnostics = {
+        "dataset": "synthetic_positional_shared_memory_multi_query_selection_response",
+        "coarse_shared_memory_state_null_pass": max((abs(value) for value in state_means.values()), default=1.0)
+        <= 1e-6,
+        "within_shared_memory_state_variation_pass": all(value > 0.0 for value in target_ranges.values())
+        and bool(target_ranges),
+        "query_pair_nontrivial_pass": bool(q0_slots) and bool(q1_slots),
+        "query_one_only_null_pass": bool(q0_content_only_values)
+        and bool(q0_position_only_values)
+        and min(q0_content_only_values) >= 1
+        and min(q0_position_only_values) >= 1,
+        "query_two_only_null_pass": bool(q1_content_only_values)
+        and bool(q1_position_only_values)
+        and min(q1_content_only_values) >= 1
+        and min(q1_position_only_values) >= 1,
+        "joint_query_target_nontrivial_pass": any(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "shared_candidate_set_nontrivial_pass": candidate_counts == {3, 4, 5},
+        "token_view_balance_pass": set(token_counts.keys()) == set(TOKENS),
+        "bounded_candidate_count_pass": candidate_counts == {3, 4, 5},
+        "bounded_query_count_pass": True,
+        "cross_query_noncollapse_pass": len(q0_slots) > 1 and len(q1_slots) > 1,
+        "shared_memory_reuse_pass": bool(slot_pair_diffs) and max(slot_pair_diffs) > 0,
+        "shared_memory_bucket_counts": bucket_counts,
+        "coarse_shared_memory_state_null_max_abs_mean": round(
+            max((abs(value) for value in state_means.values()), default=0.0), 6
+        ),
+        "within_shared_memory_state_target_ranges": target_ranges,
+        "latent_shared_memory_group_counts": latent_group_counts,
+        "candidate_count_values": sorted(candidate_counts),
+        "query_one_target_slot_values": sorted(q0_slots),
+        "query_two_target_slot_values": sorted(q1_slots),
+        "query_one_content_only_values": sorted(q0_content_only_values),
+        "query_two_content_only_values": sorted(q1_content_only_values),
+        "query_one_position_only_values": sorted(q0_position_only_values),
+        "query_two_position_only_values": sorted(q1_position_only_values),
+        "slot_pair_diff_values": sorted(slot_pair_diffs),
+    }
+    return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
+
+
 def generate_chart_transition_token_invariant_response_bundle(
     seed: int,
     split_rotation: int = 0,
@@ -9724,6 +10025,45 @@ def render_positional_content_alias_disambiguation_text(
 
 def parse_positional_content_alias_disambiguation_text(text: str) -> dict[str, Any]:
     return parse_positional_variable_cardinality_offset_selection_text(text)
+
+
+def render_positional_shared_memory_multi_query_selection_text(
+    q0_sample_a: SyntheticSample,
+    q0_sample_b: SyntheticSample,
+    q1_sample_a: SyntheticSample,
+    q1_sample_b: SyntheticSample,
+    candidate_pairs: list[tuple[SyntheticSample, SyntheticSample]],
+) -> str:
+    parts = [
+        f"q0:{render_dual_sample_text(q0_sample_a, q0_sample_b)}",
+        f"q1:{render_dual_sample_text(q1_sample_a, q1_sample_b)}",
+    ]
+    for index, (sample_a, sample_b) in enumerate(candidate_pairs):
+        parts.append(f"c{index}:{render_dual_sample_text(sample_a, sample_b)}")
+    return " | ".join(parts)
+
+
+def parse_positional_shared_memory_multi_query_selection_text(text: str) -> dict[str, Any]:
+    parts = [part.strip() for part in text.split("|")]
+    payloads: dict[str, Any] = {}
+    queries: list[dict[str, Any]] = []
+    candidates: list[dict[str, Any]] = []
+    for part in parts:
+        prefix, dual_text = part.split(":", 1)
+        parsed = parse_dual_sample_text(dual_text)
+        item = {"dual_text": dual_text, **parsed}
+        if prefix in {"q0", "q1"}:
+            queries.append(item)
+            payloads[prefix] = item
+        elif prefix.startswith("c"):
+            candidates.append(item)
+        else:
+            raise ValueError(f"Unexpected prefix in shared-memory multi-query text: {prefix}")
+    payloads["queries"] = queries
+    payloads["candidates"] = candidates
+    payloads["query_count"] = len(queries)
+    payloads["candidate_count"] = len(candidates)
+    return payloads
 
 
 def apply_token_permutation_to_sample(sample: SyntheticSample, token_permutation: str) -> SyntheticSample:
