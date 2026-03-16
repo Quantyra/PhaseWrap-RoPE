@@ -2104,7 +2104,8 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1294 2026-03-15: Passed the E005 shared-memory multi-query candidate to one bounded local implementation cycle only.
 
 - EL-1295 2026-03-15: Implemented synthetic_positional_shared_memory_multi_query_selection_response inside the frozen E005 scope while keeping one symbolic family across query positions and candidate counts 3/4/5.
-- EL-1296 2026-03-15: The fixed three-seed E005 first packet left the witness ahead of the bounded symbolic control on both mean mae and mean ank_correlation.
+- EL-1296 2026-03-15: The fixed three-seed E005 first packet left the witness ahead of the bounded symbolic control on both mean mae and mean 
+ank_correlation.
 - EL-1297 2026-03-15: Advanced E005 only to the retained nuisance-hardening packet 	oken_permutation=cdab.
 
 - EL-1298 2026-03-15: The retained nuisance-hardening packet 	oken_permutation=cdab for the E005 shared-memory multi-query line was strongly non-inert and let the bounded symbolic control beat the witness on both declared mean packet metrics.
@@ -2120,3 +2121,8 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1306 2026-03-16: Wrote the bounded implementation plan for synthetic_positional_intermediate_pointer_selection_response.
 - EL-1307 2026-03-16: Passed E006 only to one bounded local implementation cycle and kept direct-collapse prevention as a hard-stop condition.
+
+- EL-1308 2026-03-16: Implemented synthetic_positional_intermediate_pointer_selection_response inside the frozen E006 scope while keeping one symbolic family across candidate counts `4` and `5` and preserving decision-critical intermediate-hop structure.
+- EL-1309 2026-03-16: The fixed three-seed E006 first packet left the witness ahead on mean `mae` while mean `rank_correlation` tied at `0.000000` against the bounded symbolic control.
+- EL-1310 2026-03-16: Under the declared two-metric gate, E006 remains active because the control did not match or beat the witness on both declared mean packet metrics.
+- EL-1311 2026-03-16: Advanced E006 only to the retained nuisance-hardening packet `token_permutation=cdab`.
