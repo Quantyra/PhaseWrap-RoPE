@@ -2117,3 +2117,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 
 - EL-1304 2026-03-15: Wrote the explicit memo-level gate for synthetic_positional_intermediate_pointer_selection_response.
 - EL-1305 2026-03-15: Passed E006 only to bounded implementation planning review and kept code and execution closed.
+
+- EL-1306 2026-03-16: Wrote the bounded implementation plan for synthetic_positional_intermediate_pointer_selection_response.
+- EL-1307 2026-03-16: Passed E006 only to one bounded local implementation cycle and kept direct-collapse prevention as a hard-stop condition.
