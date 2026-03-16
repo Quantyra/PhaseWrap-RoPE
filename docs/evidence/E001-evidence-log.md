@@ -2102,3 +2102,7 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1292 2026-03-15: Passed the E005 shared-memory multi-query candidate only to bounded implementation planning review; code and execution remain closed.
 - EL-1293 2026-03-15: Wrote the bounded implementation plan for `synthetic_positional_shared_memory_multi_query_selection_response`.
 - EL-1294 2026-03-15: Passed the E005 shared-memory multi-query candidate to one bounded local implementation cycle only.
+
+- EL-1295 2026-03-15: Implemented synthetic_positional_shared_memory_multi_query_selection_response inside the frozen E005 scope while keeping one symbolic family across query positions and candidate counts 3/4/5.
+- EL-1296 2026-03-15: The fixed three-seed E005 first packet left the witness ahead of the bounded symbolic control on both mean mae and mean ank_correlation.
+- EL-1297 2026-03-15: Advanced E005 only to the retained nuisance-hardening packet 	oken_permutation=cdab.

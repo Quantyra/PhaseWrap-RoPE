@@ -1328,6 +1328,47 @@ def test_positional_content_alias_disambiguation_symbolic_control_freezes_basis(
     assert diagnostics["single_symbolic_family_across_alias_patterns_pass"] is True
 
 
+def test_positional_shared_memory_multi_query_selection_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_shared_memory_multi_query_selection_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_positional_shared_memory_multi_query_selection",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_positional_shared_memory_multi_query_selection_response+readout_relational_witness_positional_shared_memory_multi_query_selection+head_linear"
+    )
+    assert diagnostics["coarse_shared_memory_state_null_pass"] is True
+    assert diagnostics["within_shared_memory_state_variation_pass"] is True
+    assert diagnostics["query_pair_nontrivial_pass"] is True
+    assert diagnostics["query_one_only_null_pass"] is True
+    assert diagnostics["query_two_only_null_pass"] is True
+    assert diagnostics["joint_query_target_nontrivial_pass"] is True
+    assert diagnostics["shared_candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["bounded_query_count_pass"] is True
+    assert diagnostics["cross_query_noncollapse_pass"] is True
+    assert diagnostics["shared_memory_reuse_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_shared_memory_multi_query_feature_family_absent_pass"] is True
+
+
+def test_positional_shared_memory_multi_query_selection_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_shared_memory_multi_query_selection_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_positional_shared_memory_multi_query_selection_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_shared_memory_multi_query_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_shared_memory_multi_query_feature_family_absent_pass"] is True
+    assert diagnostics["single_symbolic_family_across_query_positions_pass"] is True
+
+
 def test_symbolic_insufficiency_loop_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_symbolic_insufficiency_loop_closure_response",

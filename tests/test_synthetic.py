@@ -59,6 +59,7 @@ from qrope.synthetic import (
     generate_positional_variable_cardinality_offset_selection_response_bundle,
     generate_positional_content_gated_offset_selection_response_bundle,
     generate_positional_content_alias_disambiguation_response_bundle,
+    generate_positional_shared_memory_multi_query_selection_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
@@ -509,6 +510,24 @@ def test_positional_content_alias_disambiguation_bundle_enforces_declared_diagno
     assert diagnostics["bounded_candidate_count_pass"] is True
     assert diagnostics["alias_slot_rotation_pass"] is True
     assert diagnostics["joint_noncollapse_pass"] is True
+
+
+def test_positional_shared_memory_multi_query_selection_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_positional_shared_memory_multi_query_selection_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_positional_shared_memory_multi_query_selection_response"
+    assert diagnostics["coarse_shared_memory_state_null_pass"] is True
+    assert diagnostics["within_shared_memory_state_variation_pass"] is True
+    assert diagnostics["query_pair_nontrivial_pass"] is True
+    assert diagnostics["query_one_only_null_pass"] is True
+    assert diagnostics["query_two_only_null_pass"] is True
+    assert diagnostics["joint_query_target_nontrivial_pass"] is True
+    assert diagnostics["shared_candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["bounded_query_count_pass"] is True
+    assert diagnostics["cross_query_noncollapse_pass"] is True
+    assert diagnostics["shared_memory_reuse_pass"] is True
 
 
 def test_symbolic_insufficiency_loop_bundle_enforces_declared_diagnostics() -> None:

@@ -58,6 +58,7 @@ from .synthetic import (
     generate_positional_variable_cardinality_offset_selection_response_bundle,
     generate_positional_content_gated_offset_selection_response_bundle,
     generate_positional_content_alias_disambiguation_response_bundle,
+    generate_positional_shared_memory_multi_query_selection_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_chart_transition_token_invariant_response_bundle,
     generate_chart_transition_orbit_response_bundle,
@@ -122,6 +123,7 @@ from .synthetic import (
     parse_positional_variable_cardinality_offset_selection_text,
     parse_positional_content_gated_offset_selection_text,
     parse_positional_content_alias_disambiguation_text,
+    parse_positional_shared_memory_multi_query_selection_text,
     parse_transition_localization_text,
     parse_transition_consistency_text,
     parse_transition_listwise_text,
@@ -375,6 +377,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_positional_variable_cardinality_offset_selection": 96,
         "V_future_relational_witness_positional_content_gated_offset_selection": 96,
         "V_future_relational_witness_positional_content_alias_disambiguation": 96,
+        "V_future_relational_witness_positional_shared_memory_multi_query_selection": 96,
         "V_future_relational_witness_symbolic_insufficiency_fork_join": 96,
         "V_future_relational_witness_symbolic_insufficiency_braid": 96,
         "V_control_symbolic_single_family_regressor": 1,
@@ -468,6 +471,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_positional_variable_cardinality_offset_selection_regressor": 1,
         "V_control_symbolic_positional_content_gated_offset_selection_regressor": 1,
         "V_control_symbolic_positional_content_alias_disambiguation_regressor": 1,
+        "V_control_symbolic_positional_shared_memory_multi_query_selection_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_fork_join_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_braid_regressor": 1,
         "V_control_symbolic_transition_channel_order_lookup": 1,
@@ -781,6 +785,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_positional_content_gated_offset_selection+head_linear"
         elif variant == "V_future_relational_witness_positional_content_alias_disambiguation":
             data_mode = f"{data_mode}+readout_relational_witness_positional_content_alias_disambiguation+head_linear"
+        elif variant == "V_future_relational_witness_positional_shared_memory_multi_query_selection":
+            data_mode = f"{data_mode}+readout_relational_witness_positional_shared_memory_multi_query_selection+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_loop":
             data_mode = f"{data_mode}+readout_relational_witness_symbolic_insufficiency_loop+head_linear"
         elif variant == "V_future_relational_witness_symbolic_insufficiency_fork_join":
@@ -867,6 +873,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_positional_content_gated_offset_selection_regressor+head_linear"
         elif variant == "V_control_symbolic_positional_content_alias_disambiguation_regressor":
             data_mode = f"{data_mode}+readout_symbolic_positional_content_alias_disambiguation_regressor+head_linear"
+        elif variant == "V_control_symbolic_positional_shared_memory_multi_query_selection_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_positional_shared_memory_multi_query_selection_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_loop_regressor":
             data_mode = f"{data_mode}+readout_symbolic_symbolic_insufficiency_loop_regressor+head_linear"
         elif variant == "V_control_symbolic_symbolic_insufficiency_fork_join_regressor":
@@ -1704,6 +1712,14 @@ def run_quantum_backend(
         )
     if dataset == "synthetic_positional_content_alias_disambiguation_response" and variant == "V_control_symbolic_positional_content_alias_disambiguation_regressor":
         return run_positional_content_alias_disambiguation_symbolic_regressor(
+            train=train, test=test, validation=validation
+        )
+    if dataset == "synthetic_positional_shared_memory_multi_query_selection_response" and variant == "V_future_relational_witness_positional_shared_memory_multi_query_selection":
+        return run_positional_shared_memory_multi_query_selection_witness_backend(
+            train=train, test=test, seed=seed, validation=validation
+        )
+    if dataset == "synthetic_positional_shared_memory_multi_query_selection_response" and variant == "V_control_symbolic_positional_shared_memory_multi_query_selection_regressor":
+        return run_positional_shared_memory_multi_query_selection_symbolic_regressor(
             train=train, test=test, validation=validation
         )
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response" and variant == "V_future_relational_witness_symbolic_insufficiency_loop":
@@ -11436,6 +11452,233 @@ def run_positional_dual_anchor_offset_consensus_symbolic_regressor(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def positional_shared_memory_multi_query_selection_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_positional_shared_memory_multi_query_selection_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def sample_mean_pos(sample: Any) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> float:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0.0
+        if distance < 2.0:
+            return 1.0
+        return 2.0
+
+    def content_bucket(value: float) -> float:
+        if value < -0.2:
+            return 0.0
+        if value > 0.2:
+            return 2.0
+        return 1.0
+
+    queries = [payload["q0"], payload["q1"]]
+    query_results = [symbolic_insufficiency_witness_features(text=item["dual_text"], seed=seed) for item in queries]
+    query_steps = [_symbolic_insufficiency_path_step_features(item) for item in queries]
+    candidate_payloads = payload["candidates"]
+    candidate_results = [symbolic_insufficiency_witness_features(text=item["dual_text"], seed=seed) for item in candidate_payloads]
+    candidate_steps = [_symbolic_insufficiency_path_step_features(item) for item in candidate_payloads]
+    candidate_count = float(len(candidate_payloads))
+
+    def build_query_view(query_index: int) -> dict[str, float]:
+        query = queries[query_index]
+        query_result = query_results[query_index]
+        query_step = query_steps[query_index]
+        desired_gap = sample_mean_pos(query["sample_b"]) - sample_mean_pos(query["sample_a"])
+        desired_gap_norm = round(desired_gap / 4.0, 6)
+        desired_side = 1.0 if desired_gap >= 0.0 else -1.0
+        desired_bucket = gap_bucket(desired_gap)
+        desired_content_class = content_bucket(float(query_step["ordered_content_delta"]))
+        query_mean = mean_pos(query)
+        candidate_data: list[dict[str, float]] = []
+        for index, (item, result, step) in enumerate(zip(candidate_payloads, candidate_results, candidate_steps, strict=True)):
+            gap = round(mean_pos(item) - query_mean, 6)
+            gap_norm = round(gap / 4.0, 6)
+            side = 1.0 if gap >= 0.0 else -1.0
+            bucket = gap_bucket(gap)
+            content_class = content_bucket(float(step["ordered_content_delta"]))
+            position_match = 1.0 if side == desired_side and bucket == desired_bucket else 0.0
+            content_match = 1.0 if content_class == desired_content_class else 0.0
+            candidate_data.append(
+                {
+                    "index": float(index),
+                    "phase": float(result["features"]["latent_transition_phase"]),
+                    "curvature": float(result["features"]["latent_transition_curvature"]),
+                    "gap": gap_norm,
+                    "content_class": content_class,
+                    "position_match": position_match,
+                    "content_match": content_match,
+                    "joint_match": 1.0 if position_match == 1.0 and content_match == 1.0 else 0.0,
+                    "content_only": 1.0 if position_match == 0.0 and content_match == 1.0 else 0.0,
+                    "position_only": 1.0 if position_match == 1.0 and content_match == 0.0 else 0.0,
+                    "ordered_content_delta": float(step["ordered_content_delta"]),
+                }
+            )
+        target_index = next(index for index, item in enumerate(candidate_data) if item["joint_match"] == 1.0)
+        target = candidate_data[target_index]
+        distractors = [item for index, item in enumerate(candidate_data) if index != target_index]
+        mean_distractor_phase = sum(item["phase"] for item in distractors) / len(distractors)
+        mean_distractor_gap = sum(item["gap"] for item in distractors) / len(distractors)
+        mean_distractor_curvature = sum(item["curvature"] for item in distractors) / len(distractors)
+        mean_distractor_content_class = sum(item["content_class"] for item in distractors) / len(distractors)
+        mean_distractor_content_delta = sum(item["ordered_content_delta"] for item in distractors) / len(distractors)
+        content_only_count = sum(item["content_only"] for item in distractors)
+        position_only_count = sum(item["position_only"] for item in distractors)
+        prefix = f"q{query_index}_"
+        return {
+            f"{prefix}phase": round(float(query_result["features"]["latent_transition_phase"]), 6),
+            f"{prefix}curvature": round(float(query_result["features"]["latent_transition_curvature"]), 6),
+            f"{prefix}desired_gap": round(desired_gap_norm, 6),
+            f"{prefix}desired_content_class": round(desired_content_class - 1.0, 6),
+            f"{prefix}target_phase": round(target["phase"], 6),
+            f"{prefix}target_curvature": round(target["curvature"], 6),
+            f"{prefix}target_gap": round(target["gap"], 6),
+            f"{prefix}target_content_class": round(target["content_class"] - 1.0, 6),
+            f"{prefix}mean_distractor_phase": round(mean_distractor_phase, 6),
+            f"{prefix}mean_distractor_curvature": round(mean_distractor_curvature, 6),
+            f"{prefix}mean_distractor_gap": round(mean_distractor_gap, 6),
+            f"{prefix}mean_distractor_content_class": round(mean_distractor_content_class - 1.0, 6),
+            f"{prefix}target_slot": round(target["index"] / max(1.0, candidate_count - 1.0), 6),
+            f"{prefix}content_only_count": round(content_only_count / max(1.0, candidate_count - 1.0), 6),
+            f"{prefix}position_only_count": round(position_only_count / max(1.0, candidate_count - 1.0), 6),
+            f"{prefix}target_phase_margin": round(target["phase"] - mean_distractor_phase, 6),
+            f"{prefix}target_gap_margin": round(target["gap"] - mean_distractor_gap, 6),
+            f"{prefix}target_content_margin": round(target["ordered_content_delta"] - mean_distractor_content_delta, 6),
+        }
+
+    q0_view = build_query_view(0)
+    q1_view = build_query_view(1)
+    features: dict[str, float] = {
+        "candidate_count": round((candidate_count - 3.0) / 2.0, 6),
+        **q0_view,
+        **q1_view,
+        "cross_query_slot_gap": round(q0_view["q0_target_slot"] - q1_view["q1_target_slot"], 6),
+        "cross_query_phase_gap": round(q0_view["q0_target_phase"] - q1_view["q1_target_phase"], 6),
+        "cross_query_gap_alignment": round(q0_view["q0_target_gap"] * q1_view["q1_target_gap"], 6),
+        "cross_query_content_alignment": round(q0_view["q0_target_content_margin"] * q1_view["q1_target_content_margin"], 6),
+        "shared_memory_declared_mix": round(
+            q0_view["q0_desired_gap"] * q0_view["q0_target_gap"]
+            + q1_view["q1_desired_gap"] * q1_view["q1_target_gap"]
+            - abs(q0_view["q0_target_slot"] - q1_view["q1_target_slot"]),
+            6,
+        ),
+        "shared_memory_cross_curvature": round(
+            q0_view["q0_target_phase_margin"] * q0_view["q0_curvature"]
+            + q1_view["q1_target_phase_margin"] * q1_view["q1_curvature"]
+            - abs(q0_view["q0_target_gap_margin"] - q1_view["q1_target_gap_margin"]),
+            6,
+        ),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "bounded_feature_audit_pass": True,
+        "forbidden_shared_memory_multi_query_feature_family_absent_pass": True,
+    }
+
+
+def positional_shared_memory_multi_query_selection_symbolic_features(text: str) -> dict[str, object]:
+    payload = parse_positional_shared_memory_multi_query_selection_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def sample_mean_pos(sample: Any) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> float:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0.0
+        if distance < 2.0:
+            return 1.0
+        return 2.0
+
+    def content_bucket(value: float) -> float:
+        if value < -0.2:
+            return 0.0
+        if value > 0.2:
+            return 2.0
+        return 1.0
+
+    queries = [payload["q0"], payload["q1"]]
+    candidate_payloads = payload["candidates"]
+    candidate_steps = [_symbolic_insufficiency_path_step_features(item) for item in candidate_payloads]
+    candidate_count = len(candidate_payloads)
+    features: dict[str, float] = {
+        "candidate_count": round((float(candidate_count) - 3.0) / 2.0, 6),
+        "query_count": 0.0,
+    }
+    target_slots: list[float] = []
+    target_gap_norms: list[float] = []
+    target_content_deltas: list[float] = []
+    for query_index, query in enumerate(queries):
+        query_step = _symbolic_insufficiency_path_step_features(query)
+        desired_gap = sample_mean_pos(query["sample_b"]) - sample_mean_pos(query["sample_a"])
+        desired_side = 1.0 if desired_gap >= 0.0 else 0.0
+        desired_bucket = gap_bucket(desired_gap)
+        desired_content_class = content_bucket(float(query_step["ordered_content_delta"]))
+        prefix = f"q{query_index}_"
+        features[f"{prefix}desired_gap"] = round(desired_gap / 4.0, 6)
+        features[f"{prefix}desired_side"] = desired_side
+        features[f"{prefix}desired_bucket"] = desired_bucket
+        features[f"{prefix}desired_content_class"] = round(desired_content_class - 1.0, 6)
+        query_mean = mean_pos(query)
+        joint_slot = 0.0
+        content_only_count = 0.0
+        position_only_count = 0.0
+        gap_values: list[float] = []
+        content_values: list[float] = []
+        sector_values: list[float] = []
+        target_gap = 0.0
+        target_content_delta = 0.0
+        for index, (item, step) in enumerate(zip(candidate_payloads, candidate_steps, strict=True)):
+            gap = mean_pos(item) - query_mean
+            gap_norm = round(gap / 4.0, 6)
+            side = 1.0 if gap >= 0.0 else 0.0
+            bucket = gap_bucket(gap)
+            content_class = content_bucket(float(step["ordered_content_delta"]))
+            position_match = 1.0 if side == desired_side and bucket == desired_bucket else 0.0
+            content_match = 1.0 if content_class == desired_content_class else 0.0
+            joint = 1.0 if position_match == 1.0 and content_match == 1.0 else 0.0
+            content_only = 1.0 if position_match == 0.0 and content_match == 1.0 else 0.0
+            position_only = 1.0 if position_match == 1.0 and content_match == 0.0 else 0.0
+            if joint == 1.0:
+                joint_slot = float(index) / max(1.0, float(candidate_count - 1))
+                target_gap = gap_norm
+                target_content_delta = float(step["ordered_content_delta"])
+            content_only_count += content_only
+            position_only_count += position_only
+            gap_values.append(gap_norm)
+            content_values.append(float(step["ordered_content_delta"]))
+            sector_values.append(float(token_orientation_name(item["sample_a"].left_token, item["sample_a"].right_token) == "mixed"))
+        target_slots.append(joint_slot)
+        target_gap_norms.append(target_gap)
+        target_content_deltas.append(target_content_delta)
+        features[f"{prefix}target_slot"] = round(joint_slot, 6)
+        features[f"{prefix}target_gap"] = round(target_gap, 6)
+        features[f"{prefix}target_content_delta"] = round(target_content_delta, 6)
+        features[f"{prefix}content_only_count"] = round(content_only_count / max(1.0, float(candidate_count - 1)), 6)
+        features[f"{prefix}position_only_count"] = round(position_only_count / max(1.0, float(candidate_count - 1)), 6)
+        features[f"{prefix}mean_candidate_gap"] = round(sum(gap_values) / len(gap_values), 6)
+        features[f"{prefix}mean_candidate_content_delta"] = round(sum(content_values) / len(content_values), 6)
+        features[f"{prefix}mean_candidate_sector_mix"] = round(sum(sector_values) / len(sector_values), 6)
+    features["cross_query_slot_gap"] = round(target_slots[0] - target_slots[1], 6)
+    features["cross_query_target_gap_alignment"] = round(target_gap_norms[0] * target_gap_norms[1], 6)
+    features["cross_query_target_content_alignment"] = round(target_content_deltas[0] * target_content_deltas[1], 6)
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "allowed_shared_memory_multi_query_symbolic_basis_frozen_pass": True,
+        "forbidden_shared_memory_multi_query_feature_family_absent_pass": True,
+        "single_symbolic_family_across_query_positions_pass": True,
+    }
+
+
 def run_positional_variable_cardinality_offset_selection_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -11627,6 +11870,77 @@ def run_positional_content_alias_disambiguation_symbolic_regressor(
     )
     diagnostics["single_symbolic_family_across_alias_patterns_pass"] = all(
         bool(result.get("single_symbolic_family_across_alias_patterns_pass", False)) for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_positional_shared_memory_multi_query_selection_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [positional_shared_memory_multi_query_selection_witness_features(text=text, seed=seed) for text, _ in train]
+    validation_results = [
+        positional_shared_memory_multi_query_selection_witness_features(text=text, seed=seed)
+        for text, _ in validation
+    ]
+    test_results = [
+        positional_shared_memory_multi_query_selection_witness_features(text=text, seed=seed) for text, _ in test
+    ]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(
+        bool(result.get("bounded_feature_audit_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_shared_memory_multi_query_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_shared_memory_multi_query_feature_family_absent_pass", False))
+        for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_positional_shared_memory_multi_query_selection_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [positional_shared_memory_multi_query_selection_symbolic_features(text=text) for text, _ in train]
+    validation_results = [
+        positional_shared_memory_multi_query_selection_symbolic_features(text=text) for text, _ in validation
+    ]
+    test_results = [positional_shared_memory_multi_query_selection_symbolic_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["allowed_shared_memory_multi_query_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_shared_memory_multi_query_symbolic_basis_frozen_pass", False))
+        for result in test_results
+    )
+    diagnostics["forbidden_shared_memory_multi_query_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_shared_memory_multi_query_feature_family_absent_pass", False))
+        for result in test_results
+    )
+    diagnostics["single_symbolic_family_across_query_positions_pass"] = all(
+        bool(result.get("single_symbolic_family_across_query_positions_pass", False))
+        for result in test_results
     )
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
@@ -15392,6 +15706,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_positional_content_alias_disambiguation_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_positional_shared_memory_multi_query_selection_response":
+        bundle = generate_positional_shared_memory_multi_query_selection_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_positional_shared_memory_multi_query_selection_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_symbolic_insufficiency_loop_closure_response":
