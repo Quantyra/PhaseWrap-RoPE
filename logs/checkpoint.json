@@ -1,13 +1,13 @@
 {
-    "active_epic": "E006",
-    "repo_posture": "low_intensity_no_execution",
+    "active_epic": "E007",
+    "repo_posture": "memo_only_E007_reference_revision_candidate_design",
     "current_story_ids": [
-        "S1478"
+        "S1481"
     ],
     "next_actions": [
-        "Use the refreshed package for internal reference and decision support.",
-        "Keep default execution closed.",
-        "Reopen only with a materially different missing-question candidate and explicit approval."
+        "Write the explicit memo-level gate for synthetic_positional_reference_revision_selection_response.",
+        "Freeze the bounded reference-revision symbolic family and diagnostics in that gate.",
+        "Keep implementation and execution closed until that gate is accepted."
     ],
     "risks": [
         "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1407,7 +1407,10 @@
         "S1475",
         "S1476",
         "S1477",
-        "S1478"
+        "S1478",
+        "S1479",
+        "S1480",
+        "S1481"
     ],
     "archived_transfer_story_ids": [
         "S955",

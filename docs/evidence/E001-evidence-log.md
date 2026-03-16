@@ -2145,3 +2145,7 @@ ank_correlation.
 - EL-1323 2026-03-16: Refreshed the final internal review decision and review cycle closure after preserving the E006 multi-hop reference survivor.
 
 - EL-1324 2026-03-16: Refreshed the one-page current state operating memo after the E006 review closure.
+
+- EL-1325 2026-03-16: Opened `E007 - Bounded reference revision disambiguation` as the next stretch-effort epic in the Q-RoPE research program.
+- EL-1326 2026-03-16: Defined the next missing question as bounded stale-versus-current reference revision disambiguation rather than another static reference variant.
+- EL-1327 2026-03-16: Opened `synthetic_positional_reference_revision_selection_response` as a memo-only E007 candidate with a gate sketch only.
