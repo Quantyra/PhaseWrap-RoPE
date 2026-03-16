@@ -1,13 +1,13 @@
 {
     "active_epic": "E005",
-    "repo_posture": "memo_only_E005_shared_memory_multi_query_gate_decision",
+    "repo_posture": "bounded_E005_shared_memory_multi_query_implementation",
     "current_story_ids": [
-        "S1428"
+        "S1430"
     ],
     "next_actions": [
-        "Write the bounded implementation plan for synthetic_positional_shared_memory_multi_query_selection_response.",
-        "Freeze the shared-memory multi-query writable scope and fixed packet shape in that plan.",
-        "Keep implementation and execution closed until that plan is accepted."
+        "Implement synthetic_positional_shared_memory_multi_query_selection_response.",
+        "Run exactly one fixed three-seed packet against the bounded shared-memory multi-query symbolic control.",
+        "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
     ],
     "risks": [
         "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1373,7 +1373,9 @@
         "S1425",
         "S1426",
         "S1427",
-        "S1428"
+        "S1428",
+        "S1429",
+        "S1430"
     ],
     "archived_transfer_story_ids": [
         "S955",
