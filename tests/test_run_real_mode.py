@@ -1369,6 +1369,45 @@ def test_positional_shared_memory_multi_query_selection_symbolic_control_freezes
     assert diagnostics["single_symbolic_family_across_query_positions_pass"] is True
 
 
+def test_positional_intermediate_pointer_selection_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_intermediate_pointer_selection_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_positional_intermediate_pointer_selection",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_positional_intermediate_pointer_selection_response+readout_relational_witness_positional_intermediate_pointer_selection+head_linear"
+    )
+    assert diagnostics["coarse_multi_hop_state_null_pass"] is True
+    assert diagnostics["within_multi_hop_state_variation_pass"] is True
+    assert diagnostics["first_hop_nontrivial_pass"] is True
+    assert diagnostics["second_hop_nontrivial_pass"] is True
+    assert diagnostics["direct_target_null_pass"] is True
+    assert diagnostics["intermediate_criticality_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["multi_hop_noncollapse_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_multi_hop_feature_family_absent_pass"] is True
+
+
+def test_positional_intermediate_pointer_selection_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_intermediate_pointer_selection_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_positional_intermediate_pointer_selection_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_multi_hop_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_multi_hop_feature_family_absent_pass"] is True
+    assert diagnostics["single_symbolic_family_across_candidate_counts_pass"] is True
+
+
 def test_symbolic_insufficiency_loop_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_symbolic_insufficiency_loop_closure_response",

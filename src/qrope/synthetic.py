@@ -5189,6 +5189,324 @@ def generate_positional_shared_memory_multi_query_selection_response_bundle(
     return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
 
 
+def generate_positional_intermediate_pointer_selection_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_positional_intermediate_pointer_selection_response:{seed}")
+    base_bundle = generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_symbolic_insufficiency_transition_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="symbolic_insufficiency_transition_response",
+    )
+    all_rows = [
+        DualSyntheticSample(
+            text=text,
+            label=label,
+            sector_a=offset_sector_name(parse_dual_sample_text(text)["sample_a"].offset),
+            sector_b=offset_sector_name(parse_dual_sample_text(text)["sample_b"].offset),
+            sample_a=parse_dual_sample_text(text)["sample_a"],
+            sample_b=parse_dual_sample_text(text)["sample_b"],
+        )
+        for split_rows in (base_bundle.train, base_bundle.validation, base_bundle.test)
+        for text, label in split_rows
+    ]
+    row_pool = list(all_rows)
+    rng.shuffle(row_pool)
+    row_pool = sorted(row_pool[:12], key=lambda row: row.text)
+
+    def mean_pos(sample: SyntheticSample) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> int:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0
+        if distance < 2.0:
+            return 1
+        return 2
+
+    def content_bucket(sample_a: SyntheticSample, sample_b: SyntheticSample) -> int:
+        score = ordered_content_delta_score(sample_a, sample_b)
+        if score < -0.2:
+            return 0
+        if score > 0.2:
+            return 2
+        return 1
+
+    def query_rule(row: DualSyntheticSample) -> tuple[int, int, float, int]:
+        desired_gap = round(mean_pos(row.sample_b) - mean_pos(row.sample_a), 6)
+        return (
+            int(desired_gap >= 0.0),
+            gap_bucket(desired_gap),
+            round(desired_gap / 4.0, 6),
+            content_bucket(row.sample_a, row.sample_b),
+        )
+
+    def first_hop_view(
+        query_row: DualSyntheticSample,
+        active_candidates: list[DualSyntheticSample],
+    ) -> list[dict[str, Any]]:
+        anchor_pivot = mean_pos(query_row.sample_a)
+        desired_side, desired_bucket, _, desired_content_class = query_rule(query_row)
+        data: list[dict[str, Any]] = []
+        for index, candidate_row in enumerate(active_candidates):
+            candidate_gap = round(mean_pos(candidate_row.sample_a) - anchor_pivot, 6)
+            if abs(candidate_gap) < 0.5:
+                return []
+            candidate_side = int(candidate_gap >= 0.0)
+            candidate_bucket = gap_bucket(candidate_gap)
+            candidate_content_class = content_bucket(candidate_row.sample_a, candidate_row.sample_b)
+            position_match = int(candidate_side == desired_side and candidate_bucket == desired_bucket)
+            content_match = int(candidate_content_class == desired_content_class)
+            data.append(
+                {
+                    "index": index,
+                    "row": candidate_row,
+                    "gap_norm": round(candidate_gap / 4.0, 6),
+                    "content_class": candidate_content_class,
+                    "joint_match": int(position_match == 1 and content_match == 1),
+                    "direct_match": int(position_match == 1 and content_match == 1),
+                    "content_only": int(position_match == 0 and content_match == 1),
+                    "position_only": int(position_match == 1 and content_match == 0),
+                }
+            )
+        return data
+
+    def second_hop_view(
+        intermediate_row: DualSyntheticSample,
+        query_row: DualSyntheticSample,
+        active_candidates: list[DualSyntheticSample],
+        intermediate_index: int,
+    ) -> list[dict[str, Any]]:
+        anchor_pivot = mean_pos(intermediate_row.sample_b)
+        desired_side, desired_bucket, _, desired_content_class = query_rule(intermediate_row)
+        query_side, query_bucket, _, query_content_class = query_rule(query_row)
+        data: list[dict[str, Any]] = []
+        for index, candidate_row in enumerate(active_candidates):
+            candidate_gap = round(mean_pos(candidate_row.sample_a) - anchor_pivot, 6)
+            if abs(candidate_gap) < 0.5:
+                return []
+            candidate_side = int(candidate_gap >= 0.0)
+            candidate_bucket = gap_bucket(candidate_gap)
+            candidate_content_class = content_bucket(candidate_row.sample_a, candidate_row.sample_b)
+            second_position_match = int(candidate_side == desired_side and candidate_bucket == desired_bucket)
+            second_content_match = int(candidate_content_class == desired_content_class)
+            direct_position_match = int(candidate_side == query_side and candidate_bucket == query_bucket)
+            direct_content_match = int(candidate_content_class == query_content_class)
+            data.append(
+                {
+                    "index": index,
+                    "row": candidate_row,
+                    "gap_norm": round(candidate_gap / 4.0, 6),
+                    "content_class": candidate_content_class,
+                    "joint_match": int(
+                        index != intermediate_index
+                        and second_position_match == 1
+                        and second_content_match == 1
+                    ),
+                    "direct_match": int(
+                        index != intermediate_index
+                        and direct_position_match == 1
+                        and direct_content_match == 1
+                    ),
+                    "content_only": int(index != intermediate_index and second_position_match == 0 and second_content_match == 1),
+                    "position_only": int(index != intermediate_index and second_position_match == 1 and second_content_match == 0),
+                }
+            )
+        return data
+
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    candidates_by_state: dict[tuple[int, int, int, int, int, int, int], list[dict[str, Any]]] = defaultdict(list)
+    pool_size = len(row_pool)
+    for memory_indices in itertools.combinations(range(pool_size), 5):
+        memory_rows = [row_pool[index] for index in memory_indices]
+        remaining_indices = [index for index in range(pool_size) if index not in memory_indices]
+        for query_index in remaining_indices:
+            query_row = row_pool[query_index]
+            query_sign = int(sector_sign_family(query_row.sector_a) == sector_sign_family(query_row.sector_b))
+            query_side, query_bucket, query_gap_norm, query_content_class = query_rule(query_row)
+            for candidate_count in (4, 5):
+                for active_indices in itertools.combinations(range(len(memory_rows)), candidate_count):
+                    active_candidates = [memory_rows[index] for index in active_indices]
+                    hop1 = first_hop_view(query_row, active_candidates)
+                    if len(hop1) != candidate_count or sum(item["joint_match"] for item in hop1) != 1:
+                        continue
+                    intermediate = next(item for item in hop1 if item["joint_match"] == 1)
+                    if sum(item["content_only"] for item in hop1 if item["index"] != intermediate["index"]) < 1:
+                        continue
+                    hop2 = second_hop_view(intermediate["row"], query_row, active_candidates, int(intermediate["index"]))
+                    if len(hop2) != candidate_count or sum(item["joint_match"] for item in hop2) != 1:
+                        continue
+                    target = next(item for item in hop2 if item["joint_match"] == 1)
+                    if target["direct_match"] == 1:
+                        continue
+                    if sum(item["content_only"] for item in hop2 if item["index"] != target["index"]) < 1:
+                        continue
+                    if sum(item["position_only"] for item in hop2 if item["index"] != target["index"]) < 1:
+                        continue
+                    intermediate_row = active_candidates[int(intermediate["index"])]
+                    target_row = active_candidates[int(target["index"])]
+                    latent_q = symbolic_insufficiency_latent_ids(query_row.sample_a, query_row.sample_b)
+                    latent_i = symbolic_insufficiency_latent_ids(intermediate_row.sample_a, intermediate_row.sample_b)
+                    latent_t = symbolic_insufficiency_latent_ids(target_row.sample_a, target_row.sample_b)
+                    query_phase = _symbolic_insufficiency_latent_phase(latent_q)
+                    intermediate_phase = _symbolic_insufficiency_latent_phase(latent_i)
+                    target_phase = _symbolic_insufficiency_latent_phase(latent_t)
+                    mean_distractor_phase = sum(
+                        _symbolic_insufficiency_latent_phase(symbolic_insufficiency_latent_ids(item.sample_a, item.sample_b))
+                        for index, item in enumerate(active_candidates)
+                        if index not in {int(intermediate["index"]), int(target["index"])}
+                    ) / max(1, candidate_count - 2)
+                    query_step_content = ordered_content_delta_score(query_row.sample_a, query_row.sample_b)
+                    intermediate_step_content = ordered_content_delta_score(intermediate_row.sample_a, intermediate_row.sample_b)
+                    target_step_content = ordered_content_delta_score(target_row.sample_a, target_row.sample_b)
+                    raw_target = (
+                        0.14 * float(query_row.label)
+                        + 0.12 * float(intermediate_row.label)
+                        + 0.12 * float(target_row.label)
+                        + 0.10 * math.sin((intermediate_phase - query_phase) + (target_phase - intermediate_phase))
+                        + 0.08 * query_step_content * intermediate_step_content
+                        + 0.08 * intermediate_step_content * target_step_content
+                        + 0.06 * query_gap_norm * float(intermediate["gap_norm"])
+                        + 0.06 * float(intermediate["gap_norm"]) * float(target["gap_norm"])
+                        - 0.05 * abs(float(target["gap_norm"]) - float(intermediate["gap_norm"]))
+                        - 0.04 * abs(mean_distractor_phase - 0.5 * (intermediate_phase + target_phase))
+                        - 0.03 * float(candidate_count - 4)
+                    )
+                    state_key = (
+                        query_sign,
+                        candidate_count,
+                        query_bucket,
+                        query_content_class,
+                        int(intermediate["content_class"] == target["content_class"]),
+                    )
+                    candidates_by_state[state_key].append(
+                        {
+                            "text": render_positional_intermediate_pointer_selection_text(
+                                query_row.sample_a,
+                                query_row.sample_b,
+                                [(item.sample_a, item.sample_b) for item in active_candidates],
+                            ),
+                            "raw_target": round(raw_target, 6),
+                            "latent_key": (*latent_q, *latent_i, *latent_t),
+                            "candidate_count": candidate_count,
+                            "intermediate_slot": int(intermediate["index"]),
+                            "target_slot": int(target["index"]),
+                            "first_hop_content_only": int(sum(item["content_only"] for item in hop1 if item["index"] != intermediate["index"])),
+                            "second_hop_content_only": int(sum(item["content_only"] for item in hop2 if item["index"] != target["index"])),
+                            "second_hop_position_only": int(sum(item["position_only"] for item in hop2 if item["index"] != target["index"])),
+                            "target_direct_match": int(target["direct_match"]),
+                        }
+                    )
+
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_means: dict[str, float] = {}
+    latent_group_counts: dict[str, int] = {}
+    target_ranges: dict[str, float] = {}
+    token_counts = Counter()
+    bucket_counts: dict[str, int] = {}
+    candidate_counts: set[int] = set()
+    intermediate_slots: set[int] = set()
+    target_slots: set[int] = set()
+    first_hop_content_only_values: set[int] = set()
+    second_hop_content_only_values: set[int] = set()
+    second_hop_position_only_values: set[int] = set()
+    direct_target_values: set[int] = set()
+    for coarse_key, candidates in sorted(candidates_by_state.items()):
+        if len(candidates) < required:
+            continue
+        ordered = sorted(candidates, key=lambda item: (item["latent_key"], item["text"]))
+        selected: list[dict[str, Any]] = []
+        seen_latents: set[tuple[int, ...]] = set()
+        for item in ordered:
+            if item["latent_key"] not in seen_latents:
+                selected.append(item)
+                seen_latents.add(item["latent_key"])
+            if len(selected) == required:
+                break
+        if len(selected) < required:
+            for item in ordered:
+                if item not in selected:
+                    selected.append(item)
+                if len(selected) == required:
+                    break
+        if len({item["latent_key"] for item in selected}) < 2:
+            continue
+        mean_target = sum(float(item["raw_target"]) for item in selected) / len(selected)
+        centered = [(item["text"], round(float(item["raw_target"]) - mean_target, 6)) for item in selected]
+        train.extend(centered[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(centered[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(centered[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        state_key = "".join(str(part) for part in coarse_key)
+        state_means[state_key] = round(sum(label for _, label in centered) / len(centered), 6)
+        target_ranges[state_key] = round(max(label for _, label in centered) - min(label for _, label in centered), 6)
+        latent_group_counts[state_key] = len({item["latent_key"] for item in selected})
+        bucket_counts[state_key] = len(selected)
+        candidate_counts.update(item["candidate_count"] for item in selected)
+        intermediate_slots.update(item["intermediate_slot"] for item in selected)
+        target_slots.update(item["target_slot"] for item in selected)
+        first_hop_content_only_values.update(item["first_hop_content_only"] for item in selected)
+        second_hop_content_only_values.update(item["second_hop_content_only"] for item in selected)
+        second_hop_position_only_values.update(item["second_hop_position_only"] for item in selected)
+        direct_target_values.update(item["target_direct_match"] for item in selected)
+        for text, _ in centered:
+            payload = parse_positional_intermediate_pointer_selection_text(text)
+            token_counts.update(
+                [
+                    payload["q"]["sample_a"].left_token,
+                    payload["q"]["sample_a"].right_token,
+                    payload["q"]["sample_b"].left_token,
+                    payload["q"]["sample_b"].right_token,
+                ]
+            )
+            for item in payload["candidates"]:
+                token_counts.update(
+                    [
+                        item["sample_a"].left_token,
+                        item["sample_a"].right_token,
+                        item["sample_b"].left_token,
+                        item["sample_b"].right_token,
+                    ]
+                )
+
+    diagnostics = {
+        "dataset": "synthetic_positional_intermediate_pointer_selection_response",
+        "coarse_multi_hop_state_null_pass": max((abs(value) for value in state_means.values()), default=1.0) <= 1e-6,
+        "within_multi_hop_state_variation_pass": all(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "first_hop_nontrivial_pass": bool(first_hop_content_only_values) and min(first_hop_content_only_values) >= 1,
+        "second_hop_nontrivial_pass": bool(second_hop_content_only_values) and bool(second_hop_position_only_values)
+        and min(second_hop_content_only_values) >= 1 and min(second_hop_position_only_values) >= 1,
+        "direct_target_null_pass": direct_target_values == {0},
+        "intermediate_criticality_pass": len(intermediate_slots) > 1 and len(target_slots) > 1 and direct_target_values == {0},
+        "candidate_set_nontrivial_pass": candidate_counts == {4, 5},
+        "token_view_balance_pass": set(token_counts.keys()) == set(TOKENS),
+        "bounded_candidate_count_pass": candidate_counts == {4, 5},
+        "multi_hop_noncollapse_pass": bool(second_hop_content_only_values) and bool(second_hop_position_only_values),
+        "multi_hop_bucket_counts": bucket_counts,
+        "coarse_multi_hop_state_null_max_abs_mean": round(max((abs(value) for value in state_means.values()), default=0.0), 6),
+        "within_multi_hop_state_target_ranges": target_ranges,
+        "latent_multi_hop_group_counts": latent_group_counts,
+        "candidate_count_values": sorted(candidate_counts),
+        "intermediate_slot_values": sorted(intermediate_slots),
+        "target_slot_values": sorted(target_slots),
+        "first_hop_content_only_values": sorted(first_hop_content_only_values),
+        "second_hop_content_only_values": sorted(second_hop_content_only_values),
+        "second_hop_position_only_values": sorted(second_hop_position_only_values),
+        "direct_target_values": sorted(direct_target_values),
+    }
+    return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
+
+
 def generate_chart_transition_token_invariant_response_bundle(
     seed: int,
     split_rotation: int = 0,
@@ -10064,6 +10382,18 @@ def parse_positional_shared_memory_multi_query_selection_text(text: str) -> dict
     payloads["query_count"] = len(queries)
     payloads["candidate_count"] = len(candidates)
     return payloads
+
+
+def render_positional_intermediate_pointer_selection_text(
+    q_sample_a: SyntheticSample,
+    q_sample_b: SyntheticSample,
+    candidate_pairs: list[tuple[SyntheticSample, SyntheticSample]],
+) -> str:
+    return render_positional_variable_cardinality_offset_selection_text(q_sample_a, q_sample_b, candidate_pairs)
+
+
+def parse_positional_intermediate_pointer_selection_text(text: str) -> dict[str, Any]:
+    return parse_positional_variable_cardinality_offset_selection_text(text)
 
 
 def apply_token_permutation_to_sample(sample: SyntheticSample, token_permutation: str) -> SyntheticSample:

@@ -60,6 +60,7 @@ from qrope.synthetic import (
     generate_positional_content_gated_offset_selection_response_bundle,
     generate_positional_content_alias_disambiguation_response_bundle,
     generate_positional_shared_memory_multi_query_selection_response_bundle,
+    generate_positional_intermediate_pointer_selection_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
@@ -528,6 +529,22 @@ def test_positional_shared_memory_multi_query_selection_bundle_enforces_declared
     assert diagnostics["bounded_query_count_pass"] is True
     assert diagnostics["cross_query_noncollapse_pass"] is True
     assert diagnostics["shared_memory_reuse_pass"] is True
+
+
+def test_positional_intermediate_pointer_selection_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_positional_intermediate_pointer_selection_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_positional_intermediate_pointer_selection_response"
+    assert diagnostics["coarse_multi_hop_state_null_pass"] is True
+    assert diagnostics["within_multi_hop_state_variation_pass"] is True
+    assert diagnostics["first_hop_nontrivial_pass"] is True
+    assert diagnostics["second_hop_nontrivial_pass"] is True
+    assert diagnostics["direct_target_null_pass"] is True
+    assert diagnostics["intermediate_criticality_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["multi_hop_noncollapse_pass"] is True
 
 
 def test_symbolic_insufficiency_loop_bundle_enforces_declared_diagnostics() -> None:
