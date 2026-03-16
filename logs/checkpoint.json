@@ -1,13 +1,13 @@
 {
     "active_epic": "E005",
-    "repo_posture": "memo_only_E005_shared_memory_multi_query_candidate_design",
+    "repo_posture": "memo_only_E005_shared_memory_multi_query_gate_decision",
     "current_story_ids": [
-        "S1426"
+        "S1428"
     ],
     "next_actions": [
-        "Write the explicit memo-level gate for synthetic_positional_shared_memory_multi_query_selection_response.",
-        "Freeze the bounded shared-memory multi-query symbolic family and diagnostics in that gate.",
-        "Keep implementation and execution closed until that gate is accepted."
+        "Write the bounded implementation plan for synthetic_positional_shared_memory_multi_query_selection_response.",
+        "Freeze the shared-memory multi-query writable scope and fixed packet shape in that plan.",
+        "Keep implementation and execution closed until that plan is accepted."
     ],
     "risks": [
         "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1371,7 +1371,9 @@
         "S1423",
         "S1424",
         "S1425",
-        "S1426"
+        "S1426",
+        "S1427",
+        "S1428"
     ],
     "archived_transfer_story_ids": [
         "S955",
