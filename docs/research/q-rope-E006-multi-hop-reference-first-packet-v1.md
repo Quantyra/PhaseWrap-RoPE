@@ -1,7 +1,7 @@
 # Q-RoPE E006 Multi-Hop Reference First Packet v1
 
 Date: 2026-03-16
-Stories: S1454-S1457
+Stories: S1454-S1460
 
 ## Fixed Packet
 - dataset: `synthetic_positional_intermediate_pointer_selection_response`
@@ -12,7 +12,7 @@ Stories: S1454-S1457
 
 ## Mean Packet Results
 - witness:
-  - `mae = 0.001050`
+  - `mae = 0.000770`
   - `rank_correlation = 0.000000`
   - `calibration_slope = 0.000000`
 - control:

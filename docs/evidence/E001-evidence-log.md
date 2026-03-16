@@ -2123,6 +2123,9 @@ ank_correlation.
 - EL-1307 2026-03-16: Passed E006 only to one bounded local implementation cycle and kept direct-collapse prevention as a hard-stop condition.
 
 - EL-1308 2026-03-16: Implemented synthetic_positional_intermediate_pointer_selection_response inside the frozen E006 scope while keeping one symbolic family across candidate counts `4` and `5` and preserving decision-critical intermediate-hop structure.
-- EL-1309 2026-03-16: The fixed three-seed E006 first packet left the witness ahead on mean `mae` while mean `rank_correlation` tied at `0.000000` against the bounded symbolic control.
-- EL-1310 2026-03-16: Under the declared two-metric gate, E006 remains active because the control did not match or beat the witness on both declared mean packet metrics.
+- EL-1309 2026-03-16: Tightened the E006 witness basis after retained nuisance hardening exposed numeric instability from an over-complete packet fit.
+- EL-1310 2026-03-16: Under the corrected compact witness basis, the fixed three-seed E006 first packet left the witness ahead on mean `mae` while mean `rank_correlation` tied at `0.000000` against the bounded symbolic control.
 - EL-1311 2026-03-16: Advanced E006 only to the retained nuisance-hardening packet `token_permutation=cdab`.
+- EL-1312 2026-03-16: The retained nuisance-hardening packet `token_permutation=cdab` for E006 was non-inert and still left the witness ahead on mean `mae` while mean `rank_correlation` tied with the bounded symbolic control.
+- EL-1313 2026-03-16: Under the declared two-metric gate, E006 remains active after token renaming because the control did not match or beat the witness on both declared mean packet metrics.
+- EL-1314 2026-03-16: Advanced E006 only to the fixed structural hardening packet `pair_reindex=1`.

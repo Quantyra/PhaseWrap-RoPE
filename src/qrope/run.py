@@ -11798,39 +11798,24 @@ def positional_intermediate_pointer_selection_witness_features(text: str, seed: 
     mean_distractor_gap = sum(item["gap"] for item in target_distractors) / len(target_distractors)
     mean_distractor_curvature = sum(item["curvature"] for item in target_distractors) / len(target_distractors)
     mean_distractor_content_delta = sum(item["ordered_content_delta"] for item in target_distractors) / len(target_distractors)
+    # Keep the witness basis compact enough to avoid underdetermined packet fits.
     features: dict[str, float] = {
         "candidate_count": round((candidate_count - 4.0), 6),
         "query_phase": round(float(query_result["features"]["latent_transition_phase"]), 6),
-        "query_curvature": round(float(query_result["features"]["latent_transition_curvature"]), 6),
         "query_desired_gap": round(desired_gap_norm, 6),
-        "query_desired_content_class": round(desired_content_class - 1.0, 6),
         "intermediate_phase": round(intermediate["phase"], 6),
-        "intermediate_curvature": round(intermediate["curvature"], 6),
         "intermediate_gap": round(intermediate["gap"], 6),
-        "intermediate_content_class": round(intermediate["content_class"] - 1.0, 6),
-        "intermediate_slot": round(intermediate["index"] / max(1.0, candidate_count - 1.0), 6),
         "target_phase": round(target["phase"], 6),
-        "target_curvature": round(target["curvature"], 6),
         "target_gap": round(target["gap"], 6),
-        "target_content_class": round(target["content_class"] - 1.0, 6),
-        "target_slot": round(target["index"] / max(1.0, candidate_count - 1.0), 6),
-        "second_desired_gap": round(second_desired_gap_norm, 6),
-        "second_desired_content_class": round(second_desired_content_class - 1.0, 6),
-        "direct_target_null": round(1.0 - target["direct_match"], 6),
-        "first_hop_content_only_count": round(sum(item["content_only"] for item in hop1_data if item["index"] != intermediate["index"]) / max(1.0, candidate_count - 1.0), 6),
-        "second_hop_content_only_count": round(sum(item["content_only"] for item in target_distractors) / max(1.0, candidate_count - 2.0), 6),
-        "second_hop_position_only_count": round(sum(item["position_only"] for item in target_distractors) / max(1.0, candidate_count - 2.0), 6),
-        "target_phase_margin": round(target["phase"] - mean_distractor_phase, 6),
-        "target_gap_margin": round(target["gap"] - mean_distractor_gap, 6),
-        "target_content_margin": round(target["ordered_content_delta"] - mean_distractor_content_delta, 6),
-        "multi_hop_declared_mix": round(
-            desired_gap_norm * intermediate["gap"]
-            + second_desired_gap_norm * target["gap"]
-            - abs(intermediate["index"] - target["index"]) / max(1.0, candidate_count - 1.0),
+        "first_hop_content_only_count": round(
+            sum(item["content_only"] for item in hop1_data if item["index"] != intermediate["index"])
+            / max(1.0, candidate_count - 1.0),
             6,
         ),
+        "target_phase_margin": round(target["phase"] - mean_distractor_phase, 6),
         "multi_hop_cross_curvature": round(
-            (intermediate["phase"] - float(query_result["features"]["latent_transition_phase"])) * float(query_result["features"]["latent_transition_curvature"])
+            (intermediate["phase"] - float(query_result["features"]["latent_transition_phase"]))
+            * float(query_result["features"]["latent_transition_curvature"])
             + (target["phase"] - intermediate["phase"]) * intermediate["curvature"]
             - abs(target["gap"] - intermediate["gap"]),
             6,
