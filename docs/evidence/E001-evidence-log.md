@@ -2094,3 +2094,4 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1284 2026-03-15: Refreshed the internal review cover, briefing, outcome, agenda, and decision checklist after preserving the E004 content-alias survivor.
 - EL-1285 2026-03-15: Refreshed the final internal review decision and review cycle closure after preserving the E004 content-alias survivor.
 - EL-1286 2026-03-15: Refreshed the one-page current state operating memo after the E004 review closure.
+- EL-1287 2026-03-15: Recorded the explicit threshold for promoting Q-RoPE from low-intensity preservation to a higher-priority execution posture.
