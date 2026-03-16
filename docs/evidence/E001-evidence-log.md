@@ -2114,3 +2114,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1301 2026-03-15: Opened E006 - Bounded multi-hop positional reference resolution as the next stretch-effort epic after archiving the E005 shared-memory multi-query boundary.
 - EL-1302 2026-03-15: Defined the next missing question as bounded two-stage positional reference resolution through an intermediate candidate rather than another direct or repeated-query selection variant.
 - EL-1303 2026-03-15: Opened synthetic_positional_intermediate_pointer_selection_response as a memo-only E006 candidate with a gate sketch only.
+
+- EL-1304 2026-03-15: Wrote the explicit memo-level gate for synthetic_positional_intermediate_pointer_selection_response.
+- EL-1305 2026-03-15: Passed E006 only to bounded implementation planning review and kept code and execution closed.
