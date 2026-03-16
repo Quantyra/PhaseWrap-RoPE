@@ -2,10 +2,10 @@
     "active_epic": "E006",
     "repo_posture": "bounded_E006_multi_hop_reference_structural_hardening",
     "current_story_ids": [
-        "S1463"
+        "S1466"
     ],
     "next_actions": [
-        "Run the fixed slot_swap=1 structural hardening packet for synthetic_positional_intermediate_pointer_selection_response.",
+        "Run the fixed pair_reindex=7 closure packet for synthetic_positional_intermediate_pointer_selection_response.",
         "Keep only the witness and bounded symbolic control in scope.",
         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
     ],
@@ -1392,7 +1392,10 @@
         "S1460",
         "S1461",
         "S1462",
-        "S1463"
+        "S1463",
+        "S1464",
+        "S1465",
+        "S1466"
     ],
     "archived_transfer_story_ids": [
         "S955",
