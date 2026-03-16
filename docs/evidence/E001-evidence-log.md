@@ -2095,3 +2095,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1285 2026-03-15: Refreshed the final internal review decision and review cycle closure after preserving the E004 content-alias survivor.
 - EL-1286 2026-03-15: Refreshed the one-page current state operating memo after the E004 review closure.
 - EL-1287 2026-03-15: Recorded the explicit threshold for promoting Q-RoPE from low-intensity preservation to a higher-priority execution posture.
+- EL-1288 2026-03-15: Opened `E005 - Bounded shared-memory multi-query selection` as the next stretch-effort epic in the Q-RoPE research program.
+- EL-1289 2026-03-15: Defined the next missing question as bounded repeated query-conditioned retrieval over one shared candidate memory.
+- EL-1290 2026-03-15: Opened `synthetic_positional_shared_memory_multi_query_selection_response` as a memo-only E005 candidate with a gate sketch only.

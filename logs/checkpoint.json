@@ -1,13 +1,13 @@
 {
-    "active_epic": "E004",
-    "repo_posture": "low_intensity_no_execution",
+    "active_epic": "E005",
+    "repo_posture": "memo_only_E005_shared_memory_multi_query_candidate_design",
     "current_story_ids": [
-        "S1423"
+        "S1426"
     ],
     "next_actions": [
-        "Use the current operating memo, handoff index, and priority-promotion memo as the entry point for internal work.",
-        "Keep default execution closed.",
-        "Reopen only with a materially different missing-question candidate and explicit approval."
+        "Write the explicit memo-level gate for synthetic_positional_shared_memory_multi_query_selection_response.",
+        "Freeze the bounded shared-memory multi-query symbolic family and diagnostics in that gate.",
+        "Keep implementation and execution closed until that gate is accepted."
     ],
     "risks": [
         "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1368,7 +1368,10 @@
         "S1420",
         "S1421",
         "S1422",
-        "S1423"
+        "S1423",
+        "S1424",
+        "S1425",
+        "S1426"
     ],
     "archived_transfer_story_ids": [
         "S955",
