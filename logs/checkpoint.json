@@ -1,11 +1,11 @@
 {
     "active_epic":  "E005",
-    "repo_posture":  "memo_only_E005_shared_memory_multi_query_archived",
+    "repo_posture":  "low_intensity_no_execution",
     "current_story_ids":  [
-                              "S1443"
+                              "S1445"
                           ],
     "next_actions":  [
-                         "Use the refreshed review packet for internal review and decision logging.",
+                         "Use the refreshed package for internal reference and decision support.",
                          "Keep default execution closed.",
                          "Reopen only with a materially different missing-question candidate and explicit approval."
                      ],
