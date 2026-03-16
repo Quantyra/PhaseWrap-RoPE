@@ -2,7 +2,7 @@
     "active_epic": "E006",
     "repo_posture": "low_intensity_no_execution",
     "current_story_ids": [
-        "S1477"
+        "S1478"
     ],
     "next_actions": [
         "Use the refreshed package for internal reference and decision support.",
@@ -1406,7 +1406,8 @@
         "S1474",
         "S1475",
         "S1476",
-        "S1477"
+        "S1477",
+        "S1478"
     ],
     "archived_transfer_story_ids": [
         "S955",
