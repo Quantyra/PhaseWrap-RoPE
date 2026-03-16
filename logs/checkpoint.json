@@ -1,12 +1,12 @@
 {
     "active_epic":  "E004",
-    "repo_posture":  "bounded_E004_content_alias_implementation",
+    "repo_posture":  "bounded_E004_content_alias_hardening",
     "current_story_ids":  [
-                              "S1397"
+                              "S1401"
                           ],
     "next_actions":  [
-                         "Implement synthetic_positional_content_alias_disambiguation_response.",
-                         "Run exactly one fixed three-seed packet against the bounded content-alias symbolic control.",
+                         "Run the fixed token_permutation=cdab hardening packet.",
+                         "Keep only the witness and bounded symbolic control in scope.",
                          "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
     "risks":  [
@@ -1342,7 +1342,11 @@
                                 "S1394",
                                 "S1395",
                                 "S1396",
-                                "S1397"
+                                "S1397",
+                                "S1398",
+                                "S1399",
+                                "S1400",
+                                "S1401"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

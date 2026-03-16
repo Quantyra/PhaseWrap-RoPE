@@ -58,6 +58,7 @@ from qrope.synthetic import (
     generate_positional_dual_anchor_offset_consensus_response_bundle,
     generate_positional_variable_cardinality_offset_selection_response_bundle,
     generate_positional_content_gated_offset_selection_response_bundle,
+    generate_positional_content_alias_disambiguation_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
     generate_dual_content_parity_coupling_binary_bundle,
@@ -489,6 +490,24 @@ def test_positional_content_gated_offset_selection_bundle_enforces_declared_diag
     assert diagnostics["token_view_balance_pass"] is True
     assert diagnostics["bounded_content_class_pass"] is True
     assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["joint_noncollapse_pass"] is True
+
+
+def test_positional_content_alias_disambiguation_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_positional_content_alias_disambiguation_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_positional_content_alias_disambiguation_response"
+    assert diagnostics["coarse_content_alias_state_null_pass"] is True
+    assert diagnostics["within_content_alias_state_variation_pass"] is True
+    assert diagnostics["alias_pressure_nontrivial_pass"] is True
+    assert diagnostics["content_only_null_pass"] is True
+    assert diagnostics["position_only_null_pass"] is True
+    assert diagnostics["joint_target_nontrivial_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_content_class_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["alias_slot_rotation_pass"] is True
     assert diagnostics["joint_noncollapse_pass"] is True
 
 
