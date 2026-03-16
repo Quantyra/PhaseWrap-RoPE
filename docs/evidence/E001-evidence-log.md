@@ -2129,3 +2129,6 @@ ank_correlation.
 - EL-1312 2026-03-16: The retained nuisance-hardening packet `token_permutation=cdab` for E006 was non-inert and still left the witness ahead on mean `mae` while mean `rank_correlation` tied with the bounded symbolic control.
 - EL-1313 2026-03-16: Under the declared two-metric gate, E006 remains active after token renaming because the control did not match or beat the witness on both declared mean packet metrics.
 - EL-1314 2026-03-16: Advanced E006 only to the fixed structural hardening packet `pair_reindex=1`.
+
+- EL-1315 2026-03-16: The fixed structural packet `pair_reindex=1` for E006 was non-inert and left the witness ahead on both declared mean packet metrics.
+- EL-1316 2026-03-16: Advanced E006 only to the fixed structural hardening packet `slot_swap=1`.
