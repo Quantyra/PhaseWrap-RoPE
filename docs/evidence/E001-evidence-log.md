@@ -2106,3 +2106,7 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1295 2026-03-15: Implemented synthetic_positional_shared_memory_multi_query_selection_response inside the frozen E005 scope while keeping one symbolic family across query positions and candidate counts 3/4/5.
 - EL-1296 2026-03-15: The fixed three-seed E005 first packet left the witness ahead of the bounded symbolic control on both mean mae and mean ank_correlation.
 - EL-1297 2026-03-15: Advanced E005 only to the retained nuisance-hardening packet 	oken_permutation=cdab.
+
+- EL-1298 2026-03-15: The retained nuisance-hardening packet 	oken_permutation=cdab for the E005 shared-memory multi-query line was strongly non-inert and let the bounded symbolic control beat the witness on both declared mean packet metrics.
+- EL-1299 2026-03-15: Stopped E005 immediately at retained nuisance hardening because the control cleared the declared two-metric stop gate.
+- EL-1300 2026-03-15: Archived synthetic_positional_shared_memory_multi_query_selection_response as a negative E005 boundary rather than preserved positive evidence.

@@ -1,13 +1,13 @@
 {
     "active_epic":  "E005",
-    "repo_posture":  "bounded_E005_shared_memory_multi_query_hardening",
+    "repo_posture":  "memo_only_E005_shared_memory_multi_query_archived",
     "current_story_ids":  [
-                              "S1434"
+                              "S1437"
                           ],
     "next_actions":  [
-                         "Run the fixed token_permutation=cdab hardening packet.",
-                         "Keep only the witness and bounded symbolic control in scope.",
-                         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
+                         "Use the current preserved package and archived E005 boundary for internal reference.",
+                         "Keep default execution closed.",
+                         "Reopen only with a materially different missing-question candidate and explicit approval."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1378,7 +1378,11 @@
                                 "S1430",
                                 "S1431",
                                 "S1432",
-                                "S1433"
+                                "S1433",
+                                "S1434",
+                                "S1435",
+                                "S1436",
+                                "S1437"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
