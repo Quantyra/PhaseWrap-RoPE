@@ -2082,3 +2082,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1272 2026-03-15: Implemented `synthetic_positional_content_alias_disambiguation_response` inside the frozen E004 scope while keeping one symbolic family across candidate counts `3/4/5`, content classes `0/1/2`, and active alias patterns.
 - EL-1273 2026-03-15: The fixed three-seed E004 first packet left the witness ahead of the bounded symbolic control on both mean `mae` and mean `rank_correlation`.
 - EL-1274 2026-03-15: Advanced E004 only to the retained nuisance-hardening packet `token_permutation=cdab`.
+- EL-1275 2026-03-15: The retained nuisance-hardening packet `token_permutation=cdab` for the E004 content-alias line was non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1276 2026-03-15: Advanced E004 only to the fixed structural hardening packet `pair_reindex=1`.
