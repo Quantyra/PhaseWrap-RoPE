@@ -2079,3 +2079,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1269 2026-03-15: Passed the E004 content-alias candidate only to bounded implementation planning review; code and execution remain closed.
 - EL-1270 2026-03-15: Wrote the bounded implementation plan for `synthetic_positional_content_alias_disambiguation_response`.
 - EL-1271 2026-03-15: Passed the E004 content-alias candidate to one bounded local implementation cycle only.
+- EL-1272 2026-03-15: Implemented `synthetic_positional_content_alias_disambiguation_response` inside the frozen E004 scope while keeping one symbolic family across candidate counts `3/4/5`, content classes `0/1/2`, and active alias patterns.
+- EL-1273 2026-03-15: The fixed three-seed E004 first packet left the witness ahead of the bounded symbolic control on both mean `mae` and mean `rank_correlation`.
+- EL-1274 2026-03-15: Advanced E004 only to the retained nuisance-hardening packet `token_permutation=cdab`.

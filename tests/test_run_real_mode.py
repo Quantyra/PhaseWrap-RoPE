@@ -1287,6 +1287,47 @@ def test_positional_content_gated_offset_selection_symbolic_control_freezes_basi
     assert diagnostics["single_symbolic_family_across_candidate_family_pass"] is True
 
 
+def test_positional_content_alias_disambiguation_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_content_alias_disambiguation_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_positional_content_alias_disambiguation",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_positional_content_alias_disambiguation_response+readout_relational_witness_positional_content_alias_disambiguation+head_linear"
+    )
+    assert diagnostics["coarse_content_alias_state_null_pass"] is True
+    assert diagnostics["within_content_alias_state_variation_pass"] is True
+    assert diagnostics["alias_pressure_nontrivial_pass"] is True
+    assert diagnostics["content_only_null_pass"] is True
+    assert diagnostics["position_only_null_pass"] is True
+    assert diagnostics["joint_target_nontrivial_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_content_class_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["alias_slot_rotation_pass"] is True
+    assert diagnostics["joint_noncollapse_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_content_alias_feature_family_absent_pass"] is True
+
+
+def test_positional_content_alias_disambiguation_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_content_alias_disambiguation_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_positional_content_alias_disambiguation_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_content_alias_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_content_alias_feature_family_absent_pass"] is True
+    assert diagnostics["single_symbolic_family_across_alias_patterns_pass"] is True
+
+
 def test_symbolic_insufficiency_loop_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_symbolic_insufficiency_loop_closure_response",
