@@ -2,10 +2,10 @@
     "active_epic": "E004",
     "repo_posture": "bounded_E004_content_alias_structural_hardening",
     "current_story_ids": [
-        "S1404"
+        "S1407"
     ],
     "next_actions": [
-        "Run the fixed pair_reindex=1 structural hardening packet.",
+        "Run the fixed slot_swap=1 structural hardening packet.",
         "Keep only the witness and bounded symbolic control in scope.",
         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
     ],
@@ -1349,7 +1349,10 @@
         "S1401",
         "S1402",
         "S1403",
-        "S1404"
+        "S1404",
+        "S1405",
+        "S1406",
+        "S1407"
     ],
     "archived_transfer_story_ids": [
         "S955",
