@@ -62,6 +62,7 @@ from qrope.synthetic import (
     generate_positional_reference_revision_selection_response_bundle,
     generate_positional_exception_conditioned_reference_selection_response_bundle,
     generate_positional_scope_masked_reference_selection_response_bundle,
+    generate_positional_nested_scope_shadow_selection_response_bundle,
     generate_positional_shared_memory_multi_query_selection_response_bundle,
     generate_positional_intermediate_pointer_selection_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
@@ -565,6 +566,24 @@ def test_positional_scope_masked_reference_selection_bundle_enforces_declared_di
     assert diagnostics["token_view_balance_pass"] is True
     assert diagnostics["bounded_candidate_count_pass"] is True
     assert diagnostics["scope_noncollapse_pass"] is True
+
+
+def test_positional_nested_scope_shadow_selection_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_positional_nested_scope_shadow_selection_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_positional_nested_scope_shadow_selection_response"
+    assert diagnostics["coarse_nested_scope_shadow_state_null_pass"] is True
+    assert diagnostics["within_nested_scope_shadow_state_variation_pass"] is True
+    assert diagnostics["two_local_candidates_nontrivial_pass"] is True
+    assert diagnostics["near_scope_precedence_nontrivial_pass"] is True
+    assert diagnostics["flat_scope_mask_null_pass"] is True
+    assert diagnostics["content_only_null_pass"] is True
+    assert diagnostics["position_only_null_pass"] is True
+    assert diagnostics["final_target_nontrivial_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["nested_scope_noncollapse_pass"] is True
 
 
 def test_positional_shared_memory_multi_query_selection_bundle_enforces_declared_diagnostics() -> None:

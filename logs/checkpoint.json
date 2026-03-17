@@ -1,12 +1,12 @@
 {
     "active_epic":  "E010",
-    "repo_posture":  "bounded_E010_nested_scope_shadow_implementation",
+    "repo_posture":  "bounded_E010_nested_scope_shadow_hardening",
     "current_story_ids":  [
-
+                              "S1585"
                           ],
     "next_actions":  [
-                         "Implement synthetic_positional_nested_scope_shadow_selection_response.",
-                         "Run exactly one fixed three-seed packet against the bounded nested-scope symbolic control.",
+                         "Run the fixed token_permutation=cdab hardening packet for synthetic_positional_nested_scope_shadow_selection_response.",
+                         "Keep only the witness and bounded nested-scope symbolic control in scope.",
                          "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
     "risks":  [
@@ -1502,7 +1502,10 @@
                                 "S1578",
                                 "S1579",
                                 "S1580",
-                                "S1581"
+                                "S1581",
+                                "S1582",
+                                "S1583",
+                                "S1584"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

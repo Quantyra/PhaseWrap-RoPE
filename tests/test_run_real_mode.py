@@ -1448,6 +1448,47 @@ def test_positional_scope_masked_reference_selection_symbolic_control_freezes_ba
     assert diagnostics["single_symbolic_family_across_scope_patterns_pass"] is True
 
 
+def test_positional_nested_scope_shadow_selection_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_nested_scope_shadow_selection_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_positional_nested_scope_shadow_selection",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_positional_nested_scope_shadow_selection_response+readout_relational_witness_positional_nested_scope_shadow_selection+head_linear"
+    )
+    assert diagnostics["coarse_nested_scope_shadow_state_null_pass"] is True
+    assert diagnostics["within_nested_scope_shadow_state_variation_pass"] is True
+    assert diagnostics["two_local_candidates_nontrivial_pass"] is True
+    assert diagnostics["near_scope_precedence_nontrivial_pass"] is True
+    assert diagnostics["flat_scope_mask_null_pass"] is True
+    assert diagnostics["content_only_null_pass"] is True
+    assert diagnostics["position_only_null_pass"] is True
+    assert diagnostics["final_target_nontrivial_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["nested_scope_noncollapse_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_nested_scope_shadow_feature_family_absent_pass"] is True
+
+
+def test_positional_nested_scope_shadow_selection_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_nested_scope_shadow_selection_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_positional_nested_scope_shadow_selection_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_nested_scope_shadow_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_nested_scope_shadow_feature_family_absent_pass"] is True
+    assert diagnostics["single_symbolic_family_across_shadow_patterns_pass"] is True
+
+
 def test_positional_shared_memory_multi_query_selection_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_positional_shared_memory_multi_query_selection_response",
