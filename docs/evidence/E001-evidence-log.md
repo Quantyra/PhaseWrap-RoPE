@@ -2244,3 +2244,5 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1390 2026-03-17: Preserved `synthetic_positional_scope_masked_reference_selection_response` as sufficient bounded E009 evidence and refreshed the internal package.
 - EL-1391 2026-03-17: Refreshed the internal review cover, briefing, outcome, agenda, and decision checklist after preserving the E009 scope-masking survivor.
 - EL-1392 2026-03-17: Returned the repo to a review-ready package state rather than reopening execution after E009 preservation.
+- EL-1393 2026-03-17: Refreshed the final internal review decision after preserving the E009 scope-masking survivor.
+- EL-1394 2026-03-17: Closed the E009 review cycle and returned the repo to low-intensity no-execution posture.
