@@ -1,13 +1,13 @@
 {
-    "active_epic":  "E008",
-    "repo_posture":  "low_intensity_no_execution",
+    "active_epic":  "E009",
+    "repo_posture":  "memo_only_E009_scope_masking_candidate_design",
     "current_story_ids":  [
-
+                              "S1545"
                           ],
     "next_actions":  [
-                         "Use the current operating memo and handoff index as the entry point for internal work.",
-                         "Keep default execution closed.",
-                         "Reopen only if a materially different missing-question candidate is chosen explicitly."
+                         "Write the explicit memo-level gate for synthetic_positional_scope_masked_reference_selection_response.",
+                         "Freeze the bounded scope-masking symbolic family and diagnostics in that gate.",
+                         "Keep implementation and execution closed until that gate is accepted."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1464,7 +1464,10 @@
                                 "S1539",
                                 "S1540",
                                 "S1541",
-                                "S1542"
+                                "S1542",
+                                "S1543",
+                                "S1544",
+                                "S1545"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
