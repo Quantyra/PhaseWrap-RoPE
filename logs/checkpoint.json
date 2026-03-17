@@ -1,13 +1,13 @@
 {
     "active_epic":  "E008",
-    "repo_posture":  "bounded_E008_exception_arbitration_structural_hardening",
+    "repo_posture":  "memo_only_E008_exception_arbitration_preserved",
     "current_story_ids":  [
-                              "S1530"
+
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=7 closure packet for synthetic_positional_exception_conditioned_reference_selection_response.",
-                         "Keep only the witness and bounded exception-arbitration symbolic control in scope.",
-                         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
+                         "Use the refreshed package for internal review and reference.",
+                         "Keep default execution closed.",
+                         "Reopen only with a materially different missing-question candidate and explicit approval."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1451,7 +1451,12 @@
                                 "S1525",
                                 "S1526",
                                 "S1528",
-                                "S1529"
+                                "S1529",
+                                "S1530",
+                                "S1531",
+                                "S1532",
+                                "S1533",
+                                "S1534"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

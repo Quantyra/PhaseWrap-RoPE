@@ -2202,3 +2202,8 @@ ank_correlation.
 - EL-1361 2026-03-16: The fixed structural packet `slot_swap=1` for E008 was non-inert and still left the witness ahead on both declared mean packet metrics.
 - EL-1362 2026-03-16: Advanced E008 only to the closure packet `pair_reindex=7`.
 
+
+- EL-1363 2026-03-16: The closure packet `pair_reindex=7` for E008 was non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1364 2026-03-16: The E008 exception-arbitration line survived the full bounded hardening cycle and returned to memo-only preserved state.
+- EL-1365 2026-03-16: Preserved `synthetic_positional_exception_conditioned_reference_selection_response` as sufficient bounded E008 evidence and refreshed the internal package.
+
