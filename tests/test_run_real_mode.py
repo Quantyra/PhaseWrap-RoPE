@@ -1367,6 +1367,46 @@ def test_positional_reference_revision_selection_symbolic_control_freezes_basis(
     assert diagnostics["single_symbolic_family_across_revision_patterns_pass"] is True
 
 
+def test_positional_exception_conditioned_reference_selection_witness_backend_runs() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_exception_conditioned_reference_selection_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_future_relational_witness_positional_exception_conditioned_reference_selection",
+    )
+    diagnostics = metrics["dataset_diagnostics"]
+    assert metrics["data_mode"].startswith(
+        "synthetic_positional_exception_conditioned_reference_selection_response+readout_relational_witness_positional_exception_conditioned_reference_selection+head_linear"
+    )
+    assert diagnostics["coarse_exception_arbitration_state_null_pass"] is True
+    assert diagnostics["within_exception_arbitration_state_variation_pass"] is True
+    assert diagnostics["base_rule_nontrivial_pass"] is True
+    assert diagnostics["exception_trigger_nontrivial_pass"] is True
+    assert diagnostics["base_only_null_pass"] is True
+    assert diagnostics["exception_only_null_pass"] is True
+    assert diagnostics["final_target_nontrivial_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["exception_noncollapse_pass"] is True
+    run_diagnostics = metrics["run_diagnostics"]
+    assert run_diagnostics["bounded_feature_audit_pass"] is True
+    assert run_diagnostics["forbidden_exception_arbitration_feature_family_absent_pass"] is True
+
+
+def test_positional_exception_conditioned_reference_selection_symbolic_control_freezes_basis() -> None:
+    metrics = run_real_experiment(
+        dataset="synthetic_positional_exception_conditioned_reference_selection_response",
+        seed=42,
+        backend="sim_quantum_statevector",
+        variant="V_control_symbolic_positional_exception_conditioned_reference_selection_regressor",
+    )
+    diagnostics = metrics["run_diagnostics"]
+    assert diagnostics["allowed_exception_arbitration_symbolic_basis_frozen_pass"] is True
+    assert diagnostics["forbidden_exception_arbitration_feature_family_absent_pass"] is True
+    assert diagnostics["single_symbolic_family_across_exception_patterns_pass"] is True
+
+
 def test_positional_shared_memory_multi_query_selection_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_positional_shared_memory_multi_query_selection_response",

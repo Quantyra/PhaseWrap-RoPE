@@ -60,6 +60,7 @@ from qrope.synthetic import (
     generate_positional_content_gated_offset_selection_response_bundle,
     generate_positional_content_alias_disambiguation_response_bundle,
     generate_positional_reference_revision_selection_response_bundle,
+    generate_positional_exception_conditioned_reference_selection_response_bundle,
     generate_positional_shared_memory_multi_query_selection_response_bundle,
     generate_positional_intermediate_pointer_selection_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
@@ -528,6 +529,23 @@ def test_positional_reference_revision_selection_bundle_enforces_declared_diagno
     assert diagnostics["token_view_balance_pass"] is True
     assert diagnostics["bounded_candidate_count_pass"] is True
     assert diagnostics["revision_noncollapse_pass"] is True
+
+
+def test_positional_exception_conditioned_reference_selection_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_positional_exception_conditioned_reference_selection_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_positional_exception_conditioned_reference_selection_response"
+    assert diagnostics["coarse_exception_arbitration_state_null_pass"] is True
+    assert diagnostics["within_exception_arbitration_state_variation_pass"] is True
+    assert diagnostics["base_rule_nontrivial_pass"] is True
+    assert diagnostics["exception_trigger_nontrivial_pass"] is True
+    assert diagnostics["base_only_null_pass"] is True
+    assert diagnostics["exception_only_null_pass"] is True
+    assert diagnostics["final_target_nontrivial_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["exception_noncollapse_pass"] is True
 
 
 def test_positional_shared_memory_multi_query_selection_bundle_enforces_declared_diagnostics() -> None:

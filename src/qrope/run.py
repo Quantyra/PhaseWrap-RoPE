@@ -59,6 +59,7 @@ from .synthetic import (
     generate_positional_content_gated_offset_selection_response_bundle,
     generate_positional_content_alias_disambiguation_response_bundle,
     generate_positional_reference_revision_selection_response_bundle,
+    generate_positional_exception_conditioned_reference_selection_response_bundle,
     generate_positional_shared_memory_multi_query_selection_response_bundle,
     generate_positional_intermediate_pointer_selection_response_bundle,
     generate_symbolic_insufficiency_transition_response_bundle,
@@ -126,6 +127,7 @@ from .synthetic import (
     parse_positional_content_gated_offset_selection_text,
     parse_positional_content_alias_disambiguation_text,
     parse_positional_reference_revision_selection_text,
+    parse_positional_exception_conditioned_reference_selection_text,
     parse_positional_shared_memory_multi_query_selection_text,
     parse_positional_intermediate_pointer_selection_text,
     parse_transition_localization_text,
@@ -382,6 +384,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_positional_content_gated_offset_selection": 96,
         "V_future_relational_witness_positional_content_alias_disambiguation": 96,
         "V_future_relational_witness_positional_reference_revision_selection": 96,
+        "V_future_relational_witness_positional_exception_conditioned_reference_selection": 96,
         "V_future_relational_witness_positional_shared_memory_multi_query_selection": 96,
         "V_future_relational_witness_positional_intermediate_pointer_selection": 96,
         "V_future_relational_witness_symbolic_insufficiency_fork_join": 96,
@@ -478,6 +481,7 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_positional_content_gated_offset_selection_regressor": 1,
         "V_control_symbolic_positional_content_alias_disambiguation_regressor": 1,
         "V_control_symbolic_positional_reference_revision_selection_regressor": 1,
+        "V_control_symbolic_positional_exception_conditioned_reference_selection_regressor": 1,
         "V_control_symbolic_positional_shared_memory_multi_query_selection_regressor": 1,
         "V_control_symbolic_positional_intermediate_pointer_selection_regressor": 1,
         "V_control_symbolic_symbolic_insufficiency_fork_join_regressor": 1,
@@ -795,6 +799,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_positional_content_alias_disambiguation+head_linear"
         elif variant == "V_future_relational_witness_positional_reference_revision_selection":
             data_mode = f"{data_mode}+readout_relational_witness_positional_reference_revision_selection+head_linear"
+        elif variant == "V_future_relational_witness_positional_exception_conditioned_reference_selection":
+            data_mode = f"{data_mode}+readout_relational_witness_positional_exception_conditioned_reference_selection+head_linear"
         elif variant == "V_future_relational_witness_positional_shared_memory_multi_query_selection":
             data_mode = f"{data_mode}+readout_relational_witness_positional_shared_memory_multi_query_selection+head_linear"
         elif variant == "V_future_relational_witness_positional_intermediate_pointer_selection":
@@ -887,6 +893,8 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_symbolic_positional_content_alias_disambiguation_regressor+head_linear"
         elif variant == "V_control_symbolic_positional_reference_revision_selection_regressor":
             data_mode = f"{data_mode}+readout_symbolic_positional_reference_revision_selection_regressor+head_linear"
+        elif variant == "V_control_symbolic_positional_exception_conditioned_reference_selection_regressor":
+            data_mode = f"{data_mode}+readout_symbolic_positional_exception_conditioned_reference_selection_regressor+head_linear"
         elif variant == "V_control_symbolic_positional_shared_memory_multi_query_selection_regressor":
             data_mode = f"{data_mode}+readout_symbolic_positional_shared_memory_multi_query_selection_regressor+head_linear"
         elif variant == "V_control_symbolic_positional_intermediate_pointer_selection_regressor":
@@ -1736,6 +1744,14 @@ def run_quantum_backend(
         )
     if dataset == "synthetic_positional_reference_revision_selection_response" and variant == "V_control_symbolic_positional_reference_revision_selection_regressor":
         return run_positional_reference_revision_selection_symbolic_regressor(
+            train=train, test=test, validation=validation
+        )
+    if dataset == "synthetic_positional_exception_conditioned_reference_selection_response" and variant == "V_future_relational_witness_positional_exception_conditioned_reference_selection":
+        return run_positional_exception_conditioned_reference_selection_witness_backend(
+            train=train, test=test, seed=seed, validation=validation
+        )
+    if dataset == "synthetic_positional_exception_conditioned_reference_selection_response" and variant == "V_control_symbolic_positional_exception_conditioned_reference_selection_regressor":
+        return run_positional_exception_conditioned_reference_selection_symbolic_regressor(
             train=train, test=test, validation=validation
         )
     if dataset == "synthetic_positional_shared_memory_multi_query_selection_response" and variant == "V_future_relational_witness_positional_shared_memory_multi_query_selection":
@@ -6778,6 +6794,251 @@ def positional_reference_revision_selection_symbolic_features(text: str) -> dict
         "allowed_reference_revision_symbolic_basis_frozen_pass": True,
         "forbidden_reference_revision_feature_family_absent_pass": True,
         "single_symbolic_family_across_revision_patterns_pass": True,
+    }
+
+
+def positional_exception_conditioned_reference_selection_witness_features(text: str, seed: int) -> dict[str, object]:
+    payload = parse_positional_exception_conditioned_reference_selection_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def sample_mean_pos(sample: Any) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> float:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0.0
+        if distance < 2.0:
+            return 1.0
+        return 2.0
+
+    def content_bucket(value: float) -> float:
+        if value < -0.2:
+            return 0.0
+        if value > 0.2:
+            return 2.0
+        return 1.0
+
+    def exception_trigger(step: dict[str, float]) -> float:
+        return 1.0 if float(step["orientation_delta"]) >= 0.0 else 0.0
+
+    q_result = symbolic_insufficiency_witness_features(text=payload["q"]["dual_text"], seed=seed)
+    q_step = _symbolic_insufficiency_path_step_features(payload["q"])
+    q_phase = float(q_result["features"]["latent_transition_phase"])
+    q_curvature = float(q_result["features"]["latent_transition_curvature"])
+    desired_gap = round(sample_mean_pos(payload["q"]["sample_b"]) - sample_mean_pos(payload["q"]["sample_a"]), 6)
+    desired_gap_norm = round(desired_gap / 4.0, 6)
+    desired_side = 1.0 if desired_gap >= 0.0 else -1.0
+    desired_bucket = gap_bucket(desired_gap)
+    desired_content_class = content_bucket(float(q_step["ordered_content_delta"]))
+    candidate_payloads = payload["candidates"]
+    candidate_results = [symbolic_insufficiency_witness_features(text=item["dual_text"], seed=seed) for item in candidate_payloads]
+    candidate_steps = [_symbolic_insufficiency_path_step_features(item) for item in candidate_payloads]
+    anchor_pivot = sample_mean_pos(payload["q"]["sample_a"])
+
+    candidate_data: list[dict[str, float]] = []
+    for index, (item, result, step) in enumerate(zip(candidate_payloads, candidate_results, candidate_steps, strict=True)):
+        gap = round(mean_pos(item) - anchor_pivot, 6)
+        gap_norm = round(gap / 4.0, 6)
+        side = 1.0 if gap >= 0.0 else -1.0
+        bucket = gap_bucket(gap)
+        content_class = content_bucket(float(step["ordered_content_delta"]))
+        trigger_flag = exception_trigger(step)
+        position_match = 1.0 if side == desired_side and bucket == desired_bucket else 0.0
+        content_match = 1.0 if content_class == desired_content_class else 0.0
+        base_match = 1.0 if position_match == 1.0 and content_match == 1.0 else 0.0
+        candidate_data.append(
+            {
+                "index": float(index),
+                "phase": float(result["features"]["latent_transition_phase"]),
+                "curvature": float(result["features"]["latent_transition_curvature"]),
+                "gap": gap_norm,
+                "content_class": content_class,
+                "trigger_flag": trigger_flag,
+                "suppressed_match": 1.0 if base_match == 1.0 and trigger_flag == 1.0 else 0.0,
+                "final_match": 1.0 if base_match == 1.0 and trigger_flag == 0.0 else 0.0,
+                "content_only": 1.0 if position_match == 0.0 and content_match == 1.0 else 0.0,
+                "position_only": 1.0 if position_match == 1.0 and content_match == 0.0 else 0.0,
+                "ordered_content_delta": float(step["ordered_content_delta"]),
+                "orientation_delta": float(step["orientation_delta"]),
+            }
+        )
+    target_index = next(index for index, item in enumerate(candidate_data) if item["final_match"] == 1.0)
+    target = candidate_data[target_index]
+    distractors = [item for index, item in enumerate(candidate_data) if index != target_index]
+    suppressed = next(item for item in distractors if item["suppressed_match"] == 1.0)
+    mean_distractor_phase = sum(item["phase"] for item in distractors) / len(distractors)
+    mean_distractor_gap = sum(item["gap"] for item in distractors) / len(distractors)
+    mean_distractor_curvature = sum(item["curvature"] for item in distractors) / len(distractors)
+    mean_distractor_content = sum(item["ordered_content_delta"] for item in distractors) / len(distractors)
+    candidate_count = float(len(candidate_payloads))
+    suppressed_count = sum(item["suppressed_match"] for item in distractors)
+    content_only_count = sum(item["content_only"] for item in distractors)
+    position_only_count = sum(item["position_only"] for item in distractors)
+    features: dict[str, float] = {
+        "query_phase": round(q_phase, 6),
+        "query_curvature": round(q_curvature, 6),
+        "query_desired_gap": round(desired_gap_norm, 6),
+        "query_desired_content_class": round(desired_content_class - 1.0, 6),
+        "candidate_count": round(candidate_count - 4.0, 6),
+        "target_phase": round(target["phase"], 6),
+        "target_curvature": round(target["curvature"], 6),
+        "target_gap": round(target["gap"], 6),
+        "suppressed_phase": round(suppressed["phase"], 6),
+        "suppressed_gap": round(suppressed["gap"], 6),
+        "suppressed_gap_margin": round(target["gap"] - suppressed["gap"], 6),
+        "target_content_delta": round(target["ordered_content_delta"], 6),
+        "suppressed_content_delta": round(suppressed["ordered_content_delta"], 6),
+        "selected_target_slot": round(target["index"] / max(1.0, candidate_count - 1.0), 6),
+        "suppressed_slot": round(suppressed["index"] / max(1.0, candidate_count - 1.0), 6),
+        "suppressed_count": round(suppressed_count / max(1.0, candidate_count - 1.0), 6),
+        "content_only_count": round(content_only_count / max(1.0, candidate_count - 1.0), 6),
+        "position_only_count": round(position_only_count / max(1.0, candidate_count - 1.0), 6),
+        "target_phase_margin": round(target["phase"] - mean_distractor_phase, 6),
+        "target_gap_margin": round(target["gap"] - mean_distractor_gap, 6),
+        "exception_trigger_margin": round(target["trigger_flag"] - suppressed["trigger_flag"], 6),
+        "exception_declared_mix": round(
+            desired_gap_norm * (target["gap"] - suppressed["gap"])
+            + q_step["ordered_content_delta"] * (target["ordered_content_delta"] - suppressed["ordered_content_delta"])
+            - 0.5 * suppressed["trigger_flag"],
+            6,
+        ),
+        "exception_reference_cross_curvature": round(
+            (target["phase"] - q_phase) * q_curvature
+            - (suppressed["phase"] - q_phase) * suppressed["curvature"]
+            + (target["ordered_content_delta"] - suppressed["ordered_content_delta"]) * (target["gap"] - suppressed["gap"])
+            + 0.5 * (target["curvature"] - mean_distractor_curvature),
+            6,
+        ),
+        "distractor_content_mean": round(mean_distractor_content, 6),
+    }
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "bounded_feature_audit_pass": True,
+        "forbidden_exception_arbitration_feature_family_absent_pass": True,
+    }
+
+
+def positional_exception_conditioned_reference_selection_symbolic_features(text: str) -> dict[str, object]:
+    payload = parse_positional_exception_conditioned_reference_selection_text(text)
+
+    def mean_pos(step: dict[str, Any]) -> float:
+        return 0.5 * (step["sample_a"].left_pos + step["sample_a"].right_pos)
+
+    def sample_mean_pos(sample: Any) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> float:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0.0
+        if distance < 2.0:
+            return 1.0
+        return 2.0
+
+    def content_bucket(value: float) -> float:
+        if value < -0.2:
+            return 0.0
+        if value > 0.2:
+            return 2.0
+        return 1.0
+
+    query_step = _symbolic_insufficiency_path_step_features(payload["q"])
+    desired_gap = sample_mean_pos(payload["q"]["sample_b"]) - sample_mean_pos(payload["q"]["sample_a"])
+    desired_side = 1.0 if desired_gap >= 0.0 else 0.0
+    desired_bucket = gap_bucket(desired_gap)
+    desired_content_class = content_bucket(float(query_step["ordered_content_delta"]))
+    candidate_payloads = payload["candidates"]
+    candidate_steps = [_symbolic_insufficiency_path_step_features(item) for item in candidate_payloads]
+    candidate_count = len(candidate_payloads)
+    anchor_pivot = sample_mean_pos(payload["q"]["sample_a"])
+    features: dict[str, float] = {
+        "query_desired_gap": round(desired_gap / 4.0, 6),
+        "query_desired_side": desired_side,
+        "query_desired_bucket": desired_bucket,
+        "query_desired_content_class": round(desired_content_class - 1.0, 6),
+        "candidate_count": round(float(candidate_count - 4), 6),
+    }
+    target_slot = 0.0
+    suppressed_slot = 0.0
+    target_gap = 0.0
+    suppressed_gap = 0.0
+    suppressed_count = 0.0
+    content_only_count = 0.0
+    position_only_count = 0.0
+    target_content_delta = 0.0
+    suppressed_content_delta = 0.0
+    trigger_target = 0.0
+    trigger_suppressed = 0.0
+    gap_values: list[float] = []
+    content_values: list[float] = []
+    sector_values: list[float] = []
+    orientation_values: list[float] = []
+    for index, (item, step) in enumerate(zip(candidate_payloads, candidate_steps, strict=True)):
+        gap = mean_pos(item) - anchor_pivot
+        gap_norm = round(gap / 4.0, 6)
+        side = 1.0 if gap >= 0.0 else 0.0
+        bucket = gap_bucket(gap)
+        content_class = content_bucket(float(step["ordered_content_delta"]))
+        trigger_flag = 1.0 if float(step["orientation_delta"]) >= 0.0 else 0.0
+        position_match = 1.0 if side == desired_side and bucket == desired_bucket else 0.0
+        content_match = 1.0 if content_class == desired_content_class else 0.0
+        base_match = 1.0 if position_match == 1.0 and content_match == 1.0 else 0.0
+        if base_match == 1.0 and trigger_flag == 0.0:
+            target_slot = float(index) / max(1.0, float(candidate_count - 1))
+            target_gap = gap_norm
+            target_content_delta = float(step["ordered_content_delta"])
+            trigger_target = trigger_flag
+        elif base_match == 1.0 and trigger_flag == 1.0:
+            suppressed_slot = float(index) / max(1.0, float(candidate_count - 1))
+            suppressed_gap = gap_norm
+            suppressed_content_delta = float(step["ordered_content_delta"])
+            trigger_suppressed = trigger_flag
+            suppressed_count += 1.0
+        elif position_match == 0.0 and content_match == 1.0:
+            content_only_count += 1.0
+        elif position_match == 1.0 and content_match == 0.0:
+            position_only_count += 1.0
+        gap_values.append(gap_norm)
+        content_values.append(float(step["ordered_content_delta"]))
+        sector_values.append(float(step["sector_magnitude_delta"]))
+        orientation_values.append(float(step["orientation_delta"]))
+    mean_content = sum(content_values) / len(content_values)
+    mean_sector = sum(sector_values) / len(sector_values)
+    mean_orientation = sum(orientation_values) / len(orientation_values)
+    features.update(
+        {
+            "selected_target_slot": round(target_slot, 6),
+            "suppressed_slot": round(suppressed_slot, 6),
+            "target_gap": round(target_gap, 6),
+            "suppressed_gap": round(suppressed_gap, 6),
+            "suppressed_gap_margin": round(target_gap - suppressed_gap, 6),
+            "suppressed_count": round(suppressed_count / max(1.0, float(candidate_count - 1)), 6),
+            "content_only_count": round(content_only_count / max(1.0, float(candidate_count - 1)), 6),
+            "position_only_count": round(position_only_count / max(1.0, float(candidate_count - 1)), 6),
+            "target_content_delta": round(target_content_delta, 6),
+            "suppressed_content_delta": round(suppressed_content_delta, 6),
+            "exception_trigger_margin": round(trigger_target - trigger_suppressed, 6),
+            "candidate_gap_spread": round(max(gap_values) - min(gap_values), 6),
+            "mean_ordered_content_delta": round(mean_content, 6),
+            "mean_sector_magnitude_delta": round(mean_sector, 6),
+            "mean_orientation_delta": round(mean_orientation, 6),
+            "query_candidate_content_mix": round(query_step["ordered_content_delta"] * mean_content, 6),
+            "query_candidate_offset_mix": round((desired_gap / 4.0) * (sum(gap_values) / len(gap_values)), 6),
+            "cross_mean_sector_content": round(mean_sector * mean_content, 6),
+            "cross_mean_sector_orientation": round(mean_sector * mean_orientation, 6),
+            "cross_mean_content_orientation": round(mean_content * mean_orientation, 6),
+        }
+    )
+    return {
+        "feature_order": list(features.keys()),
+        "features": features,
+        "allowed_exception_arbitration_symbolic_basis_frozen_pass": True,
+        "forbidden_exception_arbitration_feature_family_absent_pass": True,
+        "single_symbolic_family_across_exception_patterns_pass": True,
     }
 
 
@@ -12461,6 +12722,81 @@ def run_positional_reference_revision_selection_symbolic_regressor(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
+def run_positional_exception_conditioned_reference_selection_witness_backend(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    seed: int,
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [
+        positional_exception_conditioned_reference_selection_witness_features(text=text, seed=seed)
+        for text, _ in train
+    ]
+    validation_results = [
+        positional_exception_conditioned_reference_selection_witness_features(text=text, seed=seed)
+        for text, _ in validation
+    ]
+    test_results = [
+        positional_exception_conditioned_reference_selection_witness_features(text=text, seed=seed)
+        for text, _ in test
+    ]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["bounded_feature_audit_pass"] = all(
+        bool(result.get("bounded_feature_audit_pass", False)) for result in test_results
+    )
+    diagnostics["forbidden_exception_arbitration_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_exception_arbitration_feature_family_absent_pass", False))
+        for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
+def run_positional_exception_conditioned_reference_selection_symbolic_regressor(
+    train: list[tuple[str, float]],
+    test: list[tuple[str, float]],
+    validation: list[tuple[str, float]] | None = None,
+) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
+    if validation is None:
+        midpoint = max(1, len(train) // 4)
+        validation = train[:midpoint]
+    train_results = [positional_exception_conditioned_reference_selection_symbolic_features(text=text) for text, _ in train]
+    validation_results = [
+        positional_exception_conditioned_reference_selection_symbolic_features(text=text) for text, _ in validation
+    ]
+    test_results = [positional_exception_conditioned_reference_selection_symbolic_features(text=text) for text, _ in test]
+    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
+        train_results,
+        validation_results,
+        test_results,
+        [float(label) for _, label in train],
+        [float(label) for _, label in validation],
+        [float(label) for _, label in test],
+    )
+    diagnostics["allowed_exception_arbitration_symbolic_basis_frozen_pass"] = all(
+        bool(result.get("allowed_exception_arbitration_symbolic_basis_frozen_pass", False))
+        for result in test_results
+    )
+    diagnostics["forbidden_exception_arbitration_feature_family_absent_pass"] = all(
+        bool(result.get("forbidden_exception_arbitration_feature_family_absent_pass", False))
+        for result in test_results
+    )
+    diagnostics["single_symbolic_family_across_exception_patterns_pass"] = all(
+        bool(result.get("single_symbolic_family_across_exception_patterns_pass", False))
+        for result in test_results
+    )
+    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
+
+
 def run_positional_shared_memory_multi_query_selection_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -16379,6 +16715,21 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_positional_reference_revision_selection_response",
+            "dataset_diagnostics": bundle.diagnostics,
+        }
+    if dataset == "synthetic_positional_exception_conditioned_reference_selection_response":
+        bundle = generate_positional_exception_conditioned_reference_selection_response_bundle(
+            seed=seed,
+            split_rotation=split_rotation,
+            slot_swap=slot_swap,
+            token_permutation=token_permutation,
+            pair_reindex=pair_reindex,
+        )
+        return {
+            "train": bundle.train,
+            "validation": bundle.validation,
+            "test": bundle.test,
+            "data_mode": "synthetic_positional_exception_conditioned_reference_selection_response",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_positional_shared_memory_multi_query_selection_response":

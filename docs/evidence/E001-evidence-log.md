@@ -2188,3 +2188,7 @@ ank_correlation.
 
 - EL-1352 2026-03-16: Wrote the bounded implementation plan for `synthetic_positional_exception_conditioned_reference_selection_response`.
 - EL-1353 2026-03-16: Passed E008 only to one bounded local implementation cycle.
+
+- EL-1354 2026-03-16: Implemented `synthetic_positional_exception_conditioned_reference_selection_response` inside the frozen E008 scope while keeping one symbolic family across candidate counts `4` and `5` with one active exception trigger per accepted example.
+- EL-1355 2026-03-16: The fixed three-seed E008 first packet left the witness ahead of the bounded symbolic control on both mean `mae` and mean `rank_correlation`.
+- EL-1356 2026-03-16: Advanced E008 only to the retained nuisance-hardening packet `token_permutation=cdab`.

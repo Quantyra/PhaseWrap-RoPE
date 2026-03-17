@@ -1,12 +1,12 @@
 {
   "active_epic": "E008",
-  "repo_posture": "bounded_E008_exception_arbitration_implementation",
+  "repo_posture": "bounded_E008_exception_arbitration_hardening",
   "current_story_ids": [
-    "S1517"
+    "S1521"
   ],
   "next_actions": [
-    "Implement synthetic_positional_exception_conditioned_reference_selection_response.",
-    "Run exactly one fixed three-seed packet against the bounded exception-arbitration symbolic control.",
+    "Run the fixed token_permutation=cdab hardening packet for synthetic_positional_exception_conditioned_reference_selection_response.",
+    "Keep only the witness and bounded exception-arbitration symbolic control in scope.",
     "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
   ],
   "risks": [
@@ -1439,7 +1439,11 @@
     "S1511",
     "S1512",
     "S1514",
-    "S1516"
+    "S1516",
+    "S1517",
+    "S1518",
+    "S1519",
+    "S1520"
   ],
   "archived_transfer_story_ids": [
     "S955",
