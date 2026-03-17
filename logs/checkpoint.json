@@ -1,11 +1,11 @@
 {
   "active_epic": "E007",
-  "repo_posture": "memo_only_E007_reference_revision_preserved",
+  "repo_posture": "review_ready_internal_result_package",
   "current_story_ids": [
-    "S1502"
+    "S1507"
   ],
   "next_actions": [
-    "Use the refreshed package for internal review and reference.",
+    "Use the refreshed review packet for internal review and decision logging.",
     "Keep default execution closed.",
     "Reopen only with a materially different missing-question candidate and explicit approval."
   ],
@@ -1427,7 +1427,11 @@
     "S1499",
     "S1500",
     "S1501",
-    "S1502"
+    "S1502",
+    "S1503",
+    "S1504",
+    "S1505",
+    "S1506"
   ],
   "archived_transfer_story_ids": [
     "S955",
