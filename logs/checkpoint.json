@@ -1,12 +1,12 @@
 {
     "active_epic":  "E009",
-    "repo_posture":  "bounded_E009_scope_masking_implementation",
+    "repo_posture":  "bounded_E009_scope_masking_hardening",
     "current_story_ids":  [
-                              "S1549"
+                              "S1553"
                           ],
     "next_actions":  [
-                         "Implement synthetic_positional_scope_masked_reference_selection_response.",
-                         "Run exactly one fixed three-seed packet against the bounded scope-masking symbolic control.",
+                         "Run the fixed token_permutation=cdab hardening packet for synthetic_positional_scope_masked_reference_selection_response.",
+                         "Keep only the witness and bounded scope-masking symbolic control in scope.",
                          "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
     "risks":  [
@@ -1469,7 +1469,11 @@
                                 "S1544",
                                 "S1545",
                                 "S1546",
-                                "S1548"
+                                "S1548",
+                                "S1549",
+                                "S1550",
+                                "S1551",
+                                "S1552"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",

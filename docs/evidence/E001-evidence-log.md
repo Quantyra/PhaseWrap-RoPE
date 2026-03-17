@@ -2104,9 +2104,8 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1294 2026-03-15: Passed the E005 shared-memory multi-query candidate to one bounded local implementation cycle only.
 
 - EL-1295 2026-03-15: Implemented synthetic_positional_shared_memory_multi_query_selection_response inside the frozen E005 scope while keeping one symbolic family across query positions and candidate counts 3/4/5.
-- EL-1296 2026-03-15: The fixed three-seed E005 first packet left the witness ahead of the bounded symbolic control on both mean mae and mean 
-ank_correlation.
-- EL-1297 2026-03-15: Advanced E005 only to the retained nuisance-hardening packet 	oken_permutation=cdab.
+- EL-1296 2026-03-15: The fixed three-seed E005 first packet left the witness ahead of the bounded symbolic control on both mean `mae` and mean `rank_correlation`.
+- EL-1297 2026-03-15: Advanced E005 only to the retained nuisance-hardening packet `token_permutation=cdab`.
 
 - EL-1298 2026-03-15: The retained nuisance-hardening packet 	oken_permutation=cdab for the E005 shared-memory multi-query line was strongly non-inert and let the bounded symbolic control beat the witness on both declared mean packet metrics.
 - EL-1299 2026-03-15: Stopped E005 immediately at retained nuisance hardening because the control cleared the declared two-metric stop gate.
@@ -2225,4 +2224,9 @@ ank_correlation.
 
 - EL-1374 2026-03-16: Wrote the bounded implementation plan for `synthetic_positional_scope_masked_reference_selection_response`.
 - EL-1375 2026-03-16: Passed E009 only to one bounded local implementation cycle.
+
+
+- EL-1376 2026-03-16: Implemented synthetic_positional_scope_masked_reference_selection_response inside the frozen E009 scope while keeping one symbolic family across candidate counts 4 and 5 with one active local scope and one stronger out-of-scope distractor per accepted example.
+- EL-1377 2026-03-16: The fixed three-seed E009 first packet left the witness ahead of the bounded symbolic control on both mean `mae` and mean `rank_correlation`.
+- EL-1378 2026-03-16: Advanced E009 only to the retained nuisance-hardening packet `token_permutation=cdab`.
 

@@ -5534,6 +5534,361 @@ def generate_positional_exception_conditioned_reference_selection_response_bundl
     return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
 
 
+def generate_positional_scope_masked_reference_selection_response_bundle(
+    seed: int,
+    split_rotation: int = 0,
+    slot_swap: int = 0,
+    token_permutation: str = "identity",
+    pair_reindex: int = 0,
+) -> SyntheticDatasetBundle:
+    rng = random.Random(f"synthetic_positional_scope_masked_reference_selection_response:{seed}")
+    base_bundle = generate_dual_sector_bundle(
+        seed=seed,
+        dataset_name="synthetic_symbolic_insufficiency_transition_response",
+        split_rotation=split_rotation,
+        slot_swap=slot_swap,
+        token_permutation=token_permutation,
+        pair_reindex=pair_reindex,
+        label_mode="symbolic_insufficiency_transition_response",
+    )
+    all_rows = [
+        DualSyntheticSample(
+            text=text,
+            label=label,
+            sector_a=offset_sector_name(parse_dual_sample_text(text)["sample_a"].offset),
+            sector_b=offset_sector_name(parse_dual_sample_text(text)["sample_b"].offset),
+            sample_a=parse_dual_sample_text(text)["sample_a"],
+            sample_b=parse_dual_sample_text(text)["sample_b"],
+        )
+        for split_rows in (base_bundle.train, base_bundle.validation, base_bundle.test)
+        for text, label in split_rows
+    ]
+    candidate_rows = list(all_rows)
+    rng.shuffle(candidate_rows)
+    candidate_rows = sorted(candidate_rows[:28], key=lambda row: row.text)
+
+    def mean_pos(sample: SyntheticSample) -> float:
+        return 0.5 * (sample.left_pos + sample.right_pos)
+
+    def gap_bucket(value: float) -> int:
+        distance = abs(value)
+        if distance < 1.0:
+            return 0
+        if distance < 2.0:
+            return 1
+        return 2
+
+    def content_bucket(sample_a: SyntheticSample, sample_b: SyntheticSample) -> int:
+        score = ordered_content_delta_score(sample_a, sample_b)
+        if score < -0.2:
+            return 0
+        if score > 0.2:
+            return 2
+        return 1
+
+    def query_target_rule(row: DualSyntheticSample) -> tuple[int, int, float, int]:
+        desired_gap = round(mean_pos(row.sample_b) - mean_pos(row.sample_a), 6)
+        return (
+            int(desired_gap >= 0.0),
+            gap_bucket(desired_gap),
+            round(desired_gap / 4.0, 6),
+            content_bucket(row.sample_a, row.sample_b),
+        )
+
+    def in_scope(gap: float) -> int:
+        return int(abs(gap) <= 1.6)
+
+    required = TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET + TEST_COUNT_PER_BUCKET
+    candidates_by_state: dict[tuple[int, int, int, int, int, int], list[dict[str, Any]]] = defaultdict(list)
+    for query_index, query_row in enumerate(candidate_rows):
+        anchor_pivot = mean_pos(query_row.sample_a)
+        query_side, query_bucket, desired_gap_norm, desired_content_class = query_target_rule(query_row)
+        query_sign = int(sector_sign_family(query_row.sector_a) == sector_sign_family(query_row.sector_b))
+        remaining_indices = [index for index in range(len(candidate_rows)) if index != query_index]
+        for combo in itertools.combinations(remaining_indices, 5):
+            raw_candidates: list[dict[str, Any]] = []
+            for candidate_index in combo:
+                candidate_row = candidate_rows[candidate_index]
+                candidate_gap = round(mean_pos(candidate_row.sample_a) - anchor_pivot, 6)
+                if abs(candidate_gap) < 0.4:
+                    raw_candidates = []
+                    break
+                candidate_side = int(candidate_gap >= 0.0)
+                candidate_bucket = gap_bucket(candidate_gap)
+                candidate_content_class = content_bucket(candidate_row.sample_a, candidate_row.sample_b)
+                scope_flag = in_scope(candidate_gap)
+                side_match = int(candidate_side == query_side)
+                bucket_match = int(candidate_bucket == query_bucket)
+                content_match = int(candidate_content_class == desired_content_class)
+                apparent_fit = round(
+                    1.4 * content_match
+                    + 1.0 * side_match
+                    + 0.8 * bucket_match
+                    - 0.2 * abs(round(candidate_gap / 4.0, 6) - desired_gap_norm),
+                    6,
+                )
+                raw_candidates.append(
+                    {
+                        "row": candidate_row,
+                        "gap": candidate_gap,
+                        "gap_norm": round(candidate_gap / 4.0, 6),
+                        "content_class": candidate_content_class,
+                        "scope_flag": scope_flag,
+                        "side_match": side_match,
+                        "bucket_match": bucket_match,
+                        "content_match": content_match,
+                        "apparent_fit": apparent_fit,
+                        "content_only": int(content_match == 1 and side_match == 0),
+                        "position_only": int(side_match == 1 and content_match == 0),
+                    }
+                )
+            if len(raw_candidates) != 5:
+                continue
+            in_scope_candidates = sorted(
+                [item for item in raw_candidates if item["scope_flag"] == 1 and item["content_match"] == 1 and item["side_match"] == 1],
+                key=lambda item: (item["apparent_fit"], abs(item["gap_norm"] - desired_gap_norm), item["row"].text),
+            )
+            content_only_candidates = sorted(
+                [item for item in raw_candidates if item["content_only"] == 1],
+                key=lambda item: (item["gap"], item["row"].text),
+            )
+            position_only_candidates = sorted(
+                [item for item in raw_candidates if item["position_only"] == 1],
+                key=lambda item: (item["gap"], item["row"].text),
+            )
+            neither_candidates = sorted(
+                [
+                    item
+                    for item in raw_candidates
+                    if item["content_only"] == 0
+                    and item["position_only"] == 0
+                    and not (item["scope_flag"] == 1 and item["content_match"] == 1 and item["side_match"] == 1)
+                ],
+                key=lambda item: (item["gap"], item["row"].text),
+            )
+            if not in_scope_candidates or not content_only_candidates or not position_only_candidates:
+                continue
+            chosen_target = None
+            stronger_out_of_scope = None
+            for target_candidate in in_scope_candidates:
+                out_of_scope = sorted(
+                    [
+                        item
+                        for item in raw_candidates
+                        if item["scope_flag"] == 0
+                        and item["content_match"] == 1
+                        and item["side_match"] == 1
+                        and item["apparent_fit"] > target_candidate["apparent_fit"] + 0.02
+                    ],
+                    key=lambda item: (-item["apparent_fit"], item["gap"], item["row"].text),
+                )
+                if out_of_scope:
+                    chosen_target = target_candidate
+                    stronger_out_of_scope = out_of_scope[0]
+                    break
+            if chosen_target is None or stronger_out_of_scope is None:
+                continue
+            base_distractors = [stronger_out_of_scope, content_only_candidates[0], position_only_candidates[0]]
+            supplemental = [
+                item
+                for item in in_scope_candidates[1:] + content_only_candidates[1:] + position_only_candidates[1:] + neither_candidates
+                if item not in base_distractors and item["row"].text != chosen_target["row"].text
+            ]
+            latent_q = symbolic_insufficiency_latent_ids(query_row.sample_a, query_row.sample_b)
+            query_phase = _symbolic_insufficiency_latent_phase(latent_q)
+            for candidate_count in (4, 5):
+                active_distractors = list(base_distractors)
+                needed = candidate_count - 1 - len(active_distractors)
+                if needed > len(supplemental):
+                    continue
+                active_distractors.extend(supplemental[:needed])
+                masked_source_index = next(
+                    index
+                    for index, item in enumerate(active_distractors)
+                    if item["scope_flag"] == 0 and item["content_match"] == 1 and item["side_match"] == 1
+                )
+                target_slot = (query_index + sum(combo) + desired_content_class) % candidate_count
+                masked_slot = (target_slot + 1 + query_bucket) % candidate_count
+                if masked_slot == target_slot:
+                    masked_slot = (masked_slot + 1) % candidate_count
+                ordered_distractors = list(active_distractors)
+                masked_item = ordered_distractors.pop(masked_source_index)
+                masked_insert = masked_slot if masked_slot <= len(ordered_distractors) else len(ordered_distractors)
+                ordered_distractors.insert(masked_insert, masked_item)
+                active_candidates = list(ordered_distractors)
+                insert_index = target_slot if target_slot <= len(active_candidates) else len(active_candidates)
+                active_candidates.insert(insert_index, chosen_target)
+                distractors_active = [item for index, item in enumerate(active_candidates) if index != insert_index]
+                masked_slots_active = [
+                    index
+                    for index, item in enumerate(active_candidates)
+                    if index != insert_index and item["scope_flag"] == 0 and item["content_match"] == 1 and item["side_match"] == 1
+                ]
+                if not masked_slots_active:
+                    continue
+                masked_slot_active = masked_slots_active[0]
+                out_scope_count = sum(1 for item in distractors_active if item["scope_flag"] == 0)
+                content_only_count = sum(item["content_only"] for item in distractors_active)
+                position_only_count = sum(item["position_only"] for item in distractors_active)
+                if out_scope_count < 1 or content_only_count < 1 or position_only_count < 1:
+                    continue
+                latent_candidates = [
+                    symbolic_insufficiency_latent_ids(item["row"].sample_a, item["row"].sample_b)
+                    for item in active_candidates
+                ]
+                phases = [_symbolic_insufficiency_latent_phase(latent) for latent in latent_candidates]
+                final_phase = phases[insert_index]
+                masked_phase = phases[masked_slot_active]
+                mean_distractor_phase = sum(phase for index, phase in enumerate(phases) if index != insert_index) / len(distractors_active)
+                final_gap_norm = float(active_candidates[insert_index]["gap_norm"])
+                masked_gap_norm = float(active_candidates[masked_slot_active]["gap_norm"])
+                final_row = active_candidates[insert_index]["row"]
+                masked_row = active_candidates[masked_slot_active]["row"]
+                query_step_content = ordered_content_delta_score(query_row.sample_a, query_row.sample_b)
+                final_step_content = ordered_content_delta_score(final_row.sample_a, final_row.sample_b)
+                masked_step_content = ordered_content_delta_score(masked_row.sample_a, masked_row.sample_b)
+                raw_target = (
+                    0.14 * float(query_row.label)
+                    + 0.18 * float(final_row.label)
+                    + 0.06 * math.sin(final_phase - query_phase)
+                    - 0.05 * math.sin(masked_phase - query_phase)
+                    + 0.08 * query_step_content * final_step_content
+                    - 0.07 * query_step_content * masked_step_content
+                    + 0.07 * desired_gap_norm * final_gap_norm
+                    - 0.05 * abs(final_gap_norm - masked_gap_norm)
+                    - 0.04 * abs(mean_distractor_phase - final_phase)
+                    - 0.05 * float(active_candidates[masked_slot_active]["scope_flag"] == 0)
+                    - 0.03 * float(candidate_count - 4)
+                )
+                state_key = (
+                    query_sign,
+                    query_bucket,
+                    desired_content_class,
+                    candidate_count,
+                    insert_index,
+                    masked_slot_active,
+                )
+                candidates_by_state[state_key].append(
+                    {
+                        "text": render_positional_scope_masked_reference_selection_text(
+                            query_row.sample_a,
+                            query_row.sample_b,
+                            [(item["row"].sample_a, item["row"].sample_b) for item in active_candidates],
+                        ),
+                        "raw_target": round(raw_target, 6),
+                        "latent_key": (*latent_q, *(value for latent in latent_candidates for value in latent)),
+                        "candidate_count": candidate_count,
+                        "out_scope_count": out_scope_count,
+                        "content_only_count": content_only_count,
+                        "position_only_count": position_only_count,
+                        "target_slot": insert_index,
+                        "masked_slot": masked_slot_active,
+                    }
+                )
+
+    train: list[tuple[str, float]] = []
+    validation: list[tuple[str, float]] = []
+    test: list[tuple[str, float]] = []
+    state_means: dict[str, float] = {}
+    latent_group_counts: dict[str, int] = {}
+    target_ranges: dict[str, float] = {}
+    token_counts = Counter()
+    bucket_counts: dict[str, int] = {}
+    candidate_counts: set[int] = set()
+    out_scope_counts: set[int] = set()
+    content_only_values: set[int] = set()
+    position_only_values: set[int] = set()
+    target_slots: set[int] = set()
+    masked_slots: set[int] = set()
+    for coarse_key, candidates in sorted(candidates_by_state.items()):
+        if len(candidates) < required:
+            continue
+        ordered = sorted(candidates, key=lambda item: (item["latent_key"], item["text"]))
+        selected: list[dict[str, Any]] = []
+        seen_latents: set[tuple[int, ...]] = set()
+        for item in ordered:
+            if item["latent_key"] not in seen_latents:
+                selected.append(item)
+                seen_latents.add(item["latent_key"])
+            if len(selected) == required:
+                break
+        if len(selected) < required:
+            for item in ordered:
+                if item not in selected:
+                    selected.append(item)
+                if len(selected) == required:
+                    break
+        if len({item["latent_key"] for item in selected}) < 2:
+            continue
+        mean_target = sum(float(item["raw_target"]) for item in selected) / len(selected)
+        centered = [(item["text"], round(float(item["raw_target"]) - mean_target, 6)) for item in selected]
+        train.extend(centered[:TRAIN_COUNT_PER_BUCKET])
+        validation.extend(centered[TRAIN_COUNT_PER_BUCKET : TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET])
+        test.extend(centered[TRAIN_COUNT_PER_BUCKET + VALIDATION_COUNT_PER_BUCKET : required])
+        state_key = "".join(str(part) for part in coarse_key)
+        state_means[state_key] = round(sum(label for _, label in centered) / len(centered), 6)
+        target_ranges[state_key] = round(max(label for _, label in centered) - min(label for _, label in centered), 6)
+        latent_group_counts[state_key] = len({item["latent_key"] for item in selected})
+        bucket_counts[state_key] = len(selected)
+        candidate_counts.update(item["candidate_count"] for item in selected)
+        out_scope_counts.update(item["out_scope_count"] for item in selected)
+        content_only_values.update(item["content_only_count"] for item in selected)
+        position_only_values.update(item["position_only_count"] for item in selected)
+        target_slots.update(item["target_slot"] for item in selected)
+        masked_slots.update(item["masked_slot"] for item in selected)
+        for text, _ in centered:
+            payload = parse_positional_scope_masked_reference_selection_text(text)
+            token_counts.update(
+                [
+                    payload["q"]["sample_a"].left_token,
+                    payload["q"]["sample_a"].right_token,
+                    payload["q"]["sample_b"].left_token,
+                    payload["q"]["sample_b"].right_token,
+                ]
+            )
+            for item in payload["candidates"]:
+                token_counts.update(
+                    [
+                        item["sample_a"].left_token,
+                        item["sample_a"].right_token,
+                        item["sample_b"].left_token,
+                        item["sample_b"].right_token,
+                    ]
+                )
+
+    diagnostics = {
+        "dataset": "synthetic_positional_scope_masked_reference_selection_response",
+        "coarse_scope_masking_state_null_pass": max((abs(value) for value in state_means.values()), default=1.0) <= 1e-6,
+        "within_scope_masking_state_variation_pass": all(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "in_scope_target_nontrivial_pass": len(target_slots) > 1,
+        "out_of_scope_distractor_nontrivial_pass": len(masked_slots) > 1,
+        "scope_only_null_pass": bool(out_scope_counts) and max(out_scope_counts) > 0,
+        "content_only_null_pass": bool(content_only_values) and min(content_only_values) >= 1,
+        "position_only_null_pass": bool(position_only_values) and min(position_only_values) >= 1,
+        "final_target_nontrivial_pass": any(value > 0.0 for value in target_ranges.values()) and bool(target_ranges),
+        "candidate_set_nontrivial_pass": candidate_counts == {4, 5},
+        "token_view_balance_pass": set(token_counts.keys()) == set(TOKENS),
+        "bounded_candidate_count_pass": candidate_counts == {4, 5},
+        "scope_noncollapse_pass": bool(content_only_values)
+        and bool(position_only_values)
+        and bool(out_scope_counts)
+        and min(content_only_values) >= 1
+        and min(position_only_values) >= 1
+        and min(out_scope_counts) >= 1,
+        "scope_masking_bucket_counts": bucket_counts,
+        "coarse_scope_masking_state_null_max_abs_mean": round(max((abs(value) for value in state_means.values()), default=0.0), 6),
+        "within_scope_masking_state_target_ranges": target_ranges,
+        "latent_scope_masking_group_counts": latent_group_counts,
+        "candidate_count_values": sorted(candidate_counts),
+        "out_scope_count_values": sorted(out_scope_counts),
+        "content_only_values": sorted(content_only_values),
+        "position_only_values": sorted(position_only_values),
+        "target_slot_values": sorted(target_slots),
+        "masked_slot_values": sorted(masked_slots),
+    }
+    return SyntheticDatasetBundle(train=train, validation=validation, test=test, diagnostics=diagnostics)
+
+
 def generate_positional_shared_memory_multi_query_selection_response_bundle(
     seed: int,
     split_rotation: int = 0,
@@ -11012,6 +11367,18 @@ def render_positional_exception_conditioned_reference_selection_text(
 
 
 def parse_positional_exception_conditioned_reference_selection_text(text: str) -> dict[str, Any]:
+    return parse_positional_variable_cardinality_offset_selection_text(text)
+
+
+def render_positional_scope_masked_reference_selection_text(
+    q_sample_a: SyntheticSample,
+    q_sample_b: SyntheticSample,
+    candidate_pairs: list[tuple[SyntheticSample, SyntheticSample]],
+) -> str:
+    return render_positional_variable_cardinality_offset_selection_text(q_sample_a, q_sample_b, candidate_pairs)
+
+
+def parse_positional_scope_masked_reference_selection_text(text: str) -> dict[str, Any]:
     return parse_positional_variable_cardinality_offset_selection_text(text)
 
 
