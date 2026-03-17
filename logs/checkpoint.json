@@ -1,13 +1,13 @@
 {
   "active_epic": "E008",
-  "repo_posture": "memo_only_E008_exception_arbitration_candidate_design",
+  "repo_posture": "memo_only_E008_exception_arbitration_gate_decision",
   "current_story_ids": [
-    "S1513"
+    "S1515"
   ],
   "next_actions": [
-    "Write the explicit memo-level gate for synthetic_positional_exception_conditioned_reference_selection_response.",
-    "Freeze the bounded exception-arbitration symbolic family and diagnostics in that gate.",
-    "Keep implementation and execution closed until that gate is accepted."
+    "Write the bounded implementation plan for synthetic_positional_exception_conditioned_reference_selection_response.",
+    "Freeze the writable scope and fixed packet shape in that plan.",
+    "Keep implementation and execution closed until that plan is accepted."
   ],
   "risks": [
     "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1437,7 +1437,8 @@
     "S1509",
     "S1510",
     "S1511",
-    "S1512"
+    "S1512",
+    "S1514"
   ],
   "archived_transfer_story_ids": [
     "S955",
