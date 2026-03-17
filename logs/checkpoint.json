@@ -2,10 +2,10 @@
     "active_epic":  "E010",
     "repo_posture":  "bounded_E010_nested_scope_shadow_structural_hardening",
     "current_story_ids":  [
-                              "S1588"
+                              "S1591"
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=1 structural hardening packet for synthetic_positional_nested_scope_shadow_selection_response.",
+                         "Run the fixed slot_swap=1 structural hardening packet for synthetic_positional_nested_scope_shadow_selection_response.",
                          "Keep only the witness and bounded nested-scope symbolic control in scope.",
                          "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
@@ -1508,7 +1508,10 @@
                                 "S1584",
                                 "S1585",
                                 "S1586",
-                                "S1587"
+                                "S1587",
+                                "S1588",
+                                "S1589",
+                                "S1590"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
