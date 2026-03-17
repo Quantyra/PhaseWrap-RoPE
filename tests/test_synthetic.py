@@ -59,6 +59,7 @@ from qrope.synthetic import (
     generate_positional_variable_cardinality_offset_selection_response_bundle,
     generate_positional_content_gated_offset_selection_response_bundle,
     generate_positional_content_alias_disambiguation_response_bundle,
+    generate_positional_reference_revision_selection_response_bundle,
     generate_positional_shared_memory_multi_query_selection_response_bundle,
     generate_positional_intermediate_pointer_selection_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
@@ -511,6 +512,22 @@ def test_positional_content_alias_disambiguation_bundle_enforces_declared_diagno
     assert diagnostics["bounded_candidate_count_pass"] is True
     assert diagnostics["alias_slot_rotation_pass"] is True
     assert diagnostics["joint_noncollapse_pass"] is True
+
+
+def test_positional_reference_revision_selection_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_positional_reference_revision_selection_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_positional_reference_revision_selection_response"
+    assert diagnostics["coarse_reference_revision_state_null_pass"] is True
+    assert diagnostics["within_reference_revision_state_variation_pass"] is True
+    assert diagnostics["stale_current_competition_nontrivial_pass"] is True
+    assert diagnostics["stale_only_null_pass"] is True
+    assert diagnostics["current_only_null_pass"] is True
+    assert diagnostics["revision_target_nontrivial_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["revision_noncollapse_pass"] is True
 
 
 def test_positional_shared_memory_multi_query_selection_bundle_enforces_declared_diagnostics() -> None:
