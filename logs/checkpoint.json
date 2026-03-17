@@ -1,11 +1,11 @@
 {
     "active_epic":  "E009",
-    "repo_posture":  "bounded_E009_scope_masking_hardening",
+    "repo_posture":  "bounded_E009_scope_masking_structural_hardening",
     "current_story_ids":  [
-                              "S1553"
+                              "S1556"
                           ],
     "next_actions":  [
-                         "Run the fixed token_permutation=cdab hardening packet for synthetic_positional_scope_masked_reference_selection_response.",
+                         "Run the fixed pair_reindex=1 structural hardening packet for synthetic_positional_scope_masked_reference_selection_response.",
                          "Keep only the witness and bounded scope-masking symbolic control in scope.",
                          "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
@@ -1473,7 +1473,10 @@
                                 "S1549",
                                 "S1550",
                                 "S1551",
-                                "S1552"
+                                "S1552",
+                                "S1553",
+                                "S1554",
+                                "S1555"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
