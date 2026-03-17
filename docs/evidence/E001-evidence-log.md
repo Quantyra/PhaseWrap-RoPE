@@ -2257,3 +2257,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1403 2026-03-17: Implemented `synthetic_positional_nested_scope_shadow_selection_response` inside the frozen E010 scope while keeping one symbolic family across candidate counts `4` and `5` with two locally eligible candidates in nested active scopes.
 - EL-1404 2026-03-17: The fixed three-seed E010 first packet left the witness ahead of the bounded symbolic control on both mean `mae` and mean `rank_correlation`.
 - EL-1405 2026-03-17: Advanced E010 only to the retained nuisance-hardening packet `token_permutation=cdab`.
+- EL-1406 2026-03-17: The fixed retained nuisance packet `token_permutation=cdab` for E010 was non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1407 2026-03-17: Advanced E010 only to the fixed first structural hardening packet `pair_reindex=1`.
+- EL-1408 2026-03-17: Recorded the E010 post-token-renaming decision and froze the next move as structural hardening only.
