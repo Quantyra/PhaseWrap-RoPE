@@ -2155,3 +2155,7 @@ ank_correlation.
 
 - EL-1330 2026-03-16: Wrote the bounded implementation plan for `synthetic_positional_reference_revision_selection_response`.
 - EL-1331 2026-03-16: Passed E007 only to one bounded local implementation cycle.
+
+- EL-1332 2026-03-16: Implemented `synthetic_positional_reference_revision_selection_response` inside the frozen E007 scope while keeping one symbolic family across candidate counts `4` and `5` and preserving active stale-versus-current competition.
+- EL-1333 2026-03-16: The fixed three-seed E007 first packet left the witness ahead of the bounded symbolic control on both mean `mae` and mean `rank_correlation`.
+- EL-1334 2026-03-16: Advanced E007 only to the retained nuisance-hardening packet `token_permutation=cdab`.
