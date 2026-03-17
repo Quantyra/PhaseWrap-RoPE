@@ -2,10 +2,10 @@
   "active_epic": "E007",
   "repo_posture": "bounded_E007_reference_revision_structural_hardening",
   "current_story_ids": [
-    "S1492"
+    "S1495"
   ],
   "next_actions": [
-    "Run the fixed pair_reindex=1 structural hardening packet for synthetic_positional_reference_revision_selection_response.",
+    "Run the fixed slot_swap=1 structural hardening packet for synthetic_positional_reference_revision_selection_response.",
     "Keep only the witness and bounded stale/current symbolic control in scope.",
     "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
   ],
@@ -1419,7 +1419,9 @@
     "S1487",
     "S1488",
     "S1490",
-    "S1491"
+    "S1491",
+    "S1493",
+    "S1494"
   ],
   "archived_transfer_story_ids": [
     "S955",
