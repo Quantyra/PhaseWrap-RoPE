@@ -1,13 +1,13 @@
 {
-    "active_epic":  "E009",
-    "repo_posture":  "low_intensity_no_execution",
+    "active_epic":  "E010",
+    "repo_posture":  "memo_only_E010_nested_scope_shadow_candidate_design",
     "current_story_ids":  [
 
                           ],
     "next_actions":  [
-                         "Use the current operating memo and handoff index as the entry point for internal work.",
-                         "Keep default execution closed.",
-                         "Reopen only with a materially different missing-question candidate and explicit approval."
+                         "Write the explicit memo-level gate for synthetic_positional_nested_scope_shadow_selection_response.",
+                         "Freeze the bounded nested-scope symbolic family and diagnostics in that gate.",
+                         "Keep implementation and execution closed until that gate is accepted."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1495,7 +1495,10 @@
                                 "S1571",
                                 "S1572",
                                 "S1573",
-                                "S1574"
+                                "S1574",
+                                "S1575",
+                                "S1576",
+                                "S1577"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
