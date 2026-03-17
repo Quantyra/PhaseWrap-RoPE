@@ -2213,3 +2213,8 @@ ank_correlation.
 - EL-1367 2026-03-16: Refreshed the final internal review decision and review cycle closure after preserving the E008 exception-arbitration survivor.
 
 - EL-1368 2026-03-16: Refreshed the one-page current state operating memo after the E008 review closure.
+
+- EL-1369 2026-03-16: Opened `E009 - Bounded scope-conditioned reference masking` as the next stretch-effort epic after preserving the E008 exception-arbitration survivor.
+- EL-1370 2026-03-16: Defined the next missing question as bounded local-scope reference eligibility rather than another revision or exception variant.
+- EL-1371 2026-03-16: Opened `synthetic_positional_scope_masked_reference_selection_response` as a memo-only E009 candidate with a gate sketch only.
+
