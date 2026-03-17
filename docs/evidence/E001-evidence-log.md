@@ -2165,3 +2165,6 @@ ank_correlation.
 
 - EL-1337 2026-03-16: The fixed structural packet `pair_reindex=1` for E007 was non-inert and still left the witness ahead on both declared mean packet metrics.
 - EL-1338 2026-03-16: Advanced E007 only to the fixed structural hardening packet `slot_swap=1`.
+
+- EL-1339 2026-03-16: The fixed structural packet `slot_swap=1` for E007 was non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1340 2026-03-16: Advanced E007 only to the closure packet `pair_reindex=7`.
