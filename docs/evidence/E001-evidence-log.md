@@ -2236,3 +2236,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1382 2026-03-17: The fixed first structural packet `pair_reindex=1` for E009 was non-inert and still left the witness ahead on both declared mean packet metrics.
 - EL-1383 2026-03-17: Advanced E009 only to the fixed second structural hardening packet `slot_swap=1`.
 - EL-1384 2026-03-17: Recorded the E009 post-pair-reindex decision and froze the next move as structural hardening only.
+- EL-1385 2026-03-17: The fixed second structural packet `slot_swap=1` for E009 was non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1386 2026-03-17: Advanced E009 only to the closure packet `pair_reindex=7`.
+- EL-1387 2026-03-17: Recorded the E009 post-slot-swap decision and froze the next move as closure only.
