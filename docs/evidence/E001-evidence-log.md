@@ -2239,3 +2239,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1385 2026-03-17: The fixed second structural packet `slot_swap=1` for E009 was non-inert and still left the witness ahead on both declared mean packet metrics.
 - EL-1386 2026-03-17: Advanced E009 only to the closure packet `pair_reindex=7`.
 - EL-1387 2026-03-17: Recorded the E009 post-slot-swap decision and froze the next move as closure only.
+- EL-1388 2026-03-17: The closure packet `pair_reindex=7` for E009 was non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1389 2026-03-17: The E009 scope-masking line survived the full bounded hardening cycle and returned to memo-only preserved state.
+- EL-1390 2026-03-17: Preserved `synthetic_positional_scope_masked_reference_selection_response` as sufficient bounded E009 evidence and refreshed the internal package.

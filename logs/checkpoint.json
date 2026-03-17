@@ -1,13 +1,13 @@
 {
     "active_epic":  "E009",
-    "repo_posture":  "bounded_E009_scope_masking_structural_hardening",
+    "repo_posture":  "memo_only_E009_scope_masking_preserved",
     "current_story_ids":  [
-                              "S1562"
+
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=7 closure packet for synthetic_positional_scope_masked_reference_selection_response.",
-                         "Keep only the witness and bounded scope-masking symbolic control in scope.",
-                         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
+                         "Use the refreshed package for internal review and reference.",
+                         "Keep default execution closed.",
+                         "Reopen only with a materially different missing-question candidate and explicit approval."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1482,7 +1482,12 @@
                                 "S1558",
                                 "S1559",
                                 "S1560",
-                                "S1561"
+                                "S1561",
+                                "S1562",
+                                "S1563",
+                                "S1564",
+                                "S1565",
+                                "S1566"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
