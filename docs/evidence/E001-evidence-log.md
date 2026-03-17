@@ -2230,3 +2230,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1377 2026-03-16: The fixed three-seed E009 first packet left the witness ahead of the bounded symbolic control on both mean `mae` and mean `rank_correlation`.
 - EL-1378 2026-03-16: Advanced E009 only to the retained nuisance-hardening packet `token_permutation=cdab`.
 
+- EL-1379 2026-03-16: The fixed retained nuisance packet `token_permutation=cdab` for E009 was non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1380 2026-03-16: Advanced E009 only to the fixed first structural hardening packet `pair_reindex=1`.
+- EL-1381 2026-03-16: Recorded the E009 post-token-renaming decision and froze the next move as structural hardening only.
