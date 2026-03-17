@@ -2159,3 +2159,6 @@ ank_correlation.
 - EL-1332 2026-03-16: Implemented `synthetic_positional_reference_revision_selection_response` inside the frozen E007 scope while keeping one symbolic family across candidate counts `4` and `5` and preserving active stale-versus-current competition.
 - EL-1333 2026-03-16: The fixed three-seed E007 first packet left the witness ahead of the bounded symbolic control on both mean `mae` and mean `rank_correlation`.
 - EL-1334 2026-03-16: Advanced E007 only to the retained nuisance-hardening packet `token_permutation=cdab`.
+
+- EL-1335 2026-03-16: The retained nuisance-hardening packet `token_permutation=cdab` for E007 was strongly non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1336 2026-03-16: Advanced E007 only to the fixed structural hardening packet `pair_reindex=1`.
