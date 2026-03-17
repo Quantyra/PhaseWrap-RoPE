@@ -1,13 +1,13 @@
 {
-  "active_epic": "E007",
-  "repo_posture": "low_intensity_no_execution",
+  "active_epic": "E008",
+  "repo_posture": "memo_only_E008_exception_arbitration_candidate_design",
   "current_story_ids": [
-    "S1510"
+    "S1513"
   ],
   "next_actions": [
-    "Use the current operating memo and handoff index as the entry point for internal work.",
-    "Keep default execution closed.",
-    "Reopen only with a materially different missing-question candidate and explicit approval."
+    "Write the explicit memo-level gate for synthetic_positional_exception_conditioned_reference_selection_response.",
+    "Freeze the bounded exception-arbitration symbolic family and diagnostics in that gate.",
+    "Keep implementation and execution closed until that gate is accepted."
   ],
   "risks": [
     "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1435,7 +1435,9 @@
     "S1507",
     "S1508",
     "S1509",
-    "S1510"
+    "S1510",
+    "S1511",
+    "S1512"
   ],
   "archived_transfer_story_ids": [
     "S955",

@@ -2178,3 +2178,7 @@ ank_correlation.
 - EL-1345 2026-03-16: Refreshed the final internal review decision and review cycle closure after preserving the E007 reference-revision survivor.
 
 - EL-1346 2026-03-16: Refreshed the one-page current state operating memo after the E007 review closure.
+
+- EL-1347 2026-03-16: Opened `E008 - Bounded exception-conditioned reference arbitration` as the next stretch-effort epic after preserving the E007 reference-revision survivor.
+- EL-1348 2026-03-16: Defined the next missing question as bounded exception-conditioned rule arbitration over candidate validity rather than another direct reference or revision variant.
+- EL-1349 2026-03-16: Opened `synthetic_positional_exception_conditioned_reference_selection_response` as a memo-only E008 candidate with a gate sketch only.
