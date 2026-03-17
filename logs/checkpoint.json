@@ -1,13 +1,13 @@
 {
     "active_epic":  "E010",
-    "repo_posture":  "bounded_E010_nested_scope_shadow_structural_hardening",
+    "repo_posture":  "memo_only_E010_nested_scope_shadow_preserved",
     "current_story_ids":  [
-                              "S1594"
+                              "S1598"
                           ],
     "next_actions":  [
-                         "Run the fixed pair_reindex=7 closure packet for synthetic_positional_nested_scope_shadow_selection_response.",
-                         "Keep only the witness and bounded nested-scope symbolic control in scope.",
-                         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
+                         "Use the refreshed package for internal review and reference.",
+                         "Keep default execution closed.",
+                         "Reopen only with a materially different missing-question candidate and explicit approval."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1514,7 +1514,11 @@
                                 "S1590",
                                 "S1591",
                                 "S1592",
-                                "S1593"
+                                "S1593",
+                                "S1594",
+                                "S1595",
+                                "S1596",
+                                "S1597"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
