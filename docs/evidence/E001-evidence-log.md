@@ -2149,3 +2149,6 @@ ank_correlation.
 - EL-1325 2026-03-16: Opened `E007 - Bounded reference revision disambiguation` as the next stretch-effort epic in the Q-RoPE research program.
 - EL-1326 2026-03-16: Defined the next missing question as bounded stale-versus-current reference revision disambiguation rather than another static reference variant.
 - EL-1327 2026-03-16: Opened `synthetic_positional_reference_revision_selection_response` as a memo-only E007 candidate with a gate sketch only.
+
+- EL-1328 2026-03-16: Wrote the explicit memo-level gate for `synthetic_positional_reference_revision_selection_response`.
+- EL-1329 2026-03-16: Passed E007 only to bounded implementation planning review and kept code and execution closed.
