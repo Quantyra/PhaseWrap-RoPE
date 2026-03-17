@@ -5,9 +5,9 @@
 
                           ],
     "next_actions":  [
-                         "Use the refreshed package for internal reference and decision support.",
+                         "Use the current operating memo and handoff index as the entry point for internal work.",
                          "Keep default execution closed.",
-                         "Reopen only with a materially different missing-question candidate and explicit approval."
+                         "Reopen only if a materially different missing-question candidate is chosen explicitly."
                      ],
     "risks":  [
                   "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1463,7 +1463,8 @@
                                 "S1538",
                                 "S1539",
                                 "S1540",
-                                "S1541"
+                                "S1541",
+                                "S1542"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
