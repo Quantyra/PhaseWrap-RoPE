@@ -1,13 +1,13 @@
 {
   "active_epic": "E007",
-  "repo_posture": "bounded_E007_reference_revision_structural_hardening",
+  "repo_posture": "memo_only_E007_reference_revision_preserved",
   "current_story_ids": [
-    "S1498"
+    "S1502"
   ],
   "next_actions": [
-    "Run the fixed pair_reindex=7 closure packet for synthetic_positional_reference_revision_selection_response.",
-    "Keep only the witness and bounded stale/current symbolic control in scope.",
-    "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
+    "Use the refreshed package for internal review and reference.",
+    "Keep default execution closed.",
+    "Reopen only with a materially different missing-question candidate and explicit approval."
   ],
   "risks": [
     "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1423,7 +1423,11 @@
     "S1493",
     "S1494",
     "S1496",
-    "S1497"
+    "S1497",
+    "S1499",
+    "S1500",
+    "S1501",
+    "S1502"
   ],
   "archived_transfer_story_ids": [
     "S955",

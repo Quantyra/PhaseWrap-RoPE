@@ -2168,3 +2168,7 @@ ank_correlation.
 
 - EL-1339 2026-03-16: The fixed structural packet `slot_swap=1` for E007 was non-inert and still left the witness ahead on both declared mean packet metrics.
 - EL-1340 2026-03-16: Advanced E007 only to the closure packet `pair_reindex=7`.
+
+- EL-1341 2026-03-16: The closure packet `pair_reindex=7` for E007 was non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1342 2026-03-16: The E007 reference-revision line survived the full bounded hardening cycle and returned to memo-only preserved state.
+- EL-1343 2026-03-16: Preserved `synthetic_positional_reference_revision_selection_response` as sufficient bounded E007 evidence and refreshed the internal package.
