@@ -2,10 +2,10 @@
     "active_epic": "E011",
     "repo_posture": "bounded_E011_clause_intersection_structural_hardening",
     "current_story_ids": [
-        "S1623"
+        "S1626"
     ],
     "next_actions": [
-        "Run the fixed slot_swap=1 structural hardening packet for synthetic_positional_clause_intersection_reference_selection_response.",
+        "Run the fixed pair_reindex=7 closure packet for synthetic_positional_clause_intersection_reference_selection_response.",
         "Keep only the witness and bounded clause-intersection symbolic control in scope.",
         "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
     ],
@@ -1543,7 +1543,10 @@
         "S1619",
         "S1620",
         "S1621",
-        "S1622"
+        "S1622",
+        "S1623",
+        "S1624",
+        "S1625"
     ],
     "archived_transfer_story_ids": [
         "S955",
