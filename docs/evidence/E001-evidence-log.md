@@ -2289,3 +2289,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1435 2026-03-19: The fixed retained nuisance packet `token_permutation=cdab` for E011 was non-inert and still left the witness ahead on both declared mean packet metrics.
 - EL-1436 2026-03-19: Advanced E011 only to the fixed first structural hardening packet `pair_reindex=1`.
 - EL-1437 2026-03-19: Recorded the E011 post-token-renaming decision and froze the next move as structural hardening only.
+- EL-1438 2026-03-19: The fixed first structural packet `pair_reindex=1` for E011 was non-inert and still left the witness ahead on both declared mean packet metrics.
+- EL-1439 2026-03-19: Advanced E011 only to the fixed second structural hardening packet `slot_swap=1`.
+- EL-1440 2026-03-19: Recorded the E011 post-pair-reindex decision and froze the next move as structural hardening only.
