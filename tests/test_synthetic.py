@@ -63,6 +63,7 @@ from qrope.synthetic import (
     generate_positional_exception_conditioned_reference_selection_response_bundle,
     generate_positional_scope_masked_reference_selection_response_bundle,
     generate_positional_nested_scope_shadow_selection_response_bundle,
+    generate_positional_clause_intersection_reference_selection_response_bundle,
     generate_positional_shared_memory_multi_query_selection_response_bundle,
     generate_positional_intermediate_pointer_selection_response_bundle,
     generate_symbolic_insufficiency_braid_crossing_response_bundle,
@@ -584,6 +585,22 @@ def test_positional_nested_scope_shadow_selection_bundle_enforces_declared_diagn
     assert diagnostics["token_view_balance_pass"] is True
     assert diagnostics["bounded_candidate_count_pass"] is True
     assert diagnostics["nested_scope_noncollapse_pass"] is True
+
+
+def test_positional_clause_intersection_reference_selection_bundle_enforces_declared_diagnostics() -> None:
+    bundle = generate_positional_clause_intersection_reference_selection_response_bundle(seed=42)
+    diagnostics = bundle.diagnostics
+    assert diagnostics["dataset"] == "synthetic_positional_clause_intersection_reference_selection_response"
+    assert diagnostics["coarse_clause_intersection_state_null_pass"] is True
+    assert diagnostics["within_clause_intersection_state_variation_pass"] is True
+    assert diagnostics["clause_one_only_null_pass"] is True
+    assert diagnostics["clause_two_only_null_pass"] is True
+    assert diagnostics["joint_intersection_nontrivial_pass"] is True
+    assert diagnostics["candidate_set_nontrivial_pass"] is True
+    assert diagnostics["bounded_candidate_count_pass"] is True
+    assert diagnostics["clause_intersection_noncollapse_pass"] is True
+    assert diagnostics["token_view_balance_pass"] is True
+    assert diagnostics["final_target_nontrivial_pass"] is True
 
 
 def test_positional_shared_memory_multi_query_selection_bundle_enforces_declared_diagnostics() -> None:

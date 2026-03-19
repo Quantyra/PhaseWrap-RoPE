@@ -2282,3 +2282,7 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1428 2026-03-19: Passed E011 only to bounded implementation planning review and kept code and execution closed.
 - EL-1429 2026-03-19: Wrote the bounded implementation plan for `synthetic_positional_clause_intersection_reference_selection_response`.
 - EL-1430 2026-03-19: Passed E011 only to one bounded local implementation cycle.
+- EL-1431 2026-03-19: Implemented `synthetic_positional_clause_intersection_reference_selection_response` inside the frozen E011 scope.
+- EL-1432 2026-03-19: The fixed three-seed E011 first packet was mixed: the control kept mean `mae` while the witness kept mean `rank_correlation`.
+- EL-1433 2026-03-19: Advanced E011 only to the retained nuisance-hardening packet `token_permutation=cdab`.
+- EL-1434 2026-03-19: Passed focused E011 validation and repo-standard validation before recording the first packet.
