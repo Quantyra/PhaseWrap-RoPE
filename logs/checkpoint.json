@@ -1,12 +1,12 @@
 {
     "active_epic":  "E011",
-    "repo_posture":  "bounded_E011_clause_intersection_implementation",
+    "repo_posture":  "bounded_E011_clause_intersection_hardening",
     "current_story_ids":  [
-                              "S1613"
+                              "S1617"
                           ],
     "next_actions":  [
-                         "Implement synthetic_positional_clause_intersection_reference_selection_response.",
-                         "Run exactly one fixed three-seed packet against the bounded clause-intersection symbolic control.",
+                         "Run the fixed token_permutation=cdab hardening packet for synthetic_positional_clause_intersection_reference_selection_response.",
+                         "Keep only the witness and bounded clause-intersection symbolic control in scope.",
                          "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
                      ],
     "risks":  [
@@ -1533,7 +1533,11 @@
                                 "S1609",
                                 "S1610",
                                 "S1611",
-                                "S1612"
+                                "S1612",
+                                "S1613",
+                                "S1614",
+                                "S1615",
+                                "S1616"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
