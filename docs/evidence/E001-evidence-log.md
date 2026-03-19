@@ -2275,3 +2275,6 @@ elay-binding, cascade-reconciliation) and archived negative boundaries (raid, s
 - EL-1421 2026-03-18: Recorded the post-E010 internal review decision and kept the program at low intensity with no default execution.
 - EL-1422 2026-03-18: Closed the E010 review cycle and returned the repo to `low_intensity_no_execution` posture.
 - EL-1423 2026-03-18: Refreshed the one-page current state operating memo after the E010 review closure.
+- EL-1424 2026-03-18: Opened `E011 - Bounded clause-intersection reference selection` as the next memo-only stretch-effort epic after preserving E010.
+- EL-1425 2026-03-18: Defined the next missing question as bounded conjunctive clause intersection rather than another scope, exception, or revision family.
+- EL-1426 2026-03-18: Opened `synthetic_positional_clause_intersection_reference_selection_response` as a memo-only E011 candidate with a gate sketch only.
