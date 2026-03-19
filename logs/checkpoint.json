@@ -1,13 +1,13 @@
 {
     "active_epic": "E011",
-    "repo_posture": "bounded_E011_clause_intersection_structural_hardening",
+    "repo_posture": "memo_only_E011_clause_intersection_preserved",
     "current_story_ids": [
-        "S1626"
+        "S1630"
     ],
     "next_actions": [
-        "Run the fixed pair_reindex=7 closure packet for synthetic_positional_clause_intersection_reference_selection_response.",
-        "Keep only the witness and bounded clause-intersection symbolic control in scope.",
-        "Stop immediately if the control matches or beats the witness on both mean mae and mean rank_correlation."
+        "Use the refreshed package for internal review and reference.",
+        "Keep default execution closed.",
+        "Reopen only with a materially different missing-question candidate and explicit approval."
     ],
     "risks": [
         "The realism-bridge improvement could be over-read as a NISQ solution if review discipline slips.",
@@ -1546,7 +1546,11 @@
         "S1622",
         "S1623",
         "S1624",
-        "S1625"
+        "S1625",
+        "S1626",
+        "S1627",
+        "S1628",
+        "S1629"
     ],
     "archived_transfer_story_ids": [
         "S955",
