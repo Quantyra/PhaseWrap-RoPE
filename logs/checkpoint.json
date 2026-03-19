@@ -1,11 +1,11 @@
 {
     "active_epic":  "E010",
-    "repo_posture":  "review_ready_internal_result_package",
+    "repo_posture":  "low_intensity_no_execution",
     "current_story_ids":  [
-                              "S1603"
+
                           ],
     "next_actions":  [
-                         "Use the refreshed review packet for internal review and decision logging.",
+                         "Use the current package for internal reference and decision support.",
                          "Keep default execution closed.",
                          "Reopen only with a materially different missing-question candidate and explicit approval."
                      ],
@@ -1523,7 +1523,10 @@
                                 "S1599",
                                 "S1600",
                                 "S1601",
-                                "S1602"
+                                "S1602",
+                                "S1603",
+                                "S1604",
+                                "S1605"
                             ],
     "archived_transfer_story_ids":  [
                                         "S955",
