@@ -105,7 +105,13 @@ Expected verifier summary:
 
 ## CI and test coverage
 
-GitHub Actions runs `pytest --cov=qrope --cov-report=term-missing --cov-report=xml` on Python `3.11` and `3.12`. Coverage XML is uploaded as a workflow artifact.
+GitHub Actions runs the public-review Stage 4/verifier test subset on Python `3.11` and `3.12`:
+
+```bash
+pytest tests/test_automated_stage_gates.py -k "not quandela" --cov=qrope --cov-report=term-missing --cov-report=xml
+```
+
+Coverage XML is uploaded as a workflow artifact. The broader local test suite remains useful, but it includes optional provider-specific paths that should not be treated as the public-review badge gate until those optional dependencies are standardized.
 
 ## Publication use
 
