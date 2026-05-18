@@ -17,7 +17,7 @@ Objective: address the gaps discovered in the paper audit.
 | Repetitive boundary language. | Claim boundary is consolidated in Related work and claim boundary; Limitations section is shorter. | Addressed. |
 | Repository memo style. | Reproducibility section now names verifier entry point, default inputs, and default output. | Addressed. |
 | Hallucinated citation risk. | References use primary arXiv pages and IBM Quantum documentation URLs with access date. | Addressed. |
-| External review flagged provisional-number/date credibility. | `docs/publication/patent-status-note-v1.md`, `PATENTS.md`, `README.md`, and paper now use conservative acknowledgement-receipt wording and note final Filing Receipt pending. | Addressed. |
+| External review flagged provisional-number/date credibility. | `docs/publication/patent-status-note-v1.md`, `PATENTS.md`, `README.md`, and paper now use plain patent-pending wording and the application number. | Addressed. |
 | External review flagged product-state witness overclaim. | Paper and README now state the Stage 4 circuit is a product-state angle-encoding/readout witness with no entangling gate. | Addressed. |
 | External review flagged recomputation vs replication. | Paper now distinguishes saved-count recomputation from independent replication. | Addressed. |
 

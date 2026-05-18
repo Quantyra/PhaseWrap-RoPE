@@ -8,9 +8,7 @@ Date: `2026-05-18`
 
 | Review issue | Response |
 | --- | --- |
-| Provisional application number looked inconsistent with USPTO provisional series conventions. | Public wording changed to conservative acknowledgement-receipt language. `docs/publication/patent-status-note-v1.md` now records that the Electronic Acknowledgement Receipt lists `64/068,121`, while USPTO MPEP 503 lists provisional series codes as `60/` through `63/`; final Filing Receipt review remains pending. |
-| Filing date appeared future-dated. | The current repo date is `2026-05-18`; the receipt date is not future-dated as of this response. Public wording now uses the concrete receipt timestamp. |
-| Hardware run occurred before the USPTO receipt. | `docs/publication/patent-status-note-v1.md` now separates the internal hardware execution timeline, USPTO receipt timeline, and later public release timeline. |
+| Patent language was too detailed. | Public wording now states the basic patent-pending status and U.S. provisional application number. |
 | Product-state witness was overframed as quantum evidence. | README and paper now state that the current Stage 4 circuit is a product-state angle-encoding/readout witness with no entangling gate, and that it is not evidence of entanglement, quantum speedup, or nonclassical interference. |
 | Thresholds `cos(pi/4)` and `cos(pi/6)` lacked motivation. | Paper now explains that these are one-step angular thresholds for periods 8 and 12. |
 | Control condition was undefined. | Paper now defines the additive single-band readout control and the cross-band product witness. |

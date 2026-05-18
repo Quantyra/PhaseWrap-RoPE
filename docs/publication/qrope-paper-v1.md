@@ -2,9 +2,9 @@
 
 Manuscript status: `repository-paper-v1`
 
-Publication posture: `USPTO-receipted provisional submission, bounded, reproducible, evidence-disciplined`
+Publication posture: `patent-pending, bounded, reproducible, evidence-disciplined`
 
-USPTO submission record: Electronic Acknowledgement Receipt dated `2026-05-18` lists application `64/068,121`; final Filing Receipt pending.
+Patent: U.S. provisional patent application `64/068,121`.
 
 License context: repository software released under `AGPL-3.0-only`
 
@@ -24,7 +24,7 @@ Transformer positional-encoding methods provide sequence-order information to at
 
 QRoPE explores a narrower research question. It asks whether a phase-wrap positional scoring component can be specified, frozen, and validated through deterministic software artifacts and a small-circuit hardware witness. It does not claim to replace RoPE in production transformers and does not report transformer-scale training.
 
-This paper documents the first public QRoPE release under Quantyra. The repository is open source under `AGPL-3.0-only` and references the USPTO submission record summarized in `PATENTS.md` and `docs/publication/patent-status-note-v1.md`. The release is designed to permit external review while preserving the claim boundary established by the manuscript-to-provisional support audit.
+This paper documents the first public QRoPE release under Quantyra. The repository is open source under `AGPL-3.0-only` and references the patent and licensing notice in `PATENTS.md`. The release is designed to permit external review while preserving the claim boundary established by the manuscript-to-provisional support audit.
 
 The contribution is threefold:
 
@@ -51,7 +51,7 @@ The excluded claims are:
 - general cross-backend robustness;
 - commercial performance improvement in deployed language models.
 
-This boundary follows the manuscript-to-provisional support audit and the conservative patent-status note for the USPTO acknowledgement receipt.
+This boundary follows the manuscript-to-provisional support audit and the repository patent notice.
 
 ## 3. Method
 
@@ -238,11 +238,9 @@ The intended reproducibility standard is not that every future backend execution
 
 ## 7. Patent and open-source notice
 
-QRoPE is associated with a USPTO provisional submission received `2026-05-18`. The Electronic Acknowledgement Receipt lists application `64/068,121`; final Filing Receipt review is pending.
+QRoPE is patent pending under U.S. provisional patent application `64/068,121`.
 
-USPTO MPEP 503 currently lists provisional application series codes as `60/` through `63/` [6]. Because the acknowledgement receipt lists `64/068,121`, public materials should describe that number as the acknowledgement-receipt application number until the final Filing Receipt is received and checked.
-
-The repository software is released under `AGPL-3.0-only`. The patent/IP-status notice does not convert the repository into a broad patent grant beyond the applicable open-source license and contributor grants for covered software. Commercial patent licensing, non-AGPL use, assignments, and sublicensing should be handled separately with Quantyra/CYINT IP.
+Copyright 2026 Quantyra contributors. The repository software is released under `AGPL-3.0-only`. Commercial patent licensing, non-AGPL use, assignments, and sublicensing should be handled separately with Quantyra/CYINT IP.
 
 ## 8. Limitations
 
@@ -272,6 +270,7 @@ QRoPE provides an open-source research lane for phase-wrap positional scoring an
 - `docs/research/q-rope-stage4-real-hardware-validation-result-v1.md`
 - `docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md`
 - `docs/publication/manuscript-to-provisional-support-audit-v1.md`
+- `docs/publication/patent-status-note-v1.md`
 - `docs/publication/figures/qrope-method-schematic-v1.svg`
 - `docs/publication/figures/qrope-validation-pipeline-v1.svg`
 - `docs/publication/figures/qrope-stage4-metrics-v1.svg`
@@ -292,5 +291,3 @@ QRoPE provides an open-source research lane for phase-wrap positional scoring an
 [4] IBM Quantum Documentation. "SamplerV2." Accessed 2026-05-18. https://quantum.cloud.ibm.com/docs/en/api/qiskit-ibm-runtime/0.25/sampler-v2
 
 [5] IBM Quantum Documentation. "View backend details." Accessed 2026-05-18. https://quantum.cloud.ibm.com/docs/en/guides/qpu-information
-
-[6] USPTO Manual of Patent Examining Procedure. "503 Application Number and Filing Receipt." Accessed 2026-05-18. https://www.uspto.gov/web/offices/pac/mpep/s503.html

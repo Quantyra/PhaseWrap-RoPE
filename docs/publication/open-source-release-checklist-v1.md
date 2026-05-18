@@ -6,7 +6,7 @@ Target repository: `https://github.com/Quantyra/QRoPE`
 
 License: `AGPL-3.0-only`
 
-Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Acknowledgement Receipt lists application `64/068,121`; final Filing Receipt pending.
+Patent notice: patent pending; U.S. provisional patent application `64/068,121`.
 
 ## Required local artifacts
 
@@ -15,9 +15,9 @@ Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Ac
 | `README.md` | Prepared | Public-facing Quantyra/QRoPE positioning with claim boundary. |
 | `LICENSE` | Prepared | GNU AGPL v3 text. |
 | `NOTICE` | Prepared | Short public ownership and patent/IP-status notice. |
-| `PATENTS.md` | Prepared | USPTO acknowledgement-receipt notice and license boundary. |
+| `PATENTS.md` | Prepared | Patent-pending notice and license boundary. |
 | `CITATION.cff` | Prepared | Repository citation metadata. |
-| `docs/publication/patent-status-note-v1.md` | Prepared | Conservative acknowledgement-receipt status note and timeline. |
+| `docs/publication/patent-status-note-v1.md` | Prepared | Plain patent-pending status note. |
 | `docs/publication/qrope-paper-v1.md` | Prepared | Standalone bounded repository-paper draft. |
 | `docs/publication/references.bib` | Prepared | Formal references for Transformer, RoPE, IBM Runtime primitives, SamplerV2, and backend metadata. |
 | `docs/publication/paper-gap-remediation-audit-v1.md` | Prepared | Checklist showing paper audit gaps remediated locally. |
@@ -44,7 +44,7 @@ Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Ac
 
 Proceed if all statements remain inside this boundary:
 
-- USPTO-receipted QRoPE submission status with final Filing Receipt pending;
+- patent-pending QRoPE status and application number;
 - phase-wrap mod-8/mod-12 scoring;
 - deterministic validation packets;
 - raw-count and metadata-backed hardware evidence;

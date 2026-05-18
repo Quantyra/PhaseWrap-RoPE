@@ -8,8 +8,9 @@ This repository is intended for open scientific review of the QRoPE method, vali
 
 ## Status
 
-- `Patent/IP posture`: USPTO provisional submission received `2026-05-18`; the Electronic Acknowledgement Receipt lists application `64/068,121`; final Filing Receipt pending. Additional receipt identifiers are retained in CYINT IP records. See [Patent status note](docs/publication/patent-status-note-v1.md).
+- `Copyright`: Copyright 2026 Quantyra contributors.
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
+- `Patent`: Patent pending; U.S. provisional patent application `64/068,121`. See [Patent notice](PATENTS.md).
 - `Publication posture`: bounded, reproducible, evidence-disciplined.
 - `Current evidence posture`: Stage 4 real-noisy-hardware positive result for one frozen packet/backend/date/calibration context; replication lanes are tracked but not yet completed.
 
@@ -36,7 +37,6 @@ The public claim frame excludes:
 
 - [Manuscript-to-provisional support audit](docs/publication/manuscript-to-provisional-support-audit-v1.md)
 - [Repository paper v1](docs/publication/qrope-paper-v1.md)
-- [Patent status note](docs/publication/patent-status-note-v1.md)
 - [External review response](docs/publication/external-review-response-v1.md)
 - [Replication plan](docs/publication/replication-plan-v1.md)
 - [Replication ledger](docs/publication/replication-ledger-v1.md)
@@ -101,7 +101,6 @@ Expected verifier summary:
 
 - Read the claim boundary in this README.
 - Open [Repository paper v1](docs/publication/qrope-paper-v1.md).
-- Inspect [Patent status note](docs/publication/patent-status-note-v1.md).
 - Inspect the Stage 4 packet files under `logs/automated_stage_gates/stage4_hardware_packet/`.
 - Run `python scripts/verify_stage4_hardware_packet.py`.
 - Check [Replication ledger](docs/publication/replication-ledger-v1.md) before making any cross-backend, cross-date, or entangling-witness claim.
@@ -126,4 +125,4 @@ Do not restate the result as a proof of broad quantum transformer superiority.
 
 ## Licensing and patent notice
 
-Software in this repository is released under `AGPL-3.0-only`. Patent and IP-status boundaries are documented in [PATENTS.md](PATENTS.md) and [Patent status note](docs/publication/patent-status-note-v1.md).
+Copyright 2026 Quantyra contributors. Software is released under `AGPL-3.0-only`. QRoPE is patent pending under U.S. provisional patent application `64/068,121`; see [PATENTS.md](PATENTS.md).
