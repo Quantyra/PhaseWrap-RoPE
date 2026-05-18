@@ -6,7 +6,7 @@ Target repository: `https://github.com/Quantyra/QRoPE`
 
 License: `AGPL-3.0-only`
 
-Patent notice: U.S. provisional patent application `64/068,121`, filed `2026-05-18`.
+Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Acknowledgement Receipt lists application `64/068,121`; final Filing Receipt pending.
 
 ## Required local artifacts
 
@@ -14,12 +14,17 @@ Patent notice: U.S. provisional patent application `64/068,121`, filed `2026-05-
 | --- | --- | --- |
 | `README.md` | Prepared | Public-facing Quantyra/QRoPE positioning with claim boundary. |
 | `LICENSE` | Prepared | GNU AGPL v3 text. |
-| `NOTICE` | Prepared | Short public ownership and patent-pending notice. |
-| `PATENTS.md` | Prepared | Patent-pending notice and license boundary. |
+| `NOTICE` | Prepared | Short public ownership and patent/IP-status notice. |
+| `PATENTS.md` | Prepared | USPTO acknowledgement-receipt notice and license boundary. |
 | `CITATION.cff` | Prepared | Repository citation metadata. |
+| `docs/publication/patent-status-note-v1.md` | Prepared | Conservative acknowledgement-receipt status note and timeline. |
 | `docs/publication/qrope-paper-v1.md` | Prepared | Standalone bounded repository-paper draft. |
 | `docs/publication/references.bib` | Prepared | Formal references for Transformer, RoPE, IBM Runtime primitives, SamplerV2, and backend metadata. |
 | `docs/publication/paper-gap-remediation-audit-v1.md` | Prepared | Checklist showing paper audit gaps remediated locally. |
+| `docs/publication/external-review-response-v1.md` | Prepared | External review response and unresolved follow-up list. |
+| `src/qrope/automated_stage_gates.py` | Prepared | Public implementation reference for formulas, packet generation, and hardware evaluation. |
+| `scripts/verify_stage4_hardware_packet.py` | Prepared | Offline verifier for saved Stage 4 packet arithmetic. |
+| `logs/automated_stage_gates/stage4_hardware_packet/*.json` | Prepared | Frozen packet, execution, evaluation, summary, and offline verification evidence. |
 | `docs/publication/figures/qrope-method-schematic-v1.svg` | Prepared | Publication-grade method schematic. |
 | `docs/publication/figures/qrope-validation-pipeline-v1.svg` | Prepared | Publication-grade validation pipeline diagram. |
 | `docs/publication/figures/qrope-stage4-metrics-v1.svg` | Prepared | Publication-grade Stage 4 witness/control metric chart. |
@@ -32,7 +37,7 @@ Patent notice: U.S. provisional patent application `64/068,121`, filed `2026-05-
 
 Proceed if all statements remain inside this boundary:
 
-- patent-pending QRoPE method;
+- USPTO-receipted QRoPE submission status with final Filing Receipt pending;
 - phase-wrap mod-8/mod-12 scoring;
 - deterministic validation packets;
 - raw-count and metadata-backed hardware evidence;

@@ -1,0 +1,176 @@
+{
+  "backend_metadata": {
+    "backend": "ibm_fez",
+    "backend_name": "ibm_fez",
+    "captured_at_utc": "2026-05-17T03:29:05Z",
+    "provider": "ibm_runtime",
+    "status_msg": "<qiskit_ibm_runtime.models.backend_status.BackendStatus object at 0x00000211E120F610>"
+  },
+  "calibration_metadata": {
+    "backend_name": "ibm_fez",
+    "captured_at_utc": "2026-05-17T03:29:05Z",
+    "last_update_date": "2026-05-16 20:02:17-07:00",
+    "properties_available": true,
+    "qubit_count": 156,
+    "source": "qiskit_backend_properties_or_target"
+  },
+  "jobs": [
+    {
+      "backend": "ibm_fez",
+      "circuit_count": 16,
+      "completed_at_utc": "2026-05-17T03:29:05Z",
+      "job_id": "d84jbq00bvlc73d4krr0",
+      "packet_id": "qrope-hardware-73c61893576297ff",
+      "provider": "ibm_runtime",
+      "raw_counts_by_row": [
+        {
+          "counts": {
+            "00": 147,
+            "01": 151,
+            "10": 1867,
+            "11": 1931
+          },
+          "row_id": "hwrow-000"
+        },
+        {
+          "counts": {
+            "00": 64,
+            "01": 2025,
+            "10": 88,
+            "11": 1919
+          },
+          "row_id": "hwrow-001"
+        },
+        {
+          "counts": {
+            "00": 367,
+            "01": 256,
+            "10": 2016,
+            "11": 1457
+          },
+          "row_id": "hwrow-002"
+        },
+        {
+          "counts": {
+            "00": 1202,
+            "01": 892,
+            "10": 1157,
+            "11": 845
+          },
+          "row_id": "hwrow-003"
+        },
+        {
+          "counts": {
+            "00": 33,
+            "01": 621,
+            "10": 141,
+            "11": 3301
+          },
+          "row_id": "hwrow-004"
+        },
+        {
+          "counts": {
+            "00": 213,
+            "01": 1828,
+            "10": 207,
+            "11": 1848
+          },
+          "row_id": "hwrow-005"
+        },
+        {
+          "counts": {
+            "00": 364,
+            "01": 244,
+            "10": 1998,
+            "11": 1490
+          },
+          "row_id": "hwrow-006"
+        },
+        {
+          "counts": {
+            "00": 1185,
+            "01": 864,
+            "10": 1205,
+            "11": 842
+          },
+          "row_id": "hwrow-007"
+        },
+        {
+          "counts": {
+            "00": 123,
+            "01": 1001,
+            "10": 325,
+            "11": 2647
+          },
+          "row_id": "hwrow-008"
+        },
+        {
+          "counts": {
+            "00": 961,
+            "01": 1015,
+            "10": 1026,
+            "11": 1094
+          },
+          "row_id": "hwrow-009"
+        },
+        {
+          "counts": {
+            "00": 367,
+            "01": 252,
+            "10": 1988,
+            "11": 1489
+          },
+          "row_id": "hwrow-010"
+        },
+        {
+          "counts": {
+            "00": 1176,
+            "01": 893,
+            "10": 1139,
+            "11": 888
+          },
+          "row_id": "hwrow-011"
+        },
+        {
+          "counts": {
+            "00": 33,
+            "01": 263,
+            "10": 390,
+            "11": 3410
+          },
+          "row_id": "hwrow-012"
+        },
+        {
+          "counts": {
+            "00": 80,
+            "01": 2076,
+            "10": 80,
+            "11": 1860
+          },
+          "row_id": "hwrow-013"
+        },
+        {
+          "counts": {
+            "00": 338,
+            "01": 260,
+            "10": 2034,
+            "11": 1464
+          },
+          "row_id": "hwrow-014"
+        },
+        {
+          "counts": {
+            "00": 1180,
+            "01": 921,
+            "10": 1144,
+            "11": 851
+          },
+          "row_id": "hwrow-015"
+        }
+      ],
+      "shot_count": 4096,
+      "submitted_at_utc": "2026-05-17T03:28:38Z"
+    }
+  ],
+  "status": "COMPLETED"
+}

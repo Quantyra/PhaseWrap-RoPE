@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use QRoPE, cite this repository and preserve the bounded patent-pending claim posture."
+message: "If you use QRoPE, cite this repository and preserve the bounded evidence posture."
 title: "QRoPE: Quantum Rotary Positional Encoding"
 version: "0.1.0"
 date-released: "2026-05-18"
@@ -13,4 +13,4 @@ keywords:
   - "rotary positional encoding"
   - "hardware validation"
   - "quantum circuits"
-abstract: "Patent-pending bounded evidence repository for Quantum Rotary Positional Encoding, associated with U.S. provisional patent application 64/068,121, including phase-wrap scoring, deterministic validation packets, and a bounded real-hardware validation result."
+abstract: "Bounded evidence repository for Quantum Rotary Positional Encoding, associated with a USPTO provisional submission whose Electronic Acknowledgement Receipt lists application 64/068,121, including phase-wrap scoring, deterministic validation packets, and a bounded real-hardware validation result."
