@@ -11,6 +11,7 @@ CYINT IP records include a USPTO Electronic Acknowledgement Receipt for the QRoP
 - application number shown on acknowledgement receipt: `64/068,121`;
 - receipt date/time: `2026-05-18 01:26:34 AM ET`;
 - application type: `Utility - Provisional Application under 35 USC 111(b)`;
+-;
 - title: `SYSTEMS, METHODS, AND CIRCUITS FOR QUANTUM ROTARY POSITIONAL ENCODING AND HARDWARE VALIDATION`.
 
 ## Series-code caution

@@ -4,6 +4,7 @@ Manuscript status: `repository-paper-v1`
 
 Publication posture: `USPTO-receipted provisional submission, bounded, reproducible, evidence-disciplined`
 
+USPTO submission record: Electronic Acknowledgement Receipt dated `2026-05-18` lists application `64/068,121`; final Filing Receipt pending.
 
 License context: repository software released under `AGPL-3.0-only`
 
@@ -233,6 +234,7 @@ The intended reproducibility standard is not that every future backend execution
 
 ## 7. Patent and open-source notice
 
+QRoPE is associated with a USPTO provisional submission received `2026-05-18`. The Electronic Acknowledgement Receipt lists application `64/068,121`; final Filing Receipt review is pending.
 
 USPTO MPEP 503 currently lists provisional application series codes as `60/` through `63/` [6]. Because the acknowledgement receipt lists `64/068,121`, public materials should describe that number as the acknowledgement-receipt application number until the final Filing Receipt is received and checked.
 

@@ -6,6 +6,7 @@ This repository includes materials related to Quantum Rotary Positional Encoding
 
 - USPTO Electronic Acknowledgement Receipt application number: `64/068,121`
 - Receipt date/time: `2026-05-18 01:26:34 AM ET`
+-
 - Title: `SYSTEMS, METHODS, AND CIRCUITS FOR QUANTUM ROTARY POSITIONAL ENCODING AND HARDWARE VALIDATION`
 - Public status language used in this repository: `USPTO provisional submission received; final Filing Receipt pending`
 

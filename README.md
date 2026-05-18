@@ -8,6 +8,7 @@ This repository is intended for open scientific review of the QRoPE method, vali
 
 ## Status
 
+- `Patent/IP posture`: USPTO provisional submission received `2026-05-18`; the Electronic Acknowledgement Receipt lists application `64/068,121`; final Filing Receipt pending. Additional receipt identifiers are retained in CYINT IP records. See [Patent status note](docs/publication/patent-status-note-v1.md).
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
 - `Publication posture`: bounded, reproducible, evidence-disciplined.
 - `Current evidence posture`: Stage 4 real-noisy-hardware positive result for one frozen packet/backend/date/calibration context.
