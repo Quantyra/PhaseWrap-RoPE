@@ -1,37 +1,56 @@
-# Quantyra QRoPE Research
+# QRoPE
 
-This repository is the planning and research operations hub for Quantyra's Quantum Rotational Positional Embeddings (QRoPE) program.
+QRoPE is Quantyra's patent-pending research repository for Quantum Rotary Positional Encoding: a bounded, reproducible evidence lane for phase-wrapped positional scoring and small-circuit hardware validation.
 
-## Working titles
-- Safest: `Phase-Based Relative Positional Encoding for Hybrid Quantum Transformers`
-- Bolder: `Q-RoPE: Hardware-Efficient Relative Positional Encoding for Quantum Attention`
+This repository is intended for open scientific review of the QRoPE method, validation scripts, evidence packets, and publication materials. It is not a claim of general quantum advantage, full transformer-scale superiority, or cross-backend hardware robustness.
 
-## Purpose
-- Capture QRoPE research questions, constraints, and requirements.
-- Translate research needs into epics and stories.
-- Track decisions, evidence, and reproducible artifacts.
-- Coordinate theory, experiments, and implementation planning.
+## Status
 
-## Protocols
-Follow the protocols from the main `../Quantyra` repository. Additional QRoPE-specific protocols are defined here:
-- `docs/protocols/research-charter.md`
-- `docs/protocols/quantum-claims-and-evidence.md`
-- `docs/protocols/experiment-reproducibility.md`
+- `Patent-pending`: U.S. provisional patent application `64/068,121`, filed `2026-05-18`.
+- `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
+- `Publication posture`: bounded, reproducible, evidence-disciplined.
+- `Current evidence posture`: Stage 4 real-noisy-hardware positive result for one frozen packet/backend/date/calibration context.
 
-## Structure
-- `docs/` - Research notes, process docs, and protocol docs
-- `epics/` - Epic definitions
-- `stories/` - Story definitions
-- `templates/` - Standard templates for planning and evidence
-- `logs/` - Checkpoint system and operational logs
+## Claim boundary
 
-## How to use
-1. Start from an epic in `epics/` using `templates/EPIC_TEMPLATE.md`.
-2. Create stories in `stories/` using `templates/STORY_TEMPLATE.md`.
-3. Track progress and action state in `logs/checkpoint.json`.
-4. Keep evidence and references up to date for each story.
-5. Commit each completed story or distinct protocol step to git with a clear message.
+The public claim frame for this repository is:
 
-## Current focus
-- `epics/E001-quantum-rotational-positional-embeddings-foundation.md`
-- `docs/research/q-rope-concept-note-v1.md`
+- QRoPE defines phase-wrap residual features using mod-8 and mod-12 structure.
+- The SQR score uses the product of the mod-8 and mod-12 signed margins.
+- The evidence lane includes deterministic frozen-packet validation, raw counts, backend metadata, and offline recomputation.
+- The Stage 4 result is a bounded real-hardware validation for the frozen packet reported in this repository.
+
+The public claim frame excludes:
+
+- broad quantum advantage;
+- full transformer-scale validation;
+- general cross-backend superiority;
+- claims that QRoPE improves production language-model quality;
+- claims that one backend/date/calibration result generalizes without additional evidence.
+
+## Key documents
+
+- [Manuscript-to-provisional support audit](docs/publication/manuscript-to-provisional-support-audit-v1.md)
+- [Open-source release checklist](docs/publication/open-source-release-checklist-v1.md)
+- [Patent notice](PATENTS.md)
+- [Stage 4 real-hardware validation result](docs/research/q-rope-stage4-real-hardware-validation-result-v1.md)
+- [Automated terminal human-review packet](docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md)
+- [Phase-wrap algorithm note](docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md)
+
+## Install
+
+```bash
+python -m pip install -e .
+```
+
+## Publication use
+
+If you cite or discuss this work, use the bounded posture:
+
+> QRoPE is a patent-pending phase-wrap positional-encoding and validation method with repository-backed deterministic evidence packets, including a bounded Stage 4 real-hardware validation result.
+
+Do not restate the result as a proof of broad quantum transformer superiority.
+
+## Licensing and patent notice
+
+Software in this repository is released under `AGPL-3.0-only`. Patent-pending status and patent-license boundaries are documented in [PATENTS.md](PATENTS.md).

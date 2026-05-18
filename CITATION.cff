@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use QRoPE, cite this repository and preserve the bounded patent-pending claim posture."
+title: "QRoPE: Quantum Rotary Positional Encoding"
+version: "0.1.0"
+date-released: "2026-05-18"
+license: "AGPL-3.0-only"
+authors:
+  - family-names: "Fredriksen"
+    given-names: "Daniel Eric"
+repository-code: "https://github.com/Quantyra/QRoPE"
+keywords:
+  - "quantum positional encoding"
+  - "rotary positional encoding"
+  - "hardware validation"
+  - "quantum circuits"
+abstract: "Patent-pending bounded evidence repository for Quantum Rotary Positional Encoding, including phase-wrap scoring, deterministic validation packets, and a bounded real-hardware validation result."

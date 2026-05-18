@@ -5,12 +5,18 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "qrope"
 version = "0.1.0"
-description = "Q-RoPE ablation bootstrap tooling"
+description = "Patent-pending QRoPE phase-wrap evidence and hardware-validation tooling"
 readme = "README.md"
+license = { text = "AGPL-3.0-only" }
+classifiers = [
+  "License :: OSI Approved :: GNU Affero General Public License v3",
+  "Programming Language :: Python :: 3",
+]
 requires-python = ">=3.10"
 dependencies = [
   "PyYAML>=6.0",
-  "numpy>=1.24"
+  "numpy>=1.24",
+  "pylatexenc>=2.10"
 ]
 
 [tool.setuptools]
