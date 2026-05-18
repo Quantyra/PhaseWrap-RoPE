@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">QRoPE phase-wrap method schematic</title>
+  <desc id="desc">A publication schematic showing positional residuals mapped into mod-8 and mod-12 signed margins, then combined as SQR equals m8 times m12.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7fbff"/>
+      <stop offset="0.5" stop-color="#eef7f3"/>
+      <stop offset="1" stop-color="#fff8ec"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e7490"/>
+      <stop offset="1" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#b45309"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 38px Georgia, serif; fill: #0f172a; }
+      .subtitle { font: 500 18px Georgia, serif; fill: #475569; }
+      .label { font: 700 22px Georgia, serif; fill: #0f172a; }
+      .small { font: 500 16px Georgia, serif; fill: #475569; }
+      .mono { font: 700 26px Consolas, monospace; fill: #0f172a; }
+      .tiny { font: 500 13px Georgia, serif; fill: #64748b; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 28; filter: url(#shadow); }
+      .line { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1030" cy="120" r="210" fill="#0e7490" opacity="0.08"/>
+  <circle cx="130" cy="610" r="220" fill="#f59e0b" opacity="0.1"/>
+  <text x="72" y="78" class="title">QRoPE phase-wrap scoring</text>
+  <text x="72" y="112" class="subtitle">Patent-pending bounded method: residuals become modular signed margins, then an SQR score.</text>
+
+  <rect x="74" y="205" width="245" height="230" class="box"/>
+  <text x="105" y="258" class="label">Position residual</text>
+  <text x="105" y="295" class="small">Frozen row input</text>
+  <path d="M135 360 C155 305, 185 305, 205 360 S255 415, 280 360" stroke="#0e7490" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <text x="119" y="407" class="mono">r = p_i - p_j</text>
+
+  <path d="M330 320 L430 320" class="line"/>
+
+  <rect x="448" y="145" width="258" height="180" class="box"/>
+  <text x="480" y="198" class="label">mod-8 wrap</text>
+  <text x="480" y="235" class="small">signed margin</text>
+  <text x="480" y="282" class="mono">m8</text>
+  <circle cx="640" cy="236" r="48" fill="none" stroke="url(#teal)" stroke-width="10"/>
+  <path d="M640 236 L676 204" stroke="#0e7490" stroke-width="8" stroke-linecap="round"/>
+
+  <rect x="448" y="356" width="258" height="180" class="box"/>
+  <text x="480" y="409" class="label">mod-12 wrap</text>
+  <text x="480" y="446" class="small">signed margin</text>
+  <text x="480" y="493" class="mono">m12</text>
+  <circle cx="640" cy="447" r="48" fill="none" stroke="url(#amber)" stroke-width="10"/>
+  <path d="M640 447 L607 411" stroke="#b45309" stroke-width="8" stroke-linecap="round"/>
+
+  <path d="M716 236 C785 236, 782 319, 842 319" class="line"/>
+  <path d="M716 447 C785 447, 782 319, 842 319" class="line"/>
+
+  <rect x="870" y="212" width="255" height="215" class="box"/>
+  <text x="905" y="266" class="label">QRoPE score</text>
+  <text x="905" y="307" class="mono">SQR = m8 * m12</text>
+  <text x="905" y="355" class="small">phase-wrap consistency</text>
+  <text x="905" y="386" class="tiny">A bounded score, not a transformer-scale superiority claim.</text>
+</svg>
