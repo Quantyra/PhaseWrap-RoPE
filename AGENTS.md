@@ -12,7 +12,8 @@ This repository tracks work for Quantum Rotational Positional Embeddings (QRoPE)
 
 ## Protocol Expectations
 - Follow Quantyra research and documentation protocols first.
-- For future research-cycle design in this repo, also apply `docs/protocols/research-planning.md`.\r\n- For parallel research execution and memo work in this repo, also apply `docs/protocols/parallel-research-work.md`.
+- For future research-cycle design in this repo, also apply `docs/protocols/research-planning.md`.
+- For parallel research execution and memo work in this repo, also apply `docs/protocols/parallel-research-work.md`.
 - For executive-facing or mixed-audience technical explanations in this repo, also apply `docs/protocols/technical-briefing-and-bluf.md`.
 - Apply QRoPE repo-specific protocols in `docs/protocols/`.
 - Keep all high-impact technical claims source-tagged and auditable.
