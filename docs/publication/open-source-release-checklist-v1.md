@@ -22,6 +22,10 @@ Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Ac
 | `docs/publication/references.bib` | Prepared | Formal references for Transformer, RoPE, IBM Runtime primitives, SamplerV2, and backend metadata. |
 | `docs/publication/paper-gap-remediation-audit-v1.md` | Prepared | Checklist showing paper audit gaps remediated locally. |
 | `docs/publication/external-review-response-v1.md` | Prepared | External review response and unresolved follow-up list. |
+| `docs/publication/replication-plan-v1.md` | Prepared | Cross-backend/cross-date and entangling-witness replication plan. |
+| `docs/publication/external-release-plan-v1.md` | Prepared | arXiv, OSF, and Zenodo release plan with blockers. |
+| `.zenodo.json` | Prepared | Zenodo metadata override for first GitHub release DOI. |
+| `.github/workflows/ci.yml` | Prepared | GitHub Actions pytest and coverage workflow. |
 | `src/qrope/automated_stage_gates.py` | Prepared | Public implementation reference for formulas, packet generation, and hardware evaluation. |
 | `scripts/verify_stage4_hardware_packet.py` | Prepared | Offline verifier for saved Stage 4 packet arithmetic. |
 | `logs/automated_stage_gates/stage4_hardware_packet/*.json` | Prepared | Frozen packet, execution, evaluation, summary, and offline verification evidence. |

@@ -1,5 +1,7 @@
 # QRoPE
 
+[![CI](https://github.com/Quantyra/QRoPE/actions/workflows/ci.yml/badge.svg)](https://github.com/Quantyra/QRoPE/actions/workflows/ci.yml)
+
 QRoPE is Quantyra's public research repository for Quantum Rotary Positional Encoding: a bounded evidence lane for phase-wrapped positional scoring and small-circuit hardware validation.
 
 This repository is intended for open scientific review of the QRoPE method, validation scripts, evidence packets, and publication materials. It is not a claim of general quantum advantage, full transformer-scale superiority, entanglement-based advantage, or cross-backend hardware robustness.
@@ -20,6 +22,7 @@ The public claim frame for this repository is:
 - The evidence lane includes deterministic frozen-packet validation, raw counts, backend metadata, and offline recomputation.
 - The Stage 4 result is a bounded real-hardware validation for the frozen packet reported in this repository.
 - The current hardware witness is a two-qubit product-state angle-encoding/readout witness; it does not include an entangling gate and should not be described as evidence of nonclassical advantage.
+- An opt-in entangling CX witness family is implemented as `two_qubit_cx_parity_phase_wrap_v2`, but it is not yet part of the published Stage 4 hardware evidence.
 
 The public claim frame excludes:
 
@@ -35,6 +38,8 @@ The public claim frame excludes:
 - [Repository paper v1](docs/publication/qrope-paper-v1.md)
 - [Patent status note](docs/publication/patent-status-note-v1.md)
 - [External review response](docs/publication/external-review-response-v1.md)
+- [Replication plan](docs/publication/replication-plan-v1.md)
+- [External release plan](docs/publication/external-release-plan-v1.md)
 - [QRoPE method schematic](docs/publication/figures/qrope-method-schematic-v1.svg)
 - [Validation pipeline figure](docs/publication/figures/qrope-validation-pipeline-v1.svg)
 - [Stage 4 metrics figure](docs/publication/figures/qrope-stage4-metrics-v1.svg)
@@ -49,7 +54,7 @@ The public claim frame excludes:
 Recommended local environment: Python `3.11+`.
 
 ```bash
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 Run a simulator-free local method check with no IBM credentials:
@@ -65,6 +70,12 @@ PY
 ```
 
 IBM hardware reruns require separate IBM Quantum credentials and runtime dependencies. The local method check and saved-packet verifier do not require IBM credentials.
+
+Install IBM Runtime dependencies only when preparing a real hardware run:
+
+```bash
+python -m pip install -e ".[ibm]"
+```
 
 Verify the saved Stage 4 packet arithmetic from the published raw-count evidence:
 
@@ -91,6 +102,10 @@ Expected verifier summary:
 - Inspect [Patent status note](docs/publication/patent-status-note-v1.md).
 - Inspect the Stage 4 packet files under `logs/automated_stage_gates/stage4_hardware_packet/`.
 - Run `python scripts/verify_stage4_hardware_packet.py`.
+
+## CI and test coverage
+
+GitHub Actions runs `pytest --cov=qrope --cov-report=term-missing --cov-report=xml` on Python `3.11` and `3.12`. Coverage XML is uploaded as a workflow artifact.
 
 ## Publication use
 

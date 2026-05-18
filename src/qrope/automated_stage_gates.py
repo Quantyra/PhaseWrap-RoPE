@@ -23,6 +23,12 @@ FIXED_PACKET_SEEDS = (42, 123, 777)
 HARDWARE_PACKET_ROW_LIMIT = 16
 HARDWARE_DEFAULT_SHOT_COUNT = 4096
 HARDWARE_TRANSPILATION_SEED = 20260516
+PRODUCT_STATE_CIRCUIT_FAMILY = "two_qubit_zz_expectation_phase_wrap_v1"
+ENTANGLING_CX_CIRCUIT_FAMILY = "two_qubit_cx_parity_phase_wrap_v2"
+SUPPORTED_HARDWARE_CIRCUIT_FAMILIES = (
+    PRODUCT_STATE_CIRCUIT_FAMILY,
+    ENTANGLING_CX_CIRCUIT_FAMILY,
+)
 SUPPORTED_HARDWARE_TOKEN_NAMES = (
     "QISKIT_IBM_TOKEN",
     "IBM_QUANTUM_TOKEN",
@@ -591,6 +597,22 @@ def hardware_token_names_for_provider(provider: str) -> tuple[str, ...]:
     return ()
 
 
+def normalize_hardware_circuit_family(circuit_family: str | None) -> str:
+    normalized = (circuit_family or "").strip().lower().replace("-", "_")
+    aliases = {
+        "": PRODUCT_STATE_CIRCUIT_FAMILY,
+        "product": PRODUCT_STATE_CIRCUIT_FAMILY,
+        "product_state": PRODUCT_STATE_CIRCUIT_FAMILY,
+        "zz": PRODUCT_STATE_CIRCUIT_FAMILY,
+        PRODUCT_STATE_CIRCUIT_FAMILY: PRODUCT_STATE_CIRCUIT_FAMILY,
+        "entangling": ENTANGLING_CX_CIRCUIT_FAMILY,
+        "cx": ENTANGLING_CX_CIRCUIT_FAMILY,
+        "cx_parity": ENTANGLING_CX_CIRCUIT_FAMILY,
+        ENTANGLING_CX_CIRCUIT_FAMILY: ENTANGLING_CX_CIRCUIT_FAMILY,
+    }
+    return aliases.get(normalized, normalized)
+
+
 def build_hardware_config(env: dict[str, str] | None = None) -> dict[str, Any]:
     if env is None:
         load_hardware_env()
@@ -610,6 +632,7 @@ def build_hardware_config(env: dict[str, str] | None = None) -> dict[str, Any]:
         else round(float(row_limit * shot_count) * cost_per_shot, 6)
     )
     queue_depth_cap = _parse_optional_int(_first_env_value(environ, provider_config_names["queue_depth_cap"]))
+    circuit_family = normalize_hardware_circuit_family(environ.get("QROPE_HARDWARE_CIRCUIT_FAMILY"))
     return {
         "provider_raw": provider_raw,
         "provider": provider,
@@ -619,6 +642,7 @@ def build_hardware_config(env: dict[str, str] | None = None) -> dict[str, Any]:
         "shot_count": shot_count,
         "row_limit": row_limit,
         "queue_depth_cap": queue_depth_cap,
+        "circuit_family": circuit_family,
         "transpilation": {
             "optimization_level": _parse_positive_int(environ.get("QROPE_HARDWARE_OPTIMIZATION_LEVEL"), 1),
             "seed_transpiler": HARDWARE_TRANSPILATION_SEED,
@@ -629,7 +653,7 @@ def build_hardware_config(env: dict[str, str] | None = None) -> dict[str, Any]:
     }
 
 
-def _hardware_row_payload(index: int, row: AttentionRow) -> dict[str, Any]:
+def _hardware_row_payload(index: int, row: AttentionRow, circuit_family: str = PRODUCT_STATE_CIRCUIT_FAMILY) -> dict[str, Any]:
     z0_target = _clamp(row.m8 / MAX_ABS_M8, -1.0, 1.0)
     z1_target = _clamp(row.m12 / MAX_ABS_M12, -1.0, 1.0)
     score_scale = (MAX_ABS_M8 * MAX_ABS_M12) / MAX_ABS_SCORE
@@ -648,7 +672,7 @@ def _hardware_row_payload(index: int, row: AttentionRow) -> dict[str, Any]:
         "label": row.label,
         "local_score": row.score,
         "circuit_parameters": {
-            "embedding": "two_qubit_zz_expectation_phase_wrap_v1",
+            "embedding": circuit_family,
             "z0_target_from_m8": round(z0_target, 12),
             "z1_target_from_m12": round(z1_target, 12),
             "ry_q0": round(math.acos(z0_target), 12),
@@ -664,10 +688,32 @@ def _hardware_row_payload(index: int, row: AttentionRow) -> dict[str, Any]:
     return payload
 
 
+def measurement_policy_for_circuit_family(circuit_family: str) -> dict[str, Any]:
+    if circuit_family == ENTANGLING_CX_CIRCUIT_FAMILY:
+        return {
+            "measured_qubits": 2,
+            "readout": "computational_basis",
+            "entangling_gate": "cx q0->q1",
+            "witness_score": "0.5 + 0.5 * score_scale * E[Z1 after CX]",
+            "control_score": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+            "claim_boundary": "entangling-gate witness variant; unreplicated until executed on hardware",
+        }
+    return {
+        "measured_qubits": 2,
+        "readout": "computational_basis",
+        "entangling_gate": None,
+        "witness_score": "0.5 + 0.5 * score_scale * E[Z0 Z1]",
+        "control_score": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "claim_boundary": "product-state angle-encoding/readout witness",
+    }
+
+
 def freeze_hardware_packet(rows: list[AttentionRow], env: dict[str, str] | None = None) -> dict[str, Any]:
     config = build_hardware_config(env)
     selected_rows = rows[: config["row_limit"]]
-    row_payloads = [_hardware_row_payload(index, row) for index, row in enumerate(selected_rows)]
+    row_payloads = [
+        _hardware_row_payload(index, row, config["circuit_family"]) for index, row in enumerate(selected_rows)
+    ]
     packet_core = {
         "packet_version": "qrope_stage4_hardware_packet_v1",
         "provider": config["provider"],
@@ -675,13 +721,8 @@ def freeze_hardware_packet(rows: list[AttentionRow], env: dict[str, str] | None 
         "shot_count": config["shot_count"],
         "row_count": len(row_payloads),
         "transpilation": config["transpilation"],
-        "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
-        "measurement_policy": {
-            "measured_qubits": 2,
-            "readout": "computational_basis",
-            "witness_score": "0.5 + 0.5 * score_scale * E[Z0 Z1]",
-            "control_score": "0.5 + 0.25 * (E[Z0] + E[Z1])",
-        },
+        "circuit_family": config["circuit_family"],
+        "measurement_policy": measurement_policy_for_circuit_family(config["circuit_family"]),
         "required_metadata_fields": [
             "provider",
             "backend",
@@ -745,12 +786,21 @@ def counts_to_expectations(counts: dict[str, int]) -> dict[str, Any]:
 def ideal_counts_for_hardware_row(row_payload: dict[str, Any], shots: int) -> dict[str, int]:
     z0 = row_payload["circuit_parameters"]["z0_target_from_m8"]
     z1 = row_payload["circuit_parameters"]["z1_target_from_m12"]
-    probabilities = {
+    product_probabilities = {
         "00": (1.0 + z0 + z1 + z0 * z1) / 4.0,
         "01": (1.0 - z0 + z1 - z0 * z1) / 4.0,
         "10": (1.0 + z0 - z1 - z0 * z1) / 4.0,
         "11": (1.0 - z0 - z1 + z0 * z1) / 4.0,
     }
+    if row_payload["circuit_parameters"].get("embedding") == ENTANGLING_CX_CIRCUIT_FAMILY:
+        probabilities = {
+            "00": product_probabilities["00"],
+            "01": product_probabilities["01"],
+            "10": product_probabilities["11"],
+            "11": product_probabilities["10"],
+        }
+    else:
+        probabilities = product_probabilities
     floors = {key: int(math.floor(max(0.0, value) * shots)) for key, value in probabilities.items()}
     remainder = shots - sum(floors.values())
     fractional_order = sorted(
@@ -1112,6 +1162,8 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
             qc = QuantumCircuit(2)
             qc.ry(row["circuit_parameters"]["ry_q0"], 0)
             qc.ry(row["circuit_parameters"]["ry_q1"], 1)
+            if packet.get("circuit_family") == ENTANGLING_CX_CIRCUIT_FAMILY:
+                qc.cx(0, 1)
             qc.measure_all()
             circuits.append(qc)
         pass_manager = generate_preset_pass_manager(
@@ -1220,8 +1272,12 @@ def evaluate_hardware_execution(packet: dict[str, Any], execution: dict[str, Any
         expectations = counts_to_expectations(row_counts)
         labels.append(float(row["label"]))
         scale = row["circuit_parameters"]["score_scale"]
-        witness_prediction_value = circuit_label_from_signed_score(scale * expectations["zz"])
-        control_prediction_value = _clamp(0.5 + 0.25 * (expectations["z0"] + expectations["z1"]), 0.0, 1.0)
+        if packet.get("circuit_family") == ENTANGLING_CX_CIRCUIT_FAMILY:
+            witness_prediction_value = circuit_label_from_signed_score(scale * expectations["z1"])
+            control_prediction_value = _clamp(0.5 + 0.25 * (expectations["z0"] + expectations["zz"]), 0.0, 1.0)
+        else:
+            witness_prediction_value = circuit_label_from_signed_score(scale * expectations["zz"])
+            control_prediction_value = _clamp(0.5 + 0.25 * (expectations["z0"] + expectations["z1"]), 0.0, 1.0)
         witness_predictions.append(witness_prediction_value)
         control_predictions.append(control_prediction_value)
         per_row.append(

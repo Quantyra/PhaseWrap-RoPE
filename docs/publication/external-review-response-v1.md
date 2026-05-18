@@ -21,10 +21,10 @@ Date: `2026-05-18`
 
 ## Not yet done
 
-- Add and validate an entangling-gate witness variant.
+- Execute and report the implemented entangling-gate witness variant on hardware.
 - Run cross-backend and cross-date replications.
 - Move internal process/governance materials into a cleaner public structure.
-- Add CI badge and public test-status reporting.
-- Post an arXiv/OSF preprint and add DOI metadata.
+- Wait for CI to complete on GitHub and respond to any failures.
+- Post an arXiv/OSF preprint and mint a Zenodo DOI.
 
 These remaining items require new execution, repo restructuring, or external publication steps and should not be represented as complete.

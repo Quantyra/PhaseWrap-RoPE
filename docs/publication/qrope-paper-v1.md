@@ -123,7 +123,22 @@ theta_1 = arccos(z1)
 
 The circuit prepares each qubit with a Y-axis rotation using `theta_0` and `theta_1`, measures computational-basis counts, and estimates `E[Z0]`, `E[Z1]`, and `E[Z0 Z1]`. The Stage 4 packet uses the `two_qubit_zz_expectation_phase_wrap_v1` family.
 
-The current Stage 4 circuit is a product-state angle-encoding/readout witness. It contains no entangling gate. Consequently, the measured `E[Z0 Z1]` term should be understood as a hardware readout of the cross-band product induced by independently encoded margins, not as evidence of entanglement, quantum speedup, or nonclassical interference. An entangling-gate variant is future work and would require a separate claim boundary.
+The current Stage 4 circuit is a product-state angle-encoding/readout witness. It contains no entangling gate. Consequently, the measured `E[Z0 Z1]` term should be understood as a hardware readout of the cross-band product induced by independently encoded margins, not as evidence of entanglement, quantum speedup, or nonclassical interference.
+
+The repository now includes an opt-in entangling CX witness family:
+
+```text
+two_qubit_cx_parity_phase_wrap_v2
+```
+
+This variant applies `CX(q0 -> q1)` after the two `RY` margin encodings. In the ideal circuit, the target-qubit Z expectation after CX carries the cross-band parity/product signal. The corresponding witness and control scores are:
+
+```text
+witness_cx = clamp(0.5 + 0.5 * score_scale * E[Z1 after CX], 0, 1)
+control_cx = clamp(0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX]), 0, 1)
+```
+
+This variant is implemented for follow-up hardware execution, but it is not part of the current Stage 4 evidence until it is run and reported.
 
 Implementation reference: `src/qrope/automated_stage_gates.py`.
 
@@ -239,7 +254,7 @@ These limitations define the scientific scope of the current release.
 
 ## 9. Conclusion
 
-QRoPE provides an open-source research lane for phase-wrap positional scoring and bounded small-circuit validation. The current evidence supports publication as a narrowly framed method and evidence paper. The next scientific step is replication and controlled expansion: an entangling-gate witness variant, additional packets, additional backends, simulator-to-hardware comparisons, and broader transformer-adjacent experiments only if supported by new evidence.
+QRoPE provides an open-source research lane for phase-wrap positional scoring and bounded small-circuit validation. The current evidence supports publication as a narrowly framed method and evidence paper. The next scientific step is replication and controlled expansion: executing the entangling-gate witness variant, additional packets, additional backends, simulator-to-hardware comparisons, and broader transformer-adjacent experiments only if supported by new evidence.
 
 ## Repository evidence references
 

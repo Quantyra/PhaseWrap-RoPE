@@ -1,0 +1,27 @@
+{
+  "title": "QRoPE: Phase-Wrap Positional Encoding Evidence and Hardware-Validation Tooling",
+  "upload_type": "software",
+  "description": "Open-source bounded evidence repository for Quantum Rotary Positional Encoding, including phase-wrap scoring, deterministic validation packets, a product-state Stage 4 hardware readout result, and an implemented entangling CX witness variant awaiting replication.",
+  "creators": [
+    {
+      "name": "Fredriksen, Daniel Eric"
+    }
+  ],
+  "access_right": "open",
+  "license": "agpl-3.0",
+  "keywords": [
+    "quantum positional encoding",
+    "rotary positional encoding",
+    "phase-wrap scoring",
+    "quantum circuits",
+    "hardware validation",
+    "reproducibility"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Quantyra/QRoPE",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
