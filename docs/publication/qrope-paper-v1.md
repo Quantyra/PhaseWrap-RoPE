@@ -1,18 +1,15 @@
-# QRoPE: A Patent-Pending Phase-Wrap Positional Encoding Method with Bounded Hardware Validation
+# QRoPE: Phase-Wrap Positional Scoring with Bounded Hardware Validation
 
-Manuscript status: `repository-paper-v1`
-
-Publication posture: `patent-pending, bounded, reproducible, evidence-disciplined`
-
-Patent: U.S. provisional patent application `64/068,121`.
-
+Manuscript status: `repository-paper-v1`  
+Publication posture: `patent-pending, bounded, reproducible, evidence-disciplined`  
+Patent: U.S. provisional patent application `64/068,121`  
 License context: repository software released under `AGPL-3.0-only`
 
 ## Abstract
 
-Quantum Rotary Positional Encoding, or QRoPE, is a positional-encoding research method based on phase-wrap residual structure. The method computes wrapped residuals in two modular bases, derives signed margins from cosine thresholds, and combines the margins through an SQR score. This repository paper presents the QRoPE method, its deterministic validation protocol, and a Stage 4 real-noisy-hardware result for one frozen packet executed on IBM Quantum hardware.
+Quantum Rotary Positional Encoding (QRoPE) is a phase-wrap positional-scoring method for studying modular residual structure in positional encodings. The method computes wrapped residuals in two modular bases, converts those residuals into signed cosine margins, and combines the margins through an SQR score. This repository paper describes the QRoPE method, the deterministic validation protocol used to evaluate it, and a bounded Stage 4 real-hardware result for one frozen packet executed on IBM Quantum hardware.
 
-The result should be read as a bounded evidence claim. It supports the reported packet/backend/date/calibration-specific validation outcome, not broad quantum advantage, not transformer-scale superiority, and not general cross-backend robustness. The contribution is a reproducible review path: fixed packets, fixed shot counts, raw measurement counts, backend metadata, offline recomputation, and explicit claim boundaries.
+The reported result should be interpreted narrowly. It supports the recorded packet-, backend-, date-, and calibration-specific validation outcome; it does not establish broad quantum advantage, transformer-scale superiority, general cross-backend robustness, or production language-model improvement. The main contribution is a reproducible review path: fixed input packets, fixed shot counts, raw measurement counts, backend metadata, offline recomputation, and explicit claim boundaries.
 
 ## Keywords
 
@@ -20,46 +17,46 @@ Quantum positional encoding; rotary positional encoding; phase-wrap scoring; qua
 
 ## 1. Introduction
 
-Transformer positional-encoding methods provide sequence-order information to attention models, with the Transformer architecture serving as the baseline context for modern attention-based sequence modeling [1]. Rotary Position Embedding, or RoPE, introduced a rotation-based method for incorporating positional information into self-attention and motivating relative-position behavior [2].
+Transformer positional encodings provide sequence-order information to attention models. The Transformer architecture established the baseline context for modern attention-based sequence modeling [1], and Rotary Position Embedding (RoPE) introduced a rotation-based mechanism for incorporating positional information into self-attention while supporting relative-position behavior [2].
 
-QRoPE explores a narrower research question. It asks whether a phase-wrap positional scoring component can be specified, frozen, and validated through deterministic software artifacts and a small-circuit hardware witness. It does not claim to replace RoPE in production transformers and does not report transformer-scale training.
+QRoPE investigates a narrower question: can a phase-wrap positional-scoring component be specified, frozen, and validated through deterministic software artifacts and a small-circuit hardware witness? This release does not claim to replace RoPE in production transformers and does not report transformer-scale training or evaluation.
 
-This paper documents the first public QRoPE release under Quantyra. The repository is open source under `AGPL-3.0-only` and references the patent and licensing notice in `PATENTS.md`. The release is designed to permit external review while preserving the claim boundary established by the manuscript-to-provisional support audit.
+This paper documents the first public QRoPE release under Quantyra. The repository is open source under `AGPL-3.0-only` and includes patent and licensing notices in `PATENTS.md`. The release is structured for external review while preserving the claim boundaries stated in this paper and the repository patent notice.
 
-The contribution is threefold:
+The contributions are:
 
-- A phase-wrap QRoPE scoring method using mod-8 and mod-12 signed margins.
-- A deterministic validation protocol based on frozen packets, fixed rows, fixed shot counts, raw counts, backend metadata, and offline recomputation.
-- A Stage 4 real-noisy-hardware result for a recorded packet/backend/date/calibration context.
+- a phase-wrap QRoPE scoring method based on mod-8 and mod-12 signed margins;
+- a deterministic validation protocol built from frozen packets, fixed rows, fixed shot counts, raw counts, backend metadata, and offline recomputation; and
+- a Stage 4 real-hardware validation result for one recorded packet/backend/date/calibration context.
 
 ## 2. Related work and claim boundary
 
-QRoPE is related to positional encoding and RoPE-style relative phase behavior, but it is not a drop-in transformer positional-embedding result. The relationship to RoPE is conceptual: QRoPE uses wrapped phase residuals and cross-band interactions, while the present release evaluates a small, deterministic evidence lane rather than a full language-model architecture.
+QRoPE is motivated by positional encoding and RoPE-style relative phase behavior, but the present result is not a drop-in transformer positional-embedding result. The relationship to RoPE is conceptual: QRoPE uses wrapped phase residuals and cross-band interactions, while this release evaluates a small deterministic validation pathway rather than a complete language-model architecture.
 
-The allowed public claims are:
+The supported public claims are:
 
-- QRoPE defines a phase-wrap positional scoring method.
+- QRoPE defines a phase-wrap positional-scoring method.
 - The SQR score is computed from mod-8 and mod-12 signed-margin structure.
-- The validation lane uses frozen packets, raw counts, backend metadata, and offline recomputation.
+- The validation protocol uses frozen packets, raw counts, backend metadata, and offline recomputation.
 - The Stage 4 evidence record reports a hardware-positive result for the recorded packet/backend/date/calibration context.
 
-The excluded claims are:
+The following claims are outside the scope of the present evidence:
 
 - broad quantum advantage;
 - production transformer superiority;
 - full transformer-scale validation;
-- general cross-backend robustness;
+- general cross-backend robustness; and
 - commercial performance improvement in deployed language models.
 
-This boundary follows the manuscript-to-provisional support audit and the repository patent notice.
+These boundaries follow the repository patent notice and the evidence scope stated in this paper.
 
 ## 3. Method
 
 ![QRoPE phase-wrap method schematic](figures/qrope-method-schematic-v1.svg)
 
-Figure 1. QRoPE phase-wrap scoring schematic. The figure is conceptual; the normative method is the formula block below.
+**Figure 1.** QRoPE phase-wrap scoring schematic. The figure is conceptual; the formula block below is the normative method definition.
 
-For integer offsets `delta_a` and `delta_b`, define a period-specific wrapped phase:
+For integer offsets `delta_a` and `delta_b`, define the period-specific wrapped phase as:
 
 ```text
 wrap_pi(x) = x shifted by integer multiples of 2*pi into the interval (-pi, pi]
@@ -69,7 +66,7 @@ theta_P(delta) = wrap_pi(2*pi*delta/P)
 r_P(delta_a, delta_b) = abs(wrap_pi(theta_P(delta_a) - theta_P(delta_b)))
 ```
 
-The two signed margins used in this release are:
+The release uses two signed margins:
 
 ```text
 r8  = r_8(delta_a, delta_b)
@@ -85,9 +82,9 @@ The local QRoPE score is:
 SQR = m8 * m12
 ```
 
-The thresholds are tied to one modular step in each basis. For period 8, one step is `2*pi/8 = pi/4`; for period 12, one step is `2*pi/12 = pi/6`. Subtracting `cos(pi/4)` and `cos(pi/6)` centers each margin at the one-step residual boundary: margins are positive for residuals closer than one modular step, approximately zero at one step, and negative beyond one step.
+The thresholds correspond to one modular step in each basis. For period 8, one step is `2*pi/8 = pi/4`; for period 12, one step is `2*pi/12 = pi/6`. Subtracting `cos(pi/4)` and `cos(pi/6)` centers each margin at its one-step residual boundary. Margins are positive when residuals are closer than one modular step, approximately zero at one step, and negative beyond one step.
 
-The implementation normalizes the score for packet labels by clamping:
+For packet labels, the implementation normalizes the score by clamping:
 
 ```text
 label = clamp(0.5 + 0.5 * SQR / MAX_ABS_SCORE, 0, 1)
@@ -121,15 +118,15 @@ theta_0 = arccos(z0)
 theta_1 = arccos(z1)
 ```
 
-The circuit prepares each qubit with a Y-axis rotation using `theta_0` and `theta_1`, measures computational-basis counts, and estimates `E[Z0]`, `E[Z1]`, and `E[Z0 Z1]`. The Stage 4 packet uses the `two_qubit_zz_expectation_phase_wrap_v1` family.
+The circuit prepares each qubit with a Y-axis rotation using `theta_0` and `theta_1`, measures computational-basis counts, and estimates `E[Z0]`, `E[Z1]`, and `E[Z0 Z1]`. The Stage 4 packet uses the `two_qubit_zz_expectation_phase_wrap_v1` circuit family.
 
-The current Stage 4 circuit is a product-state angle-encoding/readout witness. It contains no entangling gate. Consequently, the measured `E[Z0 Z1]` term should be understood as a hardware readout of the cross-band product induced by independently encoded margins, not as evidence of entanglement, quantum speedup, or nonclassical interference.
+The current Stage 4 circuit is a product-state angle-encoding/readout witness. It contains no entangling gate. Therefore, the measured `E[Z0 Z1]` term should be interpreted as a hardware readout of the cross-band product induced by independently encoded margins, not as evidence of entanglement, quantum speedup, or nonclassical interference.
 
 ![QRoPE product-state witness circuit](figures/qrope-product-state-circuit-v1.png)
 
-Figure 2. Product-state witness circuit for the published Stage 4 hardware packet. Circuit parameters shown in the rendered diagram are taken from the first frozen packet row.
+**Figure 2.** Product-state witness circuit for the published Stage 4 hardware packet. The parameters shown in the rendered diagram are taken from the first frozen packet row.
 
-The repository now includes an opt-in entangling CX witness family:
+The repository also includes an opt-in entangling CX witness family:
 
 ```text
 two_qubit_cx_parity_phase_wrap_v2
@@ -142,11 +139,11 @@ witness_cx = clamp(0.5 + 0.5 * score_scale * E[Z1 after CX], 0, 1)
 control_cx = clamp(0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX]), 0, 1)
 ```
 
-This variant is implemented and unit-tested for follow-up hardware execution, but it is not part of the current hardware evidence until a credentialled run publishes raw counts, metadata, and verifier output.
+This CX variant is implemented and unit-tested for follow-up hardware execution, but it is not part of the current hardware evidence. It should be included in the evidence record only after an authorized hardware run publishes raw counts, metadata, and verifier output.
 
 ![QRoPE entangling CX witness circuit](figures/qrope-cx-witness-circuit-v1.png)
 
-Figure 3. Entangling CX witness variant implemented for follow-up hardware execution. This circuit is not part of the current published hardware evidence.
+**Figure 3.** Entangling CX witness variant implemented for follow-up hardware execution. This circuit is not part of the current published hardware evidence.
 
 Implementation reference: `src/qrope/automated_stage_gates.py`.
 
@@ -154,18 +151,18 @@ Implementation reference: `src/qrope/automated_stage_gates.py`.
 
 ![QRoPE deterministic validation pipeline](figures/qrope-validation-pipeline-v1.svg)
 
-Figure 4. Deterministic validation lane. The verification path is designed to recompute metrics from frozen packet files and execution records.
+**Figure 4.** Deterministic validation pathway. The verification path recomputes metrics from frozen packet files and execution records.
 
-The validation protocol is designed around reproducibility rather than opportunistic metric selection. A valid evidence packet should include:
+The validation protocol is designed for reproducibility rather than opportunistic metric selection. A valid evidence packet should include:
 
 - frozen input rows;
-- fixed row count;
-- fixed shot count for hardware or simulator execution;
+- a fixed row count;
+- a fixed shot count for hardware or simulator execution;
 - raw measurement counts;
 - backend metadata;
-- packet identifier;
-- offline verifier;
-- deterministic pass/fail or bounded status outcome.
+- a packet identifier;
+- an offline verifier; and
+- a deterministic pass/fail or bounded status outcome.
 
 For the Stage 4 packet, the verifier entry point is:
 
@@ -184,25 +181,25 @@ The default verifier output is:
 
 - `logs/automated_stage_gates/stage4_hardware_packet/offline_verification.json`
 
-IBM Quantum Runtime primitives provide the execution model used by the hardware lane: Sampler samples circuit output registers, while IBM backend documentation describes dynamic backend properties and calibration metadata that can change over time [3-5].
+IBM Quantum Runtime primitives provide the execution model used by the hardware validation pathway. In this context, Sampler samples circuit output registers, and IBM backend documentation describes dynamic backend properties and calibration metadata that can change over time [3-5].
 
-This verifier supports recomputation, not independent replication. Recomputing the saved packet verifies that the reported metrics follow from the published raw counts and metadata. Replication requires a new execution of the same frozen packet family, preferably across additional dates and backends. Current replication status is recorded in `docs/publication/replication-ledger-v1.md`.
+The verifier supports recomputation, not independent replication. Recomputing the saved packet verifies that the reported metrics follow from the published raw counts and metadata. Replication requires a new execution of the same frozen packet family, preferably across additional dates and backends. Current replication status is recorded in `docs/publication/replication-ledger-v1.md`.
 
 ## 5. Hardware validation result
 
 ![QRoPE Stage 4 row-level predictions](figures/qrope-stage4-predictions-v1.png)
 
-Figure 5. Stage 4 row-level labels, witness predictions, control predictions, and absolute errors. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
+**Figure 5.** Stage 4 row-level labels, witness predictions, control predictions, and absolute errors. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
 
 ![QRoPE Stage 4 witness versus control metrics](figures/qrope-stage4-metrics-v1.png)
 
-Figure 6. Stage 4 witness versus control summary metrics. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
+**Figure 6.** Stage 4 witness versus control summary metrics. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
 
 ![QRoPE replication lane status](figures/qrope-replication-status-v1.png)
 
-Figure 7. Replication lane status. Source data: `logs/automated_stage_gates/replication_lanes/replication-ledger.json`.
+**Figure 7.** Replication lane status. Source data: `logs/automated_stage_gates/replication_lanes/replication-ledger.json`.
 
-The Stage 4 evidence record reports a real-noisy-hardware validation run with:
+The Stage 4 evidence record reports one real-hardware validation run with the following recorded conditions and metrics:
 
 - provider: `ibm_runtime`;
 - backend: `ibm_fez`;
@@ -218,7 +215,7 @@ The Stage 4 evidence record reports a real-noisy-hardware validation run with:
 - witness MAE: `0.018382`;
 - witness rank correlation: `0.876558`;
 - control MAE: `0.217262`;
-- control rank correlation: `-0.176940`;
+- control rank correlation: `-0.176940`; and
 - outcome: `hardware-positive`.
 
 The control condition is the additive single-band readout baseline:
@@ -233,7 +230,7 @@ The witness condition uses the cross-band product readout:
 witness = clamp(0.5 + 0.5 * score_scale * E[Z0 Z1], 0, 1)
 ```
 
-The captured execution supports the Stage 4 packet outcome under the recorded conditions. Backend calibration, queue conditions, transpilation details, and packet composition can affect replication results. The result therefore remains scoped to the stated packet, backend, date, calibration window, and metrics.
+The captured execution supports the Stage 4 packet outcome under the recorded conditions. Backend calibration, queue conditions, transpilation details, and packet composition may affect replication. The result is therefore limited to the stated packet, backend, date, calibration window, and metrics.
 
 ## 6. Reproducibility artifacts
 
@@ -241,10 +238,10 @@ The repository prioritizes evidence files over narrative-only claims. The minimu
 
 - inspect `docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md`;
 - inspect `docs/research/q-rope-stage4-real-hardware-validation-result-v1.md`;
-- run or inspect `scripts/verify_stage4_hardware_packet.py`;
+- run or inspect `scripts/verify_stage4_hardware_packet.py`; and
 - compare the verifier output with `logs/automated_stage_gates/stage4_hardware_packet/offline_verification.json`.
 
-The intended reproducibility standard is not that every future backend execution match the present numbers. The standard is that the reported numbers are traceable to packet files, execution records, raw counts, and deterministic recomputation.
+The intended reproducibility standard is not that every future backend execution match the present numbers. The standard is that the reported numbers remain traceable to packet files, execution records, raw counts, and deterministic recomputation.
 
 ## 7. Patent and open-source notice
 
@@ -258,7 +255,7 @@ The present result has important limitations:
 
 - The Stage 4 evidence is limited to one recorded packet/backend/date/calibration context.
 - The paper does not report transformer-scale training or evaluation.
-- The paper does not report completed cross-backend replication; the replication ledger records those lanes as blocked or unexecuted pending credentialled hardware runs.
+- The paper does not report completed cross-backend replication; the replication ledger records those lanes as blocked or unexecuted pending authorized hardware runs.
 - The paper does not compare against production language-model baselines.
 - The paper does not establish quantum advantage.
 
@@ -266,7 +263,7 @@ These limitations define the scientific scope of the current release.
 
 ## 9. Conclusion
 
-QRoPE provides an open-source research lane for phase-wrap positional scoring and bounded small-circuit validation. The current evidence supports publication as a narrowly framed method and evidence paper. The next scientific step is credentialled replication and controlled expansion: executing the entangling-gate witness variant, additional packets, additional backends, simulator-to-hardware comparisons, and broader transformer-adjacent experiments only if supported by new evidence.
+QRoPE provides an open-source research pathway for phase-wrap positional scoring and bounded small-circuit validation. The current evidence supports publication as a narrowly framed method and evidence paper. The next scientific step is credentialed replication and controlled expansion: executing the entangling-gate witness variant, evaluating additional packets and backends, comparing simulator and hardware behavior, and pursuing broader transformer-adjacent experiments only when supported by new evidence.
 
 ## Repository evidence references
 
@@ -301,3 +298,5 @@ QRoPE provides an open-source research lane for phase-wrap positional scoring an
 [4] IBM Quantum Documentation. "SamplerV2." Accessed 2026-05-18. https://quantum.cloud.ibm.com/docs/en/api/qiskit-ibm-runtime/0.25/sampler-v2
 
 [5] IBM Quantum Documentation. "View backend details." Accessed 2026-05-18. https://quantum.cloud.ibm.com/docs/en/guides/qpu-information
+
+
