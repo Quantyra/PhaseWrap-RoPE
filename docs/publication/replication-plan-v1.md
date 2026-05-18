@@ -52,6 +52,19 @@ python scripts/run_automated_stage_gates.py
 python scripts/verify_stage4_hardware_packet.py --expected-backend "<backend-name>" --expected-job-id "<job-id>"
 ```
 
+Bash:
+
+```bash
+export QROPE_REAL_HARDWARE_PROVIDER="ibm_runtime"
+export QROPE_HARDWARE_BACKEND="<backend-name>"
+export QROPE_HARDWARE_CIRCUIT_FAMILY="two_qubit_zz_expectation_phase_wrap_v1"
+export QROPE_HARDWARE_ROW_LIMIT="16"
+export QROPE_HARDWARE_SHOT_COUNT="4096"
+export QROPE_HARDWARE_BUDGET_USD_CAP="<approved-budget>"
+python scripts/run_automated_stage_gates.py
+python scripts/verify_stage4_hardware_packet.py --expected-backend "<backend-name>" --expected-job-id "<job-id>"
+```
+
 ## Entangling CX replication command
 
 PowerShell:
@@ -63,6 +76,19 @@ $env:QROPE_HARDWARE_CIRCUIT_FAMILY = "two_qubit_cx_parity_phase_wrap_v2"
 $env:QROPE_HARDWARE_ROW_LIMIT = "16"
 $env:QROPE_HARDWARE_SHOT_COUNT = "4096"
 $env:QROPE_HARDWARE_BUDGET_USD_CAP = "<approved-budget>"
+python scripts/run_automated_stage_gates.py
+python scripts/verify_stage4_hardware_packet.py --expected-backend "<backend-name>" --expected-job-id "<job-id>"
+```
+
+Bash:
+
+```bash
+export QROPE_REAL_HARDWARE_PROVIDER="ibm_runtime"
+export QROPE_HARDWARE_BACKEND="<backend-name>"
+export QROPE_HARDWARE_CIRCUIT_FAMILY="two_qubit_cx_parity_phase_wrap_v2"
+export QROPE_HARDWARE_ROW_LIMIT="16"
+export QROPE_HARDWARE_SHOT_COUNT="4096"
+export QROPE_HARDWARE_BUDGET_USD_CAP="<approved-budget>"
 python scripts/run_automated_stage_gates.py
 python scripts/verify_stage4_hardware_packet.py --expected-backend "<backend-name>" --expected-job-id "<job-id>"
 ```
