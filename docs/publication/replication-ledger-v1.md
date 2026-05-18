@@ -1,4 +1,4 @@
-# QRoPE replication ledger v1
+# PhaseWrap-RoPE replication ledger v1
 
 Status: `CREDENTIALLED_HARDWARE_EXECUTION_REQUIRED`
 
@@ -34,4 +34,4 @@ This is a blocker, not a failure of the method. A replication lane becomes publi
 
 ## Publication rule
 
-Do not describe QRoPE as cross-backend robust, cross-date replicated, or entanglement-validated until the relevant lane changes from blocked/planned to completed with raw counts and verifier output. Negative or inconclusive replications should be published in this ledger rather than hidden.
+Do not describe PhaseWrap-RoPE as cross-backend robust, cross-date replicated, or entanglement-validated until the relevant lane changes from blocked/planned to completed with raw counts and verifier output. Negative or inconclusive replications should be published in this ledger rather than hidden.

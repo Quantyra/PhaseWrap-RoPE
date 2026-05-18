@@ -1,6 +1,6 @@
 # Patent notice
 
-QRoPE is patent pending.
+PhaseWrap-RoPE is patent pending.
 
 U.S. provisional patent application: `64/068,121`
 
@@ -12,7 +12,7 @@ The repository software is licensed under `AGPL-3.0-only`. See `LICENSE` and `NO
 
 ## Research and review use
 
-Subject to rights owned or controlled by Quantyra/CYINT, Quantyra/CYINT grants a non-exclusive, royalty-free patent license for non-commercial research, review, replication, and publication use of the QRoPE method as implemented in this AGPL-licensed repository, provided that use of the repository software complies with `AGPL-3.0-only`.
+Subject to rights owned or controlled by Quantyra/CYINT, Quantyra/CYINT grants a non-exclusive, royalty-free patent license for non-commercial research, review, replication, and publication use of the PhaseWrap-RoPE method as implemented in this AGPL-licensed repository, provided that use of the repository software complies with `AGPL-3.0-only`.
 
 Commercial integration, production deployment, non-AGPL use, assignments, sublicensing, or use of any claimed method outside the covered software and non-commercial research/review scope requires a separate written license from Quantyra/CYINT IP.
 

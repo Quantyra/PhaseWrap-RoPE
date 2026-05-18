@@ -1,14 +1,14 @@
-# QRoPE: Phase-Wrap Positional Scoring with Reproducible Quantum Hardware Validation
+# PhaseWrap-RoPE: Phase-Wrapped Rotary Positional Scoring with Reproducible Quantum Hardware Validation
 
 ## Abstract
 
-Quantum Rotary Positional Encoding (QRoPE) is a phase-wrap positional-scoring method that represents offset relationships through modular residuals. The method computes wrapped residuals in two periods, converts each residual into a signed cosine margin, and combines the margins into an SQR score. This paper defines the QRoPE score, describes the two-qubit hardware witness used for the current release, and reports a reproducible Stage 4 execution on IBM Quantum hardware.
+PhaseWrap-RoPE is a phase-wrap positional-scoring method that represents offset relationships through modular residuals. The method computes wrapped residuals in two periods, converts each residual into a signed cosine margin, and combines the margins into an SQR score. This paper defines the PhaseWrap-RoPE score, describes the two-qubit hardware witness used for the current release, and reports a reproducible Stage 4 execution on IBM Quantum hardware.
 
-In the released Stage 4 packet, a cross-band witness computed from the measured \(E[Z_0 Z_1]\) expectation tracks the frozen QRoPE labels more closely than an additive single-band control. The recorded 16-row hardware packet reports witness MAE \(0.018382\) and rank correlation \(0.876558\), compared with control MAE \(0.217262\) and rank correlation \(-0.176940\). The contribution of this release is both methodological and evidentiary: QRoPE supplies a compact phase-wrap scoring rule, a deterministic packet-based validation workflow, and raw-count hardware artifacts that can be recomputed offline.
+In the released Stage 4 packet, a cross-band witness computed from the measured \(E[Z_0 Z_1]\) expectation tracks the frozen PhaseWrap-RoPE labels more closely than an additive single-band control. The recorded 16-row hardware packet reports witness MAE \(0.018382\) and rank correlation \(0.876558\), compared with control MAE \(0.217262\) and rank correlation \(-0.176940\). The contribution of this release is both methodological and evidentiary: PhaseWrap-RoPE supplies a compact phase-wrap scoring rule, a deterministic packet-based validation workflow, and raw-count hardware artifacts that can be recomputed offline.
 
 ## Keywords
 
-Quantum positional encoding; rotary positional encoding; phase-wrap scoring; modular residuals; quantum circuit validation; deterministic evidence packets; IBM Quantum hardware.
+Phase-wrapped rotary positional encoding; quantum hardware validation; phase-wrap scoring; modular residuals; quantum circuit validation; deterministic evidence packets; IBM Quantum hardware.
 
 ## 1. Definitions and notation
 
@@ -21,11 +21,11 @@ This section defines the main terms used throughout the paper.
 | Phase | The angular representation \(2\pi\delta/P\) of an offset under period \(P\). |
 | Phase wrap | The operation that shifts an angle by integer multiples of \(2\pi\) into \((-\pi,\pi]\). |
 | Wrapped residual | The absolute wrapped difference between two period-specific phases. It measures phase distance after modular wraparound. |
-| Band | One of the two modular channels used by QRoPE. The current score uses an 8-period band and a 12-period band. |
+| Band | One of the two modular channels used by PhaseWrap-RoPE. The current score uses an 8-period band and a 12-period band. |
 | Signed margin | A cosine residual shifted by a one-step threshold. A positive margin means the residual is inside the one-step boundary; a negative margin means it is outside. |
-| SQR score | The local QRoPE score, computed as the product of the period-8 and period-12 signed margins. |
+| SQR score | The local PhaseWrap-RoPE score, computed as the product of the period-8 and period-12 signed margins. |
 | Normalized label | A clamped value in \([0,1]\) derived from the SQR score over the fixed packet grid. |
-| Witness | The hardware-derived prediction used to test the cross-band QRoPE score. In the current packet, it is derived from \(E[Z_0 Z_1]\). |
+| Witness | The hardware-derived prediction used to test the cross-band PhaseWrap-RoPE score. In the current packet, it is derived from \(E[Z_0 Z_1]\). |
 | Control | The additive single-band baseline used for comparison against the witness. |
 | Shot | One circuit execution and measurement sample. The Stage 4 packet uses 4096 shots per row. |
 | Raw counts | The measured bitstring counts returned by hardware, such as counts for `00`, `01`, `10`, and `11`. |
@@ -41,7 +41,7 @@ This section defines the main terms used throughout the paper.
 
 Positional encodings give attention models access to token order. The Transformer architecture established self-attention as a general sequence-modeling foundation [1]. Rotary Position Embedding (RoPE) later introduced a rotation-based way to encode position while preserving useful relative-position structure in self-attention [2].
 
-QRoPE develops a related phase idea in a narrower and more directly testable form. Instead of beginning with a full transformer implementation, QRoPE defines a local phase-wrap score over integer offsets and validates that score through fixed software and hardware artifacts. The resulting workflow is designed so that a reviewer can inspect the score definition, inspect the frozen packet, recompute the metrics, and compare the cross-band witness against a control condition.
+PhaseWrap-RoPE develops a related phase idea in a narrower and more directly testable form. Instead of beginning with a full transformer implementation, PhaseWrap-RoPE defines a local phase-wrap score over integer offsets and validates that score through fixed software and hardware artifacts. The resulting workflow is designed so that a reviewer can inspect the score definition, inspect the frozen packet, recompute the metrics, and compare the cross-band witness against a control condition.
 
 The paper makes three contributions:
 
@@ -51,15 +51,15 @@ The paper makes three contributions:
 
 ## 3. Relationship to RoPE and positional encoding
 
-RoPE uses rotations to incorporate positional information into transformer self-attention and to express relative-position dependencies [2]. QRoPE keeps the phase-centered intuition but changes the object of study. The present method is a local positional-scoring rule, not a complete transformer positional-embedding layer.
+RoPE uses rotations to incorporate positional information into transformer self-attention and to express relative-position dependencies [2]. PhaseWrap-RoPE keeps the phase-centered intuition but changes the object of study. The present method is a local positional-scoring rule, not a complete transformer positional-embedding layer.
 
-The relationship is therefore conceptual: both RoPE and QRoPE use angular structure, but QRoPE studies wrapped residuals across two modular periods and combines them through a signed product score. This makes the current QRoPE release suitable for packet-based validation before broader architecture-level experiments.
+The relationship is therefore conceptual: both RoPE and PhaseWrap-RoPE use angular structure, but PhaseWrap-RoPE focuses on wrapped residuals across two modular periods and combines them through a signed product score. This makes the current PhaseWrap-RoPE release suitable for packet-based validation before broader architecture-level experiments.
 
-## 4. QRoPE score definition
+## 4. PhaseWrap-RoPE score definition
 
-![QRoPE phase-wrap method schematic](figures/qrope-method-schematic-v1.svg)
+![PhaseWrap-RoPE phase-wrap method schematic](figures/qrope-method-schematic-v1.svg)
 
-**Figure 1.** QRoPE phase-wrap scoring schematic. The figure is conceptual; the formulas below define the method.
+**Figure 1.** PhaseWrap-RoPE phase-wrap scoring schematic. The figure is conceptual; the formulas below define the method.
 
 For integer offsets \(\delta_a\) and \(\delta_b\), define the period-specific wrapped phase as
 
@@ -71,7 +71,7 @@ theta_P(delta) = wrap_pi(2*pi*delta/P)
 r_P(delta_a, delta_b) = abs(wrap_pi(theta_P(delta_a) - theta_P(delta_b)))
 ```
 
-The current QRoPE release uses two residuals:
+The current PhaseWrap-RoPE release uses two residuals:
 
 ```text
 r8  = r_8(delta_a, delta_b)
@@ -85,7 +85,7 @@ m8  = cos(r8)  - cos(pi/4)
 m12 = cos(r12) - cos(pi/6)
 ```
 
-The local QRoPE score is the product of the two margins:
+The local PhaseWrap-RoPE score is the product of the two margins:
 
 ```text
 SQR = m8 * m12
@@ -101,7 +101,7 @@ label = clamp(0.5 + 0.5 * SQR / MAX_ABS_SCORE, 0, 1)
 
 where `MAX_ABS_SCORE` is computed over the fixed delta grid used by the packet generator.
 
-### Algorithm 1. Local QRoPE score
+### Algorithm 1. Local PhaseWrap-RoPE score
 
 ```text
 Input: integer offsets delta_a, delta_b
@@ -141,7 +141,7 @@ The control prediction uses the additive single-band readout:
 control = clamp(0.5 + 0.25 * (E[Z0] + E[Z1]), 0, 1)
 ```
 
-![QRoPE product-state witness circuit](figures/qrope-product-state-circuit-v1.png)
+![PhaseWrap-RoPE product-state witness circuit](figures/qrope-product-state-circuit-v1.png)
 
 **Figure 2.** Product-state witness circuit for the published Stage 4 hardware packet. The rendered parameters are taken from the first frozen packet row.
 
@@ -160,7 +160,7 @@ witness_cx = clamp(0.5 + 0.5 * score_scale * E[Z1 after CX], 0, 1)
 control_cx = clamp(0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX]), 0, 1)
 ```
 
-![QRoPE entangling CX witness circuit](figures/qrope-cx-witness-circuit-v1.png)
+![PhaseWrap-RoPE entangling CX witness circuit](figures/qrope-cx-witness-circuit-v1.png)
 
 **Figure 3.** Entangling CX witness variant implemented for follow-up hardware execution.
 
@@ -168,7 +168,7 @@ Implementation reference: `src/qrope/automated_stage_gates.py`.
 
 ## 6. Validation workflow
 
-![QRoPE deterministic validation pipeline](figures/qrope-validation-pipeline-v1.svg)
+![PhaseWrap-RoPE deterministic validation pipeline](figures/qrope-validation-pipeline-v1.svg)
 
 **Figure 4.** Deterministic validation workflow. The verifier recomputes metrics from frozen packet files and execution records.
 
@@ -206,15 +206,15 @@ IBM Quantum Runtime primitives provide the execution model used by the hardware 
 
 ## 7. Stage 4 hardware result
 
-![QRoPE Stage 4 row-level predictions](figures/qrope-stage4-predictions-v1.png)
+![PhaseWrap-RoPE Stage 4 row-level predictions](figures/qrope-stage4-predictions-v1.png)
 
 **Figure 5.** Stage 4 row-level labels, witness predictions, control predictions, and absolute errors. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
 
-![QRoPE Stage 4 witness versus control metrics](figures/qrope-stage4-metrics-v1.png)
+![PhaseWrap-RoPE Stage 4 witness versus control metrics](figures/qrope-stage4-metrics-v1.png)
 
 **Figure 6.** Stage 4 witness versus control summary metrics. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
 
-![QRoPE replication lane status](figures/qrope-replication-status-v1.png)
+![PhaseWrap-RoPE replication lane status](figures/qrope-replication-status-v1.png)
 
 **Figure 7.** Replication lane status. Source data: `logs/automated_stage_gates/replication_lanes/replication-ledger.json`.
 
@@ -239,7 +239,7 @@ The released Stage 4 packet records the following execution conditions and metri
 | Control rank correlation | `-0.176940` |
 | Outcome | `hardware-positive` |
 
-The witness condition substantially improves over the additive control on this packet. The row-level results show that the cross-band product readout tracks the frozen labels, while the additive control collapses much of the score structure. The result demonstrates that the QRoPE score, packet generator, hardware readout, and offline verifier form a coherent reproducible validation loop for this Stage 4 execution.
+The witness condition substantially improves over the additive control on this packet. The row-level results show that the cross-band product readout tracks the frozen labels, while the additive control collapses much of the score structure. The result demonstrates that the PhaseWrap-RoPE score, packet generator, hardware readout, and offline verifier form a coherent reproducible validation loop for this Stage 4 execution.
 
 ## 8. Reproducibility artifacts
 
@@ -260,17 +260,17 @@ The current release establishes a method definition and one saved hardware-posit
 - rerun the frozen packet across additional dates and backends;
 - vary packet composition and row count;
 - compare simulator, noisy-simulator, and hardware behavior under controlled settings;
-- test whether QRoPE-style features are useful inside transformer-adjacent models.
+- test whether PhaseWrap-RoPE-style features are useful inside transformer-adjacent models.
 
 These experiments would turn the current packet-level result into a broader empirical study.
 
 ## 10. Availability, license, and patent notice
 
-The QRoPE repository contains the method implementation, verifier, evidence packet, figures, and publication materials. The repository software is released under `AGPL-3.0-only`. QRoPE is patent pending under U.S. provisional patent application `64/068,121`. Commercial patent licensing, non-AGPL use, assignments, and sublicensing should be handled separately with Quantyra/CYINT IP.
+The QRoPE repository contains the PhaseWrap-RoPE method implementation, verifier, evidence packet, figures, and publication materials. Repository filenames and artifact identifiers may retain `qrope` for continuity. The repository software is released under `AGPL-3.0-only`. PhaseWrap-RoPE is patent pending under U.S. provisional patent application `64/068,121`. Commercial patent licensing, non-AGPL use, assignments, and sublicensing should be handled separately with Quantyra/CYINT IP.
 
 ## 11. Conclusion
 
-QRoPE defines a compact phase-wrap positional score based on two modular signed margins. The current hardware packet shows that a two-qubit cross-band witness can reproduce the frozen QRoPE labels more accurately than an additive single-band control under the recorded Stage 4 conditions. More importantly, the release provides a transparent validation workflow: fixed packet, fixed shot count, raw counts, backend metadata, deterministic evaluator, and offline verifier. This makes QRoPE suitable for external review and for systematic follow-up experiments.
+PhaseWrap-RoPE defines a compact phase-wrap positional score based on two modular signed margins. The current hardware packet shows that a two-qubit cross-band witness can reproduce the frozen PhaseWrap-RoPE labels more accurately than an additive single-band control under the recorded Stage 4 conditions. More importantly, the release provides a transparent validation workflow: fixed packet, fixed shot count, raw counts, backend metadata, deterministic evaluator, and offline verifier. This makes PhaseWrap-RoPE suitable for external review and for systematic follow-up experiments.
 
 ## Repository evidence references
 

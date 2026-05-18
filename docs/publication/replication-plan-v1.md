@@ -1,4 +1,4 @@
-# QRoPE replication plan v1
+# PhaseWrap-RoPE replication plan v1
 
 Status: `READY_FOR_CREDENTIALLED_EXECUTION_WITH_LEDGER`
 
@@ -95,4 +95,4 @@ python scripts/verify_stage4_hardware_packet.py --expected-backend "<backend-nam
 
 ## Publication rule
 
-Do not broaden the QRoPE claim boundary until at least one replication lane produces completed raw counts, metadata, and verifier output. Negative or inconclusive replications should be published as evidence rather than hidden. Update `logs/automated_stage_gates/replication_lanes/replication-ledger.json` and `docs/publication/replication-ledger-v1.md` in the same commit that publishes any new replication packet.
+Do not broaden the PhaseWrap-RoPE claim boundary until at least one replication lane produces completed raw counts, metadata, and verifier output. Negative or inconclusive replications should be published as evidence rather than hidden. Update `logs/automated_stage_gates/replication_lanes/replication-ledger.json` and `docs/publication/replication-ledger-v1.md` in the same commit that publishes any new replication packet.
