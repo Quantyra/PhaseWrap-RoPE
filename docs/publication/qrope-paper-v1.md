@@ -125,6 +125,10 @@ The circuit prepares each qubit with a Y-axis rotation using `theta_0` and `thet
 
 The current Stage 4 circuit is a product-state angle-encoding/readout witness. It contains no entangling gate. Consequently, the measured `E[Z0 Z1]` term should be understood as a hardware readout of the cross-band product induced by independently encoded margins, not as evidence of entanglement, quantum speedup, or nonclassical interference.
 
+![QRoPE product-state witness circuit](figures/qrope-product-state-circuit-v1.png)
+
+Figure 2. Product-state witness circuit for the published Stage 4 hardware packet. Circuit parameters shown in the rendered diagram are taken from the first frozen packet row.
+
 The repository now includes an opt-in entangling CX witness family:
 
 ```text
@@ -140,13 +144,17 @@ control_cx = clamp(0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX]), 0, 1)
 
 This variant is implemented and unit-tested for follow-up hardware execution, but it is not part of the current hardware evidence until a credentialled run publishes raw counts, metadata, and verifier output.
 
+![QRoPE entangling CX witness circuit](figures/qrope-cx-witness-circuit-v1.png)
+
+Figure 3. Entangling CX witness variant implemented for follow-up hardware execution. This circuit is not part of the current published hardware evidence.
+
 Implementation reference: `src/qrope/automated_stage_gates.py`.
 
 ## 4. Validation protocol
 
 ![QRoPE deterministic validation pipeline](figures/qrope-validation-pipeline-v1.svg)
 
-Figure 2. Deterministic validation lane. The verification path is designed to recompute metrics from frozen packet files and execution records.
+Figure 4. Deterministic validation lane. The verification path is designed to recompute metrics from frozen packet files and execution records.
 
 The validation protocol is designed around reproducibility rather than opportunistic metric selection. A valid evidence packet should include:
 
@@ -182,13 +190,17 @@ This verifier supports recomputation, not independent replication. Recomputing t
 
 ## 5. Hardware validation result
 
-![QRoPE Stage 4 witness versus control metrics](figures/qrope-stage4-metrics-v1.svg)
+![QRoPE Stage 4 row-level predictions](figures/qrope-stage4-predictions-v1.png)
 
-Figure 3. Stage 4 witness versus control metrics. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
+Figure 5. Stage 4 row-level labels, witness predictions, control predictions, and absolute errors. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
 
-![QRoPE replication lane status](figures/qrope-replication-status-v1.svg)
+![QRoPE Stage 4 witness versus control metrics](figures/qrope-stage4-metrics-v1.png)
 
-Figure 4. Replication lane status. Source data: `logs/automated_stage_gates/replication_lanes/replication-ledger.json`.
+Figure 6. Stage 4 witness versus control summary metrics. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
+
+![QRoPE replication lane status](figures/qrope-replication-status-v1.png)
+
+Figure 7. Replication lane status. Source data: `logs/automated_stage_gates/replication_lanes/replication-ledger.json`.
 
 The Stage 4 evidence record reports a real-noisy-hardware validation run with:
 
@@ -272,9 +284,12 @@ QRoPE provides an open-source research lane for phase-wrap positional scoring an
 - `docs/publication/manuscript-to-provisional-support-audit-v1.md`
 - `docs/publication/patent-status-note-v1.md`
 - `docs/publication/figures/qrope-method-schematic-v1.svg`
+- `docs/publication/figures/qrope-product-state-circuit-v1.png`
+- `docs/publication/figures/qrope-cx-witness-circuit-v1.png`
 - `docs/publication/figures/qrope-validation-pipeline-v1.svg`
-- `docs/publication/figures/qrope-stage4-metrics-v1.svg`
-- `docs/publication/figures/qrope-replication-status-v1.svg`
+- `docs/publication/figures/qrope-stage4-predictions-v1.png`
+- `docs/publication/figures/qrope-stage4-metrics-v1.png`
+- `docs/publication/figures/qrope-replication-status-v1.png`
 - `docs/publication/replication-ledger-v1.md`
 - `logs/automated_stage_gates/replication_lanes/replication-ledger.json`
 - `PATENTS.md`

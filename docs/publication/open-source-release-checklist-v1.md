@@ -32,9 +32,12 @@ Patent notice: patent pending; U.S. provisional patent application `64/068,121`.
 | `scripts/verify_stage4_hardware_packet.py` | Prepared | Offline verifier for saved Stage 4 packet arithmetic. |
 | `logs/automated_stage_gates/stage4_hardware_packet/*.json` | Prepared | Frozen packet, execution, evaluation, summary, and offline verification evidence. |
 | `docs/publication/figures/qrope-method-schematic-v1.svg` | Prepared | Publication-grade method schematic. |
+| `docs/publication/figures/qrope-product-state-circuit-v1.png` | Prepared | Circuit PNG for the published product-state witness family. |
+| `docs/publication/figures/qrope-cx-witness-circuit-v1.png` | Prepared | Circuit PNG for the implemented CX witness variant. |
 | `docs/publication/figures/qrope-validation-pipeline-v1.svg` | Prepared | Publication-grade validation pipeline diagram. |
-| `docs/publication/figures/qrope-stage4-metrics-v1.svg` | Prepared | Publication-grade Stage 4 witness/control metric chart. |
-| `docs/publication/figures/qrope-replication-status-v1.svg` | Prepared | Publication-grade replication lane status chart. |
+| `docs/publication/figures/qrope-stage4-predictions-v1.png` | Prepared | Matplotlib chart generated from Stage 4 row-level prediction data. |
+| `docs/publication/figures/qrope-stage4-metrics-v1.png` | Prepared | Matplotlib chart generated from Stage 4 summary metrics. |
+| `docs/publication/figures/qrope-replication-status-v1.png` | Prepared | Matplotlib chart generated from the replication ledger. |
 | `CONTRIBUTING.md` | Prepared | Evidence and claim-boundary contribution rules. |
 | `SECURITY.md` | Prepared | Private reporting path for secrets and sensitive records. |
 | `CODE_OF_CONDUCT.md` | Prepared | Research-collaboration conduct standard. |
