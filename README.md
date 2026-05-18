@@ -31,6 +31,10 @@ The public claim frame excludes:
 ## Key documents
 
 - [Manuscript-to-provisional support audit](docs/publication/manuscript-to-provisional-support-audit-v1.md)
+- [Repository paper v1](docs/publication/qrope-paper-v1.md)
+- [QRoPE method schematic](docs/publication/figures/qrope-method-schematic-v1.svg)
+- [Validation pipeline figure](docs/publication/figures/qrope-validation-pipeline-v1.svg)
+- [Stage 4 metrics figure](docs/publication/figures/qrope-stage4-metrics-v1.svg)
 - [Open-source release checklist](docs/publication/open-source-release-checklist-v1.md)
 - [Patent notice](PATENTS.md)
 - [Stage 4 real-hardware validation result](docs/research/q-rope-stage4-real-hardware-validation-result-v1.md)

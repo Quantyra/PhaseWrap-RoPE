@@ -17,6 +17,12 @@ Patent notice: U.S. provisional patent application `64/068,121`, filed `2026-05-
 | `NOTICE` | Prepared | Short public ownership and patent-pending notice. |
 | `PATENTS.md` | Prepared | Patent-pending notice and license boundary. |
 | `CITATION.cff` | Prepared | Repository citation metadata. |
+| `docs/publication/qrope-paper-v1.md` | Prepared | Standalone bounded repository-paper draft. |
+| `docs/publication/references.bib` | Prepared | Formal references for Transformer, RoPE, IBM Runtime primitives, SamplerV2, and backend metadata. |
+| `docs/publication/paper-gap-remediation-audit-v1.md` | Prepared | Checklist showing paper audit gaps remediated locally. |
+| `docs/publication/figures/qrope-method-schematic-v1.svg` | Prepared | Publication-grade method schematic. |
+| `docs/publication/figures/qrope-validation-pipeline-v1.svg` | Prepared | Publication-grade validation pipeline diagram. |
+| `docs/publication/figures/qrope-stage4-metrics-v1.svg` | Prepared | Publication-grade Stage 4 witness/control metric chart. |
 | `CONTRIBUTING.md` | Prepared | Evidence and claim-boundary contribution rules. |
 | `SECURITY.md` | Prepared | Private reporting path for secrets and sensitive records. |
 | `CODE_OF_CONDUCT.md` | Prepared | Research-collaboration conduct standard. |
