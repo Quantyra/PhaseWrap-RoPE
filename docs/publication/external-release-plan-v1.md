@@ -6,9 +6,9 @@ Date: `2026-05-18`
 
 ## Scope
 
-This plan prepares the repo for external citable release. It does not claim that arXiv, OSF, or Zenodo submission is complete.
+This plan records optional external citable-release paths. arXiv/OSF/Zenodo submission is not required for the current repository posture and should not be treated as a blocker.
 
-## arXiv
+## Optional arXiv
 
 Recommended action:
 
@@ -23,7 +23,7 @@ Blocking items:
 - Endorsement/category eligibility if required by arXiv.
 - Final PDF/LaTeX package.
 
-## OSF
+## Optional OSF
 
 Recommended action:
 
@@ -37,7 +37,7 @@ Blocking items:
 - Project title/description approval.
 - Choice of whether OSF is primary preprint host or supplemental archive.
 
-## Zenodo
+## Optional Zenodo
 
 Recommended action:
 
@@ -64,4 +64,4 @@ Use a conservative first public review tag:
 v0.1.0-review
 ```
 
-Do not use `v1.0.0` until independent replication or a venue-ready preprint exists.
+Do not use `v1.0.0` until independent replication exists or the maintainers deliberately choose a venue-ready release boundary.

@@ -138,7 +138,7 @@ witness_cx = clamp(0.5 + 0.5 * score_scale * E[Z1 after CX], 0, 1)
 control_cx = clamp(0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX]), 0, 1)
 ```
 
-This variant is implemented for follow-up hardware execution, but it is not part of the current Stage 4 evidence until it is run and reported.
+This variant is implemented and unit-tested for follow-up hardware execution, but it is not part of the current hardware evidence until a credentialled run publishes raw counts, metadata, and verifier output.
 
 Implementation reference: `src/qrope/automated_stage_gates.py`.
 
@@ -178,13 +178,17 @@ The default verifier output is:
 
 IBM Quantum Runtime primitives provide the execution model used by the hardware lane: Sampler samples circuit output registers, while IBM backend documentation describes dynamic backend properties and calibration metadata that can change over time [3-5].
 
-This verifier supports recomputation, not independent replication. Recomputing the saved packet verifies that the reported metrics follow from the published raw counts and metadata. Replication requires a new execution of the same frozen packet, preferably across additional dates and backends.
+This verifier supports recomputation, not independent replication. Recomputing the saved packet verifies that the reported metrics follow from the published raw counts and metadata. Replication requires a new execution of the same frozen packet family, preferably across additional dates and backends. Current replication status is recorded in `docs/publication/replication-ledger-v1.md`.
 
 ## 5. Hardware validation result
 
 ![QRoPE Stage 4 witness versus control metrics](figures/qrope-stage4-metrics-v1.svg)
 
 Figure 3. Stage 4 witness versus control metrics. Source data: `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`.
+
+![QRoPE replication lane status](figures/qrope-replication-status-v1.svg)
+
+Figure 4. Replication lane status. Source data: `logs/automated_stage_gates/replication_lanes/replication-ledger.json`.
 
 The Stage 4 evidence record reports a real-noisy-hardware validation run with:
 
@@ -246,7 +250,7 @@ The present result has important limitations:
 
 - The Stage 4 evidence is limited to one recorded packet/backend/date/calibration context.
 - The paper does not report transformer-scale training or evaluation.
-- The paper does not report cross-backend replication.
+- The paper does not report completed cross-backend replication; the replication ledger records those lanes as blocked or unexecuted pending credentialled hardware runs.
 - The paper does not compare against production language-model baselines.
 - The paper does not establish quantum advantage.
 
@@ -254,7 +258,7 @@ These limitations define the scientific scope of the current release.
 
 ## 9. Conclusion
 
-QRoPE provides an open-source research lane for phase-wrap positional scoring and bounded small-circuit validation. The current evidence supports publication as a narrowly framed method and evidence paper. The next scientific step is replication and controlled expansion: executing the entangling-gate witness variant, additional packets, additional backends, simulator-to-hardware comparisons, and broader transformer-adjacent experiments only if supported by new evidence.
+QRoPE provides an open-source research lane for phase-wrap positional scoring and bounded small-circuit validation. The current evidence supports publication as a narrowly framed method and evidence paper. The next scientific step is credentialled replication and controlled expansion: executing the entangling-gate witness variant, additional packets, additional backends, simulator-to-hardware comparisons, and broader transformer-adjacent experiments only if supported by new evidence.
 
 ## Repository evidence references
 
@@ -271,6 +275,9 @@ QRoPE provides an open-source research lane for phase-wrap positional scoring an
 - `docs/publication/figures/qrope-method-schematic-v1.svg`
 - `docs/publication/figures/qrope-validation-pipeline-v1.svg`
 - `docs/publication/figures/qrope-stage4-metrics-v1.svg`
+- `docs/publication/figures/qrope-replication-status-v1.svg`
+- `docs/publication/replication-ledger-v1.md`
+- `logs/automated_stage_gates/replication_lanes/replication-ledger.json`
 - `PATENTS.md`
 - `README.md`
 

@@ -13,7 +13,7 @@ As a research lead, I want explicit credit-aware execution rules, so remote runs
 
 ## Outputs
 - `docs/research/`
-- `stories/`
+- `docs/governance/stories/`
 
 ## Evidence and references
 - `docs/research/q-rope-quandela-credit-recovery-note-v1.md`

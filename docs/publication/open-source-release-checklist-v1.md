@@ -23,6 +23,8 @@ Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Ac
 | `docs/publication/paper-gap-remediation-audit-v1.md` | Prepared | Checklist showing paper audit gaps remediated locally. |
 | `docs/publication/external-review-response-v1.md` | Prepared | External review response and unresolved follow-up list. |
 | `docs/publication/replication-plan-v1.md` | Prepared | Cross-backend/cross-date and entangling-witness replication plan. |
+| `docs/publication/replication-ledger-v1.md` | Prepared | Completed-vs-blocked replication lane ledger. |
+| `logs/automated_stage_gates/replication_lanes/replication-ledger.json` | Prepared | Machine-readable replication lane state. |
 | `docs/publication/external-release-plan-v1.md` | Prepared | arXiv, OSF, and Zenodo release plan with blockers. |
 | `.zenodo.json` | Prepared | Zenodo metadata override for first GitHub release DOI. |
 | `.github/workflows/ci.yml` | Prepared | GitHub Actions pytest and coverage workflow. |
@@ -32,6 +34,7 @@ Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Ac
 | `docs/publication/figures/qrope-method-schematic-v1.svg` | Prepared | Publication-grade method schematic. |
 | `docs/publication/figures/qrope-validation-pipeline-v1.svg` | Prepared | Publication-grade validation pipeline diagram. |
 | `docs/publication/figures/qrope-stage4-metrics-v1.svg` | Prepared | Publication-grade Stage 4 witness/control metric chart. |
+| `docs/publication/figures/qrope-replication-status-v1.svg` | Prepared | Publication-grade replication lane status chart. |
 | `CONTRIBUTING.md` | Prepared | Evidence and claim-boundary contribution rules. |
 | `SECURITY.md` | Prepared | Private reporting path for secrets and sensitive records. |
 | `CODE_OF_CONDUCT.md` | Prepared | Research-collaboration conduct standard. |

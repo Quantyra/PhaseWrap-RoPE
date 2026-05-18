@@ -13,7 +13,7 @@ As a research lead, I want the next Quandela remote wave selected under an expli
 
 ## Outputs
 - `docs/research/`
-- `stories/`
+- `docs/governance/stories/`
 
 ## Evidence and references
 - `docs/research/q-rope-credit-aware-remote-execution-policy-v1.md`

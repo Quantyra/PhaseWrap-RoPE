@@ -13,7 +13,7 @@ As a research lead, I want a concise publication framing memo, so external commu
 
 ## Outputs
 - `docs/research/`
-- `stories/`
+- `docs/governance/stories/`
 
 ## Evidence and references
 - `docs/research/q-rope-publication-risk-tightening-v1.md`

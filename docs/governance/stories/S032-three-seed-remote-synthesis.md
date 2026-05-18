@@ -13,7 +13,7 @@ As a research lead, I want the full matched 3-seed remote packet synthesized int
 
 ## Outputs
 - `docs/research/`
-- `stories/`
+- `docs/governance/stories/`
 
 ## Evidence and references
 - `docs/research/q-rope-matched-remote-supplemental-note-v1.md`

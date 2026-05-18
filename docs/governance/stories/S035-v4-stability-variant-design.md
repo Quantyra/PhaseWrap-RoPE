@@ -13,7 +13,7 @@ As a research lead, I want a concrete `V4` design aimed at reducing seed/provide
 
 ## Outputs
 - `docs/research/`
-- `stories/`
+- `docs/governance/stories/`
 
 ## Evidence and references
 - `docs/research/q-rope-three-seed-remote-synthesis-v1.md`

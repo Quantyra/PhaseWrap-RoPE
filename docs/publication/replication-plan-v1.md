@@ -1,12 +1,12 @@
 # QRoPE replication plan v1
 
-Status: `READY_FOR_CREDENTIALLED_EXECUTION`
+Status: `READY_FOR_CREDENTIALLED_EXECUTION_WITH_LEDGER`
 
 Date: `2026-05-18`
 
 ## Purpose
 
-This plan separates saved-count recomputation from independent replication.
+This plan separates saved-count recomputation from independent replication. Current execution state is recorded in `docs/publication/replication-ledger-v1.md`.
 
 - Recompute: run the verifier against already-published raw counts.
 - Replicate: submit a new hardware job for the same frozen packet family, capture new raw counts and metadata, and compare metrics.
@@ -16,7 +16,7 @@ This plan separates saved-count recomputation from independent replication.
 | Circuit family | Status | Claim boundary |
 | --- | --- | --- |
 | `two_qubit_zz_expectation_phase_wrap_v1` | Executed once on `ibm_fez` | Product-state angle-encoding/readout witness. |
-| `two_qubit_cx_parity_phase_wrap_v2` | Implemented; not yet executed on hardware | Entangling CX witness variant. No evidence claim until executed and reported. |
+| `two_qubit_cx_parity_phase_wrap_v2` | Implemented and unit-tested; not yet executed on hardware | Entangling CX witness variant. No evidence claim until credentialled execution is completed and reported. |
 
 ## Minimum replication matrix
 
@@ -95,4 +95,4 @@ python scripts/verify_stage4_hardware_packet.py --expected-backend "<backend-nam
 
 ## Publication rule
 
-Do not broaden the QRoPE claim boundary until at least one replication lane produces completed raw counts, metadata, and verifier output. Negative or inconclusive replications should be published as evidence rather than hidden.
+Do not broaden the QRoPE claim boundary until at least one replication lane produces completed raw counts, metadata, and verifier output. Negative or inconclusive replications should be published as evidence rather than hidden. Update `logs/automated_stage_gates/replication_lanes/replication-ledger.json` and `docs/publication/replication-ledger-v1.md` in the same commit that publishes any new replication packet.

@@ -1,0 +1,77 @@
+{
+  "ledger_version": "qrope_replication_ledger_v1",
+  "as_of_date": "2026-05-18",
+  "status": "credentialled_hardware_execution_required",
+  "claim_boundary": "Only the original product-state IBM hardware packet is published as completed hardware evidence. Cross-backend, cross-date, and entangling-CX lanes remain unexecuted until credentialled jobs produce raw counts, metadata, and verifier outputs.",
+  "environment_preflight": {
+    "checked_at_local_date": "2026-05-18",
+    "ibm_runtime_dependency_present": true,
+    "credential_environment_present": false,
+    "hardware_execution_possible_from_current_environment": false,
+    "public_reason": "No IBM Quantum token, backend, or budget-cap environment variables were configured in the execution environment used for this repo update."
+  },
+  "lanes": [
+    {
+      "lane_id": "stage4-product-original",
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "provider": "ibm_runtime",
+      "backend": "ibm_fez",
+      "date_utc": "2026-05-17",
+      "status": "published_completed",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_packet/",
+      "outcome": "hardware-positive",
+      "witness_mae": 0.018382,
+      "control_mae": 0.217262,
+      "witness_rank_correlation": 0.876558,
+      "control_rank_correlation": -0.17694
+    },
+    {
+      "lane_id": "product-rerun-a",
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "target": "second IBM backend, first replication date",
+      "status": "blocked_pending_credentials_and_backend_selection",
+      "required_before_claim": [
+        "completed raw counts",
+        "backend metadata",
+        "calibration metadata",
+        "verifier output"
+      ]
+    },
+    {
+      "lane_id": "product-rerun-b",
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "target": "third IBM backend or second date",
+      "status": "blocked_pending_credentials_and_backend_selection",
+      "required_before_claim": [
+        "completed raw counts",
+        "backend metadata",
+        "calibration metadata",
+        "verifier output"
+      ]
+    },
+    {
+      "lane_id": "cx-rerun-a",
+      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+      "target": "IBM backend with acceptable CX profile, first execution date",
+      "status": "implemented_not_executed_on_hardware",
+      "required_before_claim": [
+        "completed raw counts",
+        "backend metadata",
+        "calibration metadata",
+        "verifier output"
+      ]
+    },
+    {
+      "lane_id": "cx-rerun-b",
+      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+      "target": "second date or second backend",
+      "status": "implemented_not_executed_on_hardware",
+      "required_before_claim": [
+        "completed raw counts",
+        "backend metadata",
+        "calibration metadata",
+        "verifier output"
+      ]
+    }
+  ]
+}

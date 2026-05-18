@@ -14,7 +14,7 @@ As a research lead, I want the Quandela adapter hardened against provider-reject
 ## Outputs
 - `src/qrope/qphotonic.py`
 - `docs/research/`
-- `stories/`
+- `docs/governance/stories/`
 
 ## Evidence and references
 - `docs/research/q-rope-matched-remote-supplemental-note-v1.md`

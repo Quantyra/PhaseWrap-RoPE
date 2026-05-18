@@ -6,7 +6,7 @@ This repository tracks work for Quantum Rotational Positional Embeddings (QRoPE)
 - Main protocols: `../Quantyra`
 - QRoPE-specific protocols: `docs/protocols/`
 - Process docs: `docs/process/`
-- Research artifacts: `docs/`, `epics/`, `stories/`
+- Research artifacts: `docs/`, `docs/governance/epics/`, `docs/governance/stories/`
 - Templates: `templates/`
 - Session state: `logs/checkpoint.json`
 

@@ -13,7 +13,7 @@ As a research lead, I want the approved order-only line translated into one exac
 
 ## Outputs
 - docs/research/`r
-- stories/`r
+- docs/governance/docs/governance/stories/`r
 
 ## Dependencies
 - S368

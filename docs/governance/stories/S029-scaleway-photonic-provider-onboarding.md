@@ -13,7 +13,7 @@ As a research lead, I want a fallback photonic provider path onboarded, so photo
 
 ## Outputs
 - `docs/process/`
-- `stories/`
+- `docs/governance/stories/`
 - `scripts/`
 
 ## Evidence and references

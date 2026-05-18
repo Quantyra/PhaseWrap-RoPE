@@ -13,7 +13,7 @@ As a research lead, I want the approved listwise line translated into one exact 
 
 ## Outputs
 - docs/research/`r
-- stories/`r
+- docs/governance/docs/governance/stories/`r
 
 ## Dependencies
 - S377

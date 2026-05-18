@@ -13,7 +13,7 @@ As a research lead, I want a concrete fallback decision for photonic remote exec
 
 ## Outputs
 - `docs/research/`
-- `stories/`
+- `docs/governance/stories/`
 
 ## Evidence and references
 - `docs/research/q-rope-quandela-hardening-note-v1.md`

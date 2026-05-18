@@ -1,6 +1,6 @@
 # External review response v1
 
-Status: `CLAUDE_REVIEW_ACTIONED_INITIAL_PASS`
+Status: `CLAUDE_REVIEW_ACTIONED_REPO_SIDE_PASS`
 
 Date: `2026-05-18`
 
@@ -19,12 +19,16 @@ Date: `2026-05-18`
 | Paper referenced verifier/evidence artifacts that were not staged for public review. | The public evidence bundle is prepared for publication: `src/qrope/automated_stage_gates.py`, `scripts/verify_stage4_hardware_packet.py`, and Stage 4 JSON packet files under `logs/automated_stage_gates/stage4_hardware_packet/`. |
 | AGENTS.md rendered a literal `\r\n`. | Fixed. |
 
-## Not yet done
+## Remaining hardware evidence blockers
 
-- Execute and report the implemented entangling-gate witness variant on hardware.
-- Run cross-backend and cross-date replications.
-- Move internal process/governance materials into a cleaner public structure.
-- Wait for CI to complete on GitHub and respond to any failures.
-- Post an arXiv/OSF preprint and mint a Zenodo DOI.
+- The entangling CX witness is implemented and unit-tested, but no credentialled hardware CX run has been completed.
+- Cross-backend and cross-date replication lanes are defined and logged, but remain blocked pending credentials, backend selection, completed raw counts, metadata, and verifier output.
 
-These remaining items require new execution, repo restructuring, or external publication steps and should not be represented as complete.
+## Additional cleanup completed
+
+- Process-heavy `epics/` and `stories/` archives moved under `docs/governance/`.
+- A replication ledger was added at `docs/publication/replication-ledger-v1.md` with machine-readable state in `logs/automated_stage_gates/replication_lanes/replication-ledger.json`.
+- Publication charts were refreshed and a replication-status chart was added.
+- arXiv/OSF/Zenodo release is not required for the current repository posture and is not treated as a blocker.
+
+The remaining hardware items require credentialled execution and should not be represented as complete until new packet evidence exists.

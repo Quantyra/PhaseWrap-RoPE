@@ -14,7 +14,7 @@ As a research lead, I want an explicit policy for provider-rejected Quandela par
 ## Outputs
 - `src/qrope/qphotonic.py`
 - `docs/research/`
-- `stories/`
+- `docs/governance/stories/`
 
 ## Evidence and references
 - `docs/research/q-rope-quandela-hardening-note-v1.md`

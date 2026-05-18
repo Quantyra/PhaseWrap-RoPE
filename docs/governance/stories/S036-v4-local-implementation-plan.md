@@ -13,7 +13,7 @@ As a research lead, I want a concrete local implementation plan for `V4`, so the
 
 ## Outputs
 - `docs/research/`
-- `stories/`
+- `docs/governance/stories/`
 
 ## Evidence and references
 - `docs/research/q-rope-v4-stability-variant-design-v1.md`
