@@ -21,8 +21,7 @@ Date: `2026-05-18`
 
 ## Not yet done
 
-- Execute and report the implemented entangling-gate witness variant on hardware.
-- Run cross-backend and cross-date replications.
+- Publish the completed hardware comparison report in the public evidence bundle.
 - Move internal process/governance materials into a cleaner public structure.
 - Wait for CI to complete on GitHub and respond to any failures.
 - Post an arXiv/OSF preprint and mint a Zenodo DOI.

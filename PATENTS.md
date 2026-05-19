@@ -30,6 +30,6 @@ Public statements about QRoPE should stay within the submitted and repo-backed e
 - deterministic frozen-packet validation;
 - raw-count and metadata-backed hardware execution records;
 - offline recomputation of reported metrics;
-- bounded Stage 4 hardware-positive result for the reported packet/backend/date/calibration context.
+- bounded Stage 4 hardware-positive results for the reported packet/backend/date/calibration contexts, including the completed product-state and entangling-CX comparison sweep.
 
 Public statements should not claim broad quantum advantage, transformer-scale superiority, or general cross-backend robustness unless later evidence and patent review specifically support those claims.

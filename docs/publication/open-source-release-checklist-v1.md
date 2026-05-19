@@ -31,7 +31,7 @@ Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Ac
 | `logs/automated_stage_gates/stage4_hardware_packet/*.json` | Prepared | Frozen packet, execution, evaluation, summary, and offline verification evidence. |
 | `docs/publication/figures/qrope-method-schematic-v1.svg` | Prepared | Publication-grade method schematic. |
 | `docs/publication/figures/qrope-validation-pipeline-v1.svg` | Prepared | Publication-grade validation pipeline diagram. |
-| `docs/publication/figures/qrope-stage4-metrics-v1.svg` | Prepared | Publication-grade Stage 4 witness/control metric chart. |
+| `docs/publication/figures/qrope-stage4-comparison-v1.svg` | Prepared | Publication-grade Stage 4 hardware comparison chart. |
 | `CONTRIBUTING.md` | Prepared | Evidence and claim-boundary contribution rules. |
 | `SECURITY.md` | Prepared | Private reporting path for secrets and sensitive records. |
 | `CODE_OF_CONDUCT.md` | Prepared | Research-collaboration conduct standard. |

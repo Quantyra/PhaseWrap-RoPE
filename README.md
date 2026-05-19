@@ -12,6 +12,7 @@ This repository is intended for open scientific review of the QRoPE method, vali
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
 - `Publication posture`: bounded, reproducible, evidence-disciplined.
 - `Current evidence posture`: Stage 4 real-noisy-hardware positive result for one frozen packet/backend/date/calibration context.
+- `Hardware posture`: IBM Quantum is the only hardware lane currently available for QRoPE Stage 4; IonQ and Quandela remain simulator paths unless explicitly reconfigured.
 
 ## Claim boundary
 
@@ -21,8 +22,8 @@ The public claim frame for this repository is:
 - The SQR score uses the product of the mod-8 and mod-12 signed margins.
 - The evidence lane includes deterministic frozen-packet validation, raw counts, backend metadata, and offline recomputation.
 - The Stage 4 result is a bounded real-hardware validation for the frozen packet reported in this repository.
-- The current hardware witness is a two-qubit product-state angle-encoding/readout witness; it does not include an entangling gate and should not be described as evidence of nonclassical advantage.
-- An opt-in entangling CX witness family is implemented as `two_qubit_cx_parity_phase_wrap_v2`, but it is not yet part of the published Stage 4 hardware evidence.
+- The current hardware evidence includes a two-qubit product-state angle-encoding/readout witness and an executed entangling CX witness family; neither should be described as evidence of nonclassical advantage.
+- The entangling CX witness family is implemented as `two_qubit_cx_parity_phase_wrap_v2` and is included in the completed hardware comparison report.
 
 The public claim frame excludes:
 
@@ -42,7 +43,7 @@ The public claim frame excludes:
 - [External release plan](docs/publication/external-release-plan-v1.md)
 - [QRoPE method schematic](docs/publication/figures/qrope-method-schematic-v1.svg)
 - [Validation pipeline figure](docs/publication/figures/qrope-validation-pipeline-v1.svg)
-- [Stage 4 metrics figure](docs/publication/figures/qrope-stage4-metrics-v1.svg)
+- [Stage 4 comparison figure](docs/publication/figures/qrope-stage4-comparison-v1.svg)
 - [Open-source release checklist](docs/publication/open-source-release-checklist-v1.md)
 - [Patent notice](PATENTS.md)
 - [Stage 4 real-hardware validation result](docs/research/q-rope-stage4-real-hardware-validation-result-v1.md)

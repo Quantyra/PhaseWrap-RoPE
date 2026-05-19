@@ -13,7 +13,7 @@ This plan prepares the repo for external citable release. It does not claim that
 Recommended action:
 
 - Convert `docs/publication/qrope-paper-v1.md` to the target arXiv PDF/LaTeX bundle.
-- Submit as a methods/evidence preprint only after the patent-status note and product-state witness boundary remain in the manuscript.
+- Submit as a methods/evidence preprint only after the patent-status note, completed hardware comparison, and claim boundary remain in the manuscript.
 - Candidate categories: `quant-ph` or `cs.LG`, with final category choice made by the submitting author.
 - Add the arXiv identifier to `CITATION.cff`, `README.md`, and this file after acceptance.
 
@@ -28,7 +28,7 @@ Blocking items:
 Recommended action:
 
 - Create an OSF project for QRoPE.
-- Upload the paper, figures, Stage 4 packet files, and repository snapshot.
+- Upload the paper, figures, Stage 4 packet files, completed comparison report, and repository snapshot.
 - Link the OSF project from README after public posting.
 
 Blocking items:
