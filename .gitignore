@@ -12,3 +12,18 @@ docs/evidence/patent-packets/qrope-provisional-v1/circuit-printouts-v1/png/hwrow
 logs/automated_stage_gates/**/run_payload.json
 *.docx
 *.pptx
+# Generated Q-RoPE artifact trees
+docs/evidence/patent-packets/
+docs/evidence/review-packets/
+docs/research/q-rope-*-completion-audit-v1.md
+docs/research/q-rope-final-review-ready-closure*.md
+docs/research/q-rope-automated-terminal-*.md
+# Generated Q-RoPE research outputs
+docs/research/q-rope-*.md
+docs/evidence/q-rope-*.md
+docs/protocols/automated-stage-gate-execution.md
+docs/protocols/patent-self-filing-and-global-strategy.md
+# Generated Q-RoPE hardware sweep outputs, but preserve packet evidence
+logs/automated_stage_gates/stage4_hardware_sweep/
+# Generated Q-RoPE story artifacts
+stories/S16*.md

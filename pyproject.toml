@@ -29,6 +29,10 @@ ibm = [
   "qiskit>=1.0",
   "qiskit-ibm-runtime>=0.25",
 ]
+ionq = [
+  "qiskit>=1.0",
+  "qiskit-ionq",
+]
 
 [tool.setuptools]
 package-dir = {"" = "src"}

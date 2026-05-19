@@ -13,6 +13,13 @@ A valid plan answers:
 - what would count as failure,
 - when the line should stop.
 
+## Automation-First Principle
+When a research path has a frozen deterministic stage ladder, intermediate human approval is not required.
+
+The path advances automatically if the current stage's predeclared gates pass. It stops automatically if a gate returns `FAIL_STOP` or `BLOCKED`.
+
+Human review is reserved for the terminal package after all automated gates have passed, failed closed, or blocked with evidence.
+
 ## Required Planning Sequence
 Every new research cycle must follow this order.
 
@@ -68,6 +75,13 @@ Every plan must include an explicit gate ladder:
 - stop or preserve gate,
 - escalation review gate if relevant.
 
+For automated stage-gate paths, each gate must also define:
+- exact artifacts required,
+- exact commands or verifier checks,
+- deterministic pass/fail/block status,
+- automatic next stage on pass,
+- terminal packet requirement on fail or block.
+
 ### 6. Write The Stop Conditions
 Every plan must state both:
 - branch-level stop conditions,
@@ -111,6 +125,7 @@ A complete planning packet should normally include:
 - decision-leverage memo,
 - evidence-class choice memo,
 - gate ladder memo,
+- automated stage-gate path when intermediate human review is being removed,
 - checkpoint update,
 - evidence-log entry.
 
@@ -120,7 +135,10 @@ These can be combined when concise, but the content must exist.
 If planning cannot produce a strong missing-question statement and a strong decision-leverage statement, no new branch may open.
 
 ## Current Program Application
-As of the current Q-RoPE state:
-- ordinary symbolic, transfer, and bridge expansion are saturated,
-- the only admissible future execution class is realism-bridge, and only if a candidate can be justified under the realism-bridge gate,
-- otherwise the correct next move is review, theory, or stop.
+As of the 2026-05-16 Q-RoPE state:
+- ordinary symbolic, transfer, and bridge expansion remain saturated,
+- `phase-wrap consistency` is preserved as the current local algorithm component,
+- the active path is no longer human approval before each next stage,
+- the active path is deterministic automated stage-gate execution through transformer-adjacent validation, circuit parity, noisy simulation, bounded hardware preflight/execution, and final packet construction,
+- final human review happens only after the automated stage ladder reaches a terminal package,
+- claims may not exceed the highest passed automated stage.

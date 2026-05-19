@@ -35,6 +35,8 @@ SUPPORTED_HARDWARE_TOKEN_NAMES = (
     "QUANDELA_TOKEN",
     "QUANDELA_CLOUD_TOKEN",
     "XANADU_CLOUD_KEY",
+    "IONQ_API_KEY",
+    "IONQ_API_TOKEN",
 )
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -553,6 +555,14 @@ def _hardware_provider_config_names(provider: str) -> dict[str, tuple[str, ...]]
             "cost_per_shot": ("QROPE_QUANDELA_COST_PER_SHOT_USD", "QROPE_HARDWARE_COST_PER_SHOT_USD"),
             "queue_depth_cap": ("QROPE_QUANDELA_QUEUE_DEPTH_CAP", "QROPE_HARDWARE_QUEUE_DEPTH_CAP"),
         }
+    if provider == "ionq":
+        return {
+            "backend": ("QROPE_IONQ_BACKEND", "QROPE_HARDWARE_BACKEND"),
+            "budget_cap": ("QROPE_IONQ_BUDGET_USD_CAP", "QROPE_HARDWARE_BUDGET_USD_CAP"),
+            "estimated_cost": ("QROPE_IONQ_ESTIMATED_COST_USD", "QROPE_HARDWARE_ESTIMATED_COST_USD"),
+            "cost_per_shot": ("QROPE_IONQ_COST_PER_SHOT_USD", "QROPE_HARDWARE_COST_PER_SHOT_USD"),
+            "queue_depth_cap": ("QROPE_IONQ_QUEUE_DEPTH_CAP", "QROPE_HARDWARE_QUEUE_DEPTH_CAP"),
+        }
     return {
         "backend": ("QROPE_HARDWARE_BACKEND",),
         "budget_cap": ("QROPE_HARDWARE_BUDGET_USD_CAP",),
@@ -583,6 +593,8 @@ def normalize_hardware_provider(provider: str) -> str:
         "ibm_runtime": "ibm_runtime",
         "quandela": "quandela",
         "xanadu": "xanadu",
+        "ionq": "ionq",
+        "ionq_cloud": "ionq",
     }
     return aliases.get(normalized, normalized)
 
@@ -594,6 +606,8 @@ def hardware_token_names_for_provider(provider: str) -> tuple[str, ...]:
         return ("QUANDELA_TOKEN", "QUANDELA_CLOUD_TOKEN")
     if provider == "xanadu":
         return ("XANADU_CLOUD_KEY",)
+    if provider == "ionq":
+        return ("IONQ_API_KEY", "IONQ_API_TOKEN")
     return ()
 
 
@@ -1005,6 +1019,52 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
                     metadata_capture_available = True
                 except Exception as exc:
                     blockers.append(f"provider backend availability check failed: {exc}")
+        if provider == "ionq" and not blockers:
+            try:
+                from qiskit import QuantumCircuit  # noqa: F401
+                from qiskit_ionq import IonQProvider  # noqa: F401
+            except Exception as exc:
+                blockers.append(f"required IonQ dependency unavailable: {exc}")
+            else:
+                try:
+                    token = self.env.get("IONQ_API_KEY") or self.env.get("IONQ_API_TOKEN") or ""
+                    ionq_provider = IonQProvider(token=token)
+                    backends = {backend.name: backend for backend in ionq_provider.backends()}
+                    backend = backends.get(config["backend"])
+                    if backend is None:
+                        try:
+                            backend = ionq_provider.get_backend(config["backend"])
+                        except Exception:
+                            blockers.append(
+                                f"requested IonQ backend {config['backend']} is not available in configured account"
+                            )
+                    if backend is not None:
+                        backend_status = None
+                        if hasattr(backend, "status"):
+                            try:
+                                backend_status = backend.status()
+                            except Exception:
+                                backend_status = None
+                        backend_metadata = {
+                            "provider": provider,
+                            "backend": config["backend"],
+                            "backend_name": getattr(backend, "name", config["backend"]),
+                            "status_msg": str(backend_status) if backend_status is not None else "unknown",
+                            "captured_at_utc": _utc_now(),
+                        }
+                        queue_check = {
+                            "checked": False,
+                            "pass": True,
+                            "reason": "IonQ queue depth is provider-managed and not exposed in this preflight.",
+                            "queue_depth_cap": config["queue_depth_cap"],
+                        }
+                        metadata_capture_available = True
+                    elif not blockers:
+                        blockers.append(
+                            f"requested IonQ backend {config['backend']} is not available in configured account"
+                        )
+                except Exception as exc:
+                    blockers.append(f"provider backend availability check failed: {exc}")
         return {
             "status": "READY" if not blockers else "BLOCKED",
             "blockers": blockers,
@@ -1027,6 +1087,8 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
         provider = packet["config"]["provider"]
         if provider == "quandela":
             return self._run_quandela_packet(packet)
+        if provider == "ionq":
+            return self._run_ionq_packet(packet)
         if provider != "ibm_runtime":
             return {
                 "status": "NOT_RUN",
@@ -1040,6 +1102,91 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
         session_kwargs: dict[str, str] = {
             "platform_name": config["backend"],
             "token": token,
+        }
+
+    def _run_ionq_packet(self, packet: dict[str, Any]) -> dict[str, Any]:
+        from qiskit import QuantumCircuit
+        from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+        from qiskit_ionq import IonQProvider
+
+        config = packet["config"]
+        provider = IonQProvider(token=self.env.get("IONQ_API_KEY") or self.env.get("IONQ_API_TOKEN") or "")
+        backend_name = config["backend"]
+        backend = provider.get_backend(backend_name)
+
+        circuits = []
+        for row in packet["rows"]:
+            qc = QuantumCircuit(2)
+            qc.ry(row["circuit_parameters"]["ry_q0"], 0)
+            qc.ry(row["circuit_parameters"]["ry_q1"], 1)
+            if packet.get("circuit_family") == ENTANGLING_CX_CIRCUIT_FAMILY:
+                qc.cx(0, 1)
+            qc.measure_all()
+            circuits.append(qc)
+
+        pass_manager = generate_preset_pass_manager(
+            backend=backend,
+            optimization_level=config["transpilation"]["optimization_level"],
+        )
+        transpiled = [pass_manager.run(circuit) for circuit in circuits]
+        job = backend.run(transpiled, shots=config["shot_count"])
+        submitted_at = _utc_now()
+        result = job.result()
+        completed_at = _utc_now()
+        raw_counts_by_row = []
+        experiment_results = getattr(result, "results", [])
+        for row, row_result in zip(packet["rows"], experiment_results):
+            counts = {}
+            data = getattr(row_result, "data", None)
+            if data is not None:
+                if isinstance(data, dict):
+                    raw = data.get("counts", {})
+                else:
+                    raw = getattr(data, "counts", {})
+                if isinstance(raw, dict):
+                    counts = {str(key): int(value) for key, value in raw.items()}
+            elif hasattr(row_result, "get_counts"):
+                raw = row_result.get_counts()
+                if isinstance(raw, dict):
+                    counts = {str(key): int(value) for key, value in raw.items()}
+            elif hasattr(result, "get_counts"):
+                # Fallback for older result shapes.
+                raw = result.get_counts()
+                if isinstance(raw, dict):
+                    counts = {str(key): int(value) for key, value in raw.items()}
+
+            raw_counts_by_row.append({"row_id": row["row_id"], "counts": counts})
+
+        calibration_metadata = {
+            "captured_at_utc": _utc_now(),
+            "source": "ionq_backend_result",
+            "backend_name": getattr(backend, "name", backend_name),
+        }
+        job_id = ""
+        if hasattr(job, "job_id"):
+            value = job.job_id
+            job_id = value() if callable(value) else value
+        return {
+            "status": "COMPLETED",
+            "jobs": [
+                {
+                    "job_id": job_id or str(job),
+                    "provider": config["provider"],
+                    "backend": backend_name,
+                    "packet_id": packet["packet_id"],
+                    "submitted_at_utc": submitted_at,
+                    "completed_at_utc": completed_at,
+                    "shot_count": config["shot_count"],
+                    "circuit_count": len(packet["rows"]),
+                    "raw_counts_by_row": raw_counts_by_row,
+                }
+            ],
+            "backend_metadata": {
+                "provider": config["provider"],
+                "backend": backend_name,
+                "backend_name": getattr(backend, "name", backend_name),
+            },
+            "calibration_metadata": calibration_metadata,
         }
         cloud_url = self.env.get("QUANDELA_CLOUD_URL", "").strip()
         if cloud_url:

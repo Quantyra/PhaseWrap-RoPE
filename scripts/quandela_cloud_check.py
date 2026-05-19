@@ -33,7 +33,11 @@ def main() -> int:
         print(f"Failed to import QuandelaSession: {exc}")
         return 1
 
-    platform_name = os.environ.get("QUANDELA_PLATFORM", "sim:slos").strip() or "sim:slos"
+    platform_name = (
+        os.environ.get("QROPE_QUANDELA_BACKEND", "").strip()
+        or os.environ.get("QUANDELA_PLATFORM", "").strip()
+        or "sim:slos"
+    )
 
     try:
         session = QuandelaSession(platform_name=platform_name, token=token)
@@ -47,6 +51,16 @@ def main() -> int:
     print(f"Platform: {platform_name}")
     try:
         print(f"Processor name: {processor.name}")
+    except Exception:
+        pass
+    try:
+        print(f"Processor status: {processor.status}")
+    except Exception:
+        pass
+    try:
+        commands = getattr(processor, "available_commands", [])
+        if commands:
+            print(f"Available commands: {', '.join(commands)}")
     except Exception:
         pass
     try:

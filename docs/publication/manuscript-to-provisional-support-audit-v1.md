@@ -4,15 +4,15 @@ Status: `PASS_WITH_BOUNDARIES`
 
 Audit date: `2026-05-18`
 
-Provisional application: `64/068,121`
+USPTO acknowledgement receipt application number: `64/068,121`
 
-Filing posture: patent-pending; bounded publication permitted if the public paper and repository keep the claim frame below.
+Filing posture: USPTO provisional submission received `2026-05-18`; final Filing Receipt pending; bounded publication permitted if the public paper and repository keep the claim frame below.
 
 ## Publication strategy
 
 Publish QRoPE as an open-source Quantyra research repository and bounded evidence paper. The correct posture is:
 
-> patent-pending, reproducible, evidence-disciplined, and limited to the filed method plus repository-backed validation packets.
+> USPTO-receipted, reproducible, evidence-disciplined, and limited to the submitted method plus repository-backed validation packets.
 
 The incorrect posture is:
 
@@ -37,7 +37,7 @@ The incorrect posture is:
 The manuscript may say:
 
 - QRoPE defines a phase-wrap positional scoring method.
-- The method is patent-pending under U.S. provisional application `64/068,121`.
+- The method is associated with a USPTO provisional submission whose Electronic Acknowledgement Receipt lists application `64/068,121`.
 - The repo provides deterministic validation packets and offline recomputation artifacts.
 - The Stage 4 result is a bounded real-hardware validation for the recorded packet/backend/date/calibration context.
 - The evidence supports further research and replication.
@@ -54,7 +54,7 @@ The manuscript must not say:
 The repository is suitable for public open-source release after these artifacts are present:
 
 - `LICENSE` with `AGPL-3.0-only`;
-- `PATENTS.md` with provisional application `64/068,121`;
+- `PATENTS.md` with USPTO acknowledgement-receipt application number `64/068,121`;
 - public-facing `README.md` with the bounded claim frame;
 - `CITATION.cff`;
 - contributor, security, and conduct files;

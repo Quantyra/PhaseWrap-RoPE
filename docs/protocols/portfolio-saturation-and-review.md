@@ -8,6 +8,7 @@ This protocol applies to all Q-RoPE evidence classes, including:
 - symbolic fairness families
 - transfer families
 - bridge-task families
+- realism-bridge families
 
 It governs when new branches may open, when a portfolio is considered saturated, and when review becomes mandatory.
 
@@ -15,6 +16,16 @@ It governs when new branches may open, when a portfolio is considered saturated,
 New branches may not open by default once an evidence class has become decision-sufficient.
 
 A branch may open only if it answers a missing question that the current portfolio does not already answer.
+
+## Automated Stage-Gate Exception
+The core rule blocks opportunistic new branches. It does not block a predeclared automated stage ladder after that ladder has been frozen.
+
+Under an automated stage-gate ladder:
+- each stage is treated as one planned continuation, not a new discretionary branch;
+- the path advances on deterministic `PASS`;
+- the path stops on deterministic `FAIL_STOP` or `BLOCKED`;
+- human review is deferred until the terminal package;
+- no extra candidates may be inserted between stages.
 
 ## Required Missing-Question Justification
 Before opening any new branch, write a memo-level justification that states:
@@ -50,6 +61,9 @@ Default caps apply unless an explicit exception memo is approved by the VP-of-Re
 ### Bridge Families
 - default cap: `5` materially different bridge families per cycle
 
+### Realism-Bridge Families
+- default cap: `1` active or execution-approved realism-bridge family after bridge-cycle closure
+
 Opening beyond these caps requires an explicit exception memo that states:
 - why the current class is not yet saturated,
 - why theory/review is lower value than another branch,
@@ -72,12 +86,15 @@ A review checkpoint is mandatory when any of the following happens:
 
 Once a mandatory review trigger is hit, default execution closes until review artifacts are refreshed.
 
+For an active automated stage-gate ladder, the mandatory review trigger is satisfied by the terminal final package, not by pausing between stages.
+
 ## One-Active-Branch Rule
 Per evidence class, only one new branch may be active at a time.
 
 This means:
 - at most one active transfer branch,
 - at most one active bridge branch,
+- at most one active realism-bridge branch,
 - at most one active symbolic fairness expansion line.
 
 No parallel branch spray is allowed within the same evidence class.
@@ -105,6 +122,8 @@ Reopening requires a memo that states:
 - why the current portfolio is insufficient,
 - why reopening is better than theory or review work.
 
+If the user or governing program direction replaces intermediate review with automated deterministic gates, a closed cycle may reopen only through a supersession memo and a frozen automated stage-gate path. The path itself then governs advancement until terminal review.
+
 ## Escalation-Ladder Rule
 Every evidence class must map to a next escalation criterion.
 
@@ -120,7 +139,9 @@ When this protocol blocks or permits a new branch, update all relevant artifacts
 - any board or research-opinion memo if the program posture changes.
 
 ## Current Program Interpretation
-As of the current bridge-cycle closure:
-- transfer evidence is already decision-sufficient for low-intensity continuation,
-- bridge evidence is already decision-sufficient for selective positional relevance,
-- further transfer or bridge expansion is blocked by default unless a materially different missing-question candidate is explicitly approved.
+As of the 2026-05-16 automated-stage update:
+- transfer and bridge evidence remain saturated,
+- phase-wrap is the preserved local algorithm component,
+- the active continuation is not another open-ended branch;
+- the active continuation is one deterministic path through transformer-adjacent validation, circuit parity, noisy simulation, bounded hardware, and terminal review packaging;
+- final human review happens after that path terminates.

@@ -1,17 +1,20 @@
 {
-  "backend": "ibm_fez",
+  "backend": "qpu.forte-1",
   "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
   "config": {
-    "backend": "ibm_fez",
-    "budget_cap_usd": 25.0,
-    "estimated_packet_cost_usd": 5.0,
-    "provider": "ibm_runtime",
-    "provider_raw": "ibm_runtime",
+    "backend": "qpu.forte-1",
+    "budget_cap_usd": 5.0,
+    "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
+    "estimated_packet_cost_usd": 2.0,
+    "provider": "ionq",
+    "provider_raw": "ionq",
     "queue_depth_cap": 25,
     "row_limit": 16,
     "shot_count": 4096,
     "token_presence": {
       "IBM_QUANTUM_TOKEN": true,
+      "IONQ_API_KEY": true,
+      "IONQ_API_TOKEN": false,
       "QISKIT_IBM_TOKEN": false,
       "QUANDELA_CLOUD_TOKEN": true,
       "QUANDELA_TOKEN": false,
@@ -24,16 +27,18 @@
       "seed_transpiler": 20260516
     }
   },
-  "frozen_at_utc": "2026-05-17T03:28:22Z",
+  "frozen_at_utc": "2026-05-19T02:00:06Z",
   "measurement_policy": {
+    "claim_boundary": "product-state angle-encoding/readout witness",
     "control_score": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+    "entangling_gate": null,
     "measured_qubits": 2,
     "readout": "computational_basis",
     "witness_score": "0.5 + 0.5 * score_scale * E[Z0 Z1]"
   },
-  "packet_id": "qrope-hardware-73c61893576297ff",
+  "packet_id": "qrope-hardware-4e0bcd4553a5379a",
   "packet_version": "qrope_stage4_hardware_packet_v1",
-  "provider": "ibm_runtime",
+  "provider": "ionq",
   "required_metadata_fields": [
     "provider",
     "backend",
