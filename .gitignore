@@ -3,3 +3,12 @@
 __pycache__/
 *.pyc
 .venv/
+
+# Generated evidence and export artifacts
+docs/evidence/patent-packets/qrope-provisional-v1/chatgpt-pro-review-bundle-v1/
+docs/evidence/patent-packets/qrope-provisional-v1/circuit-printouts-v1/qasm/
+docs/evidence/patent-packets/qrope-provisional-v1/circuit-printouts-v1/text/
+docs/evidence/patent-packets/qrope-provisional-v1/circuit-printouts-v1/png/hwrow-*.png
+logs/automated_stage_gates/**/run_payload.json
+*.docx
+*.pptx
