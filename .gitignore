@@ -13,5 +13,7 @@ docs/evidence/patent-packets/qrope-provisional-v1/circuit-printouts-v1/qasm/
 docs/evidence/patent-packets/qrope-provisional-v1/circuit-printouts-v1/text/
 docs/evidence/patent-packets/qrope-provisional-v1/circuit-printouts-v1/png/hwrow-*.png
 logs/automated_stage_gates/**/run_payload.json
+logs/automated_stage_gates/braket_hardware_smoke_*/
+logs/automated_stage_gates/braket_tmp/
 *.docx
 *.pptx
