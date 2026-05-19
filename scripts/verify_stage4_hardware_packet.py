@@ -7,10 +7,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+
 from qrope.automated_stage_gates import evaluate_hardware_execution
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STAGE4_DIR = REPO_ROOT / "logs" / "automated_stage_gates" / "stage4_hardware_packet"
 
 

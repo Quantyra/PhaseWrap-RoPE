@@ -1,0 +1,397 @@
+{
+  "schema_version": "qrope_stage4_hardware_sweep_manifest_v1",
+  "sweep_id": "qrope-stage4-hardware-sweep-v1",
+  "packet_id": null,
+  "packet_id_note": "Sweep records may use different frozen packet IDs; see records[].packet_id. Missing IBM/IonQ records cannot be assigned packet IDs until real evidence files are supplied.",
+  "witness_families": [
+    "two_qubit_zz_expectation_phase_wrap_v1",
+    "two_qubit_cx_parity_phase_wrap_v2"
+  ],
+  "backends": [
+    {
+      "provider": "ibm_runtime",
+      "backend": "ibm_kingston",
+      "label": "IBM Kingston"
+    },
+    {
+      "provider": "ibm_runtime",
+      "backend": "ibm_marrakesh",
+      "label": "IBM Marrakesh"
+    },
+    {
+      "provider": "ibm_runtime",
+      "backend": "ibm_fez",
+      "label": "IBM Fez"
+    },
+    {
+      "provider": "ionq",
+      "backend": "ionq_qpu",
+      "label": "IonQ QPU"
+    },
+    {
+      "provider": "amazon_braket",
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "label": "Rigetti Cepheus-1-108Q"
+    }
+  ],
+  "bounded_claim_statement": "This manifest supports only machine verification of recorded packet/backend/date/calibration-specific Stage 4 hardware artifacts that are present in the repository. It does not support broad quantum advantage, production transformer superiority, full transformer-scale validation, or general cross-backend robustness.",
+  "claim_boundary": {
+    "supported": [
+      "Recompute metrics from real raw-count evidence records that are present in this repository.",
+      "Fail explicitly for narrative-reported hardware records whose raw-count evidence files are absent.",
+      "Support only bounded packet/backend/date/calibration-specific validation outcomes."
+    ],
+    "excluded": [
+      "broad quantum advantage",
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "general cross-backend robustness"
+    ]
+  },
+  "records": [
+    {
+      "record_id": "ibm_kingston__two_qubit_zz_expectation_phase_wrap_v1",
+      "provider": "ibm_runtime",
+      "backend": "ibm_kingston",
+      "backend_label": "IBM Kingston",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "missing_evidence",
+      "shots": 4096,
+      "row_count": null,
+      "job_ids": [],
+      "packet_id": null,
+      "submitted_at_utc": null,
+      "completed_at_utc": null,
+      "packet_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_kingston/two_qubit_zz_expectation_phase_wrap_v1/frozen_packet.json",
+      "execution_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_kingston/two_qubit_zz_expectation_phase_wrap_v1/execution.json",
+      "evaluation_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_kingston/two_qubit_zz_expectation_phase_wrap_v1/evaluation.json",
+      "summary_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_kingston/two_qubit_zz_expectation_phase_wrap_v1/summary.json",
+      "calibration_metadata_path": null,
+      "raw_count_file_paths": [],
+      "verifier_output_path": null,
+      "reported_metrics_from_narrative_only": {
+        "witness": {
+          "mae": 0.043376,
+          "rank_correlation": 0.781236
+        },
+        "control": {
+          "mae": 0.215599,
+          "rank_correlation": -0.151337
+        }
+      },
+      "missing_evidence": [
+        "frozen_packet.json",
+        "execution.json with raw_counts_by_row",
+        "evaluation.json",
+        "summary.json",
+        "job IDs",
+        "backend/calibration metadata"
+      ]
+    },
+    {
+      "record_id": "ibm_marrakesh__two_qubit_zz_expectation_phase_wrap_v1",
+      "provider": "ibm_runtime",
+      "backend": "ibm_marrakesh",
+      "backend_label": "IBM Marrakesh",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "missing_evidence",
+      "shots": 4096,
+      "row_count": null,
+      "job_ids": [],
+      "packet_id": null,
+      "submitted_at_utc": null,
+      "completed_at_utc": null,
+      "packet_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_marrakesh/two_qubit_zz_expectation_phase_wrap_v1/frozen_packet.json",
+      "execution_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_marrakesh/two_qubit_zz_expectation_phase_wrap_v1/execution.json",
+      "evaluation_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_marrakesh/two_qubit_zz_expectation_phase_wrap_v1/evaluation.json",
+      "summary_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_marrakesh/two_qubit_zz_expectation_phase_wrap_v1/summary.json",
+      "calibration_metadata_path": null,
+      "raw_count_file_paths": [],
+      "verifier_output_path": null,
+      "reported_metrics_from_narrative_only": {
+        "witness": {
+          "mae": 0.011859,
+          "rank_correlation": 0.879555
+        },
+        "control": {
+          "mae": 0.23011,
+          "rank_correlation": -0.184302
+        }
+      },
+      "missing_evidence": [
+        "frozen_packet.json",
+        "execution.json with raw_counts_by_row",
+        "evaluation.json",
+        "summary.json",
+        "job IDs",
+        "backend/calibration metadata"
+      ]
+    },
+    {
+      "record_id": "ibm_fez__two_qubit_zz_expectation_phase_wrap_v1",
+      "provider": "ibm_runtime",
+      "backend": "ibm_fez",
+      "backend_label": "IBM Fez",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "missing_evidence",
+      "shots": 4096,
+      "row_count": null,
+      "job_ids": [],
+      "packet_id": null,
+      "submitted_at_utc": null,
+      "completed_at_utc": null,
+      "packet_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_zz_expectation_phase_wrap_v1/frozen_packet.json",
+      "execution_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_zz_expectation_phase_wrap_v1/execution.json",
+      "evaluation_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_zz_expectation_phase_wrap_v1/evaluation.json",
+      "summary_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_zz_expectation_phase_wrap_v1/summary.json",
+      "calibration_metadata_path": null,
+      "raw_count_file_paths": [],
+      "verifier_output_path": null,
+      "reported_metrics_from_narrative_only": {
+        "witness": {
+          "mae": 0.015664,
+          "rank_correlation": 0.940875
+        },
+        "control": {
+          "mae": 0.220397,
+          "rank_correlation": -0.169318
+        }
+      },
+      "missing_evidence": [
+        "frozen_packet.json",
+        "execution.json with raw_counts_by_row",
+        "evaluation.json",
+        "summary.json",
+        "job IDs",
+        "backend/calibration metadata"
+      ]
+    },
+    {
+      "record_id": "ionq_qpu__two_qubit_zz_expectation_phase_wrap_v1",
+      "provider": "ionq",
+      "backend": "ionq_qpu",
+      "backend_label": "IonQ QPU",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "missing_evidence",
+      "shots": 1024,
+      "row_count": null,
+      "job_ids": [],
+      "packet_id": null,
+      "submitted_at_utc": null,
+      "completed_at_utc": null,
+      "packet_path": "logs/automated_stage_gates/stage4_hardware_sweep/ionq__ionq_qpu/two_qubit_zz_expectation_phase_wrap_v1/frozen_packet.json",
+      "execution_path": "logs/automated_stage_gates/stage4_hardware_sweep/ionq__ionq_qpu/two_qubit_zz_expectation_phase_wrap_v1/execution.json",
+      "evaluation_path": "logs/automated_stage_gates/stage4_hardware_sweep/ionq__ionq_qpu/two_qubit_zz_expectation_phase_wrap_v1/evaluation.json",
+      "summary_path": "logs/automated_stage_gates/stage4_hardware_sweep/ionq__ionq_qpu/two_qubit_zz_expectation_phase_wrap_v1/summary.json",
+      "calibration_metadata_path": null,
+      "raw_count_file_paths": [],
+      "verifier_output_path": null,
+      "reported_metrics_from_narrative_only": {
+        "witness": {
+          "mae": 0.014829,
+          "rank_correlation": 0.861459
+        },
+        "control": {
+          "mae": 0.230163,
+          "rank_correlation": -0.184302
+        }
+      },
+      "missing_evidence": [
+        "frozen_packet.json",
+        "execution.json with raw_counts_by_row",
+        "evaluation.json",
+        "summary.json",
+        "job IDs",
+        "backend/calibration metadata"
+      ]
+    },
+    {
+      "record_id": "ibm_kingston__two_qubit_cx_parity_phase_wrap_v2",
+      "provider": "ibm_runtime",
+      "backend": "ibm_kingston",
+      "backend_label": "IBM Kingston",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "status": "missing_evidence",
+      "shots": 4096,
+      "row_count": null,
+      "job_ids": [],
+      "packet_id": null,
+      "submitted_at_utc": null,
+      "completed_at_utc": null,
+      "packet_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_kingston/two_qubit_cx_parity_phase_wrap_v2/frozen_packet.json",
+      "execution_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_kingston/two_qubit_cx_parity_phase_wrap_v2/execution.json",
+      "evaluation_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_kingston/two_qubit_cx_parity_phase_wrap_v2/evaluation.json",
+      "summary_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_kingston/two_qubit_cx_parity_phase_wrap_v2/summary.json",
+      "calibration_metadata_path": null,
+      "raw_count_file_paths": [],
+      "verifier_output_path": null,
+      "reported_metrics_from_narrative_only": {
+        "witness": {
+          "mae": 0.026686,
+          "rank_correlation": 0.925187
+        },
+        "control": {
+          "mae": 0.205612,
+          "rank_correlation": -0.184302
+        }
+      },
+      "missing_evidence": [
+        "frozen_packet.json",
+        "execution.json with raw_counts_by_row",
+        "evaluation.json",
+        "summary.json",
+        "job IDs",
+        "backend/calibration metadata"
+      ]
+    },
+    {
+      "record_id": "ibm_marrakesh__two_qubit_cx_parity_phase_wrap_v2",
+      "provider": "ibm_runtime",
+      "backend": "ibm_marrakesh",
+      "backend_label": "IBM Marrakesh",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "status": "missing_evidence",
+      "shots": 4096,
+      "row_count": null,
+      "job_ids": [],
+      "packet_id": null,
+      "submitted_at_utc": null,
+      "completed_at_utc": null,
+      "packet_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_marrakesh/two_qubit_cx_parity_phase_wrap_v2/frozen_packet.json",
+      "execution_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_marrakesh/two_qubit_cx_parity_phase_wrap_v2/execution.json",
+      "evaluation_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_marrakesh/two_qubit_cx_parity_phase_wrap_v2/evaluation.json",
+      "summary_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_marrakesh/two_qubit_cx_parity_phase_wrap_v2/summary.json",
+      "calibration_metadata_path": null,
+      "raw_count_file_paths": [],
+      "verifier_output_path": null,
+      "reported_metrics_from_narrative_only": {
+        "witness": {
+          "mae": 0.015108,
+          "rank_correlation": 0.960468
+        },
+        "control": {
+          "mae": 0.225158,
+          "rank_correlation": -0.17681
+        }
+      },
+      "missing_evidence": [
+        "frozen_packet.json",
+        "execution.json with raw_counts_by_row",
+        "evaluation.json",
+        "summary.json",
+        "job IDs",
+        "backend/calibration metadata"
+      ]
+    },
+    {
+      "record_id": "ibm_fez__two_qubit_cx_parity_phase_wrap_v2",
+      "provider": "ibm_runtime",
+      "backend": "ibm_fez",
+      "backend_label": "IBM Fez",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "status": "missing_evidence",
+      "shots": 4096,
+      "row_count": null,
+      "job_ids": [],
+      "packet_id": null,
+      "submitted_at_utc": null,
+      "completed_at_utc": null,
+      "packet_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_cx_parity_phase_wrap_v2/frozen_packet.json",
+      "execution_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_cx_parity_phase_wrap_v2/execution.json",
+      "evaluation_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_cx_parity_phase_wrap_v2/evaluation.json",
+      "summary_path": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_cx_parity_phase_wrap_v2/summary.json",
+      "calibration_metadata_path": null,
+      "raw_count_file_paths": [],
+      "verifier_output_path": null,
+      "reported_metrics_from_narrative_only": {
+        "witness": {
+          "mae": 0.016162,
+          "rank_correlation": 0.981446
+        },
+        "control": {
+          "mae": 0.213417,
+          "rank_correlation": -0.169318
+        }
+      },
+      "missing_evidence": [
+        "frozen_packet.json",
+        "execution.json with raw_counts_by_row",
+        "evaluation.json",
+        "summary.json",
+        "job IDs",
+        "backend/calibration metadata"
+      ]
+    },
+    {
+      "record_id": "ionq_qpu__two_qubit_cx_parity_phase_wrap_v2",
+      "provider": "ionq",
+      "backend": "ionq_qpu",
+      "backend_label": "IonQ QPU",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "status": "missing_evidence",
+      "shots": 1024,
+      "row_count": null,
+      "job_ids": [],
+      "packet_id": null,
+      "submitted_at_utc": null,
+      "completed_at_utc": null,
+      "packet_path": "logs/automated_stage_gates/stage4_hardware_sweep/ionq__ionq_qpu/two_qubit_cx_parity_phase_wrap_v2/frozen_packet.json",
+      "execution_path": "logs/automated_stage_gates/stage4_hardware_sweep/ionq__ionq_qpu/two_qubit_cx_parity_phase_wrap_v2/execution.json",
+      "evaluation_path": "logs/automated_stage_gates/stage4_hardware_sweep/ionq__ionq_qpu/two_qubit_cx_parity_phase_wrap_v2/evaluation.json",
+      "summary_path": "logs/automated_stage_gates/stage4_hardware_sweep/ionq__ionq_qpu/two_qubit_cx_parity_phase_wrap_v2/summary.json",
+      "calibration_metadata_path": null,
+      "raw_count_file_paths": [],
+      "verifier_output_path": null,
+      "reported_metrics_from_narrative_only": {
+        "witness": {
+          "mae": 0.016037,
+          "rank_correlation": 0.908612
+        },
+        "control": {
+          "mae": 0.229827,
+          "rank_correlation": -0.17681
+        }
+      },
+      "missing_evidence": [
+        "frozen_packet.json",
+        "execution.json with raw_counts_by_row",
+        "evaluation.json",
+        "summary.json",
+        "job IDs",
+        "backend/calibration metadata"
+      ]
+    },
+    {
+      "record_id": "rigetti_cepheus_1_108q__two_qubit_zz_expectation_phase_wrap_v1__20260519T100942Z",
+      "provider": "amazon_braket",
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "backend_label": "Rigetti Cepheus-1-108Q",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "completed",
+      "shots": 1000,
+      "row_count": 8,
+      "job_ids": [
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/e35e3aa6-a1c4-4e82-91e6-0696fa305429",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/f00f3214-d6ad-4b79-b8b1-32f957e27126",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/c3487449-55b4-4c33-b1db-3aa05e3ae63c",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/06acf815-ef22-43c2-80ea-54c75608a10e",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/9c2467b7-9322-416c-9379-b044d0fbe05b",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/9471b78d-2b23-40cf-af7f-4cb87a0d5d37",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/a1b3207e-46bf-43a0-9736-4a3aa1e8cda2",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/277ea374-46d3-47fe-9fb2-fb330ccf9498"
+      ],
+      "packet_id": "qrope-hardware-5244f90bce2f93b8",
+      "submitted_at_utc": "2026-05-19T10:07:10Z",
+      "completed_at_utc": "2026-05-19T10:09:10Z",
+      "packet_path": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z/frozen_packet.json",
+      "execution_path": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z/execution.json",
+      "evaluation_path": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z/evaluation.json",
+      "summary_path": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z/summary.json",
+      "calibration_metadata_path": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z/execution.json#/calibration_metadata",
+      "raw_count_file_paths": [
+        "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z/execution.json#/jobs/0/raw_counts_by_row"
+      ],
+      "verifier_output_path": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z/offline_verification.json"
+    }
+  ]
+}

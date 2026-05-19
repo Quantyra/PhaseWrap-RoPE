@@ -10,7 +10,7 @@ License context: repository software released under `AGPL-3.0-only`
 
 ## Abstract
 
-Quantum Rotary Positional Encoding, or QRoPE, is a positional-encoding research method based on phase-wrap residual structure. The method computes wrapped residuals in two modular bases, derives signed margins from cosine thresholds, and combines the margins through an SQR score. This repository paper presents the QRoPE method, its deterministic validation protocol, and completed Stage 4 real-noisy-hardware comparison runs across IBM Quantum and IonQ hardware.
+Quantum Rotary Positional Encoding, or QRoPE, is a positional-encoding research method based on phase-wrap residual structure. The method computes wrapped residuals in two modular bases, derives signed margins from cosine thresholds, and combines the margins through an SQR score. This repository paper presents the QRoPE method, its deterministic validation protocol, a machine-verifiable Stage 4 packet, a machine-verifiable Amazon Braket/Rigetti replication artifact, and narrative-reported Stage 4 comparison rows whose missing raw artifacts are identified by the sweep manifest.
 
 The result should be read as a bounded evidence claim. It supports the reported packet/backend/date/calibration-specific validation outcome, not broad quantum advantage, not transformer-scale superiority, and not general cross-backend robustness. The contribution is a reproducible review path: fixed packets, fixed shot counts, raw measurement counts, backend metadata, offline recomputation, and explicit claim boundaries.
 
@@ -30,7 +30,7 @@ The contribution is threefold:
 
 - A phase-wrap QRoPE scoring method using mod-8 and mod-12 signed margins.
 - A deterministic validation protocol based on frozen packets, fixed rows, fixed shot counts, raw counts, backend metadata, and offline recomputation.
-- A Stage 4 real-noisy-hardware comparison across IBM Kingston, IBM Marrakesh, IBM Fez, and IonQ QPU, with completed product-state and entangling-CX witness families.
+- A Stage 4 real-noisy-hardware comparison report across IBM Kingston, IBM Marrakesh, IBM Fez, and IonQ QPU, with the current sweep manifest explicitly marking missing raw evidence records until those real run artifacts are supplied.
 
 ## 2. Related work and claim boundary
 
@@ -165,6 +165,14 @@ For the Stage 4 packet, the verifier entry point is:
 python scripts/verify_stage4_hardware_packet.py
 ```
 
+For the Stage 4 hardware sweep manifest, the verifier entry point is:
+
+```bash
+python scripts/verify_stage4_hardware_sweep.py
+```
+
+The sweep verifier recomputes metrics only for completed records whose packet, execution, evaluation, and summary artifacts are present. It fails explicitly for narrative-reported records whose raw-count evidence files are missing.
+
 The default verifier inputs are:
 
 - `logs/automated_stage_gates/stage4_hardware_packet/frozen_packet.json`
@@ -186,7 +194,7 @@ This verifier supports recomputation, not independent replication. Recomputing t
 
 Figure 3. Stage 4 hardware comparison. Source data: `logs/automated_stage_gates/stage4_hardware_sweep/`.
 
-The Stage 4 evidence record includes completed product-state and entangling-CX hardware runs on IBM Kingston, IBM Marrakesh, IBM Fez, and IonQ QPU.
+The Stage 4 narrative comparison report includes product-state and entangling-CX hardware runs on IBM Kingston, IBM Marrakesh, IBM Fez, and IonQ QPU. The current machine-verifiable sweep manifest distinguishes those narrative-reported rows from raw evidence artifacts. In the current repository state, the IBM/IonQ per-backend/per-family raw-count records are missing from `logs/automated_stage_gates/stage4_hardware_sweep/`, so the sweep verifier fails those rows explicitly until real run records are supplied.
 
 The IBM Quantum run records:
 
@@ -207,11 +215,12 @@ The IBM Quantum run records:
 - control rank correlation: `-0.176940`;
 - outcome: `hardware-positive`.
 
-The completed hardware sweep records:
+The comparison report records:
 
 - IBM Kingston, IBM Marrakesh, and IBM Fez each completed at `4096` shots for both witness families.
 - IonQ `ionq_qpu` completed at `1024` shots for both witness families, which is the exposed provider cap in the available metadata.
-- Every completed hardware run preserved the witness/control ordering expected by the claim boundary.
+- Every narrative-reported hardware run preserved the witness/control ordering expected by the claim boundary.
+- The Amazon Braket/Rigetti 1000-shot product-state artifact is present as machine-verifiable sweep evidence and verifies with `pass=true`.
 
 The comparison report summarizes the completed sweep in a backend-wise view:
 
@@ -236,6 +245,8 @@ witness = clamp(0.5 + 0.5 * score_scale * E[Z0 Z1], 0, 1)
 
 The completed comparison sweep supports the Stage 4 packet outcome under the recorded conditions. Backend calibration, queue conditions, transpilation details, and packet composition can affect replication results. The result therefore remains scoped to the stated packet, backend, date, calibration window, and metrics.
 
+Narrative-reported IBM/IonQ comparison rows are not promoted to machine-verifiable public evidence until their real packet, raw-count, job-ID, backend-metadata, and verifier-output files are present in the repository.
+
 ## 6. Reproducibility artifacts
 
 The repository prioritizes evidence files over narrative-only claims. The minimum review path is:
@@ -245,7 +256,9 @@ The repository prioritizes evidence files over narrative-only claims. The minimu
 - inspect `docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md`;
 - inspect `docs/publication/manuscript-to-provisional-support-audit-v1.md`;
 - run or inspect `scripts/verify_stage4_hardware_packet.py`;
+- run or inspect `scripts/verify_stage4_hardware_sweep.py`;
 - compare the verifier output with `logs/automated_stage_gates/stage4_hardware_packet/offline_verification.json`.
+- inspect `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json` and the sweep verifier output.
 
 The intended reproducibility standard is not that every future backend execution match the present numbers. The standard is that the reported numbers are traceable to packet files, execution records, raw counts, and deterministic recomputation.
 
@@ -277,10 +290,12 @@ QRoPE provides an open-source research lane for phase-wrap positional scoring an
 
 - `src/qrope/automated_stage_gates.py`
 - `scripts/verify_stage4_hardware_packet.py`
+- `scripts/verify_stage4_hardware_sweep.py`
 - `logs/automated_stage_gates/stage4_hardware_packet/frozen_packet.json`
 - `logs/automated_stage_gates/stage4_hardware_packet/execution.json`
 - `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`
 - `logs/automated_stage_gates/stage4_hardware_packet/offline_verification.json`
+- `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`
 - `docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md`
 - `docs/research/q-rope-stage4-real-hardware-validation-result-v1.md`
 - `docs/research/q-rope-stage4-hardware-comparison-v1.md`

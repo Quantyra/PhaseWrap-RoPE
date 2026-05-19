@@ -104,6 +104,14 @@ Expected verifier summary:
 }
 ```
 
+Verify the Stage 4 hardware sweep manifest:
+
+```bash
+python scripts/verify_stage4_hardware_sweep.py
+```
+
+This verifier recomputes metrics for sweep records whose packet/execution/evaluation artifacts are present. It fails explicitly for comparison rows that are described in narrative docs but whose real raw-count artifacts are not yet present in `logs/automated_stage_gates/stage4_hardware_sweep/`.
+
 ## Reviewer path in 10 minutes
 
 - Read the claim boundary in this README.
@@ -111,6 +119,8 @@ Expected verifier summary:
 - Inspect [Patent status note](docs/publication/patent-status-note-v1.md).
 - Inspect the Stage 4 packet files under `logs/automated_stage_gates/stage4_hardware_packet/`.
 - Run `python scripts/verify_stage4_hardware_packet.py`.
+- Inspect `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`.
+- Run `python scripts/verify_stage4_hardware_sweep.py` and confirm any missing-evidence failures are explicit rather than silent.
 
 ## CI and test coverage
 

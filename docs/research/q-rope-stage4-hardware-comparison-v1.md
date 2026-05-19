@@ -4,7 +4,7 @@ Date: 2026-05-19
 
 ## BLUF
 
-The hardware run goals were completed. Both witness families were executed on the prior IBM/IonQ target set, and the Amazon Braket/Rigetti product-state replication lane now has a completed 1000-shot-per-row artifact. Every reported publishable run returned `PASS / hardware-positive`.
+The hardware comparison report records completed runs for both witness families on the prior IBM/IonQ target set, and the Amazon Braket/Rigetti product-state replication lane now has a completed 1000-shot-per-row artifact. In the current repository state, only records with raw packet/execution/evaluation artifacts are machine-verifiable; the sweep manifest fails explicitly for missing IBM/IonQ raw evidence.
 
 The product-state witness and the entangling CX witness both preserved the same qualitative pattern:
 
@@ -100,6 +100,24 @@ The Braket/Rigetti product-state run completed after adding a Braket-specific pr
 
 This run should be treated as a bounded cross-provider replication artifact, not as a broad robustness proof.
 
+### Machine-verification status
+
+The canonical sweep manifest is:
+
+`logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`
+
+The offline sweep verifier is:
+
+`scripts/verify_stage4_hardware_sweep.py`
+
+Current repository state distinguishes narrative-reported comparison rows from machine-verifiable evidence rows:
+
+- The Amazon Braket/Rigetti 1000-shot artifact is present and recomputable from raw counts.
+- The IBM Kingston, IBM Marrakesh, IBM Fez, and IonQ QPU comparison rows described above do not currently have their per-backend/per-family `frozen_packet.json`, `execution.json`, `evaluation.json`, and `summary.json` records in `logs/automated_stage_gates/stage4_hardware_sweep/`.
+- The sweep verifier therefore fails explicitly for those missing IBM/IonQ evidence records instead of treating narrative metrics as raw evidence.
+
+Those IBM/IonQ rows should not be treated as machine-verifiable public evidence until the real run records, job IDs, raw counts, backend metadata, and verifier outputs are added.
+
 ### Family-level summary
 
 | Family | Best witness MAE | Best witness rank corr | Worst control MAE | Worst control rank corr |
@@ -121,6 +139,8 @@ The execution goals are complete:
 
 - [Product-state IBM/IonQ sweep logs](/C:/Users/Dan/Desktop/Projects/QuantyraQRope/logs/automated_stage_gates/stage4_hardware_sweep)
 - [Amazon Braket/Rigetti 1000-shot artifact](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z)
+- [Stage 4 sweep manifest](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/manifest.json)
+- [Stage 4 sweep verifier](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/scripts/verify_stage4_hardware_sweep.py)
 - [Stage 4 sweep runner](/C:/Users/Dan/Desktop/Projects/QuantyraQRope/scripts/run_stage4_hardware_sweep.py)
 
 ## Recommendation

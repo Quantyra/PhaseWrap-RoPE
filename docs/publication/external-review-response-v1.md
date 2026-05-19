@@ -16,7 +16,7 @@ Date: `2026-05-18`
 | Control condition was undefined. | Paper now defines the additive single-band readout control and the cross-band product witness. |
 | Reproducibility was really recomputation. | Paper now distinguishes saved-count recomputation from independent replication. |
 | README lacked quickstart. | README now includes a no-credential local method check, verifier command, expected verifier output, and reviewer path. |
-| Paper referenced verifier/evidence artifacts that were not staged for public review. | The public evidence bundle is prepared for publication: `src/qrope/automated_stage_gates.py`, `scripts/verify_stage4_hardware_packet.py`, and Stage 4 JSON packet files under `logs/automated_stage_gates/stage4_hardware_packet/`. |
+| Paper referenced verifier/evidence artifacts that were not staged for public review. | The public evidence bundle is prepared for publication: `src/qrope/automated_stage_gates.py`, `scripts/verify_stage4_hardware_packet.py`, `scripts/verify_stage4_hardware_sweep.py`, Stage 4 JSON packet files under `logs/automated_stage_gates/stage4_hardware_packet/`, and a sweep manifest that fails explicitly for missing IBM/IonQ raw evidence records. |
 | AGENTS.md rendered a literal `\r\n`. | Fixed. |
 
 ## Not yet done

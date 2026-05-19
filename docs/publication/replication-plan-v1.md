@@ -33,7 +33,7 @@ This plan separates saved-count recomputation from independent replication.
 - Optional IBM Cloud instance CRN through `IBM_QUANTUM_INSTANCE_CRN`.
 - Runtime dependencies installed:
 
-Current provider posture (2026-05-19): only IBM hardware backends are used for Stage 4 replication runs. `ionq_qpu` and `ionq` `QPU Targets` are not currently enabled, and Quandela Stage 4 execution remains configured to simulator profiles unless explicitly changed.
+Current provider posture (2026-05-19): IBM hardware and Amazon Braket/Rigetti have Stage 4 evidence paths in this repository. The Braket/Rigetti product-state artifact is present and machine-verifiable. Narrative-reported IBM/IonQ comparison rows still require their per-backend/per-family raw-count artifacts before they are machine-verifiable through `scripts/verify_stage4_hardware_sweep.py`; Quandela Stage 4 execution remains configured to simulator profiles unless explicitly changed.
 
 ```bash
 python -m pip install -e ".[ibm]"
