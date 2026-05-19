@@ -1,7 +1,0 @@
-"run_id","variant","seed","mae","rank_correlation","calibration_slope"
-"transfer-path-control-s42","V_control_symbolic_symbolic_insufficiency_path_regressor","42","0.07267","-0.289178","-0.247365"
-"transfer-path-control-s123","V_control_symbolic_symbolic_insufficiency_path_regressor","123","0.257518","-0.52381","-1.010033"
-"transfer-path-control-s777","V_control_symbolic_symbolic_insufficiency_path_regressor","777","0.119119","-0.357143","-0.379478"
-"transfer-path-witness-s42","V_future_relational_witness_symbolic_insufficiency_path","42","0.052537","0.313276","0.413325"
-"transfer-path-witness-s123","V_future_relational_witness_symbolic_insufficiency_path","123","0.185118","0.619048","0.426295"
-"transfer-path-witness-s777","V_future_relational_witness_symbolic_insufficiency_path","777","0.064344","0.571429","0.795142"

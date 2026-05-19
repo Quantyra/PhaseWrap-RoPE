@@ -1,7 +1,0 @@
-variant,seed,mae,rank_correlation,calibration_slope
-V_future_relational_witness_symbolic_insufficiency_echo_resolution,42,0.0884,-0.321773,-0.271052
-V_future_relational_witness_symbolic_insufficiency_echo_resolution,123,0.056761,0.767647,1.114606
-V_future_relational_witness_symbolic_insufficiency_echo_resolution,777,0.113362,-0.147059,-0.277595
-V_control_symbolic_symbolic_insufficiency_echo_resolution_regressor,42,0.065517,0.370482,1.493941
-V_control_symbolic_symbolic_insufficiency_echo_resolution_regressor,123,0.110836,0.476471,0.509697
-V_control_symbolic_symbolic_insufficiency_echo_resolution_regressor,777,0.107111,-0.061765,0.674737

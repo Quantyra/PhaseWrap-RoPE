@@ -1,7 +1,0 @@
-variant,seed,mae,rank_correlation,calibration_slope
-V_future_relational_witness_symbolic_insufficiency_cascade_reconciliation,42,0.114769,0.452941,0.484922
-V_future_relational_witness_symbolic_insufficiency_cascade_reconciliation,123,0.076002,0.564706,1.359657
-V_future_relational_witness_symbolic_insufficiency_cascade_reconciliation,777,0.081884,0.523529,0.942493
-V_control_symbolic_symbolic_insufficiency_cascade_reconciliation_regressor,42,0.108481,0.417647,0.354618
-V_control_symbolic_symbolic_insufficiency_cascade_reconciliation_regressor,123,0.100951,0.202941,1.00984
-V_control_symbolic_symbolic_insufficiency_cascade_reconciliation_regressor,777,0.15181,0.170588,0.108615

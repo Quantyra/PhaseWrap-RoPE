@@ -1,7 +1,0 @@
-"run_id","variant","seed","mae","rank_correlation","calibration_slope"
-"transfer-path-cdab-control-s42","V_control_symbolic_symbolic_insufficiency_path_regressor","42","0.054755","0.285714","0.214977"
-"transfer-path-cdab-control-s123","V_control_symbolic_symbolic_insufficiency_path_regressor","123","0.224337","-0.285714","-0.335739"
-"transfer-path-cdab-control-s777","V_control_symbolic_symbolic_insufficiency_path_regressor","777","0.067886","0.714286","1.060707"
-"transfer-path-cdab-witness-s42","V_future_relational_witness_symbolic_insufficiency_path","42","0.072124","-0.547619","-0.514911"
-"transfer-path-cdab-witness-s123","V_future_relational_witness_symbolic_insufficiency_path","123","0.12778","0.595238","1.024642"
-"transfer-path-cdab-witness-s777","V_future_relational_witness_symbolic_insufficiency_path","777","0.056889","0.309524","0.795192"

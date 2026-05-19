@@ -1,7 +1,0 @@
-"run_id","variant","seed","mae","rank_correlation","calibration_slope"
-"relay-cdab-witness-s42","witness","42","0.08203","-0.039735","-0.050877"
-"relay-cdab-witness-s123","witness","123","0.047863","0.417647","0.516706"
-"relay-cdab-witness-s777","witness","777","0.080066","0.388308","0.597329"
-"relay-cdab-control-s42","control","42","0.088273","-0.701987","-1.112678"
-"relay-cdab-control-s123","control","123","0.052784","0.311765","0.786668"
-"relay-cdab-control-s777","control","777","0.087486","0.297099","0.13069"

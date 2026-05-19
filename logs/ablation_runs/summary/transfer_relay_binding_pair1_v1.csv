@@ -1,7 +1,0 @@
-"run_id","variant","seed","mae","rank_correlation","calibration_slope"
-"relay-pair1-witness-s42","witness","42","0.086125","0.332353","1.016502"
-"relay-pair1-witness-s123","witness","123","0.076198","0.414706","0.712962"
-"relay-pair1-witness-s777","witness","777","0.088468","0.490261","1.034251"
-"relay-pair1-control-s42","control","42","0.106549","-0.35","-1.364886"
-"relay-pair1-control-s123","control","123","0.087823","-0.185294","-0.098826"
-"relay-pair1-control-s777","control","777","0.109029","0.510288","0.3943"

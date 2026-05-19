@@ -1,7 +1,0 @@
-run_id,label,variant,seed,mae,rank_correlation,calibration_slope
-transfer-loop-pair7-witness-s42,witness,V_future_relational_witness_symbolic_insufficiency_loop,42,0.056155,0.625883,0.822165
-transfer-loop-pair7-witness-s123,witness,V_future_relational_witness_symbolic_insufficiency_loop,123,0.041795,0.840349,1.142666
-transfer-loop-pair7-witness-s777,witness,V_future_relational_witness_symbolic_insufficiency_loop,777,0.040886,0.23041,0.35892
-transfer-loop-pair7-control-s42,control,V_control_symbolic_symbolic_insufficiency_loop_regressor,42,0.071571,0.300468,0.412095
-transfer-loop-pair7-control-s123,control,V_control_symbolic_symbolic_insufficiency_loop_regressor,123,0.136609,-0.652178,-0.613743
-transfer-loop-pair7-control-s777,control,V_control_symbolic_symbolic_insufficiency_loop_regressor,777,0.05846,-0.200165,-0.291185

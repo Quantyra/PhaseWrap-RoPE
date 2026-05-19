@@ -1,7 +1,0 @@
-run_id,variant,seed,pair_reindex,accuracy,f1,forbidden_inputs_absent,bounded_feature_audit_pass
-vcontrol-dual-symbolic-s42-pairreindex,V_control_symbolic_dual_sector,42,1,0.5,0.666667,True,
-vcontrol-dual-symbolic-s123-pairreindex,V_control_symbolic_dual_sector,123,1,0.5,0.666667,True,
-vcontrol-dual-symbolic-s777-pairreindex,V_control_symbolic_dual_sector,777,1,0.5,0.666667,True,
-vfuture-witness-dual-s42-pairreindex,V_future_relational_witness_dual,42,1,1.0,1.0,True,True
-vfuture-witness-dual-s123-pairreindex,V_future_relational_witness_dual,123,1,1.0,1.0,True,True
-vfuture-witness-dual-s777-pairreindex,V_future_relational_witness_dual,777,1,1.0,1.0,True,True

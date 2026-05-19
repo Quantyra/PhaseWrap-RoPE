@@ -1,7 +1,0 @@
-variant,seed,mae,rank_correlation,calibration_slope
-V_future_relational_witness_symbolic_insufficiency_selector_arbitration,42,0.134334,-0.326471,-0.462366
-V_future_relational_witness_symbolic_insufficiency_selector_arbitration,123,0.145824,-0.497059,-0.934117
-V_future_relational_witness_symbolic_insufficiency_selector_arbitration,777,0.171302,0.138235,-0.007204
-V_control_symbolic_symbolic_insufficiency_selector_arbitration_regressor,42,0.11567,-0.4,-0.634972
-V_control_symbolic_symbolic_insufficiency_selector_arbitration_regressor,123,0.138738,-0.573529,-0.954692
-V_control_symbolic_symbolic_insufficiency_selector_arbitration_regressor,777,0.160515,-0.523529,-0.179033

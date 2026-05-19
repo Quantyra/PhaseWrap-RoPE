@@ -1,7 +1,0 @@
-"run_id","variant","seed","accuracy","f1","feature_order","forbidden_inputs_absent","bounded_feature_audit_pass"
-"vcontrol-dual-symbolic-s42","V_control_symbolic_dual_sector","42","0.5","0.666667","secA_P_small;secA_P_large;secA_N_small;secA_N_large;secB_P_small;secB_P_large;secB_N_small;secB_N_large","True",
-"vcontrol-dual-symbolic-s123","V_control_symbolic_dual_sector","123","0.5","0.666667","secA_P_small;secA_P_large;secA_N_small;secA_N_large;secB_P_small;secB_P_large;secB_N_small;secB_N_large","True",
-"vcontrol-dual-symbolic-s777","V_control_symbolic_dual_sector","777","0.5","0.666667","secA_P_small;secA_P_large;secA_N_small;secA_N_large;secB_P_small;secB_P_large;secB_N_small;secB_N_large","True",
-"vfuture-witness-dual-s42","V_future_relational_witness_dual","42","1","1","cross_sign_small;cross_sign_large;cross_mag_pos;cross_mag_neg;cross_sign_sum;cross_mag_sum","True","True"
-"vfuture-witness-dual-s123","V_future_relational_witness_dual","123","1","1","cross_sign_small;cross_sign_large;cross_mag_pos;cross_mag_neg;cross_sign_sum;cross_mag_sum","True","True"
-"vfuture-witness-dual-s777","V_future_relational_witness_dual","777","1","1","cross_sign_small;cross_sign_large;cross_mag_pos;cross_mag_neg;cross_sign_sum;cross_mag_sum","True","True"

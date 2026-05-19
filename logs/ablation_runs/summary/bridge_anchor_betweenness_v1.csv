@@ -1,7 +1,0 @@
-dataset,variant,seed,mae,rank_correlation,calibration_slope,accuracy,f1
-synthetic_positional_anchor_betweenness_response,V_future_relational_witness_positional_anchor_betweenness,42,0.159953,0.0,-0.090969,0.0,0.0
-synthetic_positional_anchor_betweenness_response,V_future_relational_witness_positional_anchor_betweenness,123,0.075847,0.452381,0.379875,0.0,0.0
-synthetic_positional_anchor_betweenness_response,V_future_relational_witness_positional_anchor_betweenness,777,0.042649,-0.190476,0.126866,0.0,0.0
-synthetic_positional_anchor_betweenness_response,V_control_symbolic_positional_anchor_betweenness_regressor,42,0.179671,-0.142857,-0.662663,0.0,0.0
-synthetic_positional_anchor_betweenness_response,V_control_symbolic_positional_anchor_betweenness_regressor,123,0.077941,-0.642857,-0.940925,0.0,0.0
-synthetic_positional_anchor_betweenness_response,V_control_symbolic_positional_anchor_betweenness_regressor,777,0.046468,-0.214286,-0.310332,0.0,0.0

@@ -1,7 +1,0 @@
-role,seed,variant,mae,rank_correlation,calibration_slope
-witness,42,V_future_relational_witness_positional_dual_anchor_offset_consensus,0.039752,0.473921,0.691352
-witness,123,V_future_relational_witness_positional_dual_anchor_offset_consensus,0.041725,0.361053,1.103289
-witness,777,V_future_relational_witness_positional_dual_anchor_offset_consensus,0.032276,0.44227,0.722624
-control,42,V_control_symbolic_positional_dual_anchor_offset_consensus_regressor,0.042097,-0.050281,-0.337897
-control,123,V_control_symbolic_positional_dual_anchor_offset_consensus_regressor,0.046673,0.031238,0.137205
-control,777,V_control_symbolic_positional_dual_anchor_offset_consensus_regressor,0.037589,-0.10143,-0.50716

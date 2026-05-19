@@ -1,7 +1,0 @@
-run_id,variant,seed,mae,rank_correlation,calibration_slope,accuracy,f1
-transition-witness-x-s42,V_future_relational_witness_chart_transition,42,0.085553,0.841105,0.986232,0.0,0.0
-transition-witness-x-s123,V_future_relational_witness_chart_transition,123,0.075881,0.9241,0.999487,0.0,0.0
-transition-witness-x-s777,V_future_relational_witness_chart_transition,777,0.259146,0.980807,0.984721,0.0,0.0
-transition-cross-s42,V_control_symbolic_transition_cross_direction_regressor,42,0.086163,0.873747,1.092083,0.0,0.0
-transition-cross-s123,V_control_symbolic_transition_cross_direction_regressor,123,0.128409,0.795261,0.98083,0.0,0.0
-transition-cross-s777,V_control_symbolic_transition_cross_direction_regressor,777,0.234957,0.839175,1.028576,0.0,0.0

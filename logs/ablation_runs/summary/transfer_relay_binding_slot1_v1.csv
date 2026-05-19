@@ -1,7 +1,0 @@
-""run_id"",""variant"",""seed"",""mae"",""rank_correlation"",""calibration_slope""
-""relay-slot1-witness-s42"",""witness"",""42"",""0.036854"",""0.620588"",""1.675278""
-""relay-slot1-witness-s123"",""witness"",""123"",""0.101141"",""0.114706"",""0.349373""
-""relay-slot1-witness-s777"",""witness"",""777"",""0.075560"",""0.350000"",""0.485535""
-""relay-slot1-control-s42"",""control"",""42"",""0.050865"",""-0.214706"",""-1.046318""
-""relay-slot1-control-s123"",""control"",""123"",""0.163723"",""0.305882"",""0.114444""
-""relay-slot1-control-s777"",""control"",""777"",""0.101185"",""0.114706"",""0.116533""

@@ -1,7 +1,0 @@
-model,variant,seed,mae,rank_correlation,calibration_slope
-witness,V_future_relational_witness_positional_content_gated_offset_selection,42,0.047174,0.428375,0.957806
-witness,V_future_relational_witness_positional_content_gated_offset_selection,123,0.041207,0.447149,0.766466
-witness,V_future_relational_witness_positional_content_gated_offset_selection,777,0.04537,0.492519,1.018955
-control,V_control_symbolic_positional_content_gated_offset_selection_regressor,42,0.056134,-0.311356,-1.615994
-control,V_control_symbolic_positional_content_gated_offset_selection_regressor,123,0.048482,-0.062632,-0.333091
-control,V_control_symbolic_positional_content_gated_offset_selection_regressor,777,0.052863,-0.120525,-0.208603

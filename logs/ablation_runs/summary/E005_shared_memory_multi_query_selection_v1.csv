@@ -1,7 +1,0 @@
-model,variant,seed,mae,rank_correlation,calibration_slope
-witness,V_future_relational_witness_positional_shared_memory_multi_query_selection,42,0.034669,-0.18397,-0.2876
-witness,V_future_relational_witness_positional_shared_memory_multi_query_selection,123,0.025939,0.445954,0.99165
-witness,V_future_relational_witness_positional_shared_memory_multi_query_selection,777,0.029603,-0.657143,-0.747595
-control,V_control_symbolic_positional_shared_memory_multi_query_selection_regressor,42,0.04017,-0.777859,-1.475795
-control,V_control_symbolic_positional_shared_memory_multi_query_selection_regressor,123,0.026324,0.306645,1.018002
-control,V_control_symbolic_positional_shared_memory_multi_query_selection_regressor,777,0.027095,-0.542857,-1.104228

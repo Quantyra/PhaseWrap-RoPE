@@ -1,7 +1,0 @@
-run_id,variant,seed,mae,rank_correlation,calibration_slope
-symbolic-insuff-cdab-pair7-witness-s42,V_future_relational_witness_symbolic_insufficiency,42,0.075330,0.928624,0.930480
-symbolic-insuff-cdab-pair7-witness-s123,V_future_relational_witness_symbolic_insufficiency,123,0.234091,0.841176,0.854388
-symbolic-insuff-cdab-pair7-witness-s777,V_future_relational_witness_symbolic_insufficiency,777,0.063593,0.957998,1.048075
-symbolic-insuff-cdab-pair7-control-s42,V_control_symbolic_symbolic_insufficiency_regressor,42,0.250805,0.079882,0.394715
-symbolic-insuff-cdab-pair7-control-s123,V_control_symbolic_symbolic_insufficiency_regressor,123,0.318482,0.163597,0.107574
-symbolic-insuff-cdab-pair7-control-s777,V_control_symbolic_symbolic_insufficiency_regressor,777,0.287247,0.770711,1.568673

@@ -1,7 +1,0 @@
-model,variant,seed,mae,rank_correlation,calibration_slope
-witness,V_future_relational_witness_positional_content_alias_disambiguation,42,0.034251,0.222856,0.73673
-witness,V_future_relational_witness_positional_content_alias_disambiguation,123,0.043119,0.505821,1.002135
-witness,V_future_relational_witness_positional_content_alias_disambiguation,777,0.048896,0.33126,0.700174
-control,V_control_symbolic_positional_content_alias_disambiguation_regressor,42,0.03564,0.043369,0.115213
-control,V_control_symbolic_positional_content_alias_disambiguation_regressor,123,0.053417,-0.1995,-0.949241
-control,V_control_symbolic_positional_content_alias_disambiguation_regressor,777,0.05471,0.147516,0.43

@@ -1,7 +1,0 @@
-variant,seed,mae,rank_correlation,calibration_slope
-V_future_relational_witness_nonlinear,42,0.151237,0.920713,0.763784
-V_future_relational_witness_nonlinear,123,0.120145,0.977158,0.8932
-V_future_relational_witness_nonlinear,777,0.094774,0.92842,0.923423
-V_control_symbolic_nonlinear_manifold_regressor,42,0.19907,0.867973,0.866024
-V_control_symbolic_nonlinear_manifold_regressor,123,0.036483,0.88685,0.990358
-V_control_symbolic_nonlinear_manifold_regressor,777,0.094491,0.943541,1.070029

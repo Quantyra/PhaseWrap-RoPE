@@ -1,7 +1,0 @@
-role,seed,variant,token_permutation,mae,rank_correlation,calibration_slope
-witness,42,V_future_relational_witness_positional_variable_cardinality_offset_selection,cdab,0.04891,0.549228,0.658318
-witness,123,V_future_relational_witness_positional_variable_cardinality_offset_selection,cdab,0.045743,0.559188,0.667748
-witness,777,V_future_relational_witness_positional_variable_cardinality_offset_selection,cdab,0.038214,0.771284,1.167642
-control,42,V_control_symbolic_positional_variable_cardinality_offset_selection_regressor,cdab,0.057002,0.23891,0.76959
-control,123,V_control_symbolic_positional_variable_cardinality_offset_selection_regressor,cdab,0.046915,0.365766,1.022221
-control,777,V_control_symbolic_positional_variable_cardinality_offset_selection_regressor,cdab,0.0585,0.290206,1.530196

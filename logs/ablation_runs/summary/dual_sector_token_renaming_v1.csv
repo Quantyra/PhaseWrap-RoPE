@@ -1,7 +1,0 @@
-run_id,variant,seed,token_permutation,accuracy,f1,forbidden_inputs_absent,bounded_feature_audit_pass
-vcontrol-dual-symbolic-s42-tokenperm,V_control_symbolic_dual_sector,42,cdab,0.5,0.666667,True,
-vcontrol-dual-symbolic-s123-tokenperm,V_control_symbolic_dual_sector,123,cdab,0.5,0.666667,True,
-vcontrol-dual-symbolic-s777-tokenperm,V_control_symbolic_dual_sector,777,cdab,0.5,0.666667,True,
-vfuture-witness-dual-s42-tokenperm,V_future_relational_witness_dual,42,cdab,1.0,1.0,True,True
-vfuture-witness-dual-s123-tokenperm,V_future_relational_witness_dual,123,cdab,1.0,1.0,True,True
-vfuture-witness-dual-s777-tokenperm,V_future_relational_witness_dual,777,cdab,1.0,1.0,True,True

@@ -1,7 +1,0 @@
-variant,seed,mae,rank_correlation,calibration_slope
-V_future_relational_witness_symbolic_insufficiency_fork_join,42,0.072805,0.314706,0.522037
-V_future_relational_witness_symbolic_insufficiency_fork_join,123,0.179530,-0.119381,0.021234
-V_future_relational_witness_symbolic_insufficiency_fork_join,777,0.106775,-0.029412,-0.613350
-V_control_symbolic_symbolic_insufficiency_fork_join_regressor,42,0.072994,-0.111765,-0.885220
-V_control_symbolic_symbolic_insufficiency_fork_join_regressor,123,0.157892,-0.666177,-0.804137
-V_control_symbolic_symbolic_insufficiency_fork_join_regressor,777,0.148267,-0.076471,-0.349974

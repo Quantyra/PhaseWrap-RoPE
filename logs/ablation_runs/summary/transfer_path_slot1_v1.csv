@@ -1,7 +1,0 @@
-"run_id","variant","seed","mae","rank_correlation","calibration_slope"
-"transfer-path-slot1-control-s42","V_control_symbolic_symbolic_insufficiency_path_regressor","42","0.219325","-0.047619","0.059726"
-"transfer-path-slot1-control-s123","V_control_symbolic_symbolic_insufficiency_path_regressor","123","0.334516","-0.095238","-0.128283"
-"transfer-path-slot1-control-s777","V_control_symbolic_symbolic_insufficiency_path_regressor","777","0.195675","-0.547619","-1.210954"
-"transfer-path-slot1-witness-s42","V_future_relational_witness_symbolic_insufficiency_path","42","0.173171","-0.404762","-0.083447"
-"transfer-path-slot1-witness-s123","V_future_relational_witness_symbolic_insufficiency_path","123","0.156317","0.5","0.669766"
-"transfer-path-slot1-witness-s777","V_future_relational_witness_symbolic_insufficiency_path","777","0.121726","0.809524","0.668523"

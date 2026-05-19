@@ -1,7 +1,0 @@
-run_id,variant,seed,mae,rank_correlation,calibration_slope
-symbolic-insuff-witness-s42,V_future_relational_witness_symbolic_insufficiency,42,0.091881,0.987491,0.958442
-symbolic-insuff-witness-s123,V_future_relational_witness_symbolic_insufficiency,123,0.140404,0.950000,1.036111
-symbolic-insuff-witness-s777,V_future_relational_witness_symbolic_insufficiency,777,0.126887,0.964706,0.974537
-symbolic-insuff-control-s42,V_control_symbolic_symbolic_insufficiency_regressor,42,0.288557,-0.028065,0.340713
-symbolic-insuff-control-s123,V_control_symbolic_symbolic_insufficiency_regressor,123,0.232698,0.393516,0.630666
-symbolic-insuff-control-s777,V_control_symbolic_symbolic_insufficiency_regressor,777,0.267697,0.424781,0.401098

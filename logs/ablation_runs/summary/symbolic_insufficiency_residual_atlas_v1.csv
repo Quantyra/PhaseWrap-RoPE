@@ -1,7 +1,0 @@
-variant,seed,mae,rank_correlation,calibration_slope,atlas_chart_count_frozen_pass,atlas_chart_rule_global_pass,atlas_hidden_lookup_absent_pass,residual_transition_family_frozen_pass,residual_transition_directionality_frozen_pass,residual_transition_hidden_lookup_absent_pass,allowed_symbolic_basis_frozen_pass,forbidden_feature_family_absent_pass
-V_future_relational_witness_symbolic_insufficiency,42,0.091881,0.987491,0.958442,,,,,,,False,True
-V_future_relational_witness_symbolic_insufficiency,123,0.140404,0.95,1.036111,,,,,,,False,True
-V_future_relational_witness_symbolic_insufficiency,777,0.126887,0.964706,0.974537,,,,,,,False,True
-V_control_symbolic_symbolic_insufficiency_regressor_residual_atlas,42,0.321686,-0.051699,-0.278378,True,True,True,True,True,True,True,True
-V_control_symbolic_symbolic_insufficiency_regressor_residual_atlas,123,0.312058,0.160649,0.029366,True,True,True,True,True,True,True,True
-V_control_symbolic_symbolic_insufficiency_regressor_residual_atlas,777,0.301661,0.424781,0.5669,True,True,True,True,True,True,True,True
