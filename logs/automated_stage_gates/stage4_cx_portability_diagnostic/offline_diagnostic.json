@@ -1,0 +1,1127 @@
+{
+  "diagnostic_version": "qrope_stage4_cx_portability_diagnostic_v1",
+  "manifest_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\manifest.json",
+  "records": [
+    {
+      "artifact_dir": "logs\\automated_stage_gates\\stage4_hardware_sweep\\ibm_runtime__ibm_fez\\two_qubit_cx_parity_phase_wrap_v2_20260519T222219Z",
+      "backend": "ibm_fez",
+      "backend_label": "IBM Fez",
+      "best_by_witness_mae": {
+        "bit_order": "q1q0_current",
+        "control": {
+          "mae": 0.212516,
+          "rank_correlation": -0.169318
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive-under-convention",
+        "witness": {
+          "mae": 0.021458,
+          "rank_correlation": 0.972455
+        },
+        "witness_source": "z1_current_target"
+      },
+      "best_by_witness_rank": {
+        "bit_order": "q1q0_current",
+        "control": {
+          "mae": 0.212516,
+          "rank_correlation": -0.169318
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive-under-convention",
+        "witness": {
+          "mae": 0.021458,
+          "rank_correlation": 0.972455
+        },
+        "witness_source": "z1_current_target"
+      },
+      "convention_results": [
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.212516,
+            "rank_correlation": -0.169318
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021458,
+            "rank_correlation": 0.972455
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.212516,
+            "rank_correlation": -0.169318
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.323893,
+            "rank_correlation": -0.372319
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.212516,
+            "rank_correlation": -0.169318
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.194991,
+            "rank_correlation": -0.972455
+          },
+          "witness_source": "neg_z1"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.212516,
+            "rank_correlation": -0.169318
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.146533,
+            "rank_correlation": 0.372319
+          },
+          "witness_source": "neg_z0"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.212516,
+            "rank_correlation": -0.169318
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.285299,
+            "rank_correlation": 0.095968
+          },
+          "witness_source": "zz_product"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.212516,
+            "rank_correlation": -0.169318
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.175348,
+            "rank_correlation": -0.095968
+          },
+          "witness_source": "neg_zz"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.126173,
+            "rank_correlation": 0.454012
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.323893,
+            "rank_correlation": -0.372319
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.126173,
+            "rank_correlation": 0.454012
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021458,
+            "rank_correlation": 0.972455
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.126173,
+            "rank_correlation": 0.454012
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.146533,
+            "rank_correlation": 0.372319
+          },
+          "witness_source": "neg_z1"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.126173,
+            "rank_correlation": 0.454012
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.194991,
+            "rank_correlation": -0.972455
+          },
+          "witness_source": "neg_z0"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.126173,
+            "rank_correlation": 0.454012
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.285299,
+            "rank_correlation": 0.095968
+          },
+          "witness_source": "zz_product"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.126173,
+            "rank_correlation": 0.454012
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.175348,
+            "rank_correlation": -0.095968
+          },
+          "witness_source": "neg_zz"
+        }
+      ],
+      "diagnosis": {
+        "bit_order_or_sign_flip_recovers_positive_gate": true,
+        "current_negative_is_convention_explained": true
+      },
+      "ideal_counts_reference": {
+        "control": {
+          "mae": 0.229743,
+          "rank_correlation": -0.171995
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive",
+        "witness": {
+          "mae": 5.1e-05,
+          "rank_correlation": 1.0
+        }
+      },
+      "provider": "ibm_runtime",
+      "record_id": "ibm_fez__two_qubit_cx_parity_phase_wrap_v2__20260519T222219Z",
+      "recorded_control": {
+        "mae": 0.212516,
+        "rank_correlation": -0.169318
+      },
+      "recorded_outcome": "hardware-positive",
+      "recorded_status": "PASS",
+      "recorded_witness": {
+        "mae": 0.021458,
+        "rank_correlation": 0.972455
+      },
+      "recovered_positive_conventions": [
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.212516,
+            "rank_correlation": -0.169318
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021458,
+            "rank_correlation": 0.972455
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.212516,
+            "rank_correlation": -0.169318
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.146533,
+            "rank_correlation": 0.372319
+          },
+          "witness_source": "neg_z0"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.212516,
+            "rank_correlation": -0.169318
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.175348,
+            "rank_correlation": -0.095968
+          },
+          "witness_source": "neg_zz"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.126173,
+            "rank_correlation": 0.454012
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021458,
+            "rank_correlation": 0.972455
+          },
+          "witness_source": "z0_control_as_target"
+        }
+      ]
+    },
+    {
+      "artifact_dir": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z",
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "backend_label": "Rigetti Cepheus-1-108Q",
+      "best_by_witness_mae": {
+        "bit_order": "q1q0_current",
+        "control": {
+          "mae": 0.102104,
+          "rank_correlation": 0.691023
+        },
+        "gate_pass": false,
+        "outcome": "hardware-negative-under-convention",
+        "witness": {
+          "mae": 0.061643,
+          "rank_correlation": 0.557668
+        },
+        "witness_source": "z0_control_as_target"
+      },
+      "best_by_witness_rank": {
+        "bit_order": "q1q0_current",
+        "control": {
+          "mae": 0.102104,
+          "rank_correlation": 0.691023
+        },
+        "gate_pass": false,
+        "outcome": "hardware-negative-under-convention",
+        "witness": {
+          "mae": 0.061643,
+          "rank_correlation": 0.557668
+        },
+        "witness_source": "z0_control_as_target"
+      },
+      "convention_results": [
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.102104,
+            "rank_correlation": 0.691023
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.290715,
+            "rank_correlation": 0.0
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.102104,
+            "rank_correlation": 0.691023
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.061643,
+            "rank_correlation": 0.557668
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.102104,
+            "rank_correlation": 0.691023
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.178936,
+            "rank_correlation": 0.0
+          },
+          "witness_source": "neg_z1"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.102104,
+            "rank_correlation": 0.691023
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.155381,
+            "rank_correlation": -0.557668
+          },
+          "witness_source": "neg_z0"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.102104,
+            "rank_correlation": 0.691023
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.250505,
+            "rank_correlation": 0.206095
+          },
+          "witness_source": "zz_product"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.102104,
+            "rank_correlation": 0.691023
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.197159,
+            "rank_correlation": -0.206095
+          },
+          "witness_source": "neg_zz"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.19437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.061643,
+            "rank_correlation": 0.557668
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.19437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.290715,
+            "rank_correlation": 0.0
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.19437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.155381,
+            "rank_correlation": -0.557668
+          },
+          "witness_source": "neg_z1"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.19437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.178936,
+            "rank_correlation": 0.0
+          },
+          "witness_source": "neg_z0"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.19437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.250505,
+            "rank_correlation": 0.206095
+          },
+          "witness_source": "zz_product"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.19437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.197159,
+            "rank_correlation": -0.206095
+          },
+          "witness_source": "neg_zz"
+        }
+      ],
+      "diagnosis": {
+        "bit_order_or_sign_flip_recovers_positive_gate": true,
+        "current_negative_is_convention_explained": true
+      },
+      "ideal_counts_reference": {
+        "control": {
+          "mae": 0.21962,
+          "rank_correlation": -0.080247
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive",
+        "witness": {
+          "mae": 0.000137,
+          "rank_correlation": 1.0
+        }
+      },
+      "provider": "amazon_braket",
+      "record_id": "rigetti_cepheus_1_108q__two_qubit_cx_parity_phase_wrap_v2__20260519T230047Z",
+      "recorded_control": {
+        "mae": 0.102104,
+        "rank_correlation": 0.691023
+      },
+      "recorded_outcome": "hardware-negative",
+      "recorded_status": "FAIL_STOP",
+      "recorded_witness": {
+        "mae": 0.290715,
+        "rank_correlation": 0.0
+      },
+      "recovered_positive_conventions": [
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.19437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.061643,
+            "rank_correlation": 0.557668
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.19437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.178936,
+            "rank_correlation": 0.0
+          },
+          "witness_source": "neg_z0"
+        }
+      ]
+    },
+    {
+      "artifact_dir": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Garnet\\two_qubit_cx_parity_phase_wrap_v2_20260519T230446Z",
+      "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Garnet",
+      "backend_label": "IQM Garnet",
+      "best_by_witness_mae": {
+        "bit_order": "q1q0_current",
+        "control": {
+          "mae": 0.126479,
+          "rank_correlation": 0.521298
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive-under-convention",
+        "witness": {
+          "mae": 0.021719,
+          "rank_correlation": 0.981981
+        },
+        "witness_source": "z0_control_as_target"
+      },
+      "best_by_witness_rank": {
+        "bit_order": "q1q0_current",
+        "control": {
+          "mae": 0.126479,
+          "rank_correlation": 0.521298
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive-under-convention",
+        "witness": {
+          "mae": 0.021719,
+          "rank_correlation": 0.981981
+        },
+        "witness_source": "z0_control_as_target"
+      },
+      "convention_results": [
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.126479,
+            "rank_correlation": 0.521298
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.314936,
+            "rank_correlation": -0.487841
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.126479,
+            "rank_correlation": 0.521298
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021719,
+            "rank_correlation": 0.981981
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.126479,
+            "rank_correlation": 0.521298
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.170775,
+            "rank_correlation": 0.487841
+          },
+          "witness_source": "neg_z1"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.126479,
+            "rank_correlation": 0.521298
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.181716,
+            "rank_correlation": -0.981981
+          },
+          "witness_source": "neg_z0"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.126479,
+            "rank_correlation": 0.521298
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.287971,
+            "rank_correlation": 0.128058
+          },
+          "witness_source": "zz_product"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.126479,
+            "rank_correlation": 0.521298
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.211542,
+            "rank_correlation": -0.128058
+          },
+          "witness_source": "neg_zz"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.20437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021719,
+            "rank_correlation": 0.981981
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.20437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.314936,
+            "rank_correlation": -0.487841
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.20437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.181716,
+            "rank_correlation": -0.981981
+          },
+          "witness_source": "neg_z1"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.20437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.170775,
+            "rank_correlation": 0.487841
+          },
+          "witness_source": "neg_z0"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.20437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.287971,
+            "rank_correlation": 0.128058
+          },
+          "witness_source": "zz_product"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.20437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.211542,
+            "rank_correlation": -0.128058
+          },
+          "witness_source": "neg_zz"
+        }
+      ],
+      "diagnosis": {
+        "bit_order_or_sign_flip_recovers_positive_gate": true,
+        "current_negative_is_convention_explained": true
+      },
+      "ideal_counts_reference": {
+        "control": {
+          "mae": 0.21962,
+          "rank_correlation": -0.080247
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive",
+        "witness": {
+          "mae": 0.000137,
+          "rank_correlation": 1.0
+        }
+      },
+      "provider": "amazon_braket",
+      "record_id": "iqm_garnet__two_qubit_cx_parity_phase_wrap_v2__20260519T230446Z",
+      "recorded_control": {
+        "mae": 0.126479,
+        "rank_correlation": 0.521298
+      },
+      "recorded_outcome": "hardware-negative",
+      "recorded_status": "FAIL_STOP",
+      "recorded_witness": {
+        "mae": 0.314936,
+        "rank_correlation": -0.487841
+      },
+      "recovered_positive_conventions": [
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.126479,
+            "rank_correlation": 0.521298
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021719,
+            "rank_correlation": 0.981981
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.20437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021719,
+            "rank_correlation": 0.981981
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.20437,
+            "rank_correlation": -0.060616
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.170775,
+            "rank_correlation": 0.487841
+          },
+          "witness_source": "neg_z0"
+        }
+      ]
+    },
+    {
+      "artifact_dir": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald\\two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z",
+      "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+      "backend_label": "IQM Emerald",
+      "best_by_witness_mae": {
+        "bit_order": "q1q0_current",
+        "control": {
+          "mae": 0.127917,
+          "rank_correlation": 0.634194
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive-under-convention",
+        "witness": {
+          "mae": 0.021479,
+          "rank_correlation": 0.884995
+        },
+        "witness_source": "z0_control_as_target"
+      },
+      "best_by_witness_rank": {
+        "bit_order": "q1q0_current",
+        "control": {
+          "mae": 0.127917,
+          "rank_correlation": 0.634194
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive-under-convention",
+        "witness": {
+          "mae": 0.021479,
+          "rank_correlation": 0.884995
+        },
+        "witness_source": "z0_control_as_target"
+      },
+      "convention_results": [
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.127917,
+            "rank_correlation": 0.634194
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.324767,
+            "rank_correlation": -0.223607
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.127917,
+            "rank_correlation": 0.634194
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021479,
+            "rank_correlation": 0.884995
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.127917,
+            "rank_correlation": 0.634194
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.180606,
+            "rank_correlation": 0.223607
+          },
+          "witness_source": "neg_z1"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.127917,
+            "rank_correlation": 0.634194
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.182965,
+            "rank_correlation": -0.884995
+          },
+          "witness_source": "neg_z0"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.127917,
+            "rank_correlation": 0.634194
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.296912,
+            "rank_correlation": 0.315204
+          },
+          "witness_source": "zz_product"
+        },
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.127917,
+            "rank_correlation": 0.634194
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.219865,
+            "rank_correlation": -0.315204
+          },
+          "witness_source": "neg_zz"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.210995,
+            "rank_correlation": -0.096986
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021479,
+            "rank_correlation": 0.884995
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.210995,
+            "rank_correlation": -0.096986
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.324767,
+            "rank_correlation": -0.223607
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.210995,
+            "rank_correlation": -0.096986
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.182965,
+            "rank_correlation": -0.884995
+          },
+          "witness_source": "neg_z1"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.210995,
+            "rank_correlation": -0.096986
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.180606,
+            "rank_correlation": 0.223607
+          },
+          "witness_source": "neg_z0"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.210995,
+            "rank_correlation": -0.096986
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.296912,
+            "rank_correlation": 0.315204
+          },
+          "witness_source": "zz_product"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.210995,
+            "rank_correlation": -0.096986
+          },
+          "gate_pass": false,
+          "outcome": "hardware-negative-under-convention",
+          "witness": {
+            "mae": 0.219865,
+            "rank_correlation": -0.315204
+          },
+          "witness_source": "neg_zz"
+        }
+      ],
+      "diagnosis": {
+        "bit_order_or_sign_flip_recovers_positive_gate": true,
+        "current_negative_is_convention_explained": true
+      },
+      "ideal_counts_reference": {
+        "control": {
+          "mae": 0.21962,
+          "rank_correlation": -0.080247
+        },
+        "gate_pass": true,
+        "outcome": "hardware-positive",
+        "witness": {
+          "mae": 0.000137,
+          "rank_correlation": 1.0
+        }
+      },
+      "provider": "amazon_braket",
+      "record_id": "iqm_emerald__two_qubit_cx_parity_phase_wrap_v2__20260519T230818Z",
+      "recorded_control": {
+        "mae": 0.127917,
+        "rank_correlation": 0.634194
+      },
+      "recorded_outcome": "hardware-negative",
+      "recorded_status": "FAIL_STOP",
+      "recorded_witness": {
+        "mae": 0.324767,
+        "rank_correlation": -0.223607
+      },
+      "recovered_positive_conventions": [
+        {
+          "bit_order": "q1q0_current",
+          "control": {
+            "mae": 0.127917,
+            "rank_correlation": 0.634194
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021479,
+            "rank_correlation": 0.884995
+          },
+          "witness_source": "z0_control_as_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.210995,
+            "rank_correlation": -0.096986
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.021479,
+            "rank_correlation": 0.884995
+          },
+          "witness_source": "z1_current_target"
+        },
+        {
+          "bit_order": "q0q1_reversed",
+          "control": {
+            "mae": 0.210995,
+            "rank_correlation": -0.096986
+          },
+          "gate_pass": true,
+          "outcome": "hardware-positive-under-convention",
+          "witness": {
+            "mae": 0.180606,
+            "rank_correlation": 0.223607
+          },
+          "witness_source": "neg_z0"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "braket_negative_records": 3,
+    "braket_negative_records_recovered_by_convention": 3,
+    "common_recovered_positive_conventions": [
+      {
+        "bit_order": "q0q1_reversed",
+        "witness_source": "neg_z0"
+      },
+      {
+        "bit_order": "q0q1_reversed",
+        "witness_source": "z1_current_target"
+      }
+    ],
+    "conclusion": "All Braket CX negative records recover under a common q0q1 bitstring interpretation with the original Z1-after-CX target witness. This points to a provider bitstring-order decoding mismatch rather than a physical CX portability failure.",
+    "cx_completed_records": 4,
+    "next_questions": [
+      "Add an explicit provider bitstring-order field before reclassifying Braket CX artifacts.",
+      "Re-run the sweep verifier with provider-aware decoding and preserve both original and corrected interpretations.",
+      "Only after that, compare logical CX against native CZ or XX-family witness circuits if portability questions remain."
+    ]
+  }
+}

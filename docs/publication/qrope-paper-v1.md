@@ -138,7 +138,7 @@ witness_cx = clamp(0.5 + 0.5 * score_scale * E[Z1 after CX], 0, 1)
 control_cx = clamp(0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX]), 0, 1)
 ```
 
-This variant has a completed IBM Fez hardware-positive artifact in the active public sweep. It also has completed Amazon Braket hardware-negative replication artifacts on Rigetti Cepheus, IQM Garnet, and IQM Emerald. The positive claim is therefore bounded to the recorded IBM Fez packet/backend/date/calibration-specific result and does not establish entanglement advantage, quantum advantage, or cross-backend robustness.
+This variant has a completed IBM Fez hardware-positive artifact in the active public sweep. It also has completed Amazon Braket artifacts on Rigetti Cepheus, IQM Garnet, and IQM Emerald that were originally classified as hardware-negative under the generic decoder. A follow-on diagnostic indicates those Braket CX negatives are likely explained by Amazon Braket bitstring-order decoding, because all three recover under a uniform `q0q1` result-key interpretation with the original target-qubit witness. The positive claim remains bounded to recorded packet/backend/date/calibration-specific results and does not establish entanglement advantage, quantum advantage, or cross-backend robustness.
 
 Implementation reference: `src/qrope/automated_stage_gates.py`.
 
@@ -190,7 +190,7 @@ This verifier supports recomputation, not independent replication. Recomputing t
 
 ## 5. Hardware validation result
 
-The active Stage 4 hardware sweep includes six completed records: the original IBM Fez product-state hardware packet, an IBM Fez CX hardware-positive packet, an Amazon Braket/Rigetti product-state hardware-positive replication artifact, and Amazon Braket CX hardware-negative replication artifacts on Rigetti Cepheus, IQM Garnet, and IQM Emerald. Additional IBM machines are deferred from the active sweep. IonQ is not an active sweep record: the current intended route is Amazon Braket, and a read-only Braket check on 2026-05-19 found `Forte-1` and `Forte-Enterprise-1` `OFFLINE` and `Aria-1` `RETIRED`, so no IonQ hardware task was submitted.
+The active Stage 4 hardware sweep includes six completed records: the original IBM Fez product-state hardware packet, an IBM Fez CX hardware-positive packet, an Amazon Braket/Rigetti product-state hardware-positive replication artifact, and Amazon Braket CX artifacts on Rigetti Cepheus, IQM Garnet, and IQM Emerald. The Braket CX artifacts were originally classified as hardware-negative under the generic decoder, but the CX portability diagnostic indicates a likely Braket bitstring-order decoding issue. Additional IBM machines are deferred from the active sweep. IonQ is not an active sweep record: the current intended route is Amazon Braket, and a read-only Braket check on 2026-05-19 found `Forte-1` and `Forte-Enterprise-1` `OFFLINE` and `Aria-1` `RETIRED`, so no IonQ hardware task was submitted.
 
 The IBM Quantum run records:
 
@@ -216,7 +216,7 @@ The active sweep records:
 - IBM Fez completed at `4096` shots for the product-state witness family.
 - IBM Fez completed at `4096` shots for the CX witness family.
 - Amazon Braket/Rigetti completed at `1000` shots for the product-state witness family.
-- Amazon Braket CX completed at `1000` shots per row on Rigetti Cepheus, IQM Garnet, and IQM Emerald, and all three CX records were hardware-negative.
+- Amazon Braket CX completed at `1000` shots per row on Rigetti Cepheus, IQM Garnet, and IQM Emerald. Under the generic decoder all three were hardware-negative; under the diagnostic `q0q1` Braket bitstring interpretation all three recover witness/control ordering.
 - IonQ is not part of the active hardware sweep; Amazon Braket/IonQ was unavailable during the 2026-05-19 check, so no IonQ hardware task was submitted.
 - The committed IBM Fez and Braket/Rigetti product-state rows preserved the witness/control ordering expected by the positive claim boundary.
 - The Amazon Braket/Rigetti 1000-shot product-state artifact is present as machine-verifiable sweep evidence and verifies with `pass=true`.
@@ -239,7 +239,7 @@ The witness condition uses the cross-band product readout:
 witness = clamp(0.5 + 0.5 * score_scale * E[Z0 Z1], 0, 1)
 ```
 
-The completed IBM Fez and Braket/Rigetti product-state records support the Stage 4 packet outcome under the recorded conditions. The completed Braket CX records are negative replications and do not support a general CX cross-backend claim. Backend calibration, queue conditions, transpilation details, and packet composition can affect replication results. The result therefore remains scoped to the stated packet, backend, date, calibration window, and metrics.
+The completed IBM Fez and Braket/Rigetti product-state records support the Stage 4 packet outcome under the recorded conditions. The completed Braket CX records currently function as a diagnostic case for provider-aware bitstring decoding and do not support a general CX cross-backend claim until the verifier schema records that convention explicitly. Backend calibration, queue conditions, transpilation details, result-key conventions, and packet composition can affect replication results. The result therefore remains scoped to the stated packet, backend, date, calibration window, and metrics.
 
 Deferred IBM comparison rows are not promoted to machine-verifiable public evidence until their real packet, raw-count, job-ID, backend-metadata, and verifier-output files are present in the repository. For IonQ, any future evidence should be recorded as a new dated Amazon Braket/IonQ run when a Braket IonQ device is available, and then added as a new active sweep record.
 

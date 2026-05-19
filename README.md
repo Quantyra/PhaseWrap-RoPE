@@ -48,6 +48,7 @@ The public claim frame excludes:
 - [Open-source release checklist](docs/publication/open-source-release-checklist-v1.md)
 - [Patent notice](PATENTS.md)
 - [Stage 4 real-hardware validation result](docs/research/q-rope-stage4-real-hardware-validation-result-v1.md)
+- [Stage 4 CX portability diagnostic](docs/research/q-rope-stage4-cx-portability-diagnostic-v1.md)
 - [Amazon Braket hardware runbook](docs/evidence/E002-braket-hardware-runbook.md)
 - [Automated terminal human-review packet](docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md)
 - [Phase-wrap algorithm note](docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md)
@@ -111,6 +112,14 @@ python scripts/verify_stage4_hardware_sweep.py
 ```
 
 This verifier recomputes metrics for the active sweep records whose packet/execution/evaluation artifacts are present. The current active sweep covers the committed IBM Fez product-state packet, IBM Fez CX packet, Amazon Braket/Rigetti product-state artifact, and Amazon Braket CX negative replications on Rigetti Cepheus, IQM Garnet, and IQM Emerald. Additional IBM backends and Amazon Braket/IonQ are documented as deferred or excluded targets unless real raw-count artifacts are later added.
+
+Diagnose the apparent Braket CX portability failure from saved raw counts:
+
+```bash
+python scripts/diagnose_stage4_cx_portability.py
+```
+
+The diagnostic currently points to an Amazon Braket bitstring-order decoding mismatch rather than a physical CX portability failure.
 
 ## Reviewer path in 10 minutes
 
