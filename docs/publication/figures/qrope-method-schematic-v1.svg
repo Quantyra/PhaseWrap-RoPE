@@ -14,7 +14,7 @@
       .score { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 10; }
       .label { font: 700 21px Arial, sans-serif; fill: #111827; }
       .body { font: 400 16px Arial, sans-serif; fill: #475569; }
-      .mono { font: 700 23px Consolas, monospace; fill: #111827; }
+      .mono { font: 700 20px Consolas, monospace; fill: #111827; }
       .small { font: 400 13px Arial, sans-serif; fill: #64748b; }
       .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
     </style>
@@ -29,20 +29,22 @@
   <text x="100" y="310" class="body">Integer offset pair</text>
   <text x="100" y="354" class="mono">delta_a, delta_b</text>
 
-  <path d="M315 315 L410 315" class="arrow"/>
+  <path d="M315 315 L388 315" class="arrow"/>
 
-  <rect x="430" y="160" width="260" height="160" class="band8"/>
-  <text x="462" y="212" class="label">mod-8 margin</text>
-  <text x="462" y="248" class="body">One-step boundary</text>
-  <text x="462" y="292" class="mono">m8 = cos(r8) - cos(pi/4)</text>
+  <rect x="408" y="160" width="324" height="160" class="band8"/>
+  <text x="440" y="212" class="label">mod-8 margin</text>
+  <text x="440" y="248" class="body">One-step boundary</text>
+  <text x="440" y="284" class="mono">m8 = cos(r8)</text>
+  <text x="440" y="310" class="mono">     - cos(pi/4)</text>
 
-  <rect x="430" y="350" width="260" height="160" class="band12"/>
-  <text x="462" y="402" class="label">mod-12 margin</text>
-  <text x="462" y="438" class="body">One-step boundary</text>
-  <text x="462" y="482" class="mono">m12 = cos(r12) - cos(pi/6)</text>
+  <rect x="408" y="350" width="324" height="160" class="band12"/>
+  <text x="440" y="402" class="label">mod-12 margin</text>
+  <text x="440" y="438" class="body">One-step boundary</text>
+  <text x="440" y="474" class="mono">m12 = cos(r12)</text>
+  <text x="440" y="500" class="mono">      - cos(pi/6)</text>
 
-  <path d="M700 238 C780 238, 790 315, 870 315" class="arrow"/>
-  <path d="M700 430 C780 430, 790 315, 870 315" class="arrow"/>
+  <path d="M742 238 C800 238, 810 315, 870 315" class="arrow"/>
+  <path d="M742 430 C800 430, 810 315, 870 315" class="arrow"/>
 
   <rect x="890" y="220" width="240" height="190" class="score"/>
   <text x="920" y="272" class="label">Cross-band score</text>
