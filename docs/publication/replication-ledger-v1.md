@@ -18,7 +18,7 @@ Machine-readable ledger: `logs/automated_stage_gates/replication_lanes/replicati
 | Product Braket replication | `two_qubit_zz_expectation_phase_wrap_v1` | Amazon Braket Rigetti `Cepheus-1-108Q`, `2026-05-19` | `published_completed` | Bounded hardware-positive Braket/Rigetti replication for one packet/backend/date/calibration context. |
 | Product rerun A | `two_qubit_zz_expectation_phase_wrap_v1` | Second IBM backend, date 1 | `blocked_pending_credentials_and_backend_selection` | No replication claim. |
 | Product rerun B | `two_qubit_zz_expectation_phase_wrap_v1` | Third IBM backend or same backend on date 2 | `blocked_pending_credentials_and_backend_selection` | No replication claim. |
-| CX rerun A | `two_qubit_cx_parity_phase_wrap_v2` | IBM backend with acceptable CX profile, date 1 | `implemented_not_executed_on_hardware` | No entangling-witness evidence claim. |
+| CX rerun A | `two_qubit_cx_parity_phase_wrap_v2` | IBM backend with acceptable CX profile, date 1 | `ideal_count_rehearsal_passed_not_executed_on_hardware` | No entangling-witness hardware evidence claim. |
 | CX rerun B | `two_qubit_cx_parity_phase_wrap_v2` | Second date or second backend | `implemented_not_executed_on_hardware` | No entangling-witness evidence claim. |
 
 ## Braket replication result for this update
@@ -36,6 +36,22 @@ Metrics:
 - control MAE: `0.149995`
 - control rank correlation: `0.121232`
 - offline verifier: `pass=true`
+
+## CX no-hardware rehearsal
+
+The CX witness lane now has a local ideal-count rehearsal artifact:
+
+`logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal/`
+
+Metrics:
+
+- witness MAE: `0.000051`
+- witness rank correlation: `1.000000`
+- control MAE: `0.229743`
+- control rank correlation: `-0.171995`
+- gate pass: `true`
+
+This artifact submits no hardware job and makes no entangling-witness hardware evidence claim. It records that the frozen-packet, CX ideal-count, and evaluator mechanics are ready for a future credentialled hardware execution.
 
 A replication lane becomes publishable only after it contains:
 

@@ -44,13 +44,13 @@ Circuit family: `two_qubit_zz_expectation_phase_wrap_v1`
 
 Circuit family: `two_qubit_cx_parity_phase_wrap_v2`
 
-The CX witness remains implemented and prepared for future hardware execution, but it is not an active machine-verifiable sweep record in the current repository. No committed CX raw-count execution artifact is present, so no CX hardware metrics are promoted here.
+The CX witness remains implemented and prepared for future hardware execution, but it is not an active machine-verifiable hardware sweep record in the current repository. A no-hardware ideal-count rehearsal is present at `logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal/` and passes with 16 rows and 4096 ideal shots. No committed CX hardware raw-count execution artifact is present, so no CX hardware metrics are promoted here.
 
 ## Comparison
 
 ### Product-state vs entangling
 
-The entangling CX witness is not used for the active public hardware sweep. It can be run later as a dated replication lane if hardware budget and backend availability justify it.
+The entangling CX witness is not used for the active public hardware sweep. It can be run later as a dated replication lane if hardware budget and backend availability justify it. The local rehearsal indicates the packet/evaluation mechanics are ready; it does not replace a hardware run.
 
 ### Backend deltas
 
@@ -92,6 +92,7 @@ Current repository state distinguishes active sweep records from deferred or exc
 - The IBM Fez 4096-shot artifact is present and recomputable from raw counts.
 - The Amazon Braket/Rigetti 1000-shot artifact is present and recomputable from raw counts.
 - Additional IBM Kingston/Marrakesh and CX hardware rows are deferred, not active verifier records.
+- The CX no-hardware rehearsal passes and is explicitly marked as non-hardware readiness evidence.
 - The sweep verifier passes for the active records.
 - IonQ is not an active sweep record. The manifest records it only under excluded targets because the checked Amazon Braket IonQ devices were unavailable on 2026-05-19, so IonQ hardware tests could not be run from the checked AWS account.
 
@@ -110,12 +111,14 @@ The active evidence packaging goals are complete:
 1. verify the existing IBM Fez product-state hardware packet from committed raw counts
 2. add an Amazon Braket/Rigetti product-state replication artifact with completed task ARNs and S3 result URIs
 3. record IonQ unavailability without promoting a missing IonQ run
-4. keep additional IBM and CX execution lanes deferred unless real artifacts are later added
+4. add a no-hardware CX ideal-count rehearsal
+5. keep additional IBM and CX hardware execution lanes deferred unless real artifacts are later added
 
 ## Evidence Pointers
 
 - [Product-state IBM packet logs](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_packet)
 - [Amazon Braket/Rigetti 1000-shot artifact](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z)
+- [CX no-hardware rehearsal](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal)
 - [Stage 4 sweep manifest](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/manifest.json)
 - [Stage 4 sweep verifier](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/scripts/verify_stage4_hardware_sweep.py)
 - [Stage 4 sweep runner](/C:/Users/Dan/Desktop/Projects/QuantyraQRope/scripts/run_stage4_hardware_sweep.py)
@@ -125,5 +128,5 @@ The active evidence packaging goals are complete:
 The next step is review packaging, not more execution:
 
 1. fold these run results into the publication docs
-2. describe the entangling witness as implemented/prepared but not active hardware evidence
+2. describe the entangling witness as implemented and locally rehearsed but not active hardware evidence
 3. keep the 4096-shot wording for IBM and explicitly note that Amazon Braket/IonQ was unavailable during the 2026-05-19 check

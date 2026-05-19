@@ -133,11 +133,10 @@ def test_product_state_witness_metric_recomputation(tmp_path: Path) -> None:
 def test_cx_witness_metric_recomputation(tmp_path: Path) -> None:
     _, record = _synthetic_result(tmp_path, ENTANGLING_CX_CIRCUIT_FAMILY)
     verification = verify_manifest(_manifest(tmp_path, [record]))
-    # This synthetic CX fixture intentionally verifies recomputation mechanics only.
-    # It is not tuned to be a positive scientific result.
-    assert verification["pass"] is False
+    assert verification["pass"] is True
     row = verification["records"][0]["table_row"]
     assert row["family"] == ENTANGLING_CX_CIRCUIT_FAMILY
+    assert row["witness_mae"] < row["control_mae"]
     record_result = verification["records"][0]
     assert record_result["recorded_evaluation"]["witness"] == record_result["recomputed_evaluation"]["witness"]
     assert record_result["recorded_evaluation"]["control"] == record_result["recomputed_evaluation"]["control"]

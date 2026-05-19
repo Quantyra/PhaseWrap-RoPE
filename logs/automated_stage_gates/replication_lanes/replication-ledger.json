@@ -1,77 +1,97 @@
 {
-  "ledger_version": "qrope_replication_ledger_v1",
-  "as_of_date": "2026-05-18",
-  "status": "credentialled_hardware_execution_required",
-  "claim_boundary": "Only the original product-state IBM hardware packet is published as completed hardware evidence. Cross-backend, cross-date, and entangling-CX lanes remain unexecuted until credentialled jobs produce raw counts, metadata, and verifier outputs.",
+  "as_of_date": "2026-05-19",
+  "claim_boundary": "Only the original IBM Fez product-state hardware packet and the Amazon Braket/Rigetti product-state replication artifact are published as completed hardware evidence. Cross-date, broader cross-backend, and entangling-CX hardware lanes remain unexecuted until credentialled jobs produce raw counts, metadata, and verifier outputs.",
   "environment_preflight": {
-    "checked_at_local_date": "2026-05-18",
-    "ibm_runtime_dependency_present": true,
-    "credential_environment_present": false,
-    "hardware_execution_possible_from_current_environment": false,
-    "public_reason": "No IBM Quantum token, backend, or budget-cap environment variables were configured in the execution environment used for this repo update."
+    "amazon_braket_rigetti_completed": true,
+    "checked_at_local_date": "2026-05-19",
+    "cx_no_hardware_rehearsal_passed": true,
+    "ionq_available_through_braket": false,
+    "public_reason": "Amazon Braket/Rigetti produced a completed hardware replication artifact. Amazon Braket/IonQ devices checked on 2026-05-19 were unavailable, and the CX lane has only a local ideal-count rehearsal."
   },
   "lanes": [
     {
-      "lane_id": "stage4-product-original",
-      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
-      "provider": "ibm_runtime",
       "backend": "ibm_fez",
-      "date_utc": "2026-05-17",
-      "status": "published_completed",
-      "evidence": "logs/automated_stage_gates/stage4_hardware_packet/",
-      "outcome": "hardware-positive",
-      "witness_mae": 0.018382,
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
       "control_mae": 0.217262,
-      "witness_rank_correlation": 0.876558,
-      "control_rank_correlation": -0.17694
+      "control_rank_correlation": -0.17694,
+      "date_utc": "2026-05-17",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_packet/",
+      "lane_id": "stage4-product-original",
+      "outcome": "hardware-positive",
+      "provider": "ibm_runtime",
+      "status": "published_completed",
+      "witness_mae": 0.018382,
+      "witness_rank_correlation": 0.876558
     },
     {
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "control_mae": 0.149995,
+      "control_rank_correlation": 0.121232,
+      "date_utc": "2026-05-19",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z/",
+      "lane_id": "stage4-product-braket-rigetti",
+      "outcome": "hardware-positive",
+      "provider": "amazon_braket",
+      "status": "published_completed",
+      "witness_mae": 0.069901,
+      "witness_rank_correlation": 0.786644
+    },
+    {
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
       "lane_id": "product-rerun-a",
-      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
-      "target": "second IBM backend, first replication date",
-      "status": "blocked_pending_credentials_and_backend_selection",
       "required_before_claim": [
         "completed raw counts",
         "backend metadata",
         "calibration metadata",
         "verifier output"
-      ]
+      ],
+      "status": "blocked_pending_backend_selection",
+      "target": "second IBM backend, first replication date"
     },
     {
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
       "lane_id": "product-rerun-b",
-      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
-      "target": "third IBM backend or second date",
-      "status": "blocked_pending_credentials_and_backend_selection",
       "required_before_claim": [
         "completed raw counts",
         "backend metadata",
         "calibration metadata",
         "verifier output"
-      ]
+      ],
+      "status": "blocked_pending_backend_selection",
+      "target": "third IBM backend or second date"
     },
     {
+      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+      "control_mae": 0.229743,
+      "control_rank_correlation": -0.171995,
+      "evidence": "logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal/",
+      "hardware_submitted": false,
       "lane_id": "cx-rerun-a",
-      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
-      "target": "IBM backend with acceptable CX profile, first execution date",
-      "status": "implemented_not_executed_on_hardware",
       "required_before_claim": [
-        "completed raw counts",
+        "completed hardware raw counts",
         "backend metadata",
         "calibration metadata",
         "verifier output"
-      ]
+      ],
+      "status": "ideal_count_rehearsal_passed_not_executed_on_hardware",
+      "target": "IBM backend with acceptable CX profile, first execution date",
+      "witness_mae": 0.000051,
+      "witness_rank_correlation": 1.0
     },
     {
-      "lane_id": "cx-rerun-b",
       "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
-      "target": "second date or second backend",
-      "status": "implemented_not_executed_on_hardware",
+      "lane_id": "cx-rerun-b",
       "required_before_claim": [
         "completed raw counts",
         "backend metadata",
         "calibration metadata",
         "verifier output"
-      ]
+      ],
+      "status": "implemented_not_executed_on_hardware",
+      "target": "second date or second backend"
     }
-  ]
+  ],
+  "ledger_version": "qrope_replication_ledger_v1",
+  "status": "braket_replication_completed_cx_rehearsal_passed"
 }

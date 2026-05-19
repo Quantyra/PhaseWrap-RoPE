@@ -861,11 +861,13 @@ def ideal_counts_for_hardware_row(row_payload: dict[str, Any], shots: int) -> di
         "11": (1.0 - z0 - z1 + z0 * z1) / 4.0,
     }
     if row_payload["circuit_parameters"].get("embedding") == ENTANGLING_CX_CIRCUIT_FAMILY:
+        # Bitstrings are stored as q1q0, while the circuit applies CX(q0 -> q1).
+        # The output mapping is therefore 00->00, 01->11, 10->10, 11->01.
         probabilities = {
             "00": product_probabilities["00"],
-            "01": product_probabilities["01"],
-            "10": product_probabilities["11"],
-            "11": product_probabilities["10"],
+            "01": product_probabilities["11"],
+            "10": product_probabilities["10"],
+            "11": product_probabilities["01"],
         }
     else:
         probabilities = product_probabilities

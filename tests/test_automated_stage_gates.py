@@ -247,6 +247,23 @@ def test_braket_openqasm_adds_cnot_for_entangling_family() -> None:
     assert "cnot q[0], q[1];" in source
 
 
+def test_entangling_ideal_counts_follow_q1q0_cx_mapping() -> None:
+    row = {
+        "circuit_parameters": {
+            "embedding": ENTANGLING_CX_CIRCUIT_FAMILY,
+            "z0_target_from_m8": 0.0,
+            "z1_target_from_m12": 0.0,
+        }
+    }
+    counts = ideal_counts_for_hardware_row(row, 4)
+    assert counts == {"00": 1, "01": 1, "10": 1, "11": 1}
+
+    row["circuit_parameters"]["z0_target_from_m8"] = -1.0
+    row["circuit_parameters"]["z1_target_from_m12"] = 1.0
+    counts = ideal_counts_for_hardware_row(row, 4)
+    assert counts == {"00": 0, "01": 0, "10": 0, "11": 4}
+
+
 def test_braket_preflight_ready_for_online_device() -> None:
     class FakeBraketAdapter(EnvironmentHardwareAdapter):
         def _run_aws_json(self, cmd: list[str]) -> dict:

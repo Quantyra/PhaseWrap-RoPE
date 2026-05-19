@@ -24,7 +24,7 @@ The public claim frame for this repository is:
 - The Stage 4 result is a bounded real-hardware validation for the frozen packet reported in this repository.
 - The Amazon Braket/Rigetti replication artifact is an 8-row, 1000-shot-per-row product-state hardware-positive run with offline verifier pass.
 - The current active hardware evidence includes two product-state angle-encoding/readout witness artifacts: IBM Fez and Amazon Braket/Rigetti.
-- The entangling CX witness family is implemented as `two_qubit_cx_parity_phase_wrap_v2`, but it is deferred from the active public hardware sweep until real raw-count artifacts are committed; IonQ remains unavailable/not-run in the current Amazon Braket check.
+- The entangling CX witness family is implemented as `two_qubit_cx_parity_phase_wrap_v2` and has a no-hardware ideal-count rehearsal, but it is deferred from the active public hardware sweep until real raw-count artifacts are committed; IonQ remains unavailable/not-run in the current Amazon Braket check.
 
 The public claim frame excludes:
 

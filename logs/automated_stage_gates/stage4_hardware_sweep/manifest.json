@@ -132,7 +132,7 @@
       "provider": "ibm_runtime",
       "target": "two_qubit_cx_parity_phase_wrap_v2 hardware run",
       "status": "deferred_from_active_sweep",
-      "reason": "No committed raw-count execution artifact for this witness family is present in the repository. It remains a prepared/future hardware lane, not active public evidence."
+      "reason": "A no-hardware ideal-count rehearsal exists for this witness family, but no committed hardware raw-count execution artifact is present in the repository. It remains a prepared/future hardware lane, not active public evidence."
     }
   ],
   "excluded_targets": [
