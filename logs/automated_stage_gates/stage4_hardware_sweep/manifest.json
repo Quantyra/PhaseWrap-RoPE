@@ -129,10 +129,10 @@
       "reason": "The active public sweep already contains distinct committed IBM Runtime and Amazon Braket/Rigetti hardware artifacts. Additional IBM backends are not required for the current bounded claim and are not expected verifier records unless real run artifacts are later added."
     },
     {
-      "provider": "ibm_runtime",
-      "target": "two_qubit_cx_parity_phase_wrap_v2 hardware run",
+      "provider": "amazon_braket",
+      "target": "two_qubit_cx_parity_phase_wrap_v2 hardware run on Rigetti Cepheus-1-108Q",
       "status": "deferred_from_active_sweep",
-      "reason": "A no-hardware ideal-count rehearsal exists for this witness family, but no committed hardware raw-count execution artifact is present in the repository. It remains a prepared/future hardware lane, not active public evidence."
+      "reason": "A no-hardware ideal-count rehearsal exists for this witness family, and an Amazon Braket/Rigetti hardware attempt was submitted on 2026-05-19. The submitted task timed out while queued and cancellation was requested; no raw counts were produced. It remains a prepared/future hardware lane, not active public evidence."
     }
   ],
   "excluded_targets": [

@@ -44,7 +44,7 @@ Circuit family: `two_qubit_zz_expectation_phase_wrap_v1`
 
 Circuit family: `two_qubit_cx_parity_phase_wrap_v2`
 
-The CX witness remains implemented and prepared for future hardware execution, but it is not an active machine-verifiable hardware sweep record in the current repository. A no-hardware ideal-count rehearsal is present at `logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal/` and passes with 16 rows and 4096 ideal shots. No committed CX hardware raw-count execution artifact is present, so no CX hardware metrics are promoted here.
+The CX witness remains implemented and prepared for future hardware execution, but it is not an active machine-verifiable hardware sweep record in the current repository. A no-hardware ideal-count rehearsal is present at `logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal/` and passes with 16 rows and 4096 ideal shots. An Amazon Braket/Rigetti CX hardware attempt was submitted on 2026-05-19, but the task timed out while queued and cancellation was requested. No committed CX hardware raw-count execution artifact is present, so no CX hardware metrics are promoted here.
 
 ## Comparison
 
@@ -93,6 +93,7 @@ Current repository state distinguishes active sweep records from deferred or exc
 - The Amazon Braket/Rigetti 1000-shot artifact is present and recomputable from raw counts.
 - Additional IBM Kingston/Marrakesh and CX hardware rows are deferred, not active verifier records.
 - The CX no-hardware rehearsal passes and is explicitly marked as non-hardware readiness evidence.
+- The CX Braket/Rigetti hardware attempt timed out while queued and produced no raw counts.
 - The sweep verifier passes for the active records.
 - IonQ is not an active sweep record. The manifest records it only under excluded targets because the checked Amazon Braket IonQ devices were unavailable on 2026-05-19, so IonQ hardware tests could not be run from the checked AWS account.
 

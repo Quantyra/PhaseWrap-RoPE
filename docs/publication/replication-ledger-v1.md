@@ -18,7 +18,7 @@ Machine-readable ledger: `logs/automated_stage_gates/replication_lanes/replicati
 | Product Braket replication | `two_qubit_zz_expectation_phase_wrap_v1` | Amazon Braket Rigetti `Cepheus-1-108Q`, `2026-05-19` | `published_completed` | Bounded hardware-positive Braket/Rigetti replication for one packet/backend/date/calibration context. |
 | Product rerun A | `two_qubit_zz_expectation_phase_wrap_v1` | Second IBM backend, date 1 | `blocked_pending_credentials_and_backend_selection` | No replication claim. |
 | Product rerun B | `two_qubit_zz_expectation_phase_wrap_v1` | Third IBM backend or same backend on date 2 | `blocked_pending_credentials_and_backend_selection` | No replication claim. |
-| CX rerun A | `two_qubit_cx_parity_phase_wrap_v2` | IBM backend with acceptable CX profile, date 1 | `ideal_count_rehearsal_passed_not_executed_on_hardware` | No entangling-witness hardware evidence claim. |
+| CX rerun A | `two_qubit_cx_parity_phase_wrap_v2` | Amazon Braket Rigetti `Cepheus-1-108Q`, `2026-05-19` | `hardware_attempt_timeout_cancelled` | No entangling-witness hardware evidence claim. |
 | CX rerun B | `two_qubit_cx_parity_phase_wrap_v2` | Second date or second backend | `implemented_not_executed_on_hardware` | No entangling-witness evidence claim. |
 
 ## Braket replication result for this update
@@ -52,6 +52,21 @@ Metrics:
 - gate pass: `true`
 
 This artifact submits no hardware job and makes no entangling-witness hardware evidence claim. It records that the frozen-packet, CX ideal-count, and evaluator mechanics are ready for a future credentialled hardware execution.
+
+## CX hardware attempt
+
+An Amazon Braket/Rigetti CX hardware run was attempted on `2026-05-19` after the ideal-count rehearsal passed.
+
+Attempt artifacts:
+
+- preflight blocked by bucket naming rule: `logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_cx_parity_phase_wrap_v2_20260519T213312Z/`
+- submitted task timed out while queued: `logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_cx_parity_phase_wrap_v2_20260519T220400Z/`
+
+Submitted task:
+
+`arn:aws:braket:us-west-1:485386182336:quantum-task/ac7e2b2e-2794-43e8-ba18-c65225efceea`
+
+The task remained `QUEUED` until the local runner hit its `1800` second timeout. A cancellation request was then sent, and AWS reported `CANCELLED` at `2026-05-19T22:07:22.245000Z`. No raw counts were produced, no CX metrics were computed from hardware counts, and this remains non-evidence for the entangling witness.
 
 A replication lane becomes publishable only after it contains:
 

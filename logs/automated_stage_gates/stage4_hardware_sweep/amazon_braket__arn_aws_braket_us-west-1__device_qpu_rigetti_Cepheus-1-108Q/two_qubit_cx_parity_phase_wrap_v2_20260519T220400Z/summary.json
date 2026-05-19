@@ -1,0 +1,26 @@
+{
+  "account_setup_check": {
+    "checked": false,
+    "reason": "Amazon Braket user-agreement acceptance is validated only when CreateQuantumTask is called; hardware execution records any AccessDeniedException as a hardware blocker."
+  },
+  "artifact_dir": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope-sync\\logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T220400Z",
+  "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+  "blockers": [],
+  "cost_per_shot_usd": 0.000425,
+  "effective_shots": 4096,
+  "error": "Amazon Braket task timed out after 1800.0 seconds: arn:aws:braket:us-west-1:485386182336:quantum-task/ac7e2b2e-2794-43e8-ba18-c65225efceea",
+  "error_category": null,
+  "execution_status": "ERROR",
+  "gate_pass": false,
+  "job_ids": [],
+  "outcome": "hardware-inconclusive",
+  "packet_id": "qrope-hardware-9ffdfb966ed377b5",
+  "preflight_blockers": [],
+  "preflight_status": "READY",
+  "provider": "amazon_braket",
+  "result_s3_uris": [],
+  "row_limit": 16,
+  "status": "FAIL_STOP",
+  "target_shots": 4096,
+  "task_arns": []
+}

@@ -62,22 +62,25 @@
       "target": "third IBM backend or second date"
     },
     {
+      "attempted_at_utc": "2026-05-19T21:33:51Z",
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "cancelled_at_utc": "2026-05-19T22:07:22.245000Z",
+      "cancellation_requested": true,
       "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
-      "control_mae": 0.229743,
-      "control_rank_correlation": -0.171995,
-      "evidence": "logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal/",
-      "hardware_submitted": false,
+      "evidence": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_cx_parity_phase_wrap_v2_20260519T220400Z/",
+      "hardware_submitted": true,
       "lane_id": "cx-rerun-a",
+      "provider": "amazon_braket",
+      "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/ac7e2b2e-2794-43e8-ba18-c65225efceea",
       "required_before_claim": [
         "completed hardware raw counts",
         "backend metadata",
         "calibration metadata",
         "verifier output"
       ],
-      "status": "ideal_count_rehearsal_passed_not_executed_on_hardware",
-      "target": "IBM backend with acceptable CX profile, first execution date",
-      "witness_mae": 0.000051,
-      "witness_rank_correlation": 1.0
+      "status": "hardware_attempt_timeout_cancelled",
+      "target": "Amazon Braket Rigetti Cepheus-1-108Q",
+      "timeout_seconds": 1800
     },
     {
       "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
