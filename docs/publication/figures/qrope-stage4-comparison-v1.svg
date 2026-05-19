@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="700" viewBox="0 0 1400 700" role="img" aria-labelledby="title desc">
   <title id="title">QRoPE Stage 4 hardware comparison</title>
   <desc id="desc">A publication comparison chart showing product-state and entangling witness performance across IBM Kingston, IBM Marrakesh, IBM Fez, and IonQ QPU hardware runs.</desc>
   <defs>
@@ -125,6 +125,4 @@
   <text x="1194" y="344" class="value">0.9086</text>
   <text x="1240" y="554" class="value">-0.1768</text>
 
-  <rect x="390" y="692" width="620" height="44" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-  <text x="414" y="720" class="small">Interpretation: both witness families completed successfully; the entangling CX variant is now supported by hardware evidence.</text>
 </svg>
