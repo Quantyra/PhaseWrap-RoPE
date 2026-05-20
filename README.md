@@ -112,6 +112,7 @@ The public claim frame excludes:
 - [Stage 7 toy transformer ablation](docs/research/q-rope-stage7-toy-transformer-ablation-v1.md)
 - [Stage 8 Needle-style benchmark](docs/research/q-rope-stage8-needle-benchmark-v1.md)
 - [Stage 9 trained transformer ablation plan and first executable subset](docs/research/q-rope-stage9-trained-transformer-ablation-plan-v1.md)
+- [Next transformer benchmark roadmap](docs/research/q-rope-next-transformer-benchmark-roadmap-v1.md)
 - [Stage 11 PhaseWrap score theory analysis](docs/research/q-rope-stage11-phasewrap-theory-v1.md)
 - [Stage 12 RULER-style retrieval benchmark](docs/research/q-rope-stage12-ruler-retrieval-v1.md)
 - [Stage 13 positional-adapter benchmark](docs/research/q-rope-stage13-positional-adapter-v1.md)
@@ -501,6 +502,8 @@ For roadmap clarity, the repository separates three tracks:
 - the mathematical score, which is a classical modular phase feature;
 - the transformer hypothesis, which remains unproven until trained-model ablations exist;
 - the hardware witness, which audits small-circuit readout of the score and is not evidence of model advantage.
+
+The next promotion gate is documented in [Next transformer benchmark roadmap](docs/research/q-rope-next-transformer-benchmark-roadmap-v1.md). In short, the repository needs a matched small decoder-only transformer benchmark where only the positional mechanism changes, RoPE/ALiBI/sinusoidal/no-position/PhaseWrap variants share training controls, at least five seeds are reported with confidence intervals, and at least one task is not labeled by the PhaseWrap score.
 
 ## Licensing and patent notice
 

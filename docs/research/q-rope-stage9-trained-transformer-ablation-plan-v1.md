@@ -136,6 +136,8 @@ Stage 9 should publish:
 
 The current executable subset satisfies these artifact requirements for its synthetic positional-attention tasks. The remaining gap is the broader task/model scope: full small decoder-only transformer runs, non-synthetic retrieval or QA tasks, and richer calibration reporting.
 
+The current next-benchmark promotion gate is maintained in `docs/research/q-rope-next-transformer-benchmark-roadmap-v1.md`. That roadmap supersedes this Stage 9 note for future task scope while preserving the Stage 9 executable subset as historical evidence.
+
 ## Stage 10 Small Decoder-Only Transformer Ablation
 
 The repository now includes an autograd-backed first full-transformer sanity check for the small decoder-only transformer milestone:
