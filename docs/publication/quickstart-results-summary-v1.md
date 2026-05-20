@@ -2,6 +2,8 @@
 
 Date: `2026-05-20`
 
+Archive DOI: `10.5281/zenodo.20306787`
+
 ## Purpose
 
 This page is the one-page reviewer entry point for the current bounded PhaseWrap-RoPE release. It summarizes what is present, what passes, what is excluded, and what research comes next.
