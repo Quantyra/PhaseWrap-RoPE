@@ -14,6 +14,8 @@ def test_stage10_blocked_result_is_machine_readable() -> None:
     result = build_blocked_result()
     assert result["stage"] == "stage10_small_decoder_transformer"
     assert result["status"] == "blocked"
+    assert result["disk_free_bytes"] >= 0
+    assert result["minimum_recommended_free_bytes_for_transformer_install"] > 0
     assert result["no_hardware_submission"] is True
     assert result["provider_credentials_required"] is False
     assert result["method_names"] == list(METHOD_NAMES)

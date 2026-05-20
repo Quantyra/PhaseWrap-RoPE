@@ -1,2 +1,2 @@
 stage,status,blocked_reason,install_command
-stage10_small_decoder_transformer,blocked,missing_optional_torch_dependency,"python -m pip install -e "".[transformer]"""
+stage10_small_decoder_transformer,blocked,insufficient_disk_for_transformer_dependency_install,"python -m pip install -e "".[transformer]"""

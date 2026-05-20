@@ -9,7 +9,7 @@
       "non-synthetic retrieval or QA task result"
     ]
   },
-  "blocked_reason": "missing_optional_torch_dependency",
+  "blocked_reason": "insufficient_disk_for_transformer_dependency_install",
   "claim_boundary": {
     "excluded": [
       "production transformer superiority",
@@ -23,6 +23,7 @@
       "A clear dependency gate showing that no full transformer run was executed in this environment."
     ]
   },
+  "disk_free_bytes": 448782336,
   "install_command": "python -m pip install -e \".[transformer]\"",
   "method_names": [
     "no_position",
@@ -32,6 +33,7 @@
     "phasewrap_bias",
     "phasewrap_adapter"
   ],
+  "minimum_recommended_free_bytes_for_transformer_install": 2000000000,
   "no_hardware_submission": true,
   "optional_dependency_group": "transformer",
   "planned_task_lanes": [

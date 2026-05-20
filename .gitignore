@@ -3,6 +3,7 @@
 __pycache__/
 *.pyc
 .venv/
+.venv-stage10/
 logs/ablation_runs/
 logs/diagnostics/
 logs/checkpoint.json

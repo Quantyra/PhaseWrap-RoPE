@@ -150,7 +150,7 @@ Current artifact paths:
 - `logs/automated_stage_gates/stage10_small_decoder_transformer/preflight.json`
 - `logs/automated_stage_gates/stage10_small_decoder_transformer/summary.csv`
 
-The current release environment does not have `torch` installed, so the preflight records `blocked` with install command `python -m pip install -e ".[transformer]"`. No Stage 10 model metrics should be cited until the dependency is installed and completed training artifacts are present.
+The current release environment does not have enough free disk space to install `torch`, so the preflight records `blocked` with install command `python -m pip install -e ".[transformer]"`. No Stage 10 model metrics should be cited until disk space is available, the dependency is installed, and completed training artifacts are present.
 
 ## Promotion Gate
 

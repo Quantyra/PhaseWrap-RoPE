@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import importlib.util
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -11,18 +12,30 @@ STAGE10_SCHEMA_VERSION = "qrope_stage10_small_decoder_transformer_v1"
 DEFAULT_OUTPUT_DIR = Path("logs") / "automated_stage_gates" / "stage10_small_decoder_transformer"
 METHOD_NAMES = ("no_position", "sinusoidal", "alibi", "rope", "phasewrap_bias", "phasewrap_adapter")
 DEFAULT_SEEDS = (307, 311, 313, 317, 331)
+MIN_TRANSFORMER_INSTALL_FREE_BYTES = 2_000_000_000
 
 
 def torch_available() -> bool:
     return importlib.util.find_spec("torch") is not None
 
 
-def build_blocked_result(*, reason: str = "missing_optional_torch_dependency") -> dict[str, Any]:
+def _disk_free_bytes(path: Path = Path.cwd()) -> int:
+    return int(shutil.disk_usage(path).free)
+
+
+def build_blocked_result(
+    *,
+    reason: str = "missing_optional_torch_dependency",
+    disk_free_bytes: int | None = None,
+) -> dict[str, Any]:
+    free_bytes = _disk_free_bytes() if disk_free_bytes is None else int(disk_free_bytes)
     return {
         "schema_version": STAGE10_SCHEMA_VERSION,
         "stage": "stage10_small_decoder_transformer",
         "status": "blocked",
         "blocked_reason": reason,
+        "disk_free_bytes": free_bytes,
+        "minimum_recommended_free_bytes_for_transformer_install": MIN_TRANSFORMER_INSTALL_FREE_BYTES,
         "no_hardware_submission": True,
         "provider_credentials_required": False,
         "optional_dependency_group": "transformer",
@@ -62,13 +75,21 @@ def build_blocked_result(*, reason: str = "missing_optional_torch_dependency") -
 
 def run_stage10_preflight() -> dict[str, Any]:
     if not torch_available():
-        return build_blocked_result()
+        free_bytes = _disk_free_bytes()
+        if free_bytes < MIN_TRANSFORMER_INSTALL_FREE_BYTES:
+            return build_blocked_result(
+                reason="insufficient_disk_for_transformer_dependency_install",
+                disk_free_bytes=free_bytes,
+            )
+        return build_blocked_result(disk_free_bytes=free_bytes)
     return {
         "schema_version": STAGE10_SCHEMA_VERSION,
         "stage": "stage10_small_decoder_transformer",
         "status": "ready",
         "no_hardware_submission": True,
         "provider_credentials_required": False,
+        "disk_free_bytes": _disk_free_bytes(),
+        "minimum_recommended_free_bytes_for_transformer_install": MIN_TRANSFORMER_INSTALL_FREE_BYTES,
         "optional_dependency_group": "transformer",
         "method_names": list(METHOD_NAMES),
         "seeds": list(DEFAULT_SEEDS),

@@ -52,7 +52,7 @@ PhaseWrap-RoPE is related to RoPE-style phase behavior, but the present release 
 | Stage 7 toy transformer ablation | Four-layer attention-only synthetic length-extrapolation packet | PhaseWrap-RoPE has the best argmax retrieval ranking on one fixed packet | Full transformer-scale validation or better calibration |
 | Stage 8 Needle-style benchmark | Local phase-cued synthetic retrieval packet | PhaseWrap-RoPE is worth testing in broader RoPE-facing retrieval settings | RULER result, production transformer result, or proof that PhaseWrap-RoPE replaces RoPE |
 | Stage 9 trained positional-attention ablation | Synthetic train-short/test-long phase-cued and exact-offset passkey packets with matched optimizer/seeds | `phasewrap_adapter` is strongest on the phase-cued packet; `rope_relative` is strongest on exact-offset passkey | Full language-model benchmark, production transformer result, or proof that PhaseWrap-RoPE replaces RoPE |
-| Stage 10 full-transformer preflight | Dependency and artifact gate for small decoder-only transformer training | Current environment lacks the optional `torch` dependency, so no model metrics are reported | Any completed full-transformer result |
+| Stage 10 full-transformer preflight | Dependency and artifact gate for small decoder-only transformer training | Current environment lacks enough free disk space to install the optional `torch` dependency, so no model metrics are reported | Any completed full-transformer result |
 
 The allowed public claims are:
 
@@ -217,7 +217,7 @@ The repository also includes a Stage 10 preflight for the full small decoder-onl
 python scripts/run_stage10_small_decoder_transformer.py
 ```
 
-The current preflight records `blocked` because the optional `transformer` dependency group, which provides `torch`, is not installed in the release environment. This is reported as an artifact gate rather than as a missing result or a silent pass. No Stage 10 model metrics are claimed.
+The current preflight records `blocked` because the release environment does not have enough free disk space to install the optional `transformer` dependency group, which provides `torch`. This is reported as an artifact gate rather than as a missing result or a silent pass. No Stage 10 model metrics are claimed.
 
 ## 6. Validation Protocol
 
@@ -440,7 +440,7 @@ The next scientific step is not broader rhetoric about the current hardware reco
 | 5 | Theory of the score | Formalize invariances, unavoidable aliases, period-pair tradeoffs, context-length behavior, low-rank or periodic-kernel interpretations, and task distributions where the score should help or hurt. |
 | 6 | Larger or error-aware witnesses | Explore larger witness families or mitigation analysis only when the packet generator, controls, costs, and verifier can preserve the current artifact discipline. |
 
-The highest-impact research gap remains downstream relevance. The current release shows that the phase-wrap witness/control ordering is machine-verifiable in recorded small-circuit hardware contexts, that the Stage 5 synthetic attention-scoring label is recoverable by simple exposed-feature baselines, that Stage 6 is a useful oracle phase-feature sanity check, that Stage 7 improves argmax retrieval ranking in a four-layer toy length-extrapolation ablation, that Stage 8 wins a local phase-cued packet with a release-local period-pair ablation, and that Stage 9 produces a first trained positional-attention result with a mixed outcome across task lanes. Stage 10 records the dependency gate for the full transformer run. A full small decoder-only transformer ablation on harder tasks remains the next milestone for any stronger RoPE-replacement claim.
+The highest-impact research gap remains downstream relevance. The current release shows that the phase-wrap witness/control ordering is machine-verifiable in recorded small-circuit hardware contexts, that the Stage 5 synthetic attention-scoring label is recoverable by simple exposed-feature baselines, that Stage 6 is a useful oracle phase-feature sanity check, that Stage 7 improves argmax retrieval ranking in a four-layer toy length-extrapolation ablation, that Stage 8 wins a local phase-cued packet with a release-local period-pair ablation, and that Stage 9 produces a first trained positional-attention result with a mixed outcome across task lanes. Stage 10 records the environment gate for the full transformer run. A full small decoder-only transformer ablation on harder tasks remains the next milestone for any stronger RoPE-replacement claim.
 
 Broader hardware expansion is useful but secondary to the transformer ablation. The hardware track should be framed as an auditable hardware witness for a classical phase score, not as quantum-enhanced attention. IonQ should be added only through a dated Amazon Braket/IonQ record when a device is available. Quandela, AQT, or larger-qubit witnesses should be added only when credentials, provider cost, and artifact capture support the same manifest/verifier discipline as Stage 4.
 
