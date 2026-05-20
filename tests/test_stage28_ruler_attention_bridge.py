@@ -35,6 +35,9 @@ def test_stage28_evaluation_reports_required_metrics() -> None:
     assert 0.0 <= metrics["top1_accuracy"] <= 1.0
     assert 0.0 < metrics["mrr"] <= 1.0
     assert 0.0 < metrics["mean_target_probability"] <= 1.0
+    assert 0.0 <= metrics["expected_calibration_error"] <= 1.0
+    assert 0.0 <= metrics["mean_top1_confidence"] <= 1.0
+    assert metrics["target_probability_mae"] == round(1.0 - metrics["mean_target_probability"], 6)
 
 
 def test_stage28_benchmark_and_outputs(tmp_path) -> None:
@@ -52,6 +55,8 @@ def test_stage28_benchmark_and_outputs(tmp_path) -> None:
     assert len(result["run_table"]) == 4
     assert len(result["task_table"]) == 12
     assert len(result["table"]) == 2
+    assert "expected_calibration_error_mean" in result["table"][0]
+    assert "target_probability_mae_mean" in result["table"][0]
     assert result["best_method_by_test_top1_mrr"] in {"alibi", "phasewrap_distance_adapter"}
     assert "a claim that PhaseWrap-RoPE is a validated RoPE replacement" in result["claim_boundary"]["excluded"]
 

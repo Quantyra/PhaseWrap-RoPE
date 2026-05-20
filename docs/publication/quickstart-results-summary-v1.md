@@ -266,7 +266,7 @@ Run the Stage 28 no-credential RULER-style attention-bridge benchmark:
 python scripts/run_stage28_ruler_attention_bridge.py
 ```
 
-This writes `logs/automated_stage_gates/stage28_ruler_attention_bridge/manifest.json`, `results.json`, `summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result trains a one-hidden-layer attention bridge directly on Stage 12 non-phase-cued passkey, multi-needle, and aggregation-style retrieval rows across five model initialization seeds. `phasewrap_distance_adapter` and `rope_relative` both reach mean top-1 `1.000000` and mean MRR `1.000000`; `rope_relative` keeps higher mean target probability (`0.704867` versus `0.518441`). This remains compact retrieval-bridge evidence, not full decoder-only language-model validation.
+This writes `logs/automated_stage_gates/stage28_ruler_attention_bridge/manifest.json`, `results.json`, `summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result trains a one-hidden-layer attention bridge directly on Stage 12 non-phase-cued passkey, multi-needle, and aggregation-style retrieval rows across five model initialization seeds. `phasewrap_distance_adapter` and `rope_relative` both reach mean top-1 `1.000000` and mean MRR `1.000000`; `rope_relative` keeps higher mean target probability (`0.704867` versus `0.518441`) and lower top-1 expected calibration error (`0.297454` versus `0.486407`). This remains compact retrieval-bridge evidence, not full decoder-only language-model validation.
 
 ## What This Supports
 
@@ -300,7 +300,7 @@ This writes `logs/automated_stage_gates/stage28_ruler_attention_bridge/manifest.
 - A deterministic Stage 25 long-context value-model stability benchmark showing that the Stage 24 RoPE-like held-out advantage persists across five initialization seeds.
 - A deterministic Stage 26 compact key-value QA retrieval benchmark showing that PhaseWrap-derived adapters can match ALiBI-style top-1/MRR on one explicit content-key packet, while fixed PhaseWrap scoring remains weak.
 - A deterministic Stage 27 compact key-value transformer-bridge benchmark showing that PhaseWrap-plus-distance can tie ALiBI-style top-1/MRR and slightly lead target probability on one compact attention bridge across five model initialization seeds.
-- A deterministic Stage 28 RULER-style attention-bridge benchmark showing that PhaseWrap-plus-distance can match RoPE-like top-1/MRR on one compact non-phase-cued retrieval bridge, while RoPE-like scoring keeps higher target probability.
+- A deterministic Stage 28 RULER-style attention-bridge benchmark showing that PhaseWrap-plus-distance can match RoPE-like top-1/MRR on one compact non-phase-cued retrieval bridge, while RoPE-like scoring keeps stronger probability and calibration metrics.
 
 ## What This Does Not Support
 

@@ -152,6 +152,7 @@ def evaluate_attention_bridge(rows: list[Stage12Example], method_name: str, para
     top1_hits: list[float] = []
     reciprocal_ranks: list[float] = []
     target_masses: list[float] = []
+    top1_confidences: list[float] = []
     ranks: list[int] = []
     for row in rows:
         probabilities, _ = _forward(row, method_name, params)
@@ -159,11 +160,14 @@ def evaluate_attention_bridge(rows: list[Stage12Example], method_name: str, para
         target_indices = tuple(candidate_positions.index(position) for position in row.target_positions)
         rank = _first_relevant_rank(probabilities, target_indices)
         top_index = _ranked_indices(probabilities)[0]
+        top1_confidence = float(probabilities[top_index])
+        top1_correct = 1.0 if top_index in set(target_indices) else 0.0
         target_mass = max(float(np.sum(probabilities[list(target_indices)])), 1e-12)
         losses.append(-math.log(target_mass))
-        top1_hits.append(1.0 if top_index in set(target_indices) else 0.0)
+        top1_hits.append(top1_correct)
         reciprocal_ranks.append(1.0 / float(rank))
         target_masses.append(target_mass)
+        top1_confidences.append(top1_confidence)
         ranks.append(rank)
     mean_loss = float(np.mean(losses))
     return {
@@ -173,6 +177,9 @@ def evaluate_attention_bridge(rows: list[Stage12Example], method_name: str, para
         "top1_accuracy": round(float(np.mean(top1_hits)), 6),
         "mrr": round(float(np.mean(reciprocal_ranks)), 6),
         "mean_target_probability": round(float(np.mean(target_masses)), 6),
+        "target_probability_mae": round(float(np.mean([1.0 - value for value in target_masses])), 6),
+        "mean_top1_confidence": round(float(np.mean(top1_confidences)), 6),
+        "expected_calibration_error": round(_expected_calibration_error(top1_confidences, top1_hits), 6),
         "mean_first_relevant_rank": round(float(np.mean(ranks)), 6),
     }
 
@@ -190,8 +197,37 @@ def _metric_ci(values: list[float], *, seed_text: str, iterations: int = 600) ->
     }
 
 
+def _expected_calibration_error(confidences: list[float], correctness: list[float], *, bins: int = 10) -> float:
+    if len(confidences) != len(correctness):
+        raise ValueError("confidences and correctness must have equal length")
+    total = float(len(confidences))
+    ece = 0.0
+    for bin_index in range(bins):
+        low = bin_index / float(bins)
+        high = (bin_index + 1) / float(bins)
+        if bin_index == bins - 1:
+            indices = [index for index, value in enumerate(confidences) if low <= value <= high]
+        else:
+            indices = [index for index, value in enumerate(confidences) if low <= value < high]
+        if not indices:
+            continue
+        avg_confidence = float(np.mean([confidences[index] for index in indices]))
+        avg_accuracy = float(np.mean([correctness[index] for index in indices]))
+        ece += (len(indices) / total) * abs(avg_confidence - avg_accuracy)
+    return float(ece)
+
+
 def _aggregate_runs(run_rows: list[dict[str, Any]], *, method_name: str) -> dict[str, Any]:
-    metric_names = ("loss", "top1_accuracy", "mrr", "mean_target_probability", "mean_first_relevant_rank")
+    metric_names = (
+        "loss",
+        "top1_accuracy",
+        "mrr",
+        "mean_target_probability",
+        "target_probability_mae",
+        "mean_top1_confidence",
+        "expected_calibration_error",
+        "mean_first_relevant_rank",
+    )
     row: dict[str, Any] = {"method": method_name, "run_count": len(run_rows), "row_count": run_rows[0]["row_count"]}
     for metric_name in metric_names:
         values = [float(item[metric_name]) for item in run_rows]

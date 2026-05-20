@@ -29,17 +29,17 @@ python scripts/run_stage28_ruler_attention_bridge.py
 
 Held-out test rows use length `1024`; train rows use lengths `128` and `256`. Each method is trained across five model initialization seeds.
 
-| Method | Mean top-1 | Mean MRR | Mean target probability |
-| --- | ---: | ---: | ---: |
-| `rope_relative` | `1.000000` | `1.000000` | `0.704867` |
-| `phasewrap_distance_adapter` | `1.000000` | `1.000000` | `0.518441` |
-| `sinusoidal` | `0.666667` | `0.825000` | `0.467632` |
-| `phasewrap_residual_adapter` | `0.450000` | `0.673611` | `0.322028` |
-| `no_position` | `0.050000` | `0.118035` | `0.037879` |
-| `phasewrap_score` | `0.016667` | `0.080860` | `0.045641` |
-| `alibi` | `0.000000` | `0.153196` | `0.037945` |
+| Method | Mean top-1 | Mean MRR | Mean target probability | Top-1 ECE |
+| --- | ---: | ---: | ---: | ---: |
+| `rope_relative` | `1.000000` | `1.000000` | `0.704867` | `0.297454` |
+| `phasewrap_distance_adapter` | `1.000000` | `1.000000` | `0.518441` | `0.486407` |
+| `sinusoidal` | `0.666667` | `0.825000` | `0.467632` | `0.150952` |
+| `phasewrap_residual_adapter` | `0.450000` | `0.673611` | `0.322028` | `0.203495` |
+| `no_position` | `0.050000` | `0.118035` | `0.037879` | `0.021380` |
+| `phasewrap_score` | `0.016667` | `0.080860` | `0.045641` | `0.013257` |
+| `alibi` | `0.000000` | `0.153196` | `0.037945` | `0.029264` |
 
-`phasewrap_distance_adapter` matches `rope_relative` on top-1 and MRR for this compact retrieval bridge. `rope_relative` remains better calibrated by mean target probability. The fixed `phasewrap_score` remains weak.
+`phasewrap_distance_adapter` matches `rope_relative` on top-1 and MRR for this compact retrieval bridge. `rope_relative` remains better calibrated by mean target probability, target-probability MAE, and top-1 expected calibration error. The fixed `phasewrap_score` remains weak.
 
 ## Interpretation
 
@@ -48,7 +48,7 @@ Stage 28 is constructive evidence that a PhaseWrap-plus-distance adapter can sol
 Supported:
 
 - compact non-phase-cued retrieval bridge over passkey, multi-needle, and aggregation-style rows;
-- multiple initialization seeds and confidence intervals over seed-level metrics;
+- multiple initialization seeds and confidence intervals over seed-level ranking, probability, and calibration metrics;
 - explicit weak-run reporting.
 
 Not supported:
