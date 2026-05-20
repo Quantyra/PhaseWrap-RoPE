@@ -237,12 +237,20 @@ The current release is ready for bounded repository/preprint publication. The ne
 | 3 | Toy downstream attention benchmark | Complete for a fixed synthetic packet; Stage 6 is best read as an oracle phase-feature sanity check. |
 | 4 | Four-layer toy transformer ablation | Complete for a fixed synthetic length-extrapolation packet; PhaseWrap-RoPE has the best argmax ranking, while calibration remains mixed. |
 | 5 | Local Needle-style retrieval benchmark | Complete for a phase-cued synthetic packet with five seeds, bootstrap intervals, and a period-pair ablation; use it to justify harder RoPE-facing benchmarks, not production claims. |
-| 6 | Independent hardware replication | Add new packet/date/backend records, confidence or bootstrap intervals for MAE/rank correlations, and IonQ or Quandela only when provider availability, credentials, and budget support real artifacts. |
-| 7 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
+| 6 | Stage 9 trained transformer ablation | Train matched small decoder-only transformers where only the positional mechanism changes: RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap variants. Include train-short/test-long context extrapolation, at least five seeds, synthetic and non-synthetic tasks, failed-run artifacts, and confidence intervals. |
+| 7 | Hardware witness hardening | Treat hardware as an auditable witness for a classical phase score: add provider bit-order calibration packets, shot-noise or bootstrap intervals, independent reruns across dates, preregistered packet sets, and classical compute timing/cost estimates. |
+| 8 | Theory of the score | Formalize invariances, aliasing, context-length behavior, period-pair tradeoffs, low-rank or periodic-kernel interpretations, and task distributions where the score should help or hurt. |
+| 9 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
 
 The mod-8/mod-12 choice is a fixed first-release design: two wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band product signal. Stage 8 now includes a release-local period-pair ablation in which `(8, 12)` is best on the synthetic phase-cued Needle-style packet. That supports the current design choice for this packet, but it is not a proof of global optimality.
 
 The CX variant was chosen as the smallest entangling extension of the product-state witness: it preserves the two `RY` margin encodings, adds one `CX(q0 -> q1)`, and reads a target-qubit parity/product signal without changing the packet discipline. The full Stage 4 packet generation pipeline is already present in `src/qrope/automated_stage_gates.py` and exposed through the Stage 4 runner/verifier scripts; future work is to separate that path into a cleaner researcher-facing API without changing the recorded packets.
+
+For roadmap clarity, the repository separates three tracks:
+
+- the mathematical score, which is a classical modular phase feature;
+- the transformer hypothesis, which remains unproven until trained-model ablations exist;
+- the hardware witness, which audits small-circuit readout of the score and is not evidence of model advantage.
 
 ## Licensing and patent notice
 

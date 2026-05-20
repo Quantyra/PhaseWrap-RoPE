@@ -401,17 +401,22 @@ The next scientific step is not broader rhetoric about the current hardware reco
 
 | Priority | Work item | Evidence required before promotion |
 | --- | --- | --- |
-| 1 | Standard retrieval benchmark | Move beyond the local Stage 8 phase-cued packet toward RULER-style or Needle-in-Haystack evaluation with matched compute, multiple seeds, and confidence intervals. |
-| 2 | Small trained transformer experiment | Swap the PhaseWrap score into a small attention model under a fixed training budget and compare against RoPE, ALiBI, sinusoidal, and no-position baselines. |
-| 3 | Less phase-aligned toy transformer tasks | Add retrieval and classification tasks where the target is not constructed directly from the mod-8/mod-12 relation, so the benchmark tests useful inductive bias rather than formula recovery. |
-| 4 | Confidence intervals for existing hardware metrics | Add or maintain bootstrap interval estimates for witness/control MAE and rank correlations using the committed raw-count artifacts. |
-| 5 | Independent hardware replication | Add new packet/date/backend records with raw counts, backend metadata, verifier output, and confidence or bootstrap intervals for MAE/rank correlations. |
-| 6 | Provider-aware verifier hardening | Add known-state provider bitstring calibration packets before promoting new provider-wide decoding claims. |
-| 7 | Larger or error-aware witnesses | Explore larger witness families or mitigation analysis only when the packet generator, controls, costs, and verifier can preserve the current artifact discipline. |
+| 1 | Stage 9 trained transformer ablation | Train matched small decoder-only transformers where only the positional mechanism changes. Compare RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional variants under matched parameter counts, optimizer settings, training tokens, seeds, and hyperparameter budget. Include train-short/test-long context extrapolation, at least five seeds, failed-run artifacts, and confidence intervals. |
+| 2 | Standard retrieval tasks | Move beyond the local Stage 8 phase-cued packet toward Needle-in-Haystack, passkey retrieval, multi-needle retrieval, RULER-style multi-hop/aggregation, or compact natural-language QA tasks where the correct answer is not defined by the PhaseWrap score. |
+| 3 | Comparable PhaseWrap mechanism | Implement PhaseWrap as a genuine positional mechanism: a positional attention bias, a query/key rotation analogue, or a learned adapter around PhaseWrap features. Avoid treating the normalized phase label as an oracle scalar input. |
+| 4 | Hardware witness hardening | Treat hardware as an auditable witness for a classical phase score. Add provider bit-order and observable calibration circuits, shot-noise or bootstrap intervals, independent reruns across dates and queue conditions, preregistered packet sets, and classical compute timing/cost estimates. |
+| 5 | Theory of the score | Formalize invariances, unavoidable aliases, period-pair tradeoffs, context-length behavior, low-rank or periodic-kernel interpretations, and task distributions where the score should help or hurt. |
+| 6 | Larger or error-aware witnesses | Explore larger witness families or mitigation analysis only when the packet generator, controls, costs, and verifier can preserve the current artifact discipline. |
 
-The highest-impact research gap is downstream relevance. The current release shows that the phase-wrap witness/control ordering is machine-verifiable in recorded small-circuit hardware contexts, that the Stage 5 synthetic attention-scoring label is recoverable by simple exposed-feature baselines, that Stage 6 is a useful oracle phase-feature sanity check, that Stage 7 improves argmax retrieval ranking in a four-layer toy length-extrapolation ablation, and that Stage 8 wins a local phase-cued Needle-style packet with a release-local period-pair ablation. Harder multi-seed downstream tasks are therefore the preferred next experiment.
+The highest-impact research gap is downstream relevance. The current release shows that the phase-wrap witness/control ordering is machine-verifiable in recorded small-circuit hardware contexts, that the Stage 5 synthetic attention-scoring label is recoverable by simple exposed-feature baselines, that Stage 6 is a useful oracle phase-feature sanity check, that Stage 7 improves argmax retrieval ranking in a four-layer toy length-extrapolation ablation, and that Stage 8 wins a local phase-cued packet with a release-local period-pair ablation. A real trained-transformer ablation is therefore the next milestone for any RoPE-replacement claim.
 
-Broader hardware expansion is useful but secondary. IonQ should be added only through a dated Amazon Braket/IonQ record when a device is available. Quandela, AQT, or larger-qubit witnesses should be added only when credentials, provider cost, and artifact capture support the same manifest/verifier discipline as Stage 4.
+Broader hardware expansion is useful but secondary to the transformer ablation. The hardware track should be framed as an auditable hardware witness for a classical phase score, not as quantum-enhanced attention. IonQ should be added only through a dated Amazon Braket/IonQ record when a device is available. Quandela, AQT, or larger-qubit witnesses should be added only when credentials, provider cost, and artifact capture support the same manifest/verifier discipline as Stage 4.
+
+For presentation clarity, public materials should keep three concepts separate:
+
+- the mathematical score: a classical modular phase feature;
+- the transformer hypothesis: unproven until trained-model ablations show value under matched controls;
+- the hardware witness: a small-circuit readout audit, not evidence of model advantage.
 
 ## 12. Conclusion
 
