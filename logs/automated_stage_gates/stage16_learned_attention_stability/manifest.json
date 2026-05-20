@@ -1,0 +1,47 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic initialization-stability check for the Stage 15 learned attention-readout benchmark.",
+      "Evidence about whether PhaseWrap-plus-distance ranking behavior persists across multiple learned scorer initializations."
+    ]
+  },
+  "dataset": "deterministic_non_phase_cued_key_value_learned_attention_stability_v1",
+  "init_seeds": [
+    1009,
+    1013,
+    1019,
+    1021,
+    1031
+  ],
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_score",
+    "phasewrap_residual_adapter",
+    "phasewrap_distance_adapter"
+  ],
+  "model": {
+    "epochs": 180,
+    "hidden_dim": 8,
+    "replication_axis": "initialization seed",
+    "type": "one_hidden_layer_attention_scorer_over_positional_features"
+  },
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage16_learned_attention_stability/per_run_results.csv",
+  "result_path": "logs/automated_stage_gates/stage16_learned_attention_stability/results.json",
+  "schema_version": "qrope_stage16_learned_attention_stability_v1",
+  "stage": "stage16_learned_attention_stability",
+  "summary_csv_path": "logs/automated_stage_gates/stage16_learned_attention_stability/summary.csv",
+  "test_row_count": 60,
+  "train_row_count": 120,
+  "validation_row_count": 60
+}
