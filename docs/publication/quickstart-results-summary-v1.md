@@ -1,10 +1,10 @@
-# QRoPE Quickstart and Results Summary v1
+# PhaseWrap-RoPE Quickstart and Results Summary v1
 
 Date: `2026-05-20`
 
 ## Purpose
 
-This page is the one-page reviewer entry point for the current bounded QRoPE release. It summarizes what is present, what passes, what is excluded, and what research comes next.
+This page is the one-page reviewer entry point for the current bounded PhaseWrap-RoPE release. It summarizes what is present, what passes, what is excluded, and what research comes next.
 
 ## Current Result
 
@@ -68,7 +68,7 @@ These commands recompute from saved artifacts. They do not submit hardware jobs 
 ## Open Questions
 
 - **Why mod-8 and mod-12?** They provide two distinct wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band interaction through the product of signed margins. Other period pairs remain an ablation target.
-- **Does QRoPE help a classical ML task?** Not yet shown in this release. The next scientific step is a toy transformer or attention-scoring benchmark against standard RoPE on length extrapolation or attention stability.
+- **Does PhaseWrap-RoPE help a classical ML task?** Not yet shown in this release. The next scientific step is a toy transformer or attention-scoring benchmark against standard RoPE on length extrapolation or attention stability.
 - **Should more hardware be run?** Yes, but as independent replication: new dates, new frozen packets, and cost-justified provider targets. IonQ was unavailable through Amazon Braket during the checked window; Quandela/AQT require separate execution and budget decisions.
 - **Should the release go to arXiv or DOI archive?** Yes. The current repository is suitable for a bounded methods/evidence preprint and a Zenodo-style archived release after final release hygiene.
 
@@ -77,6 +77,6 @@ These commands recompute from saved artifacts. They do not submit hardware jobs 
 | Stage | Goal | Promotion condition |
 | --- | --- | --- |
 | Stage 4 | Hardware evidence packaging | Complete for the active sweep. |
-| Stage 5 | Toy downstream ML comparison | Compare QRoPE/PhaseWrap scoring against RoPE on a concrete small task with fixed metrics. |
+| Stage 5 | Toy downstream ML comparison | Compare PhaseWrap-RoPE/PhaseWrap scoring against RoPE on a concrete small task with fixed metrics. |
 | Stage 6 | Independent hardware replication | Add new packet/date/backend records with raw counts and verifier output. |
 | Stage 7 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after Stage 5/6 evidence justifies it. |

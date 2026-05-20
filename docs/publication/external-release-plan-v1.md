@@ -1,4 +1,4 @@
-# QRoPE external release plan v1
+# PhaseWrap-RoPE external release plan v1
 
 Status: `READY_FOR_ACCOUNT_OWNER_ACTION`
 
@@ -27,7 +27,7 @@ Blocking items:
 
 Recommended action:
 
-- Create an OSF project for QRoPE.
+- Create an OSF project for PhaseWrap-RoPE.
 - Upload the paper, figures, Stage 4 packet files, completed comparison report, and repository snapshot.
 - Link the OSF project from README after public posting.
 
@@ -41,7 +41,7 @@ Blocking items:
 
 Recommended action:
 
-- Enable Zenodo GitHub integration for `Quantyra/QRoPE`.
+- Enable Zenodo GitHub integration for `Quantyra/PhaseWrap-RoPE`.
 - Create a GitHub release after the external-review fixes settle.
 - Let Zenodo archive the GitHub release and mint a DOI.
 - Add the DOI badge and DOI metadata to README and `CITATION.cff`.

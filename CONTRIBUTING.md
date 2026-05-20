@@ -1,6 +1,6 @@
 # Contributing
 
-QRoPE is a patent-pending research repository. Contributions are welcome when they preserve reproducibility, evidence traceability, and the bounded publication posture.
+PhaseWrap-RoPE is a patent-pending research repository. Contributions are welcome when they preserve reproducibility, evidence traceability, and the bounded publication posture.
 
 ## Ground rules
 

@@ -1,4 +1,4 @@
-# QRoPE paper gap remediation audit v1
+# PhaseWrap-RoPE paper gap remediation audit v1
 
 Status: `PASS_LOCAL_REMEDIATION`
 

@@ -14,7 +14,7 @@ This project uses a concise conduct standard for research collaboration.
 - Harassment, threats, or discriminatory conduct.
 - Publishing secrets, private credentials, private filing materials, or private correspondence.
 - Knowingly overstating results or removing limitation language from evidence records.
-- Misrepresenting QRoPE as proving broad quantum advantage or transformer superiority without supporting evidence.
+- Misrepresenting PhaseWrap-RoPE as proving broad quantum advantage or transformer superiority without supporting evidence.
 
 ## Enforcement
 

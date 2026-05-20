@@ -1,4 +1,4 @@
-# Q-RoPE Phase-Wrap Algorithm v1
+# PhaseWrap-RoPE Phase-Wrap Algorithm v1
 
 Date: 2026-05-15
 Epic: E011
@@ -16,13 +16,13 @@ Given two query-key relative offsets `delta_a` and `delta_b`, and a fixed rotary
 3. Convert residuals into band margins:
    - `m_8 = cos(r_8) - cos(pi/4)`
    - `m_12 = cos(r_12) - cos(pi/6)`
-4. Use the cross-band phase interaction as the Q-RoPE signal:
+4. Use the cross-band phase interaction as the PhaseWrap-RoPE signal:
    - `qrope_phase_wrap_score = m_8 * m_12`
 5. Interpret the score:
    - positive score: cross-band phase consistency
    - negative score: cross-band phase inconsistency
 
-## Why This Is Q-RoPE-Relevant
+## Why This Is PhaseWrap-RoPE-Relevant
 
 The algorithm uses RoPE-shaped relative phase behavior rather than raw anchor order, anchor distance, span membership, or single-band modulo summaries. Its discriminating term is a cross-band interaction over wrapped rotary residuals.
 
@@ -63,7 +63,7 @@ The later Stage 4 hardware sweep adds bounded hardware-backed evidence for small
 
 ## Next Research Question
 
-Does this phase-wrap Q-RoPE component retain value when embedded into a transformer-adjacent validation design rather than a local synthetic realism-bridge task?
+Does this phase-wrap PhaseWrap-RoPE component retain value when embedded into a transformer-adjacent validation design rather than a local synthetic realism-bridge task?
 
 That question requires a separate escalation-review memo before any new implementation opens.
 

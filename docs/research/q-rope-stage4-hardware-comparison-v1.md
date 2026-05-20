@@ -1,4 +1,4 @@
-# Q-RoPE Stage 4 Hardware Comparison v1
+# PhaseWrap-RoPE Stage 4 Hardware Comparison v1
 
 Date: 2026-05-19
 

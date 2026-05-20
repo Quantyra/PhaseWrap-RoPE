@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">QRoPE phase-wrap scoring schematic</title>
+  <title id="title">PhaseWrap-RoPE phase-wrap scoring schematic</title>
   <desc id="desc">A claim-bounded schematic from modular residuals to signed margins, SQR score, and small-circuit witness.</desc>
 
   <defs>
@@ -25,7 +25,7 @@
   </defs>
 
   <rect width="1200" height="675" fill="url(#paper)"/>
-  <text x="64" y="74" class="title">QRoPE phase-wrap scoring</text>
+  <text x="64" y="74" class="title">PhaseWrap-RoPE phase-wrap scoring</text>
   <text x="64" y="105" class="sub">Conceptual method figure; formulas in the paper are normative.</text>
   <rect x="70" y="155" width="240" height="135" class="panel"/>
   <text x="100" y="205" class="label">1. Wrapped residuals</text><text x="100" y="235" class="mono">r8, r12</text><text x="100" y="260" class="small">periods 8 and 12</text>

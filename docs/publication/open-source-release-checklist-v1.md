@@ -1,8 +1,8 @@
-# QRoPE open-source release checklist v1
+# PhaseWrap-RoPE open-source release checklist v1
 
 Status: `PUBLIC_RELEASE_PUBLISHED`
 
-Target repository: `https://github.com/Quantyra/QRoPE`
+Target repository: `https://github.com/Quantyra/PhaseWrap-RoPE`
 
 License: `AGPL-3.0-only`
 
@@ -12,7 +12,7 @@ Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Ac
 
 | Artifact | Status | Notes |
 | --- | --- | --- |
-| `README.md` | Prepared | Public-facing Quantyra/QRoPE positioning with claim boundary. |
+| `README.md` | Prepared | Public-facing Quantyra/PhaseWrap-RoPE positioning with claim boundary. |
 | `LICENSE` | Prepared | GNU AGPL v3 text. |
 | `NOTICE` | Prepared | Short public ownership and patent/IP-status notice. |
 | `PATENTS.md` | Prepared | USPTO acknowledgement-receipt notice and license boundary. |
@@ -43,7 +43,7 @@ Patent notice: USPTO provisional submission received `2026-05-18`; Electronic Ac
 
 Proceed if all statements remain inside this boundary:
 
-- USPTO-receipted QRoPE submission status with final Filing Receipt pending;
+- USPTO-receipted PhaseWrap-RoPE submission status with final Filing Receipt pending;
 - phase-wrap mod-8/mod-12 scoring;
 - deterministic validation packets;
 - raw-count and metadata-backed hardware evidence;
@@ -63,7 +63,7 @@ The public repository has been created and published:
 
 | Step | Status |
 | --- | --- |
-| Confirm target GitHub owner and repository name: `Quantyra/QRoPE`. | Done |
+| Confirm target GitHub owner and repository name: `Quantyra/PhaseWrap-RoPE`. | Done |
 | Create or connect the public GitHub repository. | Done |
 | Push the prepared local repository. | Done |
 | Confirm the public repository metadata. | Done |

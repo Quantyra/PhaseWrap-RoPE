@@ -7,7 +7,7 @@ license: "AGPL-3.0-only"
 authors:
   - family-names: "Fredriksen"
     given-names: "Daniel Eric"
-repository-code: "https://github.com/Quantyra/QRoPE"
+repository-code: "https://github.com/Quantyra/PhaseWrap-RoPE"
 keywords:
   - "quantum positional encoding"
   - "rotary positional encoding"

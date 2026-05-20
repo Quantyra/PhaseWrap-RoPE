@@ -1,10 +1,10 @@
-# QRoPE
+# PhaseWrap-RoPE
 
-[![CI](https://github.com/Quantyra/QRoPE/actions/workflows/ci.yml/badge.svg)](https://github.com/Quantyra/QRoPE/actions/workflows/ci.yml)
+[![CI](https://github.com/Quantyra/PhaseWrap-RoPE/actions/workflows/ci.yml/badge.svg)](https://github.com/Quantyra/PhaseWrap-RoPE/actions/workflows/ci.yml)
 
-QRoPE is Quantyra's public research repository for Quantum Rotary Positional Encoding: a bounded evidence lane for phase-wrapped positional scoring and small-circuit hardware validation.
+PhaseWrap-RoPE is Quantyra's public research repository for phase-wrapped positional scoring and small-circuit hardware validation.
 
-This repository is intended for open scientific review of the QRoPE method, validation scripts, evidence packets, and publication materials. It is not a claim of general quantum advantage, full transformer-scale superiority, entanglement-based advantage, or cross-backend hardware robustness.
+This repository is intended for open scientific review of the PhaseWrap-RoPE method, validation scripts, evidence packets, and publication materials. It is not a claim of general quantum advantage, full transformer-scale superiority, entanglement-based advantage, or cross-backend hardware robustness.
 
 ## Status
 
@@ -18,7 +18,7 @@ This repository is intended for open scientific review of the QRoPE method, vali
 
 The public claim frame for this repository is:
 
-- QRoPE defines phase-wrap residual features using mod-8 and mod-12 structure.
+- PhaseWrap-RoPE defines phase-wrap residual features using mod-8 and mod-12 structure.
 - The SQR score uses the product of the mod-8 and mod-12 signed margins.
 - The evidence lane includes deterministic frozen-packet validation, raw counts, backend metadata, and offline recomputation.
 - The Stage 4 result is a bounded real-hardware validation for the frozen packet reported in this repository.
@@ -31,7 +31,7 @@ The public claim frame excludes:
 - broad quantum advantage;
 - full transformer-scale validation;
 - general cross-backend superiority;
-- claims that QRoPE improves production language-model quality;
+- claims that PhaseWrap-RoPE improves production language-model quality;
 - claims that one backend/date/calibration result generalizes without additional evidence.
 
 ## Key documents
@@ -43,7 +43,7 @@ The public claim frame excludes:
 - [External review response](docs/publication/external-review-response-v1.md)
 - [Replication plan](docs/publication/replication-plan-v1.md)
 - [External release plan](docs/publication/external-release-plan-v1.md)
-- [QRoPE method schematic](docs/publication/figures/qrope-method-schematic-v1.svg)
+- [PhaseWrap-RoPE method schematic](docs/publication/figures/qrope-method-schematic-v1.svg)
 - [Validation pipeline figure](docs/publication/figures/qrope-validation-pipeline-v1.svg)
 - [Stage 4 comparison figure](docs/publication/figures/qrope-stage4-comparison-v1.svg)
 - [Open-source release checklist](docs/publication/open-source-release-checklist-v1.md)
@@ -147,7 +147,7 @@ Coverage XML is uploaded as a workflow artifact. The broader local test suite re
 
 If you cite or discuss this work, use the bounded posture:
 
-> QRoPE is a phase-wrap positional-encoding and validation method with repository-backed deterministic evidence packets, including a bounded Stage 4 real-hardware validation result.
+> PhaseWrap-RoPE is a phase-wrap positional-encoding and validation method with repository-backed deterministic evidence packets, including a bounded Stage 4 real-hardware validation result.
 
 Do not restate the result as a proof of broad quantum transformer superiority.
 

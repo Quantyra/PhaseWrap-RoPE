@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">QRoPE deterministic validation pipeline</title>
+  <title id="title">PhaseWrap-RoPE deterministic validation pipeline</title>
   <desc id="desc">Validation pipeline showing packet freeze, credentialled execution, raw-count capture, offline recomputation, and replication ledger update.</desc>
 
   <defs>
