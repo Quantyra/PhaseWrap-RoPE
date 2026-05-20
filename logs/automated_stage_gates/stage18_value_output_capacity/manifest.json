@@ -1,0 +1,35 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic capacity probe for the Stage 17 learned value-output bottleneck.",
+      "Evidence about whether the value embedding/output projection can fit when attention is teacher-forced to the target key."
+    ]
+  },
+  "dataset": "deterministic_value_output_capacity_probe_v1",
+  "mode_names": [
+    "uniform_attention",
+    "teacher_forced_attention"
+  ],
+  "model": {
+    "embed_dim": 12,
+    "epochs": 220,
+    "trained_parameters": "value embeddings, output projection, output bias",
+    "type": "teacher_forced_or_uniform_attention_value_output_capacity_probe",
+    "value_vocab_size": 257
+  },
+  "no_hardware_submission": true,
+  "result_path": "logs/automated_stage_gates/stage18_value_output_capacity/results.json",
+  "schema_version": "qrope_stage18_value_output_capacity_v1",
+  "stage": "stage18_value_output_capacity",
+  "summary_csv_path": "logs/automated_stage_gates/stage18_value_output_capacity/summary.csv",
+  "test_row_count": 60,
+  "train_row_count": 120,
+  "validation_row_count": 60
+}

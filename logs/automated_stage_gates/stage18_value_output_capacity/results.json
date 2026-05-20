@@ -1,0 +1,207 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic capacity probe for the Stage 17 learned value-output bottleneck.",
+      "Evidence about whether the value embedding/output projection can fit when attention is teacher-forced to the target key."
+    ]
+  },
+  "context_lengths": [
+    128,
+    256,
+    512,
+    1024
+  ],
+  "dataset": "deterministic_value_output_capacity_probe_v1",
+  "examples_per_task_length": 4,
+  "mode_names": [
+    "uniform_attention",
+    "teacher_forced_attention"
+  ],
+  "model": {
+    "embed_dim": 12,
+    "epochs": 220,
+    "trained_parameters": "value embeddings, output projection, output bias",
+    "type": "teacher_forced_or_uniform_attention_value_output_capacity_probe",
+    "value_vocab_size": 257
+  },
+  "no_hardware_submission": true,
+  "schema_version": "qrope_stage18_value_output_capacity_v1",
+  "seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "stage": "stage18_value_output_capacity",
+  "table": [
+    {
+      "loss": 4.927103,
+      "mean_first_relevant_value_rank": 30.1,
+      "mean_target_value_probability": 0.007808,
+      "mode": "uniform_attention",
+      "mrr": 0.115652,
+      "mrr_ci_high": 0.150979,
+      "mrr_ci_low": 0.082442,
+      "perplexity": 137.97925,
+      "row_count": 120,
+      "split": "train",
+      "target_value_probability_ci_high": 0.008309,
+      "target_value_probability_ci_low": 0.007234,
+      "top1_accuracy": 0.033333,
+      "top1_ci_high": 0.066667,
+      "top1_ci_low": 0.008333
+    },
+    {
+      "loss": 5.36631,
+      "mean_first_relevant_value_rank": 109.033333,
+      "mean_target_value_probability": 0.005111,
+      "mode": "uniform_attention",
+      "mrr": 0.022567,
+      "mrr_ci_high": 0.031475,
+      "mrr_ci_low": 0.013819,
+      "perplexity": 214.071441,
+      "row_count": 60,
+      "split": "validation",
+      "target_value_probability_ci_high": 0.005679,
+      "target_value_probability_ci_low": 0.004569,
+      "top1_accuracy": 0.0,
+      "top1_ci_high": 0.0,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 5.359626,
+      "mean_first_relevant_value_rank": 112.55,
+      "mean_target_value_probability": 0.005182,
+      "mode": "uniform_attention",
+      "mrr": 0.034671,
+      "mrr_ci_high": 0.071621,
+      "mrr_ci_low": 0.014197,
+      "perplexity": 212.645424,
+      "row_count": 60,
+      "split": "test",
+      "target_value_probability_ci_high": 0.005873,
+      "target_value_probability_ci_low": 0.004601,
+      "top1_accuracy": 0.016667,
+      "top1_ci_high": 0.05,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 4.891786,
+      "mean_first_relevant_value_rank": 24.55,
+      "mean_target_value_probability": 0.008271,
+      "mode": "teacher_forced_attention",
+      "mrr": 0.140586,
+      "mrr_ci_high": 0.188196,
+      "mrr_ci_low": 0.098978,
+      "perplexity": 133.191203,
+      "row_count": 120,
+      "split": "train",
+      "target_value_probability_ci_high": 0.009086,
+      "target_value_probability_ci_low": 0.00759,
+      "top1_accuracy": 0.066667,
+      "top1_ci_high": 0.108333,
+      "top1_ci_low": 0.025
+    },
+    {
+      "loss": 5.361067,
+      "mean_first_relevant_value_rank": 102.333333,
+      "mean_target_value_probability": 0.005147,
+      "mode": "teacher_forced_attention",
+      "mrr": 0.028111,
+      "mrr_ci_high": 0.039907,
+      "mrr_ci_low": 0.01816,
+      "perplexity": 212.952129,
+      "row_count": 60,
+      "split": "validation",
+      "target_value_probability_ci_high": 0.005629,
+      "target_value_probability_ci_low": 0.004576,
+      "top1_accuracy": 0.0,
+      "top1_ci_high": 0.0,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 5.3494,
+      "mean_first_relevant_value_rank": 109.066667,
+      "mean_target_value_probability": 0.005308,
+      "mode": "teacher_forced_attention",
+      "mrr": 0.041872,
+      "mrr_ci_high": 0.078369,
+      "mrr_ci_low": 0.019214,
+      "perplexity": 210.482024,
+      "row_count": 60,
+      "split": "test",
+      "target_value_probability_ci_high": 0.006238,
+      "target_value_probability_ci_low": 0.004653,
+      "top1_accuracy": 0.016667,
+      "top1_ci_high": 0.066667,
+      "top1_ci_low": 0.0
+    }
+  ],
+  "test_row_count": 60,
+  "train_row_count": 120,
+  "training_records": [
+    {
+      "embed_dim": 12,
+      "epochs": 220,
+      "final_training_loss": 4.928616,
+      "l2": 0.0001,
+      "learning_rate": 0.3,
+      "mode": "uniform_attention",
+      "seed": 1801,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 5.318326
+        },
+        {
+          "epoch": 56,
+          "loss": 5.196497
+        },
+        {
+          "epoch": 111,
+          "loss": 5.090926
+        },
+        {
+          "epoch": 220,
+          "loss": 4.928616
+        }
+      ]
+    },
+    {
+      "embed_dim": 12,
+      "epochs": 220,
+      "final_training_loss": 4.893914,
+      "l2": 0.0001,
+      "learning_rate": 0.3,
+      "mode": "teacher_forced_attention",
+      "seed": 1801,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 5.31832
+        },
+        {
+          "epoch": 56,
+          "loss": 5.192984
+        },
+        {
+          "epoch": 111,
+          "loss": 5.082528
+        },
+        {
+          "epoch": 220,
+          "loss": 4.893914
+        }
+      ]
+    }
+  ],
+  "validation_row_count": 60
+}

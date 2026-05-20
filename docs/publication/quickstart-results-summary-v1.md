@@ -180,6 +180,14 @@ python scripts/run_stage17_small_decoder_value_model.py
 
 This writes `logs/automated_stage_gates/stage17_small_decoder_value_model/manifest.json`, `results.json`, `summary.csv`, and `task_summary.csv`. The current result adds learned value embeddings and an output projection; all methods are near chance, so this is negative evidence for the compact decoder-style readout.
 
+Run the Stage 18 no-credential value-output capacity probe:
+
+```bash
+python scripts/run_stage18_value_output_capacity.py
+```
+
+This writes `logs/automated_stage_gates/stage18_value_output_capacity/manifest.json`, `results.json`, and `summary.csv`. The current result compares uniform attention with teacher-forced target attention through the same learned value-output path. Teacher forcing does not substantially improve train or test performance, so the Stage 17 failure is not only a positional-attention issue.
+
 ## What This Supports
 
 - A bounded phase-wrap scoring method using mod-8 and mod-12 wrapped residual margins.
@@ -202,6 +210,7 @@ This writes `logs/automated_stage_gates/stage17_small_decoder_value_model/manife
 - A deterministic Stage 15 learned attention-readout benchmark where PhaseWrap-plus-distance leads argmax value retrieval on the local held-out packet, while RoPE-like scoring remains better on target value probability.
 - A deterministic Stage 16 learned attention stability benchmark where the PhaseWrap-plus-distance argmax result persists across five initialization seeds, while RoPE-like scoring remains better on target value probability.
 - A deterministic Stage 17 small decoder value-model benchmark showing that the current learned value-embedding/output projection readout is near chance for every tested positional method.
+- A deterministic Stage 18 value-output capacity probe showing that teacher-forced target attention does not substantially fix the current learned value-output path.
 
 ## What This Does Not Support
 
@@ -224,11 +233,12 @@ This writes `logs/automated_stage_gates/stage17_small_decoder_value_model/manife
 - a claim that Stage 15 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
 - a claim that Stage 16 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
 - a claim that Stage 17 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 18 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
 
 ## Open Questions
 
 - **Why mod-8 and mod-12?** They provide two distinct wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band interaction through the product of signed margins. Stage 8 adds a release-local period-pair ablation where `(8, 12)` is best on the phase-cued Needle-style packet, and Stage 11 shows the fixed 8/12 score is exactly a mod-24 periodic feature with frequency support `[1, 2, 3, 5]`; this is still not a proof of global optimality.
-- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 17 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stages 13 and 14 show that a PhaseWrap-plus-distance adapter can close argmax ranking on local value-retrieval packets, but not target-probability mass. Stage 15 shows the learned PhaseWrap-plus-distance scorer can lead argmax value retrieval while RoPE remains stronger on probability mass. Stage 16 shows the ranking result is stable across the tested initialization seeds. Stage 17 shows the current learned value-output bottleneck is near chance for all methods.
+- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 18 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stages 13 and 14 show that a PhaseWrap-plus-distance adapter can close argmax ranking on local value-retrieval packets, but not target-probability mass. Stage 15 shows the learned PhaseWrap-plus-distance scorer can lead argmax value retrieval while RoPE remains stronger on probability mass. Stage 16 shows the ranking result is stable across the tested initialization seeds. Stage 17 shows the current learned value-output bottleneck is near chance for all methods. Stage 18 shows teacher-forced attention does not substantially fix that bottleneck, pointing to value-output capacity and optimization as the next engineering target.
 - **What would make the RoPE-replacement case stronger?** The next expansion should train a stronger matched small decoder-only transformer with RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional mechanisms; evaluate train-short/test-long context extrapolation; include non-synthetic retrieval or QA tasks; run at least five seeds; and publish failed runs plus confidence intervals. Stage 12 and Stage 13 make clear that the fixed score alone is not enough; the useful direction is an explicit positional mechanism or adapter.
 - **Why the CX variant?** It is the smallest entangling extension of the product-state witness: keep the two `RY` margin encodings, add one `CX(q0 -> q1)`, and read a target-qubit parity/product signal while preserving the same packet discipline.
 - **Will the packet generation pipeline be reusable?** The current pipeline is open in `src/qrope/automated_stage_gates.py` and the Stage 4 runner/verifier scripts. A cleaner researcher-facing API is a packaging task, not new scientific evidence.
@@ -253,5 +263,6 @@ This writes `logs/automated_stage_gates/stage17_small_decoder_value_model/manife
 | Stage 15 | Learned attention-readout benchmark | Complete for a one-hidden-layer scorer over Stage 14 rows. PhaseWrap-plus-distance leads top-1/MRR, while RoPE remains better on target value probability. |
 | Stage 16 | Learned attention stability benchmark | Complete for five initialization seeds. PhaseWrap-plus-distance preserves top-1/MRR leadership, while RoPE remains better on target value probability. |
 | Stage 17 | Small decoder value-model benchmark | Complete for learned value embeddings plus output projection. Result is near chance for all methods, so optimizer/capacity hardening is next. |
-| Stage 18 | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
-| Stage 19 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |
+| Stage 18 | Value-output capacity probe | Complete for uniform and teacher-forced attention through the learned value-output path. Teacher forcing does not substantially fix the bottleneck, so capacity/optimization hardening is next. |
+| Stage 19 | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
+| Stage 20 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |
