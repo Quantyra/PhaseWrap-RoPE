@@ -238,7 +238,7 @@ def train_small_decoder(rows: list[Stage10Example], method_name: str, *, seed: i
     return {"weights": vector, "training_history": history, "final_training_loss": history[-1]["loss"]}
 
 
-def _predict(vector: Any, row: Stage10Example, method_name: str) -> tuple[float, int]:
+def _predict(vector: Any, row: Stage10Example, method_name: str) -> tuple[float, int, float]:
     import autograd.numpy as anp
 
     emb, wq, wk, wv, wo, pos_scale = _unpack(vector)
@@ -252,7 +252,27 @@ def _predict(vector: Any, row: Stage10Example, method_name: str) -> tuple[float,
     context = anp.dot(attention, values)
     probabilities = np.asarray(_softmax(anp.dot(context, wo)), dtype=float)
     sorted_indices = sorted(range(len(probabilities)), key=lambda index: (-float(probabilities[index]), index))
-    return float(probabilities[row.label_token]), int(sorted_indices.index(row.label_token) + 1)
+    return float(probabilities[row.label_token]), int(sorted_indices.index(row.label_token) + 1), float(probabilities[sorted_indices[0]])
+
+
+def _expected_calibration_error(confidences: list[float], correctness: list[float], *, bins: int = 10) -> float:
+    if len(confidences) != len(correctness):
+        raise ValueError("confidences and correctness must have equal length")
+    total = float(len(confidences))
+    ece = 0.0
+    for bin_index in range(bins):
+        low = bin_index / float(bins)
+        high = (bin_index + 1) / float(bins)
+        if bin_index == bins - 1:
+            indices = [index for index, value in enumerate(confidences) if low <= value <= high]
+        else:
+            indices = [index for index, value in enumerate(confidences) if low <= value < high]
+        if not indices:
+            continue
+        avg_confidence = float(np.mean([confidences[index] for index in indices]))
+        avg_accuracy = float(np.mean([correctness[index] for index in indices]))
+        ece += (len(indices) / total) * abs(avg_confidence - avg_accuracy)
+    return float(ece)
 
 
 def evaluate_small_decoder(rows: list[Stage10Example], method_name: str, vector: Any) -> dict[str, float]:
@@ -260,12 +280,14 @@ def evaluate_small_decoder(rows: list[Stage10Example], method_name: str, vector:
     reciprocal_ranks: list[float] = []
     top1_hits: list[float] = []
     target_probs: list[float] = []
+    top1_confidences: list[float] = []
     for row in rows:
-        target_probability, rank = _predict(vector, row, method_name)
+        target_probability, rank, top1_confidence = _predict(vector, row, method_name)
         losses.append(-math.log(max(target_probability, 1e-12)))
         reciprocal_ranks.append(1.0 / float(rank))
         top1_hits.append(1.0 if rank == 1 else 0.0)
         target_probs.append(target_probability)
+        top1_confidences.append(top1_confidence)
     mean_loss = float(np.mean(losses))
     return {
         "row_count": len(rows),
@@ -274,6 +296,9 @@ def evaluate_small_decoder(rows: list[Stage10Example], method_name: str, vector:
         "top1_accuracy": round(float(np.mean(top1_hits)), 6),
         "mrr": round(float(np.mean(reciprocal_ranks)), 6),
         "mean_target_probability": round(float(np.mean(target_probs)), 6),
+        "target_probability_mae": round(float(np.mean([1.0 - value for value in target_probs])), 6),
+        "mean_top1_confidence": round(float(np.mean(top1_confidences)), 6),
+        "expected_calibration_error": round(_expected_calibration_error(top1_confidences, top1_hits), 6),
     }
 
 
@@ -352,6 +377,9 @@ def run_stage10_ablation(
                             "test_top1_accuracy": test_metrics["top1_accuracy"],
                             "test_mrr": test_metrics["mrr"],
                             "test_mean_target_probability": test_metrics["mean_target_probability"],
+                            "test_target_probability_mae": test_metrics["target_probability_mae"],
+                            "test_mean_top1_confidence": test_metrics["mean_top1_confidence"],
+                            "test_expected_calibration_error": test_metrics["expected_calibration_error"],
                             "final_training_loss": trained["final_training_loss"],
                             "training_history": trained["training_history"],
                         }
@@ -370,7 +398,16 @@ def run_stage10_ablation(
                 "seed_count": len(rows),
                 "failed_run_count": len([run for run in failed_runs if run["task"] == task_name and run["method"] == method_name]),
             }
-            for metric_name in ("test_loss", "test_perplexity", "test_top1_accuracy", "test_mrr", "test_mean_target_probability"):
+            for metric_name in (
+                "test_loss",
+                "test_perplexity",
+                "test_top1_accuracy",
+                "test_mrr",
+                "test_mean_target_probability",
+                "test_target_probability_mae",
+                "test_mean_top1_confidence",
+                "test_expected_calibration_error",
+            ):
                 values = [float(row[metric_name]) for row in rows]
                 ci = _bootstrap_ci(values, seed_text=f"stage10:{task_name}:{method_name}:{metric_name}")
                 record[f"{metric_name}_mean"] = round(float(np.mean(values)), 6)

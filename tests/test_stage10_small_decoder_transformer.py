@@ -49,6 +49,9 @@ def test_stage10_ablation_smoke_run() -> None:
     assert result["tasks"] == list(TASK_NAMES)
     assert result["failed_runs"] == []
     assert len(result["aggregate_table"]) == len(METHOD_NAMES) * len(TASK_NAMES)
+    assert "test_expected_calibration_error_mean" in result["aggregate_table"][0]
+    assert "test_target_probability_mae_mean" in result["aggregate_table"][0]
+    assert "test_mean_top1_confidence_mean" in result["aggregate_table"][0]
     assert set(result["best_method_by_task"]) == set(TASK_NAMES)
 
 
