@@ -1,0 +1,26 @@
+{
+  "assumptions": {
+    "assumed_ops_per_second": 1000000.0,
+    "hardware_cost_usd": "not reconstructed because public artifacts do not contain complete provider billing records",
+    "local_verifier_incremental_cost_usd": 0.0,
+    "method": "static_operation_count_estimate",
+    "scope": "Classical recomputation of committed Stage 4 raw-count artifacts, not hardware queueing or quantum sampling."
+  },
+  "claim_boundary": {
+    "excluded": [
+      "provider billing reconstruction",
+      "hardware queue time prediction",
+      "quantum advantage or disadvantage claim",
+      "production transformer runtime claim"
+    ],
+    "supported": [
+      "Static local recomputation of the committed Stage 4 evidence is computationally tiny.",
+      "The estimate is reproducible from committed verifier output and does not require provider credentials."
+    ]
+  },
+  "record_count": 6,
+  "result_path": "C:/Users/Dan/Desktop/Projects/QuantyraQRope/logs/automated_stage_gates/stage4_classical_compute_cost/results.json",
+  "schema_version": "qrope_stage4_classical_compute_cost_v1",
+  "source_verification_path": "logs/automated_stage_gates/stage4_hardware_sweep/offline_verification.json",
+  "summary_csv_path": "C:/Users/Dan/Desktop/Projects/QuantyraQRope/logs/automated_stage_gates/stage4_classical_compute_cost/summary.csv"
+}

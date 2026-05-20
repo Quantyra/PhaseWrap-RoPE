@@ -116,6 +116,12 @@ The verifier output is:
 
 The current verifier includes deterministic row-bootstrap percentile intervals over committed per-row records and deterministic shot-resampling percentile intervals from committed raw counts for witness/control MAE, rank correlation, and witness-control deltas. These intervals are verifier diagnostics over recorded artifacts, not independent hardware reruns.
 
+The classical recomputation cost estimate is:
+
+`logs/automated_stage_gates/stage4_classical_compute_cost/results.json`
+
+It estimates the local verifier-side recomputation of the six active Stage 4 records at `4096` static arithmetic-scale operations over `163072` recorded hardware shots, with zero incremental local verifier cost. This is not provider billing reconstruction and is not a hardware queue-time predictor.
+
 Current repository state distinguishes active sweep records from deferred or excluded targets:
 
 - The IBM Fez 4096-shot artifact is present and recomputable from raw counts.

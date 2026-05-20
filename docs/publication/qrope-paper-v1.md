@@ -257,6 +257,12 @@ For the Stage 4 hardware sweep manifest, the verifier entry point is:
 python scripts/verify_stage4_hardware_sweep.py
 ```
 
+For the Stage 4 local classical recomputation cost estimate, the entry point is:
+
+```bash
+python scripts/estimate_stage4_classical_compute_cost.py
+```
+
 The sweep verifier recomputes metrics only for active completed records whose packet, execution, evaluation, and summary artifacts are present. Deferred or unavailable targets are documented in the manifest but are not treated as required verifier records.
 
 The default verifier inputs are:
@@ -388,6 +394,12 @@ The Stage 10 small decoder-only transformer artifacts are:
 - `logs/automated_stage_gates/stage10_small_decoder_transformer/per_seed_results.csv`
 - `logs/automated_stage_gates/stage10_small_decoder_transformer/failed_runs.json`
 
+The Stage 4 classical recomputation cost artifacts are:
+
+- `logs/automated_stage_gates/stage4_classical_compute_cost/manifest.json`
+- `logs/automated_stage_gates/stage4_classical_compute_cost/results.json`
+- `logs/automated_stage_gates/stage4_classical_compute_cost/summary.csv`
+
 The Stage 11 score-theory artifacts are:
 
 - `logs/automated_stage_gates/stage11_phasewrap_theory/manifest.json`
@@ -408,6 +420,7 @@ The repository prioritizes evidence files over narrative-only claims. The minimu
 - inspect `docs/publication/manuscript-to-provisional-support-audit-v1.md`;
 - run or inspect `scripts/verify_stage4_hardware_packet.py`;
 - run or inspect `scripts/verify_stage4_hardware_sweep.py`;
+- run or inspect `scripts/estimate_stage4_classical_compute_cost.py`;
 - run or inspect `scripts/run_stage5_attention_baselines.py`;
 - run or inspect `scripts/run_stage6_downstream_attention.py`;
 - run or inspect `scripts/run_stage7_toy_transformer_ablation.py`;
@@ -446,6 +459,8 @@ The current evidence package is most valuable as a reproducibility-first method 
 
 The Stage 4 hardware evidence is encouraging because the witness/control ordering is preserved across the active recorded IBM Fez and Amazon Braket artifacts under the manifest-declared verifier. The result remains context-specific. Backend calibration windows, provider result-key conventions, transpilation choices, shot budgets, queue conditions, and packet composition can all change future outcomes. The paper therefore treats the hardware runs as bounded validation records rather than as evidence of general cross-backend robustness.
 
+The Stage 4 classical recomputation cost estimate makes the hardware witness interpretation more concrete. Across the six active hardware records, the committed artifacts contain `163072` recorded hardware shots, while local recomputation of the saved raw-count metrics is estimated at `4096` static arithmetic-scale operations with zero incremental local verifier cost. This is a reproducibility-cost statement only; it does not reconstruct provider billing, predict queue time, or support a quantum advantage or disadvantage claim.
+
 The Stage 5 through Stage 10 classical experiments clarify the downstream interpretation. Stage 5 showed that the original synthetic attention-scoring target is exactly recoverable by simple exposed-feature baselines, which prevents overreading that result. Stage 6 made the target less tautological by mixing content and positional signal, but it remains an oracle phase-feature sanity check because the PhaseWrap model sees the normalized phase label directly. Stage 7 then moved one step closer to a transformer-like setting by swapping the PhaseWrap positional term into a four-layer attention-only toy stack, where it had the best argmax retrieval ranking on a synthetic length-extrapolation packet while calibration remained mixed. Stage 8 added a local Needle-style retrieval packet with multiple seeds, bootstrap intervals, and a period-pair ablation. Stage 9 adds a trained decoder-style positional attention ablation where `phasewrap_adapter` is strongest on the phase-cued train-short/test-long packet, while `rope_relative` is strongest on the exact-offset passkey packet. Stage 10 adds a first full small-transformer sanity check and is near chance across the tested lanes. These experiments support continued RoPE-facing downstream study; they do not establish production transformer superiority or full transformer-scale validation.
 
 Stage 11 adds theory evidence for the score itself. It shows that the 8/12 rule is exactly periodic over mod 24, has only 10 distinct residue scores because of mirrored and zero-margin aliases, and is exactly expressible as a small classical Fourier feature map. This helps explain why the score can be compact and auditable while still requiring stronger mechanisms or auxiliary information for long-context transformer use.
@@ -461,7 +476,7 @@ The next scientific step is not broader rhetoric about the current hardware reco
 | 1 | Stronger Stage 10 trained transformer ablation | Extend the current very small autograd-backed transformer to a stronger small decoder-only implementation and harder tasks. Compare RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional variants under matched parameter counts, optimizer settings, training tokens, seeds, and hyperparameter budget. |
 | 2 | Standard retrieval tasks | Move beyond the current Stage 8 and Stage 9 synthetic packets toward Needle-in-Haystack, passkey retrieval, multi-needle retrieval, RULER-style multi-hop/aggregation, or compact natural-language QA tasks where the correct answer is not defined by the PhaseWrap score. |
 | 3 | Comparable PhaseWrap mechanism | Implement PhaseWrap as a genuine positional mechanism: a positional attention bias, a query/key rotation analogue, or a learned adapter around PhaseWrap features. Avoid treating the normalized phase label as an oracle scalar input. |
-| 4 | Hardware witness hardening | Treat hardware as an auditable witness for a classical phase score. The sweep verifier now includes deterministic row-bootstrap and shot-resampling intervals from committed artifacts; remaining hardening requires provider bit-order and observable calibration circuits, independent reruns across dates and queue conditions, preregistered packet sets, and classical compute timing/cost estimates. |
+| 4 | Hardware witness hardening | Treat hardware as an auditable witness for a classical phase score. The sweep verifier now includes deterministic row-bootstrap and shot-resampling intervals from committed artifacts, and Stage 4 now includes a deterministic local classical recomputation cost estimate. Remaining hardening requires provider bit-order and observable calibration circuits, independent reruns across dates and queue conditions, and preregistered packet sets. |
 | 5 | Theory-to-task connection | Stage 11 now formalizes invariances, unavoidable aliases, period-pair tradeoffs, context-length behavior, and exact periodic-feature support. Next, connect those facts to task distributions and mechanism designs where the score should help or hurt. |
 | 6 | Larger or error-aware witnesses | Explore larger witness families or mitigation analysis only when the packet generator, controls, costs, and verifier can preserve the current artifact discipline. |
 

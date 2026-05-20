@@ -26,6 +26,7 @@ Minimal local verification:
 ```bash
 python scripts/verify_stage4_hardware_packet.py
 python scripts/verify_stage4_hardware_sweep.py
+python scripts/estimate_stage4_classical_compute_cost.py
 python scripts/run_stage5_attention_baselines.py
 python scripts/run_stage6_downstream_attention.py
 python scripts/run_stage7_toy_transformer_ablation.py
@@ -42,6 +43,7 @@ python scripts/run_stage11_phasewrap_theory.py
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
 - `Publication posture`: bounded, reproducible, evidence-disciplined.
 - `Current evidence posture`: Stage 4 real-noisy-hardware results for bounded frozen packet/backend/date/calibration contexts, including IBM Fez positives, Amazon Braket/Rigetti product-state positive evidence, and provider-aware Amazon Braket CX positive recomputations from committed raw counts.
+- `Stage 4 cost posture`: local recomputation of the committed Stage 4 sweep is covered by a deterministic classical compute estimate: 4,096 static operations over 163,072 recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, and Stage 9 adds a trained decoder-style positional attention ablation with matched seeds, optimizer, train-short/test-long context lengths, failed-run artifacts, and confidence intervals. These support continued RoPE-replacement research, not a production replacement claim.
 - `Score theory posture`: Stage 11 formalizes the fixed 8/12 score as a mod-24 periodic feature with translation invariance, mirror aliases, 10 distinct residue scores, and exact small Fourier support. This clarifies why stronger transformer benchmarks must resolve aliasing before any replacement claim.
 - `Hardware posture`: IBM Fez product-state, IBM Fez CX, Amazon Braket/Rigetti product-state, and Amazon Braket CX lanes have completed active Stage 4 hardware artifacts; additional IBM machines are deferred from the active sweep; Amazon Braket/IonQ was checked on 2026-05-19 and was not run because Forte devices were `OFFLINE` and Aria 1 was `RETIRED`; AQT IBEX Q1 is deferred due cost.
@@ -82,6 +84,7 @@ The public claim frame excludes:
 - [Open-source release checklist](docs/publication/open-source-release-checklist-v1.md)
 - [Patent notice](PATENTS.md)
 - [Stage 4 real-hardware validation result](docs/research/q-rope-stage4-real-hardware-validation-result-v1.md)
+- [Stage 4 classical compute cost estimate](docs/research/q-rope-stage4-classical-compute-cost-v1.md)
 - [Stage 4 CX portability diagnostic](docs/research/q-rope-stage4-cx-portability-diagnostic-v1.md)
 - [Stage 5 attention baseline result](docs/research/q-rope-stage5-attention-baselines-v1.md)
 - [Stage 6 downstream attention result](docs/research/q-rope-stage6-downstream-attention-v1.md)
@@ -169,6 +172,14 @@ python scripts/diagnose_stage4_cx_portability.py
 
 The diagnostic documents why the earlier generic `q1q0` Braket CX classification was corrected in the provider-aware sweep verifier.
 
+Estimate the local classical recomputation work for the committed Stage 4 sweep:
+
+```bash
+python scripts/estimate_stage4_classical_compute_cost.py
+```
+
+This emits `logs/automated_stage_gates/stage4_classical_compute_cost/`. The estimate is a static local verifier diagnostic, not provider billing reconstruction and not a hardware queue-time predictor.
+
 Run the deterministic Stage 5 attention-scoring baselines:
 
 ```bash
@@ -235,6 +246,7 @@ Stage 11 analyzes the fixed 8/12 score directly. It verifies mod-24 periodicity,
 - Run `python scripts/verify_stage4_hardware_packet.py`.
 - Inspect `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`.
 - Run `python scripts/verify_stage4_hardware_sweep.py`.
+- Run `python scripts/estimate_stage4_classical_compute_cost.py`.
 - Run `python scripts/run_stage8_needle_benchmark.py` for the local RoPE-facing retrieval sanity check.
 - Run `python scripts/run_stage9_trained_transformer_ablation.py` for the trained positional-attention ablation.
 - Run `python scripts/run_stage10_small_decoder_transformer.py` for the small decoder-only transformer ablation.
@@ -272,7 +284,7 @@ The current release is ready for bounded repository/preprint publication. The ne
 | 5 | Local Needle-style retrieval benchmark | Complete for a phase-cued synthetic packet with five seeds, bootstrap intervals, and a period-pair ablation; use it to justify harder RoPE-facing benchmarks, not production claims. |
 | 6 | Stage 9 trained transformer ablation | Executable subset complete for phase-cued and exact-offset passkey trained positional-attention tasks. Remaining work: full small decoder-only transformer training, non-synthetic retrieval or QA tasks, and richer calibration metrics. |
 | 7 | Stage 10 full transformer ablation | Complete for a very small autograd-backed one-block decoder-only transformer with phase-cued, passkey, and tiny text-fact QA lanes. The result is near chance, so the next step is a stronger small-transformer implementation and harder non-synthetic retrieval or QA tasks. |
-| 8 | Hardware witness hardening | Partly complete: the Stage 4 sweep verifier now reports deterministic row-bootstrap and shot-resampling intervals from committed raw counts. Remaining work is provider bit-order calibration packets, independent reruns across dates, preregistered packet sets, and classical compute timing/cost estimates. |
+| 8 | Hardware witness hardening | Partly complete: the Stage 4 sweep verifier now reports deterministic row-bootstrap and shot-resampling intervals from committed raw counts, and Stage 4 has a deterministic classical recomputation cost/timing estimate. Remaining work is provider bit-order calibration packets, independent reruns across dates, and preregistered packet sets. |
 | 9 | Theory of the score | Complete for the fixed 8/12 score: Stage 11 verifies mod-24 periodicity, translation invariance, mirror aliases, alias growth, period-pair tradeoffs, and exact small Fourier support. Remaining work is to connect those facts to task distributions and stronger trained mechanisms. |
 | 10 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
 
