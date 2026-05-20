@@ -38,7 +38,7 @@
   <rect x="160" y="385" width="380" height="150" class="panel"/>
   <text x="195" y="433" class="label">Product-state hardware witness</text><text x="195" y="463" class="mono">RY(theta0), RY(theta1), measure</text><text x="195" y="491" class="small">Published Stage 4 evidence: one backend/date only.</text>
   <rect x="660" y="385" width="380" height="150" class="panel"/>
-  <text x="695" y="433" class="label">Entangling CX variant</text><text x="695" y="463" class="mono">RY, RY, CX(q0-&gt;q1), measure</text><text x="695" y="491" class="small">IBM Fez hardware evidence; bounded only.</text>
+  <text x="695" y="433" class="label">Entangling CX variant</text><text x="695" y="463" class="mono">RY, RY, CX(q0-&gt;q1), measure</text><text x="695" y="491" class="small">Bounded IBM and Braket evidence.</text>
   <path d="M565 290 C565 340 350 340 350 380" class="ink"/><path d="M565 290 C565 340 850 340 850 380" class="ink"/>
   <rect x="300" y="585" width="600" height="44" rx="16" fill="#fffdf8" stroke="#cfc6b6"/>
   <text x="333" y="613" class="small">Claim boundary: method and bounded evidence lane, not broad quantum advantage.</text>

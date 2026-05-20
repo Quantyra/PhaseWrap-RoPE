@@ -281,6 +281,12 @@ The Stage 6 toy downstream attention artifacts are:
 - `logs/automated_stage_gates/stage6_downstream_attention/results.json`
 - `logs/automated_stage_gates/stage6_downstream_attention/summary.csv`
 
+The Stage 7 toy transformer ablation artifacts are:
+
+- `logs/automated_stage_gates/stage7_toy_transformer_ablation/manifest.json`
+- `logs/automated_stage_gates/stage7_toy_transformer_ablation/results.json`
+- `logs/automated_stage_gates/stage7_toy_transformer_ablation/summary.csv`
+
 Deferred IBM comparison rows are not promoted to machine-verifiable public evidence until their real packet, raw-count, job-ID, backend-metadata, and verifier-output files are present in the repository. For IonQ, any future evidence should be recorded as a new dated Amazon Braket/IonQ run when a Braket IonQ device is available, and then added as a new active sweep record.
 
 ## 6. Reproducibility artifacts
@@ -295,6 +301,7 @@ The repository prioritizes evidence files over narrative-only claims. The minimu
 - run or inspect `scripts/verify_stage4_hardware_sweep.py`;
 - run or inspect `scripts/run_stage5_attention_baselines.py`;
 - run or inspect `scripts/run_stage6_downstream_attention.py`;
+- run or inspect `scripts/run_stage7_toy_transformer_ablation.py`;
 - compare the verifier output with `logs/automated_stage_gates/stage4_hardware_packet/offline_verification.json`.
 - inspect `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json` and the sweep verifier output.
 
@@ -318,6 +325,7 @@ The present result has important limitations:
 - The paper reports a toy downstream attention benchmark, but it does not report transformer-scale training or evaluation.
 - The paper reports bounded IBM Fez and Braket hardware records, including provider-aware Braket CX recomputations, but it does not claim that these few backends establish general cross-backend robustness; IonQ was unavailable/not-run in the current Amazon Braket check.
 - The Stage 5 benchmark compares against classical and positional attention-scoring baselines, but the paper does not compare against production language-model baselines.
+- The Stage 7 benchmark is a four-layer attention-only toy transformer ablation on one synthetic length-extrapolation packet; it does not establish production transformer or full transformer-scale superiority.
 - The paper does not establish quantum advantage.
 
 These limitations define the scientific scope of the current release.
@@ -330,11 +338,13 @@ The next scientific step is not broader rhetoric about the current hardware reco
 | --- | --- | --- |
 | 1 | Attention-scoring benchmark against classical and positional baselines | Complete for the current synthetic task; simple exposed-feature baselines recover the label exactly. |
 | 2 | DOI/preprint release packaging | Release tag, archived snapshot, DOI metadata, and unchanged bounded claim language. |
-| 3 | Harder downstream attention benchmark | Additional seeds, harder task variants, and checks that top-1 selection as well as score calibration depend on the positional method. |
+| 3 | Harder downstream attention benchmark | Stage 7 now adds one four-layer toy transformer length-extrapolation ablation; additional seeds and harder task variants are still needed. |
 | 4 | Independent hardware replication | New packet/date/backend records with raw counts, backend metadata, verifier output, and confidence or bootstrap intervals for MAE/rank correlations. |
 | 5 | Larger or error-aware witnesses | Larger witness families or mitigation analysis with explicit controls and no unsupported quantum-advantage claim. |
 
-The highest-impact research gap is downstream relevance. The current release shows that the phase-wrap witness/control ordering is machine-verifiable in recorded small-circuit hardware contexts, that the Stage 5 synthetic attention-scoring label is recoverable by simple exposed-feature baselines, and that Stage 6 improves score calibration on one non-tautological toy downstream packet. Harder multi-seed downstream tasks are therefore the preferred next experiment.
+The highest-impact research gap is downstream relevance. The current release shows that the phase-wrap witness/control ordering is machine-verifiable in recorded small-circuit hardware contexts, that the Stage 5 synthetic attention-scoring label is recoverable by simple exposed-feature baselines, that Stage 6 improves score calibration on one non-tautological toy downstream packet, and that Stage 7 improves target ranking in a four-layer toy length-extrapolation ablation. Harder multi-seed downstream tasks are therefore the preferred next experiment.
+
+The CX witness was chosen because it is the smallest entangling extension of the product-state packet: keep the two `RY` margin encodings, add one `CX(q0 -> q1)`, and read the target-qubit parity/product signal. The full Stage 4 packet generation path is available in `src/qrope/automated_stage_gates.py` with runner/verifier entry points; a cleaner researcher-facing API is future packaging work rather than additional scientific evidence.
 
 Broader hardware expansion is useful but secondary. IonQ should be added only through a dated Amazon Braket/IonQ record when a device is available. Quandela, AQT, or larger-qubit witnesses should be added only when credentials, provider cost, and artifact capture support the same manifest/verifier discipline as Stage 4.
 
@@ -349,6 +359,7 @@ PhaseWrap-RoPE provides an open-source research lane for phase-wrap positional s
 - `scripts/verify_stage4_hardware_sweep.py`
 - `scripts/run_stage5_attention_baselines.py`
 - `scripts/run_stage6_downstream_attention.py`
+- `scripts/run_stage7_toy_transformer_ablation.py`
 - `logs/automated_stage_gates/stage4_hardware_packet/frozen_packet.json`
 - `logs/automated_stage_gates/stage4_hardware_packet/execution.json`
 - `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`
@@ -356,9 +367,11 @@ PhaseWrap-RoPE provides an open-source research lane for phase-wrap positional s
 - `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`
 - `logs/automated_stage_gates/stage5_attention_baselines/manifest.json`
 - `logs/automated_stage_gates/stage6_downstream_attention/manifest.json`
+- `logs/automated_stage_gates/stage7_toy_transformer_ablation/manifest.json`
 - `docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md`
 - `docs/research/q-rope-stage4-real-hardware-validation-result-v1.md`
 - `docs/research/q-rope-stage4-hardware-comparison-v1.md`
+- `docs/research/q-rope-stage7-toy-transformer-ablation-v1.md`
 - `docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md`
 - `docs/publication/manuscript-to-provisional-support-audit-v1.md`
 - `docs/publication/figures/qrope-method-schematic-v1.svg`

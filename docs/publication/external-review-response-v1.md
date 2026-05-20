@@ -21,6 +21,9 @@ Date: `2026-05-18`
 | CI did not run the full unit suite or check README verifier drift. | CI now runs the full unit suite, skips optional Perceval-dependent tests when Perceval is unavailable, and checks the README expected single-packet verifier summary against the actual verifier output. |
 | Stronger classical and attention baselines were requested. | Stage 5 now includes mod-24 lookup, direct `m8`/`m12`/`m8*m12`, shallow regression-tree, RoPE-style, sinusoidal, and ALiBI-style attention-scoring baselines. The result is reported as a bounded baseline closure: the current synthetic label is exactly recoverable by mod-24 lookup and direct product features. |
 | A non-tautological downstream benchmark was needed after Stage 5. | Stage 6 now mixes token/content compatibility with phase-wrap positional signal. Mod-24 lookup and direct phase features are no longer exact, and `phasewrap_rope_attention` has the lowest MAE on the fixed toy packet. |
+| A compact toy transformer ablation was requested. | Stage 7 now swaps the PhaseWrap positional term into a four-layer attention-only toy transformer on a synthetic length-extrapolation retrieval packet. `phasewrap_rope_4layer` has the best target ranking on that fixed packet, while the claim remains explicitly synthetic and bounded. |
+| Reviewers asked why the CX variant was chosen and whether packet generation would be reusable. | README, quickstart, and paper now state that CX is the smallest entangling extension of the product-state witness and that the current packet generation pipeline is open in `src/qrope/automated_stage_gates.py`, with cleaner researcher-facing API packaging deferred. |
+| A one-click reviewer verification path was requested. | README now includes a Colab badge pointing to `docs/notebooks/phasewrap_rope_verify.ipynb`, a one-cell notebook that runs local verifier scripts and prints JSON summaries. |
 | AGENTS.md rendered a literal `\r\n`. | Fixed. |
 
 ## Not yet done
@@ -29,7 +32,7 @@ Date: `2026-05-18`
 - Move internal process/governance materials into a cleaner public structure.
 - Wait for CI to complete on GitHub and respond to any failures.
 - Post an arXiv/OSF preprint and mint a Zenodo DOI.
-- Add harder multi-seed downstream benchmarks. Stage 6 now provides one fixed non-tautological toy downstream packet, but broader downstream claims require harder task variants and additional seeds.
+- Add harder multi-seed downstream benchmarks. Stage 6 and Stage 7 now provide fixed toy downstream packets, but broader downstream claims require harder task variants and additional seeds.
 - Add repeated hardware evidence across dates/calibration windows and confidence or bootstrap intervals for MAE/rank correlations.
 
 These remaining items require new execution, repo restructuring, or external publication steps and should not be represented as complete.

@@ -1,0 +1,6 @@
+method,layers,position_scale,row_count,sequence_length_min,sequence_length_max,target_probability_mae,mean_target_probability,top1_accuracy,mrr,rank_correlation
+phasewrap_rope_4layer,4,0.5,40,48,64,0.962992,0.037008,1.0,1.0,0.0
+rope_4layer,4,4.0,40,48,64,0.895771,0.104229,0.4,0.7,0.85039
+alibi_4layer,4,1.0,40,48,64,0.971458,0.028542,0.05,0.212083,0.960197
+sinusoidal_4layer,4,4.0,40,48,64,0.94548,0.05452,0.05,0.304167,0.953139
+no_position_4layer,4,0.0,40,48,64,0.961044,0.038956,0.3,0.6,-0.272139

@@ -69,6 +69,14 @@ python scripts/run_stage6_downstream_attention.py
 
 This writes `logs/automated_stage_gates/stage6_downstream_attention/manifest.json`, `results.json`, and `summary.csv`.
 
+Run the Stage 7 no-credential four-layer toy transformer ablation:
+
+```bash
+python scripts/run_stage7_toy_transformer_ablation.py
+```
+
+This writes `logs/automated_stage_gates/stage7_toy_transformer_ablation/manifest.json`, `results.json`, and `summary.csv`.
+
 ## What This Supports
 
 - A bounded phase-wrap scoring method using mod-8 and mod-12 wrapped residual margins.
@@ -77,6 +85,7 @@ This writes `logs/automated_stage_gates/stage6_downstream_attention/manifest.jso
 - A provider-aware Amazon Braket correction that is auditable from the saved raw counts.
 - A deterministic Stage 5 attention-scoring baseline suite showing that the current synthetic label is exactly recoverable by mod-24 lookup and direct `m8*m12` exposed features.
 - A deterministic Stage 6 toy downstream attention benchmark where the target is not exactly recoverable by mod-24 lookup or direct phase features alone, and `phasewrap_rope_attention` has the lowest MAE on the fixed packet.
+- A deterministic Stage 7 four-layer toy transformer ablation where `phasewrap_rope_4layer` has the best target ranking on a fixed synthetic length-extrapolation retrieval packet.
 
 ## What This Does Not Support
 
@@ -88,11 +97,14 @@ This writes `logs/automated_stage_gates/stage6_downstream_attention/manifest.jso
 - a claim that the result generalizes to unrun packets, dates, providers, or calibration windows.
 - a claim that Stage 5 establishes production transformer or full transformer-scale superiority.
 - a claim that Stage 6 establishes production transformer or full transformer-scale superiority.
+- a claim that Stage 7 establishes production transformer or full transformer-scale superiority.
 
 ## Open Questions
 
 - **Why mod-8 and mod-12?** They provide two distinct wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band interaction through the product of signed margins. Other period pairs remain an ablation target.
-- **Does PhaseWrap-RoPE help a classical ML task?** The Stage 5 attention-scoring benchmark is now present, but it shows the current synthetic label is exactly recoverable by simple exposed-feature baselines. The next scientific step is a less tautological toy transformer or downstream attention task.
+- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5, Stage 6, and Stage 7 are now present as bounded synthetic downstream checks. Stage 7 gives a compact four-layer toy transformer ranking result, but harder multi-seed tasks are still needed before making broader downstream claims.
+- **Why the CX variant?** It is the smallest entangling extension of the product-state witness: keep the two `RY` margin encodings, add one `CX(q0 -> q1)`, and read a target-qubit parity/product signal while preserving the same packet discipline.
+- **Will the packet generation pipeline be reusable?** The current pipeline is open in `src/qrope/automated_stage_gates.py` and the Stage 4 runner/verifier scripts. A cleaner researcher-facing API is a packaging task, not new scientific evidence.
 - **Should more hardware be run?** Yes, but as independent replication: new dates, new frozen packets, and cost-justified provider targets. IonQ was unavailable through Amazon Braket during the checked window; Quandela/AQT require separate execution and budget decisions.
 - **Should the release go to arXiv or DOI archive?** Yes. The current repository is suitable for a bounded methods/evidence preprint and a Zenodo-style archived release after final release hygiene.
 
@@ -103,5 +115,6 @@ This writes `logs/automated_stage_gates/stage6_downstream_attention/manifest.jso
 | Stage 4 | Hardware evidence packaging | Complete for the active sweep. |
 | Stage 5 | Attention-scoring baselines | Complete for the current synthetic task; the label is exactly recoverable by mod-24 lookup and direct `m8*m12` features. |
 | Stage 6 | Toy downstream attention comparison | Complete for one fixed synthetic packet; broader downstream claims require harder tasks and more seeds. |
-| Stage 7 | Independent hardware replication | Add new packet/date/backend records with raw counts, verifier output, and confidence or bootstrap intervals. |
-| Stage 8 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after Stage 6/7 evidence justifies it. |
+| Stage 7 | Four-layer toy transformer ablation | Complete for one fixed synthetic length-extrapolation packet; broader downstream claims require harder tasks and more seeds. |
+| Stage 8 | Independent hardware replication | Add new packet/date/backend records with raw counts, verifier output, and confidence or bootstrap intervals. |
+| Stage 9 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |

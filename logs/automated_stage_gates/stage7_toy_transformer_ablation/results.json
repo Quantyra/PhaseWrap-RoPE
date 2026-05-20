@@ -1,0 +1,123 @@
+{
+  "best_method": "phasewrap_rope_4layer",
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness"
+    ],
+    "supported": [
+      "Synthetic length-extrapolation ablation showing how the PhaseWrap score behaves when swapped into a four-layer toy attention stack.",
+      "No hardware submission and no production transformer claim."
+    ]
+  },
+  "dataset": "synthetic_length_extrapolation_retrieval_v1",
+  "schema_version": "qrope_stage7_toy_transformer_ablation_v1",
+  "seed": 42,
+  "splits": {
+    "test": {
+      "lengths": [
+        48,
+        64
+      ],
+      "row_count": 40
+    },
+    "train": {
+      "lengths": [
+        16,
+        24
+      ],
+      "row_count": 40
+    },
+    "validation": {
+      "lengths": [
+        32
+      ],
+      "row_count": 20
+    }
+  },
+  "stage": "stage7_toy_transformer_ablation",
+  "table": [
+    {
+      "layers": 4,
+      "mean_target_probability": 0.037008,
+      "method": "phasewrap_rope_4layer",
+      "mrr": 1.0,
+      "position_scale": 0.5,
+      "rank_correlation": 0.0,
+      "row_count": 40,
+      "sequence_length_max": 64,
+      "sequence_length_min": 48,
+      "target_probability_mae": 0.962992,
+      "top1_accuracy": 1.0
+    },
+    {
+      "layers": 4,
+      "mean_target_probability": 0.104229,
+      "method": "rope_4layer",
+      "mrr": 0.7,
+      "position_scale": 4.0,
+      "rank_correlation": 0.85039,
+      "row_count": 40,
+      "sequence_length_max": 64,
+      "sequence_length_min": 48,
+      "target_probability_mae": 0.895771,
+      "top1_accuracy": 0.4
+    },
+    {
+      "layers": 4,
+      "mean_target_probability": 0.028542,
+      "method": "alibi_4layer",
+      "mrr": 0.212083,
+      "position_scale": 1.0,
+      "rank_correlation": 0.960197,
+      "row_count": 40,
+      "sequence_length_max": 64,
+      "sequence_length_min": 48,
+      "target_probability_mae": 0.971458,
+      "top1_accuracy": 0.05
+    },
+    {
+      "layers": 4,
+      "mean_target_probability": 0.05452,
+      "method": "sinusoidal_4layer",
+      "mrr": 0.304167,
+      "position_scale": 4.0,
+      "rank_correlation": 0.953139,
+      "row_count": 40,
+      "sequence_length_max": 64,
+      "sequence_length_min": 48,
+      "target_probability_mae": 0.94548,
+      "top1_accuracy": 0.05
+    },
+    {
+      "layers": 4,
+      "mean_target_probability": 0.038956,
+      "method": "no_position_4layer",
+      "mrr": 0.6,
+      "position_scale": 0.0,
+      "rank_correlation": -0.272139,
+      "row_count": 40,
+      "sequence_length_max": 64,
+      "sequence_length_min": 48,
+      "target_probability_mae": 0.961044,
+      "top1_accuracy": 0.3
+    }
+  ],
+  "task": {
+    "description": "Four-layer attention-only toy transformer selects the farthest prior token with the requested mod-8/mod-12 phase relation.",
+    "layer_count": 4,
+    "test_lengths": [
+      48,
+      64
+    ],
+    "train_lengths": [
+      16,
+      24
+    ],
+    "validation_lengths": [
+      32
+    ]
+  }
+}
