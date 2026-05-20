@@ -1,0 +1,743 @@
+{
+  "best_method_by_test_top1_mrr": "phasewrap_distance_adapter",
+  "candidate_count": 32,
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic compact key-value QA retrieval benchmark with explicit content keys and train-short/test-long contexts.",
+      "Evidence about whether positional mechanisms help select the latest matching key among distractors.",
+      "Bootstrap intervals over rows and reported weak runs under a predeclared top-1 threshold."
+    ]
+  },
+  "context_lengths": [
+    256,
+    512,
+    1024,
+    2048
+  ],
+  "dataset": "deterministic_compact_key_value_qa_retrieval_v1",
+  "epochs": 260,
+  "examples_per_length": 4,
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_score",
+    "phasewrap_residual_adapter",
+    "phasewrap_distance_adapter"
+  ],
+  "no_hardware_submission": true,
+  "schema_version": "qrope_stage26_compact_kv_qa_v1",
+  "seeds": [
+    2601,
+    2611,
+    2621,
+    2633,
+    2647
+  ],
+  "selection_table": [
+    {
+      "loss": 0.310376,
+      "mean_first_relevant_rank": 1.05,
+      "mean_target_probability": 0.767915,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 0.975,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.925,
+      "perplexity": 1.363937,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.95,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.85
+    },
+    {
+      "loss": 0.355061,
+      "mean_first_relevant_rank": 1.05,
+      "mean_target_probability": 0.729148,
+      "method": "alibi",
+      "mrr": 0.975,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.925,
+      "perplexity": 1.426268,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.95,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.85
+    },
+    {
+      "loss": 0.38098,
+      "mean_first_relevant_rank": 1.05,
+      "mean_target_probability": 0.712015,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.975,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.925,
+      "perplexity": 1.463718,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.95,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.85
+    },
+    {
+      "loss": 0.477266,
+      "mean_first_relevant_rank": 1.1,
+      "mean_target_probability": 0.652003,
+      "method": "sinusoidal",
+      "mrr": 0.95,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.875,
+      "perplexity": 1.611663,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.9,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.75
+    },
+    {
+      "loss": 1.517872,
+      "mean_first_relevant_rank": 1.7,
+      "mean_target_probability": 0.495112,
+      "method": "rope_relative",
+      "mrr": 0.716667,
+      "mrr_ci_high": 0.85,
+      "mrr_ci_low": 0.608333,
+      "perplexity": 4.562504,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.5,
+      "top1_ci_high": 0.7,
+      "top1_ci_low": 0.3
+    },
+    {
+      "loss": 1.134525,
+      "mean_first_relevant_rank": 1.95,
+      "mean_target_probability": 0.325043,
+      "method": "phasewrap_score",
+      "mrr": 0.608333,
+      "mrr_ci_high": 0.725,
+      "mrr_ci_low": 0.516667,
+      "perplexity": 3.109696,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.3,
+      "top1_ci_high": 0.5,
+      "top1_ci_low": 0.1
+    },
+    {
+      "loss": 1.158517,
+      "mean_first_relevant_rank": 3.1,
+      "mean_target_probability": 0.315454,
+      "method": "no_position",
+      "mrr": 0.325,
+      "mrr_ci_high": 0.333333,
+      "mrr_ci_low": 0.3125,
+      "perplexity": 3.185207,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.0,
+      "top1_ci_high": 0.0,
+      "top1_ci_low": 0.0
+    }
+  ],
+  "stage": "stage26_compact_kv_qa",
+  "table": [
+    {
+      "loss": 1.144373,
+      "mean_first_relevant_rank": 3.075,
+      "mean_target_probability": 0.319489,
+      "method": "no_position",
+      "mrr": 0.327083,
+      "mrr_ci_high": 0.333333,
+      "mrr_ci_low": 0.320833,
+      "perplexity": 3.140471,
+      "row_count": 40,
+      "split": "train",
+      "top1_accuracy": 0.0,
+      "top1_ci_high": 0.0,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 1.158517,
+      "mean_first_relevant_rank": 3.15,
+      "mean_target_probability": 0.315454,
+      "method": "no_position",
+      "mrr": 0.320833,
+      "mrr_ci_high": 0.333333,
+      "mrr_ci_low": 0.304167,
+      "perplexity": 3.185207,
+      "row_count": 20,
+      "split": "validation",
+      "top1_accuracy": 0.0,
+      "top1_ci_high": 0.0,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 1.158517,
+      "mean_first_relevant_rank": 3.1,
+      "mean_target_probability": 0.315454,
+      "method": "no_position",
+      "mrr": 0.325,
+      "mrr_ci_high": 0.333333,
+      "mrr_ci_low": 0.3125,
+      "perplexity": 3.185207,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.0,
+      "top1_ci_high": 0.0,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 0.506719,
+      "mean_first_relevant_rank": 1.025,
+      "mean_target_probability": 0.676041,
+      "method": "alibi",
+      "mrr": 0.9875,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.9625,
+      "perplexity": 1.659836,
+      "row_count": 40,
+      "split": "train",
+      "top1_accuracy": 0.975,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.925
+    },
+    {
+      "loss": 0.451371,
+      "mean_first_relevant_rank": 1.0,
+      "mean_target_probability": 0.663977,
+      "method": "alibi",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.570464,
+      "row_count": 20,
+      "split": "validation",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.355061,
+      "mean_first_relevant_rank": 1.05,
+      "mean_target_probability": 0.729148,
+      "method": "alibi",
+      "mrr": 0.975,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.925,
+      "perplexity": 1.426268,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.95,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.85
+    },
+    {
+      "loss": 0.344349,
+      "mean_first_relevant_rank": 1.05,
+      "mean_target_probability": 0.80991,
+      "method": "rope_relative",
+      "mrr": 0.975,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.9375,
+      "perplexity": 1.411072,
+      "row_count": 40,
+      "split": "train",
+      "top1_accuracy": 0.95,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.875
+    },
+    {
+      "loss": 0.51416,
+      "mean_first_relevant_rank": 1.25,
+      "mean_target_probability": 0.732039,
+      "method": "rope_relative",
+      "mrr": 0.908333,
+      "mrr_ci_high": 0.975,
+      "mrr_ci_low": 0.808333,
+      "perplexity": 1.672233,
+      "row_count": 20,
+      "split": "validation",
+      "top1_accuracy": 0.85,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.65
+    },
+    {
+      "loss": 1.517872,
+      "mean_first_relevant_rank": 1.7,
+      "mean_target_probability": 0.495112,
+      "method": "rope_relative",
+      "mrr": 0.716667,
+      "mrr_ci_high": 0.85,
+      "mrr_ci_low": 0.608333,
+      "perplexity": 4.562504,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.5,
+      "top1_ci_high": 0.7,
+      "top1_ci_low": 0.3
+    },
+    {
+      "loss": 0.501814,
+      "mean_first_relevant_rank": 1.1,
+      "mean_target_probability": 0.66524,
+      "method": "sinusoidal",
+      "mrr": 0.95,
+      "mrr_ci_high": 0.9875,
+      "mrr_ci_low": 0.9,
+      "perplexity": 1.651715,
+      "row_count": 40,
+      "split": "train",
+      "top1_accuracy": 0.9,
+      "top1_ci_high": 0.975,
+      "top1_ci_low": 0.8
+    },
+    {
+      "loss": 0.52843,
+      "mean_first_relevant_rank": 1.1,
+      "mean_target_probability": 0.622354,
+      "method": "sinusoidal",
+      "mrr": 0.95,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.875,
+      "perplexity": 1.696268,
+      "row_count": 20,
+      "split": "validation",
+      "top1_accuracy": 0.9,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.75
+    },
+    {
+      "loss": 0.477266,
+      "mean_first_relevant_rank": 1.1,
+      "mean_target_probability": 0.652003,
+      "method": "sinusoidal",
+      "mrr": 0.95,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.875,
+      "perplexity": 1.611663,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.9,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.75
+    },
+    {
+      "loss": 1.136583,
+      "mean_first_relevant_rank": 2.1,
+      "mean_target_probability": 0.325127,
+      "method": "phasewrap_score",
+      "mrr": 0.614583,
+      "mrr_ci_high": 0.695833,
+      "mrr_ci_low": 0.51875,
+      "perplexity": 3.116101,
+      "row_count": 40,
+      "split": "train",
+      "top1_accuracy": 0.375,
+      "top1_ci_high": 0.525,
+      "top1_ci_low": 0.225
+    },
+    {
+      "loss": 1.197706,
+      "mean_first_relevant_rank": 2.1,
+      "mean_target_probability": 0.304258,
+      "method": "phasewrap_score",
+      "mrr": 0.55,
+      "mrr_ci_high": 0.658333,
+      "mrr_ci_low": 0.45,
+      "perplexity": 3.31251,
+      "row_count": 20,
+      "split": "validation",
+      "top1_accuracy": 0.2,
+      "top1_ci_high": 0.4,
+      "top1_ci_low": 0.05
+    },
+    {
+      "loss": 1.134525,
+      "mean_first_relevant_rank": 1.95,
+      "mean_target_probability": 0.325043,
+      "method": "phasewrap_score",
+      "mrr": 0.608333,
+      "mrr_ci_high": 0.725,
+      "mrr_ci_low": 0.516667,
+      "perplexity": 3.109696,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.3,
+      "top1_ci_high": 0.5,
+      "top1_ci_low": 0.1
+    },
+    {
+      "loss": 0.516282,
+      "mean_first_relevant_rank": 1.1,
+      "mean_target_probability": 0.654088,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.95,
+      "mrr_ci_high": 0.9875,
+      "mrr_ci_low": 0.9,
+      "perplexity": 1.675785,
+      "row_count": 40,
+      "split": "train",
+      "top1_accuracy": 0.9,
+      "top1_ci_high": 0.975,
+      "top1_ci_low": 0.8
+    },
+    {
+      "loss": 0.508092,
+      "mean_first_relevant_rank": 1.0,
+      "mean_target_probability": 0.627758,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.662117,
+      "row_count": 20,
+      "split": "validation",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.38098,
+      "mean_first_relevant_rank": 1.05,
+      "mean_target_probability": 0.712015,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.975,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.925,
+      "perplexity": 1.463718,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.95,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.85
+    },
+    {
+      "loss": 0.470481,
+      "mean_first_relevant_rank": 1.075,
+      "mean_target_probability": 0.710387,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 0.9625,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.925,
+      "perplexity": 1.600763,
+      "row_count": 40,
+      "split": "train",
+      "top1_accuracy": 0.925,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.85
+    },
+    {
+      "loss": 0.430332,
+      "mean_first_relevant_rank": 1.0,
+      "mean_target_probability": 0.681598,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.537769,
+      "row_count": 20,
+      "split": "validation",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.310376,
+      "mean_first_relevant_rank": 1.05,
+      "mean_target_probability": 0.767915,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 0.975,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.925,
+      "perplexity": 1.363937,
+      "row_count": 20,
+      "split": "test",
+      "top1_accuracy": 0.95,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.85
+    }
+  ],
+  "test_lengths": [
+    2048
+  ],
+  "test_row_count": 20,
+  "train_lengths": [
+    256,
+    512
+  ],
+  "train_row_count": 40,
+  "training_records": [
+    {
+      "epochs": 260,
+      "final_training_loss": 1.164296,
+      "l2": 0.001,
+      "learning_rate": 0.3,
+      "method": "no_position",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 3.465736
+        },
+        {
+          "epoch": 131,
+          "loss": 1.175377
+        },
+        {
+          "epoch": 260,
+          "loss": 1.164296
+        }
+      ],
+      "weights": [
+        0.0,
+        6.30713816
+      ]
+    },
+    {
+      "epochs": 260,
+      "final_training_loss": 0.544344,
+      "l2": 0.001,
+      "learning_rate": 0.3,
+      "method": "alibi",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 3.465736
+        },
+        {
+          "epoch": 131,
+          "loss": 0.605843
+        },
+        {
+          "epoch": 260,
+          "loss": 0.544344
+        }
+      ],
+      "weights": [
+        -0.0,
+        7.0895024,
+        4.55354024,
+        1.95488681
+      ]
+    },
+    {
+      "epochs": 260,
+      "final_training_loss": 0.356725,
+      "l2": 0.001,
+      "learning_rate": 0.3,
+      "method": "rope_relative",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 3.465736
+        },
+        {
+          "epoch": 131,
+          "loss": 0.373795
+        },
+        {
+          "epoch": 260,
+          "loss": 0.356725
+        }
+      ],
+      "weights": [
+        -0.0,
+        1.31687631,
+        0.60469096,
+        -0.21850504,
+        -0.07254833,
+        0.15171479,
+        0.16507538,
+        -0.02170061,
+        -0.01811472,
+        0.49470756,
+        0.01370682,
+        0.77429109,
+        1.38794807,
+        0.64220279,
+        0.22722384,
+        0.07440129,
+        0.02378676,
+        0.00754807,
+        0.00238952,
+        -0.23985387,
+        -0.03650238,
+        0.09434368,
+        0.19125463,
+        -0.20285625,
+        -0.04828282,
+        0.53974129,
+        0.1798988,
+        1.19033204,
+        2.19986577,
+        1.76312062,
+        1.47787694,
+        1.36988834,
+        1.33385371,
+        1.3222665,
+        1.31858299
+      ]
+    },
+    {
+      "epochs": 260,
+      "final_training_loss": 0.538236,
+      "l2": 0.001,
+      "learning_rate": 0.3,
+      "method": "sinusoidal",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 3.465736
+        },
+        {
+          "epoch": 131,
+          "loss": 0.60727
+        },
+        {
+          "epoch": 260,
+          "loss": 0.538236
+        }
+      ],
+      "weights": [
+        0.0,
+        6.58249217,
+        5.35305213,
+        0.02405056,
+        0.0705828,
+        0.02537851,
+        0.11005829,
+        0.08092193,
+        0.04340603,
+        0.47064823,
+        -0.20406881,
+        -0.18275274,
+        -0.09753229
+      ]
+    },
+    {
+      "epochs": 260,
+      "final_training_loss": 1.155873,
+      "l2": 0.001,
+      "learning_rate": 0.3,
+      "method": "phasewrap_score",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 3.465736
+        },
+        {
+          "epoch": 131,
+          "loss": 1.16734
+        },
+        {
+          "epoch": 260,
+          "loss": 1.155873
+        }
+      ],
+      "weights": [
+        0.0,
+        6.08850784,
+        -0.92085475,
+        0.77039639
+      ]
+    },
+    {
+      "epochs": 260,
+      "final_training_loss": 0.552503,
+      "l2": 0.001,
+      "learning_rate": 0.3,
+      "method": "phasewrap_residual_adapter",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 3.465736
+        },
+        {
+          "epoch": 131,
+          "loss": 0.625234
+        },
+        {
+          "epoch": 260,
+          "loss": 0.552503
+        }
+      ],
+      "weights": [
+        0.0,
+        6.0265224,
+        5.56008283,
+        -0.45920239,
+        0.03576473,
+        0.15743875,
+        -0.31690323,
+        1.41188173,
+        0.81586064,
+        0.68817864,
+        -1.08542265
+      ]
+    },
+    {
+      "epochs": 260,
+      "final_training_loss": 0.504322,
+      "l2": 0.001,
+      "learning_rate": 0.3,
+      "method": "phasewrap_distance_adapter",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 3.465736
+        },
+        {
+          "epoch": 131,
+          "loss": 0.549046
+        },
+        {
+          "epoch": 260,
+          "loss": 0.504322
+        }
+      ],
+      "weights": [
+        0.0,
+        6.59028293,
+        -0.45789462,
+        0.01946806,
+        0.17060327,
+        -0.32040005,
+        2.92811388,
+        -2.92811388,
+        1.50568026,
+        0.91778465,
+        0.77635218,
+        -1.18623864,
+        0.81821713,
+        -0.81821713
+      ]
+    }
+  ],
+  "validation_lengths": [
+    1024
+  ],
+  "validation_row_count": 20,
+  "weak_runs": [
+    {
+      "criterion": "test_top1_accuracy_below_0.5",
+      "method": "no_position",
+      "mrr": 0.325,
+      "top1_accuracy": 0.0
+    },
+    {
+      "criterion": "test_top1_accuracy_below_0.5",
+      "method": "phasewrap_score",
+      "mrr": 0.608333,
+      "top1_accuracy": 0.3
+    }
+  ]
+}

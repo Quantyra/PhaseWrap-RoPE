@@ -1,0 +1,35 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic compact key-value QA retrieval benchmark with explicit content keys and train-short/test-long contexts.",
+      "Evidence about whether positional mechanisms help select the latest matching key among distractors.",
+      "Bootstrap intervals over rows and reported weak runs under a predeclared top-1 threshold."
+    ]
+  },
+  "dataset": "deterministic_compact_key_value_qa_retrieval_v1",
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_score",
+    "phasewrap_residual_adapter",
+    "phasewrap_distance_adapter"
+  ],
+  "no_hardware_submission": true,
+  "result_path": "logs/automated_stage_gates/stage26_compact_kv_qa/results.json",
+  "schema_version": "qrope_stage26_compact_kv_qa_v1",
+  "stage": "stage26_compact_kv_qa",
+  "summary_csv_path": "logs/automated_stage_gates/stage26_compact_kv_qa/summary.csv",
+  "test_row_count": 20,
+  "train_row_count": 40,
+  "validation_row_count": 20,
+  "weak_runs_path": "logs/automated_stage_gates/stage26_compact_kv_qa/weak_runs.json"
+}

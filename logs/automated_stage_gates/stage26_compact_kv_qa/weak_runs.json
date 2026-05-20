@@ -1,0 +1,14 @@
+[
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "no_position",
+    "mrr": 0.325,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_score",
+    "mrr": 0.608333,
+    "top1_accuracy": 0.3
+  }
+]
