@@ -1,0 +1,56 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic train-short/test-long learned attention-readout comparison on non-phase-cued key-value rows.",
+      "Evidence about whether a nonlinear scorer over PhaseWrap-derived features preserves Stage 14 value retrieval behavior.",
+      "Bootstrap intervals over held-out test rows for top-1, MRR, and target value probability."
+    ]
+  },
+  "dataset": "deterministic_non_phase_cued_key_value_learned_attention_v1",
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_score",
+    "phasewrap_residual_adapter",
+    "phasewrap_distance_adapter"
+  ],
+  "model": {
+    "epochs": 180,
+    "hidden_dim": 8,
+    "trained_parameters": "feature-to-hidden weights, hidden bias, hidden-to-logit weights, logit bias",
+    "type": "one_hidden_layer_attention_scorer_over_positional_features"
+  },
+  "no_hardware_submission": true,
+  "result_path": "logs/automated_stage_gates/stage15_learned_attention/results.json",
+  "schema_version": "qrope_stage15_learned_attention_v1",
+  "stage": "stage15_learned_attention",
+  "summary_csv_path": "logs/automated_stage_gates/stage15_learned_attention/summary.csv",
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_summary_csv_path": "logs/automated_stage_gates/stage15_learned_attention/task_summary.csv",
+  "test_lengths": [
+    1024
+  ],
+  "test_row_count": 60,
+  "train_lengths": [
+    128,
+    256
+  ],
+  "train_row_count": 120,
+  "validation_lengths": [
+    512
+  ],
+  "validation_row_count": 60
+}

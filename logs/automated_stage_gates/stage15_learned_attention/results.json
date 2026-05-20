@@ -1,0 +1,1434 @@
+{
+  "best_method_by_top1_mrr": "phasewrap_distance_adapter",
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic train-short/test-long learned attention-readout comparison on non-phase-cued key-value rows.",
+      "Evidence about whether a nonlinear scorer over PhaseWrap-derived features preserves Stage 14 value retrieval behavior.",
+      "Bootstrap intervals over held-out test rows for top-1, MRR, and target value probability."
+    ]
+  },
+  "context_lengths": [
+    128,
+    256,
+    512,
+    1024
+  ],
+  "dataset": "deterministic_non_phase_cued_key_value_learned_attention_v1",
+  "examples_per_task_length": 4,
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_score",
+    "phasewrap_residual_adapter",
+    "phasewrap_distance_adapter"
+  ],
+  "model": {
+    "epochs": 180,
+    "hidden_dim": 8,
+    "trained_parameters": "feature-to-hidden weights, hidden bias, hidden-to-logit weights, logit bias",
+    "type": "one_hidden_layer_attention_scorer_over_positional_features"
+  },
+  "no_hardware_submission": true,
+  "schema_version": "qrope_stage15_learned_attention_v1",
+  "seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "selection_table": [
+    {
+      "loss": 0.681925,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.516181,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.977682,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.545538,
+      "target_value_probability_ci_low": 0.490221,
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.409745,
+      "mean_first_relevant_value_rank": 1.066667,
+      "mean_target_value_probability": 0.67821,
+      "method": "rope_relative",
+      "mrr": 0.966667,
+      "mrr_ci_high": 0.991667,
+      "mrr_ci_low": 0.933333,
+      "perplexity": 1.506434,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.708028,
+      "target_value_probability_ci_low": 0.642931,
+      "top1_accuracy": 0.933333,
+      "top1_ci_high": 0.983333,
+      "top1_ci_low": 0.85
+    },
+    {
+      "loss": 0.777678,
+      "mean_first_relevant_value_rank": 1.316667,
+      "mean_target_value_probability": 0.476457,
+      "method": "sinusoidal",
+      "mrr": 0.859722,
+      "mrr_ci_high": 0.913889,
+      "mrr_ci_low": 0.802778,
+      "perplexity": 2.176413,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.505503,
+      "target_value_probability_ci_low": 0.445063,
+      "top1_accuracy": 0.733333,
+      "top1_ci_high": 0.833333,
+      "top1_ci_low": 0.616667
+    },
+    {
+      "loss": 1.141449,
+      "mean_first_relevant_value_rank": 1.716667,
+      "mean_target_value_probability": 0.338508,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.718056,
+      "mrr_ci_high": 0.8,
+      "mrr_ci_low": 0.640278,
+      "perplexity": 3.131302,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.366666,
+      "target_value_probability_ci_low": 0.307704,
+      "top1_accuracy": 0.5,
+      "top1_ci_high": 0.616667,
+      "top1_ci_low": 0.383333
+    },
+    {
+      "loss": 3.228394,
+      "mean_first_relevant_value_rank": 12.216667,
+      "mean_target_value_probability": 0.04273,
+      "method": "alibi",
+      "mrr": 0.214748,
+      "mrr_ci_high": 0.289779,
+      "mrr_ci_low": 0.153077,
+      "perplexity": 25.239086,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.047658,
+      "target_value_probability_ci_low": 0.038672,
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.166667,
+      "top1_ci_low": 0.016667
+    },
+    {
+      "loss": 3.233878,
+      "mean_first_relevant_value_rank": 14.466667,
+      "mean_target_value_probability": 0.042635,
+      "method": "no_position",
+      "mrr": 0.195125,
+      "mrr_ci_high": 0.268153,
+      "mrr_ci_low": 0.127224,
+      "perplexity": 25.377885,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.04718,
+      "target_value_probability_ci_low": 0.038047,
+      "top1_accuracy": 0.083333,
+      "top1_ci_high": 0.166667,
+      "top1_ci_low": 0.016667
+    },
+    {
+      "loss": 3.042409,
+      "mean_first_relevant_value_rank": 14.3,
+      "mean_target_value_probability": 0.050945,
+      "method": "phasewrap_score",
+      "mrr": 0.147274,
+      "mrr_ci_high": 0.217219,
+      "mrr_ci_low": 0.091964,
+      "perplexity": 20.955656,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.056239,
+      "target_value_probability_ci_low": 0.046073,
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.1,
+      "top1_ci_low": 0.0
+    }
+  ],
+  "source_stage14_output_dir": "logs/automated_stage_gates/stage14_attention_readout",
+  "stage": "stage15_learned_attention",
+  "table": [
+    {
+      "loss": 3.233878,
+      "mean_first_relevant_value_rank": 14.466667,
+      "mean_target_value_probability": 0.042635,
+      "method": "no_position",
+      "mrr": 0.195125,
+      "mrr_ci_high": 0.268153,
+      "mrr_ci_low": 0.127224,
+      "perplexity": 25.377885,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.04718,
+      "target_value_probability_ci_low": 0.038047,
+      "top1_accuracy": 0.083333,
+      "top1_ci_high": 0.166667,
+      "top1_ci_low": 0.016667
+    },
+    {
+      "loss": 3.228394,
+      "mean_first_relevant_value_rank": 12.216667,
+      "mean_target_value_probability": 0.04273,
+      "method": "alibi",
+      "mrr": 0.214748,
+      "mrr_ci_high": 0.289779,
+      "mrr_ci_low": 0.153077,
+      "perplexity": 25.239086,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.047658,
+      "target_value_probability_ci_low": 0.038672,
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.166667,
+      "top1_ci_low": 0.016667
+    },
+    {
+      "loss": 0.409745,
+      "mean_first_relevant_value_rank": 1.066667,
+      "mean_target_value_probability": 0.67821,
+      "method": "rope_relative",
+      "mrr": 0.966667,
+      "mrr_ci_high": 0.991667,
+      "mrr_ci_low": 0.933333,
+      "perplexity": 1.506434,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.708028,
+      "target_value_probability_ci_low": 0.642931,
+      "top1_accuracy": 0.933333,
+      "top1_ci_high": 0.983333,
+      "top1_ci_low": 0.85
+    },
+    {
+      "loss": 0.777678,
+      "mean_first_relevant_value_rank": 1.316667,
+      "mean_target_value_probability": 0.476457,
+      "method": "sinusoidal",
+      "mrr": 0.859722,
+      "mrr_ci_high": 0.913889,
+      "mrr_ci_low": 0.802778,
+      "perplexity": 2.176413,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.505503,
+      "target_value_probability_ci_low": 0.445063,
+      "top1_accuracy": 0.733333,
+      "top1_ci_high": 0.833333,
+      "top1_ci_low": 0.616667
+    },
+    {
+      "loss": 3.042409,
+      "mean_first_relevant_value_rank": 14.3,
+      "mean_target_value_probability": 0.050945,
+      "method": "phasewrap_score",
+      "mrr": 0.147274,
+      "mrr_ci_high": 0.217219,
+      "mrr_ci_low": 0.091964,
+      "perplexity": 20.955656,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.056239,
+      "target_value_probability_ci_low": 0.046073,
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.1,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 1.141449,
+      "mean_first_relevant_value_rank": 1.716667,
+      "mean_target_value_probability": 0.338508,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.718056,
+      "mrr_ci_high": 0.8,
+      "mrr_ci_low": 0.640278,
+      "perplexity": 3.131302,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.366666,
+      "target_value_probability_ci_low": 0.307704,
+      "top1_accuracy": 0.5,
+      "top1_ci_high": 0.616667,
+      "top1_ci_low": 0.383333
+    },
+    {
+      "loss": 0.681925,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.516181,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.977682,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.545538,
+      "target_value_probability_ci_low": 0.490221,
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    }
+  ],
+  "task": {
+    "description": "Learned attention scorer over Stage 14 non-phase-cued key-value readout rows.",
+    "note": "This is a compact learned attention-readout benchmark, not a full decoder-only transformer or proof that PhaseWrap-RoPE replaces RoPE.",
+    "target_construction": "Targets are explicit retrieval-rule value tokens, not PhaseWrap-selected positions."
+  },
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_table": [
+    {
+      "loss": 3.392535,
+      "mean_first_relevant_value_rank": 13.3,
+      "mean_target_value_probability": 0.034848,
+      "method": "no_position",
+      "mrr": 0.164709,
+      "mrr_ci_high": 0.281039,
+      "mrr_ci_low": 0.084757,
+      "perplexity": 29.741265,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.039394,
+      "target_value_probability_ci_low": 0.030303,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.15,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 3.514204,
+      "mean_first_relevant_value_rank": 18.7,
+      "mean_target_value_probability": 0.030556,
+      "method": "no_position",
+      "mrr": 0.16411,
+      "mrr_ci_high": 0.29413,
+      "mrr_ci_low": 0.059058,
+      "perplexity": 33.589188,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.034722,
+      "target_value_probability_ci_low": 0.027778,
+      "task": "multi_needle",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 2.794895,
+      "mean_first_relevant_value_rank": 11.4,
+      "mean_target_value_probability": 0.0625,
+      "method": "no_position",
+      "mrr": 0.256556,
+      "mrr_ci_high": 0.394861,
+      "mrr_ci_low": 0.143022,
+      "perplexity": 16.360905,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.069444,
+      "target_value_probability_ci_low": 0.056944,
+      "task": "aggregation",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 3.394089,
+      "mean_first_relevant_value_rank": 15.85,
+      "mean_target_value_probability": 0.034816,
+      "method": "alibi",
+      "mrr": 0.178599,
+      "mrr_ci_high": 0.315282,
+      "mrr_ci_low": 0.063221,
+      "perplexity": 29.787511,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.039502,
+      "target_value_probability_ci_low": 0.030249,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 3.490591,
+      "mean_first_relevant_value_rank": 4.85,
+      "mean_target_value_probability": 0.031261,
+      "method": "alibi",
+      "mrr": 0.278929,
+      "mrr_ci_high": 0.398214,
+      "mrr_ci_low": 0.188571,
+      "perplexity": 32.805317,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.035446,
+      "target_value_probability_ci_low": 0.028453,
+      "task": "multi_needle",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 2.800502,
+      "mean_first_relevant_value_rank": 15.95,
+      "mean_target_value_probability": 0.062113,
+      "method": "alibi",
+      "mrr": 0.186717,
+      "mrr_ci_high": 0.324006,
+      "mrr_ci_low": 0.072147,
+      "perplexity": 16.452898,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.068686,
+      "target_value_probability_ci_low": 0.05664,
+      "task": "aggregation",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 0.363595,
+      "mean_first_relevant_value_rank": 1.1,
+      "mean_target_value_probability": 0.710085,
+      "method": "rope_relative",
+      "mrr": 0.95,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.875,
+      "perplexity": 1.438492,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.765261,
+      "target_value_probability_ci_low": 0.649072,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.9,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.75
+    },
+    {
+      "loss": 0.536045,
+      "mean_first_relevant_value_rank": 1.1,
+      "mean_target_value_probability": 0.594672,
+      "method": "rope_relative",
+      "mrr": 0.95,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 0.875,
+      "perplexity": 1.709234,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.646987,
+      "target_value_probability_ci_low": 0.548986,
+      "task": "multi_needle",
+      "top1_accuracy": 0.9,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 0.75
+    },
+    {
+      "loss": 0.329595,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.729874,
+      "method": "rope_relative",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.390406,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.779442,
+      "target_value_probability_ci_low": 0.672635,
+      "task": "aggregation",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.730869,
+      "mean_first_relevant_value_rank": 1.3,
+      "mean_target_value_probability": 0.501248,
+      "method": "sinusoidal",
+      "mrr": 0.8875,
+      "mrr_ci_high": 0.975,
+      "mrr_ci_low": 0.7625,
+      "perplexity": 2.076885,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.555268,
+      "target_value_probability_ci_low": 0.445534,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.8,
+      "top1_ci_high": 0.95,
+      "top1_ci_low": 0.6
+    },
+    {
+      "loss": 0.822639,
+      "mean_first_relevant_value_rank": 1.4,
+      "mean_target_value_probability": 0.452152,
+      "method": "sinusoidal",
+      "mrr": 0.816667,
+      "mrr_ci_high": 0.925,
+      "mrr_ci_low": 0.7,
+      "perplexity": 2.2765,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.498722,
+      "target_value_probability_ci_low": 0.40306,
+      "task": "multi_needle",
+      "top1_accuracy": 0.65,
+      "top1_ci_high": 0.85,
+      "top1_ci_low": 0.4
+    },
+    {
+      "loss": 0.779526,
+      "mean_first_relevant_value_rank": 1.25,
+      "mean_target_value_probability": 0.475972,
+      "method": "sinusoidal",
+      "mrr": 0.875,
+      "mrr_ci_high": 0.95,
+      "mrr_ci_low": 0.775,
+      "perplexity": 2.180439,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.534547,
+      "target_value_probability_ci_low": 0.418779,
+      "task": "aggregation",
+      "top1_accuracy": 0.75,
+      "top1_ci_high": 0.95,
+      "top1_ci_low": 0.55
+    },
+    {
+      "loss": 3.120234,
+      "mean_first_relevant_value_rank": 14.05,
+      "mean_target_value_probability": 0.045682,
+      "method": "phasewrap_score",
+      "mrr": 0.145608,
+      "mrr_ci_high": 0.264599,
+      "mrr_ci_low": 0.065969,
+      "perplexity": 22.651674,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.052432,
+      "target_value_probability_ci_low": 0.040396,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.15,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 3.223099,
+      "mean_first_relevant_value_rank": 15.75,
+      "mean_target_value_probability": 0.040993,
+      "method": "phasewrap_score",
+      "mrr": 0.127708,
+      "mrr_ci_high": 0.225591,
+      "mrr_ci_low": 0.057029,
+      "perplexity": 25.1058,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.046317,
+      "target_value_probability_ci_low": 0.036663,
+      "task": "multi_needle",
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.15,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 2.783893,
+      "mean_first_relevant_value_rank": 13.1,
+      "mean_target_value_probability": 0.066161,
+      "method": "phasewrap_score",
+      "mrr": 0.168506,
+      "mrr_ci_high": 0.27942,
+      "mrr_ci_low": 0.084698,
+      "perplexity": 16.181896,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.076751,
+      "target_value_probability_ci_low": 0.055898,
+      "task": "aggregation",
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.15,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 1.120734,
+      "mean_first_relevant_value_rank": 1.55,
+      "mean_target_value_probability": 0.352639,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.779167,
+      "mrr_ci_high": 0.9,
+      "mrr_ci_low": 0.658333,
+      "perplexity": 3.067104,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.404851,
+      "target_value_probability_ci_low": 0.289205,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.6,
+      "top1_ci_high": 0.8,
+      "top1_ci_low": 0.4
+    },
+    {
+      "loss": 1.180342,
+      "mean_first_relevant_value_rank": 1.85,
+      "mean_target_value_probability": 0.328014,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.695833,
+      "mrr_ci_high": 0.825,
+      "mrr_ci_low": 0.558333,
+      "perplexity": 3.255489,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.388666,
+      "target_value_probability_ci_low": 0.272116,
+      "task": "multi_needle",
+      "top1_accuracy": 0.5,
+      "top1_ci_high": 0.7,
+      "top1_ci_low": 0.3
+    },
+    {
+      "loss": 1.123271,
+      "mean_first_relevant_value_rank": 1.75,
+      "mean_target_value_probability": 0.334871,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.679167,
+      "mrr_ci_high": 0.8,
+      "mrr_ci_low": 0.566667,
+      "perplexity": 3.074895,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.374286,
+      "target_value_probability_ci_low": 0.298469,
+      "task": "aggregation",
+      "top1_accuracy": 0.4,
+      "top1_ci_high": 0.65,
+      "top1_ci_low": 0.2
+    },
+    {
+      "loss": 0.714524,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.498528,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 2.043215,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.543175,
+      "target_value_probability_ci_low": 0.455255,
+      "task": "passkey_exact",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.626907,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.545433,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.871812,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.594179,
+      "target_value_probability_ci_low": 0.497756,
+      "task": "multi_needle",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.704345,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.504583,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 2.022522,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.554085,
+      "target_value_probability_ci_low": 0.45898,
+      "task": "aggregation",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    }
+  ],
+  "test_lengths": [
+    1024
+  ],
+  "test_row_count": 60,
+  "train_lengths": [
+    128,
+    256
+  ],
+  "train_row_count": 120,
+  "training_records": [
+    {
+      "epochs": 180,
+      "final_training_loss": 2.276245,
+      "hidden_dim": 8,
+      "l2": 0.001,
+      "learning_rate": 0.2,
+      "method": "no_position",
+      "params": {
+        "b1": [
+          -0.0,
+          -0.0,
+          -0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "b2": [
+          0.0
+        ],
+        "w1": [
+          [
+            -0.01383525,
+            0.02771971,
+            0.01563489,
+            -0.01601097,
+            -0.04584621,
+            0.00864411,
+            -0.02040536,
+            -0.02851305
+          ]
+        ],
+        "w2": [
+          -0.05315009,
+          -0.07063835,
+          -0.0143073,
+          0.00075683,
+          0.04246189,
+          0.01914587,
+          0.0022876,
+          0.01604124
+        ]
+      },
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.276246
+        },
+        {
+          "epoch": 46,
+          "loss": 2.276245
+        },
+        {
+          "epoch": 91,
+          "loss": 2.276245
+        },
+        {
+          "epoch": 180,
+          "loss": 2.276245
+        }
+      ]
+    },
+    {
+      "epochs": 180,
+      "final_training_loss": 2.274075,
+      "hidden_dim": 8,
+      "l2": 0.001,
+      "learning_rate": 0.2,
+      "method": "alibi",
+      "params": {
+        "b1": [
+          -2.126e-05,
+          0.00023341,
+          -0.00055226,
+          -4.798e-05,
+          -0.00045965,
+          -2.597e-05,
+          0.00020879,
+          -3.709e-05
+        ],
+        "b2": [
+          -0.0
+        ],
+        "w1": [
+          [
+            0.00340524,
+            0.0300135,
+            0.0326325,
+            0.00300044,
+            -0.0809561,
+            0.0091807,
+            -0.01185322,
+            0.02252231
+          ],
+          [
+            -0.03872303,
+            0.10318128,
+            -0.08522641,
+            -0.04764499,
+            -0.1807379,
+            -0.03298826,
+            0.0708569,
+            -0.04437358
+          ]
+        ],
+        "w2": [
+          -0.02912995,
+          0.11126558,
+          -0.08945682,
+          -0.03892096,
+          -0.17625175,
+          -0.0306644,
+          0.06236094,
+          -0.03124536
+        ]
+      },
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.276163
+        },
+        {
+          "epoch": 46,
+          "loss": 2.275957
+        },
+        {
+          "epoch": 91,
+          "loss": 2.275627
+        },
+        {
+          "epoch": 180,
+          "loss": 2.274075
+        }
+      ]
+    },
+    {
+      "epochs": 180,
+      "final_training_loss": 0.208258,
+      "hidden_dim": 8,
+      "l2": 0.001,
+      "learning_rate": 0.2,
+      "method": "rope_relative",
+      "params": {
+        "b1": [
+          -0.04643622,
+          0.1902281,
+          -0.28023247,
+          0.08273199,
+          0.0589308,
+          -0.01961716,
+          -0.07027287,
+          0.20391027
+        ],
+        "b2": [
+          0.0
+        ],
+        "w1": [
+          [
+            -0.02631458,
+            0.16290028,
+            -0.26280381,
+            0.07981665,
+            0.05256825,
+            0.02071725,
+            -0.06884045,
+            0.22361977
+          ],
+          [
+            0.03842331,
+            -0.36616664,
+            0.7201739,
+            -0.21949316,
+            -0.12212495,
+            0.04318004,
+            0.1110624,
+            -0.39983716
+          ],
+          [
+            -0.00853689,
+            -0.34281704,
+            0.44386871,
+            -0.08774711,
+            -0.01241639,
+            0.05123575,
+            0.03272078,
+            -0.44601438
+          ],
+          [
+            -0.09147697,
+            -0.05622586,
+            0.29547442,
+            0.26914263,
+            0.1851222,
+            -0.09151578,
+            -0.18204415,
+            -0.10084109
+          ],
+          [
+            -0.02471936,
+            -0.08352475,
+            0.23289442,
+            0.29002837,
+            0.10722452,
+            0.01922984,
+            -0.12412599,
+            -0.04294894
+          ],
+          [
+            -0.09182082,
+            -0.16835429,
+            0.25233107,
+            0.11467112,
+            0.04553615,
+            -0.00413462,
+            -0.05981629,
+            -0.20526089
+          ],
+          [
+            0.25469055,
+            -0.33303526,
+            0.34591712,
+            -0.38452249,
+            -0.26371054,
+            0.12612203,
+            0.34165097,
+            -0.33721907
+          ],
+          [
+            0.30701844,
+            -0.22473368,
+            0.23756881,
+            -0.4682742,
+            -0.40137359,
+            0.17446111,
+            0.40754304,
+            -0.27099609
+          ],
+          [
+            0.23784916,
+            -0.1610846,
+            0.17950365,
+            -0.39313512,
+            -0.24219436,
+            0.15996496,
+            0.32966097,
+            -0.19965195
+          ],
+          [
+            0.11275901,
+            -0.00595068,
+            -0.05343228,
+            -0.19048574,
+            -0.10822297,
+            0.06952416,
+            0.12354332,
+            0.04123959
+          ],
+          [
+            0.00472094,
+            0.11751787,
+            -0.23113141,
+            0.00416419,
+            -0.01388652,
+            -0.0137016,
+            -0.00320483,
+            0.13986887
+          ],
+          [
+            -0.03045845,
+            0.16189613,
+            -0.29605449,
+            0.03333041,
+            0.00647284,
+            -0.07024222,
+            -0.07596031,
+            0.21593777
+          ],
+          [
+            -0.04415443,
+            0.19212901,
+            -0.26990082,
+            0.10896119,
+            0.03647542,
+            0.00680445,
+            -0.05600885,
+            0.22229148
+          ],
+          [
+            -0.0012028,
+            0.23591914,
+            -0.26308125,
+            0.09744566,
+            0.04750143,
+            -0.01211021,
+            -0.06570745,
+            0.22080634
+          ],
+          [
+            -0.04778843,
+            0.23581758,
+            -0.28945952,
+            0.11261265,
+            0.08240109,
+            -0.00275323,
+            -0.08040607,
+            0.21326754
+          ],
+          [
+            -0.00114447,
+            0.1916577,
+            -0.2938545,
+            0.1042568,
+            0.03665077,
+            -0.03799683,
+            -0.03437273,
+            0.21015144
+          ],
+          [
+            -0.06266758,
+            0.18926496,
+            -0.24283552,
+            0.04753536,
+            0.05832642,
+            0.01439731,
+            -0.03498117,
+            0.214455
+          ]
+        ],
+        "w2": [
+          0.53574557,
+          -0.9258199,
+          1.35063276,
+          -1.05330799,
+          -0.68033315,
+          0.31663819,
+          0.82206208,
+          -1.06851571
+        ]
+      },
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.28062
+        },
+        {
+          "epoch": 46,
+          "loss": 0.249159
+        },
+        {
+          "epoch": 91,
+          "loss": 0.231882
+        },
+        {
+          "epoch": 180,
+          "loss": 0.208258
+        }
+      ]
+    },
+    {
+      "epochs": 180,
+      "final_training_loss": 0.250678,
+      "hidden_dim": 8,
+      "l2": 0.001,
+      "learning_rate": 0.2,
+      "method": "sinusoidal",
+      "params": {
+        "b1": [
+          0.05455432,
+          -0.81233654,
+          -0.26511454,
+          -7.236e-05,
+          1.25054029,
+          -0.1887809,
+          -0.38625631,
+          0.03797563
+        ],
+        "b2": [
+          -0.0
+        ],
+        "w1": [
+          [
+            0.04129134,
+            -0.82166155,
+            -0.25847382,
+            0.02798489,
+            1.21366692,
+            -0.17786668,
+            -0.34046074,
+            0.02730892
+          ],
+          [
+            0.06638845,
+            0.60574453,
+            0.06350499,
+            0.01066109,
+            -0.97531943,
+            -0.00254253,
+            0.17186597,
+            -0.04567723
+          ],
+          [
+            0.05378287,
+            0.29306376,
+            -0.0752654,
+            0.0052058,
+            -0.54293805,
+            -0.09962606,
+            -0.02552121,
+            0.0272707
+          ],
+          [
+            0.00827078,
+            0.33064192,
+            -0.04927902,
+            0.0155223,
+            -0.47833977,
+            0.02830618,
+            0.04091483,
+            -0.01166757
+          ],
+          [
+            0.17766383,
+            0.16700479,
+            -0.22683276,
+            -0.07946077,
+            -0.45404959,
+            -0.2539807,
+            -0.22738273,
+            0.05868661
+          ],
+          [
+            -0.23704725,
+            0.41719425,
+            0.34191554,
+            0.03636734,
+            -0.56500675,
+            0.26035516,
+            0.36856175,
+            -0.09653077
+          ]
+        ],
+        "w2": [
+          -0.36031102,
+          1.10283997,
+          0.62586299,
+          0.05948684,
+          -1.89660982,
+          0.53012518,
+          0.70904069,
+          -0.17475473
+        ]
+      },
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.271464
+        },
+        {
+          "epoch": 46,
+          "loss": 0.327851
+        },
+        {
+          "epoch": 91,
+          "loss": 0.279021
+        },
+        {
+          "epoch": 180,
+          "loss": 0.250678
+        }
+      ]
+    },
+    {
+      "epochs": 180,
+      "final_training_loss": 2.051609,
+      "hidden_dim": 8,
+      "l2": 0.001,
+      "learning_rate": 0.2,
+      "method": "phasewrap_score",
+      "params": {
+        "b1": [
+          -0.08175116,
+          0.10531352,
+          0.37397229,
+          0.15294697,
+          0.02287466,
+          -0.00195917,
+          -0.31844434,
+          0.03047437
+        ],
+        "b2": [
+          0.0
+        ],
+        "w1": [
+          [
+            -0.04301503,
+            0.13629258,
+            0.34874242,
+            0.13481305,
+            0.0217428,
+            0.02444025,
+            -0.32406852,
+            0.01997099
+          ],
+          [
+            0.24578907,
+            -0.30054349,
+            -0.6731904,
+            -0.33599666,
+            -0.16856446,
+            0.07539144,
+            0.5938598,
+            -0.18262049
+          ]
+        ],
+        "w2": [
+          -0.29719338,
+          0.3364592,
+          0.69478666,
+          0.39077055,
+          0.18443765,
+          -0.07610986,
+          -0.61827465,
+          0.20378869
+        ]
+      },
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.277732
+        },
+        {
+          "epoch": 46,
+          "loss": 2.117391
+        },
+        {
+          "epoch": 91,
+          "loss": 2.0692
+        },
+        {
+          "epoch": 180,
+          "loss": 2.051609
+        }
+      ]
+    },
+    {
+      "epochs": 180,
+      "final_training_loss": 0.445365,
+      "hidden_dim": 8,
+      "l2": 0.001,
+      "learning_rate": 0.2,
+      "method": "phasewrap_residual_adapter",
+      "params": {
+        "b1": [
+          1.2510081,
+          -0.07692174,
+          -0.25634338,
+          -0.56803935,
+          -0.32344857,
+          0.04535697,
+          0.03115078,
+          0.0354377
+        ],
+        "b2": [
+          0.0
+        ],
+        "w1": [
+          [
+            1.16914048,
+            -0.00765564,
+            -0.24270091,
+            -0.60498344,
+            -0.38116922,
+            0.01643421,
+            -0.01246484,
+            0.0430281
+          ],
+          [
+            0.09017552,
+            -0.05315016,
+            -0.08572395,
+            -0.08762282,
+            -0.10344898,
+            0.02726373,
+            0.06176292,
+            0.04451204
+          ],
+          [
+            -0.77026682,
+            -0.01418084,
+            -0.09369362,
+            0.11921351,
+            -0.07665187,
+            0.07120347,
+            0.08633059,
+            0.04474409
+          ],
+          [
+            -0.36838204,
+            0.09768753,
+            0.24900235,
+            0.27501199,
+            0.31975326,
+            -0.17043983,
+            -0.14637632,
+            -0.13503627
+          ],
+          [
+            -1.56798173,
+            0.10839072,
+            0.1880083,
+            0.61193541,
+            0.26059351,
+            -0.07302798,
+            -0.08857392,
+            -0.08929737
+          ]
+        ],
+        "w2": [
+          -2.14507104,
+          0.24135606,
+          0.49698062,
+          0.84434849,
+          0.59180322,
+          -0.24462838,
+          -0.21313695,
+          -0.20589355
+        ]
+      },
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.273702
+        },
+        {
+          "epoch": 46,
+          "loss": 0.567574
+        },
+        {
+          "epoch": 91,
+          "loss": 0.497414
+        },
+        {
+          "epoch": 180,
+          "loss": 0.445365
+        }
+      ]
+    },
+    {
+      "epochs": 180,
+      "final_training_loss": 0.267402,
+      "hidden_dim": 8,
+      "l2": 0.001,
+      "learning_rate": 0.2,
+      "method": "phasewrap_distance_adapter",
+      "params": {
+        "b1": [
+          -0.07407789,
+          -0.46811836,
+          -0.01382879,
+          -0.05772343,
+          -0.01985024,
+          -0.18034874,
+          -0.02558632,
+          0.00632573
+        ],
+        "b2": [
+          0.0
+        ],
+        "w1": [
+          [
+            -0.02810412,
+            -0.42728121,
+            0.01248191,
+            -0.05071063,
+            -0.01721722,
+            -0.14150177,
+            -0.07952958,
+            0.01331327
+          ],
+          [
+            -0.08309061,
+            0.06233462,
+            -0.04165918,
+            -0.05298521,
+            0.02099226,
+            0.00239456,
+            -0.00452682,
+            -0.02600796
+          ],
+          [
+            -0.07011307,
+            0.30019419,
+            -0.08025869,
+            -0.08268492,
+            -0.01907802,
+            -0.01939825,
+            0.03668873,
+            -0.00575755
+          ],
+          [
+            0.10596012,
+            0.09400298,
+            0.09704167,
+            0.14070255,
+            0.03052806,
+            0.23972527,
+            0.03445326,
+            -0.01649155
+          ],
+          [
+            0.0362552,
+            0.66263785,
+            -0.044389,
+            0.05258901,
+            0.00937656,
+            0.20045915,
+            0.07464436,
+            0.01146876
+          ],
+          [
+            0.95456468,
+            1.3892417,
+            1.08707377,
+            1.07693474,
+            0.40002261,
+            1.33775226,
+            1.12911507,
+            -0.30662456
+          ],
+          [
+            -0.08089745,
+            -0.06479461,
+            -0.04233012,
+            -0.08349585,
+            -0.02514914,
+            -0.11120154,
+            -0.09517702,
+            0.061731
+          ]
+        ],
+        "w2": [
+          1.05438507,
+          1.70027284,
+          1.17132256,
+          1.18424345,
+          0.41120473,
+          1.51732268,
+          1.23492771,
+          -0.31310108
+        ]
+      },
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.275036
+        },
+        {
+          "epoch": 46,
+          "loss": 0.423355
+        },
+        {
+          "epoch": 91,
+          "loss": 0.321404
+        },
+        {
+          "epoch": 180,
+          "loss": 0.267402
+        }
+      ]
+    }
+  ],
+  "validation_lengths": [
+    512
+  ],
+  "validation_row_count": 60
+}
