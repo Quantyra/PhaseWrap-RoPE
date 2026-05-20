@@ -1,0 +1,107 @@
+{
+  "account_setup_check": {
+    "checked": false,
+    "reason": "Amazon Braket user-agreement acceptance is validated only when CreateQuantumTask is called; hardware execution records any AccessDeniedException as a hardware blocker."
+  },
+  "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+  "backend_configured": true,
+  "backend_metadata": {
+    "aws_account_id": "485386182336",
+    "aws_caller_arn": "arn:aws:iam::485386182336:user/cyint-ea",
+    "aws_user_id": "AIDAXCA2FL3ACHEZM2KJ6",
+    "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+    "captured_at_utc": "2026-05-19T10:07:06Z",
+    "device_arn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+    "device_cost": {
+      "price": 0.000425,
+      "unit": "shot"
+    },
+    "device_name": "Cepheus-1-108Q",
+    "device_status": "ONLINE",
+    "device_type": "QPU",
+    "execution_windows": [
+      {
+        "executionDay": "Everyday",
+        "windowEndHour": "06:59:59",
+        "windowStartHour": "00:00:00"
+      },
+      {
+        "executionDay": "Everyday",
+        "windowEndHour": "19:00:00",
+        "windowStartHour": "09:00:00"
+      },
+      {
+        "executionDay": "Everyday",
+        "windowEndHour": "23:59:59",
+        "windowStartHour": "21:00:00"
+      }
+    ],
+    "operation_compatibility_pass": true,
+    "output_s3_bucket": "amazon-braket-us-west-1-485386182336",
+    "output_s3_bucket_location": "us-west-1",
+    "output_s3_bucket_name_pass": true,
+    "provider": "amazon_braket",
+    "provider_name": "Rigetti",
+    "required_operations": [
+      "ry"
+    ],
+    "shot_range_pass": true,
+    "shots_range": [
+      10,
+      50000
+    ],
+    "supported_operations": [
+      "barrier",
+      "ccnot",
+      "cnot",
+      "cphaseshift",
+      "cphaseshift00",
+      "cphaseshift01",
+      "cphaseshift10",
+      "cswap",
+      "cz",
+      "h",
+      "i",
+      "iswap",
+      "phaseshift",
+      "pswap",
+      "rx",
+      "ry",
+      "rz",
+      "s",
+      "si",
+      "swap",
+      "t",
+      "ti",
+      "x",
+      "xy",
+      "y",
+      "z"
+    ]
+  },
+  "blockers": [],
+  "budget_cap_usd": 10.0,
+  "estimated_packet_cost_usd": 0.425,
+  "metadata_capture_available": true,
+  "note": "READY is not a hardware PASS; hardware PASS requires completed job records and metric gates.",
+  "provider": "amazon_braket",
+  "provider_configured": true,
+  "queue_check": {
+    "checked": false,
+    "queue_depth_cap": null,
+    "reason": "Amazon Braket queue depth is not exposed through this preflight"
+  },
+  "row_count": 8,
+  "shot_count": 1000,
+  "status": "READY",
+  "token_presence": {
+    "AWS_ACCESS_KEY_ID": false,
+    "AWS_PROFILE": false,
+    "AWS_SESSION_TOKEN": false,
+    "IBM_QUANTUM_TOKEN": false,
+    "QISKIT_IBM_TOKEN": false,
+    "QUANDELA_CLOUD_TOKEN": false,
+    "QUANDELA_TOKEN": false,
+    "XANADU_CLOUD_KEY": false
+  }
+}

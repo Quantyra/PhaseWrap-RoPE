@@ -15,8 +15,25 @@ This plan separates saved-count recomputation from independent replication.
 
 | Circuit family | Status | Claim boundary |
 | --- | --- | --- |
-| `two_qubit_zz_expectation_phase_wrap_v1` | Executed once on `ibm_fez` | Product-state angle-encoding/readout witness. |
-| `two_qubit_cx_parity_phase_wrap_v2` | Executed across IBM `ibm_kingston`, `ibm_marrakesh`, `ibm_fez`, and IonQ `ionq_qpu` | Entangling CX witness variant. Hardware evidence recorded in the comparison report. |
+| `two_qubit_zz_expectation_phase_wrap_v1` | Completed as hardware-positive on IBM Fez and Amazon Braket/Rigetti Cepheus | Product-state angle-encoding/readout witness. Supports only the recorded packet/backend/date/calibration-specific positive results; it is not entanglement evidence. |
+| `two_qubit_cx_parity_phase_wrap_v2` | Completed as hardware-positive on IBM Fez and as provider-aware hardware-positive on Braket/Rigetti and Braket/IQM after no-hardware ideal-count rehearsal | Entangling CX witness variant. Supports only the recorded packet/backend/date/calibration-specific positive results under manifest-declared bitstring decoding; this is not a general cross-backend robustness claim. |
+
+## No-hardware CX rehearsal
+
+The CX lane has a local ideal-count rehearsal artifact:
+
+- artifact directory: `logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal/`
+- command: `python scripts/prepare_stage4_cx_rehearsal.py`
+- family: `two_qubit_cx_parity_phase_wrap_v2`
+- rows: `16`
+- shots: `4096`
+- witness MAE: `0.000051`
+- witness rank correlation: `1.000000`
+- control MAE: `0.229743`
+- control rank correlation: `-0.171995`
+- gate pass: `true`
+
+This rehearsal uses deterministic ideal counts and submits no hardware job. It is readiness evidence for the packet/evaluation mechanics only, not Stage 4 hardware evidence.
 
 ## Minimum replication matrix
 
@@ -33,7 +50,7 @@ This plan separates saved-count recomputation from independent replication.
 - Optional IBM Cloud instance CRN through `IBM_QUANTUM_INSTANCE_CRN`.
 - Runtime dependencies installed:
 
-Current provider posture (2026-05-19): only IBM hardware backends are used for Stage 4 replication runs. `ionq_qpu` and `ionq` `QPU Targets` are not currently enabled, and Quandela Stage 4 execution remains configured to simulator profiles unless explicitly changed.
+Current provider posture (2026-05-19): IBM Fez and Amazon Braket/Rigetti have active Stage 4 evidence paths in this repository. The Braket/Rigetti product-state artifact is present and machine-verifiable. The IBM Fez CX artifact is present and machine-verifiable as hardware-positive. Braket CX executions on Rigetti Cepheus, IQM Garnet, and IQM Emerald are present and machine-verifiable as hardware-positive under provider-aware `q0q1` Amazon Braket decoding. Additional IBM backends remain deferred from the active public sweep unless real per-backend/per-family raw-count artifacts are added. IonQ is excluded from the active sweep: the current intended IonQ route is Amazon Braket, but the checked Braket IonQ devices were unavailable on 2026-05-19: `Forte-1` and `Forte-Enterprise-1` were `OFFLINE`, and `Aria-1` was `RETIRED`; no IonQ hardware task was submitted. AQT IBEX Q1 was online but deferred because the estimated cost for an 8-row 1000-shot CX run was about `$188`. Quandela Stage 4 execution remains configured to simulator profiles unless explicitly changed.
 
 ```bash
 python -m pip install -e ".[ibm]"

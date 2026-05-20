@@ -1,56 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">PhaseWrap-RoPE method schematic</title>
-  <desc id="desc">A clean schematic showing residuals mapped into mod-8 and mod-12 margins and combined into a PhaseWrap-RoPE score.</desc>
+  <title id="title">PhaseWrap-RoPE phase-wrap scoring schematic</title>
+  <desc id="desc">A claim-bounded schematic from modular residuals to signed margins, SQR score, and small-circuit witness.</desc>
+
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
-      <path d="M1,1 L9,5 L1,9 Z" fill="#334155"/>
-    </marker>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f3ea"/>
+      <stop offset="1" stop-color="#e7f0ed"/>
+    </linearGradient>
     <style>
-      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
-      .subtitle { font: 400 17px Arial, sans-serif; fill: #475569; }
-      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 10; }
-      .band8 { fill: #e6f4f1; stroke: #0f766e; stroke-width: 2; rx: 10; }
-      .band12 { fill: #fff3e0; stroke: #b45309; stroke-width: 2; rx: 10; }
-      .score { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 10; }
-      .label { font: 700 21px Arial, sans-serif; fill: #111827; }
-      .body { font: 400 16px Arial, sans-serif; fill: #475569; }
-      .mono { font: 700 20px Consolas, monospace; fill: #111827; }
-      .small { font: 400 13px Arial, sans-serif; fill: #64748b; }
-      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .title { font: 700 34px Georgia, serif; fill: #1d2523; }
+      .sub { font: 500 16px Georgia, serif; fill: #56645f; }
+      .label { font: 700 17px Georgia, serif; fill: #1d2523; }
+      .small { font: 500 13px Georgia, serif; fill: #56645f; }
+      .tiny { font: 500 11px Georgia, serif; fill: #6d7974; }
+      .mono { font: 700 14px Consolas, monospace; fill: #1d2523; }
+      .panel { fill: #fffdf8; stroke: #cfc6b6; stroke-width: 1.6; rx: 24; }
+      .ink { stroke: #1d2523; stroke-width: 2; fill: none; }
+      .grid { stroke: #d7d0c2; stroke-width: 1; stroke-dasharray: 4 7; }
+      .teal { fill: #0f766e; }
+      .amber { fill: #b7791f; }
+      .red { fill: #9f3a38; }
+      .blue { fill: #2f5d86; }
     </style>
   </defs>
 
-  <rect width="1200" height="675" fill="#ffffff"/>
-  <text x="70" y="76" class="title">PhaseWrap-RoPE scoring</text>
-  <text x="70" y="108" class="subtitle">The method converts positional residuals into two modular margins and multiplies them into a bounded cross-band score.</text>
-
-  <rect x="70" y="220" width="230" height="190" class="box"/>
-  <text x="100" y="272" class="label">Residual input</text>
-  <text x="100" y="310" class="body">Integer offset pair</text>
-  <text x="100" y="354" class="mono">delta_a, delta_b</text>
-
-  <path d="M315 315 L388 315" class="arrow"/>
-
-  <rect x="408" y="160" width="324" height="160" class="band8"/>
-  <text x="440" y="212" class="label">mod-8 margin</text>
-  <text x="440" y="248" class="body">One-step boundary</text>
-  <text x="440" y="284" class="mono">m8 = cos(r8)</text>
-  <text x="440" y="310" class="mono">     - cos(pi/4)</text>
-
-  <rect x="408" y="350" width="324" height="160" class="band12"/>
-  <text x="440" y="402" class="label">mod-12 margin</text>
-  <text x="440" y="438" class="body">One-step boundary</text>
-  <text x="440" y="474" class="mono">m12 = cos(r12)</text>
-  <text x="440" y="500" class="mono">      - cos(pi/6)</text>
-
-  <path d="M742 238 C800 238, 810 315, 870 315" class="arrow"/>
-  <path d="M742 430 C800 430, 810 315, 870 315" class="arrow"/>
-
-  <rect x="890" y="220" width="240" height="190" class="score"/>
-  <text x="920" y="272" class="label">Cross-band score</text>
-  <text x="920" y="314" class="mono">score = m8 * m12</text>
-  <text x="920" y="356" class="body">Normalized into packet labels</text>
-
-  <line x1="70" y1="585" x2="1130" y2="585" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="70" y="616" class="small">Figure 1. PhaseWrap-RoPE method schematic. The formula block in the paper is normative.</text>
+  <rect width="1200" height="675" fill="url(#paper)"/>
+  <text x="64" y="74" class="title">PhaseWrap-RoPE phase-wrap scoring</text>
+  <text x="64" y="105" class="sub">Conceptual method figure; formulas in the paper are normative.</text>
+  <rect x="70" y="155" width="240" height="135" class="panel"/>
+  <text x="100" y="205" class="label">1. Wrapped residuals</text><text x="100" y="235" class="mono">r8, r12</text><text x="100" y="260" class="small">periods 8 and 12</text>
+  <path d="M315 222 H410" class="ink"/><path d="M398 210 L418 222 L398 234" class="ink"/>
+  <rect x="430" y="155" width="270" height="135" class="panel"/>
+  <text x="460" y="197" class="label">2. One-step margins</text><text x="460" y="229" class="mono">m8 = cos(r8)-cos(pi/4)</text><text x="460" y="254" class="mono">m12 = cos(r12)-cos(pi/6)</text>
+  <path d="M705 222 H800" class="ink"/><path d="M788 210 L808 222 L788 234" class="ink"/>
+  <rect x="820" y="155" width="310" height="135" class="panel"/>
+  <text x="850" y="203" class="label">3. Cross-band score</text><text x="850" y="236" class="mono">SQR = m8 * m12</text><text x="850" y="260" class="small">bounded label from fixed grid scale</text>
+  <rect x="160" y="385" width="380" height="150" class="panel"/>
+  <text x="195" y="433" class="label">Product-state hardware witness</text><text x="195" y="463" class="mono">RY(theta0), RY(theta1), measure</text><text x="195" y="491" class="small">Published Stage 4 evidence: one backend/date only.</text>
+  <rect x="660" y="385" width="380" height="150" class="panel"/>
+  <text x="695" y="433" class="label">Entangling CX variant</text><text x="695" y="463" class="mono">RY, RY, CX(q0-&gt;q1), measure</text><text x="695" y="491" class="small">Bounded IBM and Braket evidence.</text>
+  <path d="M565 290 C565 340 350 340 350 380" class="ink"/><path d="M565 290 C565 340 850 340 850 380" class="ink"/>
+  <rect x="300" y="585" width="600" height="44" rx="16" fill="#fffdf8" stroke="#cfc6b6"/>
+  <text x="333" y="613" class="small">Claim boundary: method and bounded evidence lane, not broad quantum advantage.</text>
 </svg>

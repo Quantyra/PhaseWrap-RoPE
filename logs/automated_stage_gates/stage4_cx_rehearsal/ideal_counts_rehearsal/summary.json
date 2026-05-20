@@ -1,0 +1,24 @@
+{
+  "backend": "ideal_counts_rehearsal",
+  "claim_boundary": "This artifact checks CX packet/evaluator mechanics under ideal counts only. It is not hardware evidence.",
+  "control": {
+    "mae": 0.229743,
+    "rank_correlation": -0.171995
+  },
+  "evaluation_outcome": "hardware-positive",
+  "fail_reasons": [],
+  "family": "two_qubit_cx_parity_phase_wrap_v2",
+  "fixture_type": "local ideal-count rehearsal; not real Stage 4 hardware evidence",
+  "gate_pass": true,
+  "hardware_submitted": false,
+  "outcome": "ideal-count-positive",
+  "packet_id": "qrope-hardware-2538a196e2d7f302",
+  "provider": "local_rehearsal",
+  "rows": 16,
+  "shots": 4096,
+  "status": "PASS",
+  "witness": {
+    "mae": 5.1e-05,
+    "rank_correlation": 1.0
+  }
+}

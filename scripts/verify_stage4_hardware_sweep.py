@@ -1,19 +1,17 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-if str(REPO_ROOT / "src") not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from qrope.automated_stage_gates import (  # noqa: E402
+from qrope.automated_stage_gates import (
     ENTANGLING_CX_CIRCUIT_FAMILY,
-    PRODUCT_STATE_CIRCUIT_FAMILY,
+    counts_to_expectations,
     evaluate_hardware_execution,
     evaluate_prediction_values,
 )
@@ -22,275 +20,397 @@ from qrope.automated_stage_gates import (  # noqa: E402
 DEFAULT_SWEEP_DIR = REPO_ROOT / "logs" / "automated_stage_gates" / "stage4_hardware_sweep"
 DEFAULT_MANIFEST = DEFAULT_SWEEP_DIR / "manifest.json"
 DEFAULT_OUTPUT = DEFAULT_SWEEP_DIR / "offline_verification.json"
-METRIC_TOLERANCE = 1e-6
 
-REQUIRED_RECORD_FIELDS = {
-    "record_id",
-    "provider",
-    "backend",
-    "family",
-    "status",
-    "shots",
-    "rows",
-    "packet_path",
-    "execution_path",
-    "evaluation_path",
-    "summary_path",
-}
-SUPPORTED_MANIFEST_VERSIONS = {
-    "stage4_hardware_sweep_manifest_v1",
-    "stage4_simulation_sweep_manifest_v1",
-}
-SUPPORTED_FAMILIES = {PRODUCT_STATE_CIRCUIT_FAMILY, ENTANGLING_CX_CIRCUIT_FAMILY}
+MANIFEST_SCHEMA_VERSION = "qrope_stage4_hardware_sweep_manifest_v1"
+VERIFIER_VERSION = "qrope_stage4_hardware_sweep_offline_verifier_v1"
+METRIC_TOLERANCE = 1e-6
+FORBIDDEN_SUPPORTED_CLAIMS = [
+    "quantum advantage proven",
+    "transformer superiority proven",
+    "general cross-backend robustness established",
+    "production llm improvement",
+]
 
 
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def json_hash(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def write_json(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def resolve_manifest_path(raw_path: str | None, manifest_path: Path) -> Path | None:
+def resolve_manifest_path(manifest_path: Path, raw_path: str | None) -> Path | None:
     if not raw_path:
         return None
-    candidate = Path(raw_path)
-    if candidate.is_absolute():
-        return candidate
-    manifest_relative = manifest_path.parent / candidate
-    if manifest_relative.exists():
-        return manifest_relative
-    return REPO_ROOT / candidate
+    path = Path(raw_path)
+    if path.is_absolute():
+        return path
+    repo_relative = REPO_ROOT / path
+    if repo_relative.exists():
+        return repo_relative
+    return manifest_path.parent / path
 
 
-def select_metrics(payload: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "status": payload.get("status"),
-        "outcome": payload.get("outcome"),
-        "gate_pass": payload.get("gate_pass"),
-        "witness": payload.get("witness"),
-        "control": payload.get("control"),
-        "hardware_direction_positive": payload.get("hardware_direction_positive"),
-        "noisy_direction_positive": payload.get("noisy_direction_positive"),
-        "direction_agreement": payload.get("direction_agreement"),
-        "metadata_complete": payload.get("metadata_complete"),
-        "missing_metadata": payload.get("missing_metadata"),
-        "comparability_pass": payload.get("comparability_pass"),
-        "fail_reasons": payload.get("fail_reasons"),
-    }
+def display_path(path: Path) -> str:
+    try:
+        return str(path.resolve().relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
 
 
-def metric_close(left: Any, right: Any, tolerance: float = METRIC_TOLERANCE) -> bool:
-    if isinstance(left, bool) or isinstance(right, bool):
-        return left is right
-    if isinstance(left, (int, float)) and isinstance(right, (int, float)):
-        return abs(float(left) - float(right)) <= tolerance
-    if isinstance(left, dict) and isinstance(right, dict):
-        if set(left) != set(right):
-            return False
-        return all(metric_close(left[key], right[key], tolerance) for key in left)
-    if isinstance(left, list) and isinstance(right, list):
-        if len(left) != len(right):
-            return False
-        return all(metric_close(a, b, tolerance) for a, b in zip(left, right))
-    return left == right
+def mean_absolute_error(labels: list[float], predictions: list[float]) -> float:
+    return evaluate_prediction_values(labels, predictions)["mae"]
+
+
+def rank_correlation(labels: list[float], predictions: list[float]) -> float:
+    return evaluate_prediction_values(labels, predictions)["rank_correlation"]
+
+
+def raw_counts_to_expectations(counts: dict[str, int], bitstring_order: str = "q1q0") -> dict[str, Any]:
+    return counts_to_expectations(counts, bitstring_order=bitstring_order)
 
 
 def validate_manifest(manifest: dict[str, Any]) -> list[str]:
     errors: list[str] = []
-    if manifest.get("manifest_version") not in SUPPORTED_MANIFEST_VERSIONS:
-        errors.append(f"manifest_version must be one of {sorted(SUPPORTED_MANIFEST_VERSIONS)}")
+    required = [
+        "schema_version",
+        "sweep_id",
+        "packet_id",
+        "witness_families",
+        "backends",
+        "records",
+        "bounded_claim_statement",
+        "claim_boundary",
+    ]
+    for key in required:
+        if key not in manifest:
+            errors.append(f"manifest missing required field: {key}")
+    if manifest.get("schema_version") != MANIFEST_SCHEMA_VERSION:
+        errors.append(
+            f"manifest schema_version must be {MANIFEST_SCHEMA_VERSION}, got {manifest.get('schema_version')}"
+        )
+    if not isinstance(manifest.get("witness_families"), list) or not manifest.get("witness_families"):
+        errors.append("manifest witness_families must be a non-empty list")
+    if not isinstance(manifest.get("backends"), list) or not manifest.get("backends"):
+        errors.append("manifest backends must be a non-empty list")
     records = manifest.get("records")
     if not isinstance(records, list) or not records:
-        errors.append("manifest must contain a non-empty records list")
+        errors.append("manifest records must be a non-empty list")
         return errors
-    seen: set[str] = set()
+    record_ids: set[str] = set()
     for index, record in enumerate(records):
-        if not isinstance(record, dict):
-            errors.append(f"records[{index}] must be an object")
-            continue
-        missing = sorted(REQUIRED_RECORD_FIELDS - set(record))
-        if missing:
-            errors.append(f"records[{index}] missing required fields: {missing}")
-        record_id = str(record.get("record_id", ""))
+        prefix = f"records[{index}]"
+        for key in ("record_id", "provider", "backend", "family", "status", "shots", "row_count"):
+            if key not in record:
+                errors.append(f"{prefix} missing required field: {key}")
+        record_id = str(record.get("record_id", "")).strip()
         if not record_id:
-            errors.append(f"records[{index}] record_id is required")
-        elif record_id in seen:
+            errors.append(f"{prefix}.record_id must be non-empty")
+        elif record_id in record_ids:
             errors.append(f"duplicate record_id: {record_id}")
-        seen.add(record_id)
-        status = record.get("status")
-        if status not in {"completed", "missing"}:
-            errors.append(f"{record_id or 'record'} status must be completed or missing")
-        family = record.get("family")
-        if family not in SUPPORTED_FAMILIES:
-            errors.append(f"{record_id or 'record'} unsupported family: {family}")
-        for numeric_field in ("shots", "rows"):
-            value = record.get(numeric_field)
-            if not isinstance(value, int) or value <= 0:
-                errors.append(f"{record_id or 'record'} {numeric_field} must be a positive integer")
+        record_ids.add(record_id)
+        if record.get("family") not in set(manifest.get("witness_families", [])):
+            errors.append(f"{prefix}.family is not listed in manifest witness_families")
+        if record.get("status") not in {"completed", "missing_evidence"}:
+            errors.append(f"{prefix}.status must be completed or missing_evidence")
+        if record.get("expected_outcome") and record.get("expected_outcome") not in {"hardware-positive", "hardware-negative"}:
+            errors.append(f"{prefix}.expected_outcome must be hardware-positive or hardware-negative")
+        if record.get("status") == "completed":
+            for key in ("packet_path", "execution_path", "evaluation_path", "summary_path"):
+                if not record.get(key):
+                    errors.append(f"{prefix} completed record missing path field: {key}")
+            if record.get("bitstring_order") not in {"q1q0", "q0q1"}:
+                errors.append(f"{prefix} completed record bitstring_order must be q1q0 or q0q1")
+        if record.get("status") == "missing_evidence" and not record.get("missing_evidence"):
+            errors.append(f"{prefix} missing_evidence record must list missing_evidence")
     return errors
 
 
-def recompute_predictions(packet: dict[str, Any], execution: dict[str, Any]) -> dict[str, Any]:
-    evaluation = evaluate_hardware_execution(packet, execution)
-    rows = evaluation.get("per_row_results", [])
-    labels = [float(row["label"]) for row in rows]
-    witness_values = [float(row["hardware_predictions"]["witness"]) for row in rows]
-    control_values = [float(row["hardware_predictions"]["control"]) for row in rows]
+def compare_metric(name: str, recorded: Any, recomputed: Any, tolerance: float) -> dict[str, Any]:
+    try:
+        recorded_float = float(recorded)
+        recomputed_float = float(recomputed)
+    except (TypeError, ValueError):
+        return {"name": name, "pass": False, "recorded": recorded, "recomputed": recomputed}
     return {
-        "evaluation": evaluation,
-        "witness": evaluate_prediction_values(labels, witness_values),
-        "control": evaluate_prediction_values(labels, control_values),
-        "rows": rows,
+        "name": name,
+        "pass": abs(recorded_float - recomputed_float) <= tolerance,
+        "recorded": recorded_float,
+        "recomputed": recomputed_float,
+        "tolerance": tolerance,
     }
 
 
-def verify_record(record: dict[str, Any], manifest_path: Path) -> dict[str, Any]:
-    record_id = record["record_id"]
-    result: dict[str, Any] = {
-        "record_id": record_id,
+def _record_metric_checks(
+    recorded: dict[str, Any],
+    recomputed: dict[str, Any],
+    expected_outcome: str | None = None,
+) -> list[dict[str, Any]]:
+    expected = expected_outcome or "hardware-positive"
+    checks = [
+        compare_metric("witness_mae", recorded.get("witness", {}).get("mae"), recomputed.get("witness", {}).get("mae"), METRIC_TOLERANCE),
+        compare_metric(
+            "witness_rank_correlation",
+            recorded.get("witness", {}).get("rank_correlation"),
+            recomputed.get("witness", {}).get("rank_correlation"),
+            METRIC_TOLERANCE,
+        ),
+        compare_metric("control_mae", recorded.get("control", {}).get("mae"), recomputed.get("control", {}).get("mae"), METRIC_TOLERANCE),
+        compare_metric(
+            "control_rank_correlation",
+            recorded.get("control", {}).get("rank_correlation"),
+            recomputed.get("control", {}).get("rank_correlation"),
+            METRIC_TOLERANCE,
+        ),
+    ]
+    checks.extend(
+        [
+            {
+                "name": "status_matches",
+                "pass": recorded.get("status") == recomputed.get("status"),
+                "recorded": recorded.get("status"),
+                "recomputed": recomputed.get("status"),
+            },
+            {
+                "name": "outcome_matches",
+                "pass": recorded.get("outcome") == recomputed.get("outcome"),
+                "recorded": recorded.get("outcome"),
+                "recomputed": recomputed.get("outcome"),
+            },
+            {
+                "name": "gate_pass_matches",
+                "pass": recorded.get("gate_pass") is recomputed.get("gate_pass"),
+                "recorded": recorded.get("gate_pass"),
+                "recomputed": recomputed.get("gate_pass"),
+            },
+            {
+                "name": "expected_outcome_matches",
+                "pass": recomputed.get("outcome") == expected,
+                "expected": expected,
+                "recomputed": recomputed.get("outcome"),
+            },
+        ]
+    )
+    if expected == "hardware-positive":
+        checks.extend(
+            [
+                {
+                    "name": "witness_beats_control_mae",
+                    "pass": recomputed.get("witness", {}).get("mae", 1.0)
+                    < recomputed.get("control", {}).get("mae", 0.0),
+                    "witness": recomputed.get("witness", {}).get("mae"),
+                    "control": recomputed.get("control", {}).get("mae"),
+                },
+                {
+                    "name": "witness_beats_control_rank",
+                    "pass": recomputed.get("witness", {}).get("rank_correlation", -1.0)
+                    > recomputed.get("control", {}).get("rank_correlation", 1.0),
+                    "witness": recomputed.get("witness", {}).get("rank_correlation"),
+                    "control": recomputed.get("control", {}).get("rank_correlation"),
+                },
+            ]
+        )
+    else:
+        checks.extend(
+            [
+                {
+                    "name": "negative_record_does_not_support_positive_gate",
+                    "pass": recomputed.get("gate_pass") is False,
+                    "gate_pass": recomputed.get("gate_pass"),
+                },
+                {
+                    "name": "negative_record_outcome_is_hardware_negative",
+                    "pass": recomputed.get("outcome") == "hardware-negative",
+                    "outcome": recomputed.get("outcome"),
+                },
+            ]
+        )
+    return checks
+
+
+def _job_ids_from_execution(execution: dict[str, Any]) -> list[str]:
+    job_ids: list[str] = []
+    for job in execution.get("jobs", []):
+        for record in job.get("provider_job_records", []):
+            job_id = str(record.get("job_id", "")).strip()
+            if job_id:
+                job_ids.append(job_id)
+        if not job.get("provider_job_records"):
+            job_ids.extend(item for item in str(job.get("job_id", "")).split(",") if item)
+    return job_ids
+
+
+def _timestamps_from_execution(execution: dict[str, Any]) -> dict[str, str | None]:
+    submitted: list[str] = []
+    completed: list[str] = []
+    for job in execution.get("jobs", []):
+        if job.get("submitted_at_utc"):
+            submitted.append(str(job["submitted_at_utc"]))
+        if job.get("completed_at_utc"):
+            completed.append(str(job["completed_at_utc"]))
+        for record in job.get("provider_job_records", []):
+            if record.get("submitted_at_utc"):
+                submitted.append(str(record["submitted_at_utc"]))
+            if record.get("completed_at_utc"):
+                completed.append(str(record["completed_at_utc"]))
+    return {
+        "submitted_at_utc": min(submitted) if submitted else None,
+        "completed_at_utc": max(completed) if completed else None,
+    }
+
+
+def verify_record(manifest_path: Path, record: dict[str, Any]) -> dict[str, Any]:
+    base = {
+        "record_id": record.get("record_id"),
         "provider": record.get("provider"),
         "backend": record.get("backend"),
+        "backend_label": record.get("backend_label"),
         "family": record.get("family"),
+        "shots": record.get("shots"),
+        "row_count": record.get("row_count"),
         "status": record.get("status"),
-        "pass": False,
-        "checks": [],
-        "missing_artifacts": [],
+        "bitstring_order": record.get("bitstring_order"),
     }
+    if record.get("status") != "completed":
+        return {
+            **base,
+            "pass": False,
+            "outcome": "missing-evidence",
+            "missing_evidence": record.get("missing_evidence", []),
+            "checks": [{"name": "real_evidence_present", "pass": False, "detail": record.get("missing_evidence", [])}],
+        }
 
-    def add_check(name: str, passed: bool, detail: Any = None) -> None:
-        result["checks"].append({"name": name, "pass": bool(passed), "detail": detail})
+    missing_paths: list[str] = []
+    resolved_paths: dict[str, str] = {}
+    for key in ("packet_path", "execution_path", "evaluation_path", "summary_path"):
+        path = resolve_manifest_path(manifest_path, record.get(key))
+        if path is None or not path.exists():
+            missing_paths.append(str(record.get(key)))
+        else:
+            resolved_paths[key] = str(path.relative_to(REPO_ROOT))
+    if missing_paths:
+        return {
+            **base,
+            "pass": False,
+            "outcome": "missing-evidence",
+            "missing_evidence": missing_paths,
+            "checks": [{"name": "required_paths_exist", "pass": False, "detail": missing_paths}],
+        }
 
-    if record.get("status") == "missing":
-        result["missing_artifacts"] = list(record.get("missing_required_artifacts") or [])
-        add_check("record_has_real_evidence", False, record.get("todo") or "record is marked missing")
-        return result
-
-    packet_path = resolve_manifest_path(record.get("packet_path"), manifest_path)
-    execution_path = resolve_manifest_path(record.get("execution_path"), manifest_path)
-    evaluation_path = resolve_manifest_path(record.get("evaluation_path"), manifest_path)
-    summary_path = resolve_manifest_path(record.get("summary_path"), manifest_path)
-    paths = {
-        "packet_path": packet_path,
-        "execution_path": execution_path,
-        "evaluation_path": evaluation_path,
-        "summary_path": summary_path,
-    }
-    for name, path in paths.items():
-        exists = bool(path and path.exists())
-        add_check(f"{name}_exists", exists, str(path) if path else None)
-        if not exists:
-            result["missing_artifacts"].append(name)
-    if result["missing_artifacts"]:
-        return result
-
-    assert packet_path is not None
-    assert execution_path is not None
-    assert evaluation_path is not None
-    assert summary_path is not None
-    packet = read_json(packet_path)
-    execution = read_json(execution_path)
-    recorded_evaluation = read_json(evaluation_path)
-    summary = read_json(summary_path)
-    recomputed = recompute_predictions(packet, execution)
-    evaluation = recomputed["evaluation"]
-
-    add_check("provider_matches_manifest", packet.get("provider") == record.get("provider"), packet.get("provider"))
-    add_check("backend_matches_manifest", packet.get("backend") == record.get("backend"), packet.get("backend"))
-    add_check("family_matches_manifest", packet.get("circuit_family") == record.get("family"), packet.get("circuit_family"))
-    add_check("rows_match_manifest", len(packet.get("rows", [])) == record.get("rows"), len(packet.get("rows", [])))
-    add_check("shots_match_manifest", packet.get("shot_count") == record.get("shots"), packet.get("shot_count"))
-    add_check("execution_completed", execution.get("status") == "COMPLETED", execution.get("status"))
-    add_check(
-        "recorded_evaluation_matches_recomputed",
-        metric_close(select_metrics(recorded_evaluation), select_metrics(evaluation)),
-        {"recorded": select_metrics(recorded_evaluation), "recomputed": select_metrics(evaluation)},
-    )
+    packet = read_json(REPO_ROOT / resolved_paths["packet_path"])
+    execution = read_json(REPO_ROOT / resolved_paths["execution_path"])
+    evaluation = read_json(REPO_ROOT / resolved_paths["evaluation_path"])
+    summary = read_json(REPO_ROOT / resolved_paths["summary_path"])
+    recomputed = evaluate_hardware_execution(packet, execution, bitstring_order=record.get("bitstring_order"))
     summary_result = summary.get("result", summary)
-    add_check("summary_status_matches_recomputed", summary_result.get("status") == evaluation.get("status"), summary_result.get("status"))
-    add_check("summary_outcome_matches_recomputed", summary_result.get("outcome") == evaluation.get("outcome"), summary_result.get("outcome"))
-    add_check(
-        "witness_mae_beats_control",
-        evaluation.get("witness", {}).get("mae", float("inf")) < evaluation.get("control", {}).get("mae", float("-inf")),
-        {"witness": evaluation.get("witness"), "control": evaluation.get("control")},
+    summary_evaluation = summary_result.get("evaluation", summary_result)
+    checks = _record_metric_checks(evaluation, recomputed, record.get("expected_outcome"))
+    checks.extend(
+        [
+            {
+                "name": "summary_status_matches_recomputed",
+                "pass": summary_result.get("status") == recomputed.get("status"),
+                "recorded": summary_result.get("status"),
+                "recomputed": recomputed.get("status"),
+            },
+            {
+                "name": "summary_outcome_matches_recomputed",
+                "pass": summary_evaluation.get("outcome") == recomputed.get("outcome"),
+                "recorded": summary_evaluation.get("outcome"),
+                "recomputed": recomputed.get("outcome"),
+            },
+            {
+                "name": "packet_family_matches_manifest",
+                "pass": packet.get("circuit_family") == record.get("family"),
+                "packet_family": packet.get("circuit_family"),
+                "manifest_family": record.get("family"),
+            },
+            {
+                "name": "packet_backend_matches_manifest",
+                "pass": packet.get("backend") == record.get("backend"),
+                "packet_backend": packet.get("backend"),
+                "manifest_backend": record.get("backend"),
+            },
+            {
+                "name": "packet_row_count_matches_manifest",
+                "pass": packet.get("row_count") == record.get("row_count"),
+                "packet_row_count": packet.get("row_count"),
+                "manifest_row_count": record.get("row_count"),
+            },
+            {
+                "name": "packet_shots_match_manifest",
+                "pass": packet.get("shot_count") == record.get("shots"),
+                "packet_shots": packet.get("shot_count"),
+                "manifest_shots": record.get("shots"),
+            },
+            {
+                "name": "evaluation_bitstring_order_matches_manifest",
+                "pass": evaluation.get("bitstring_order") == record.get("bitstring_order"),
+                "recorded": evaluation.get("bitstring_order"),
+                "manifest_bitstring_order": record.get("bitstring_order"),
+            },
+        ]
     )
-    add_check(
-        "witness_rank_beats_control",
-        evaluation.get("witness", {}).get("rank_correlation", float("-inf"))
-        > evaluation.get("control", {}).get("rank_correlation", float("inf")),
-        {"witness": evaluation.get("witness"), "control": evaluation.get("control")},
-    )
-
-    recorded_metrics = record.get("recorded_metrics")
-    if recorded_metrics is not None:
-        expected = {
-            "witness": recorded_metrics.get("witness"),
-            "control": recorded_metrics.get("control"),
-            "outcome": recorded_metrics.get("outcome"),
-        }
-        actual = {
-            "witness": evaluation.get("witness"),
-            "control": evaluation.get("control"),
-            "outcome": evaluation.get("outcome"),
-        }
-        add_check("manifest_metrics_match_recomputed", metric_close(expected, actual), {"manifest": expected, "recomputed": actual})
-
-    job_ids = [str(job.get("job_id", "")) for job in execution.get("jobs", [])]
+    timestamps = _timestamps_from_execution(execution)
     table_row = {
-        "backend": record.get("backend"),
+        "backend": record.get("backend_label") or record.get("backend"),
         "provider": record.get("provider"),
         "family": record.get("family"),
         "shots": record.get("shots"),
-        "rows": record.get("rows"),
-        "witness_mae": evaluation.get("witness", {}).get("mae"),
-        "witness_rank_corr": evaluation.get("witness", {}).get("rank_correlation"),
-        "control_mae": evaluation.get("control", {}).get("mae"),
-        "control_rank_corr": evaluation.get("control", {}).get("rank_correlation"),
-        "outcome": evaluation.get("outcome"),
+        "rows": record.get("row_count"),
+        "witness_mae": recomputed.get("witness", {}).get("mae"),
+        "witness_rank_corr": recomputed.get("witness", {}).get("rank_correlation"),
+        "control_mae": recomputed.get("control", {}).get("mae"),
+        "control_rank_corr": recomputed.get("control", {}).get("rank_correlation"),
+        "outcome": recomputed.get("outcome"),
+        "expected_outcome": record.get("expected_outcome") or "hardware-positive",
+        "bitstring_order": record.get("bitstring_order"),
     }
-    result.update(
-        {
-            "packet_id": packet.get("packet_id"),
-            "job_ids": job_ids,
-            "packet_sha256": json_hash(packet_path),
-            "execution_sha256": json_hash(execution_path),
-            "evaluation_sha256": json_hash(evaluation_path),
-            "summary_sha256": json_hash(summary_path),
-            "recomputed_metrics": {
-                "witness": evaluation.get("witness"),
-                "control": evaluation.get("control"),
-                "outcome": evaluation.get("outcome"),
-                "gate_pass": evaluation.get("gate_pass"),
-            },
-            "table_row": table_row,
-        }
-    )
-    result["pass"] = all(check["pass"] for check in result["checks"])
-    return result
-
-
-def verify_sweep_manifest(manifest_path: Path) -> dict[str, Any]:
-    manifest = read_json(manifest_path)
-    manifest_errors = validate_manifest(manifest)
-    record_results = [] if manifest_errors else [verify_record(record, manifest_path) for record in manifest["records"]]
-    missing_records = [item for item in record_results if item.get("status") == "missing" or item.get("missing_artifacts")]
-    table = [item["table_row"] for item in record_results if item.get("table_row")]
     return {
-        "verifier": "phasewrap_rope_stage4_hardware_sweep_offline_verifier_v1",
-        "no_hardware_submission": True,
-        "hardware_cost_usd": 0,
-        "manifest_path": str(manifest_path),
-        "manifest_sha256": json_hash(manifest_path),
-        "sweep_id": manifest.get("sweep_id"),
-        "claim_boundary": manifest.get("claim_boundary"),
-        "budget_policy": manifest.get("budget_policy"),
-        "manifest_errors": manifest_errors,
-        "records": record_results,
-        "missing_records": [item.get("record_id") for item in missing_records],
-        "table": table,
-        "pass": not manifest_errors and bool(record_results) and all(item.get("pass") for item in record_results),
+        **base,
+        "pass": all(check["pass"] for check in checks),
+        "outcome": recomputed.get("outcome"),
+        "gate_pass": recomputed.get("gate_pass"),
+        "packet_id": packet.get("packet_id"),
+        "job_ids": _job_ids_from_execution(execution),
+        "submitted_at_utc": timestamps["submitted_at_utc"],
+        "completed_at_utc": timestamps["completed_at_utc"],
+        "paths": resolved_paths,
+        "recorded_evaluation": evaluation,
+        "recomputed_evaluation": recomputed,
+        "checks": checks,
+        "table_row": table_row,
     }
+
+
+def verify_manifest(manifest_path: Path) -> dict[str, Any]:
+    manifest = read_json(manifest_path)
+    schema_errors = validate_manifest(manifest)
+    records = []
+    if not schema_errors:
+        records = [verify_record(manifest_path, record) for record in manifest["records"]]
+    completed_rows = [record["table_row"] for record in records if record.get("pass") and record.get("table_row")]
+    missing = [
+        {"record_id": record.get("record_id"), "missing_evidence": record.get("missing_evidence", [])}
+        for record in records
+        if record.get("outcome") == "missing-evidence"
+    ]
+    verification = {
+        "verifier": VERIFIER_VERSION,
+        "manifest_path": display_path(manifest_path),
+        "manifest_schema_version": manifest.get("schema_version"),
+        "sweep_id": manifest.get("sweep_id"),
+        "bounded_claim_statement": manifest.get("bounded_claim_statement"),
+        "claim_boundary": manifest.get("claim_boundary"),
+        "schema_errors": schema_errors,
+        "records": records,
+        "table": completed_rows,
+        "missing_evidence": missing,
+        "pass": not schema_errors and bool(records) and all(record.get("pass") for record in records),
+    }
+    return verification
 
 
 def print_table(rows: list[dict[str, Any]]) -> None:
@@ -312,25 +432,42 @@ def print_table(rows: list[dict[str, Any]]) -> None:
         print(" | ".join(str(row.get(header, "")) for header in headers))
 
 
+def scan_public_docs_for_overclaims(paths: list[Path]) -> dict[str, Any]:
+    findings: list[dict[str, str]] = []
+    for path in paths:
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8").lower()
+        for phrase in FORBIDDEN_SUPPORTED_CLAIMS:
+            if phrase in text:
+                findings.append({"path": display_path(path), "phrase": phrase})
+    return {"pass": not findings, "findings": findings}
+
+
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Offline verifier for the PhaseWrap-RoPE Stage 4 hardware sweep.")
+    parser = argparse.ArgumentParser(description="Offline verifier for the QRoPE Stage 4 hardware sweep manifest.")
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args(argv)
 
-    verification = verify_sweep_manifest(args.manifest)
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(verification, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    if verification["table"]:
-        print_table(verification["table"])
-    summary = {
-        "pass": verification["pass"],
-        "sweep_id": verification.get("sweep_id"),
-        "missing_records": verification.get("missing_records"),
-        "manifest_errors": verification.get("manifest_errors"),
-        "output": str(args.output),
-    }
-    print(json.dumps(summary, indent=2, sort_keys=True))
+    verification = verify_manifest(args.manifest)
+    guardrail = scan_public_docs_for_overclaims(
+        [
+            REPO_ROOT / "README.md",
+            REPO_ROOT / "docs" / "publication" / "qrope-paper-v1.md",
+            REPO_ROOT / "docs" / "research" / "q-rope-stage4-hardware-comparison-v1.md",
+            REPO_ROOT / "docs" / "research" / "q-rope-stage4-real-hardware-validation-result-v1.md",
+        ]
+    )
+    verification["overclaim_guardrail"] = guardrail
+    verification["pass"] = verification["pass"] and guardrail["pass"]
+    write_json(args.output, verification)
+    print_table(verification["table"])
+    if verification["missing_evidence"]:
+        print("\nMissing evidence records:", file=sys.stderr)
+        for item in verification["missing_evidence"]:
+            print(f"- {item['record_id']}: {', '.join(item['missing_evidence'])}", file=sys.stderr)
+    print(json.dumps({"pass": verification["pass"], "records": len(verification["records"])}, indent=2))
     return 0 if verification["pass"] else 1
 
 

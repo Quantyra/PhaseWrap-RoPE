@@ -1,0 +1,299 @@
+{
+  "backend_metadata": {
+    "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+    "captured_at_utc": "2026-05-19T10:07:08Z",
+    "device_arn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+    "device_name": "Cepheus-1-108Q",
+    "device_status": "ONLINE",
+    "device_type": "QPU",
+    "provider": "amazon_braket",
+    "provider_name": "Rigetti"
+  },
+  "calibration_metadata": {
+    "captured_at_utc": "2026-05-19T10:07:08Z",
+    "device_arn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+    "device_capabilities_sha256": "9c73103b1f1154a318a7267d6e5f0fb3e73a3e94ea0189d9e98746dd01698cf1",
+    "source": "aws_braket_get_device"
+  },
+  "jobs": [
+    {
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "circuit_count": 8,
+      "completed_at_utc": "2026-05-19T10:09:41Z",
+      "job_id": "arn:aws:braket:us-west-1:485386182336:quantum-task/e35e3aa6-a1c4-4e82-91e6-0696fa305429,arn:aws:braket:us-west-1:485386182336:quantum-task/f00f3214-d6ad-4b79-b8b1-32f957e27126,arn:aws:braket:us-west-1:485386182336:quantum-task/c3487449-55b4-4c33-b1db-3aa05e3ae63c,arn:aws:braket:us-west-1:485386182336:quantum-task/06acf815-ef22-43c2-80ea-54c75608a10e,arn:aws:braket:us-west-1:485386182336:quantum-task/9c2467b7-9322-416c-9379-b044d0fbe05b,arn:aws:braket:us-west-1:485386182336:quantum-task/9471b78d-2b23-40cf-af7f-4cb87a0d5d37,arn:aws:braket:us-west-1:485386182336:quantum-task/a1b3207e-46bf-43a0-9736-4a3aa1e8cda2,arn:aws:braket:us-west-1:485386182336:quantum-task/277ea374-46d3-47fe-9fb2-fb330ccf9498",
+      "packet_id": "qrope-hardware-5244f90bce2f93b8",
+      "provider": "amazon_braket",
+      "provider_job_records": [
+        {
+          "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "completed_at_utc": "2026-05-19T10:07:27Z",
+          "job_id": "arn:aws:braket:us-west-1:485386182336:quantum-task/e35e3aa6-a1c4-4e82-91e6-0696fa305429",
+          "packet_id": "qrope-hardware-5244f90bce2f93b8",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T10:07:10.619000+00:00",
+            "deviceArn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.rigetti.rigetti_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T10:07:11.853000+00:00",
+            "outputS3Bucket": "amazon-braket-us-west-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-000/e35e3aa6-a1c4-4e82-91e6-0696fa305429",
+            "quantumTaskArn": "arn:aws:braket:us-west-1:485386182336:quantum-task/e35e3aa6-a1c4-4e82-91e6-0696fa305429",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-000",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T10:07:08Z"
+        },
+        {
+          "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "completed_at_utc": "2026-05-19T10:07:46Z",
+          "job_id": "arn:aws:braket:us-west-1:485386182336:quantum-task/f00f3214-d6ad-4b79-b8b1-32f957e27126",
+          "packet_id": "qrope-hardware-5244f90bce2f93b8",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T10:07:29.718000+00:00",
+            "deviceArn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.rigetti.rigetti_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T10:07:30.702000+00:00",
+            "outputS3Bucket": "amazon-braket-us-west-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-001/f00f3214-d6ad-4b79-b8b1-32f957e27126",
+            "quantumTaskArn": "arn:aws:braket:us-west-1:485386182336:quantum-task/f00f3214-d6ad-4b79-b8b1-32f957e27126",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-001",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T10:07:28Z"
+        },
+        {
+          "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "completed_at_utc": "2026-05-19T10:08:05Z",
+          "job_id": "arn:aws:braket:us-west-1:485386182336:quantum-task/c3487449-55b4-4c33-b1db-3aa05e3ae63c",
+          "packet_id": "qrope-hardware-5244f90bce2f93b8",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T10:07:48.431000+00:00",
+            "deviceArn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.rigetti.rigetti_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T10:07:49.386000+00:00",
+            "outputS3Bucket": "amazon-braket-us-west-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-002/c3487449-55b4-4c33-b1db-3aa05e3ae63c",
+            "quantumTaskArn": "arn:aws:braket:us-west-1:485386182336:quantum-task/c3487449-55b4-4c33-b1db-3aa05e3ae63c",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-002",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T10:07:47Z"
+        },
+        {
+          "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "completed_at_utc": "2026-05-19T10:08:25Z",
+          "job_id": "arn:aws:braket:us-west-1:485386182336:quantum-task/06acf815-ef22-43c2-80ea-54c75608a10e",
+          "packet_id": "qrope-hardware-5244f90bce2f93b8",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T10:08:08.280000+00:00",
+            "deviceArn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.rigetti.rigetti_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T10:08:09.484000+00:00",
+            "outputS3Bucket": "amazon-braket-us-west-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-003/06acf815-ef22-43c2-80ea-54c75608a10e",
+            "quantumTaskArn": "arn:aws:braket:us-west-1:485386182336:quantum-task/06acf815-ef22-43c2-80ea-54c75608a10e",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-003",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T10:08:06Z"
+        },
+        {
+          "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "completed_at_utc": "2026-05-19T10:08:44Z",
+          "job_id": "arn:aws:braket:us-west-1:485386182336:quantum-task/9c2467b7-9322-416c-9379-b044d0fbe05b",
+          "packet_id": "qrope-hardware-5244f90bce2f93b8",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T10:08:27.113000+00:00",
+            "deviceArn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.rigetti.rigetti_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T10:08:28.022000+00:00",
+            "outputS3Bucket": "amazon-braket-us-west-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-004/9c2467b7-9322-416c-9379-b044d0fbe05b",
+            "quantumTaskArn": "arn:aws:braket:us-west-1:485386182336:quantum-task/9c2467b7-9322-416c-9379-b044d0fbe05b",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-004",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T10:08:26Z"
+        },
+        {
+          "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "completed_at_utc": "2026-05-19T10:09:02Z",
+          "job_id": "arn:aws:braket:us-west-1:485386182336:quantum-task/9471b78d-2b23-40cf-af7f-4cb87a0d5d37",
+          "packet_id": "qrope-hardware-5244f90bce2f93b8",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T10:08:45.874000+00:00",
+            "deviceArn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.rigetti.rigetti_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T10:08:46.948000+00:00",
+            "outputS3Bucket": "amazon-braket-us-west-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-005/9471b78d-2b23-40cf-af7f-4cb87a0d5d37",
+            "quantumTaskArn": "arn:aws:braket:us-west-1:485386182336:quantum-task/9471b78d-2b23-40cf-af7f-4cb87a0d5d37",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-005",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T10:08:44Z"
+        },
+        {
+          "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "completed_at_utc": "2026-05-19T10:09:21Z",
+          "job_id": "arn:aws:braket:us-west-1:485386182336:quantum-task/a1b3207e-46bf-43a0-9736-4a3aa1e8cda2",
+          "packet_id": "qrope-hardware-5244f90bce2f93b8",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T10:09:04.737000+00:00",
+            "deviceArn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.rigetti.rigetti_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T10:09:09.310000+00:00",
+            "outputS3Bucket": "amazon-braket-us-west-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-006/a1b3207e-46bf-43a0-9736-4a3aa1e8cda2",
+            "quantumTaskArn": "arn:aws:braket:us-west-1:485386182336:quantum-task/a1b3207e-46bf-43a0-9736-4a3aa1e8cda2",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-006",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T10:09:03Z"
+        },
+        {
+          "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "completed_at_utc": "2026-05-19T10:09:41Z",
+          "job_id": "arn:aws:braket:us-west-1:485386182336:quantum-task/277ea374-46d3-47fe-9fb2-fb330ccf9498",
+          "packet_id": "qrope-hardware-5244f90bce2f93b8",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T10:09:24.379000+00:00",
+            "deviceArn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.rigetti.rigetti_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T10:09:25.371000+00:00",
+            "outputS3Bucket": "amazon-braket-us-west-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-007/277ea374-46d3-47fe-9fb2-fb330ccf9498",
+            "quantumTaskArn": "arn:aws:braket:us-west-1:485386182336:quantum-task/277ea374-46d3-47fe-9fb2-fb330ccf9498",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-007",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T10:09:22Z"
+        }
+      ],
+      "raw_counts_by_row": [
+        {
+          "counts": {
+            "00": 40,
+            "01": 584,
+            "10": 27,
+            "11": 349
+          },
+          "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/e35e3aa6-a1c4-4e82-91e6-0696fa305429",
+          "result_s3_uri": "s3://amazon-braket-us-west-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-000/e35e3aa6-a1c4-4e82-91e6-0696fa305429/results.json",
+          "row_id": "hwrow-000"
+        },
+        {
+          "counts": {
+            "00": 198,
+            "01": 168,
+            "10": 336,
+            "11": 298
+          },
+          "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/f00f3214-d6ad-4b79-b8b1-32f957e27126",
+          "result_s3_uri": "s3://amazon-braket-us-west-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-001/f00f3214-d6ad-4b79-b8b1-32f957e27126/results.json",
+          "row_id": "hwrow-001"
+        },
+        {
+          "counts": {
+            "00": 122,
+            "01": 513,
+            "10": 65,
+            "11": 300
+          },
+          "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/c3487449-55b4-4c33-b1db-3aa05e3ae63c",
+          "result_s3_uri": "s3://amazon-braket-us-west-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-002/c3487449-55b4-4c33-b1db-3aa05e3ae63c/results.json",
+          "row_id": "hwrow-002"
+        },
+        {
+          "counts": {
+            "00": 410,
+            "01": 309,
+            "10": 163,
+            "11": 118
+          },
+          "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/06acf815-ef22-43c2-80ea-54c75608a10e",
+          "result_s3_uri": "s3://amazon-braket-us-west-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-003/06acf815-ef22-43c2-80ea-54c75608a10e/results.json",
+          "row_id": "hwrow-003"
+        },
+        {
+          "counts": {
+            "00": 39,
+            "01": 204,
+            "10": 152,
+            "11": 605
+          },
+          "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/9c2467b7-9322-416c-9379-b044d0fbe05b",
+          "result_s3_uri": "s3://amazon-braket-us-west-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-004/9c2467b7-9322-416c-9379-b044d0fbe05b/results.json",
+          "row_id": "hwrow-004"
+        },
+        {
+          "counts": {
+            "00": 229,
+            "01": 212,
+            "10": 292,
+            "11": 267
+          },
+          "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/9471b78d-2b23-40cf-af7f-4cb87a0d5d37",
+          "result_s3_uri": "s3://amazon-braket-us-west-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-005/9471b78d-2b23-40cf-af7f-4cb87a0d5d37/results.json",
+          "row_id": "hwrow-005"
+        },
+        {
+          "counts": {
+            "00": 89,
+            "01": 510,
+            "10": 69,
+            "11": 332
+          },
+          "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/a1b3207e-46bf-43a0-9736-4a3aa1e8cda2",
+          "result_s3_uri": "s3://amazon-braket-us-west-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-006/a1b3207e-46bf-43a0-9736-4a3aa1e8cda2/results.json",
+          "row_id": "hwrow-006"
+        },
+        {
+          "counts": {
+            "00": 344,
+            "01": 259,
+            "10": 227,
+            "11": 170
+          },
+          "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/277ea374-46d3-47fe-9fb2-fb330ccf9498",
+          "result_s3_uri": "s3://amazon-braket-us-west-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T100703Z/qrope-hardware-5244f90bce2f93b8/hwrow-007/277ea374-46d3-47fe-9fb2-fb330ccf9498/results.json",
+          "row_id": "hwrow-007"
+        }
+      ],
+      "shot_count": 1000,
+      "submitted_at_utc": "2026-05-19T10:07:08Z"
+    }
+  ],
+  "status": "COMPLETED"
+}

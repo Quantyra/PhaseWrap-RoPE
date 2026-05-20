@@ -1,73 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">PhaseWrap-RoPE validation pipeline</title>
-  <desc id="desc">A clean validation pipeline showing frozen packet, hardware run, raw counts, and offline verifier.</desc>
+  <title id="title">PhaseWrap-RoPE deterministic validation pipeline</title>
+  <desc id="desc">Validation pipeline showing packet freeze, credentialled execution, raw-count capture, offline recomputation, and replication ledger update.</desc>
+
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
-      <path d="M1,1 L9,5 L1,9 Z" fill="#334155"/>
-    </marker>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f3ea"/>
+      <stop offset="1" stop-color="#e7f0ed"/>
+    </linearGradient>
     <style>
-      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
-      .subtitle { font: 400 17px Arial, sans-serif; fill: #475569; }
-      .step { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 10; }
-      .num { fill: #334155; }
-      .numtext { font: 700 18px Arial, sans-serif; fill: #ffffff; }
-      .label { font: 700 20px Arial, sans-serif; fill: #111827; }
-      .body { font: 400 15px Arial, sans-serif; fill: #475569; }
-      .small { font: 400 13px Arial, sans-serif; fill: #64748b; }
-      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .title { font: 700 34px Georgia, serif; fill: #1d2523; }
+      .sub { font: 500 16px Georgia, serif; fill: #56645f; }
+      .label { font: 700 17px Georgia, serif; fill: #1d2523; }
+      .small { font: 500 13px Georgia, serif; fill: #56645f; }
+      .tiny { font: 500 11px Georgia, serif; fill: #6d7974; }
+      .mono { font: 700 14px Consolas, monospace; fill: #1d2523; }
+      .panel { fill: #fffdf8; stroke: #cfc6b6; stroke-width: 1.6; rx: 24; }
+      .ink { stroke: #1d2523; stroke-width: 2; fill: none; }
+      .grid { stroke: #d7d0c2; stroke-width: 1; stroke-dasharray: 4 7; }
+      .teal { fill: #0f766e; }
+      .amber { fill: #b7791f; }
+      .red { fill: #9f3a38; }
+      .blue { fill: #2f5d86; }
     </style>
   </defs>
 
-  <rect width="1200" height="675" fill="#ffffff"/>
-  <text x="70" y="76" class="title">Deterministic validation pipeline</text>
-  <text x="70" y="108" class="subtitle">The evidence lane preserves inputs, execution records, raw counts, and offline recomputation.</text>
-
-  <g transform="translate(70,230)">
-    <rect width="210" height="190" class="step"/>
-    <circle cx="42" cy="42" r="20" class="num"/>
-    <text x="36" y="49" class="numtext">1</text>
-    <text x="30" y="94" class="label">Frozen packet</text>
-    <text x="30" y="130" class="body">16 fixed rows</text>
-    <text x="30" y="156" class="body">packet id locked</text>
-  </g>
-
-  <path d="M292 325 L395 325" class="arrow"/>
-
-  <g transform="translate(410,230)">
-    <rect width="210" height="190" class="step"/>
-    <circle cx="42" cy="42" r="20" fill="#0f766e"/>
-    <text x="36" y="49" class="numtext">2</text>
-    <text x="30" y="94" class="label">Hardware run</text>
-    <text x="30" y="130" class="body">backend metadata</text>
-    <text x="30" y="156" class="body">fixed shot policy</text>
-  </g>
-
-  <path d="M632 325 L735 325" class="arrow"/>
-
-  <g transform="translate(750,230)">
-    <rect width="210" height="190" class="step"/>
-    <circle cx="42" cy="42" r="20" fill="#b45309"/>
-    <text x="36" y="49" class="numtext">3</text>
-    <text x="30" y="94" class="label">Raw counts</text>
-    <text x="30" y="130" class="body">bitstring outcomes</text>
-    <text x="30" y="156" class="body">expectation values</text>
-  </g>
-
-  <path d="M972 325 L1035 325" class="arrow"/>
-
-  <g transform="translate(1050,230)">
-    <rect width="100" height="190" class="step"/>
-    <circle cx="40" cy="42" r="20" fill="#334155"/>
-    <text x="34" y="49" class="numtext">4</text>
-    <text x="22" y="94" class="label">Verify</text>
-    <text x="22" y="130" class="body">offline</text>
-    <text x="22" y="156" class="body">recompute</text>
-  </g>
-
-  <rect x="180" y="500" width="840" height="70" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2" rx="10"/>
-  <text x="210" y="530" class="label">Publication rule</text>
-  <text x="210" y="556" class="body">Publish the bounded evidence record, not a broad quantum-advantage claim.</text>
-
-  <line x1="70" y1="612" x2="1130" y2="612" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="70" y="640" class="small">Figure 2. Deterministic validation path used by the Stage 4 packet and verifier.</text>
+  <rect width="1200" height="675" fill="url(#paper)"/>
+  <text x="64" y="74" class="title">Deterministic validation lane</text>
+  <text x="64" y="105" class="sub">Recomputation is not replication; new hardware evidence requires new raw counts and metadata.</text>
+  <g transform="translate(70 170)"><rect width="190" height="150" class="panel"/><circle cx="38" cy="42" r="20" class="blue"/><text x="32" y="49" fill="#fff" font-family="Georgia" font-size="20" font-weight="700">1</text><text x="72" y="47" class="label">Freeze</text><text x="30" y="84" class="small">fixed rows</text><text x="30" y="108" class="small">fixed shots</text><text x="30" y="132" class="small">packet id</text></g>
+  <g transform="translate(290 170)"><rect width="190" height="150" class="panel"/><circle cx="38" cy="42" r="20" class="blue"/><text x="32" y="49" fill="#fff" font-family="Georgia" font-size="20" font-weight="700">2</text><text x="72" y="47" class="label">Execute</text><text x="30" y="84" class="small">credentialled</text><text x="30" y="108" class="small">hardware job</text><text x="30" y="132" class="small">or blocked</text></g>
+  <g transform="translate(510 170)"><rect width="190" height="150" class="panel"/><circle cx="38" cy="42" r="20" class="teal"/><text x="32" y="49" fill="#fff" font-family="Georgia" font-size="20" font-weight="700">3</text><text x="72" y="47" class="label">Capture</text><text x="30" y="84" class="small">raw counts</text><text x="30" y="108" class="small">backend metadata</text><text x="30" y="132" class="small">calibration</text></g>
+  <g transform="translate(730 170)"><rect width="190" height="150" class="panel"/><circle cx="38" cy="42" r="20" class="teal"/><text x="32" y="49" fill="#fff" font-family="Georgia" font-size="20" font-weight="700">4</text><text x="72" y="47" class="label">Recompute</text><text x="30" y="84" class="small">offline verifier</text><text x="30" y="108" class="small">metrics from</text><text x="30" y="132" class="small">saved counts</text></g>
+  <g transform="translate(950 170)"><rect width="190" height="150" class="panel"/><circle cx="38" cy="42" r="20" class="amber"/><text x="32" y="49" fill="#fff" font-family="Georgia" font-size="20" font-weight="700">5</text><text x="72" y="47" class="label">Ledger</text><text x="30" y="84" class="small">completed</text><text x="30" y="108" class="small">negative</text><text x="30" y="132" class="small">or blocked</text></g>
+  <path d="M260 245 H290 M480 245 H510 M700 245 H730 M920 245 H950" class="ink"/>
+  <rect x="145" y="430" width="910" height="96" rx="24" fill="#fffdf8" stroke="#cfc6b6"/>
+  <text x="180" y="469" class="label">Reviewer rule</text><text x="180" y="500" class="small">Saved-count verification checks arithmetic. Independent replication requires a new credentialled execution and ledger update.</text>
 </svg>

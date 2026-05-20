@@ -1,0 +1,28 @@
+{
+  "baseline_names": [
+    "phase_wrap_formula",
+    "lookup_mod24",
+    "classical_m8_m12_product",
+    "delta_regression_tree",
+    "rope_attention",
+    "sinusoidal_attention",
+    "alibi_attention"
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "Deterministic comparison of phase-wrap scoring against classical and positional attention-scoring baselines on the existing synthetic attention-selection task.",
+      "No hardware submission and no provider credentials required."
+    ]
+  },
+  "dataset": "synthetic_transformer_phase_wrap_attention_selection",
+  "result_path": "logs/automated_stage_gates/stage5_attention_baselines/results.json",
+  "schema_version": "qrope_stage5_attention_baselines_v1",
+  "seed": 42,
+  "stage": "stage5_attention_baselines",
+  "summary_csv_path": "logs/automated_stage_gates/stage5_attention_baselines/summary.csv"
+}

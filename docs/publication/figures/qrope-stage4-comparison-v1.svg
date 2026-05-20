@@ -1,110 +1,129 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="700" viewBox="0 0 1400 700" role="img" aria-labelledby="title desc">
   <title id="title">PhaseWrap-RoPE Stage 4 hardware comparison</title>
-  <desc id="desc">A clean bar chart comparing witness and control MAE and rank correlation across four hardware backends.</desc>
+  <desc id="desc">A publication comparison chart showing product-state and entangling witness performance for IBM hardware rows; IonQ is excluded from the active sweep because Braket IonQ devices were unavailable.</desc>
   <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#fff8eb"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.14"/>
+    </filter>
     <style>
-      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
-      .subtitle { font: 400 16px Arial, sans-serif; fill: #475569; }
-      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 10; }
-      .axis { stroke: #334155; stroke-width: 2; }
-      .grid { stroke: #e2e8f0; stroke-width: 1; }
-      .label { font: 700 18px Arial, sans-serif; fill: #111827; }
-      .small { font: 400 13px Arial, sans-serif; fill: #475569; }
-      .tick { font: 400 12px Arial, sans-serif; fill: #64748b; }
-      .value { font: 700 13px Consolas, monospace; fill: #111827; }
+      .title { font: 700 36px Georgia, serif; fill: #0f172a; }
+      .subtitle { font: 500 17px Georgia, serif; fill: #475569; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 26; filter: url(#shadow); }
+      .axis { stroke: #475569; stroke-width: 2; }
+      .grid { stroke: #cbd5e1; stroke-width: 1; stroke-dasharray: 5 7; }
+      .label { font: 700 20px Georgia, serif; fill: #0f172a; }
+      .small { font: 500 14px Georgia, serif; fill: #475569; }
+      .tiny { font: 500 12px Georgia, serif; fill: #64748b; }
+      .value { font: 700 15px Consolas, monospace; fill: #0f172a; }
       .witness { fill: #0f766e; }
       .control { fill: #b45309; }
-      .note { font: 400 12px Arial, sans-serif; fill: #64748b; }
+      .excluded { fill: #cbd5e1; }
+      .product { stroke: #0f766e; stroke-width: 4; fill: none; }
+      .entangle { stroke: #b45309; stroke-width: 4; fill: none; }
     </style>
   </defs>
+  <rect width="1400" height="760" fill="url(#bg)"/>
+  <circle cx="1290" cy="90" r="220" fill="#0f766e" opacity="0.08"/>
+  <circle cx="90" cy="700" r="260" fill="#f59e0b" opacity="0.10"/>
+  <text x="70" y="76" class="title">Stage 4 bounded hardware comparison</text>
+  <text x="70" y="108" class="subtitle">IBM hardware rows; Braket/IonQ was unavailable and is excluded from the active sweep.</text>
 
-  <rect width="1400" height="700" fill="#ffffff"/>
-  <text x="70" y="70" class="title">Stage 4 hardware comparison</text>
-  <text x="70" y="102" class="subtitle">Witness and control metrics for completed PhaseWrap-RoPE hardware runs.</text>
+  <rect x="70" y="150" width="610" height="510" class="panel"/>
+  <text x="104" y="198" class="label">Witness MAE</text>
+  <text x="104" y="224" class="small">Lower is better</text>
+  <line x1="165" y1="560" x2="630" y2="560" class="axis"/>
+  <line x1="165" y1="560" x2="165" y2="270" class="axis"/>
+  <line x1="165" y1="488" x2="630" y2="488" class="grid"/>
+  <line x1="165" y1="416" x2="630" y2="416" class="grid"/>
+  <line x1="165" y1="344" x2="630" y2="344" class="grid"/>
+  <text x="115" y="564" class="tiny">0.00</text>
+  <text x="115" y="492" class="tiny">0.01</text>
+  <text x="115" y="420" class="tiny">0.02</text>
+  <text x="115" y="348" class="tiny">0.03</text>
+  <text x="115" y="276" class="tiny">0.04</text>
+  <line x1="190" y1="560" x2="190" y2="270" class="grid"/>
+  <line x1="305" y1="560" x2="305" y2="270" class="grid"/>
+  <line x1="420" y1="560" x2="420" y2="270" class="grid"/>
+  <line x1="535" y1="560" x2="535" y2="270" class="grid"/>
 
-  <circle cx="1008" cy="86" r="7" class="witness"/>
-  <text x="1022" y="91" class="small">Witness</text>
-  <circle cx="1108" cy="86" r="7" class="control"/>
-  <text x="1122" y="91" class="small">Control</text>
+  <rect x="185" y="466" width="42" height="94" rx="5" class="witness"/>
+  <rect x="231" y="467" width="42" height="93" rx="5" class="control"/>
+  <rect x="300" y="520" width="42" height="40" rx="5" class="witness"/>
+  <rect x="346" y="468" width="42" height="92" rx="5" class="control"/>
+  <rect x="415" y="505" width="42" height="55" rx="5" class="witness"/>
+  <rect x="461" y="462" width="42" height="98" rx="5" class="control"/>
+  <rect x="530" y="552" width="42" height="8" rx="5" class="excluded"/>
+  <rect x="576" y="552" width="42" height="8" rx="5" class="excluded"/>
 
-  <rect x="70" y="140" width="610" height="475" class="panel"/>
-  <text x="105" y="182" class="label">Mean absolute error</text>
-  <text x="105" y="207" class="small">Lower is better</text>
-  <line x1="155" y1="545" x2="625" y2="545" class="axis"/>
-  <line x1="155" y1="545" x2="155" y2="250" class="axis"/>
-  <line x1="155" y1="475" x2="625" y2="475" class="grid"/>
-  <line x1="155" y1="405" x2="625" y2="405" class="grid"/>
-  <line x1="155" y1="335" x2="625" y2="335" class="grid"/>
-  <line x1="155" y1="265" x2="625" y2="265" class="grid"/>
-  <text x="110" y="549" class="tick">0.00</text>
-  <text x="110" y="479" class="tick">0.01</text>
-  <text x="110" y="409" class="tick">0.02</text>
-  <text x="110" y="339" class="tick">0.03</text>
-  <text x="110" y="269" class="tick">0.04</text>
+  <text x="176" y="590" class="small">IBM Kingston</text>
+  <text x="291" y="590" class="small">IBM Marrakesh</text>
+  <text x="417" y="590" class="small">IBM Fez</text>
+  <text x="529" y="590" class="small">IonQ excluded</text>
 
-  <rect x="188" y="443" width="38" height="102" rx="4" class="witness"/>
-  <rect x="230" y="444" width="38" height="101" rx="4" class="control"/>
-  <rect x="303" y="517" width="38" height="28" rx="4" class="witness"/>
-  <rect x="345" y="443" width="38" height="102" rx="4" class="control"/>
-  <rect x="418" y="496" width="38" height="49" rx="4" class="witness"/>
-  <rect x="460" y="436" width="38" height="109" rx="4" class="control"/>
-  <rect x="533" y="508" width="38" height="37" rx="4" class="witness"/>
-  <rect x="575" y="436" width="38" height="109" rx="4" class="control"/>
+  <text x="180" y="452" class="value">0.0434</text>
+  <text x="225" y="451" class="value">0.2156</text>
+  <text x="295" y="506" class="value">0.0119</text>
+  <text x="341" y="454" class="value">0.2301</text>
+  <text x="410" y="491" class="value">0.0157</text>
+  <text x="456" y="448" class="value">0.2204</text>
+  <text x="525" y="502" class="value">n/a</text>
+  <text x="571" y="448" class="value">n/a</text>
 
-  <text x="176" y="574" class="small">IBM Kingston</text>
-  <text x="292" y="574" class="small">IBM Marrakesh</text>
-  <text x="420" y="574" class="small">IBM Fez</text>
-  <text x="532" y="574" class="small">IonQ QPU</text>
+  <text x="190" y="612" class="tiny">product</text>
+  <text x="235" y="612" class="tiny">control</text>
+  <text x="305" y="612" class="tiny">product</text>
+  <text x="351" y="612" class="tiny">control</text>
+  <text x="420" y="612" class="tiny">product</text>
+  <text x="466" y="612" class="tiny">control</text>
+  <text x="535" y="612" class="tiny">excluded</text>
+  <text x="581" y="612" class="tiny">excluded</text>
 
-  <text x="184" y="431" class="value">0.0434</text>
-  <text x="226" y="432" class="value">0.2156</text>
-  <text x="299" y="505" class="value">0.0119</text>
-  <text x="341" y="431" class="value">0.2301</text>
-  <text x="414" y="484" class="value">0.0157</text>
-  <text x="456" y="424" class="value">0.2204</text>
-  <text x="529" y="496" class="value">0.0148</text>
-  <text x="571" y="424" class="value">0.2302</text>
+  <rect x="726" y="150" width="604" height="510" class="panel"/>
+  <text x="760" y="198" class="label">Rank correlation</text>
+  <text x="760" y="224" class="small">Higher is better</text>
+  <line x1="785" y1="560" x2="1300" y2="560" class="axis"/>
+  <line x1="785" y1="560" x2="785" y2="270" class="axis"/>
+  <line x1="785" y1="520" x2="1300" y2="520" class="grid"/>
+  <line x1="785" y1="470" x2="1300" y2="470" class="grid"/>
+  <line x1="785" y1="420" x2="1300" y2="420" class="grid"/>
+  <line x1="785" y1="370" x2="1300" y2="370" class="grid"/>
+  <line x1="785" y1="320" x2="1300" y2="320" class="grid"/>
+  <text x="738" y="564" class="tiny">-0.20</text>
+  <text x="746" y="524" class="tiny">0.00</text>
+  <text x="746" y="474" class="tiny">0.25</text>
+  <text x="746" y="424" class="tiny">0.50</text>
+  <text x="746" y="374" class="tiny">0.75</text>
+  <text x="746" y="324" class="tiny">1.00</text>
+  <line x1="880" y1="534" x2="880" y2="560" class="grid"/>
+  <line x1="995" y1="534" x2="995" y2="560" class="grid"/>
+  <line x1="1110" y1="534" x2="1110" y2="560" class="grid"/>
+  <line x1="1225" y1="534" x2="1225" y2="560" class="grid"/>
 
-  <rect x="720" y="140" width="610" height="475" class="panel"/>
-  <text x="755" y="182" class="label">Rank correlation</text>
-  <text x="755" y="207" class="small">Higher is better</text>
-  <line x1="805" y1="545" x2="1275" y2="545" class="axis"/>
-  <line x1="805" y1="545" x2="805" y2="250" class="axis"/>
-  <line x1="805" y1="505" x2="1275" y2="505" class="grid"/>
-  <line x1="805" y1="445" x2="1275" y2="445" class="grid"/>
-  <line x1="805" y1="385" x2="1275" y2="385" class="grid"/>
-  <line x1="805" y1="325" x2="1275" y2="325" class="grid"/>
-  <line x1="805" y1="265" x2="1275" y2="265" class="grid"/>
-  <text x="758" y="549" class="tick">-0.20</text>
-  <text x="770" y="509" class="tick">0.00</text>
-  <text x="770" y="449" class="tick">0.25</text>
-  <text x="770" y="389" class="tick">0.50</text>
-  <text x="770" y="329" class="tick">0.75</text>
-  <text x="770" y="269" class="tick">1.00</text>
+  <rect x="854" y="369" width="40" height="191" rx="5" class="witness"/>
+  <rect x="900" y="535" width="40" height="25" rx="5" class="control"/>
+  <rect x="969" y="352" width="40" height="208" rx="5" class="witness"/>
+  <rect x="1015" y="534" width="40" height="26" rx="5" class="control"/>
+  <rect x="1084" y="324" width="40" height="236" rx="5" class="witness"/>
+  <rect x="1130" y="533" width="40" height="27" rx="5" class="control"/>
+  <rect x="1199" y="552" width="40" height="8" rx="5" class="excluded"/>
+  <rect x="1245" y="552" width="40" height="8" rx="5" class="excluded"/>
 
-  <rect x="838" y="378" width="38" height="167" rx="4" class="witness"/>
-  <rect x="880" y="525" width="38" height="20" rx="4" class="control"/>
-  <rect x="953" y="330" width="38" height="215" rx="4" class="witness"/>
-  <rect x="995" y="523" width="38" height="22" rx="4" class="control"/>
-  <rect x="1068" y="305" width="38" height="240" rx="4" class="witness"/>
-  <rect x="1110" y="524" width="38" height="21" rx="4" class="control"/>
-  <rect x="1183" y="342" width="38" height="203" rx="4" class="witness"/>
-  <rect x="1225" y="523" width="38" height="22" rx="4" class="control"/>
+  <text x="835" y="590" class="small">IBM Kingston</text>
+  <text x="950" y="590" class="small">IBM Marrakesh</text>
+  <text x="1076" y="590" class="small">IBM Fez</text>
+  <text x="1188" y="590" class="small">IonQ excluded</text>
 
-  <text x="826" y="574" class="small">IBM Kingston</text>
-  <text x="942" y="574" class="small">IBM Marrakesh</text>
-  <text x="1070" y="574" class="small">IBM Fez</text>
-  <text x="1182" y="574" class="small">IonQ QPU</text>
+  <text x="849" y="355" class="value">0.7812</text>
+  <text x="895" y="554" class="value">-0.1513</text>
+  <text x="964" y="338" class="value">0.9605</text>
+  <text x="1010" y="553" class="value">-0.1768</text>
+  <text x="1079" y="310" class="value">0.9814</text>
+  <text x="1125" y="552" class="value">-0.1693</text>
+  <text x="1194" y="344" class="value">n/a</text>
+  <text x="1240" y="554" class="value">n/a</text>
 
-  <text x="834" y="366" class="value">0.7812</text>
-  <text x="872" y="516" class="value">-0.1513</text>
-  <text x="949" y="318" class="value">0.9605</text>
-  <text x="987" y="514" class="value">-0.1768</text>
-  <text x="1064" y="293" class="value">0.9814</text>
-  <text x="1102" y="515" class="value">-0.1693</text>
-  <text x="1179" y="330" class="value">0.9086</text>
-  <text x="1217" y="514" class="value">-0.1768</text>
-
-  <line x1="70" y1="646" x2="1330" y2="646" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="70" y="672" class="note">Figure 3. Completed hardware comparison. IBM runs used 4096 shots; IonQ used 1024 shots.</text>
 </svg>

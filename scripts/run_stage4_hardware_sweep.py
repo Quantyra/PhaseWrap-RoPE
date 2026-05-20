@@ -4,6 +4,7 @@ import argparse
 import copy
 import json
 import os
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -27,6 +28,14 @@ def _coerce_int(value: Any) -> int | None:
     except (TypeError, ValueError):
         return None
     return cast if cast > 0 else None
+
+
+def _coerce_float(value: Any) -> float | None:
+    try:
+        cast = float(value)
+    except (TypeError, ValueError):
+        return None
+    return cast if cast >= 0.0 else None
 
 
 def discover_ibm_backends() -> list[dict[str, Any]]:
@@ -110,11 +119,102 @@ def discover_ionq_backends() -> list[dict[str, Any]]:
     return backends
 
 
+def _split_env_list(value: str) -> list[str]:
+    return [item.strip() for item in value.replace(";", ",").split(",") if item.strip()]
+
+
+def _aws_region_from_arn(arn: str) -> str:
+    parts = arn.split(":")
+    return parts[3] if len(parts) > 3 else ""
+
+
+def _aws_cmd(profile: str, region: str, service: str, operation: str) -> list[str]:
+    cmd = ["aws", service, operation]
+    if region:
+        cmd.extend(["--region", region])
+    if profile:
+        cmd.extend(["--profile", profile])
+    return cmd
+
+
+def discover_braket_backends() -> list[dict[str, Any]]:
+    backends: list[dict[str, Any]] = []
+    device_arns = _split_env_list(os.environ.get("QROPE_BRAKET_DEVICE_ARNS", ""))
+    single_device_arn = os.environ.get("QROPE_BRAKET_DEVICE_ARN", "").strip()
+    if single_device_arn:
+        device_arns.append(single_device_arn)
+    if not device_arns:
+        return backends
+
+    profile = os.environ.get("QROPE_BRAKET_AWS_PROFILE", os.environ.get("AWS_PROFILE", "")).strip()
+    s3_bucket = os.environ.get("QROPE_BRAKET_OUTPUT_S3_BUCKET", "").strip()
+    seen = set()
+    for arn in device_arns:
+        if arn in seen:
+            continue
+        seen.add(arn)
+        region = os.environ.get("QROPE_BRAKET_AWS_REGION", "").strip() or _aws_region_from_arn(arn)
+        cmd = _aws_cmd(profile, region, "braket", "get-device")
+        cmd.extend(["--device-arn", arn])
+        try:
+            completed = subprocess.run(cmd, capture_output=True, text=True, check=False)
+            if completed.returncode != 0:
+                backends.append(
+                    {
+                        "provider": "amazon_braket",
+                        "backend": arn,
+                        "aws_profile": profile,
+                        "aws_region": region,
+                        "output_s3_bucket": s3_bucket,
+                        "status": f"unreadable: {completed.stderr.strip() or completed.stdout.strip()}",
+                    }
+                )
+                continue
+            device = json.loads(completed.stdout or "{}")
+            status = str(device.get("deviceStatus", "unknown"))
+            if status.upper() != "ONLINE":
+                continue
+            caps = json.loads(device.get("deviceCapabilities") or "{}")
+            service_caps = caps.get("service", {}) if isinstance(caps, dict) else {}
+            shots_range = service_caps.get("shotsRange") if isinstance(service_caps, dict) else None
+            max_shots = _coerce_int(shots_range[-1]) if isinstance(shots_range, list) and shots_range else None
+            device_cost = service_caps.get("deviceCost", {}) if isinstance(service_caps, dict) else {}
+            cost_per_shot = _coerce_float(device_cost.get("price")) if isinstance(device_cost, dict) else None
+            backends.append(
+                {
+                    "provider": "amazon_braket",
+                    "backend": arn,
+                    "aws_profile": profile,
+                    "aws_region": region,
+                    "output_s3_bucket": s3_bucket,
+                    "max_shots": max_shots,
+                    "cost_per_shot_usd": cost_per_shot,
+                    "cost_unit": device_cost.get("unit") if isinstance(device_cost, dict) else None,
+                    "status": "online",
+                    "device_name": device.get("deviceName", ""),
+                    "provider_name": device.get("providerName", ""),
+                }
+            )
+        except Exception as exc:
+            backends.append(
+                {
+                    "provider": "amazon_braket",
+                    "backend": arn,
+                    "aws_profile": profile,
+                    "aws_region": region,
+                    "output_s3_bucket": s3_bucket,
+                    "status": f"unreadable: {exc}",
+                }
+            )
+    return backends
+
+
 def list_available_targets() -> list[dict[str, Any]]:
     load_local_dotenv(REPO_ROOT / ".env")
     all_backends: list[dict[str, Any]] = []
     all_backends.extend(discover_ibm_backends())
     all_backends.extend(discover_ionq_backends())
+    all_backends.extend(discover_braket_backends())
     dedup = []
     seen = set()
     for item in all_backends:
@@ -134,6 +234,65 @@ def _target_shots(default_target: int, max_shots: int | None) -> int:
     return min(default_target, max_shots)
 
 
+def _execution_task_arns(execution: dict[str, Any]) -> list[str]:
+    task_arns: list[str] = []
+    for job in execution.get("jobs", []):
+        for record in job.get("provider_job_records", []):
+            task_arn = record.get("job_id")
+            if task_arn:
+                task_arns.append(str(task_arn))
+        if not job.get("provider_job_records") and job.get("job_id"):
+            task_arns.extend(item for item in str(job["job_id"]).split(",") if item)
+    return task_arns
+
+
+def _execution_result_s3_uris(execution: dict[str, Any]) -> list[str]:
+    uris: list[str] = []
+    for job in execution.get("jobs", []):
+        for row in job.get("raw_counts_by_row", []):
+            uri = row.get("result_s3_uri")
+            if uri:
+                uris.append(str(uri))
+    return uris
+
+
+def _artifact_summary(
+    result: dict[str, Any],
+    backend: dict[str, Any],
+    *,
+    shot_target: int,
+    shot_count: int,
+    row_limit: int,
+    result_dir: Path,
+) -> dict[str, Any]:
+    execution = result.get("execution", {})
+    preflight = result.get("preflight", {})
+    jobs = execution.get("jobs", [])
+    return {
+        "artifact_dir": str(result_dir),
+        "status": result.get("status"),
+        "outcome": result.get("outcome"),
+        "gate_pass": result.get("gate_pass"),
+        "provider": backend["provider"],
+        "backend": backend["backend"],
+        "target_shots": shot_target,
+        "effective_shots": shot_count,
+        "cost_per_shot_usd": backend.get("cost_per_shot_usd"),
+        "row_limit": row_limit,
+        "packet_id": result.get("packet", {}).get("packet_id"),
+        "preflight_status": preflight.get("status"),
+        "preflight_blockers": preflight.get("blockers", []),
+        "account_setup_check": preflight.get("account_setup_check"),
+        "execution_status": execution.get("status"),
+        "error_category": execution.get("error_category"),
+        "blockers": execution.get("blockers", []),
+        "job_ids": [job.get("job_id") for job in jobs],
+        "task_arns": _execution_task_arns(execution),
+        "result_s3_uris": _execution_result_s3_uris(execution),
+        "error": execution.get("error"),
+    }
+
+
 def run_single_backend(
     base_env: dict[str, str],
     backend: dict[str, Any],
@@ -150,6 +309,22 @@ def run_single_backend(
     env["QROPE_HARDWARE_ROW_LIMIT"] = str(row_limit)
     env["QROPE_HARDWARE_CIRCUIT_FAMILY"] = family
     env["QROPE_HARDWARE_BUDGET_USD_CAP"] = str(budget_cap)
+    if backend["provider"] == "amazon_braket":
+        env["QROPE_BRAKET_DEVICE_ARN"] = backend["backend"]
+        env["QROPE_BRAKET_AWS_PROFILE"] = str(backend.get("aws_profile", ""))
+        env["QROPE_BRAKET_AWS_REGION"] = str(backend.get("aws_region", ""))
+        env["QROPE_BRAKET_OUTPUT_S3_BUCKET"] = str(backend.get("output_s3_bucket", ""))
+        env["QROPE_BRAKET_OUTPUT_S3_PREFIX"] = (
+            "phasewrap-rope/stage4-hardware-sweep/"
+            f"{_safe_name(backend['backend'])}/"
+            f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
+        )
+        env["QROPE_BRAKET_BUDGET_USD_CAP"] = str(budget_cap)
+        cost_per_shot = backend.get("cost_per_shot_usd")
+        if cost_per_shot is None:
+            cost_per_shot = float(os.environ.get("QROPE_BRAKET_COST_PER_SHOT_USD", "0.001"))
+        env["QROPE_BRAKET_ESTIMATED_COST_USD"] = f"{float(shot_count) * float(cost_per_shot):.12g}"
+        env["QROPE_BRAKET_COST_PER_SHOT_USD"] = str(cost_per_shot)
     run_payload: dict[str, Any] = {
         "target_shots": shot_target,
         "effective_shots": shot_count,
@@ -171,29 +346,29 @@ def run_single_backend(
     target_dir = LOG_ROOT / tag / f"{family}_{timestamp}"
     target_dir.mkdir(parents=True, exist_ok=True)
     (target_dir / "run_payload.json").write_text(json.dumps(run_payload, indent=2, sort_keys=True), encoding="utf-8")
-    (target_dir / "summary.json").write_text(
-        json.dumps(
-            {
-                "status": result["status"],
-                "outcome": result["outcome"],
-                "provider": backend["provider"],
-                "backend": backend["backend"],
-                "target_shots": shot_target,
-                "effective_shots": shot_count,
-                "row_limit": row_limit,
-                "packet_id": result.get("packet", {}).get("packet_id"),
-                "job_ids": [job.get("job_id") for job in result.get("execution", {}).get("jobs", [])],
-            },
-            indent=2,
-            sort_keys=True,
-        ),
-        encoding="utf-8",
+    (target_dir / "frozen_packet.json").write_text(json.dumps(result.get("packet", {}), indent=2, sort_keys=True), encoding="utf-8")
+    (target_dir / "preflight.json").write_text(json.dumps(result.get("preflight", {}), indent=2, sort_keys=True), encoding="utf-8")
+    (target_dir / "execution.json").write_text(json.dumps(result.get("execution", {}), indent=2, sort_keys=True), encoding="utf-8")
+    (target_dir / "evaluation.json").write_text(json.dumps(result.get("evaluation", {}), indent=2, sort_keys=True), encoding="utf-8")
+    summary = _artifact_summary(
+        result,
+        backend,
+        shot_target=shot_target,
+        shot_count=shot_count,
+        row_limit=row_limit,
+        result_dir=target_dir,
     )
+    (target_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     return result, target_dir
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run Stage 4 on all discovered hardware targets.")
+    parser.add_argument(
+        "--providers",
+        default="",
+        help="Comma-separated provider filter, for example amazon_braket or ibm_runtime,amazon_braket.",
+    )
     parser.add_argument(
         "--target-shots",
         type=int,
@@ -217,13 +392,41 @@ def parse_args() -> argparse.Namespace:
         default=1000.0,
         help="Hardware budget cap in USD (for preflight gating).",
     )
+    parser.add_argument("--braket-device-arn", action="append", default=[], help="Amazon Braket device ARN to add.")
+    parser.add_argument("--braket-profile", default="", help="AWS profile for Amazon Braket targets.")
+    parser.add_argument("--braket-region", default="", help="AWS region for Amazon Braket targets.")
+    parser.add_argument("--braket-s3-bucket", default="", help="S3 bucket for Amazon Braket task results.")
+    parser.add_argument("--braket-timeout-sec", type=float, help="Maximum seconds to wait for each Braket task.")
+    parser.add_argument("--braket-poll-interval-sec", type=float, help="Seconds between Braket task status polls.")
+    parser.add_argument(
+        "--require-pass",
+        action="store_true",
+        help="Return a non-zero exit code unless every attempted target passes the hardware gate.",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
     load_local_dotenv(REPO_ROOT / ".env")
+    if args.braket_device_arn:
+        existing_arns = _split_env_list(os.environ.get("QROPE_BRAKET_DEVICE_ARNS", ""))
+        os.environ["QROPE_BRAKET_DEVICE_ARNS"] = ",".join(existing_arns + args.braket_device_arn)
+    if args.braket_profile:
+        os.environ["QROPE_BRAKET_AWS_PROFILE"] = args.braket_profile
+    if args.braket_region:
+        os.environ["QROPE_BRAKET_AWS_REGION"] = args.braket_region
+    if args.braket_s3_bucket:
+        os.environ["QROPE_BRAKET_OUTPUT_S3_BUCKET"] = args.braket_s3_bucket
+    if args.braket_timeout_sec is not None:
+        os.environ["QROPE_BRAKET_JOB_TIMEOUT_SEC"] = str(args.braket_timeout_sec)
+    if args.braket_poll_interval_sec is not None:
+        os.environ["QROPE_BRAKET_POLL_INTERVAL_SEC"] = str(args.braket_poll_interval_sec)
+
     targets = list_available_targets()
+    provider_filter = set(_split_env_list(args.providers))
+    if provider_filter:
+        targets = [target for target in targets if target.get("provider") in provider_filter]
     if not targets:
         print("No available hardware targets discovered.")
         return 1
@@ -274,6 +477,8 @@ def main() -> int:
     print("\nSweep summary:")
     for item in outcomes:
         print(f"- {item['provider']}/{item['backend']}: {item['status']} / {item['outcome']} (shots={item['shots']})")
+    if args.require_pass and not all(item["status"] == "PASS" for item in outcomes):
+        return 1
     return 0
 
 

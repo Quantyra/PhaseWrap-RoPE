@@ -1,48 +1,41 @@
 # PhaseWrap-RoPE Stage 4 Hardware Comparison v1
 
-Date: 2026-05-18
+Date: 2026-05-19
 
 ## BLUF
 
-The repository now treats the Stage 4 multi-platform sweep as a manifest-driven evidence lane. The narrative comparison below records the reported hardware sweep outcome, but first-class public evidence requires the tracked raw-count artifacts listed in:
+The active machine-verifiable hardware sweep records six completed artifacts: the original IBM Fez product-state hardware packet, an IBM Fez entangling-CX hardware-positive packet, an Amazon Braket/Rigetti product-state hardware-positive replication artifact, and three Amazon Braket CX artifacts on Rigetti Cepheus, IQM Garnet, and IQM Emerald. The sweep verifier is now provider-aware: IBM records use `q1q0` bitstring decoding and Amazon Braket records use `q0q1` decoding as declared in the manifest. Under that canonical verifier all six active records recompute as hardware-positive from committed raw counts. Additional IBM targets are deferred from the active sweep. Amazon Braket/IonQ is excluded from the active sweep because the checked IonQ devices were unavailable.
 
-```text
-logs/automated_stage_gates/stage4_hardware_sweep/manifest.json
-```
+The completed active records preserve the same qualitative pattern:
 
-Run the offline verifier with:
+- witness metrics were substantially better than the control metrics for the positive IBM Fez and Braket product-state records
+- the IBM Fez control rank correlation remained negative
+- the Braket/Rigetti control rank correlation remained below the witness rank correlation
+- IBM Fez used 4096 shots
+- IBM Fez CX used 4096 shots and preserved witness/control ordering
+- Amazon Braket CX executions completed on Rigetti Cepheus, IQM Garnet, and IQM Emerald at 1000 shots per row and now verify as hardware-positive under manifest-declared `q0q1` decoding
+- the CX portability diagnostic remains as audit evidence explaining why the earlier generic `q1q0` Braket CX decode was negative
+- Amazon Braket/IonQ was checked on 2026-05-19 and was not run because `Forte-1` and `Forte-Enterprise-1` were `OFFLINE`, while `Aria-1` was `RETIRED`
+- Amazon Braket/Rigetti completed the product-state lane with 1000 shots per row on `Cepheus-1-108Q`
 
-```bash
-python scripts/verify_stage4_hardware_sweep.py
-```
+## Visual Summary
 
-If real sweep artifacts are absent, the verifier fails and lists the missing records. That failure is intentional; missing raw counts, job IDs, timestamps, or backend metadata must be supplied from real run records, not reconstructed from this report.
+![Stage 4 hardware comparison](../publication/figures/qrope-stage4-comparison-v1.svg)
 
-The active no-spend research lane is the free local simulation sweep:
+The figure is historical comparison context. The canonical active sweep evidence is the manifest and verifier output under `logs/automated_stage_gates/stage4_hardware_sweep/`.
 
-```bash
-python scripts/run_stage4_simulation_sweep.py
-python scripts/verify_stage4_simulation_sweep.py
-```
+- the active IBM Fez and Braket records recompute from raw counts
+- deferred IBM rows are not active public evidence until real artifacts are added
 
-That simulation lane passes offline verification and should be used to finish the current research packaging before any hardware spend is reconsidered.
+## Hardware Targets
 
-## Claim Boundary
-
-The comparison may support only recorded packet/backend/date/calibration-specific outcomes after offline verification from raw counts. It does not establish broad quantum advantage, production transformer superiority, full transformer-scale validation, deployed-model performance improvement, or general cross-backend robustness.
-
-Any future hardware execution or rerun with estimated cost over `$100` requires explicit approval before submission.
-
-No hardware execution is approved at this time.
-
-## Reported Hardware Targets
-
-| Provider | Backend | Shots used | Reported status | Reported outcome |
+| Provider | Backend | Shots used | Status | Outcome |
 | --- | --- | ---: | --- | --- |
-| IBM Runtime | `ibm_kingston` | 4096 | PASS | hardware-positive |
-| IBM Runtime | `ibm_marrakesh` | 4096 | PASS | hardware-positive |
 | IBM Runtime | `ibm_fez` | 4096 | PASS | hardware-positive |
-| IonQ | `ionq_qpu` | 1024 | PASS | hardware-positive |
+| Amazon Braket | `Rigetti Cepheus-1-108Q` | 1000 | PASS | hardware-positive |
+| Amazon Braket | `Rigetti Cepheus-1-108Q` CX | 1000 | PASS | hardware-positive |
+| Amazon Braket | `IQM Garnet` CX | 1000 | PASS | hardware-positive |
+| Amazon Braket | `IQM Emerald` CX | 1000 | PASS | hardware-positive |
 
 ## Product-State Witness
 
@@ -50,35 +43,123 @@ Circuit family: `two_qubit_zz_expectation_phase_wrap_v1`
 
 | Backend | Witness MAE | Witness rank corr | Control MAE | Control rank corr |
 | --- | ---: | ---: | ---: | ---: |
-| `ibm_kingston` | 0.043376 | 0.781236 | 0.215599 | -0.151337 |
-| `ibm_marrakesh` | 0.011859 | 0.879555 | 0.230110 | -0.184302 |
-| `ibm_fez` | 0.015664 | 0.940875 | 0.220397 | -0.169318 |
-| `ionq_qpu` | 0.014829 | 0.861459 | 0.230163 | -0.184302 |
+| `ibm_fez` | 0.018382 | 0.876558 | 0.217262 | -0.176940 |
+| `rigetti_cepheus_1_108q` | 0.069901 | 0.786644 | 0.149995 | 0.121232 |
 
 ## Entangling CX Witness
 
 Circuit family: `two_qubit_cx_parity_phase_wrap_v2`
 
+The CX witness is now an active machine-verifiable hardware sweep family. The IBM Fez CX run used 16 rows and 4096 shots, completed as job `d86e50lg7okc73el0fog`, and verified as hardware-positive. Amazon Braket CX runs on Rigetti Cepheus, IQM Garnet, and IQM Emerald completed at 8 rows and 1000 shots per row. The canonical provider-aware verifier decodes Amazon Braket result keys as `q0q1`; under that manifest-declared convention all three Braket CX records verify as hardware-positive:
+
 | Backend | Witness MAE | Witness rank corr | Control MAE | Control rank corr |
 | --- | ---: | ---: | ---: | ---: |
-| `ibm_kingston` | 0.026686 | 0.925187 | 0.205612 | -0.184302 |
-| `ibm_marrakesh` | 0.015108 | 0.960468 | 0.225158 | -0.176810 |
-| `ibm_fez` | 0.016162 | 0.981446 | 0.213417 | -0.169318 |
-| `ionq_qpu` | 0.016037 | 0.908612 | 0.229827 | -0.176810 |
+| `ibm_fez` | 0.021458 | 0.972455 | 0.212516 | -0.169318 |
+| `rigetti_cepheus_1_108q` | 0.061643 | 0.557668 | 0.194370 | -0.060616 |
+| `iqm_garnet` | 0.021719 | 0.981981 | 0.204370 | -0.060616 |
+| `iqm_emerald` | 0.021479 | 0.884995 | 0.210995 | -0.096986 |
 
-## Interpretation
+A no-hardware ideal-count rehearsal remains present at `logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal/`. An earlier Amazon Braket/Rigetti CX attempt on 2026-05-19 timed out while queued and was cancelled; the later Rigetti, IQM Garnet, and IQM Emerald CX executions completed and are recorded as provider-aware positive hardware evidence.
 
-The reported runs preserve the intended witness/control ordering: witness MAE is lower and witness rank correlation is higher than the additive control in each reported lane. The entangling CX family is therefore a reported supporting extension, not proof of quantum advantage or broad robustness.
+The diagnostic at `docs/research/q-rope-stage4-cx-portability-diagnostic-v1.md` replays those same raw counts under alternate result-key conventions. It records that the earlier generic `q1q0` decode classified Braket CX as negative, while the now-canonical `q0q1` Amazon Braket interpretation preserves witness/control ordering with the original `E[Z1 after CX]` witness source:
 
-Backend calibration, queue conditions, transpilation details, shot caps, and packet composition can affect future results. The proper review path is the manifest plus verifier, not this markdown table alone.
+| Backend | Corrected-convention witness MAE | Corrected-convention witness rank corr |
+| --- | ---: | ---: |
+| `rigetti_cepheus_1_108q` | 0.061643 | 0.557668 |
+| `iqm_garnet` | 0.021719 | 0.981981 |
+| `iqm_emerald` | 0.021479 | 0.884995 |
+
+## Comparison
+
+### Product-state vs entangling
+
+The entangling CX witness supports bounded positive results on the recorded IBM Fez, Rigetti Cepheus, IQM Garnet, and IQM Emerald packet/backend/date/calibration contexts under the provider-aware verifier. This is not a basis for a general cross-backend CX robustness claim.
+
+### Backend deltas
+
+| Backend | MAE delta, product | Rank delta, product |
+| --- | ---: | ---: |
+| `ibm_fez` | 0.1989 | 1.0535 |
+| `rigetti_cepheus_1_108q` | 0.0801 | 0.6654 |
+
+Here the MAE delta is `control MAE - witness MAE`, so larger is better. The rank delta is `witness rank correlation - control rank correlation`, so larger is better.
+
+### Excluded IonQ target
+
+The active sweep does not require additional IBM machines. IBM Kingston and IBM Marrakesh are deferred from the active verifier path because the distinct value-add over the committed IBM Fez plus Braket/Rigetti artifacts is not enough to justify requiring extra hardware evidence for the current bounded claim.
+
+The current intended IonQ route is Amazon Braket, not direct IonQ API execution. A read-only Braket device check on 2026-05-19 found `arn:aws:braket:us-east-1::device/qpu/ionq/Forte-1` and `arn:aws:braket:us-east-1::device/qpu/ionq/Forte-Enterprise-1` in `OFFLINE` status and `arn:aws:braket:us-east-1::device/qpu/ionq/Aria-1` in `RETIRED` status. No Braket/IonQ Stage 4 task was submitted, and no IonQ hardware artifact is present in the repository.
+
+### Amazon Braket / Rigetti
+
+The Braket/Rigetti product-state run completed after adding a Braket-specific preparation and execution adapter. It used 8 frozen rows with 1000 shots per row on `Cepheus-1-108Q`. The witness beat control on both declared metrics:
+
+- witness MAE: `0.069901` vs control MAE: `0.149995`
+- witness rank correlation: `0.786644` vs control rank correlation: `0.121232`
+- offline verifier: `pass=true`
+
+This run should be treated as a bounded cross-provider replication artifact, not as a broad robustness proof.
+
+### Machine-verification status
+
+The canonical sweep manifest is:
+
+`logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`
+
+The offline sweep verifier is:
+
+`scripts/verify_stage4_hardware_sweep.py`
+
+Current repository state distinguishes active sweep records from deferred or excluded targets:
+
+- The IBM Fez 4096-shot artifact is present and recomputable from raw counts.
+- The Amazon Braket/Rigetti 1000-shot artifact is present and recomputable from raw counts.
+- Additional IBM Kingston/Marrakesh hardware rows are deferred, not active verifier records.
+- The CX no-hardware rehearsal passes and is explicitly marked as non-hardware readiness evidence.
+- The IBM Fez CX hardware artifact is present and recomputable from raw counts.
+- The Braket CX Rigetti, IQM Garnet, and IQM Emerald artifacts are present, recomputable from raw counts, and hardware-positive under manifest-declared provider-aware decoding.
+- The CX portability diagnostic is present and explains the earlier generic-decoder negative classification.
+- The sweep verifier passes for the active records.
+- IonQ is not an active sweep record. The manifest records it only under excluded targets because the checked Amazon Braket IonQ devices were unavailable on 2026-05-19, so IonQ hardware tests could not be run from the checked AWS account.
+
+Deferred IBM rows should not be treated as machine-verifiable public evidence until the real run records, job IDs, raw counts, backend metadata, and verifier outputs are added. For IonQ specifically, a future artifact should be labeled as a new dated Amazon Braket/IonQ run if a Braket IonQ device becomes available, and then added as a new manifest record.
+
+### Family-level summary
+
+| Family | Best witness MAE | Best witness rank corr | Worst control MAE | Worst control rank corr |
+| --- | ---: | ---: | ---: | ---: |
+| Product-state | 0.018382 | 0.876558 | 0.217262 | -0.176940 |
+
+### Goal status
+
+The active evidence packaging goals are complete:
+
+1. verify the existing IBM Fez product-state hardware packet from committed raw counts
+2. add an Amazon Braket/Rigetti product-state replication artifact with completed task ARNs and S3 result URIs
+3. record IonQ unavailability without promoting a missing IonQ run
+4. add a no-hardware CX ideal-count rehearsal
+5. add a completed IBM Fez CX hardware artifact with raw counts and verifier recomputation
+6. add completed Braket CX artifacts with raw counts and provider-aware verifier recomputation
+7. keep additional IBM hardware execution lanes deferred unless real artifacts are later added
 
 ## Evidence Pointers
 
-- Sweep manifest: `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`
-- Sweep verifier: `scripts/verify_stage4_hardware_sweep.py`
-- Sweep verifier output: `logs/automated_stage_gates/stage4_hardware_sweep/offline_verification.json`
-- Stage 4 sweep runner: `scripts/run_stage4_hardware_sweep.py`
+- [Product-state IBM packet logs](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_packet)
+- [IBM Fez CX artifact](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_cx_parity_phase_wrap_v2_20260519T222219Z)
+- [Amazon Braket/Rigetti 1000-shot artifact](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z)
+- [Amazon Braket/Rigetti CX artifact](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z)
+- [Amazon Braket/IQM Garnet CX artifact](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Garnet/two_qubit_cx_parity_phase_wrap_v2_20260519T230446Z)
+- [Amazon Braket/IQM Emerald CX artifact](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z)
+- [CX portability diagnostic](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/docs/research/q-rope-stage4-cx-portability-diagnostic-v1.md)
+- [CX no-hardware rehearsal](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_cx_rehearsal/ideal_counts_rehearsal)
+- [Stage 4 sweep manifest](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/logs/automated_stage_gates/stage4_hardware_sweep/manifest.json)
+- [Stage 4 sweep verifier](/C:/Users/Dan/Desktop/Projects/QuantyraQRope-sync/scripts/verify_stage4_hardware_sweep.py)
+- [Stage 4 sweep runner](/C:/Users/Dan/Desktop/Projects/QuantyraQRope/scripts/run_stage4_hardware_sweep.py)
 
-## Next Step
+## Recommendation
 
-Finish the research package against the free simulation sweep first. Hardware remains deferred until the simulation-only output is reviewed and an explicit hardware budget decision is made.
+The next step is review packaging, not more execution:
+
+1. fold these run results into the publication docs
+2. describe the entangling witness as bounded active IBM Fez and Amazon Braket positive hardware evidence under provider-aware decoding
+3. keep the 4096-shot wording for IBM and explicitly note that Amazon Braket/IonQ was unavailable during the 2026-05-19 check

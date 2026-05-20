@@ -16,6 +16,9 @@ def test_photonic_angles_are_deterministic_and_bounded() -> None:
 
 
 def test_photonic_distribution_score_stays_in_unit_interval() -> None:
+    import pytest
+
+    pytest.importorskip("perceval")
     from perceval import BasicState
 
     distribution = {

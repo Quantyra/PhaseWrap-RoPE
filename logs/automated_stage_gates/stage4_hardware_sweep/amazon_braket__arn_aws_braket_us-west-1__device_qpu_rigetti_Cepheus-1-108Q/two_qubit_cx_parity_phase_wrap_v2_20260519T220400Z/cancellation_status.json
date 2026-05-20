@@ -1,0 +1,9 @@
+{
+  "checked_at_utc": "2026-05-19T22:07:22Z",
+  "cancelled_at_utc": "2026-05-19T22:07:22.245000Z",
+  "cancellation_requested": true,
+  "cancellation_request_status": "CANCELLED",
+  "hardware_counts_available": false,
+  "note": "The local runner timed out after 1800 seconds while the first Braket task was still queued. A cancellation request was sent so the orphaned one-row task would not continue without the runner collecting results.",
+  "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/ac7e2b2e-2794-43e8-ba18-c65225efceea"
+}

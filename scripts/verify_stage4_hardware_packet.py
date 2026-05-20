@@ -7,10 +7,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+
 from qrope.automated_stage_gates import evaluate_hardware_execution
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STAGE4_DIR = REPO_ROOT / "logs" / "automated_stage_gates" / "stage4_hardware_packet"
 
 
@@ -37,6 +39,18 @@ def _select_metrics(payload: dict[str, Any]) -> dict[str, Any]:
         "comparability_pass": payload.get("comparability_pass"),
         "fail_reasons": payload.get("fail_reasons"),
     }
+
+
+def _execution_job_ids(execution: dict[str, Any]) -> list[str]:
+    job_ids: list[str] = []
+    for job in execution.get("jobs", []):
+        for record in job.get("provider_job_records", []):
+            job_id = str(record.get("job_id", "")).strip()
+            if job_id:
+                job_ids.append(job_id)
+        if not job.get("provider_job_records"):
+            job_ids.extend(item for item in str(job.get("job_id", "")).split(",") if item)
+    return job_ids
 
 
 def verify_packet_files(
@@ -68,7 +82,7 @@ def verify_packet_files(
     if expected_backend:
         add_check("expected_backend", packet.get("backend") == expected_backend, packet.get("backend"))
 
-    job_ids = [str(job.get("job_id", "")) for job in execution.get("jobs", [])]
+    job_ids = _execution_job_ids(execution)
     if expected_job_id:
         add_check("expected_job_id", expected_job_id in job_ids, job_ids)
     else:
@@ -86,7 +100,7 @@ def verify_packet_files(
 
     recorded_summary = _read_json(summary_path) if summary_path and summary_path.exists() else None
     if recorded_summary is not None:
-        summary_result = recorded_summary.get("result", {})
+        summary_result = recorded_summary.get("result", recorded_summary)
         add_check("summary_status_matches_recomputed", summary_result.get("status") == recomputed.get("status"), summary_result.get("status"))
         add_check("summary_outcome_matches_recomputed", summary_result.get("outcome") == recomputed.get("outcome"), summary_result.get("outcome"))
 
@@ -118,9 +132,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--evaluation", type=Path)
     parser.add_argument("--summary", type=Path)
     parser.add_argument("--output", type=Path)
-    parser.add_argument("--expected-provider", default="ibm_runtime")
-    parser.add_argument("--expected-backend", default="ibm_fez")
-    parser.add_argument("--expected-job-id", default="d84jbq00bvlc73d4krr0")
+    parser.add_argument("--expected-provider")
+    parser.add_argument("--expected-backend")
+    parser.add_argument("--expected-job-id")
     args = parser.parse_args(argv)
 
     stage4_dir = args.stage4_dir

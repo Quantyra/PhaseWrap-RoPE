@@ -1,0 +1,166 @@
+{
+  "as_of_date": "2026-05-19",
+  "claim_boundary": "The original IBM Fez product-state hardware packet, IBM Fez CX hardware-positive packet, Amazon Braket/Rigetti product-state replication artifact, and provider-aware Amazon Braket CX hardware-positive artifacts are published as completed hardware evidence. These records do not support a general cross-backend CX robustness claim.",
+  "environment_preflight": {
+    "amazon_braket_cx_negative_completed": false,
+    "amazon_braket_cx_provider_aware_completed": true,
+    "amazon_braket_rigetti_completed": true,
+    "checked_at_local_date": "2026-05-19",
+    "cx_no_hardware_rehearsal_passed": true,
+    "ibm_fez_cx_completed": true,
+    "ionq_available_through_braket": false,
+    "public_reason": "Amazon Braket/Rigetti produced a completed product-state hardware-positive replication artifact. IBM Fez produced a completed CX hardware-positive artifact. Amazon Braket/Rigetti and Amazon Braket/IQM produced completed provider-aware CX hardware-positive artifacts. Amazon Braket/IonQ devices checked on 2026-05-19 were unavailable."
+  },
+  "lanes": [
+    {
+      "backend": "ibm_fez",
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "control_mae": 0.217262,
+      "control_rank_correlation": -0.17694,
+      "date_utc": "2026-05-17",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_packet/",
+      "lane_id": "stage4-product-original",
+      "outcome": "hardware-positive",
+      "provider": "ibm_runtime",
+      "status": "published_completed",
+      "witness_mae": 0.018382,
+      "witness_rank_correlation": 0.876558
+    },
+    {
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "control_mae": 0.149995,
+      "control_rank_correlation": 0.121232,
+      "date_utc": "2026-05-19",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z/",
+      "lane_id": "stage4-product-braket-rigetti",
+      "outcome": "hardware-positive",
+      "provider": "amazon_braket",
+      "status": "published_completed",
+      "witness_mae": 0.069901,
+      "witness_rank_correlation": 0.786644
+    },
+    {
+      "backend": "ibm_fez",
+      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+      "control_mae": 0.212516,
+      "control_rank_correlation": -0.169318,
+      "date_utc": "2026-05-19",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_sweep/ibm_runtime__ibm_fez/two_qubit_cx_parity_phase_wrap_v2_20260519T222219Z/",
+      "job_id": "d86e50lg7okc73el0fog",
+      "lane_id": "stage4-cx-ibm-fez",
+      "outcome": "hardware-positive",
+      "provider": "ibm_runtime",
+      "status": "published_completed",
+      "witness_mae": 0.021458,
+      "witness_rank_correlation": 0.972455
+    },
+    {
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "lane_id": "product-rerun-a",
+      "required_before_claim": [
+        "completed raw counts",
+        "backend metadata",
+        "calibration metadata",
+        "verifier output"
+      ],
+      "status": "blocked_pending_backend_selection",
+      "target": "second IBM backend, first replication date"
+    },
+    {
+      "circuit_family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "lane_id": "product-rerun-b",
+      "required_before_claim": [
+        "completed raw counts",
+        "backend metadata",
+        "calibration metadata",
+        "verifier output"
+      ],
+      "status": "blocked_pending_backend_selection",
+      "target": "third IBM backend or second date"
+    },
+    {
+      "attempted_at_utc": "2026-05-19T21:33:51Z",
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "cancellation_requested": true,
+      "cancelled_at_utc": "2026-05-19T22:07:22.245000Z",
+      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_cx_parity_phase_wrap_v2_20260519T220400Z/",
+      "hardware_submitted": true,
+      "lane_id": "cx-braket-attempt-a",
+      "provider": "amazon_braket",
+      "quantum_task_arn": "arn:aws:braket:us-west-1:485386182336:quantum-task/ac7e2b2e-2794-43e8-ba18-c65225efceea",
+      "required_before_claim": [
+        "completed hardware raw counts",
+        "backend metadata",
+        "calibration metadata",
+        "verifier output"
+      ],
+      "status": "hardware_attempt_timeout_cancelled",
+      "target": "Amazon Braket Rigetti Cepheus-1-108Q",
+      "timeout_seconds": 1800
+    },
+    {
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "bitstring_order": "q0q1",
+      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+      "control_mae": 0.19437,
+      "control_rank_correlation": -0.060616,
+      "date_utc": "2026-05-19",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z/",
+      "historical_decoder_note": "Earlier generic q1q0 decoding classified this Braket CX record as hardware-negative; provider-aware q0q1 decoding recomputes it from the same raw counts as hardware-positive.",
+      "lane_id": "stage4-cx-braket-rigetti",
+      "outcome": "hardware-positive",
+      "provider": "amazon_braket",
+      "status": "published_completed",
+      "witness_mae": 0.061643,
+      "witness_rank_correlation": 0.557668
+    },
+    {
+      "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Garnet",
+      "bitstring_order": "q0q1",
+      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+      "control_mae": 0.20437,
+      "control_rank_correlation": -0.060616,
+      "date_utc": "2026-05-19",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Garnet/two_qubit_cx_parity_phase_wrap_v2_20260519T230446Z/",
+      "historical_decoder_note": "Earlier generic q1q0 decoding classified this Braket CX record as hardware-negative; provider-aware q0q1 decoding recomputes it from the same raw counts as hardware-positive.",
+      "lane_id": "stage4-cx-braket-iqm-garnet",
+      "outcome": "hardware-positive",
+      "provider": "amazon_braket",
+      "status": "published_completed",
+      "witness_mae": 0.021719,
+      "witness_rank_correlation": 0.981981
+    },
+    {
+      "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+      "bitstring_order": "q0q1",
+      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+      "control_mae": 0.210995,
+      "control_rank_correlation": -0.096986,
+      "date_utc": "2026-05-19",
+      "evidence": "logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z/",
+      "historical_decoder_note": "Earlier generic q1q0 decoding classified this Braket CX record as hardware-negative; provider-aware q0q1 decoding recomputes it from the same raw counts as hardware-positive.",
+      "lane_id": "stage4-cx-braket-iqm-emerald",
+      "outcome": "hardware-positive",
+      "provider": "amazon_braket",
+      "status": "published_completed",
+      "witness_mae": 0.021479,
+      "witness_rank_correlation": 0.884995
+    },
+    {
+      "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+      "lane_id": "cx-rerun-b",
+      "required_before_claim": [
+        "completed raw counts",
+        "backend metadata",
+        "calibration metadata",
+        "verifier output"
+      ],
+      "status": "implemented_not_executed_on_hardware",
+      "target": "second date or second backend"
+    }
+  ],
+  "ledger_version": "qrope_replication_ledger_v1",
+  "status": "provider_aware_braket_cx_replications_recorded"
+}

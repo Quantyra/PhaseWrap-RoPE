@@ -1,0 +1,299 @@
+{
+  "backend_metadata": {
+    "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+    "captured_at_utc": "2026-05-19T23:04:52Z",
+    "device_arn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+    "device_name": "Emerald",
+    "device_status": "ONLINE",
+    "device_type": "QPU",
+    "provider": "amazon_braket",
+    "provider_name": "IQM"
+  },
+  "calibration_metadata": {
+    "captured_at_utc": "2026-05-19T23:04:52Z",
+    "device_arn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+    "device_capabilities_sha256": "5c9f912510b2d4012807c7d499c67d179f8981c39a02c75fc0668daa8f612fb0",
+    "source": "aws_braket_get_device"
+  },
+  "jobs": [
+    {
+      "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+      "circuit_count": 8,
+      "completed_at_utc": "2026-05-19T23:08:17Z",
+      "job_id": "arn:aws:braket:eu-north-1:485386182336:quantum-task/e8a196e7-a797-4f51-b501-ef2b6757abf3,arn:aws:braket:eu-north-1:485386182336:quantum-task/6f01fb84-a044-4a1d-b748-a38b3e102236,arn:aws:braket:eu-north-1:485386182336:quantum-task/36202374-cfcb-4313-bfe5-4cdedc457df1,arn:aws:braket:eu-north-1:485386182336:quantum-task/5c18ff20-41ff-47c3-a93c-e3ccddb52b19,arn:aws:braket:eu-north-1:485386182336:quantum-task/60609d11-cf7a-4b0a-bb5d-bc492e2d0356,arn:aws:braket:eu-north-1:485386182336:quantum-task/4bec2c14-2a80-42ef-bb40-b42ac23b1b32,arn:aws:braket:eu-north-1:485386182336:quantum-task/a69879e2-18e6-4323-acef-b1d3bf909a79,arn:aws:braket:eu-north-1:485386182336:quantum-task/36c16f94-61e4-477e-b293-274827723663",
+      "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+      "provider": "amazon_braket",
+      "provider_job_records": [
+        {
+          "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "completed_at_utc": "2026-05-19T23:05:16Z",
+          "job_id": "arn:aws:braket:eu-north-1:485386182336:quantum-task/e8a196e7-a797-4f51-b501-ef2b6757abf3",
+          "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T23:04:54.153000+00:00",
+            "deviceArn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.iqm.iqm_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T23:04:57.623000+00:00",
+            "outputS3Bucket": "amazon-braket-eu-north-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-000/e8a196e7-a797-4f51-b501-ef2b6757abf3",
+            "quantumTaskArn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/e8a196e7-a797-4f51-b501-ef2b6757abf3",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-000",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T23:04:52Z"
+        },
+        {
+          "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "completed_at_utc": "2026-05-19T23:05:42Z",
+          "job_id": "arn:aws:braket:eu-north-1:485386182336:quantum-task/6f01fb84-a044-4a1d-b748-a38b3e102236",
+          "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T23:05:19.503000+00:00",
+            "deviceArn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.iqm.iqm_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T23:05:23.945000+00:00",
+            "outputS3Bucket": "amazon-braket-eu-north-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-001/6f01fb84-a044-4a1d-b748-a38b3e102236",
+            "quantumTaskArn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/6f01fb84-a044-4a1d-b748-a38b3e102236",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-001",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T23:05:18Z"
+        },
+        {
+          "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "completed_at_utc": "2026-05-19T23:06:07Z",
+          "job_id": "arn:aws:braket:eu-north-1:485386182336:quantum-task/36202374-cfcb-4313-bfe5-4cdedc457df1",
+          "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T23:05:45.039000+00:00",
+            "deviceArn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.iqm.iqm_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T23:05:48.205000+00:00",
+            "outputS3Bucket": "amazon-braket-eu-north-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-002/36202374-cfcb-4313-bfe5-4cdedc457df1",
+            "quantumTaskArn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/36202374-cfcb-4313-bfe5-4cdedc457df1",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-002",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T23:05:43Z"
+        },
+        {
+          "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "completed_at_utc": "2026-05-19T23:06:33Z",
+          "job_id": "arn:aws:braket:eu-north-1:485386182336:quantum-task/5c18ff20-41ff-47c3-a93c-e3ccddb52b19",
+          "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T23:06:10.761000+00:00",
+            "deviceArn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.iqm.iqm_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T23:06:13.602000+00:00",
+            "outputS3Bucket": "amazon-braket-eu-north-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-003/5c18ff20-41ff-47c3-a93c-e3ccddb52b19",
+            "quantumTaskArn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/5c18ff20-41ff-47c3-a93c-e3ccddb52b19",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-003",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T23:06:09Z"
+        },
+        {
+          "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "completed_at_utc": "2026-05-19T23:06:59Z",
+          "job_id": "arn:aws:braket:eu-north-1:485386182336:quantum-task/60609d11-cf7a-4b0a-bb5d-bc492e2d0356",
+          "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T23:06:36.814000+00:00",
+            "deviceArn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.iqm.iqm_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T23:06:40.448000+00:00",
+            "outputS3Bucket": "amazon-braket-eu-north-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-004/60609d11-cf7a-4b0a-bb5d-bc492e2d0356",
+            "quantumTaskArn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/60609d11-cf7a-4b0a-bb5d-bc492e2d0356",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-004",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T23:06:35Z"
+        },
+        {
+          "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "completed_at_utc": "2026-05-19T23:07:25Z",
+          "job_id": "arn:aws:braket:eu-north-1:485386182336:quantum-task/4bec2c14-2a80-42ef-bb40-b42ac23b1b32",
+          "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T23:07:02.606000+00:00",
+            "deviceArn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.iqm.iqm_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T23:07:06.101000+00:00",
+            "outputS3Bucket": "amazon-braket-eu-north-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-005/4bec2c14-2a80-42ef-bb40-b42ac23b1b32",
+            "quantumTaskArn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/4bec2c14-2a80-42ef-bb40-b42ac23b1b32",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-005",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T23:07:01Z"
+        },
+        {
+          "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "completed_at_utc": "2026-05-19T23:07:51Z",
+          "job_id": "arn:aws:braket:eu-north-1:485386182336:quantum-task/a69879e2-18e6-4323-acef-b1d3bf909a79",
+          "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T23:07:28.695000+00:00",
+            "deviceArn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.iqm.iqm_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T23:07:31.595000+00:00",
+            "outputS3Bucket": "amazon-braket-eu-north-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-006/a69879e2-18e6-4323-acef-b1d3bf909a79",
+            "quantumTaskArn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/a69879e2-18e6-4323-acef-b1d3bf909a79",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-006",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T23:07:27Z"
+        },
+        {
+          "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "completed_at_utc": "2026-05-19T23:08:17Z",
+          "job_id": "arn:aws:braket:eu-north-1:485386182336:quantum-task/36c16f94-61e4-477e-b293-274827723663",
+          "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+          "provider": "amazon_braket",
+          "quantum_task": {
+            "createdAt": "2026-05-19T23:07:54.499000+00:00",
+            "deviceArn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+            "deviceParameters": "{\"braketSchemaHeader\": {\"name\": \"braket.device_schema.iqm.iqm_device_parameters\", \"version\": \"1\"}, \"paradigmParameters\": {\"braketSchemaHeader\": {\"name\": \"braket.device_schema.gate_model_parameters\", \"version\": \"1\"}, \"qubitCount\": 2, \"disableQubitRewiring\": false}}",
+            "endedAt": "2026-05-19T23:07:56.649000+00:00",
+            "outputS3Bucket": "amazon-braket-eu-north-1-485386182336",
+            "outputS3Directory": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-007/36c16f94-61e4-477e-b293-274827723663",
+            "quantumTaskArn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/36c16f94-61e4-477e-b293-274827723663",
+            "shots": 1000,
+            "status": "COMPLETED",
+            "tags": {}
+          },
+          "row_id": "hwrow-007",
+          "shot_count": 1000,
+          "submitted_at_utc": "2026-05-19T23:07:53Z"
+        }
+      ],
+      "raw_counts_by_row": [
+        {
+          "counts": {
+            "00": 33,
+            "01": 497,
+            "10": 449,
+            "11": 21
+          },
+          "quantum_task_arn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/e8a196e7-a797-4f51-b501-ef2b6757abf3",
+          "result_s3_uri": "s3://amazon-braket-eu-north-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-000/e8a196e7-a797-4f51-b501-ef2b6757abf3/results.json",
+          "row_id": "hwrow-000"
+        },
+        {
+          "counts": {
+            "00": 8,
+            "01": 6,
+            "10": 453,
+            "11": 533
+          },
+          "quantum_task_arn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/6f01fb84-a044-4a1d-b748-a38b3e102236",
+          "result_s3_uri": "s3://amazon-braket-eu-north-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-001/6f01fb84-a044-4a1d-b748-a38b3e102236/results.json",
+          "row_id": "hwrow-001"
+        },
+        {
+          "counts": {
+            "00": 90,
+            "01": 496,
+            "10": 353,
+            "11": 61
+          },
+          "quantum_task_arn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/36202374-cfcb-4313-bfe5-4cdedc457df1",
+          "result_s3_uri": "s3://amazon-braket-eu-north-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-002/36202374-cfcb-4313-bfe5-4cdedc457df1/results.json",
+          "row_id": "hwrow-002"
+        },
+        {
+          "counts": {
+            "00": 304,
+            "01": 283,
+            "10": 185,
+            "11": 228
+          },
+          "quantum_task_arn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/5c18ff20-41ff-47c3-a93c-e3ccddb52b19",
+          "result_s3_uri": "s3://amazon-braket-eu-north-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-003/5c18ff20-41ff-47c3-a93c-e3ccddb52b19/results.json",
+          "row_id": "hwrow-003"
+        },
+        {
+          "counts": {
+            "00": 8,
+            "01": 6,
+            "10": 833,
+            "11": 153
+          },
+          "quantum_task_arn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/60609d11-cf7a-4b0a-bb5d-bc492e2d0356",
+          "result_s3_uri": "s3://amazon-braket-eu-north-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-004/60609d11-cf7a-4b0a-bb5d-bc492e2d0356/results.json",
+          "row_id": "hwrow-004"
+        },
+        {
+          "counts": {
+            "00": 43,
+            "01": 56,
+            "10": 497,
+            "11": 404
+          },
+          "quantum_task_arn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/4bec2c14-2a80-42ef-bb40-b42ac23b1b32",
+          "result_s3_uri": "s3://amazon-braket-eu-north-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-005/4bec2c14-2a80-42ef-bb40-b42ac23b1b32/results.json",
+          "row_id": "hwrow-005"
+        },
+        {
+          "counts": {
+            "00": 88,
+            "01": 516,
+            "10": 338,
+            "11": 58
+          },
+          "quantum_task_arn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/a69879e2-18e6-4323-acef-b1d3bf909a79",
+          "result_s3_uri": "s3://amazon-braket-eu-north-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-006/a69879e2-18e6-4323-acef-b1d3bf909a79/results.json",
+          "row_id": "hwrow-006"
+        },
+        {
+          "counts": {
+            "00": 311,
+            "01": 283,
+            "10": 207,
+            "11": 199
+          },
+          "quantum_task_arn": "arn:aws:braket:eu-north-1:485386182336:quantum-task/36c16f94-61e4-477e-b293-274827723663",
+          "result_s3_uri": "s3://amazon-braket-eu-north-1-485386182336/phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/20260519T230446Z/qrope-hardware-1aeca8f0360c20cd/hwrow-007/36c16f94-61e4-477e-b293-274827723663/results.json",
+          "row_id": "hwrow-007"
+        }
+      ],
+      "shot_count": 1000,
+      "submitted_at_utc": "2026-05-19T23:04:52Z"
+    }
+  ],
+  "status": "COMPLETED"
+}

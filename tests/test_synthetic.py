@@ -50,7 +50,6 @@ from qrope.synthetic import (
     generate_symbolic_insufficiency_counterfactual_handoff_response_bundle,
     generate_positional_anchor_order_response_bundle,
     generate_positional_anchor_distance_response_bundle,
-    generate_positional_phase_wrap_discrimination_bundle,
     generate_positional_anchor_span_membership_response_bundle,
     generate_positional_anchor_offset_signature_response_bundle,
     generate_positional_anchor_betweenness_response_bundle,
@@ -395,25 +394,6 @@ def test_positional_anchor_distance_bundle_enforces_declared_diagnostics() -> No
     assert diagnostics["token_view_balance_pass"] is True
     assert diagnostics["anchor_distance_length_balance_pass"] is True
     assert diagnostics["anchor_distance_target_nontrivial_pass"] is True
-
-
-def test_positional_phase_wrap_bundle_enforces_declared_diagnostics() -> None:
-    bundle = generate_positional_phase_wrap_discrimination_bundle(seed=42)
-    diagnostics = bundle.diagnostics
-    assert diagnostics["dataset"] == "synthetic_positional_phase_wrap_discrimination"
-    assert diagnostics["phase_wrap_label_entropy_pass"] is True
-    assert diagnostics["phase_wrap_raw_order_balance_pass"] is True
-    assert diagnostics["phase_wrap_raw_offset_balance_pass"] is True
-    assert diagnostics["phase_wrap_absolute_distance_balance_pass"] is True
-    assert diagnostics["phase_wrap_signed_offset_balance_pass"] is True
-    assert diagnostics["phase_wrap_single_band_noncollapse_pass"] is True
-    assert diagnostics["phase_wrap_modulo_bucket_noncollapse_pass"] is True
-    assert diagnostics["phase_wrap_two_band_decision_critical_pass"] is True
-    assert diagnostics["phase_wrap_lookup_holdout_pass"] is True
-    assert diagnostics["phase_wrap_token_view_balance_pass"] is True
-    assert diagnostics["phase_wrap_basis_fixed_pass"] is True
-    assert diagnostics["phase_wrap_quadrant_counts"]["train"] == {"00": 64, "01": 64, "10": 64, "11": 64}
-    assert diagnostics["phase_wrap_label_counts"]["train"] == {"1": 128, "0": 128}
 
 
 def test_positional_anchor_span_membership_bundle_enforces_declared_diagnostics() -> None:

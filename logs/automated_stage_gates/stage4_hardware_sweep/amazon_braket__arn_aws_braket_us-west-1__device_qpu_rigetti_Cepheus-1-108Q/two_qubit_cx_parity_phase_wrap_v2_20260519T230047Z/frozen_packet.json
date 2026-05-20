@@ -1,0 +1,380 @@
+{
+  "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+  "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+  "config": {
+    "aws_profile": "cyint-ea-dev",
+    "aws_region": "us-west-1",
+    "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+    "budget_cap_usd": 25.0,
+    "circuit_family": "two_qubit_cx_parity_phase_wrap_v2",
+    "estimated_packet_cost_usd": 0.425,
+    "output_s3_bucket": "amazon-braket-us-west-1-485386182336",
+    "output_s3_key_prefix": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T225728Z",
+    "provider": "amazon_braket",
+    "provider_raw": "amazon_braket",
+    "queue_depth_cap": null,
+    "row_limit": 8,
+    "shot_count": 1000,
+    "token_presence": {
+      "AWS_ACCESS_KEY_ID": false,
+      "AWS_PROFILE": false,
+      "AWS_SESSION_TOKEN": false,
+      "IBM_QUANTUM_TOKEN": false,
+      "QISKIT_IBM_TOKEN": false,
+      "QUANDELA_CLOUD_TOKEN": false,
+      "QUANDELA_TOKEN": false,
+      "XANADU_CLOUD_KEY": false
+    },
+    "transpilation": {
+      "layout_method": "provider_default",
+      "optimization_level": 1,
+      "routing_method": "provider_default",
+      "seed_transpiler": 20260516
+    }
+  },
+  "frozen_at_utc": "2026-05-19T22:57:28Z",
+  "measurement_policy": {
+    "claim_boundary": "entangling-gate witness variant; unreplicated until executed on hardware",
+    "control_score": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+    "entangling_gate": "cx q0->q1",
+    "measured_qubits": 2,
+    "readout": "computational_basis",
+    "witness_score": "0.5 + 0.5 * score_scale * E[Z1 after CX]"
+  },
+  "packet_id": "qrope-hardware-7e5eaa2ee2d462b8",
+  "packet_version": "qrope_stage4_hardware_packet_v1",
+  "provider": "amazon_braket",
+  "provider_execution": {
+    "action_type": "braket.ir.openqasm.program",
+    "aws_profile": "cyint-ea-dev",
+    "aws_region": "us-west-1",
+    "device_arn": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+    "output_s3_bucket": "amazon-braket-us-west-1-485386182336",
+    "output_s3_key_prefix": "phasewrap-rope/stage4-hardware-sweep/arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q/20260519T225728Z",
+    "row_programs": [
+      {
+        "action": {
+          "braketSchemaHeader": {
+            "name": "braket.ir.openqasm.program",
+            "version": "1"
+          },
+          "source": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(1.570796326795) q[0];\nry(2.760350637641) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n"
+        },
+        "row_id": "hwrow-000"
+      },
+      {
+        "action": {
+          "braketSchemaHeader": {
+            "name": "braket.ir.openqasm.program",
+            "version": "1"
+          },
+          "source": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(3.14159265359) q[0];\nry(1.498937730835) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n"
+        },
+        "row_id": "hwrow-001"
+      },
+      {
+        "action": {
+          "braketSchemaHeader": {
+            "name": "braket.ir.openqasm.program",
+            "version": "1"
+          },
+          "source": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(1.398370329082) q[0];\nry(2.392123788172) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n"
+        },
+        "row_id": "hwrow-002"
+      },
+      {
+        "action": {
+          "braketSchemaHeader": {
+            "name": "braket.ir.openqasm.program",
+            "version": "1"
+          },
+          "source": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(1.398370329082) q[0];\nry(1.498937730835) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n"
+        },
+        "row_id": "hwrow-003"
+      },
+      {
+        "action": {
+          "braketSchemaHeader": {
+            "name": "braket.ir.openqasm.program",
+            "version": "1"
+          },
+          "source": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(3.14159265359) q[0];\nry(2.392123788172) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n"
+        },
+        "row_id": "hwrow-004"
+      },
+      {
+        "action": {
+          "braketSchemaHeader": {
+            "name": "braket.ir.openqasm.program",
+            "version": "1"
+          },
+          "source": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(2.547089930947) q[0];\nry(1.570796326795) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n"
+        },
+        "row_id": "hwrow-005"
+      },
+      {
+        "action": {
+          "braketSchemaHeader": {
+            "name": "braket.ir.openqasm.program",
+            "version": "1"
+          },
+          "source": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(1.398370329082) q[0];\nry(2.392123788172) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n"
+        },
+        "row_id": "hwrow-006"
+      },
+      {
+        "action": {
+          "braketSchemaHeader": {
+            "name": "braket.ir.openqasm.program",
+            "version": "1"
+          },
+          "source": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(1.398370329082) q[0];\nry(1.498937730835) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n"
+        },
+        "row_id": "hwrow-007"
+      }
+    ]
+  },
+  "required_metadata_fields": [
+    "provider",
+    "backend",
+    "backend_metadata",
+    "calibration_metadata",
+    "job_id",
+    "raw_counts_by_row",
+    "shot_count"
+  ],
+  "row_count": 8,
+  "rows": [
+    {
+      "circuit_parameters": {
+        "embedding": "two_qubit_cx_parity_phase_wrap_v2",
+        "ry_q0": 1.570796326795,
+        "ry_q1": 2.760350637641,
+        "score_scale": 1.300476815652,
+        "z0_target_from_m8": -0.0,
+        "z1_target_from_m12": -0.928203230276
+      },
+      "ideal_predictions": {
+        "control": 0.26794919243110626,
+        "witness": 0.5
+      },
+      "label": 0.5,
+      "local_score": 0.0,
+      "row_hash": "5b23957f84aa9db3be8903fcf55366250073b822377dc6bbd1a1b20d5968cff0",
+      "row_id": "hwrow-000",
+      "source": {
+        "candidate_delta": -40,
+        "context_id": "s42_r085_0",
+        "quadrant": "00",
+        "reference_delta": 39,
+        "seed": 42,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s42_r085_0 slot:0 q_pos:65 ref_key_pos:26 cand_key_pos:105 ref_delta:39 cand_delta:-40 q_tok:B ref_tok:C cand_tok:D"
+      }
+    },
+    {
+      "circuit_parameters": {
+        "embedding": "two_qubit_cx_parity_phase_wrap_v2",
+        "ry_q0": 3.14159265359,
+        "ry_q1": 1.498937730835,
+        "score_scale": 1.300476815652,
+        "z0_target_from_m8": -1.0,
+        "z1_target_from_m12": 0.071796769725
+      },
+      "ideal_predictions": {
+        "control": 0.2679491924311152,
+        "witness": 0.4533149827671338
+      },
+      "label": 0.453314982767,
+      "local_score": -0.228708941706,
+      "row_hash": "5619bfcbe9cab1f991581e18d776effb07958de6f0e59e4d1de7d7b1d53856b1",
+      "row_id": "hwrow-001",
+      "source": {
+        "candidate_delta": -45,
+        "context_id": "s42_r085_0",
+        "quadrant": "01",
+        "reference_delta": 39,
+        "seed": 42,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s42_r085_0 slot:1 q_pos:65 ref_key_pos:26 cand_key_pos:110 ref_delta:39 cand_delta:-45 q_tok:B ref_tok:C cand_tok:A"
+      }
+    },
+    {
+      "circuit_parameters": {
+        "embedding": "two_qubit_cx_parity_phase_wrap_v2",
+        "ry_q0": 1.398370329082,
+        "ry_q1": 2.392123788172,
+        "score_scale": 1.300476815652,
+        "z0_target_from_m8": 0.171572875254,
+        "z1_target_from_m12": -0.732050807569
+      },
+      "ideal_predictions": {
+        "control": 0.3598805169212257,
+        "witness": 0.4183300157362531
+      },
+      "label": 0.418330015736,
+      "local_score": -0.400099577495,
+      "row_hash": "5f370b4ce7949b90d9a1c695466f33da689cb05fad93ad4fe8bab43401609715",
+      "row_id": "hwrow-002",
+      "source": {
+        "candidate_delta": -17,
+        "context_id": "s42_r085_0",
+        "quadrant": "10",
+        "reference_delta": 39,
+        "seed": 42,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s42_r085_0 slot:2 q_pos:65 ref_key_pos:26 cand_key_pos:82 ref_delta:39 cand_delta:-17 q_tok:B ref_tok:C cand_tok:B"
+      }
+    },
+    {
+      "circuit_parameters": {
+        "embedding": "two_qubit_cx_parity_phase_wrap_v2",
+        "ry_q0": 1.398370329082,
+        "ry_q1": 1.498937730835,
+        "score_scale": 1.300476815652,
+        "z0_target_from_m8": 0.171572875254,
+        "z1_target_from_m12": 0.071796769725
+      },
+      "ideal_predictions": {
+        "control": 0.5608424112445677,
+        "witness": 0.508009882637902
+      },
+      "label": 0.508009882638,
+      "local_score": 0.039240250725,
+      "row_hash": "ebd64cbb027ee3cbfb0b8b8700fa8f578b008ba7afca978a4ce27e540cd08a5e",
+      "row_id": "hwrow-003",
+      "source": {
+        "candidate_delta": -9,
+        "context_id": "s42_r085_0",
+        "quadrant": "11",
+        "reference_delta": 39,
+        "seed": 42,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s42_r085_0 slot:3 q_pos:65 ref_key_pos:26 cand_key_pos:74 ref_delta:39 cand_delta:-9 q_tok:B ref_tok:C cand_tok:C"
+      }
+    },
+    {
+      "circuit_parameters": {
+        "embedding": "two_qubit_cx_parity_phase_wrap_v2",
+        "ry_q0": 3.14159265359,
+        "ry_q1": 2.392123788172,
+        "score_scale": 1.300476815652,
+        "z0_target_from_m8": -1.0,
+        "z1_target_from_m12": -0.732050807569
+      },
+      "ideal_predictions": {
+        "control": 0.06698729810777315,
+        "witness": 0.9760075515612785
+      },
+      "label": 0.976007551561,
+      "local_score": 2.331951230074,
+      "row_hash": "7362718e56e268c772be534a219ef46aeffa7c85a1683e8527902e968577a012",
+      "row_id": "hwrow-004",
+      "source": {
+        "candidate_delta": 29,
+        "context_id": "s42_r079_1",
+        "quadrant": "00",
+        "reference_delta": 33,
+        "seed": 42,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s42_r079_1 slot:0 q_pos:67 ref_key_pos:34 cand_key_pos:38 ref_delta:33 cand_delta:29 q_tok:A ref_tok:B cand_tok:C"
+      }
+    },
+    {
+      "circuit_parameters": {
+        "embedding": "two_qubit_cx_parity_phase_wrap_v2",
+        "ry_q0": 2.547089930947,
+        "ry_q1": 1.570796326795,
+        "score_scale": 1.300476815652,
+        "z0_target_from_m8": -0.828427124746,
+        "z1_target_from_m12": 0.0
+      },
+      "ideal_predictions": {
+        "control": 0.29289321881346636,
+        "witness": 0.5
+      },
+      "label": 0.5,
+      "local_score": -0.0,
+      "row_hash": "b4972f4a79bffc906437bfde8e2f662b87c79ad6bc2e79fac413f641118256b8",
+      "row_id": "hwrow-005",
+      "source": {
+        "candidate_delta": -2,
+        "context_id": "s42_r079_1",
+        "quadrant": "01",
+        "reference_delta": 33,
+        "seed": 42,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s42_r079_1 slot:1 q_pos:67 ref_key_pos:34 cand_key_pos:69 ref_delta:33 cand_delta:-2 q_tok:A ref_tok:B cand_tok:D"
+      }
+    },
+    {
+      "circuit_parameters": {
+        "embedding": "two_qubit_cx_parity_phase_wrap_v2",
+        "ry_q0": 1.398370329082,
+        "ry_q1": 2.392123788172,
+        "score_scale": 1.300476815652,
+        "z0_target_from_m8": 0.171572875254,
+        "z1_target_from_m12": -0.732050807569
+      },
+      "ideal_predictions": {
+        "control": 0.3598805169212257,
+        "witness": 0.4183300157362531
+      },
+      "label": 0.418330015736,
+      "local_score": -0.400099577495,
+      "row_hash": "a018993732858bbbc88abd2b330089410221a5e5e0f769726678ba278beca4fc",
+      "row_id": "hwrow-006",
+      "source": {
+        "candidate_delta": 17,
+        "context_id": "s42_r079_1",
+        "quadrant": "10",
+        "reference_delta": 33,
+        "seed": 42,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s42_r079_1 slot:2 q_pos:67 ref_key_pos:34 cand_key_pos:50 ref_delta:33 cand_delta:17 q_tok:A ref_tok:B cand_tok:A"
+      }
+    },
+    {
+      "circuit_parameters": {
+        "embedding": "two_qubit_cx_parity_phase_wrap_v2",
+        "ry_q0": 1.398370329082,
+        "ry_q1": 1.498937730835,
+        "score_scale": 1.300476815652,
+        "z0_target_from_m8": 0.171572875254,
+        "z1_target_from_m12": 0.071796769725
+      },
+      "ideal_predictions": {
+        "control": 0.5608424112445677,
+        "witness": 0.508009882637902
+      },
+      "label": 0.508009882638,
+      "local_score": 0.039240250725,
+      "row_hash": "a87ff9e485246ba23889ea7f440112b68a2c7dd1eef8a436ce528ae5cc19adf4",
+      "row_id": "hwrow-007",
+      "source": {
+        "candidate_delta": -15,
+        "context_id": "s42_r079_1",
+        "quadrant": "11",
+        "reference_delta": 33,
+        "seed": 42,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s42_r079_1 slot:3 q_pos:67 ref_key_pos:34 cand_key_pos:82 ref_delta:33 cand_delta:-15 q_tok:A ref_tok:B cand_tok:B"
+      }
+    }
+  ],
+  "shot_count": 1000,
+  "transpilation": {
+    "layout_method": "provider_default",
+    "optimization_level": 1,
+    "routing_method": "provider_default",
+    "seed_transpiler": 20260516
+  }
+}

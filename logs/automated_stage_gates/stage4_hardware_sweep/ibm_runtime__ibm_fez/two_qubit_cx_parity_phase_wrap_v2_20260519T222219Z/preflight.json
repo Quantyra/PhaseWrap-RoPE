@@ -1,0 +1,40 @@
+{
+  "account_setup_check": {
+    "checked": false
+  },
+  "backend": "ibm_fez",
+  "backend_configured": true,
+  "backend_metadata": {
+    "backend": "ibm_fez",
+    "backend_name": "ibm_fez",
+    "captured_at_utc": "2026-05-19T22:21:48Z",
+    "provider": "ibm_runtime",
+    "status_msg": "<qiskit_ibm_runtime.models.backend_status.BackendStatus object at 0x000001ACCB8E6A50>"
+  },
+  "blockers": [],
+  "budget_cap_usd": 25.0,
+  "estimated_packet_cost_usd": 5.0,
+  "metadata_capture_available": true,
+  "note": "READY is not a hardware PASS; hardware PASS requires completed job records and metric gates.",
+  "provider": "ibm_runtime",
+  "provider_configured": true,
+  "queue_check": {
+    "checked": true,
+    "pass": true,
+    "pending_jobs": 0,
+    "queue_depth_cap": 25
+  },
+  "row_count": 16,
+  "shot_count": 4096,
+  "status": "READY",
+  "token_presence": {
+    "AWS_ACCESS_KEY_ID": false,
+    "AWS_PROFILE": false,
+    "AWS_SESSION_TOKEN": false,
+    "IBM_QUANTUM_TOKEN": true,
+    "QISKIT_IBM_TOKEN": false,
+    "QUANDELA_CLOUD_TOKEN": true,
+    "QUANDELA_TOKEN": false,
+    "XANADU_CLOUD_KEY": false
+  }
+}

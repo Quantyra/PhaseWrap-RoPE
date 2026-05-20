@@ -1,0 +1,28 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "Toy downstream attention evidence on a deterministic synthetic task that mixes content and positional signal.",
+      "Comparison against RoPE, ALiBI, sinusoidal, no-position, mod-24 lookup, and exposed phase-feature baselines."
+    ]
+  },
+  "dataset": "synthetic_downstream_attention_content_phase_mix_v1",
+  "model_names": [
+    "phasewrap_rope_attention",
+    "rope_attention",
+    "alibi_attention",
+    "sinusoidal_attention",
+    "no_position_attention",
+    "lookup_mod24_baseline",
+    "classical_m8_m12_product_baseline"
+  ],
+  "result_path": "logs/automated_stage_gates/stage6_downstream_attention/results.json",
+  "schema_version": "qrope_stage6_downstream_attention_v1",
+  "seed": 42,
+  "stage": "stage6_downstream_attention",
+  "summary_csv_path": "logs/automated_stage_gates/stage6_downstream_attention/summary.csv"
+}

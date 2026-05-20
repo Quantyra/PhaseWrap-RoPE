@@ -1,28 +1,67 @@
 # PhaseWrap-RoPE external release plan v1
 
-Status: `OPTIONAL_ARCHIVAL_RELEASE`
+Status: `READY_FOR_ACCOUNT_OWNER_ACTION`
+
+Date: `2026-05-18`
 
 ## Scope
 
-The repository is already the primary public review artifact. The paper, figures, code, and hardware evidence can be reviewed directly from the GitHub repository.
+This plan prepares the repo for external citable release. It does not claim that arXiv, OSF, or Zenodo submission is complete.
 
-Additional archival channels are optional. They should be used only if Quantyra wants an external DOI, archive snapshot, or venue-specific citation artifact.
+## arXiv
 
-## Optional Release Paths
+Recommended action:
 
-- GitHub release tag for a fixed repository snapshot.
-- Zenodo DOI if a citable archive is desired.
-- OSF project if a supplemental evidence archive is desired.
-- arXiv or another preprint server only if Quantyra later decides a formal preprint is useful.
+- Convert `docs/publication/qrope-paper-v1.md` to the target arXiv PDF/LaTeX bundle.
+- Submit as a methods/evidence preprint only after the patent-status note, completed hardware comparison, and claim boundary remain in the manuscript.
+- Candidate categories: `quant-ph` or `cs.LG`, with final category choice made by the submitting author.
+- Add the arXiv identifier to `CITATION.cff`, `README.md`, and this file after acceptance.
 
-## Current Recommendation
+Blocking items:
 
-Use the GitHub repository as the review target for now. Keep the paper and figures in `docs/publication/`, preserve hardware evidence under `logs/automated_stage_gates/stage4_hardware_packet/`, and defer external archive work until there is a concrete publication or citation need.
+- Author account access.
+- Endorsement/category eligibility if required by arXiv.
+- Final PDF/LaTeX package.
 
-## Release Tag Option
+## OSF
 
-If a repository snapshot is needed, use a conservative review tag:
+Recommended action:
+
+- Create an OSF project for PhaseWrap-RoPE.
+- Upload the paper, figures, Stage 4 packet files, completed comparison report, and repository snapshot.
+- Link the OSF project from README after public posting.
+
+Blocking items:
+
+- OSF account owner confirmation.
+- Project title/description approval.
+- Choice of whether OSF is primary preprint host or supplemental archive.
+
+## Zenodo
+
+Recommended action:
+
+- Enable Zenodo GitHub integration for `Quantyra/PhaseWrap-RoPE`.
+- Create a GitHub release after the external-review fixes settle.
+- Let Zenodo archive the GitHub release and mint a DOI.
+- Add the DOI badge and DOI metadata to README and `CITATION.cff`.
+
+Prepared artifact:
+
+- `.zenodo.json`
+
+Blocking items:
+
+- Zenodo account access.
+- Zenodo GitHub integration enabled for the repository.
+- GitHub release tag decision.
+
+## Release tag recommendation
+
+Use a conservative first public review tag:
 
 ```text
 v0.1.0-review
 ```
+
+Do not use `v1.0.0` until independent replication or a venue-ready preprint exists.

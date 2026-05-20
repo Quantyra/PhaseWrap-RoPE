@@ -1,0 +1,358 @@
+{
+  "best_method": "phasewrap_rope_attention",
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "Toy downstream attention evidence on a deterministic synthetic task that mixes content and positional signal.",
+      "Comparison against RoPE, ALiBI, sinusoidal, no-position, mod-24 lookup, and exposed phase-feature baselines."
+    ]
+  },
+  "dataset": "synthetic_downstream_attention_content_phase_mix_v1",
+  "leakage_diagnostics": {
+    "mod24_not_exact_pass": true,
+    "mod24_self_mae": 0.011239,
+    "phase_feature_self_mae": 0.029704,
+    "phase_features_not_exact_pass": true,
+    "token_pair_variation_present": true
+  },
+  "results": [
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.000548,
+        "mrr": 1.0,
+        "ndcg_at_4": 1.0,
+        "rank_correlation": 0.989696,
+        "row_count": 152,
+        "top1_accuracy": 1.0
+      },
+      "model": {
+        "ridge_alpha": 0.01,
+        "weights": [
+          0.5834471839096472,
+          0.20738825748976059,
+          0.055686704008158346,
+          -0.076779199996297,
+          -0.18616809906421708,
+          -0.18619044423932585,
+          0.20677364950355903,
+          0.05565700633758275,
+          -0.07675721454327596,
+          -0.07665615507135001,
+          -0.18628090459428479,
+          0.2071990727760528,
+          0.05569781946762459,
+          0.05569144956182179,
+          -0.07671621455573692,
+          -0.18620450508135045,
+          0.20765877802040023,
+          -0.0003209057318369942,
+          0.0005978691291516256,
+          0.06861745600993016,
+          0.014006479600955853
+        ]
+      },
+      "name": "phasewrap_rope_attention"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.020949,
+        "mrr": 1.0,
+        "ndcg_at_4": 0.998627,
+        "rank_correlation": 0.857837,
+        "row_count": 152,
+        "top1_accuracy": 1.0
+      },
+      "model": {
+        "ridge_alpha": 1.0,
+        "weights": [
+          0.6290273110485222,
+          0.16612913206205743,
+          0.056995141897213275,
+          0.00026057365247333827,
+          -0.21280928772406188,
+          -0.21266963109736925,
+          0.1593167691976484,
+          0.055863692210311996,
+          -0.009650467356154489,
+          -0.02107098689176143,
+          -0.20805580512338248,
+          0.16338439403188867,
+          0.05734987245968201,
+          0.05789708415184968,
+          -0.010333306262449483,
+          -0.21019762088523727,
+          0.16759044567747683,
+          -0.04590731630004099
+        ]
+      },
+      "name": "rope_attention"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.019757,
+        "mrr": 1.0,
+        "ndcg_at_4": 0.998627,
+        "rank_correlation": 0.855112,
+        "row_count": 152,
+        "top1_accuracy": 1.0
+      },
+      "model": {
+        "ridge_alpha": 0.0,
+        "weights": [
+          -4.619395911494299,
+          5.395534880015486,
+          5.267633405706319,
+          5.227746626749464,
+          5.01135842265055,
+          5.011653521205869,
+          5.390080699214012,
+          5.267173441956405,
+          5.21680771814398,
+          5.204824040860356,
+          5.0141363858821375,
+          5.3935973296430095,
+          5.26781578153743,
+          5.267733909021522,
+          5.217545018265893,
+          5.012594123353004,
+          5.3974609375,
+          5.060445009662472e-06
+        ]
+      },
+      "name": "alibi_attention"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.371411,
+        "mrr": 0.596491,
+        "ndcg_at_4": 0.948477,
+        "rank_correlation": 0.30764,
+        "row_count": 152,
+        "top1_accuracy": 0.394737
+      },
+      "model": {
+        "ridge_alpha": 0.0,
+        "weights": [
+          2944876648906734.5,
+          -2944876648906735.5,
+          -2944876648906736.0,
+          -2944876648906736.0,
+          -2944876648906736.0,
+          -2944876648906736.0,
+          -2944876648906736.5,
+          -2944876648906736.0,
+          -2944876648906735.5,
+          -2944876648906736.0,
+          -2944876648906736.5,
+          -2944876648906737.0,
+          -2944876648906737.0,
+          -2944876648906736.5,
+          -2944876648906735.5,
+          -2944876648906736.0,
+          -2944876648906736.5,
+          3.4833333333333334
+        ]
+      },
+      "name": "sinusoidal_attention"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.01974,
+        "mrr": 1.0,
+        "ndcg_at_4": 0.998627,
+        "rank_correlation": 0.861826,
+        "row_count": 152,
+        "top1_accuracy": 1.0
+      },
+      "model": {
+        "ridge_alpha": 0.0,
+        "weights": [
+          8.063935623243617,
+          -7.287619918680468,
+          -7.415551882170816,
+          -7.455448782017692,
+          -7.671802954623919,
+          -7.671523601574861,
+          -7.2930719419543735,
+          -7.416002860211617,
+          -7.466329057845455,
+          -7.478353902533078,
+          -7.669040463361023,
+          -7.289540266959131,
+          -7.415358605867618,
+          -7.415452559626117,
+          -7.465632454035062,
+          -7.670569432724176,
+          -7.285714285714286
+        ]
+      },
+      "name": "no_position_attention"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.010998,
+        "mrr": 0.986842,
+        "ndcg_at_4": 0.997057,
+        "rank_correlation": 0.968807,
+        "row_count": 152,
+        "top1_accuracy": 0.973684
+      },
+      "model": {
+        "bucket_means": {
+          "0": 0.648979676341,
+          "1": 0.5694074074074075,
+          "10": 0.53238526329,
+          "11": 0.4213684210526316,
+          "12": 0.38868731434799997,
+          "13": 0.4162222222222222,
+          "14": 0.5323852632899998,
+          "15": 0.8,
+          "16": 0.7673320062939998,
+          "17": 0.8,
+          "18": 0.607729473419,
+          "19": 0.6879999999999998,
+          "2": 0.53238526329,
+          "20": 0.679650627943,
+          "21": 0.601,
+          "22": 0.53238526329,
+          "23": 0.6031578947368422,
+          "3": 0.601,
+          "4": 0.6796506279429999,
+          "5": 0.688,
+          "6": 0.607729473419,
+          "7": 0.7740000000000001,
+          "8": 0.7673320062939999,
+          "9": 0.7364444444444445
+        },
+        "global_mean": 0.603546653632505
+      },
+      "name": "lookup_mod24_baseline"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.031147,
+        "mrr": 0.973684,
+        "ndcg_at_4": 0.995152,
+        "rank_correlation": 0.900955,
+        "row_count": 152,
+        "top1_accuracy": 0.947368
+      },
+      "model": {
+        "ridge_alpha": 0.0,
+        "weights": [
+          -2.8055111713791354,
+          0.1234878827208279,
+          -0.09270699131680951,
+          -1.3549518736626178,
+          6.837890625
+        ]
+      },
+      "name": "classical_m8_m12_product_baseline"
+    }
+  ],
+  "schema_version": "qrope_stage6_downstream_attention_v1",
+  "seed": 42,
+  "splits": {
+    "test": {
+      "context_count": 38,
+      "row_count": 152
+    },
+    "train": {
+      "context_count": 112,
+      "row_count": 448
+    },
+    "validation": {
+      "context_count": 38,
+      "row_count": 152
+    }
+  },
+  "stage": "stage6_downstream_attention",
+  "table": [
+    {
+      "contexts": 38,
+      "mae": 0.000548,
+      "method": "phasewrap_rope_attention",
+      "mrr": 1.0,
+      "ndcg_at_4": 1.0,
+      "rank_correlation": 0.989696,
+      "rows": 152,
+      "top1_accuracy": 1.0
+    },
+    {
+      "contexts": 38,
+      "mae": 0.020949,
+      "method": "rope_attention",
+      "mrr": 1.0,
+      "ndcg_at_4": 0.998627,
+      "rank_correlation": 0.857837,
+      "rows": 152,
+      "top1_accuracy": 1.0
+    },
+    {
+      "contexts": 38,
+      "mae": 0.019757,
+      "method": "alibi_attention",
+      "mrr": 1.0,
+      "ndcg_at_4": 0.998627,
+      "rank_correlation": 0.855112,
+      "rows": 152,
+      "top1_accuracy": 1.0
+    },
+    {
+      "contexts": 38,
+      "mae": 0.371411,
+      "method": "sinusoidal_attention",
+      "mrr": 0.596491,
+      "ndcg_at_4": 0.948477,
+      "rank_correlation": 0.30764,
+      "rows": 152,
+      "top1_accuracy": 0.394737
+    },
+    {
+      "contexts": 38,
+      "mae": 0.01974,
+      "method": "no_position_attention",
+      "mrr": 1.0,
+      "ndcg_at_4": 0.998627,
+      "rank_correlation": 0.861826,
+      "rows": 152,
+      "top1_accuracy": 1.0
+    },
+    {
+      "contexts": 38,
+      "mae": 0.010998,
+      "method": "lookup_mod24_baseline",
+      "mrr": 0.986842,
+      "ndcg_at_4": 0.997057,
+      "rank_correlation": 0.968807,
+      "rows": 152,
+      "top1_accuracy": 0.973684
+    },
+    {
+      "contexts": 38,
+      "mae": 0.031147,
+      "method": "classical_m8_m12_product_baseline",
+      "mrr": 0.973684,
+      "ndcg_at_4": 0.995152,
+      "rank_correlation": 0.900955,
+      "rows": 152,
+      "top1_accuracy": 0.947368
+    }
+  ],
+  "task": {
+    "content_source": "query/candidate token compatibility",
+    "position_source": "existing phase-wrap attention rows",
+    "target": "0.10 + 0.50*content_score + 0.30*phase_label + 0.10*content_score*phase_label"
+  }
+}

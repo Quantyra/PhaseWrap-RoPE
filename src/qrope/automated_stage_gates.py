@@ -5,6 +5,7 @@ import hashlib
 import math
 import os
 import random
+import subprocess
 import time
 from collections import Counter, defaultdict
 from dataclasses import dataclass
@@ -35,8 +36,9 @@ SUPPORTED_HARDWARE_TOKEN_NAMES = (
     "QUANDELA_TOKEN",
     "QUANDELA_CLOUD_TOKEN",
     "XANADU_CLOUD_KEY",
-    "IONQ_API_KEY",
-    "IONQ_API_TOKEN",
+    "AWS_PROFILE",
+    "AWS_ACCESS_KEY_ID",
+    "AWS_SESSION_TOKEN",
 )
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -516,6 +518,13 @@ def _parse_optional_int(value: str | None) -> int | None:
     return parsed if parsed >= 0 else None
 
 
+def _parse_int(value: Any, default: int) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
 def _parse_float(value: str | None, default: float = 0.0) -> float:
     try:
         return float(value or "")
@@ -555,13 +564,13 @@ def _hardware_provider_config_names(provider: str) -> dict[str, tuple[str, ...]]
             "cost_per_shot": ("QROPE_QUANDELA_COST_PER_SHOT_USD", "QROPE_HARDWARE_COST_PER_SHOT_USD"),
             "queue_depth_cap": ("QROPE_QUANDELA_QUEUE_DEPTH_CAP", "QROPE_HARDWARE_QUEUE_DEPTH_CAP"),
         }
-    if provider == "ionq":
+    if provider == "amazon_braket":
         return {
-            "backend": ("QROPE_IONQ_BACKEND", "QROPE_HARDWARE_BACKEND"),
-            "budget_cap": ("QROPE_IONQ_BUDGET_USD_CAP", "QROPE_HARDWARE_BUDGET_USD_CAP"),
-            "estimated_cost": ("QROPE_IONQ_ESTIMATED_COST_USD", "QROPE_HARDWARE_ESTIMATED_COST_USD"),
-            "cost_per_shot": ("QROPE_IONQ_COST_PER_SHOT_USD", "QROPE_HARDWARE_COST_PER_SHOT_USD"),
-            "queue_depth_cap": ("QROPE_IONQ_QUEUE_DEPTH_CAP", "QROPE_HARDWARE_QUEUE_DEPTH_CAP"),
+            "backend": ("QROPE_BRAKET_DEVICE_ARN", "QROPE_BRAKET_BACKEND", "QROPE_HARDWARE_BACKEND"),
+            "budget_cap": ("QROPE_BRAKET_BUDGET_USD_CAP", "QROPE_HARDWARE_BUDGET_USD_CAP"),
+            "estimated_cost": ("QROPE_BRAKET_ESTIMATED_COST_USD", "QROPE_HARDWARE_ESTIMATED_COST_USD"),
+            "cost_per_shot": ("QROPE_BRAKET_COST_PER_SHOT_USD", "QROPE_HARDWARE_COST_PER_SHOT_USD"),
+            "queue_depth_cap": ("QROPE_BRAKET_QUEUE_DEPTH_CAP", "QROPE_HARDWARE_QUEUE_DEPTH_CAP"),
         }
     return {
         "backend": ("QROPE_HARDWARE_BACKEND",),
@@ -593,8 +602,10 @@ def normalize_hardware_provider(provider: str) -> str:
         "ibm_runtime": "ibm_runtime",
         "quandela": "quandela",
         "xanadu": "xanadu",
-        "ionq": "ionq",
-        "ionq_cloud": "ionq",
+        "aws": "amazon_braket",
+        "braket": "amazon_braket",
+        "amazon": "amazon_braket",
+        "amazon_braket": "amazon_braket",
     }
     return aliases.get(normalized, normalized)
 
@@ -606,8 +617,8 @@ def hardware_token_names_for_provider(provider: str) -> tuple[str, ...]:
         return ("QUANDELA_TOKEN", "QUANDELA_CLOUD_TOKEN")
     if provider == "xanadu":
         return ("XANADU_CLOUD_KEY",)
-    if provider == "ionq":
-        return ("IONQ_API_KEY", "IONQ_API_TOKEN")
+    if provider == "amazon_braket":
+        return ("AWS_PROFILE", "AWS_ACCESS_KEY_ID", "AWS_SESSION_TOKEN")
     return ()
 
 
@@ -651,6 +662,13 @@ def build_hardware_config(env: dict[str, str] | None = None) -> dict[str, Any]:
         "provider_raw": provider_raw,
         "provider": provider,
         "backend": backend,
+        "aws_profile": environ.get("QROPE_BRAKET_AWS_PROFILE", environ.get("AWS_PROFILE", "")).strip(),
+        "aws_region": environ.get("QROPE_BRAKET_AWS_REGION", environ.get("AWS_REGION", "")).strip(),
+        "output_s3_bucket": environ.get("QROPE_BRAKET_OUTPUT_S3_BUCKET", "").strip(),
+        "output_s3_key_prefix": environ.get(
+            "QROPE_BRAKET_OUTPUT_S3_PREFIX",
+            f"phasewrap-rope/stage4/{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}",
+        ).strip(),
         "budget_cap_usd": budget_cap,
         "estimated_packet_cost_usd": estimated_cost,
         "shot_count": shot_count,
@@ -722,6 +740,20 @@ def measurement_policy_for_circuit_family(circuit_family: str) -> dict[str, Any]
     }
 
 
+def braket_openqasm_for_hardware_row(row: dict[str, Any], circuit_family: str) -> str:
+    lines = [
+        "OPENQASM 3.0;",
+        "qubit[2] q;",
+        "bit[2] c;",
+        f"ry({row['circuit_parameters']['ry_q0']}) q[0];",
+        f"ry({row['circuit_parameters']['ry_q1']}) q[1];",
+    ]
+    if circuit_family == ENTANGLING_CX_CIRCUIT_FAMILY:
+        lines.append("cnot q[0], q[1];")
+    lines.extend(["c[0] = measure q[0];", "c[1] = measure q[1];"])
+    return "\n".join(lines) + "\n"
+
+
 def freeze_hardware_packet(rows: list[AttentionRow], env: dict[str, str] | None = None) -> dict[str, Any]:
     config = build_hardware_config(env)
     selected_rows = rows[: config["row_limit"]]
@@ -765,34 +797,69 @@ def freeze_hardware_packet(rows: list[AttentionRow], env: dict[str, str] | None 
                 "|0,1,0,1>": "11",
             },
         }
+    if config["provider"] == "amazon_braket":
+        packet_core["provider_execution"] = {
+            "action_type": "braket.ir.openqasm.program",
+            "aws_region": config["aws_region"],
+            "aws_profile": config["aws_profile"],
+            "device_arn": config["backend"],
+            "output_s3_bucket": config["output_s3_bucket"],
+            "output_s3_key_prefix": config["output_s3_key_prefix"],
+            "row_programs": [
+                {
+                    "row_id": row["row_id"],
+                    "action": {
+                        "braketSchemaHeader": {
+                            "name": "braket.ir.openqasm.program",
+                            "version": "1",
+                        },
+                        "source": braket_openqasm_for_hardware_row(row, config["circuit_family"]),
+                    },
+                }
+                for row in row_payloads
+            ],
+        }
     packet_core["packet_id"] = "qrope-hardware-" + _json_hash(packet_core)[:16]
     packet_core["frozen_at_utc"] = _utc_now()
     packet_core["config"] = config
     return packet_core
 
 
-def counts_to_expectations(counts: dict[str, int]) -> dict[str, Any]:
+BITSTRING_ORDERS: dict[str, tuple[int, int]] = {
+    "q1q0": (-1, -2),
+    "q0q1": (0, 1),
+}
+
+
+def counts_to_expectations(counts: dict[str, int], *, bitstring_order: str = "q1q0") -> dict[str, Any]:
+    if bitstring_order not in BITSTRING_ORDERS:
+        raise ValueError(f"unsupported bitstring_order: {bitstring_order}")
     shots = sum(int(value) for value in counts.values())
     if shots <= 0:
         return {"shots": 0, "z0": 0.0, "z1": 0.0, "zz": 0.0, "valid": False}
+    q0_index, q1_index = BITSTRING_ORDERS[bitstring_order]
     z0_total = 0.0
     z1_total = 0.0
     zz_total = 0.0
+    valid_shots = 0
     for raw_key, raw_count in counts.items():
         key = str(raw_key).replace(" ", "")
         if len(key) < 2:
             continue
         count = int(raw_count)
-        z0 = 1.0 if key[-1] == "0" else -1.0
-        z1 = 1.0 if key[-2] == "0" else -1.0
+        z0 = 1.0 if key[q0_index] == "0" else -1.0
+        z1 = 1.0 if key[q1_index] == "0" else -1.0
         z0_total += z0 * count
         z1_total += z1 * count
         zz_total += z0 * z1 * count
+        valid_shots += count
+    if valid_shots <= 0:
+        return {"shots": shots, "z0": 0.0, "z1": 0.0, "zz": 0.0, "valid": False}
     return {
         "shots": shots,
-        "z0": round(z0_total / shots, 12),
-        "z1": round(z1_total / shots, 12),
-        "zz": round(zz_total / shots, 12),
+        "z0": round(z0_total / valid_shots, 12),
+        "z1": round(z1_total / valid_shots, 12),
+        "zz": round(zz_total / valid_shots, 12),
         "valid": True,
     }
 
@@ -807,6 +874,8 @@ def ideal_counts_for_hardware_row(row_payload: dict[str, Any], shots: int) -> di
         "11": (1.0 - z0 - z1 + z0 * z1) / 4.0,
     }
     if row_payload["circuit_parameters"].get("embedding") == ENTANGLING_CX_CIRCUIT_FAMILY:
+        # Bitstrings are stored as q1q0, while the circuit applies CX(q0 -> q1).
+        # The output mapping is therefore 00->00, 01->11, 10->10, 11->01.
         probabilities = {
             "00": product_probabilities["00"],
             "01": product_probabilities["11"],
@@ -894,6 +963,107 @@ def _quandela_processor_is_physical(metadata: dict[str, Any]) -> bool:
     return "PHYSICAL" in str(metadata.get("processor_type", "")).upper()
 
 
+def _json_loads_or_empty(text: Any) -> dict[str, Any]:
+    if isinstance(text, dict):
+        return text
+    try:
+        loaded = json.loads(str(text))
+    except Exception:
+        return {}
+    return loaded if isinstance(loaded, dict) else {}
+
+
+def _aws_region_from_arn(arn: str) -> str:
+    parts = str(arn).split(":")
+    return parts[3] if len(parts) > 3 else ""
+
+
+def _braket_client_token(packet_id: str, row_id: str) -> str:
+    return hashlib.sha256(f"{packet_id}:{row_id}".encode("utf-8")).hexdigest()[:64]
+
+
+def _braket_required_operations(circuit_family: str) -> set[str]:
+    required = {"ry"}
+    if circuit_family == ENTANGLING_CX_CIRCUIT_FAMILY:
+        required.add("cnot")
+    return required
+
+
+def _braket_supported_operations(device_capabilities: dict[str, Any]) -> set[str]:
+    action = device_capabilities.get("action", {}) if isinstance(device_capabilities, dict) else {}
+    openqasm = action.get("braket.ir.openqasm.program", {}) if isinstance(action, dict) else {}
+    operations = openqasm.get("supportedOperations", []) if isinstance(openqasm, dict) else []
+    return {str(item).lower() for item in operations}
+
+
+def _braket_task_id(task_arn: str) -> str:
+    return str(task_arn).rsplit("/", 1)[-1]
+
+
+def _braket_result_s3_uri(config: dict[str, Any], task: dict[str, Any], row_prefix: str, task_arn: str) -> str:
+    output_dir = str(task.get("outputS3Directory", "")).rstrip("/")
+    if output_dir.startswith("s3://"):
+        return f"{output_dir}/results.json"
+    return (
+        f"s3://{config['output_s3_bucket']}/"
+        f"{row_prefix.strip('/')}/{_braket_task_id(task_arn)}/results.json"
+    )
+
+
+def _normalize_two_bit_count_key(key: Any) -> str | None:
+    text = str(key).replace(" ", "").replace(",", "")
+    if text.startswith("|") and text.endswith(">"):
+        text = text.strip("|>")
+    if len(text) < 2:
+        return None
+    text = text[-2:]
+    if any(char not in "01" for char in text):
+        return None
+    return text
+
+
+def _braket_counts_from_result(payload: Any) -> dict[str, int]:
+    if isinstance(payload, dict):
+        for key in ("measurementCounts", "measurements_counts", "counts"):
+            value = payload.get(key)
+            if isinstance(value, dict):
+                counts = {"00": 0, "01": 0, "10": 0, "11": 0}
+                for raw_key, raw_count in value.items():
+                    normalized = _normalize_two_bit_count_key(raw_key)
+                    if normalized is not None:
+                        counts[normalized] += int(raw_count)
+                if sum(counts.values()) > 0:
+                    return counts
+        for key in ("measurementProbabilities", "probabilities"):
+            value = payload.get(key)
+            shot_count = int(payload.get("shots", payload.get("shotCount", 0)) or 0)
+            if isinstance(value, dict) and shot_count > 0:
+                counts = {"00": 0, "01": 0, "10": 0, "11": 0}
+                for raw_key, raw_prob in value.items():
+                    normalized = _normalize_two_bit_count_key(raw_key)
+                    if normalized is not None:
+                        counts[normalized] += int(round(float(raw_prob) * shot_count))
+                if sum(counts.values()) > 0:
+                    return counts
+        for value in payload.values():
+            try:
+                return _braket_counts_from_result(value)
+            except ValueError:
+                continue
+    if isinstance(payload, list):
+        counts = {"00": 0, "01": 0, "10": 0, "11": 0}
+        for item in payload:
+            if isinstance(item, (list, tuple)):
+                normalized = _normalize_two_bit_count_key("".join(str(bit) for bit in item))
+            else:
+                normalized = _normalize_two_bit_count_key(item)
+            if normalized is not None:
+                counts[normalized] += 1
+        if sum(counts.values()) > 0:
+            return counts
+    raise ValueError("could not extract two-bit measurement counts from Braket result payload")
+
+
 class HardwareAdapter:
     def preflight(self, packet: dict[str, Any]) -> dict[str, Any]:
         raise NotImplementedError
@@ -914,16 +1084,26 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
         token_presence = {name: bool(self.env.get(name)) for name in SUPPORTED_HARDWARE_TOKEN_NAMES}
         blockers: list[str] = []
         provider_token_names = hardware_token_names_for_provider(provider)
+        braket_credential_configured = provider == "amazon_braket" and bool(
+            config.get("aws_profile")
+            or self.env.get("AWS_PROFILE")
+            or self.env.get("AWS_ACCESS_KEY_ID")
+            or self.env.get("AWS_SESSION_TOKEN")
+        )
         if not provider:
             if not any(token_presence.values()):
                 blockers.append("no supported provider token present in environment")
             blockers.append("QROPE_REAL_HARDWARE_PROVIDER is not set")
         elif not provider_token_names:
             blockers.append(f"unsupported hardware provider: {config['provider_raw']}")
-        elif not any(self.env.get(name) for name in provider_token_names):
+        elif provider == "amazon_braket" and not braket_credential_configured:
+            blockers.append("no AWS profile or credential environment present for Amazon Braket")
+        elif provider != "amazon_braket" and not any(self.env.get(name) for name in provider_token_names):
             blockers.append(f"no supported provider token present for {provider}")
         if not config["backend"]:
             blockers.append("hardware backend is not set")
+        if provider == "amazon_braket" and not config.get("output_s3_bucket"):
+            blockers.append("QROPE_BRAKET_OUTPUT_S3_BUCKET is not set")
         if config["budget_cap_usd"] <= 0.0:
             blockers.append("hardware budget cap is not positive")
         if config["estimated_packet_cost_usd"] > config["budget_cap_usd"]:
@@ -937,6 +1117,7 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
 
         backend_metadata: dict[str, Any] = {}
         queue_check: dict[str, Any] = {"checked": False}
+        account_setup_check: dict[str, Any] = {"checked": False}
         metadata_capture_available = False
         if provider == "quandela" and not blockers:
             try:
@@ -979,6 +1160,79 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
                         )
                 except Exception as exc:
                     blockers.append(f"provider backend availability check failed: {exc}")
+        if provider == "amazon_braket" and not blockers:
+            try:
+                device = self._braket_get_device(config)
+                caller_identity = self._aws_get_caller_identity(config)
+                bucket_location = self._s3_get_bucket_location(config)
+                status = str(device.get("deviceStatus", "unknown"))
+                device_caps = _json_loads_or_empty(device.get("deviceCapabilities", ""))
+                supported_operations = _braket_supported_operations(device_caps)
+                required_operations = _braket_required_operations(config["circuit_family"])
+                missing_operations = sorted(required_operations - supported_operations)
+                queue_check = {
+                    "checked": False,
+                    "reason": "Amazon Braket queue depth is not exposed through this preflight",
+                    "queue_depth_cap": config["queue_depth_cap"],
+                }
+                account_setup_check = {
+                    "checked": False,
+                    "reason": (
+                        "Amazon Braket user-agreement acceptance is validated only when "
+                        "CreateQuantumTask is called; hardware execution records any "
+                        "AccessDeniedException as a hardware blocker."
+                    ),
+                }
+                backend_metadata = {
+                    "provider": provider,
+                    "backend": config["backend"],
+                    "device_arn": device.get("deviceArn", config["backend"]),
+                    "device_name": device.get("deviceName", ""),
+                    "device_status": status,
+                    "device_type": device.get("deviceType", ""),
+                    "provider_name": device.get("providerName", ""),
+                    "captured_at_utc": _utc_now(),
+                    "aws_account_id": caller_identity.get("Account", ""),
+                    "aws_caller_arn": caller_identity.get("Arn", ""),
+                    "aws_user_id": caller_identity.get("UserId", ""),
+                    "output_s3_bucket": config.get("output_s3_bucket", ""),
+                    "output_s3_bucket_location": bucket_location.get("LocationConstraint"),
+                    "output_s3_bucket_name_pass": str(config.get("output_s3_bucket", "")).startswith(
+                        "amazon-braket-"
+                    ),
+                    "required_operations": sorted(required_operations),
+                    "supported_operations": sorted(supported_operations),
+                    "operation_compatibility_pass": not missing_operations,
+                }
+                service_caps = device_caps.get("service", {}) if isinstance(device_caps, dict) else {}
+                shots_range = service_caps.get("shotsRange") if isinstance(service_caps, dict) else None
+                shot_range_pass = True
+                if isinstance(shots_range, list) and len(shots_range) >= 2:
+                    min_shots = _parse_int(shots_range[0], 0)
+                    max_shots = _parse_int(shots_range[1], 0)
+                    shot_range_pass = min_shots <= config["shot_count"] <= max_shots
+                    backend_metadata["shot_range_pass"] = shot_range_pass
+                if service_caps:
+                    backend_metadata["shots_range"] = shots_range
+                    backend_metadata["device_cost"] = service_caps.get("deviceCost")
+                    backend_metadata["execution_windows"] = service_caps.get("executionWindows")
+                metadata_capture_available = True
+                if status.upper() != "ONLINE":
+                    blockers.append(f"Amazon Braket device is not ONLINE; status={status}")
+                if not shot_range_pass:
+                    blockers.append(
+                        "Amazon Braket shot count is outside device shotsRange: "
+                        f"{config['shot_count']} not in {shots_range}"
+                    )
+                if not backend_metadata["output_s3_bucket_name_pass"]:
+                    blockers.append("Amazon Braket output S3 bucket name must start with amazon-braket-")
+                if missing_operations:
+                    blockers.append(
+                        "Amazon Braket device does not support required OpenQASM operations: "
+                        + ", ".join(missing_operations)
+                    )
+            except Exception as exc:
+                blockers.append(f"provider backend availability check failed: {exc}")
         if provider == "ibm_runtime" and not blockers:
             try:
                 from qiskit import QuantumCircuit  # noqa: F401
@@ -1019,52 +1273,6 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
                     metadata_capture_available = True
                 except Exception as exc:
                     blockers.append(f"provider backend availability check failed: {exc}")
-        if provider == "ionq" and not blockers:
-            try:
-                from qiskit import QuantumCircuit  # noqa: F401
-                from qiskit_ionq import IonQProvider  # noqa: F401
-            except Exception as exc:
-                blockers.append(f"required IonQ dependency unavailable: {exc}")
-            else:
-                try:
-                    token = self.env.get("IONQ_API_KEY") or self.env.get("IONQ_API_TOKEN") or ""
-                    ionq_provider = IonQProvider(token=token)
-                    backends = {backend.name: backend for backend in ionq_provider.backends()}
-                    backend = backends.get(config["backend"])
-                    if backend is None:
-                        try:
-                            backend = ionq_provider.get_backend(config["backend"])
-                        except Exception:
-                            blockers.append(
-                                f"requested IonQ backend {config['backend']} is not available in configured account"
-                            )
-                    if backend is not None:
-                        backend_status = None
-                        if hasattr(backend, "status"):
-                            try:
-                                backend_status = backend.status()
-                            except Exception:
-                                backend_status = None
-                        backend_metadata = {
-                            "provider": provider,
-                            "backend": config["backend"],
-                            "backend_name": getattr(backend, "name", config["backend"]),
-                            "status_msg": str(backend_status) if backend_status is not None else "unknown",
-                            "captured_at_utc": _utc_now(),
-                        }
-                        queue_check = {
-                            "checked": False,
-                            "pass": True,
-                            "reason": "IonQ queue depth is provider-managed and not exposed in this preflight.",
-                            "queue_depth_cap": config["queue_depth_cap"],
-                        }
-                        metadata_capture_available = True
-                    elif not blockers:
-                        blockers.append(
-                            f"requested IonQ backend {config['backend']} is not available in configured account"
-                        )
-                except Exception as exc:
-                    blockers.append(f"provider backend availability check failed: {exc}")
         return {
             "status": "READY" if not blockers else "BLOCKED",
             "blockers": blockers,
@@ -1078,6 +1286,7 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
             "shot_count": config["shot_count"],
             "row_count": packet["row_count"],
             "queue_check": queue_check,
+            "account_setup_check": account_setup_check,
             "backend_metadata": backend_metadata,
             "metadata_capture_available": metadata_capture_available,
             "note": "READY is not a hardware PASS; hardware PASS requires completed job records and metric gates.",
@@ -1085,10 +1294,10 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
 
     def run_packet(self, packet: dict[str, Any]) -> dict[str, Any]:
         provider = packet["config"]["provider"]
+        if provider == "amazon_braket":
+            return self._run_braket_packet(packet)
         if provider == "quandela":
             return self._run_quandela_packet(packet)
-        if provider == "ionq":
-            return self._run_ionq_packet(packet)
         if provider != "ibm_runtime":
             return {
                 "status": "NOT_RUN",
@@ -1097,96 +1306,184 @@ class EnvironmentHardwareAdapter(HardwareAdapter):
             }
         return self._run_ibm_runtime_packet(packet)
 
+    def _aws_base_cmd(self, config: dict[str, Any], service: str, operation: str) -> list[str]:
+        cmd = ["aws", service, operation]
+        region = config.get("aws_region") or _aws_region_from_arn(config.get("backend", ""))
+        if region:
+            cmd.extend(["--region", region])
+        if config.get("aws_profile"):
+            cmd.extend(["--profile", config["aws_profile"]])
+        return cmd
+
+    def _run_aws_json(self, cmd: list[str]) -> dict[str, Any]:
+        completed = subprocess.run(cmd, capture_output=True, text=True)
+        if completed.returncode != 0:
+            message = completed.stderr.strip() or completed.stdout.strip() or "unknown AWS CLI error"
+            raise RuntimeError(f"AWS CLI command failed ({completed.returncode}): {message}")
+        text = completed.stdout.strip()
+        return json.loads(text) if text else {}
+
+    def _run_aws_text(self, cmd: list[str]) -> str:
+        completed = subprocess.run(cmd, capture_output=True, text=True)
+        if completed.returncode != 0:
+            message = completed.stderr.strip() or completed.stdout.strip() or "unknown AWS CLI error"
+            raise RuntimeError(f"AWS CLI command failed ({completed.returncode}): {message}")
+        return completed.stdout
+
+    def _braket_get_device(self, config: dict[str, Any]) -> dict[str, Any]:
+        cmd = self._aws_base_cmd(config, "braket", "get-device")
+        cmd.extend(["--device-arn", config["backend"]])
+        return self._run_aws_json(cmd)
+
+    def _aws_get_caller_identity(self, config: dict[str, Any]) -> dict[str, Any]:
+        cmd = self._aws_base_cmd(config, "sts", "get-caller-identity")
+        return self._run_aws_json(cmd)
+
+    def _s3_get_bucket_location(self, config: dict[str, Any]) -> dict[str, Any]:
+        cmd = self._aws_base_cmd(config, "s3api", "get-bucket-location")
+        cmd.extend(["--bucket", config["output_s3_bucket"]])
+        return self._run_aws_json(cmd)
+
+    def _run_braket_packet(self, packet: dict[str, Any]) -> dict[str, Any]:
+        config = packet["config"]
+        preflight_device = self._braket_get_device(config)
+        backend_metadata = {
+            "provider": config["provider"],
+            "backend": config["backend"],
+            "device_arn": preflight_device.get("deviceArn", config["backend"]),
+            "device_name": preflight_device.get("deviceName", ""),
+            "device_status": preflight_device.get("deviceStatus", ""),
+            "device_type": preflight_device.get("deviceType", ""),
+            "provider_name": preflight_device.get("providerName", ""),
+            "captured_at_utc": _utc_now(),
+        }
+        calibration_metadata = {
+            "captured_at_utc": _utc_now(),
+            "source": "aws_braket_get_device",
+            "device_arn": preflight_device.get("deviceArn", config["backend"]),
+            "device_capabilities_sha256": hashlib.sha256(
+                str(preflight_device.get("deviceCapabilities", "")).encode("utf-8")
+            ).hexdigest(),
+        }
+        timeout_sec = _parse_float(self.env.get("QROPE_BRAKET_JOB_TIMEOUT_SEC"), 3600.0)
+        poll_interval_sec = max(1.0, _parse_float(self.env.get("QROPE_BRAKET_POLL_INTERVAL_SEC"), 10.0))
+        raw_counts_by_row: list[dict[str, Any]] = []
+        provider_job_records: list[dict[str, Any]] = []
+        for row in packet["rows"]:
+            action = {
+                "braketSchemaHeader": {"name": "braket.ir.openqasm.program", "version": "1"},
+                "source": braket_openqasm_for_hardware_row(row, packet["circuit_family"]),
+            }
+            action_path = REPO_ROOT / "logs" / "automated_stage_gates" / "braket_tmp" / f"{packet['packet_id']}-{row['row_id']}.json"
+            write_json(action_path, action)
+            submitted_at = _utc_now()
+            create_cmd = self._aws_base_cmd(config, "braket", "create-quantum-task")
+            row_prefix = f"{config['output_s3_key_prefix'].strip('/')}/{packet['packet_id']}/{row['row_id']}"
+            create_cmd.extend(
+                [
+                    "--action",
+                    f"file://{action_path}",
+                    "--device-arn",
+                    config["backend"],
+                    "--output-s3-bucket",
+                    config["output_s3_bucket"],
+                    "--output-s3-key-prefix",
+                    row_prefix,
+                    "--shots",
+                    str(config["shot_count"]),
+                    "--client-token",
+                    _braket_client_token(packet["packet_id"], row["row_id"]),
+                ]
+            )
+            created = self._run_aws_json(create_cmd)
+            task_arn = created.get("quantumTaskArn") or created.get("QuantumTaskArn") or ""
+            if not task_arn:
+                raise RuntimeError(f"Amazon Braket task creation did not return quantumTaskArn for {row['row_id']}")
+            final_task = self._braket_wait_for_task(config, task_arn, timeout_sec, poll_interval_sec)
+            completed_at = _utc_now()
+            status = str(final_task.get("status", ""))
+            if status != "COMPLETED":
+                raise RuntimeError(f"Amazon Braket task {task_arn} ended with status={status}")
+            result_payload = self._braket_fetch_result(config, final_task, row_prefix, task_arn)
+            counts = _braket_counts_from_result(result_payload)
+            raw_counts_by_row.append(
+                {
+                    "row_id": row["row_id"],
+                    "counts": counts,
+                    "quantum_task_arn": task_arn,
+                    "result_s3_uri": _braket_result_s3_uri(config, final_task, row_prefix, task_arn),
+                }
+            )
+            provider_job_records.append(
+                {
+                    "job_id": task_arn,
+                    "provider": config["provider"],
+                    "backend": config["backend"],
+                    "packet_id": packet["packet_id"],
+                    "row_id": row["row_id"],
+                    "submitted_at_utc": submitted_at,
+                    "completed_at_utc": completed_at,
+                    "shot_count": config["shot_count"],
+                    "quantum_task": final_task,
+                }
+            )
+        return {
+            "status": "COMPLETED",
+            "jobs": [
+                {
+                    "job_id": ",".join(record["job_id"] for record in provider_job_records),
+                    "provider": config["provider"],
+                    "backend": config["backend"],
+                    "packet_id": packet["packet_id"],
+                    "submitted_at_utc": provider_job_records[0]["submitted_at_utc"] if provider_job_records else "",
+                    "completed_at_utc": provider_job_records[-1]["completed_at_utc"] if provider_job_records else "",
+                    "shot_count": config["shot_count"],
+                    "circuit_count": len(packet["rows"]),
+                    "raw_counts_by_row": raw_counts_by_row,
+                    "provider_job_records": provider_job_records,
+                }
+            ],
+            "backend_metadata": backend_metadata,
+            "calibration_metadata": calibration_metadata,
+        }
+
+    def _braket_wait_for_task(
+        self,
+        config: dict[str, Any],
+        task_arn: str,
+        timeout_sec: float,
+        poll_interval_sec: float,
+    ) -> dict[str, Any]:
+        started = time.monotonic()
+        while True:
+            cmd = self._aws_base_cmd(config, "braket", "get-quantum-task")
+            cmd.extend(["--quantum-task-arn", task_arn])
+            task = self._run_aws_json(cmd)
+            status = str(task.get("status", ""))
+            if status in {"COMPLETED", "FAILED", "CANCELLED"}:
+                return task
+            if time.monotonic() - started > timeout_sec:
+                raise TimeoutError(f"Amazon Braket task timed out after {timeout_sec} seconds: {task_arn}")
+            time.sleep(poll_interval_sec)
+
+    def _braket_fetch_result(
+        self,
+        config: dict[str, Any],
+        task: dict[str, Any],
+        row_prefix: str,
+        task_arn: str,
+    ) -> dict[str, Any]:
+        uri = _braket_result_s3_uri(config, task, row_prefix, task_arn)
+        cmd = self._aws_base_cmd(config, "s3", "cp")
+        cmd.extend([uri, "-"])
+        text = self._run_aws_text(cmd)
+        return json.loads(text)
+
     def _quandela_session_kwargs(self, config: dict[str, Any]) -> dict[str, str]:
         token = self.env.get("QUANDELA_CLOUD_TOKEN") or self.env.get("QUANDELA_TOKEN") or ""
         session_kwargs: dict[str, str] = {
             "platform_name": config["backend"],
             "token": token,
-        }
-
-    def _run_ionq_packet(self, packet: dict[str, Any]) -> dict[str, Any]:
-        from qiskit import QuantumCircuit
-        from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-        from qiskit_ionq import IonQProvider
-
-        config = packet["config"]
-        provider = IonQProvider(token=self.env.get("IONQ_API_KEY") or self.env.get("IONQ_API_TOKEN") or "")
-        backend_name = config["backend"]
-        backend = provider.get_backend(backend_name)
-
-        circuits = []
-        for row in packet["rows"]:
-            qc = QuantumCircuit(2)
-            qc.ry(row["circuit_parameters"]["ry_q0"], 0)
-            qc.ry(row["circuit_parameters"]["ry_q1"], 1)
-            if packet.get("circuit_family") == ENTANGLING_CX_CIRCUIT_FAMILY:
-                qc.cx(0, 1)
-            qc.measure_all()
-            circuits.append(qc)
-
-        pass_manager = generate_preset_pass_manager(
-            backend=backend,
-            optimization_level=config["transpilation"]["optimization_level"],
-        )
-        transpiled = [pass_manager.run(circuit) for circuit in circuits]
-        job = backend.run(transpiled, shots=config["shot_count"])
-        submitted_at = _utc_now()
-        result = job.result()
-        completed_at = _utc_now()
-        raw_counts_by_row = []
-        experiment_results = getattr(result, "results", [])
-        for row, row_result in zip(packet["rows"], experiment_results):
-            counts = {}
-            data = getattr(row_result, "data", None)
-            if data is not None:
-                if isinstance(data, dict):
-                    raw = data.get("counts", {})
-                else:
-                    raw = getattr(data, "counts", {})
-                if isinstance(raw, dict):
-                    counts = {str(key): int(value) for key, value in raw.items()}
-            elif hasattr(row_result, "get_counts"):
-                raw = row_result.get_counts()
-                if isinstance(raw, dict):
-                    counts = {str(key): int(value) for key, value in raw.items()}
-            elif hasattr(result, "get_counts"):
-                # Fallback for older result shapes.
-                raw = result.get_counts()
-                if isinstance(raw, dict):
-                    counts = {str(key): int(value) for key, value in raw.items()}
-
-            raw_counts_by_row.append({"row_id": row["row_id"], "counts": counts})
-
-        calibration_metadata = {
-            "captured_at_utc": _utc_now(),
-            "source": "ionq_backend_result",
-            "backend_name": getattr(backend, "name", backend_name),
-        }
-        job_id = ""
-        if hasattr(job, "job_id"):
-            value = job.job_id
-            job_id = value() if callable(value) else value
-        return {
-            "status": "COMPLETED",
-            "jobs": [
-                {
-                    "job_id": job_id or str(job),
-                    "provider": config["provider"],
-                    "backend": backend_name,
-                    "packet_id": packet["packet_id"],
-                    "submitted_at_utc": submitted_at,
-                    "completed_at_utc": completed_at,
-                    "shot_count": config["shot_count"],
-                    "circuit_count": len(packet["rows"]),
-                    "raw_counts_by_row": raw_counts_by_row,
-                }
-            ],
-            "backend_metadata": {
-                "provider": config["provider"],
-                "backend": backend_name,
-                "backend_name": getattr(backend, "name", backend_name),
-            },
-            "calibration_metadata": calibration_metadata,
         }
         cloud_url = self.env.get("QUANDELA_CLOUD_URL", "").strip()
         if cloud_url:
@@ -1401,11 +1698,16 @@ def _hardware_metadata_complete(packet: dict[str, Any], execution: dict[str, Any
     return not missing, missing
 
 
-def evaluate_hardware_execution(packet: dict[str, Any], execution: dict[str, Any]) -> dict[str, Any]:
+def evaluate_hardware_execution(
+    packet: dict[str, Any],
+    execution: dict[str, Any],
+    *,
+    bitstring_order: str | None = None,
+) -> dict[str, Any]:
     if execution.get("status") != "COMPLETED":
         return {
             "status": "FAIL_STOP",
-            "outcome": "hardware-inconclusive",
+            "outcome": execution.get("outcome", "hardware-inconclusive"),
             "gate_pass": False,
             "fail_reasons": [execution.get("error", "hardware execution did not complete")],
         }
@@ -1414,9 +1716,10 @@ def evaluate_hardware_execution(packet: dict[str, Any], execution: dict[str, Any
     control_predictions: list[float] = []
     per_row: list[dict[str, Any]] = []
     counts = _counts_by_row(execution)
+    order = bitstring_order or execution.get("bitstring_order") or packet.get("bitstring_order") or "q1q0"
     for row in packet["rows"]:
         row_counts = counts.get(row["row_id"], {})
-        expectations = counts_to_expectations(row_counts)
+        expectations = counts_to_expectations(row_counts, bitstring_order=order)
         labels.append(float(row["label"]))
         scale = row["circuit_parameters"]["score_scale"]
         if packet.get("circuit_family") == ENTANGLING_CX_CIRCUIT_FAMILY:
@@ -1509,6 +1812,7 @@ def evaluate_hardware_execution(packet: dict[str, Any], execution: dict[str, Any
         "metadata_complete": metadata_complete,
         "missing_metadata": missing_metadata,
         "comparability_pass": comparable,
+        "bitstring_order": order,
         "fail_reasons": fail_reasons,
         "per_row_results": per_row,
     }
@@ -1548,7 +1852,19 @@ def run_hardware_packet(
     try:
         execution = hardware_adapter.run_packet(packet)
     except Exception as exc:
-        execution = {"status": "ERROR", "outcome": "hardware-inconclusive", "error": str(exc)}
+        error = str(exc)
+        execution = {"status": "ERROR", "outcome": "hardware-inconclusive", "error": error}
+        if "User agreement has not been accepted" in error and "CreateQuantumTask" in error:
+            execution.update(
+                {
+                    "status": "BLOCKED",
+                    "outcome": "hardware-blocked",
+                    "error_category": "aws_braket_user_agreement_not_accepted",
+                    "blockers": [
+                        "Amazon Braket user agreement has not been accepted for this AWS account"
+                    ],
+                }
+            )
     evaluation = evaluate_hardware_execution(packet, execution)
     return {
         "status": evaluation["status"],

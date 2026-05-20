@@ -1,0 +1,8 @@
+{
+  "fail_reasons": [
+    "Amazon Braket task timed out after 1800.0 seconds: arn:aws:braket:us-west-1:485386182336:quantum-task/ac7e2b2e-2794-43e8-ba18-c65225efceea"
+  ],
+  "gate_pass": false,
+  "outcome": "hardware-inconclusive",
+  "status": "FAIL_STOP"
+}

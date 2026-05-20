@@ -1,0 +1,341 @@
+{
+  "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+  "checks": [
+    {
+      "detail": "COMPLETED",
+      "name": "execution_completed",
+      "pass": true
+    },
+    {
+      "detail": false,
+      "name": "recomputed_gate_pass",
+      "pass": false
+    },
+    {
+      "detail": "hardware-negative",
+      "name": "recomputed_outcome_hardware_positive",
+      "pass": false
+    },
+    {
+      "detail": [],
+      "name": "metadata_complete",
+      "pass": true
+    },
+    {
+      "detail": true,
+      "name": "comparability_pass",
+      "pass": true
+    },
+    {
+      "detail": "amazon_braket",
+      "name": "expected_provider",
+      "pass": true
+    },
+    {
+      "detail": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "name": "expected_backend",
+      "pass": true
+    },
+    {
+      "detail": [
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/c5fb6119-61e0-4138-a64b-e1cb621e7301",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/76f38473-4390-413b-9d42-b8ed50bd1246",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/7925994c-c8f3-4e30-a22a-4653a506440e",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/c063b810-bd75-4800-897a-46f12be8a8fe",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/ebdeb6cd-465b-4ee9-b273-701b788df4bc",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/ac0ade44-e22c-4434-a80b-e19f0e1f8102",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/4018c0ad-1d2b-4fa4-a284-ba7aeb72ef91",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/6e3b04aa-a883-4575-b75a-d025e0fad531"
+      ],
+      "name": "job_id_present",
+      "pass": true
+    },
+    {
+      "detail": {
+        "recomputed": {
+          "comparability_pass": true,
+          "control": {
+            "mae": 0.102104,
+            "rank_correlation": 0.691023
+          },
+          "direction_agreement": false,
+          "fail_reasons": [
+            "hardware witness did not beat hardware control on both metrics",
+            "hardware direction did not agree with noisy-simulator direction"
+          ],
+          "gate_pass": false,
+          "hardware_direction_positive": false,
+          "metadata_complete": true,
+          "missing_metadata": [],
+          "noisy_direction_positive": true,
+          "outcome": "hardware-negative",
+          "status": "FAIL_STOP",
+          "witness": {
+            "mae": 0.290715,
+            "rank_correlation": 0.0
+          }
+        },
+        "recorded": {
+          "comparability_pass": true,
+          "control": {
+            "mae": 0.102104,
+            "rank_correlation": 0.691023
+          },
+          "direction_agreement": false,
+          "fail_reasons": [
+            "hardware witness did not beat hardware control on both metrics",
+            "hardware direction did not agree with noisy-simulator direction"
+          ],
+          "gate_pass": false,
+          "hardware_direction_positive": false,
+          "metadata_complete": true,
+          "missing_metadata": [],
+          "noisy_direction_positive": true,
+          "outcome": "hardware-negative",
+          "status": "FAIL_STOP",
+          "witness": {
+            "mae": 0.290715,
+            "rank_correlation": 0.0
+          }
+        }
+      },
+      "name": "recorded_evaluation_matches_recomputed",
+      "pass": true
+    },
+    {
+      "detail": "FAIL_STOP",
+      "name": "summary_status_matches_recomputed",
+      "pass": true
+    },
+    {
+      "detail": "hardware-negative",
+      "name": "summary_outcome_matches_recomputed",
+      "pass": true
+    }
+  ],
+  "evaluation_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z\\evaluation.json",
+  "execution_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z\\execution.json",
+  "execution_sha256": "b9dbae0854acfff77ba091e7502ff51b733f53fd2b497e00d3264ffa8124e27a",
+  "job_ids": [
+    "arn:aws:braket:us-west-1:485386182336:quantum-task/c5fb6119-61e0-4138-a64b-e1cb621e7301",
+    "arn:aws:braket:us-west-1:485386182336:quantum-task/76f38473-4390-413b-9d42-b8ed50bd1246",
+    "arn:aws:braket:us-west-1:485386182336:quantum-task/7925994c-c8f3-4e30-a22a-4653a506440e",
+    "arn:aws:braket:us-west-1:485386182336:quantum-task/c063b810-bd75-4800-897a-46f12be8a8fe",
+    "arn:aws:braket:us-west-1:485386182336:quantum-task/ebdeb6cd-465b-4ee9-b273-701b788df4bc",
+    "arn:aws:braket:us-west-1:485386182336:quantum-task/ac0ade44-e22c-4434-a80b-e19f0e1f8102",
+    "arn:aws:braket:us-west-1:485386182336:quantum-task/4018c0ad-1d2b-4fa4-a284-ba7aeb72ef91",
+    "arn:aws:braket:us-west-1:485386182336:quantum-task/6e3b04aa-a883-4575-b75a-d025e0fad531"
+  ],
+  "no_hardware_submission": true,
+  "packet_id": "qrope-hardware-7e5eaa2ee2d462b8",
+  "packet_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z\\frozen_packet.json",
+  "packet_sha256": "2ab7ab0f571d01f2082f9a15558cb9c34d578978757a8741db39a1c2250fb2c9",
+  "pass": false,
+  "provider": "amazon_braket",
+  "recomputed_evaluation": {
+    "comparability_pass": true,
+    "control": {
+      "mae": 0.102104,
+      "rank_correlation": 0.691023
+    },
+    "direction_agreement": false,
+    "fail_reasons": [
+      "hardware witness did not beat hardware control on both metrics",
+      "hardware direction did not agree with noisy-simulator direction"
+    ],
+    "gate_pass": false,
+    "hardware_direction_positive": false,
+    "metadata_complete": true,
+    "missing_metadata": [],
+    "noisy_direction_positive": true,
+    "noisy_reference": {
+      "control": {
+        "mae": 0.199548,
+        "rank_correlation": -0.098161
+      },
+      "gate_pass": true,
+      "witness": {
+        "mae": 0.009306,
+        "rank_correlation": 1.0
+      }
+    },
+    "outcome": "hardware-negative",
+    "per_row_results": [
+      {
+        "counts": {
+          "00": 62,
+          "01": 379,
+          "10": 473,
+          "11": 86
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": 0.07,
+          "z1": -0.118,
+          "zz": -0.704
+        },
+        "hardware_predictions": {
+          "control": 0.3415,
+          "witness": 0.423271867877
+        },
+        "label": 0.5,
+        "row_id": "hwrow-000"
+      },
+      {
+        "counts": {
+          "00": 23,
+          "01": 17,
+          "10": 458,
+          "11": 502
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": -0.038,
+          "z1": -0.92,
+          "zz": 0.05
+        },
+        "hardware_predictions": {
+          "control": 0.503,
+          "witness": 0.0
+        },
+        "label": 0.453314982767,
+        "row_id": "hwrow-001"
+      },
+      {
+        "counts": {
+          "00": 147,
+          "01": 383,
+          "10": 347,
+          "11": 123
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": -0.012,
+          "z1": 0.06,
+          "zz": -0.46
+        },
+        "hardware_predictions": {
+          "control": 0.382,
+          "witness": 0.53901430447
+        },
+        "label": 0.418330015736,
+        "row_id": "hwrow-002"
+      },
+      {
+        "counts": {
+          "00": 322,
+          "01": 232,
+          "10": 200,
+          "11": 246
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": 0.044,
+          "z1": 0.108,
+          "zz": 0.136
+        },
+        "hardware_predictions": {
+          "control": 0.545,
+          "witness": 0.570225748045
+        },
+        "label": 0.508009882638,
+        "row_id": "hwrow-003"
+      },
+      {
+        "counts": {
+          "00": 19,
+          "01": 12,
+          "10": 765,
+          "11": 204
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": 0.568,
+          "z1": -0.938,
+          "zz": -0.554
+        },
+        "hardware_predictions": {
+          "control": 0.5035,
+          "witness": 0.0
+        },
+        "label": 0.976007551561,
+        "row_id": "hwrow-004"
+      },
+      {
+        "counts": {
+          "00": 58,
+          "01": 58,
+          "10": 407,
+          "11": 477
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": -0.07,
+          "z1": -0.768,
+          "zz": 0.07
+        },
+        "hardware_predictions": {
+          "control": 0.5,
+          "witness": 0.00061690279
+        },
+        "label": 0.5,
+        "row_id": "hwrow-005"
+      },
+      {
+        "counts": {
+          "00": 152,
+          "01": 344,
+          "10": 381,
+          "11": 123
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": 0.066,
+          "z1": -0.008,
+          "zz": -0.45
+        },
+        "hardware_predictions": {
+          "control": 0.404,
+          "witness": 0.494798092737
+        },
+        "label": 0.418330015736,
+        "row_id": "hwrow-006"
+      },
+      {
+        "counts": {
+          "00": 333,
+          "01": 220,
+          "10": 215,
+          "11": 232
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": 0.096,
+          "z1": 0.106,
+          "zz": 0.13
+        },
+        "hardware_predictions": {
+          "control": 0.5565,
+          "witness": 0.56892527123
+        },
+        "label": 0.508009882638,
+        "row_id": "hwrow-007"
+      }
+    ],
+    "status": "FAIL_STOP",
+    "witness": {
+      "mae": 0.290715,
+      "rank_correlation": 0.0
+    }
+  },
+  "summary_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z\\summary.json",
+  "verifier": "qrope_stage4_offline_verifier_v1"
+}

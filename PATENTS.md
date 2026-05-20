@@ -2,11 +2,17 @@
 
 This repository includes materials related to PhaseWrap-RoPE.
 
-## Patent status
+## USPTO submission record
 
-- Status: `patent pending`
-- USPTO provisional application: `64/068,121`
-- Title: `SYSTEMS, METHODS, AND CIRCUITS FOR PhaseWrap-RoPE AND HARDWARE VALIDATION`
+- USPTO Electronic Acknowledgement Receipt application number: `64/068,121`
+- Receipt date/time: `2026-05-18 01:26:34 AM ET`
+- Patent Center number: `76347440`
+- Title: `SYSTEMS, METHODS, AND CIRCUITS FOR QUANTUM ROTARY POSITIONAL ENCODING AND HARDWARE VALIDATION`
+- Public status language used in this repository: `USPTO provisional submission received; final Filing Receipt pending`
+
+Important: USPTO MPEP 503 currently lists provisional application series codes as `60/` through `63/`. The acknowledgement receipt in CYINT IP records lists `64/068,121`. Until the official Filing Receipt is received and checked, this repository treats `64/068,121` as the acknowledgement-receipt application number rather than an independently verified final-format provisional serial.
+
+The authoritative public status note is `docs/publication/patent-status-note-v1.md`.
 
 ## License boundary
 
@@ -20,7 +26,7 @@ Commercial integration, production deployment, non-AGPL use, assignments, sublic
 
 Public statements about PhaseWrap-RoPE should stay within the submitted and repo-backed evidence boundary:
 
-- PhaseWrap-RoPE method;
+- PhaseWrap-RoPE phase-wrap method;
 - deterministic frozen-packet validation;
 - raw-count and metadata-backed hardware execution records;
 - offline recomputation of reported metrics;

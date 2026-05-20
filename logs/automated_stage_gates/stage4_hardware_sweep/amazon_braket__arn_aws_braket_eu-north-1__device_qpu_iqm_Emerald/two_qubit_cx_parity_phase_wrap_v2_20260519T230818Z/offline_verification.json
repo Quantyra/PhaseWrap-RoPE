@@ -1,0 +1,341 @@
+{
+  "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+  "checks": [
+    {
+      "detail": "COMPLETED",
+      "name": "execution_completed",
+      "pass": true
+    },
+    {
+      "detail": false,
+      "name": "recomputed_gate_pass",
+      "pass": false
+    },
+    {
+      "detail": "hardware-negative",
+      "name": "recomputed_outcome_hardware_positive",
+      "pass": false
+    },
+    {
+      "detail": [],
+      "name": "metadata_complete",
+      "pass": true
+    },
+    {
+      "detail": true,
+      "name": "comparability_pass",
+      "pass": true
+    },
+    {
+      "detail": "amazon_braket",
+      "name": "expected_provider",
+      "pass": true
+    },
+    {
+      "detail": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+      "name": "expected_backend",
+      "pass": true
+    },
+    {
+      "detail": [
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/e8a196e7-a797-4f51-b501-ef2b6757abf3",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/6f01fb84-a044-4a1d-b748-a38b3e102236",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/36202374-cfcb-4313-bfe5-4cdedc457df1",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/5c18ff20-41ff-47c3-a93c-e3ccddb52b19",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/60609d11-cf7a-4b0a-bb5d-bc492e2d0356",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/4bec2c14-2a80-42ef-bb40-b42ac23b1b32",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/a69879e2-18e6-4323-acef-b1d3bf909a79",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/36c16f94-61e4-477e-b293-274827723663"
+      ],
+      "name": "job_id_present",
+      "pass": true
+    },
+    {
+      "detail": {
+        "recomputed": {
+          "comparability_pass": true,
+          "control": {
+            "mae": 0.127917,
+            "rank_correlation": 0.634194
+          },
+          "direction_agreement": false,
+          "fail_reasons": [
+            "hardware witness did not beat hardware control on both metrics",
+            "hardware direction did not agree with noisy-simulator direction"
+          ],
+          "gate_pass": false,
+          "hardware_direction_positive": false,
+          "metadata_complete": true,
+          "missing_metadata": [],
+          "noisy_direction_positive": true,
+          "outcome": "hardware-negative",
+          "status": "FAIL_STOP",
+          "witness": {
+            "mae": 0.324767,
+            "rank_correlation": -0.223607
+          }
+        },
+        "recorded": {
+          "comparability_pass": true,
+          "control": {
+            "mae": 0.127917,
+            "rank_correlation": 0.634194
+          },
+          "direction_agreement": false,
+          "fail_reasons": [
+            "hardware witness did not beat hardware control on both metrics",
+            "hardware direction did not agree with noisy-simulator direction"
+          ],
+          "gate_pass": false,
+          "hardware_direction_positive": false,
+          "metadata_complete": true,
+          "missing_metadata": [],
+          "noisy_direction_positive": true,
+          "outcome": "hardware-negative",
+          "status": "FAIL_STOP",
+          "witness": {
+            "mae": 0.324767,
+            "rank_correlation": -0.223607
+          }
+        }
+      },
+      "name": "recorded_evaluation_matches_recomputed",
+      "pass": true
+    },
+    {
+      "detail": "FAIL_STOP",
+      "name": "summary_status_matches_recomputed",
+      "pass": true
+    },
+    {
+      "detail": "hardware-negative",
+      "name": "summary_outcome_matches_recomputed",
+      "pass": true
+    }
+  ],
+  "evaluation_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald\\two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z\\evaluation.json",
+  "execution_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald\\two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z\\execution.json",
+  "execution_sha256": "a1800cefac00ae8c32bb2910c64b21a05b4142868fab21468ec35ec9c428ee10",
+  "job_ids": [
+    "arn:aws:braket:eu-north-1:485386182336:quantum-task/e8a196e7-a797-4f51-b501-ef2b6757abf3",
+    "arn:aws:braket:eu-north-1:485386182336:quantum-task/6f01fb84-a044-4a1d-b748-a38b3e102236",
+    "arn:aws:braket:eu-north-1:485386182336:quantum-task/36202374-cfcb-4313-bfe5-4cdedc457df1",
+    "arn:aws:braket:eu-north-1:485386182336:quantum-task/5c18ff20-41ff-47c3-a93c-e3ccddb52b19",
+    "arn:aws:braket:eu-north-1:485386182336:quantum-task/60609d11-cf7a-4b0a-bb5d-bc492e2d0356",
+    "arn:aws:braket:eu-north-1:485386182336:quantum-task/4bec2c14-2a80-42ef-bb40-b42ac23b1b32",
+    "arn:aws:braket:eu-north-1:485386182336:quantum-task/a69879e2-18e6-4323-acef-b1d3bf909a79",
+    "arn:aws:braket:eu-north-1:485386182336:quantum-task/36c16f94-61e4-477e-b293-274827723663"
+  ],
+  "no_hardware_submission": true,
+  "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+  "packet_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald\\two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z\\frozen_packet.json",
+  "packet_sha256": "ab672314d7b0069fbd6ffb75d973ee9fc02fddc26f1fa8f0bfc00b81b78d4cd2",
+  "pass": false,
+  "provider": "amazon_braket",
+  "recomputed_evaluation": {
+    "comparability_pass": true,
+    "control": {
+      "mae": 0.127917,
+      "rank_correlation": 0.634194
+    },
+    "direction_agreement": false,
+    "fail_reasons": [
+      "hardware witness did not beat hardware control on both metrics",
+      "hardware direction did not agree with noisy-simulator direction"
+    ],
+    "gate_pass": false,
+    "hardware_direction_positive": false,
+    "metadata_complete": true,
+    "missing_metadata": [],
+    "noisy_direction_positive": true,
+    "noisy_reference": {
+      "control": {
+        "mae": 0.199548,
+        "rank_correlation": -0.098161
+      },
+      "gate_pass": true,
+      "witness": {
+        "mae": 0.009306,
+        "rank_correlation": 1.0
+      }
+    },
+    "outcome": "hardware-negative",
+    "per_row_results": [
+      {
+        "counts": {
+          "00": 33,
+          "01": 497,
+          "10": 449,
+          "11": 21
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": -0.036,
+          "z1": 0.06,
+          "zz": -0.892
+        },
+        "hardware_predictions": {
+          "control": 0.268,
+          "witness": 0.53901430447
+        },
+        "label": 0.5,
+        "row_id": "hwrow-000"
+      },
+      {
+        "counts": {
+          "00": 8,
+          "01": 6,
+          "10": 453,
+          "11": 533
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": -0.078,
+          "z1": -0.972,
+          "zz": 0.082
+        },
+        "hardware_predictions": {
+          "control": 0.501,
+          "witness": 0.0
+        },
+        "label": 0.453314982767,
+        "row_id": "hwrow-001"
+      },
+      {
+        "counts": {
+          "00": 90,
+          "01": 496,
+          "10": 353,
+          "11": 61
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": -0.114,
+          "z1": 0.172,
+          "zz": -0.698
+        },
+        "hardware_predictions": {
+          "control": 0.297,
+          "witness": 0.611841006146
+        },
+        "label": 0.418330015736,
+        "row_id": "hwrow-002"
+      },
+      {
+        "counts": {
+          "00": 304,
+          "01": 283,
+          "10": 185,
+          "11": 228
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": -0.022,
+          "z1": 0.174,
+          "zz": 0.064
+        },
+        "hardware_predictions": {
+          "control": 0.5105,
+          "witness": 0.613141482962
+        },
+        "label": 0.508009882638,
+        "row_id": "hwrow-003"
+      },
+      {
+        "counts": {
+          "00": 8,
+          "01": 6,
+          "10": 833,
+          "11": 153
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": 0.682,
+          "z1": -0.972,
+          "zz": -0.678
+        },
+        "hardware_predictions": {
+          "control": 0.501,
+          "witness": 0.0
+        },
+        "label": 0.976007551561,
+        "row_id": "hwrow-004"
+      },
+      {
+        "counts": {
+          "00": 43,
+          "01": 56,
+          "10": 497,
+          "11": 404
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": 0.08,
+          "z1": -0.802,
+          "zz": -0.106
+        },
+        "hardware_predictions": {
+          "control": 0.4935,
+          "witness": 0.0
+        },
+        "label": 0.5,
+        "row_id": "hwrow-005"
+      },
+      {
+        "counts": {
+          "00": 88,
+          "01": 516,
+          "10": 338,
+          "11": 58
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": -0.148,
+          "z1": 0.208,
+          "zz": -0.708
+        },
+        "hardware_predictions": {
+          "control": 0.286,
+          "witness": 0.635249588828
+        },
+        "label": 0.418330015736,
+        "row_id": "hwrow-006"
+      },
+      {
+        "counts": {
+          "00": 311,
+          "01": 283,
+          "10": 207,
+          "11": 199
+        },
+        "expectations": {
+          "shots": 1000,
+          "valid": true,
+          "z0": 0.036,
+          "z1": 0.188,
+          "zz": 0.02
+        },
+        "hardware_predictions": {
+          "control": 0.514,
+          "witness": 0.622244820671
+        },
+        "label": 0.508009882638,
+        "row_id": "hwrow-007"
+      }
+    ],
+    "status": "FAIL_STOP",
+    "witness": {
+      "mae": 0.324767,
+      "rank_correlation": -0.223607
+    }
+  },
+  "summary_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald\\two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z\\summary.json",
+  "verifier": "qrope_stage4_offline_verifier_v1"
+}

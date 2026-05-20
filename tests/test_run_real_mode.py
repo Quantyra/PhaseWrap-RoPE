@@ -1005,38 +1005,6 @@ def test_positional_anchor_distance_symbolic_control_freezes_basis() -> None:
     assert diagnostics["forbidden_feature_family_absent_pass"] is True
 
 
-def test_positional_phase_wrap_witness_backend_runs() -> None:
-    metrics = run_real_experiment(
-        dataset="synthetic_positional_phase_wrap_discrimination",
-        seed=42,
-        backend="sim_quantum_statevector",
-        variant="V_future_relational_witness_positional_phase_wrap",
-    )
-    diagnostics = metrics["dataset_diagnostics"]
-    assert metrics["data_mode"].startswith(
-        "synthetic_positional_phase_wrap_discrimination+readout_relational_witness_positional_phase_wrap+head_linear"
-    )
-    assert diagnostics["phase_wrap_label_entropy_pass"] is True
-    assert diagnostics["phase_wrap_single_band_noncollapse_pass"] is True
-    assert diagnostics["phase_wrap_two_band_decision_critical_pass"] is True
-    run_diagnostics = metrics["run_diagnostics"]
-    assert run_diagnostics["phase_wrap_cross_band_interaction_pass"] is True
-    assert run_diagnostics["forbidden_feature_family_absent_pass"] is True
-
-
-def test_positional_phase_wrap_symbolic_control_freezes_basis() -> None:
-    metrics = run_real_experiment(
-        dataset="synthetic_positional_phase_wrap_discrimination",
-        seed=42,
-        backend="sim_quantum_statevector",
-        variant="V_control_symbolic_phase_wrap_regressor",
-    )
-    diagnostics = metrics["run_diagnostics"]
-    assert diagnostics["phase_wrap_additive_single_band_control_pass"] is True
-    assert diagnostics["phase_wrap_cross_band_interaction_absent_pass"] is True
-    assert diagnostics["forbidden_feature_family_absent_pass"] is True
-
-
 def test_positional_anchor_span_membership_witness_backend_runs() -> None:
     metrics = run_real_experiment(
         dataset="synthetic_positional_anchor_span_membership_response",

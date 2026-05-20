@@ -1,0 +1,7 @@
+{
+  "bitstring_order": "q0q1",
+  "gate_pass": true,
+  "historical_decoder_note": "Earlier generic q1q0 decoding classified this Braket CX record as hardware-negative; provider-aware q0q1 decoding recomputes it from the same raw counts as hardware-positive.",
+  "outcome": "hardware-positive",
+  "status": "PASS"
+}

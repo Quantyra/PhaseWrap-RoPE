@@ -1,0 +1,370 @@
+{
+  "bitstring_order": "q1q0",
+  "comparability_pass": true,
+  "control": {
+    "mae": 0.212516,
+    "rank_correlation": -0.169318
+  },
+  "direction_agreement": true,
+  "fail_reasons": [],
+  "gate_pass": true,
+  "hardware_direction_positive": true,
+  "metadata_complete": true,
+  "missing_metadata": [],
+  "noisy_direction_positive": true,
+  "noisy_reference": {
+    "control": {
+      "mae": 0.210533,
+      "rank_correlation": -0.187215
+    },
+    "gate_pass": true,
+    "witness": {
+      "mae": 0.011122,
+      "rank_correlation": 1.0
+    }
+  },
+  "outcome": "hardware-positive",
+  "per_row_results": [
+    {
+      "counts": {
+        "00": 234,
+        "01": 1736,
+        "10": 1931,
+        "11": 195
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.05712890625,
+        "z1": -0.0380859375,
+        "zz": -0.79052734375
+      },
+      "hardware_predictions": {
+        "control": 0.316650390625,
+        "witness": 0.475235060639
+      },
+      "label": 0.5,
+      "row_id": "hwrow-000"
+    },
+    {
+      "counts": {
+        "00": 61,
+        "01": 1898,
+        "10": 76,
+        "11": 2061
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": -0.93310546875,
+        "z1": -0.04345703125,
+        "zz": 0.0361328125
+      },
+      "hardware_predictions": {
+        "control": 0.275756835938,
+        "witness": 0.471742569191
+      },
+      "label": 0.453314982767,
+      "row_id": "hwrow-001"
+    },
+    {
+      "counts": {
+        "00": 394,
+        "01": 1487,
+        "10": 1890,
+        "11": 325
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.115234375,
+        "z1": -0.08154296875,
+        "zz": -0.64892578125
+      },
+      "hardware_predictions": {
+        "control": 0.366577148438,
+        "witness": 0.446977629831
+      },
+      "label": 0.418330015736,
+      "row_id": "hwrow-002"
+    },
+    {
+      "counts": {
+        "00": 1213,
+        "01": 869,
+        "10": 1083,
+        "11": 931
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.12109375,
+        "z1": 0.0166015625,
+        "zz": 0.046875
+      },
+      "hardware_predictions": {
+        "control": 0.5419921875,
+        "witness": 0.510794973567
+      },
+      "label": 0.508009882638,
+      "row_id": "hwrow-003"
+    },
+    {
+      "counts": {
+        "00": 44,
+        "01": 3305,
+        "10": 60,
+        "11": 687
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": -0.94921875,
+        "z1": 0.63525390625,
+        "zz": -0.64306640625
+      },
+      "hardware_predictions": {
+        "control": 0.101928710938,
+        "witness": 0.913066488565
+      },
+      "label": 0.976007551561,
+      "row_id": "hwrow-004"
+    },
+    {
+      "counts": {
+        "00": 222,
+        "01": 1775,
+        "10": 226,
+        "11": 1873
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": -0.78125,
+        "z1": -0.02490234375,
+        "zz": 0.02294921875
+      },
+      "hardware_predictions": {
+        "control": 0.310424804688,
+        "witness": 0.483807539649
+      },
+      "label": 0.5,
+      "row_id": "hwrow-005"
+    },
+    {
+      "counts": {
+        "00": 448,
+        "01": 1402,
+        "10": 1938,
+        "11": 308
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.1650390625,
+        "z1": -0.0966796875,
+        "zz": -0.630859375
+      },
+      "hardware_predictions": {
+        "control": 0.383544921875,
+        "witness": 0.437135153931
+      },
+      "label": 0.418330015736,
+      "row_id": "hwrow-006"
+    },
+    {
+      "counts": {
+        "00": 1248,
+        "01": 813,
+        "10": 1043,
+        "11": 992
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.11865234375,
+        "z1": 0.00634765625,
+        "zz": 0.09375
+      },
+      "hardware_predictions": {
+        "control": 0.553100585938,
+        "witness": 0.504127489893
+      },
+      "label": 0.508009882638,
+      "row_id": "hwrow-007"
+    },
+    {
+      "counts": {
+        "00": 128,
+        "01": 2599,
+        "10": 262,
+        "11": 1107
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": -0.8095703125,
+        "z1": 0.33154296875,
+        "zz": -0.39697265625
+      },
+      "hardware_predictions": {
+        "control": 0.198364257812,
+        "witness": 0.715581972126
+      },
+      "label": 0.75,
+      "row_id": "hwrow-008"
+    },
+    {
+      "counts": {
+        "00": 1041,
+        "01": 1003,
+        "10": 1035,
+        "11": 1017
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.013671875,
+        "z1": -0.001953125,
+        "zz": 0.0048828125
+      },
+      "hardware_predictions": {
+        "control": 0.504638671875,
+        "witness": 0.49873000311
+      },
+      "label": 0.5,
+      "row_id": "hwrow-009"
+    },
+    {
+      "counts": {
+        "00": 452,
+        "01": 1441,
+        "10": 1897,
+        "11": 306
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.14697265625,
+        "z1": -0.07568359375,
+        "zz": -0.6298828125
+      },
+      "hardware_predictions": {
+        "control": 0.379272460938,
+        "witness": 0.450787620501
+      },
+      "label": 0.418330015736,
+      "row_id": "hwrow-010"
+    },
+    {
+      "counts": {
+        "00": 1249,
+        "01": 799,
+        "10": 1125,
+        "11": 923
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.1591796875,
+        "z1": 0.0,
+        "zz": 0.060546875
+      },
+      "hardware_predictions": {
+        "control": 0.554931640625,
+        "witness": 0.5
+      },
+      "label": 0.508009882638,
+      "row_id": "hwrow-011"
+    },
+    {
+      "counts": {
+        "00": 67,
+        "01": 3413,
+        "10": 349,
+        "11": 267
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": -0.796875,
+        "z1": 0.69921875,
+        "zz": -0.8369140625
+      },
+      "hardware_predictions": {
+        "control": 0.091552734375,
+        "witness": 0.954658886722
+      },
+      "label": 1.0,
+      "row_id": "hwrow-012"
+    },
+    {
+      "counts": {
+        "00": 73,
+        "01": 1823,
+        "10": 62,
+        "11": 2138
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": -0.93408203125,
+        "z1": -0.07421875,
+        "zz": 0.07958984375
+      },
+      "hardware_predictions": {
+        "control": 0.286376953125,
+        "witness": 0.451740118169
+      },
+      "label": 0.453314982767,
+      "row_id": "hwrow-013"
+    },
+    {
+      "counts": {
+        "00": 427,
+        "01": 1480,
+        "10": 1873,
+        "11": 316
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.123046875,
+        "z1": -0.06884765625,
+        "zz": -0.63720703125
+      },
+      "hardware_predictions": {
+        "control": 0.371459960938,
+        "witness": 0.455232609617
+      },
+      "label": 0.418330015736,
+      "row_id": "hwrow-014"
+    },
+    {
+      "counts": {
+        "00": 1267,
+        "01": 828,
+        "10": 1070,
+        "11": 931
+      },
+      "expectations": {
+        "shots": 4096,
+        "valid": true,
+        "z0": 0.14111328125,
+        "z1": 0.02294921875,
+        "zz": 0.0732421875
+      },
+      "hardware_predictions": {
+        "control": 0.553588867188,
+        "witness": 0.514922463461
+      },
+      "label": 0.508009882638,
+      "row_id": "hwrow-015"
+    }
+  ],
+  "status": "PASS",
+  "witness": {
+    "mae": 0.021458,
+    "rank_correlation": 0.972455
+  }
+}

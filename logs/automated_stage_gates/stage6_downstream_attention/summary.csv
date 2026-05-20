@@ -1,0 +1,8 @@
+method,rows,contexts,mae,rank_correlation,top1_accuracy,mrr,ndcg_at_4
+phasewrap_rope_attention,152,38,0.000548,0.989696,1.0,1.0,1.0
+rope_attention,152,38,0.020949,0.857837,1.0,1.0,0.998627
+alibi_attention,152,38,0.019757,0.855112,1.0,1.0,0.998627
+sinusoidal_attention,152,38,0.371411,0.30764,0.394737,0.596491,0.948477
+no_position_attention,152,38,0.01974,0.861826,1.0,1.0,0.998627
+lookup_mod24_baseline,152,38,0.010998,0.968807,0.973684,0.986842,0.997057
+classical_m8_m12_product_baseline,152,38,0.031147,0.900955,0.947368,0.973684,0.995152

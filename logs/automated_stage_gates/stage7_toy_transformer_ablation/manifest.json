@@ -1,0 +1,27 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness"
+    ],
+    "supported": [
+      "Synthetic length-extrapolation ablation showing how the PhaseWrap score behaves when swapped into a four-layer toy attention stack.",
+      "No hardware submission and no production transformer claim."
+    ]
+  },
+  "dataset": "synthetic_length_extrapolation_retrieval_v1",
+  "model_names": [
+    "phasewrap_rope_4layer",
+    "rope_4layer",
+    "alibi_4layer",
+    "sinusoidal_4layer",
+    "no_position_4layer"
+  ],
+  "result_path": "logs/automated_stage_gates/stage7_toy_transformer_ablation/results.json",
+  "schema_version": "qrope_stage7_toy_transformer_ablation_v1",
+  "seed": 42,
+  "stage": "stage7_toy_transformer_ablation",
+  "summary_csv_path": "logs/automated_stage_gates/stage7_toy_transformer_ablation/summary.csv"
+}

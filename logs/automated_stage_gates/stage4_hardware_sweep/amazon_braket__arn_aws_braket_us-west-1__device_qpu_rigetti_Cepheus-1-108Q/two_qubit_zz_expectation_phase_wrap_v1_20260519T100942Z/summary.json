@@ -1,0 +1,6 @@
+{
+  "bitstring_order": "q0q1",
+  "gate_pass": true,
+  "outcome": "hardware-positive",
+  "status": "PASS"
+}

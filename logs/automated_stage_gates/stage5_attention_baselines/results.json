@@ -1,0 +1,488 @@
+{
+  "baselines": [
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.0,
+        "mrr": 1.0,
+        "ndcg_at_4": 1.0,
+        "rank_correlation": 1.0,
+        "row_count": 152,
+        "top1_accuracy": 1.0
+      },
+      "model": {},
+      "name": "phase_wrap_formula"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.0,
+        "mrr": 1.0,
+        "ndcg_at_4": 1.0,
+        "rank_correlation": 0.999652,
+        "row_count": 152,
+        "top1_accuracy": 1.0
+      },
+      "model": {
+        "bucket_means": {
+          "0": 0.5080098826379998,
+          "1": 0.5,
+          "10": 0.5528312163509999,
+          "11": 0.5,
+          "12": 0.453314982767,
+          "13": 0.5,
+          "14": 0.5528312163509999,
+          "15": 0.5,
+          "16": 0.418330015736,
+          "17": 0.5,
+          "18": 0.7693375672969999,
+          "19": 1.0,
+          "2": 0.552831216351,
+          "20": 0.976007551561,
+          "21": 0.75,
+          "22": 0.552831216351,
+          "23": 0.5,
+          "3": 0.75,
+          "4": 0.9760075515610003,
+          "5": 1.0,
+          "6": 0.7693375672969999,
+          "7": 0.5,
+          "8": 0.418330015736,
+          "9": 0.5
+        },
+        "global_mean": 0.5387680499050692
+      },
+      "name": "lookup_mod24"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.0,
+        "mrr": 1.0,
+        "ndcg_at_4": 1.0,
+        "rank_correlation": 0.996015,
+        "row_count": 152,
+        "top1_accuracy": 1.0
+      },
+      "model": {
+        "feature_order": [
+          "bias",
+          "m8",
+          "m12",
+          "m8*m12"
+        ],
+        "ridge_alpha": 0.0,
+        "weights": [
+          0.5000000000000187,
+          8.524450606994795e-14,
+          1.6643787701338806e-13,
+          0.2041241452320272
+        ]
+      },
+      "name": "classical_m8_m12_product"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.018332,
+        "mrr": 0.929825,
+        "ndcg_at_4": 0.997502,
+        "rank_correlation": 0.880971,
+        "row_count": 152,
+        "top1_accuracy": 0.868421
+      },
+      "model": {
+        "feature_order": [
+          "reference_delta",
+          "candidate_delta",
+          "delta_diff",
+          "abs_delta_diff",
+          "delta_diff_mod24",
+          "reference_delta_mod24",
+          "candidate_delta_mod24"
+        ],
+        "max_depth": 4,
+        "min_leaf": 4,
+        "tree": {
+          "feature_index": 4,
+          "left": {
+            "feature_index": 4,
+            "left": {
+              "feature_index": 4,
+              "left": {
+                "feature_index": 4,
+                "left": {
+                  "value": 0.50651838725
+                },
+                "right": {
+                  "value": 0.552831216351
+                },
+                "threshold": 1.5,
+                "value": 0.509506311708
+              },
+              "right": {
+                "feature_index": 4,
+                "left": {
+                  "value": 0.75
+                },
+                "right": {
+                  "value": 0.946592980349
+                },
+                "threshold": 3.5,
+                "value": 0.892216198551
+              },
+              "threshold": 2.5,
+              "value": 0.598552671518
+            },
+            "right": {
+              "feature_index": 4,
+              "left": {
+                "feature_index": 4,
+                "left": {
+                  "value": 0.460524980641
+                },
+                "right": {
+                  "value": 0.524214307494
+                },
+                "threshold": 12.5,
+                "value": 0.472466729426
+              },
+              "right": {
+                "feature_index": 4,
+                "left": {
+                  "value": 0.418330015736
+                },
+                "right": {
+                  "value": 0.5
+                },
+                "threshold": 16.5,
+                "value": 0.428130413848
+              },
+              "threshold": 15.5,
+              "value": 0.46242073647
+            },
+            "threshold": 6.5,
+            "value": 0.514012952004
+          },
+          "right": {
+            "feature_index": 4,
+            "left": {
+              "feature_index": 4,
+              "left": {
+                "feature_index": 4,
+                "left": {
+                  "value": 0.769337567297
+                },
+                "right": {
+                  "value": 0.989717522098
+                },
+                "threshold": 18.5,
+                "value": 0.928923051808
+              },
+              "right": {
+                "value": 0.75
+              },
+              "threshold": 20.5,
+              "value": 0.886546539537
+            },
+            "right": {
+              "feature_index": 4,
+              "left": {
+                "value": 0.552831216351
+              },
+              "right": {
+                "value": 0.5
+              },
+              "threshold": 22.5,
+              "value": 0.518217660811
+            },
+            "threshold": 21.5,
+            "value": 0.727120606954
+          },
+          "threshold": 17.5,
+          "value": 0.537809973474
+        }
+      },
+      "name": "delta_regression_tree"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.225643,
+        "mrr": 0.429825,
+        "ndcg_at_4": 0.887883,
+        "rank_correlation": 0.119377,
+        "row_count": 152,
+        "top1_accuracy": 0.105263
+      },
+      "model": {},
+      "name": "rope_attention"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.230163,
+        "mrr": 0.317982,
+        "ndcg_at_4": 0.855829,
+        "rank_correlation": -0.329817,
+        "row_count": 152,
+        "top1_accuracy": 0.026316
+      },
+      "model": {},
+      "name": "sinusoidal_attention"
+    },
+    {
+      "metrics": {
+        "context_count": 38,
+        "mae": 0.24115,
+        "mrr": 0.550439,
+        "ndcg_at_4": 0.915013,
+        "rank_correlation": 0.105991,
+        "row_count": 152,
+        "top1_accuracy": 0.289474
+      },
+      "model": {
+        "scale": 0.2,
+        "slope": 0.05
+      },
+      "name": "alibi_attention"
+    }
+  ],
+  "bundle_diagnostics": {
+    "candidate_count_per_context_pass": true,
+    "context_holdout_pass": true,
+    "dataset": "synthetic_transformer_phase_wrap_attention_selection",
+    "leakage_correlations": {
+      "candidate_abs_delta": 0.036673,
+      "candidate_delta": 0.004256,
+      "candidate_mod12": 0.010401,
+      "candidate_mod8": 0.038573,
+      "candidate_sign": 0.007395,
+      "reference_abs_delta": 0.035694,
+      "reference_delta": 0.021832
+    },
+    "not_phase_wrap_discrimination_collapse_pass": true,
+    "orientation_inversion": false,
+    "phase_wrap_attention_query_key_selection_pass": true,
+    "quadrant_balance_pass": true,
+    "raw_offset_leakage_abs_corr_max": 0.038573,
+    "raw_offset_leakage_pass": true,
+    "seed": 42,
+    "single_band_abs_corr_max": 0.42201,
+    "single_band_correlations": {
+      "m12": 0.38198,
+      "m8": 0.42201
+    },
+    "single_band_noncollapse_pass": true,
+    "slot_balance_pass": true,
+    "slot_swap": 0,
+    "splits": {
+      "test": {
+        "context_count": 38,
+        "quadrant_balance_pass": true,
+        "quadrant_counts": {
+          "00": 38,
+          "01": 38,
+          "10": 38,
+          "11": 38
+        },
+        "row_count": 152,
+        "slot_balance_pass": true,
+        "slot_counts": {
+          "0": 38,
+          "1": 38,
+          "2": 38,
+          "3": 38
+        },
+        "unique_target_per_context_pass": true
+      },
+      "train": {
+        "context_count": 112,
+        "quadrant_balance_pass": true,
+        "quadrant_counts": {
+          "00": 112,
+          "01": 112,
+          "10": 112,
+          "11": 112
+        },
+        "row_count": 448,
+        "slot_balance_pass": true,
+        "slot_counts": {
+          "0": 112,
+          "1": 112,
+          "2": 112,
+          "3": 112
+        },
+        "unique_target_per_context_pass": true
+      },
+      "validation": {
+        "context_count": 38,
+        "quadrant_balance_pass": true,
+        "quadrant_counts": {
+          "00": 38,
+          "01": 38,
+          "10": 38,
+          "11": 38
+        },
+        "row_count": 152,
+        "slot_balance_pass": true,
+        "slot_counts": {
+          "0": 38,
+          "1": 38,
+          "2": 38,
+          "3": 38
+        },
+        "unique_target_per_context_pass": true
+      }
+    },
+    "token_permutation": "identity",
+    "token_view_balance_pass": true,
+    "unique_target_per_context_pass": true
+  },
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "Deterministic comparison of phase-wrap scoring against classical and positional attention-scoring baselines on the existing synthetic attention-selection task.",
+      "No hardware submission and no provider credentials required."
+    ]
+  },
+  "dataset": "synthetic_transformer_phase_wrap_attention_selection",
+  "schema_version": "qrope_stage5_attention_baselines_v1",
+  "seed": 42,
+  "splits": {
+    "test": {
+      "context_count": 38,
+      "quadrant_balance_pass": true,
+      "quadrant_counts": {
+        "00": 38,
+        "01": 38,
+        "10": 38,
+        "11": 38
+      },
+      "row_count": 152,
+      "slot_balance_pass": true,
+      "slot_counts": {
+        "0": 38,
+        "1": 38,
+        "2": 38,
+        "3": 38
+      },
+      "unique_target_per_context_pass": true
+    },
+    "train": {
+      "context_count": 112,
+      "quadrant_balance_pass": true,
+      "quadrant_counts": {
+        "00": 112,
+        "01": 112,
+        "10": 112,
+        "11": 112
+      },
+      "row_count": 448,
+      "slot_balance_pass": true,
+      "slot_counts": {
+        "0": 112,
+        "1": 112,
+        "2": 112,
+        "3": 112
+      },
+      "unique_target_per_context_pass": true
+    },
+    "validation": {
+      "context_count": 38,
+      "quadrant_balance_pass": true,
+      "quadrant_counts": {
+        "00": 38,
+        "01": 38,
+        "10": 38,
+        "11": 38
+      },
+      "row_count": 152,
+      "slot_balance_pass": true,
+      "slot_counts": {
+        "0": 38,
+        "1": 38,
+        "2": 38,
+        "3": 38
+      },
+      "unique_target_per_context_pass": true
+    }
+  },
+  "stage": "stage5_attention_baselines",
+  "table": [
+    {
+      "contexts": 38,
+      "mae": 0.0,
+      "method": "phase_wrap_formula",
+      "mrr": 1.0,
+      "ndcg_at_4": 1.0,
+      "rank_correlation": 1.0,
+      "rows": 152,
+      "top1_accuracy": 1.0
+    },
+    {
+      "contexts": 38,
+      "mae": 0.0,
+      "method": "lookup_mod24",
+      "mrr": 1.0,
+      "ndcg_at_4": 1.0,
+      "rank_correlation": 0.999652,
+      "rows": 152,
+      "top1_accuracy": 1.0
+    },
+    {
+      "contexts": 38,
+      "mae": 0.0,
+      "method": "classical_m8_m12_product",
+      "mrr": 1.0,
+      "ndcg_at_4": 1.0,
+      "rank_correlation": 0.996015,
+      "rows": 152,
+      "top1_accuracy": 1.0
+    },
+    {
+      "contexts": 38,
+      "mae": 0.018332,
+      "method": "delta_regression_tree",
+      "mrr": 0.929825,
+      "ndcg_at_4": 0.997502,
+      "rank_correlation": 0.880971,
+      "rows": 152,
+      "top1_accuracy": 0.868421
+    },
+    {
+      "contexts": 38,
+      "mae": 0.225643,
+      "method": "rope_attention",
+      "mrr": 0.429825,
+      "ndcg_at_4": 0.887883,
+      "rank_correlation": 0.119377,
+      "rows": 152,
+      "top1_accuracy": 0.105263
+    },
+    {
+      "contexts": 38,
+      "mae": 0.230163,
+      "method": "sinusoidal_attention",
+      "mrr": 0.317982,
+      "ndcg_at_4": 0.855829,
+      "rank_correlation": -0.329817,
+      "rows": 152,
+      "top1_accuracy": 0.026316
+    },
+    {
+      "contexts": 38,
+      "mae": 0.24115,
+      "method": "alibi_attention",
+      "mrr": 0.550439,
+      "ndcg_at_4": 0.915013,
+      "rank_correlation": 0.105991,
+      "rows": 152,
+      "top1_accuracy": 0.289474
+    }
+  ]
+}

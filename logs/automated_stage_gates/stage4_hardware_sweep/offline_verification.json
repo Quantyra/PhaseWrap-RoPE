@@ -1,206 +1,4130 @@
 {
-  "budget_policy": {
-    "approval_required_above_usd": 100,
-    "offline_verification_cost_usd": 0,
-    "policy": "Any future hardware execution or rerun with estimated cost above 100 USD requires explicit approval before submission."
-  },
+  "bounded_claim_statement": "This manifest supports only machine verification of recorded packet/backend/date/calibration-specific Stage 4 hardware artifacts that are present in the repository. It does not support broad quantum advantage, production transformer superiority, full transformer-scale validation, or general cross-backend robustness.",
   "claim_boundary": {
     "excluded": [
       "broad quantum advantage",
       "production transformer superiority",
       "full transformer-scale validation",
-      "general cross-backend robustness",
-      "production LLM improvement"
+      "general cross-backend robustness"
     ],
-    "supported": "Only recorded packet/backend/date/calibration-specific hardware validation outcomes are supported after raw-count evidence verifies offline."
+    "supported": [
+      "Recompute metrics from real raw-count evidence records that are present in this repository.",
+      "Record deferred and unavailable provider targets separately from active sweep records.",
+      "Support only bounded packet/backend/date/calibration-specific validation outcomes for the active records."
+    ]
   },
-  "hardware_cost_usd": 0,
-  "manifest_errors": [],
-  "manifest_path": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_hardware_sweep\\manifest.json",
-  "manifest_sha256": "6eb367d3384f8f13f84ea0e75694734532917992c89176cf71ca4e42f0f8712a",
-  "missing_records": [
-    "ibm_runtime__ibm_kingston__two_qubit_zz_expectation_phase_wrap_v1",
-    "ibm_runtime__ibm_kingston__two_qubit_cx_parity_phase_wrap_v2",
-    "ibm_runtime__ibm_marrakesh__two_qubit_zz_expectation_phase_wrap_v1",
-    "ibm_runtime__ibm_marrakesh__two_qubit_cx_parity_phase_wrap_v2",
-    "ibm_runtime__ibm_fez__two_qubit_zz_expectation_phase_wrap_v1",
-    "ibm_runtime__ibm_fez__two_qubit_cx_parity_phase_wrap_v2",
-    "ionq__ionq_qpu__two_qubit_zz_expectation_phase_wrap_v1",
-    "ionq__ionq_qpu__two_qubit_cx_parity_phase_wrap_v2"
-  ],
-  "no_hardware_submission": true,
-  "pass": false,
+  "manifest_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\manifest.json",
+  "manifest_schema_version": "qrope_stage4_hardware_sweep_manifest_v1",
+  "missing_evidence": [],
+  "overclaim_guardrail": {
+    "findings": [],
+    "pass": true
+  },
+  "pass": true,
   "records": [
     {
-      "backend": "ibm_kingston",
+      "backend": "ibm_fez",
+      "backend_label": "IBM Fez",
+      "bitstring_order": "q1q0",
       "checks": [
         {
-          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
-          "name": "record_has_real_evidence",
-          "pass": false
+          "name": "witness_mae",
+          "pass": true,
+          "recomputed": 0.018382,
+          "recorded": 0.018382,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "witness_rank_correlation",
+          "pass": true,
+          "recomputed": 0.876558,
+          "recorded": 0.876558,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_mae",
+          "pass": true,
+          "recomputed": 0.217262,
+          "recorded": 0.217262,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_rank_correlation",
+          "pass": true,
+          "recomputed": -0.17694,
+          "recorded": -0.17694,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "status_matches",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "name": "gate_pass_matches",
+          "pass": true,
+          "recomputed": true,
+          "recorded": true
+        },
+        {
+          "expected": "hardware-positive",
+          "name": "expected_outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive"
+        },
+        {
+          "control": 0.217262,
+          "name": "witness_beats_control_mae",
+          "pass": true,
+          "witness": 0.018382
+        },
+        {
+          "control": -0.17694,
+          "name": "witness_beats_control_rank",
+          "pass": true,
+          "witness": 0.876558
+        },
+        {
+          "name": "summary_status_matches_recomputed",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "manifest_family": "two_qubit_zz_expectation_phase_wrap_v1",
+          "name": "packet_family_matches_manifest",
+          "packet_family": "two_qubit_zz_expectation_phase_wrap_v1",
+          "pass": true
+        },
+        {
+          "manifest_backend": "ibm_fez",
+          "name": "packet_backend_matches_manifest",
+          "packet_backend": "ibm_fez",
+          "pass": true
+        },
+        {
+          "manifest_row_count": 16,
+          "name": "packet_row_count_matches_manifest",
+          "packet_row_count": 16,
+          "pass": true
+        },
+        {
+          "manifest_shots": 4096,
+          "name": "packet_shots_match_manifest",
+          "packet_shots": 4096,
+          "pass": true
+        },
+        {
+          "manifest_bitstring_order": "q1q0",
+          "name": "evaluation_bitstring_order_matches_manifest",
+          "pass": true,
+          "recorded": "q1q0"
         }
       ],
+      "completed_at_utc": "2026-05-17T03:29:05Z",
       "family": "two_qubit_zz_expectation_phase_wrap_v1",
-      "missing_artifacts": [
-        "frozen_packet.json",
-        "execution.json",
-        "evaluation.json",
-        "summary.json"
+      "gate_pass": true,
+      "job_ids": [
+        "d84jbq00bvlc73d4krr0"
       ],
-      "pass": false,
+      "outcome": "hardware-positive",
+      "packet_id": "qrope-hardware-73c61893576297ff",
+      "pass": true,
+      "paths": {
+        "evaluation_path": "logs\\automated_stage_gates\\stage4_hardware_packet_ibm_fez_20260517_pass\\evaluation.json",
+        "execution_path": "logs\\automated_stage_gates\\stage4_hardware_packet_ibm_fez_20260517_pass\\execution.json",
+        "packet_path": "logs\\automated_stage_gates\\stage4_hardware_packet_ibm_fez_20260517_pass\\frozen_packet.json",
+        "summary_path": "logs\\automated_stage_gates\\stage4_hardware_packet_ibm_fez_20260517_pass\\summary.json"
+      },
       "provider": "ibm_runtime",
-      "record_id": "ibm_runtime__ibm_kingston__two_qubit_zz_expectation_phase_wrap_v1",
-      "status": "missing"
+      "recomputed_evaluation": {
+        "bitstring_order": "q1q0",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.217262,
+          "rank_correlation": -0.17694
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.210533,
+            "rank_correlation": -0.187215
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.011122,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 147,
+              "01": 151,
+              "10": 1867,
+              "11": 1931
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.0166015625,
+              "z1": -0.8544921875,
+              "zz": 0.0146484375
+            },
+            "hardware_predictions": {
+              "control": 0.2822265625,
+              "witness": 0.509524976677
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 64,
+              "01": 2025,
+              "10": 88,
+              "11": 1919
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.92578125,
+              "z1": 0.02001953125,
+              "zz": -0.03173828125
+            },
+            "hardware_predictions": {
+              "control": 0.273559570312,
+              "witness": 0.479362550533
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 367,
+              "01": 256,
+              "10": 2016,
+              "11": 1457
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.16357421875,
+              "z1": -0.69580078125,
+              "zz": -0.109375
+            },
+            "hardware_predictions": {
+              "control": 0.366943359375,
+              "witness": 0.428880174144
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 1202,
+              "01": 892,
+              "10": 1157,
+              "11": 845
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.15185546875,
+              "z1": 0.0224609375,
+              "zz": -0.00048828125
+            },
+            "hardware_predictions": {
+              "control": 0.543579101562,
+              "witness": 0.499682500777
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 33,
+              "01": 621,
+              "10": 141,
+              "11": 3301
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.9150390625,
+              "z1": -0.6806640625,
+              "zz": 0.6279296875
+            },
+            "hardware_predictions": {
+              "control": 0.10107421875,
+              "witness": 0.908304000227
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 213,
+              "01": 1828,
+              "10": 207,
+              "11": 1848
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.794921875,
+              "z1": -0.00341796875,
+              "zz": 0.00634765625
+            },
+            "hardware_predictions": {
+              "control": 0.300415039062,
+              "witness": 0.504127489893
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 364,
+              "01": 244,
+              "10": 1998,
+              "11": 1490
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.1533203125,
+              "z1": -0.703125,
+              "zz": -0.0947265625
+            },
+            "hardware_predictions": {
+              "control": 0.362548828125,
+              "witness": 0.438405150821
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 1185,
+              "01": 864,
+              "10": 1205,
+              "11": 842
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.1669921875,
+              "z1": 0.00048828125,
+              "zz": -0.01025390625
+            },
+            "hardware_predictions": {
+              "control": 0.541870117188,
+              "witness": 0.493332516326
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          },
+          {
+            "counts": {
+              "00": 123,
+              "01": 1001,
+              "10": 325,
+              "11": 2647
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.78125,
+              "z1": -0.451171875,
+              "zz": 0.3525390625
+            },
+            "hardware_predictions": {
+              "control": 0.19189453125,
+              "witness": 0.729234438696
+            },
+            "label": 0.75,
+            "row_id": "hwrow-008"
+          },
+          {
+            "counts": {
+              "00": 961,
+              "01": 1015,
+              "10": 1026,
+              "11": 1094
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.02978515625,
+              "z1": -0.03515625,
+              "zz": 0.00341796875
+            },
+            "hardware_predictions": {
+              "control": 0.483764648438,
+              "witness": 0.502222494558
+            },
+            "label": 0.5,
+            "row_id": "hwrow-009"
+          },
+          {
+            "counts": {
+              "00": 367,
+              "01": 252,
+              "10": 1988,
+              "11": 1489
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.14990234375,
+              "z1": -0.69775390625,
+              "zz": -0.09375
+            },
+            "hardware_predictions": {
+              "control": 0.363037109375,
+              "witness": 0.439040149266
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-010"
+          },
+          {
+            "counts": {
+              "00": 1176,
+              "01": 893,
+              "10": 1139,
+              "11": 888
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.13037109375,
+              "z1": 0.01025390625,
+              "zz": 0.0078125
+            },
+            "hardware_predictions": {
+              "control": 0.53515625,
+              "witness": 0.505079987561
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-011"
+          },
+          {
+            "counts": {
+              "00": 33,
+              "01": 263,
+              "10": 390,
+              "11": 3410
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.79345703125,
+              "z1": -0.85546875,
+              "zz": 0.68115234375
+            },
+            "hardware_predictions": {
+              "control": 0.087768554688,
+              "witness": 0.942911415487
+            },
+            "label": 1.0,
+            "row_id": "hwrow-012"
+          },
+          {
+            "counts": {
+              "00": 80,
+              "01": 2076,
+              "10": 80,
+              "11": 1860
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.921875,
+              "z1": 0.052734375,
+              "zz": -0.052734375
+            },
+            "hardware_predictions": {
+              "control": 0.28271484375,
+              "witness": 0.465710083962
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-013"
+          },
+          {
+            "counts": {
+              "00": 338,
+              "01": 260,
+              "10": 2034,
+              "11": 1464
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.158203125,
+              "z1": -0.7080078125,
+              "zz": -0.1201171875
+            },
+            "hardware_predictions": {
+              "control": 0.362548828125,
+              "witness": 0.421895191247
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-014"
+          },
+          {
+            "counts": {
+              "00": 1180,
+              "01": 921,
+              "10": 1144,
+              "11": 851
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.134765625,
+              "z1": 0.02587890625,
+              "zz": -0.00830078125
+            },
+            "hardware_predictions": {
+              "control": 0.540161132812,
+              "witness": 0.494602513216
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-015"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.018382,
+          "rank_correlation": 0.876558
+        }
+      },
+      "record_id": "ibm_fez__two_qubit_zz_expectation_phase_wrap_v1__20260517T032905Z",
+      "recorded_evaluation": {
+        "bitstring_order": "q1q0",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.217262,
+          "rank_correlation": -0.17694
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.210533,
+            "rank_correlation": -0.187215
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.011122,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 147,
+              "01": 151,
+              "10": 1867,
+              "11": 1931
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.0166015625,
+              "z1": -0.8544921875,
+              "zz": 0.0146484375
+            },
+            "hardware_predictions": {
+              "control": 0.2822265625,
+              "witness": 0.509524976677
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 64,
+              "01": 2025,
+              "10": 88,
+              "11": 1919
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.92578125,
+              "z1": 0.02001953125,
+              "zz": -0.03173828125
+            },
+            "hardware_predictions": {
+              "control": 0.273559570312,
+              "witness": 0.479362550533
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 367,
+              "01": 256,
+              "10": 2016,
+              "11": 1457
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.16357421875,
+              "z1": -0.69580078125,
+              "zz": -0.109375
+            },
+            "hardware_predictions": {
+              "control": 0.366943359375,
+              "witness": 0.428880174144
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 1202,
+              "01": 892,
+              "10": 1157,
+              "11": 845
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.15185546875,
+              "z1": 0.0224609375,
+              "zz": -0.00048828125
+            },
+            "hardware_predictions": {
+              "control": 0.543579101562,
+              "witness": 0.499682500777
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 33,
+              "01": 621,
+              "10": 141,
+              "11": 3301
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.9150390625,
+              "z1": -0.6806640625,
+              "zz": 0.6279296875
+            },
+            "hardware_predictions": {
+              "control": 0.10107421875,
+              "witness": 0.908304000227
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 213,
+              "01": 1828,
+              "10": 207,
+              "11": 1848
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.794921875,
+              "z1": -0.00341796875,
+              "zz": 0.00634765625
+            },
+            "hardware_predictions": {
+              "control": 0.300415039062,
+              "witness": 0.504127489893
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 364,
+              "01": 244,
+              "10": 1998,
+              "11": 1490
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.1533203125,
+              "z1": -0.703125,
+              "zz": -0.0947265625
+            },
+            "hardware_predictions": {
+              "control": 0.362548828125,
+              "witness": 0.438405150821
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 1185,
+              "01": 864,
+              "10": 1205,
+              "11": 842
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.1669921875,
+              "z1": 0.00048828125,
+              "zz": -0.01025390625
+            },
+            "hardware_predictions": {
+              "control": 0.541870117188,
+              "witness": 0.493332516326
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          },
+          {
+            "counts": {
+              "00": 123,
+              "01": 1001,
+              "10": 325,
+              "11": 2647
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.78125,
+              "z1": -0.451171875,
+              "zz": 0.3525390625
+            },
+            "hardware_predictions": {
+              "control": 0.19189453125,
+              "witness": 0.729234438696
+            },
+            "label": 0.75,
+            "row_id": "hwrow-008"
+          },
+          {
+            "counts": {
+              "00": 961,
+              "01": 1015,
+              "10": 1026,
+              "11": 1094
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.02978515625,
+              "z1": -0.03515625,
+              "zz": 0.00341796875
+            },
+            "hardware_predictions": {
+              "control": 0.483764648438,
+              "witness": 0.502222494558
+            },
+            "label": 0.5,
+            "row_id": "hwrow-009"
+          },
+          {
+            "counts": {
+              "00": 367,
+              "01": 252,
+              "10": 1988,
+              "11": 1489
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.14990234375,
+              "z1": -0.69775390625,
+              "zz": -0.09375
+            },
+            "hardware_predictions": {
+              "control": 0.363037109375,
+              "witness": 0.439040149266
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-010"
+          },
+          {
+            "counts": {
+              "00": 1176,
+              "01": 893,
+              "10": 1139,
+              "11": 888
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.13037109375,
+              "z1": 0.01025390625,
+              "zz": 0.0078125
+            },
+            "hardware_predictions": {
+              "control": 0.53515625,
+              "witness": 0.505079987561
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-011"
+          },
+          {
+            "counts": {
+              "00": 33,
+              "01": 263,
+              "10": 390,
+              "11": 3410
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.79345703125,
+              "z1": -0.85546875,
+              "zz": 0.68115234375
+            },
+            "hardware_predictions": {
+              "control": 0.087768554688,
+              "witness": 0.942911415487
+            },
+            "label": 1.0,
+            "row_id": "hwrow-012"
+          },
+          {
+            "counts": {
+              "00": 80,
+              "01": 2076,
+              "10": 80,
+              "11": 1860
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.921875,
+              "z1": 0.052734375,
+              "zz": -0.052734375
+            },
+            "hardware_predictions": {
+              "control": 0.28271484375,
+              "witness": 0.465710083962
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-013"
+          },
+          {
+            "counts": {
+              "00": 338,
+              "01": 260,
+              "10": 2034,
+              "11": 1464
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.158203125,
+              "z1": -0.7080078125,
+              "zz": -0.1201171875
+            },
+            "hardware_predictions": {
+              "control": 0.362548828125,
+              "witness": 0.421895191247
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-014"
+          },
+          {
+            "counts": {
+              "00": 1180,
+              "01": 921,
+              "10": 1144,
+              "11": 851
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.134765625,
+              "z1": 0.02587890625,
+              "zz": -0.00830078125
+            },
+            "hardware_predictions": {
+              "control": 0.540161132812,
+              "witness": 0.494602513216
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-015"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.018382,
+          "rank_correlation": 0.876558
+        }
+      },
+      "row_count": 16,
+      "shots": 4096,
+      "status": "completed",
+      "submitted_at_utc": "2026-05-17T03:28:38Z",
+      "table_row": {
+        "backend": "IBM Fez",
+        "bitstring_order": "q1q0",
+        "control_mae": 0.217262,
+        "control_rank_corr": -0.17694,
+        "expected_outcome": "hardware-positive",
+        "family": "two_qubit_zz_expectation_phase_wrap_v1",
+        "outcome": "hardware-positive",
+        "provider": "ibm_runtime",
+        "rows": 16,
+        "shots": 4096,
+        "witness_mae": 0.018382,
+        "witness_rank_corr": 0.876558
+      }
     },
     {
-      "backend": "ibm_kingston",
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "backend_label": "Rigetti Cepheus-1-108Q",
+      "bitstring_order": "q0q1",
       "checks": [
         {
-          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
-          "name": "record_has_real_evidence",
-          "pass": false
-        }
-      ],
-      "family": "two_qubit_cx_parity_phase_wrap_v2",
-      "missing_artifacts": [
-        "frozen_packet.json",
-        "execution.json",
-        "evaluation.json",
-        "summary.json"
-      ],
-      "pass": false,
-      "provider": "ibm_runtime",
-      "record_id": "ibm_runtime__ibm_kingston__two_qubit_cx_parity_phase_wrap_v2",
-      "status": "missing"
-    },
-    {
-      "backend": "ibm_marrakesh",
-      "checks": [
+          "name": "witness_mae",
+          "pass": true,
+          "recomputed": 0.069901,
+          "recorded": 0.069901,
+          "tolerance": 1e-06
+        },
         {
-          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
-          "name": "record_has_real_evidence",
-          "pass": false
+          "name": "witness_rank_correlation",
+          "pass": true,
+          "recomputed": 0.786644,
+          "recorded": 0.786644,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_mae",
+          "pass": true,
+          "recomputed": 0.149995,
+          "recorded": 0.149995,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_rank_correlation",
+          "pass": true,
+          "recomputed": 0.121232,
+          "recorded": 0.121232,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "status_matches",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "name": "gate_pass_matches",
+          "pass": true,
+          "recomputed": true,
+          "recorded": true
+        },
+        {
+          "expected": "hardware-positive",
+          "name": "expected_outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive"
+        },
+        {
+          "control": 0.149995,
+          "name": "witness_beats_control_mae",
+          "pass": true,
+          "witness": 0.069901
+        },
+        {
+          "control": 0.121232,
+          "name": "witness_beats_control_rank",
+          "pass": true,
+          "witness": 0.786644
+        },
+        {
+          "name": "summary_status_matches_recomputed",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "manifest_family": "two_qubit_zz_expectation_phase_wrap_v1",
+          "name": "packet_family_matches_manifest",
+          "packet_family": "two_qubit_zz_expectation_phase_wrap_v1",
+          "pass": true
+        },
+        {
+          "manifest_backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "name": "packet_backend_matches_manifest",
+          "packet_backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "pass": true
+        },
+        {
+          "manifest_row_count": 8,
+          "name": "packet_row_count_matches_manifest",
+          "packet_row_count": 8,
+          "pass": true
+        },
+        {
+          "manifest_shots": 1000,
+          "name": "packet_shots_match_manifest",
+          "packet_shots": 1000,
+          "pass": true
+        },
+        {
+          "manifest_bitstring_order": "q0q1",
+          "name": "evaluation_bitstring_order_matches_manifest",
+          "pass": true,
+          "recorded": "q0q1"
         }
       ],
+      "completed_at_utc": "2026-05-19T10:09:41Z",
       "family": "two_qubit_zz_expectation_phase_wrap_v1",
-      "missing_artifacts": [
-        "frozen_packet.json",
-        "execution.json",
-        "evaluation.json",
-        "summary.json"
+      "gate_pass": true,
+      "job_ids": [
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/e35e3aa6-a1c4-4e82-91e6-0696fa305429",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/f00f3214-d6ad-4b79-b8b1-32f957e27126",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/c3487449-55b4-4c33-b1db-3aa05e3ae63c",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/06acf815-ef22-43c2-80ea-54c75608a10e",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/9c2467b7-9322-416c-9379-b044d0fbe05b",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/9471b78d-2b23-40cf-af7f-4cb87a0d5d37",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/a1b3207e-46bf-43a0-9736-4a3aa1e8cda2",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/277ea374-46d3-47fe-9fb2-fb330ccf9498"
       ],
-      "pass": false,
-      "provider": "ibm_runtime",
-      "record_id": "ibm_runtime__ibm_marrakesh__two_qubit_zz_expectation_phase_wrap_v1",
-      "status": "missing"
-    },
-    {
-      "backend": "ibm_marrakesh",
-      "checks": [
-        {
-          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
-          "name": "record_has_real_evidence",
-          "pass": false
+      "outcome": "hardware-positive",
+      "packet_id": "qrope-hardware-5244f90bce2f93b8",
+      "pass": true,
+      "paths": {
+        "evaluation_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z\\evaluation.json",
+        "execution_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z\\execution.json",
+        "packet_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z\\frozen_packet.json",
+        "summary_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_zz_expectation_phase_wrap_v1_20260519T100942Z\\summary.json"
+      },
+      "provider": "amazon_braket",
+      "recomputed_evaluation": {
+        "bitstring_order": "q0q1",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.149995,
+          "rank_correlation": 0.121232
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.199548,
+            "rank_correlation": -0.098161
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.009306,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 40,
+              "01": 584,
+              "10": 27,
+              "11": 349
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.248,
+              "z1": -0.866,
+              "zz": -0.222
+            },
+            "hardware_predictions": {
+              "control": 0.3455,
+              "witness": 0.355647073463
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 198,
+              "01": 168,
+              "10": 336,
+              "11": 298
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.268,
+              "z1": 0.068,
+              "zz": -0.008
+            },
+            "hardware_predictions": {
+              "control": 0.45,
+              "witness": 0.494798092737
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 122,
+              "01": 513,
+              "10": 65,
+              "11": 300
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.27,
+              "z1": -0.626,
+              "zz": -0.156
+            },
+            "hardware_predictions": {
+              "control": 0.411,
+              "witness": 0.398562808379
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 410,
+              "01": 309,
+              "10": 163,
+              "11": 118
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.438,
+              "z1": 0.146,
+              "zz": 0.056
+            },
+            "hardware_predictions": {
+              "control": 0.646,
+              "witness": 0.536413350838
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 39,
+              "01": 204,
+              "10": 152,
+              "11": 605
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.514,
+              "z1": -0.618,
+              "zz": 0.288
+            },
+            "hardware_predictions": {
+              "control": 0.217,
+              "witness": 0.687268661454
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 229,
+              "01": 212,
+              "10": 292,
+              "11": 267
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.118,
+              "z1": 0.042,
+              "zz": -0.008
+            },
+            "hardware_predictions": {
+              "control": 0.481,
+              "witness": 0.494798092737
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 89,
+              "01": 510,
+              "10": 69,
+              "11": 332
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.198,
+              "z1": -0.684,
+              "zz": -0.158
+            },
+            "hardware_predictions": {
+              "control": 0.3785,
+              "witness": 0.397262331563
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 344,
+              "01": 259,
+              "10": 227,
+              "11": 170
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.206,
+              "z1": 0.142,
+              "zz": 0.028
+            },
+            "hardware_predictions": {
+              "control": 0.587,
+              "witness": 0.518206675419
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.069901,
+          "rank_correlation": 0.786644
         }
-      ],
-      "family": "two_qubit_cx_parity_phase_wrap_v2",
-      "missing_artifacts": [
-        "frozen_packet.json",
-        "execution.json",
-        "evaluation.json",
-        "summary.json"
-      ],
-      "pass": false,
-      "provider": "ibm_runtime",
-      "record_id": "ibm_runtime__ibm_marrakesh__two_qubit_cx_parity_phase_wrap_v2",
-      "status": "missing"
+      },
+      "record_id": "rigetti_cepheus_1_108q__two_qubit_zz_expectation_phase_wrap_v1__20260519T100942Z",
+      "recorded_evaluation": {
+        "bitstring_order": "q0q1",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.149995,
+          "rank_correlation": 0.121232
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.199548,
+            "rank_correlation": -0.098161
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.009306,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 40,
+              "01": 584,
+              "10": 27,
+              "11": 349
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.248,
+              "z1": -0.866,
+              "zz": -0.222
+            },
+            "hardware_predictions": {
+              "control": 0.3455,
+              "witness": 0.355647073463
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 198,
+              "01": 168,
+              "10": 336,
+              "11": 298
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.268,
+              "z1": 0.068,
+              "zz": -0.008
+            },
+            "hardware_predictions": {
+              "control": 0.45,
+              "witness": 0.494798092737
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 122,
+              "01": 513,
+              "10": 65,
+              "11": 300
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.27,
+              "z1": -0.626,
+              "zz": -0.156
+            },
+            "hardware_predictions": {
+              "control": 0.411,
+              "witness": 0.398562808379
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 410,
+              "01": 309,
+              "10": 163,
+              "11": 118
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.438,
+              "z1": 0.146,
+              "zz": 0.056
+            },
+            "hardware_predictions": {
+              "control": 0.646,
+              "witness": 0.536413350838
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 39,
+              "01": 204,
+              "10": 152,
+              "11": 605
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.514,
+              "z1": -0.618,
+              "zz": 0.288
+            },
+            "hardware_predictions": {
+              "control": 0.217,
+              "witness": 0.687268661454
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 229,
+              "01": 212,
+              "10": 292,
+              "11": 267
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.118,
+              "z1": 0.042,
+              "zz": -0.008
+            },
+            "hardware_predictions": {
+              "control": 0.481,
+              "witness": 0.494798092737
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 89,
+              "01": 510,
+              "10": 69,
+              "11": 332
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.198,
+              "z1": -0.684,
+              "zz": -0.158
+            },
+            "hardware_predictions": {
+              "control": 0.3785,
+              "witness": 0.397262331563
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 344,
+              "01": 259,
+              "10": 227,
+              "11": 170
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.206,
+              "z1": 0.142,
+              "zz": 0.028
+            },
+            "hardware_predictions": {
+              "control": 0.587,
+              "witness": 0.518206675419
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.069901,
+          "rank_correlation": 0.786644
+        }
+      },
+      "row_count": 8,
+      "shots": 1000,
+      "status": "completed",
+      "submitted_at_utc": "2026-05-19T10:07:08Z",
+      "table_row": {
+        "backend": "Rigetti Cepheus-1-108Q",
+        "bitstring_order": "q0q1",
+        "control_mae": 0.149995,
+        "control_rank_corr": 0.121232,
+        "expected_outcome": "hardware-positive",
+        "family": "two_qubit_zz_expectation_phase_wrap_v1",
+        "outcome": "hardware-positive",
+        "provider": "amazon_braket",
+        "rows": 8,
+        "shots": 1000,
+        "witness_mae": 0.069901,
+        "witness_rank_corr": 0.786644
+      }
     },
     {
       "backend": "ibm_fez",
+      "backend_label": "IBM Fez",
+      "bitstring_order": "q1q0",
       "checks": [
         {
-          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
-          "name": "record_has_real_evidence",
-          "pass": false
-        }
-      ],
-      "family": "two_qubit_zz_expectation_phase_wrap_v1",
-      "missing_artifacts": [
-        "frozen_packet.json",
-        "execution.json",
-        "evaluation.json",
-        "summary.json"
-      ],
-      "pass": false,
-      "provider": "ibm_runtime",
-      "record_id": "ibm_runtime__ibm_fez__two_qubit_zz_expectation_phase_wrap_v1",
-      "status": "missing"
-    },
-    {
-      "backend": "ibm_fez",
-      "checks": [
+          "name": "witness_mae",
+          "pass": true,
+          "recomputed": 0.021458,
+          "recorded": 0.021458,
+          "tolerance": 1e-06
+        },
         {
-          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
-          "name": "record_has_real_evidence",
-          "pass": false
+          "name": "witness_rank_correlation",
+          "pass": true,
+          "recomputed": 0.972455,
+          "recorded": 0.972455,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_mae",
+          "pass": true,
+          "recomputed": 0.212516,
+          "recorded": 0.212516,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_rank_correlation",
+          "pass": true,
+          "recomputed": -0.169318,
+          "recorded": -0.169318,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "status_matches",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "name": "gate_pass_matches",
+          "pass": true,
+          "recomputed": true,
+          "recorded": true
+        },
+        {
+          "expected": "hardware-positive",
+          "name": "expected_outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive"
+        },
+        {
+          "control": 0.212516,
+          "name": "witness_beats_control_mae",
+          "pass": true,
+          "witness": 0.021458
+        },
+        {
+          "control": -0.169318,
+          "name": "witness_beats_control_rank",
+          "pass": true,
+          "witness": 0.972455
+        },
+        {
+          "name": "summary_status_matches_recomputed",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "manifest_family": "two_qubit_cx_parity_phase_wrap_v2",
+          "name": "packet_family_matches_manifest",
+          "packet_family": "two_qubit_cx_parity_phase_wrap_v2",
+          "pass": true
+        },
+        {
+          "manifest_backend": "ibm_fez",
+          "name": "packet_backend_matches_manifest",
+          "packet_backend": "ibm_fez",
+          "pass": true
+        },
+        {
+          "manifest_row_count": 16,
+          "name": "packet_row_count_matches_manifest",
+          "packet_row_count": 16,
+          "pass": true
+        },
+        {
+          "manifest_shots": 4096,
+          "name": "packet_shots_match_manifest",
+          "packet_shots": 4096,
+          "pass": true
+        },
+        {
+          "manifest_bitstring_order": "q1q0",
+          "name": "evaluation_bitstring_order_matches_manifest",
+          "pass": true,
+          "recorded": "q1q0"
         }
       ],
+      "completed_at_utc": "2026-05-19T22:22:18Z",
       "family": "two_qubit_cx_parity_phase_wrap_v2",
-      "missing_artifacts": [
-        "frozen_packet.json",
-        "execution.json",
-        "evaluation.json",
-        "summary.json"
+      "gate_pass": true,
+      "job_ids": [
+        "d86e50lg7okc73el0fog"
       ],
-      "pass": false,
+      "outcome": "hardware-positive",
+      "packet_id": "qrope-hardware-527184f6a5e960ce",
+      "pass": true,
+      "paths": {
+        "evaluation_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\ibm_runtime__ibm_fez\\two_qubit_cx_parity_phase_wrap_v2_20260519T222219Z\\evaluation.json",
+        "execution_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\ibm_runtime__ibm_fez\\two_qubit_cx_parity_phase_wrap_v2_20260519T222219Z\\execution.json",
+        "packet_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\ibm_runtime__ibm_fez\\two_qubit_cx_parity_phase_wrap_v2_20260519T222219Z\\frozen_packet.json",
+        "summary_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\ibm_runtime__ibm_fez\\two_qubit_cx_parity_phase_wrap_v2_20260519T222219Z\\summary.json"
+      },
       "provider": "ibm_runtime",
-      "record_id": "ibm_runtime__ibm_fez__two_qubit_cx_parity_phase_wrap_v2",
-      "status": "missing"
+      "recomputed_evaluation": {
+        "bitstring_order": "q1q0",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.212516,
+          "rank_correlation": -0.169318
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.210533,
+            "rank_correlation": -0.187215
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.011122,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 234,
+              "01": 1736,
+              "10": 1931,
+              "11": 195
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.05712890625,
+              "z1": -0.0380859375,
+              "zz": -0.79052734375
+            },
+            "hardware_predictions": {
+              "control": 0.316650390625,
+              "witness": 0.475235060639
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 61,
+              "01": 1898,
+              "10": 76,
+              "11": 2061
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.93310546875,
+              "z1": -0.04345703125,
+              "zz": 0.0361328125
+            },
+            "hardware_predictions": {
+              "control": 0.275756835938,
+              "witness": 0.471742569191
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 394,
+              "01": 1487,
+              "10": 1890,
+              "11": 325
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.115234375,
+              "z1": -0.08154296875,
+              "zz": -0.64892578125
+            },
+            "hardware_predictions": {
+              "control": 0.366577148438,
+              "witness": 0.446977629831
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 1213,
+              "01": 869,
+              "10": 1083,
+              "11": 931
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.12109375,
+              "z1": 0.0166015625,
+              "zz": 0.046875
+            },
+            "hardware_predictions": {
+              "control": 0.5419921875,
+              "witness": 0.510794973567
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 44,
+              "01": 3305,
+              "10": 60,
+              "11": 687
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.94921875,
+              "z1": 0.63525390625,
+              "zz": -0.64306640625
+            },
+            "hardware_predictions": {
+              "control": 0.101928710938,
+              "witness": 0.913066488565
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 222,
+              "01": 1775,
+              "10": 226,
+              "11": 1873
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.78125,
+              "z1": -0.02490234375,
+              "zz": 0.02294921875
+            },
+            "hardware_predictions": {
+              "control": 0.310424804688,
+              "witness": 0.483807539649
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 448,
+              "01": 1402,
+              "10": 1938,
+              "11": 308
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.1650390625,
+              "z1": -0.0966796875,
+              "zz": -0.630859375
+            },
+            "hardware_predictions": {
+              "control": 0.383544921875,
+              "witness": 0.437135153931
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 1248,
+              "01": 813,
+              "10": 1043,
+              "11": 992
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.11865234375,
+              "z1": 0.00634765625,
+              "zz": 0.09375
+            },
+            "hardware_predictions": {
+              "control": 0.553100585938,
+              "witness": 0.504127489893
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          },
+          {
+            "counts": {
+              "00": 128,
+              "01": 2599,
+              "10": 262,
+              "11": 1107
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.8095703125,
+              "z1": 0.33154296875,
+              "zz": -0.39697265625
+            },
+            "hardware_predictions": {
+              "control": 0.198364257812,
+              "witness": 0.715581972126
+            },
+            "label": 0.75,
+            "row_id": "hwrow-008"
+          },
+          {
+            "counts": {
+              "00": 1041,
+              "01": 1003,
+              "10": 1035,
+              "11": 1017
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.013671875,
+              "z1": -0.001953125,
+              "zz": 0.0048828125
+            },
+            "hardware_predictions": {
+              "control": 0.504638671875,
+              "witness": 0.49873000311
+            },
+            "label": 0.5,
+            "row_id": "hwrow-009"
+          },
+          {
+            "counts": {
+              "00": 452,
+              "01": 1441,
+              "10": 1897,
+              "11": 306
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.14697265625,
+              "z1": -0.07568359375,
+              "zz": -0.6298828125
+            },
+            "hardware_predictions": {
+              "control": 0.379272460938,
+              "witness": 0.450787620501
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-010"
+          },
+          {
+            "counts": {
+              "00": 1249,
+              "01": 799,
+              "10": 1125,
+              "11": 923
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.1591796875,
+              "z1": 0.0,
+              "zz": 0.060546875
+            },
+            "hardware_predictions": {
+              "control": 0.554931640625,
+              "witness": 0.5
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-011"
+          },
+          {
+            "counts": {
+              "00": 67,
+              "01": 3413,
+              "10": 349,
+              "11": 267
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.796875,
+              "z1": 0.69921875,
+              "zz": -0.8369140625
+            },
+            "hardware_predictions": {
+              "control": 0.091552734375,
+              "witness": 0.954658886722
+            },
+            "label": 1.0,
+            "row_id": "hwrow-012"
+          },
+          {
+            "counts": {
+              "00": 73,
+              "01": 1823,
+              "10": 62,
+              "11": 2138
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.93408203125,
+              "z1": -0.07421875,
+              "zz": 0.07958984375
+            },
+            "hardware_predictions": {
+              "control": 0.286376953125,
+              "witness": 0.451740118169
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-013"
+          },
+          {
+            "counts": {
+              "00": 427,
+              "01": 1480,
+              "10": 1873,
+              "11": 316
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.123046875,
+              "z1": -0.06884765625,
+              "zz": -0.63720703125
+            },
+            "hardware_predictions": {
+              "control": 0.371459960938,
+              "witness": 0.455232609617
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-014"
+          },
+          {
+            "counts": {
+              "00": 1267,
+              "01": 828,
+              "10": 1070,
+              "11": 931
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.14111328125,
+              "z1": 0.02294921875,
+              "zz": 0.0732421875
+            },
+            "hardware_predictions": {
+              "control": 0.553588867188,
+              "witness": 0.514922463461
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-015"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.021458,
+          "rank_correlation": 0.972455
+        }
+      },
+      "record_id": "ibm_fez__two_qubit_cx_parity_phase_wrap_v2__20260519T222219Z",
+      "recorded_evaluation": {
+        "bitstring_order": "q1q0",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.212516,
+          "rank_correlation": -0.169318
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.210533,
+            "rank_correlation": -0.187215
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.011122,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 234,
+              "01": 1736,
+              "10": 1931,
+              "11": 195
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.05712890625,
+              "z1": -0.0380859375,
+              "zz": -0.79052734375
+            },
+            "hardware_predictions": {
+              "control": 0.316650390625,
+              "witness": 0.475235060639
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 61,
+              "01": 1898,
+              "10": 76,
+              "11": 2061
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.93310546875,
+              "z1": -0.04345703125,
+              "zz": 0.0361328125
+            },
+            "hardware_predictions": {
+              "control": 0.275756835938,
+              "witness": 0.471742569191
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 394,
+              "01": 1487,
+              "10": 1890,
+              "11": 325
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.115234375,
+              "z1": -0.08154296875,
+              "zz": -0.64892578125
+            },
+            "hardware_predictions": {
+              "control": 0.366577148438,
+              "witness": 0.446977629831
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 1213,
+              "01": 869,
+              "10": 1083,
+              "11": 931
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.12109375,
+              "z1": 0.0166015625,
+              "zz": 0.046875
+            },
+            "hardware_predictions": {
+              "control": 0.5419921875,
+              "witness": 0.510794973567
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 44,
+              "01": 3305,
+              "10": 60,
+              "11": 687
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.94921875,
+              "z1": 0.63525390625,
+              "zz": -0.64306640625
+            },
+            "hardware_predictions": {
+              "control": 0.101928710938,
+              "witness": 0.913066488565
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 222,
+              "01": 1775,
+              "10": 226,
+              "11": 1873
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.78125,
+              "z1": -0.02490234375,
+              "zz": 0.02294921875
+            },
+            "hardware_predictions": {
+              "control": 0.310424804688,
+              "witness": 0.483807539649
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 448,
+              "01": 1402,
+              "10": 1938,
+              "11": 308
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.1650390625,
+              "z1": -0.0966796875,
+              "zz": -0.630859375
+            },
+            "hardware_predictions": {
+              "control": 0.383544921875,
+              "witness": 0.437135153931
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 1248,
+              "01": 813,
+              "10": 1043,
+              "11": 992
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.11865234375,
+              "z1": 0.00634765625,
+              "zz": 0.09375
+            },
+            "hardware_predictions": {
+              "control": 0.553100585938,
+              "witness": 0.504127489893
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          },
+          {
+            "counts": {
+              "00": 128,
+              "01": 2599,
+              "10": 262,
+              "11": 1107
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.8095703125,
+              "z1": 0.33154296875,
+              "zz": -0.39697265625
+            },
+            "hardware_predictions": {
+              "control": 0.198364257812,
+              "witness": 0.715581972126
+            },
+            "label": 0.75,
+            "row_id": "hwrow-008"
+          },
+          {
+            "counts": {
+              "00": 1041,
+              "01": 1003,
+              "10": 1035,
+              "11": 1017
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.013671875,
+              "z1": -0.001953125,
+              "zz": 0.0048828125
+            },
+            "hardware_predictions": {
+              "control": 0.504638671875,
+              "witness": 0.49873000311
+            },
+            "label": 0.5,
+            "row_id": "hwrow-009"
+          },
+          {
+            "counts": {
+              "00": 452,
+              "01": 1441,
+              "10": 1897,
+              "11": 306
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.14697265625,
+              "z1": -0.07568359375,
+              "zz": -0.6298828125
+            },
+            "hardware_predictions": {
+              "control": 0.379272460938,
+              "witness": 0.450787620501
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-010"
+          },
+          {
+            "counts": {
+              "00": 1249,
+              "01": 799,
+              "10": 1125,
+              "11": 923
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.1591796875,
+              "z1": 0.0,
+              "zz": 0.060546875
+            },
+            "hardware_predictions": {
+              "control": 0.554931640625,
+              "witness": 0.5
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-011"
+          },
+          {
+            "counts": {
+              "00": 67,
+              "01": 3413,
+              "10": 349,
+              "11": 267
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.796875,
+              "z1": 0.69921875,
+              "zz": -0.8369140625
+            },
+            "hardware_predictions": {
+              "control": 0.091552734375,
+              "witness": 0.954658886722
+            },
+            "label": 1.0,
+            "row_id": "hwrow-012"
+          },
+          {
+            "counts": {
+              "00": 73,
+              "01": 1823,
+              "10": 62,
+              "11": 2138
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": -0.93408203125,
+              "z1": -0.07421875,
+              "zz": 0.07958984375
+            },
+            "hardware_predictions": {
+              "control": 0.286376953125,
+              "witness": 0.451740118169
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-013"
+          },
+          {
+            "counts": {
+              "00": 427,
+              "01": 1480,
+              "10": 1873,
+              "11": 316
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.123046875,
+              "z1": -0.06884765625,
+              "zz": -0.63720703125
+            },
+            "hardware_predictions": {
+              "control": 0.371459960938,
+              "witness": 0.455232609617
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-014"
+          },
+          {
+            "counts": {
+              "00": 1267,
+              "01": 828,
+              "10": 1070,
+              "11": 931
+            },
+            "expectations": {
+              "shots": 4096,
+              "valid": true,
+              "z0": 0.14111328125,
+              "z1": 0.02294921875,
+              "zz": 0.0732421875
+            },
+            "hardware_predictions": {
+              "control": 0.553588867188,
+              "witness": 0.514922463461
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-015"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.021458,
+          "rank_correlation": 0.972455
+        }
+      },
+      "row_count": 16,
+      "shots": 4096,
+      "status": "completed",
+      "submitted_at_utc": "2026-05-19T22:21:54Z",
+      "table_row": {
+        "backend": "IBM Fez",
+        "bitstring_order": "q1q0",
+        "control_mae": 0.212516,
+        "control_rank_corr": -0.169318,
+        "expected_outcome": "hardware-positive",
+        "family": "two_qubit_cx_parity_phase_wrap_v2",
+        "outcome": "hardware-positive",
+        "provider": "ibm_runtime",
+        "rows": 16,
+        "shots": 4096,
+        "witness_mae": 0.021458,
+        "witness_rank_corr": 0.972455
+      }
     },
     {
-      "backend": "ionq_qpu",
+      "backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+      "backend_label": "Rigetti Cepheus-1-108Q",
+      "bitstring_order": "q0q1",
       "checks": [
         {
-          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
-          "name": "record_has_real_evidence",
-          "pass": false
-        }
-      ],
-      "family": "two_qubit_zz_expectation_phase_wrap_v1",
-      "missing_artifacts": [
-        "frozen_packet.json",
-        "execution.json",
-        "evaluation.json",
-        "summary.json"
-      ],
-      "pass": false,
-      "provider": "ionq",
-      "record_id": "ionq__ionq_qpu__two_qubit_zz_expectation_phase_wrap_v1",
-      "status": "missing"
-    },
-    {
-      "backend": "ionq_qpu",
-      "checks": [
+          "name": "witness_mae",
+          "pass": true,
+          "recomputed": 0.061643,
+          "recorded": 0.061643,
+          "tolerance": 1e-06
+        },
         {
-          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
-          "name": "record_has_real_evidence",
-          "pass": false
+          "name": "witness_rank_correlation",
+          "pass": true,
+          "recomputed": 0.557668,
+          "recorded": 0.557668,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_mae",
+          "pass": true,
+          "recomputed": 0.19437,
+          "recorded": 0.19437,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_rank_correlation",
+          "pass": true,
+          "recomputed": -0.060616,
+          "recorded": -0.060616,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "status_matches",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "name": "gate_pass_matches",
+          "pass": true,
+          "recomputed": true,
+          "recorded": true
+        },
+        {
+          "expected": "hardware-positive",
+          "name": "expected_outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive"
+        },
+        {
+          "control": 0.19437,
+          "name": "witness_beats_control_mae",
+          "pass": true,
+          "witness": 0.061643
+        },
+        {
+          "control": -0.060616,
+          "name": "witness_beats_control_rank",
+          "pass": true,
+          "witness": 0.557668
+        },
+        {
+          "name": "summary_status_matches_recomputed",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "manifest_family": "two_qubit_cx_parity_phase_wrap_v2",
+          "name": "packet_family_matches_manifest",
+          "packet_family": "two_qubit_cx_parity_phase_wrap_v2",
+          "pass": true
+        },
+        {
+          "manifest_backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "name": "packet_backend_matches_manifest",
+          "packet_backend": "arn:aws:braket:us-west-1::device/qpu/rigetti/Cepheus-1-108Q",
+          "pass": true
+        },
+        {
+          "manifest_row_count": 8,
+          "name": "packet_row_count_matches_manifest",
+          "packet_row_count": 8,
+          "pass": true
+        },
+        {
+          "manifest_shots": 1000,
+          "name": "packet_shots_match_manifest",
+          "packet_shots": 1000,
+          "pass": true
+        },
+        {
+          "manifest_bitstring_order": "q0q1",
+          "name": "evaluation_bitstring_order_matches_manifest",
+          "pass": true,
+          "recorded": "q0q1"
         }
       ],
+      "completed_at_utc": "2026-05-19T23:00:46Z",
       "family": "two_qubit_cx_parity_phase_wrap_v2",
-      "missing_artifacts": [
-        "frozen_packet.json",
-        "execution.json",
-        "evaluation.json",
-        "summary.json"
+      "gate_pass": true,
+      "job_ids": [
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/c5fb6119-61e0-4138-a64b-e1cb621e7301",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/76f38473-4390-413b-9d42-b8ed50bd1246",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/7925994c-c8f3-4e30-a22a-4653a506440e",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/c063b810-bd75-4800-897a-46f12be8a8fe",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/ebdeb6cd-465b-4ee9-b273-701b788df4bc",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/ac0ade44-e22c-4434-a80b-e19f0e1f8102",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/4018c0ad-1d2b-4fa4-a284-ba7aeb72ef91",
+        "arn:aws:braket:us-west-1:485386182336:quantum-task/6e3b04aa-a883-4575-b75a-d025e0fad531"
       ],
-      "pass": false,
-      "provider": "ionq",
-      "record_id": "ionq__ionq_qpu__two_qubit_cx_parity_phase_wrap_v2",
-      "status": "missing"
+      "outcome": "hardware-positive",
+      "packet_id": "qrope-hardware-7e5eaa2ee2d462b8",
+      "pass": true,
+      "paths": {
+        "evaluation_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z\\evaluation.json",
+        "execution_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z\\execution.json",
+        "packet_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z\\frozen_packet.json",
+        "summary_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_us-west-1__device_qpu_rigetti_Cepheus-1-108Q\\two_qubit_cx_parity_phase_wrap_v2_20260519T230047Z\\summary.json"
+      },
+      "provider": "amazon_braket",
+      "recomputed_evaluation": {
+        "bitstring_order": "q0q1",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.19437,
+          "rank_correlation": -0.060616
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.199548,
+            "rank_correlation": -0.098161
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.009306,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 62,
+              "01": 379,
+              "10": 473,
+              "11": 86
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.118,
+              "z1": 0.07,
+              "zz": -0.704
+            },
+            "hardware_predictions": {
+              "control": 0.2945,
+              "witness": 0.545516688548
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 23,
+              "01": 17,
+              "10": 458,
+              "11": 502
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.92,
+              "z1": -0.038,
+              "zz": 0.05
+            },
+            "hardware_predictions": {
+              "control": 0.2825,
+              "witness": 0.475290940503
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 147,
+              "01": 383,
+              "10": 347,
+              "11": 123
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.06,
+              "z1": -0.012,
+              "zz": -0.46
+            },
+            "hardware_predictions": {
+              "control": 0.4,
+              "witness": 0.492197139106
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 322,
+              "01": 232,
+              "10": 200,
+              "11": 246
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.108,
+              "z1": 0.044,
+              "zz": 0.136
+            },
+            "hardware_predictions": {
+              "control": 0.561,
+              "witness": 0.528610489944
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 19,
+              "01": 12,
+              "10": 765,
+              "11": 204
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.938,
+              "z1": 0.568,
+              "zz": -0.554
+            },
+            "hardware_predictions": {
+              "control": 0.127,
+              "witness": 0.869335415645
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 58,
+              "01": 58,
+              "10": 407,
+              "11": 477
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.768,
+              "z1": -0.07,
+              "zz": 0.07
+            },
+            "hardware_predictions": {
+              "control": 0.3255,
+              "witness": 0.454483311452
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 152,
+              "01": 344,
+              "10": 381,
+              "11": 123
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.008,
+              "z1": 0.066,
+              "zz": -0.45
+            },
+            "hardware_predictions": {
+              "control": 0.3855,
+              "witness": 0.542915734917
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 333,
+              "01": 220,
+              "10": 215,
+              "11": 232
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.106,
+              "z1": 0.096,
+              "zz": 0.13
+            },
+            "hardware_predictions": {
+              "control": 0.559,
+              "witness": 0.562422887151
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.061643,
+          "rank_correlation": 0.557668
+        }
+      },
+      "record_id": "rigetti_cepheus_1_108q__two_qubit_cx_parity_phase_wrap_v2__20260519T230047Z",
+      "recorded_evaluation": {
+        "bitstring_order": "q0q1",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.19437,
+          "rank_correlation": -0.060616
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "historical_decoder_note": "Earlier generic q1q0 decoding classified this Braket CX record as hardware-negative; provider-aware q0q1 decoding recomputes it from the same raw counts as hardware-positive.",
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.199548,
+            "rank_correlation": -0.098161
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.009306,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 62,
+              "01": 379,
+              "10": 473,
+              "11": 86
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.118,
+              "z1": 0.07,
+              "zz": -0.704
+            },
+            "hardware_predictions": {
+              "control": 0.2945,
+              "witness": 0.545516688548
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 23,
+              "01": 17,
+              "10": 458,
+              "11": 502
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.92,
+              "z1": -0.038,
+              "zz": 0.05
+            },
+            "hardware_predictions": {
+              "control": 0.2825,
+              "witness": 0.475290940503
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 147,
+              "01": 383,
+              "10": 347,
+              "11": 123
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.06,
+              "z1": -0.012,
+              "zz": -0.46
+            },
+            "hardware_predictions": {
+              "control": 0.4,
+              "witness": 0.492197139106
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 322,
+              "01": 232,
+              "10": 200,
+              "11": 246
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.108,
+              "z1": 0.044,
+              "zz": 0.136
+            },
+            "hardware_predictions": {
+              "control": 0.561,
+              "witness": 0.528610489944
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 19,
+              "01": 12,
+              "10": 765,
+              "11": 204
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.938,
+              "z1": 0.568,
+              "zz": -0.554
+            },
+            "hardware_predictions": {
+              "control": 0.127,
+              "witness": 0.869335415645
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 58,
+              "01": 58,
+              "10": 407,
+              "11": 477
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.768,
+              "z1": -0.07,
+              "zz": 0.07
+            },
+            "hardware_predictions": {
+              "control": 0.3255,
+              "witness": 0.454483311452
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 152,
+              "01": 344,
+              "10": 381,
+              "11": 123
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.008,
+              "z1": 0.066,
+              "zz": -0.45
+            },
+            "hardware_predictions": {
+              "control": 0.3855,
+              "witness": 0.542915734917
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 333,
+              "01": 220,
+              "10": 215,
+              "11": 232
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.106,
+              "z1": 0.096,
+              "zz": 0.13
+            },
+            "hardware_predictions": {
+              "control": 0.559,
+              "witness": 0.562422887151
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.061643,
+          "rank_correlation": 0.557668
+        }
+      },
+      "row_count": 8,
+      "shots": 1000,
+      "status": "completed",
+      "submitted_at_utc": "2026-05-19T22:57:32Z",
+      "table_row": {
+        "backend": "Rigetti Cepheus-1-108Q",
+        "bitstring_order": "q0q1",
+        "control_mae": 0.19437,
+        "control_rank_corr": -0.060616,
+        "expected_outcome": "hardware-positive",
+        "family": "two_qubit_cx_parity_phase_wrap_v2",
+        "outcome": "hardware-positive",
+        "provider": "amazon_braket",
+        "rows": 8,
+        "shots": 1000,
+        "witness_mae": 0.061643,
+        "witness_rank_corr": 0.557668
+      }
+    },
+    {
+      "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Garnet",
+      "backend_label": "IQM Garnet",
+      "bitstring_order": "q0q1",
+      "checks": [
+        {
+          "name": "witness_mae",
+          "pass": true,
+          "recomputed": 0.021719,
+          "recorded": 0.021719,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "witness_rank_correlation",
+          "pass": true,
+          "recomputed": 0.981981,
+          "recorded": 0.981981,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_mae",
+          "pass": true,
+          "recomputed": 0.20437,
+          "recorded": 0.20437,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_rank_correlation",
+          "pass": true,
+          "recomputed": -0.060616,
+          "recorded": -0.060616,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "status_matches",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "name": "gate_pass_matches",
+          "pass": true,
+          "recomputed": true,
+          "recorded": true
+        },
+        {
+          "expected": "hardware-positive",
+          "name": "expected_outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive"
+        },
+        {
+          "control": 0.20437,
+          "name": "witness_beats_control_mae",
+          "pass": true,
+          "witness": 0.021719
+        },
+        {
+          "control": -0.060616,
+          "name": "witness_beats_control_rank",
+          "pass": true,
+          "witness": 0.981981
+        },
+        {
+          "name": "summary_status_matches_recomputed",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "manifest_family": "two_qubit_cx_parity_phase_wrap_v2",
+          "name": "packet_family_matches_manifest",
+          "packet_family": "two_qubit_cx_parity_phase_wrap_v2",
+          "pass": true
+        },
+        {
+          "manifest_backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Garnet",
+          "name": "packet_backend_matches_manifest",
+          "packet_backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Garnet",
+          "pass": true
+        },
+        {
+          "manifest_row_count": 8,
+          "name": "packet_row_count_matches_manifest",
+          "packet_row_count": 8,
+          "pass": true
+        },
+        {
+          "manifest_shots": 1000,
+          "name": "packet_shots_match_manifest",
+          "packet_shots": 1000,
+          "pass": true
+        },
+        {
+          "manifest_bitstring_order": "q0q1",
+          "name": "evaluation_bitstring_order_matches_manifest",
+          "pass": true,
+          "recorded": "q0q1"
+        }
+      ],
+      "completed_at_utc": "2026-05-19T23:04:44Z",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "gate_pass": true,
+      "job_ids": [
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/2ee4d2e8-8b8c-43c8-98d3-77d55752b771",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/f19211be-ff16-44b1-8a6b-71a942c2196c",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/5598d6cb-0b60-41da-abfd-dc1bd7edb6f8",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/51d33853-2bb1-4110-9af9-c94b48138bbc",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/f7b49813-3224-4068-b76a-9e25e451c068",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/ac637a99-0cd3-422d-99c3-de12a152ef17",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/b30ec4cd-2002-4522-a78b-e990d2a03436",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/3c43c44a-8ec5-43ff-b8bb-ecdfaaedc54c"
+      ],
+      "outcome": "hardware-positive",
+      "packet_id": "qrope-hardware-b18377a1f2d6c22d",
+      "pass": true,
+      "paths": {
+        "evaluation_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Garnet\\two_qubit_cx_parity_phase_wrap_v2_20260519T230446Z\\evaluation.json",
+        "execution_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Garnet\\two_qubit_cx_parity_phase_wrap_v2_20260519T230446Z\\execution.json",
+        "packet_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Garnet\\two_qubit_cx_parity_phase_wrap_v2_20260519T230446Z\\frozen_packet.json",
+        "summary_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Garnet\\two_qubit_cx_parity_phase_wrap_v2_20260519T230446Z\\summary.json"
+      },
+      "provider": "amazon_braket",
+      "recomputed_evaluation": {
+        "bitstring_order": "q0q1",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.20437,
+          "rank_correlation": -0.060616
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.199548,
+            "rank_correlation": -0.098161
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.009306,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 38,
+              "01": 455,
+              "10": 473,
+              "11": 34
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.014,
+              "z1": 0.022,
+              "zz": -0.856
+            },
+            "hardware_predictions": {
+              "control": 0.2825,
+              "witness": 0.514305244972
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 9,
+              "01": 17,
+              "10": 456,
+              "11": 518
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.948,
+              "z1": -0.07,
+              "zz": 0.054
+            },
+            "hardware_predictions": {
+              "control": 0.2765,
+              "witness": 0.454483311452
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 115,
+              "01": 487,
+              "10": 337,
+              "11": 61
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.204,
+              "z1": -0.096,
+              "zz": -0.648
+            },
+            "hardware_predictions": {
+              "control": 0.389,
+              "witness": 0.437577112849
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 328,
+              "01": 247,
+              "10": 212,
+              "11": 213
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.15,
+              "z1": 0.08,
+              "zz": 0.082
+            },
+            "hardware_predictions": {
+              "control": 0.558,
+              "witness": 0.552019072626
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 9,
+              "01": 21,
+              "10": 825,
+              "11": 145
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.94,
+              "z1": 0.668,
+              "zz": -0.692
+            },
+            "hardware_predictions": {
+              "control": 0.092,
+              "witness": 0.934359256428
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 74,
+              "01": 72,
+              "10": 444,
+              "11": 410
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.708,
+              "z1": 0.036,
+              "zz": -0.032
+            },
+            "hardware_predictions": {
+              "control": 0.315,
+              "witness": 0.523408582682
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 93,
+              "01": 503,
+              "10": 339,
+              "11": 65
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.192,
+              "z1": -0.136,
+              "zz": -0.684
+            },
+            "hardware_predictions": {
+              "control": 0.377,
+              "witness": 0.411567576536
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 321,
+              "01": 270,
+              "10": 203,
+              "11": 206
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.182,
+              "z1": 0.048,
+              "zz": 0.054
+            },
+            "hardware_predictions": {
+              "control": 0.559,
+              "witness": 0.531211443576
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.021719,
+          "rank_correlation": 0.981981
+        }
+      },
+      "record_id": "iqm_garnet__two_qubit_cx_parity_phase_wrap_v2__20260519T230446Z",
+      "recorded_evaluation": {
+        "bitstring_order": "q0q1",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.20437,
+          "rank_correlation": -0.060616
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "historical_decoder_note": "Earlier generic q1q0 decoding classified this Braket CX record as hardware-negative; provider-aware q0q1 decoding recomputes it from the same raw counts as hardware-positive.",
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.199548,
+            "rank_correlation": -0.098161
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.009306,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 38,
+              "01": 455,
+              "10": 473,
+              "11": 34
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.014,
+              "z1": 0.022,
+              "zz": -0.856
+            },
+            "hardware_predictions": {
+              "control": 0.2825,
+              "witness": 0.514305244972
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 9,
+              "01": 17,
+              "10": 456,
+              "11": 518
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.948,
+              "z1": -0.07,
+              "zz": 0.054
+            },
+            "hardware_predictions": {
+              "control": 0.2765,
+              "witness": 0.454483311452
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 115,
+              "01": 487,
+              "10": 337,
+              "11": 61
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.204,
+              "z1": -0.096,
+              "zz": -0.648
+            },
+            "hardware_predictions": {
+              "control": 0.389,
+              "witness": 0.437577112849
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 328,
+              "01": 247,
+              "10": 212,
+              "11": 213
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.15,
+              "z1": 0.08,
+              "zz": 0.082
+            },
+            "hardware_predictions": {
+              "control": 0.558,
+              "witness": 0.552019072626
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 9,
+              "01": 21,
+              "10": 825,
+              "11": 145
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.94,
+              "z1": 0.668,
+              "zz": -0.692
+            },
+            "hardware_predictions": {
+              "control": 0.092,
+              "witness": 0.934359256428
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 74,
+              "01": 72,
+              "10": 444,
+              "11": 410
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.708,
+              "z1": 0.036,
+              "zz": -0.032
+            },
+            "hardware_predictions": {
+              "control": 0.315,
+              "witness": 0.523408582682
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 93,
+              "01": 503,
+              "10": 339,
+              "11": 65
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.192,
+              "z1": -0.136,
+              "zz": -0.684
+            },
+            "hardware_predictions": {
+              "control": 0.377,
+              "witness": 0.411567576536
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 321,
+              "01": 270,
+              "10": 203,
+              "11": 206
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.182,
+              "z1": 0.048,
+              "zz": 0.054
+            },
+            "hardware_predictions": {
+              "control": 0.559,
+              "witness": 0.531211443576
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.021719,
+          "rank_correlation": 0.981981
+        }
+      },
+      "row_count": 8,
+      "shots": 1000,
+      "status": "completed",
+      "submitted_at_utc": "2026-05-19T23:01:19Z",
+      "table_row": {
+        "backend": "IQM Garnet",
+        "bitstring_order": "q0q1",
+        "control_mae": 0.20437,
+        "control_rank_corr": -0.060616,
+        "expected_outcome": "hardware-positive",
+        "family": "two_qubit_cx_parity_phase_wrap_v2",
+        "outcome": "hardware-positive",
+        "provider": "amazon_braket",
+        "rows": 8,
+        "shots": 1000,
+        "witness_mae": 0.021719,
+        "witness_rank_corr": 0.981981
+      }
+    },
+    {
+      "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+      "backend_label": "IQM Emerald",
+      "bitstring_order": "q0q1",
+      "checks": [
+        {
+          "name": "witness_mae",
+          "pass": true,
+          "recomputed": 0.021479,
+          "recorded": 0.021479,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "witness_rank_correlation",
+          "pass": true,
+          "recomputed": 0.884995,
+          "recorded": 0.884995,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_mae",
+          "pass": true,
+          "recomputed": 0.210995,
+          "recorded": 0.210995,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "control_rank_correlation",
+          "pass": true,
+          "recomputed": -0.096986,
+          "recorded": -0.096986,
+          "tolerance": 1e-06
+        },
+        {
+          "name": "status_matches",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "name": "gate_pass_matches",
+          "pass": true,
+          "recomputed": true,
+          "recorded": true
+        },
+        {
+          "expected": "hardware-positive",
+          "name": "expected_outcome_matches",
+          "pass": true,
+          "recomputed": "hardware-positive"
+        },
+        {
+          "control": 0.210995,
+          "name": "witness_beats_control_mae",
+          "pass": true,
+          "witness": 0.021479
+        },
+        {
+          "control": -0.096986,
+          "name": "witness_beats_control_rank",
+          "pass": true,
+          "witness": 0.884995
+        },
+        {
+          "name": "summary_status_matches_recomputed",
+          "pass": true,
+          "recomputed": "PASS",
+          "recorded": "PASS"
+        },
+        {
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true,
+          "recomputed": "hardware-positive",
+          "recorded": "hardware-positive"
+        },
+        {
+          "manifest_family": "two_qubit_cx_parity_phase_wrap_v2",
+          "name": "packet_family_matches_manifest",
+          "packet_family": "two_qubit_cx_parity_phase_wrap_v2",
+          "pass": true
+        },
+        {
+          "manifest_backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "name": "packet_backend_matches_manifest",
+          "packet_backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+          "pass": true
+        },
+        {
+          "manifest_row_count": 8,
+          "name": "packet_row_count_matches_manifest",
+          "packet_row_count": 8,
+          "pass": true
+        },
+        {
+          "manifest_shots": 1000,
+          "name": "packet_shots_match_manifest",
+          "packet_shots": 1000,
+          "pass": true
+        },
+        {
+          "manifest_bitstring_order": "q0q1",
+          "name": "evaluation_bitstring_order_matches_manifest",
+          "pass": true,
+          "recorded": "q0q1"
+        }
+      ],
+      "completed_at_utc": "2026-05-19T23:08:17Z",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "gate_pass": true,
+      "job_ids": [
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/e8a196e7-a797-4f51-b501-ef2b6757abf3",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/6f01fb84-a044-4a1d-b748-a38b3e102236",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/36202374-cfcb-4313-bfe5-4cdedc457df1",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/5c18ff20-41ff-47c3-a93c-e3ccddb52b19",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/60609d11-cf7a-4b0a-bb5d-bc492e2d0356",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/4bec2c14-2a80-42ef-bb40-b42ac23b1b32",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/a69879e2-18e6-4323-acef-b1d3bf909a79",
+        "arn:aws:braket:eu-north-1:485386182336:quantum-task/36c16f94-61e4-477e-b293-274827723663"
+      ],
+      "outcome": "hardware-positive",
+      "packet_id": "qrope-hardware-1aeca8f0360c20cd",
+      "pass": true,
+      "paths": {
+        "evaluation_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald\\two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z\\evaluation.json",
+        "execution_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald\\two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z\\execution.json",
+        "packet_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald\\two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z\\frozen_packet.json",
+        "summary_path": "logs\\automated_stage_gates\\stage4_hardware_sweep\\amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald\\two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z\\summary.json"
+      },
+      "provider": "amazon_braket",
+      "recomputed_evaluation": {
+        "bitstring_order": "q0q1",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.210995,
+          "rank_correlation": -0.096986
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.199548,
+            "rank_correlation": -0.098161
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.009306,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 33,
+              "01": 497,
+              "10": 449,
+              "11": 21
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.06,
+              "z1": -0.036,
+              "zz": -0.892
+            },
+            "hardware_predictions": {
+              "control": 0.292,
+              "witness": 0.476591417318
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 8,
+              "01": 6,
+              "10": 453,
+              "11": 533
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.972,
+              "z1": -0.078,
+              "zz": 0.082
+            },
+            "hardware_predictions": {
+              "control": 0.2775,
+              "witness": 0.44928140419
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 90,
+              "01": 496,
+              "10": 353,
+              "11": 61
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.172,
+              "z1": -0.114,
+              "zz": -0.698
+            },
+            "hardware_predictions": {
+              "control": 0.3685,
+              "witness": 0.425872821508
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 304,
+              "01": 283,
+              "10": 185,
+              "11": 228
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.174,
+              "z1": -0.022,
+              "zz": 0.064
+            },
+            "hardware_predictions": {
+              "control": 0.5595,
+              "witness": 0.485694755028
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 8,
+              "01": 6,
+              "10": 833,
+              "11": 153
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.972,
+              "z1": 0.682,
+              "zz": -0.678
+            },
+            "hardware_predictions": {
+              "control": 0.0875,
+              "witness": 0.943462594137
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 43,
+              "01": 56,
+              "10": 497,
+              "11": 404
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.802,
+              "z1": 0.08,
+              "zz": -0.106
+            },
+            "hardware_predictions": {
+              "control": 0.273,
+              "witness": 0.552019072626
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 88,
+              "01": 516,
+              "10": 338,
+              "11": 58
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.208,
+              "z1": -0.148,
+              "zz": -0.708
+            },
+            "hardware_predictions": {
+              "control": 0.375,
+              "witness": 0.403764715642
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 311,
+              "01": 283,
+              "10": 207,
+              "11": 199
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.188,
+              "z1": 0.036,
+              "zz": 0.02
+            },
+            "hardware_predictions": {
+              "control": 0.552,
+              "witness": 0.523408582682
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.021479,
+          "rank_correlation": 0.884995
+        }
+      },
+      "record_id": "iqm_emerald__two_qubit_cx_parity_phase_wrap_v2__20260519T230818Z",
+      "recorded_evaluation": {
+        "bitstring_order": "q0q1",
+        "comparability_pass": true,
+        "control": {
+          "mae": 0.210995,
+          "rank_correlation": -0.096986
+        },
+        "direction_agreement": true,
+        "fail_reasons": [],
+        "gate_pass": true,
+        "hardware_direction_positive": true,
+        "historical_decoder_note": "Earlier generic q1q0 decoding classified this Braket CX record as hardware-negative; provider-aware q0q1 decoding recomputes it from the same raw counts as hardware-positive.",
+        "metadata_complete": true,
+        "missing_metadata": [],
+        "noisy_direction_positive": true,
+        "noisy_reference": {
+          "control": {
+            "mae": 0.199548,
+            "rank_correlation": -0.098161
+          },
+          "gate_pass": true,
+          "witness": {
+            "mae": 0.009306,
+            "rank_correlation": 1.0
+          }
+        },
+        "outcome": "hardware-positive",
+        "per_row_results": [
+          {
+            "counts": {
+              "00": 33,
+              "01": 497,
+              "10": 449,
+              "11": 21
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.06,
+              "z1": -0.036,
+              "zz": -0.892
+            },
+            "hardware_predictions": {
+              "control": 0.292,
+              "witness": 0.476591417318
+            },
+            "label": 0.5,
+            "row_id": "hwrow-000"
+          },
+          {
+            "counts": {
+              "00": 8,
+              "01": 6,
+              "10": 453,
+              "11": 533
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.972,
+              "z1": -0.078,
+              "zz": 0.082
+            },
+            "hardware_predictions": {
+              "control": 0.2775,
+              "witness": 0.44928140419
+            },
+            "label": 0.453314982767,
+            "row_id": "hwrow-001"
+          },
+          {
+            "counts": {
+              "00": 90,
+              "01": 496,
+              "10": 353,
+              "11": 61
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.172,
+              "z1": -0.114,
+              "zz": -0.698
+            },
+            "hardware_predictions": {
+              "control": 0.3685,
+              "witness": 0.425872821508
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-002"
+          },
+          {
+            "counts": {
+              "00": 304,
+              "01": 283,
+              "10": 185,
+              "11": 228
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.174,
+              "z1": -0.022,
+              "zz": 0.064
+            },
+            "hardware_predictions": {
+              "control": 0.5595,
+              "witness": 0.485694755028
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-003"
+          },
+          {
+            "counts": {
+              "00": 8,
+              "01": 6,
+              "10": 833,
+              "11": 153
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.972,
+              "z1": 0.682,
+              "zz": -0.678
+            },
+            "hardware_predictions": {
+              "control": 0.0875,
+              "witness": 0.943462594137
+            },
+            "label": 0.976007551561,
+            "row_id": "hwrow-004"
+          },
+          {
+            "counts": {
+              "00": 43,
+              "01": 56,
+              "10": 497,
+              "11": 404
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": -0.802,
+              "z1": 0.08,
+              "zz": -0.106
+            },
+            "hardware_predictions": {
+              "control": 0.273,
+              "witness": 0.552019072626
+            },
+            "label": 0.5,
+            "row_id": "hwrow-005"
+          },
+          {
+            "counts": {
+              "00": 88,
+              "01": 516,
+              "10": 338,
+              "11": 58
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.208,
+              "z1": -0.148,
+              "zz": -0.708
+            },
+            "hardware_predictions": {
+              "control": 0.375,
+              "witness": 0.403764715642
+            },
+            "label": 0.418330015736,
+            "row_id": "hwrow-006"
+          },
+          {
+            "counts": {
+              "00": 311,
+              "01": 283,
+              "10": 207,
+              "11": 199
+            },
+            "expectations": {
+              "shots": 1000,
+              "valid": true,
+              "z0": 0.188,
+              "z1": 0.036,
+              "zz": 0.02
+            },
+            "hardware_predictions": {
+              "control": 0.552,
+              "witness": 0.523408582682
+            },
+            "label": 0.508009882638,
+            "row_id": "hwrow-007"
+          }
+        ],
+        "status": "PASS",
+        "witness": {
+          "mae": 0.021479,
+          "rank_correlation": 0.884995
+        }
+      },
+      "row_count": 8,
+      "shots": 1000,
+      "status": "completed",
+      "submitted_at_utc": "2026-05-19T23:04:52Z",
+      "table_row": {
+        "backend": "IQM Emerald",
+        "bitstring_order": "q0q1",
+        "control_mae": 0.210995,
+        "control_rank_corr": -0.096986,
+        "expected_outcome": "hardware-positive",
+        "family": "two_qubit_cx_parity_phase_wrap_v2",
+        "outcome": "hardware-positive",
+        "provider": "amazon_braket",
+        "rows": 8,
+        "shots": 1000,
+        "witness_mae": 0.021479,
+        "witness_rank_corr": 0.884995
+      }
     }
   ],
-  "sweep_id": "stage4-multiplatform-hardware-sweep-2026-05",
-  "table": [],
-  "verifier": "phasewrap_rope_stage4_hardware_sweep_offline_verifier_v1"
+  "schema_errors": [],
+  "sweep_id": "qrope-stage4-hardware-sweep-v1",
+  "table": [
+    {
+      "backend": "IBM Fez",
+      "bitstring_order": "q1q0",
+      "control_mae": 0.217262,
+      "control_rank_corr": -0.17694,
+      "expected_outcome": "hardware-positive",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "outcome": "hardware-positive",
+      "provider": "ibm_runtime",
+      "rows": 16,
+      "shots": 4096,
+      "witness_mae": 0.018382,
+      "witness_rank_corr": 0.876558
+    },
+    {
+      "backend": "Rigetti Cepheus-1-108Q",
+      "bitstring_order": "q0q1",
+      "control_mae": 0.149995,
+      "control_rank_corr": 0.121232,
+      "expected_outcome": "hardware-positive",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "outcome": "hardware-positive",
+      "provider": "amazon_braket",
+      "rows": 8,
+      "shots": 1000,
+      "witness_mae": 0.069901,
+      "witness_rank_corr": 0.786644
+    },
+    {
+      "backend": "IBM Fez",
+      "bitstring_order": "q1q0",
+      "control_mae": 0.212516,
+      "control_rank_corr": -0.169318,
+      "expected_outcome": "hardware-positive",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "outcome": "hardware-positive",
+      "provider": "ibm_runtime",
+      "rows": 16,
+      "shots": 4096,
+      "witness_mae": 0.021458,
+      "witness_rank_corr": 0.972455
+    },
+    {
+      "backend": "Rigetti Cepheus-1-108Q",
+      "bitstring_order": "q0q1",
+      "control_mae": 0.19437,
+      "control_rank_corr": -0.060616,
+      "expected_outcome": "hardware-positive",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "outcome": "hardware-positive",
+      "provider": "amazon_braket",
+      "rows": 8,
+      "shots": 1000,
+      "witness_mae": 0.061643,
+      "witness_rank_corr": 0.557668
+    },
+    {
+      "backend": "IQM Garnet",
+      "bitstring_order": "q0q1",
+      "control_mae": 0.20437,
+      "control_rank_corr": -0.060616,
+      "expected_outcome": "hardware-positive",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "outcome": "hardware-positive",
+      "provider": "amazon_braket",
+      "rows": 8,
+      "shots": 1000,
+      "witness_mae": 0.021719,
+      "witness_rank_corr": 0.981981
+    },
+    {
+      "backend": "IQM Emerald",
+      "bitstring_order": "q0q1",
+      "control_mae": 0.210995,
+      "control_rank_corr": -0.096986,
+      "expected_outcome": "hardware-positive",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "outcome": "hardware-positive",
+      "provider": "amazon_braket",
+      "rows": 8,
+      "shots": 1000,
+      "witness_mae": 0.021479,
+      "witness_rank_corr": 0.884995
+    }
+  ],
+  "verifier": "qrope_stage4_hardware_sweep_offline_verifier_v1"
 }

@@ -49,7 +49,6 @@ from .synthetic import (
     generate_symbolic_insufficiency_counterfactual_handoff_response_bundle,
     generate_positional_anchor_order_response_bundle,
     generate_positional_anchor_distance_response_bundle,
-    generate_positional_phase_wrap_discrimination_bundle,
     generate_positional_anchor_span_membership_response_bundle,
     generate_positional_anchor_offset_signature_response_bundle,
     generate_positional_anchor_betweenness_response_bundle,
@@ -121,7 +120,6 @@ from .synthetic import (
     parse_symbolic_insufficiency_counterfactual_handoff_text,
     parse_positional_anchor_order_text,
     parse_positional_anchor_distance_text,
-    parse_positional_phase_wrap_text,
     parse_positional_anchor_span_membership_text,
     parse_positional_anchor_offset_signature_text,
     parse_positional_anchor_betweenness_text,
@@ -382,7 +380,6 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_future_relational_witness_symbolic_insufficiency_counterfactual_handoff": 96,
         "V_future_relational_witness_positional_anchor_order": 96,
         "V_future_relational_witness_positional_anchor_distance": 96,
-        "V_future_relational_witness_positional_phase_wrap": 96,
         "V_future_relational_witness_positional_anchor_span_membership": 96,
         "V_future_relational_witness_positional_anchor_offset_signature": 96,
         "V_future_relational_witness_positional_anchor_betweenness": 96,
@@ -483,7 +480,6 @@ def estimate_hardware_costs(qubits: int, layers: int, variant: str) -> tuple[int
         "V_control_symbolic_symbolic_insufficiency_counterfactual_handoff_regressor": 1,
         "V_control_symbolic_positional_anchor_order_regressor": 1,
         "V_control_symbolic_positional_anchor_distance_regressor": 1,
-        "V_control_symbolic_phase_wrap_regressor": 1,
         "V_control_symbolic_positional_anchor_span_membership_regressor": 1,
         "V_control_symbolic_positional_anchor_offset_signature_regressor": 1,
         "V_control_symbolic_positional_anchor_betweenness_regressor": 1,
@@ -795,8 +791,6 @@ def run_real_experiment(
             data_mode = f"{data_mode}+readout_relational_witness_positional_anchor_order+head_linear"
         elif variant == "V_future_relational_witness_positional_anchor_distance":
             data_mode = f"{data_mode}+readout_relational_witness_positional_anchor_distance+head_linear"
-        elif variant == "V_future_relational_witness_positional_phase_wrap":
-            data_mode = f"{data_mode}+readout_relational_witness_positional_phase_wrap+head_linear"
         elif variant == "V_future_relational_witness_positional_anchor_span_membership":
             data_mode = f"{data_mode}+readout_relational_witness_positional_anchor_span_membership+head_linear"
         elif variant == "V_future_relational_witness_positional_anchor_offset_signature":
@@ -1716,10 +1710,6 @@ def run_quantum_backend(
         return run_positional_anchor_distance_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if dataset == "synthetic_positional_anchor_distance_response" and variant == "V_control_symbolic_positional_anchor_distance_regressor":
         return run_positional_anchor_distance_symbolic_regressor(train=train, test=test, validation=validation)
-    if dataset == "synthetic_positional_phase_wrap_discrimination" and variant == "V_future_relational_witness_positional_phase_wrap":
-        return run_positional_phase_wrap_witness_backend(train=train, test=test, seed=seed, validation=validation)
-    if dataset == "synthetic_positional_phase_wrap_discrimination" and variant == "V_control_symbolic_phase_wrap_regressor":
-        return run_positional_phase_wrap_symbolic_regressor(train=train, test=test, validation=validation)
     if dataset == "synthetic_positional_anchor_span_membership_response" and variant == "V_future_relational_witness_positional_anchor_span_membership":
         return run_positional_anchor_span_membership_witness_backend(train=train, test=test, seed=seed, validation=validation)
     if dataset == "synthetic_positional_anchor_span_membership_response" and variant == "V_control_symbolic_positional_anchor_span_membership_regressor":
@@ -4798,86 +4788,6 @@ def positional_anchor_distance_symbolic_features(text: str) -> dict[str, object]
         "feature_order": list(features.keys()),
         "features": features,
         "allowed_anchor_distance_symbolic_basis_frozen_pass": True,
-        "forbidden_feature_family_absent_pass": True,
-    }
-
-
-def _phase_wrap_to_pi(angle: float) -> float:
-    return math.atan2(math.sin(angle), math.cos(angle))
-
-
-def _phase_wrap_payload_features(text: str) -> dict[str, float]:
-    payload = parse_positional_phase_wrap_text(text)
-    delta_a = float(payload["a"]["delta"])
-    delta_b = float(payload["b"]["delta"])
-    delta_gap = delta_a - delta_b
-    theta8 = _phase_wrap_to_pi(2.0 * math.pi * delta_gap / 8.0)
-    theta12 = _phase_wrap_to_pi(2.0 * math.pi * delta_gap / 12.0)
-    r8 = abs(theta8)
-    r12 = abs(theta12)
-    band8_margin = math.cos(r8) - math.cos(math.pi / 4.0)
-    band12_margin = math.cos(r12) - math.cos(math.pi / 6.0)
-    return {
-        "delta_a": delta_a,
-        "delta_b": delta_b,
-        "delta_a_sign": 1.0 if delta_a > 0 else -1.0,
-        "delta_b_sign": 1.0 if delta_b > 0 else -1.0,
-        "delta_a_abs_bin": min(abs(delta_a), 31.0) / 31.0,
-        "delta_b_abs_bin": min(abs(delta_b), 31.0) / 31.0,
-        "same_raw_order": 1.0 if (delta_a > 0) == (delta_b > 0) else 0.0,
-        "band8_cos": math.cos(theta8),
-        "band8_sin": math.sin(theta8),
-        "band12_cos": math.cos(theta12),
-        "band12_sin": math.sin(theta12),
-        "band8_margin": band8_margin,
-        "band12_margin": band12_margin,
-        "phase_cross_margin": band8_margin * band12_margin,
-        "phase_cos_product": math.cos(theta8) * math.cos(theta12),
-        "phase_sin_product": math.sin(theta8) * math.sin(theta12),
-    }
-
-
-def positional_phase_wrap_witness_features(text: str, seed: int) -> dict[str, object]:
-    values = _phase_wrap_payload_features(text)
-    feature_order = [
-        "band8_cos",
-        "band8_sin",
-        "band12_cos",
-        "band12_sin",
-        "phase_cross_margin",
-        "phase_cos_product",
-        "phase_sin_product",
-    ]
-    features = {name: round(float(values[name]), 6) for name in feature_order}
-    return {
-        "feature_order": feature_order,
-        "features": features,
-        "phase_wrap_cross_band_interaction_pass": True,
-        "forbidden_feature_family_absent_pass": True,
-    }
-
-
-def positional_phase_wrap_symbolic_features(text: str) -> dict[str, object]:
-    values = _phase_wrap_payload_features(text)
-    feature_order = [
-        "delta_a_sign",
-        "delta_b_sign",
-        "delta_a_abs_bin",
-        "delta_b_abs_bin",
-        "same_raw_order",
-        "band8_cos",
-        "band8_sin",
-        "band12_cos",
-        "band12_sin",
-        "band8_margin",
-        "band12_margin",
-    ]
-    features = {name: round(float(values[name]), 6) for name in feature_order}
-    return {
-        "feature_order": feature_order,
-        "features": features,
-        "phase_wrap_additive_single_band_control_pass": True,
-        "phase_wrap_cross_band_interaction_absent_pass": True,
         "forbidden_feature_family_absent_pass": True,
     }
 
@@ -12042,66 +11952,6 @@ def run_positional_anchor_distance_symbolic_regressor(
     return mae_train, mae_eval, accuracy, f1, diagnostics, extra
 
 
-def run_positional_phase_wrap_witness_backend(
-    train: list[tuple[str, float]],
-    test: list[tuple[str, float]],
-    seed: int,
-    validation: list[tuple[str, float]] | None = None,
-) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
-    if validation is None:
-        midpoint = max(1, len(train) // 4)
-        validation = train[:midpoint]
-    train_results = [positional_phase_wrap_witness_features(text=text, seed=seed) for text, _ in train]
-    validation_results = [positional_phase_wrap_witness_features(text=text, seed=seed) for text, _ in validation]
-    test_results = [positional_phase_wrap_witness_features(text=text, seed=seed) for text, _ in test]
-    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
-        train_results,
-        validation_results,
-        test_results,
-        [float(label) for _, label in train],
-        [float(label) for _, label in validation],
-        [float(label) for _, label in test],
-    )
-    diagnostics["phase_wrap_cross_band_interaction_pass"] = all(
-        bool(result.get("phase_wrap_cross_band_interaction_pass", False)) for result in test_results
-    )
-    diagnostics["forbidden_feature_family_absent_pass"] = all(
-        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
-    )
-    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
-
-
-def run_positional_phase_wrap_symbolic_regressor(
-    train: list[tuple[str, float]],
-    test: list[tuple[str, float]],
-    validation: list[tuple[str, float]] | None = None,
-) -> tuple[float, float, float, float, dict[str, Any], dict[str, float]]:
-    if validation is None:
-        midpoint = max(1, len(train) // 4)
-        validation = train[:midpoint]
-    train_results = [positional_phase_wrap_symbolic_features(text=text) for text, _ in train]
-    validation_results = [positional_phase_wrap_symbolic_features(text=text) for text, _ in validation]
-    test_results = [positional_phase_wrap_symbolic_features(text=text) for text, _ in test]
-    mae_train, mae_eval, accuracy, f1, diagnostics, extra = run_continuous_backend_from_results(
-        train_results,
-        validation_results,
-        test_results,
-        [float(label) for _, label in train],
-        [float(label) for _, label in validation],
-        [float(label) for _, label in test],
-    )
-    diagnostics["phase_wrap_additive_single_band_control_pass"] = all(
-        bool(result.get("phase_wrap_additive_single_band_control_pass", False)) for result in test_results
-    )
-    diagnostics["phase_wrap_cross_band_interaction_absent_pass"] = all(
-        bool(result.get("phase_wrap_cross_band_interaction_absent_pass", False)) for result in test_results
-    )
-    diagnostics["forbidden_feature_family_absent_pass"] = all(
-        bool(result.get("forbidden_feature_family_absent_pass", False)) for result in test_results
-    )
-    return mae_train, mae_eval, accuracy, f1, diagnostics, extra
-
-
 def run_positional_anchor_span_membership_witness_backend(
     train: list[tuple[str, float]],
     test: list[tuple[str, float]],
@@ -17734,21 +17584,6 @@ def load_dataset_bundle(
             "validation": bundle.validation,
             "test": bundle.test,
             "data_mode": "synthetic_positional_anchor_distance_response",
-            "dataset_diagnostics": bundle.diagnostics,
-        }
-    if dataset == "synthetic_positional_phase_wrap_discrimination":
-        bundle = generate_positional_phase_wrap_discrimination_bundle(
-            seed=seed,
-            split_rotation=split_rotation,
-            slot_swap=slot_swap,
-            token_permutation=token_permutation,
-            pair_reindex=pair_reindex,
-        )
-        return {
-            "train": bundle.train,
-            "validation": bundle.validation,
-            "test": bundle.test,
-            "data_mode": "synthetic_positional_phase_wrap_discrimination",
             "dataset_diagnostics": bundle.diagnostics,
         }
     if dataset == "synthetic_positional_anchor_span_membership_response":

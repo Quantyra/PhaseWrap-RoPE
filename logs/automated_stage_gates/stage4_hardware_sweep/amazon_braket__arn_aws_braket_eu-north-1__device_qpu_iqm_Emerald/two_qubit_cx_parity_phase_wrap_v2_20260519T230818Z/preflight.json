@@ -1,0 +1,113 @@
+{
+  "account_setup_check": {
+    "checked": false,
+    "reason": "Amazon Braket user-agreement acceptance is validated only when CreateQuantumTask is called; hardware execution records any AccessDeniedException as a hardware blocker."
+  },
+  "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+  "backend_configured": true,
+  "backend_metadata": {
+    "aws_account_id": "485386182336",
+    "aws_caller_arn": "arn:aws:iam::485386182336:user/cyint-ea",
+    "aws_user_id": "AIDAXCA2FL3ACHEZM2KJ6",
+    "backend": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+    "captured_at_utc": "2026-05-19T23:04:50Z",
+    "device_arn": "arn:aws:braket:eu-north-1::device/qpu/iqm/Emerald",
+    "device_cost": {
+      "price": 0.0016,
+      "unit": "shot"
+    },
+    "device_name": "Emerald",
+    "device_status": "ONLINE",
+    "device_type": "QPU",
+    "execution_windows": [
+      {
+        "executionDay": "Weekdays",
+        "windowEndHour": "03:29:59",
+        "windowStartHour": "00:00:00"
+      },
+      {
+        "executionDay": "Weekdays",
+        "windowEndHour": "23:59:59",
+        "windowStartHour": "07:20:00"
+      }
+    ],
+    "operation_compatibility_pass": true,
+    "output_s3_bucket": "amazon-braket-eu-north-1-485386182336",
+    "output_s3_bucket_location": "eu-north-1",
+    "output_s3_bucket_name_pass": true,
+    "provider": "amazon_braket",
+    "provider_name": "IQM",
+    "required_operations": [
+      "cnot",
+      "ry"
+    ],
+    "shot_range_pass": true,
+    "shots_range": [
+      1,
+      20000
+    ],
+    "supported_operations": [
+      "barrier",
+      "cc_prx",
+      "ccnot",
+      "cnot",
+      "cphaseshift",
+      "cphaseshift00",
+      "cphaseshift01",
+      "cphaseshift10",
+      "cswap",
+      "cy",
+      "cz",
+      "ecr",
+      "h",
+      "i",
+      "iswap",
+      "measure_ff",
+      "phaseshift",
+      "prx",
+      "pswap",
+      "rx",
+      "ry",
+      "rz",
+      "s",
+      "si",
+      "swap",
+      "t",
+      "ti",
+      "v",
+      "vi",
+      "x",
+      "xx",
+      "xy",
+      "y",
+      "yy",
+      "z",
+      "zz"
+    ]
+  },
+  "blockers": [],
+  "budget_cap_usd": 25.0,
+  "estimated_packet_cost_usd": 1.6,
+  "metadata_capture_available": true,
+  "note": "READY is not a hardware PASS; hardware PASS requires completed job records and metric gates.",
+  "provider": "amazon_braket",
+  "provider_configured": true,
+  "queue_check": {
+    "checked": false,
+    "queue_depth_cap": null,
+    "reason": "Amazon Braket queue depth is not exposed through this preflight"
+  },
+  "row_count": 8,
+  "shot_count": 1000,
+  "status": "READY",
+  "token_presence": {
+    "AWS_ACCESS_KEY_ID": false,
+    "AWS_PROFILE": false,
+    "AWS_SESSION_TOKEN": false,
+    "IBM_QUANTUM_TOKEN": false,
+    "QISKIT_IBM_TOKEN": false,
+    "QUANDELA_CLOUD_TOKEN": false,
+    "QUANDELA_TOKEN": false,
+    "XANADU_CLOUD_KEY": false
+  }
+}
