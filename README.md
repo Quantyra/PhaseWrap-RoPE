@@ -63,7 +63,7 @@ python scripts/run_stage26_compact_kv_qa.py
 - `Stage 4 cost posture`: local recomputation of the committed Stage 4 sweep is covered by a deterministic classical compute estimate: 4,096 static operations over 163,072 recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - `Stage 4 preregistration posture`: future replication lanes now have no-hardware preregistered row-set artifacts with fixed seeds, families, shots, row counts, and row-set hashes; they are not submitted hardware evidence.
 - `Stage 4 calibration posture`: provider bitstring calibration packet specs and a failing-by-default verifier contract now exist for IBM-style `q1q0` and Amazon Braket-style `q0q1` known-state checks; real calibration counts are still missing.
-- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, Stage 14 turns the non-phase-cued rows into key-value attention readout, Stage 15 adds a one-hidden-layer learned attention scorer, Stage 16 checks initialization stability, Stage 17 adds learned value embeddings plus output projection, Stage 18 probes that value-output bottleneck with teacher-forced attention, Stage 19 hardens the teacher-forced value-output path, Stage 20 reintroduces learned positional attention with the hardened path, Stage 21 reruns that comparison across five initialization seeds, Stage 22 extends explicit retrieval to 4096-token contexts, Stage 23 trains adapters on those long-context rows, Stage 24 adds learned value embeddings/output projection to the long-context rows, Stage 25 reruns that long-context value model across five initialization seeds, Stage 26 adds a compact key-value QA retrieval packet with explicit content keys, Stage 27 trains a compact attention bridge on that packet across five model initialization seeds, and Stage 28 trains a compact attention bridge directly on non-phase-cued RULER-style retrieval rows. Stage 28 shows `phasewrap_distance_adapter` can match `rope_relative` top-1/MRR on that compact retrieval bridge, while `rope_relative` keeps stronger probability/calibration metrics and Stage 25 still preserves the longer value-output gap versus RoPE-like scoring.
+- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, Stage 14 turns the non-phase-cued rows into key-value attention readout, Stage 15 adds a one-hidden-layer learned attention scorer, Stage 16 checks initialization stability, Stage 17 adds learned value embeddings plus output projection, Stage 18 probes that value-output bottleneck with teacher-forced attention, Stage 19 hardens the teacher-forced value-output path, Stage 20 reintroduces learned positional attention with the hardened path, Stage 21 reruns that comparison across five initialization seeds, Stage 22 extends explicit retrieval to 4096-token contexts, Stage 23 trains adapters on those long-context rows, Stage 24 adds learned value embeddings/output projection to the long-context rows, Stage 25 reruns that long-context value model across five initialization seeds, Stage 26 adds a compact key-value QA retrieval packet with explicit content keys, Stage 27 trains a compact attention bridge on that packet across five model initialization seeds, Stage 28 trains a compact attention bridge directly on non-phase-cued RULER-style retrieval rows, and Stage 29 audits fixed period-pair choices on those retrieval rows. Stage 29 shows changing the fixed period pair alone does not close the retrieval gap; Stage 28 shows `phasewrap_distance_adapter` can match `rope_relative` top-1/MRR on a compact retrieval bridge while `rope_relative` keeps stronger probability/calibration metrics.
 - `Score theory posture`: Stage 11 formalizes the fixed 8/12 score as a mod-24 periodic feature with translation invariance, mirror aliases, 10 distinct residue scores, and exact small Fourier support. This clarifies why stronger transformer benchmarks must resolve aliasing before any replacement claim.
 - `Hardware posture`: IBM Fez product-state, IBM Fez CX, Amazon Braket/Rigetti product-state, and Amazon Braket CX lanes have completed active Stage 4 hardware artifacts; additional IBM machines are deferred from the active sweep; Amazon Braket/IonQ was checked on 2026-05-19 and was not run because Forte devices were `OFFLINE` and Aria 1 was `RETIRED`; AQT IBEX Q1 is deferred due cost.
 - `Evidence tree posture`: `logs/automated_stage_gates/stage4_hardware_packet/` remains the default single-packet verifier path. The same IBM Fez 2026-05-17 product-state pass is also preserved as an immutable named run under `logs/automated_stage_gates/stage4_hardware_packet_ibm_fez_20260517_pass/` for the sweep manifest.
@@ -131,6 +131,7 @@ The public claim frame excludes:
 - [Stage 26 compact key-value QA benchmark](docs/research/q-rope-stage26-compact-kv-qa-v1.md)
 - [Stage 27 compact key-value transformer-bridge benchmark](docs/research/q-rope-stage27-compact-kv-transformer-bridge-v1.md)
 - [Stage 28 RULER-style attention-bridge benchmark](docs/research/q-rope-stage28-ruler-attention-bridge-v1.md)
+- [Stage 29 period-pair task audit](docs/research/q-rope-stage29-period-pair-task-audit-v1.md)
 - [Amazon Braket hardware runbook](docs/evidence/E002-braket-hardware-runbook.md)
 - [Automated terminal human-review packet](docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md)
 - [Phase-wrap algorithm note](docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md)
@@ -428,6 +429,14 @@ python scripts/run_stage28_ruler_attention_bridge.py
 
 Stage 28 trains a one-hidden-layer attention bridge directly on Stage 12 non-phase-cued passkey, multi-needle, and aggregation-style retrieval rows across five model initialization seeds. `phasewrap_distance_adapter` and `rope_relative` both reach mean top-1 `1.000000` and mean MRR `1.000000`; `rope_relative` keeps higher mean target probability (`0.704867` versus `0.518441`) and lower top-1 expected calibration error (`0.297454` versus `0.486407`). This is compact retrieval-bridge evidence, not a full decoder-only language-model benchmark.
 
+Run the deterministic Stage 29 period-pair task audit:
+
+```bash
+python scripts/run_stage29_period_pair_task_audit.py
+```
+
+Stage 29 audits the Stage 11 period-pair grid on Stage 12 local and Stage 22 long-context non-phase-cued retrieval rows. No tested fixed period pair solves the retrieval packets: the best local top-1 is `8/24` at `0.045833`, and the best long-context top-1 is `9/15` at `0.016667`; default `8/12` has local top-1 `0.020833` and long top-1 `0.012500`.
+
 ## Reviewer path in 10 minutes
 
 - Read the claim boundary in this README.
@@ -461,6 +470,7 @@ Stage 28 trains a one-hidden-layer attention bridge directly on Stage 12 non-pha
 - Run `python scripts/run_stage26_compact_kv_qa.py` for the compact key-value QA retrieval benchmark.
 - Run `python scripts/run_stage27_compact_kv_transformer_bridge.py` for the compact key-value transformer-bridge benchmark.
 - Run `python scripts/run_stage28_ruler_attention_bridge.py` for the non-phase-cued RULER-style attention-bridge benchmark.
+- Run `python scripts/run_stage29_period_pair_task_audit.py` for the period-pair task audit.
 
 ## CI and test coverage
 
@@ -513,7 +523,8 @@ The current release is ready for bounded repository/preprint publication. The ne
 | 24 | Stage 26 compact key-value QA benchmark | Complete for explicit content-key retrieval rows. PhaseWrap-derived adapters match ALiBI-style top-1/MRR; fixed PhaseWrap scoring remains weak. |
 | 25 | Stage 27 compact key-value transformer-bridge benchmark | Complete for five model initialization seeds on Stage 26 rows. PhaseWrap-plus-distance ties ALiBI-style top-1/MRR and slightly leads target probability on this compact bridge; this is not full transformer evidence. |
 | 26 | Stage 28 RULER-style attention-bridge benchmark | Complete for five model initialization seeds on Stage 12 rows. PhaseWrap-plus-distance matches RoPE-like top-1/MRR on this compact non-phase-cued retrieval bridge, while RoPE-like scoring keeps stronger probability/calibration metrics. |
-| 27 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
+| 27 | Stage 29 period-pair task audit | Complete for the Stage 11 period-pair grid on local and long-context retrieval rows. Period-pair swaps alone do not solve the fixed-score retrieval gap. |
+| 28 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
 
 The mod-8/mod-12 choice is a fixed first-release design: two wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band product signal. Stage 8 now includes a release-local period-pair ablation in which `(8, 12)` is best on the synthetic phase-cued Needle-style packet. That supports the current design choice for this packet, but it is not a proof of global optimality.
 

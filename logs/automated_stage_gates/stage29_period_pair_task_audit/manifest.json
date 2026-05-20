@@ -1,0 +1,96 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "a proof that any period pair is globally optimal",
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic period-pair audit over non-phase-cued retrieval rows.",
+      "Evidence about which tested period pairs reduce alias pressure or improve fixed-score retrieval metrics on these packets.",
+      "Task- and length-conditioned diagnostics for target score gaps and tie counts."
+    ]
+  },
+  "dataset": "stage12_and_stage22_non_phase_cued_retrieval_rows",
+  "examples_per_task_length": 4,
+  "length_summary_csv_path": "logs/automated_stage_gates/stage29_period_pair_task_audit/length_summary.csv",
+  "local_context_lengths": [
+    128,
+    256,
+    512,
+    1024
+  ],
+  "local_summary_csv_path": "logs/automated_stage_gates/stage29_period_pair_task_audit/local_summary.csv",
+  "long_context_lengths": [
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "long_summary_csv_path": "logs/automated_stage_gates/stage29_period_pair_task_audit/long_summary.csv",
+  "no_hardware_submission": true,
+  "period_pairs": [
+    [
+      4,
+      8
+    ],
+    [
+      5,
+      10
+    ],
+    [
+      6,
+      12
+    ],
+    [
+      7,
+      11
+    ],
+    [
+      8,
+      12
+    ],
+    [
+      8,
+      16
+    ],
+    [
+      8,
+      24
+    ],
+    [
+      9,
+      15
+    ],
+    [
+      10,
+      16
+    ],
+    [
+      12,
+      24
+    ],
+    [
+      16,
+      32
+    ]
+  ],
+  "result_path": "logs/automated_stage_gates/stage29_period_pair_task_audit/results.json",
+  "schema_version": "qrope_stage29_period_pair_task_audit_v1",
+  "seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "stage": "stage29_period_pair_task_audit",
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_summary_csv_path": "logs/automated_stage_gates/stage29_period_pair_task_audit/task_summary.csv"
+}

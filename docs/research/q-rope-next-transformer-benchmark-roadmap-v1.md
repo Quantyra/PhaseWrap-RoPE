@@ -98,7 +98,7 @@ These items improve artifact reliability. They do not, by themselves, establish 
 
 ## Theory Track
 
-Stage 11 shows that the fixed 8/12 score is a mod-24 periodic feature with translation invariance, mirror aliases, context-length alias growth, period-pair tradeoffs, and exact small Fourier support.
+Stage 11 shows that the fixed 8/12 score is a mod-24 periodic feature with translation invariance, mirror aliases, context-length alias growth, period-pair tradeoffs, and exact small Fourier support. Stage 29 connects that theory to retrieval rows by auditing the Stage 11 period-pair grid on Stage 12 and Stage 22 non-phase-cued packets; the audit shows that period-pair swaps alone do not solve the fixed-score retrieval gap.
 
 Open theory questions:
 
