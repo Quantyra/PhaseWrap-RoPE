@@ -1,0 +1,241 @@
+example_id,seed,task,sequence_length,reference_delta,target_deltas,target_rule,phasewrap_rope_8_12_first_relevant_rank,phasewrap_rope_8_12_target_probability_mass,rope_relative_first_relevant_rank,rope_relative_target_probability_mass,alibi_first_relevant_rank,alibi_target_probability_mass,sinusoidal_first_relevant_rank,sinusoidal_target_probability_mass,no_position_first_relevant_rank,no_position_target_probability_mass
+passkey_exact_seed401_L128_000,401,passkey_exact,128,65,65,exact passkey offset chosen by RNG and exposed as the query offset,3,0.06460728,1,0.12937597,6,0.08690109,1,0.15415038,6,0.0885933
+multi_needle_seed401_L128_000,401,multi_needle,128,13,13,third same-token occurrence in increasing delta order,7,0.02201847,1,0.12927169,3,0.1132319,1,0.14961698,10,0.08139971
+aggregation_seed401_L128_000,401,aggregation,128,54,54;65,two explicit offsets selected by the aggregation packet generator,7,0.04804513,1,0.17428051,7,0.13075758,1,0.18988727,6,0.14005505
+passkey_exact_seed401_L128_001,401,passkey_exact,128,118,118,exact passkey offset chosen by RNG and exposed as the query offset,5,0.04761244,1,0.13072334,9,0.06139544,1,0.14722467,3,0.0885933
+multi_needle_seed401_L128_001,401,multi_needle,128,28,28,third same-token occurrence in increasing delta order,9,0.02523847,1,0.11822991,3,0.10236704,1,0.13641514,10,0.08139971
+aggregation_seed401_L128_001,401,aggregation,128,34,34;45,two explicit offsets selected by the aggregation packet generator,9,0.06806035,1,0.1848477,4,0.16651564,1,0.20830068,10,0.14005505
+passkey_exact_seed401_L128_002,401,passkey_exact,128,40,40,exact passkey offset chosen by RNG and exposed as the query offset,8,0.02751351,1,0.13286836,4,0.11317635,1,0.15351688,8,0.0885933
+multi_needle_seed401_L128_002,401,multi_needle,128,16,16,third same-token occurrence in increasing delta order,7,0.03978808,1,0.12825982,3,0.11148645,1,0.15209453,10,0.08139971
+aggregation_seed401_L128_002,401,aggregation,128,45,45;55,two explicit offsets selected by the aggregation packet generator,7,0.07298879,1,0.17589447,3,0.15766352,1,0.18936387,9,0.14005505
+passkey_exact_seed401_L128_003,401,passkey_exact,128,52,52,exact passkey offset chosen by RNG and exposed as the query offset,3,0.04234664,1,0.13458945,6,0.08782715,1,0.16123111,6,0.0885933
+multi_needle_seed401_L128_003,401,multi_needle,128,51,51,third same-token occurrence in increasing delta order,6,0.02309396,1,0.12471577,3,0.09445792,1,0.1492693,10,0.08139971
+aggregation_seed401_L128_003,401,aggregation,128,85,85;91,two explicit offsets selected by the aggregation packet generator,4,0.1159818,1,0.16994082,10,0.12557874,1,0.18054369,4,0.14005505
+passkey_exact_seed401_L256_000,401,passkey_exact,256,194,194,exact passkey offset chosen by RNG and exposed as the query offset,7,0.02301939,1,0.13640193,7,0.06953941,1,0.15791517,5,0.08617112
+multi_needle_seed401_L256_000,401,multi_needle,256,28,28,third same-token occurrence in increasing delta order,9,0.02013754,1,0.12531036,3,0.10407141,1,0.16263233,10,0.07935036
+aggregation_seed401_L256_000,401,aggregation,256,148,148;160,two explicit offsets selected by the aggregation packet generator,7,0.03937675,1,0.18303074,7,0.13294629,1,0.20036435,6,0.1370109
+passkey_exact_seed401_L256_001,401,passkey_exact,256,243,243,exact passkey offset chosen by RNG and exposed as the query offset,4,0.03613835,1,0.13924855,11,0.05305675,1,0.17615691,1,0.08617112
+multi_needle_seed401_L256_001,401,multi_needle,256,96,96,third same-token occurrence in increasing delta order,7,0.02850003,1,0.12729119,3,0.09482016,1,0.15549212,10,0.07935036
+aggregation_seed401_L256_001,401,aggregation,256,241,241;252,two explicit offsets selected by the aggregation packet generator,10,0.0616904,1,0.19617039,12,0.07921389,1,0.23267552,1,0.1370109
+passkey_exact_seed401_L256_002,401,passkey_exact,256,158,158,exact passkey offset chosen by RNG and exposed as the query offset,8,0.02134343,1,0.13440149,7,0.07515163,1,0.14832998,5,0.08617112
+multi_needle_seed401_L256_002,401,multi_needle,256,95,95,third same-token occurrence in increasing delta order,7,0.02316495,1,0.12774388,3,0.09447667,1,0.14530637,10,0.07935036
+aggregation_seed401_L256_002,401,aggregation,256,226,226;249,two explicit offsets selected by the aggregation packet generator,6,0.085765,1,0.18608289,13,0.08748472,1,0.18894901,1,0.1370109
+passkey_exact_seed401_L256_003,401,passkey_exact,256,89,89,exact passkey offset chosen by RNG and exposed as the query offset,6,0.02579617,1,0.13451094,6,0.08882497,1,0.14673399,6,0.08617112
+multi_needle_seed401_L256_003,401,multi_needle,256,52,52,third same-token occurrence in increasing delta order,5,0.02266623,1,0.13299338,3,0.10483367,1,0.14806082,10,0.07935036
+aggregation_seed401_L256_003,401,aggregation,256,79,79;89,two explicit offsets selected by the aggregation packet generator,6,0.04732227,1,0.18259798,4,0.15643789,1,0.18548616,10,0.1370109
+passkey_exact_seed401_L512_000,401,passkey_exact,512,145,145,exact passkey offset chosen by RNG and exposed as the query offset,9,0.02359961,1,0.09348903,6,0.06230507,1,0.11377392,12,0.05487118
+multi_needle_seed401_L512_000,401,multi_needle,512,64,64,third same-token occurrence in increasing delta order,10,0.01970945,1,0.0895791,3,0.06880056,1,0.10914091,16,0.05202366
+aggregation_seed401_L512_000,401,aggregation,512,493,493;508,two explicit offsets selected by the aggregation packet generator,9,0.04170475,1,0.14233229,18,0.06098286,1,0.16954922,1,0.09891419
+passkey_exact_seed401_L512_001,401,passkey_exact,512,350,350,exact passkey offset chosen by RNG and exposed as the query offset,11,0.01615429,1,0.0975119,14,0.04093918,1,0.12308503,4,0.05487118
+multi_needle_seed401_L512_001,401,multi_needle,512,126,126,third same-token occurrence in increasing delta order,9,0.03472163,1,0.09385382,3,0.06922712,1,0.11669302,16,0.05202366
+aggregation_seed401_L512_001,401,aggregation,512,394,394;413,two explicit offsets selected by the aggregation packet generator,1,0.17404321,1,0.1429288,13,0.07106135,1,0.17042671,4,0.09891419
+passkey_exact_seed401_L512_002,401,passkey_exact,512,320,320,exact passkey offset chosen by RNG and exposed as the query offset,10,0.02131565,1,0.09435444,10,0.04868398,1,0.112417,8,0.05487118
+multi_needle_seed401_L512_002,401,multi_needle,512,67,67,third same-token occurrence in increasing delta order,6,0.02793582,1,0.09258726,3,0.06750612,1,0.10991365,16,0.05202366
+aggregation_seed401_L512_002,401,aggregation,512,336,336;392,two explicit offsets selected by the aggregation packet generator,9,0.03353795,1,0.13391881,8,0.08322729,1,0.14338969,5,0.09891419
+passkey_exact_seed401_L512_003,401,passkey_exact,512,161,161,exact passkey offset chosen by RNG and exposed as the query offset,11,0.02199204,1,0.09125878,8,0.06084315,1,0.11097284,10,0.05487118
+multi_needle_seed401_L512_003,401,multi_needle,512,153,153,third same-token occurrence in increasing delta order,11,0.02303157,1,0.09158053,3,0.06955993,1,0.11189219,16,0.05202366
+aggregation_seed401_L512_003,401,aggregation,512,154,154;211,two explicit offsets selected by the aggregation packet generator,11,0.03045781,1,0.13931242,7,0.10816847,1,0.16385612,11,0.09891419
+passkey_exact_seed401_L1024_000,401,passkey_exact,1024,286,286,exact passkey offset chosen by RNG and exposed as the query offset,17,0.01063755,1,0.05256113,10,0.03320704,1,0.06411531,24,0.02820559
+multi_needle_seed401_L1024_000,401,multi_needle,1024,162,162,third same-token occurrence in increasing delta order,21,0.00892721,1,0.04925768,3,0.03464203,1,0.06207377,34,0.02601015
+aggregation_seed401_L1024_000,401,aggregation,1024,677,677;797,two explicit offsets selected by the aggregation packet generator,18,0.01527052,1,0.08123115,21,0.04204863,1,0.0847016,12,0.0520203
+passkey_exact_seed401_L1024_001,401,passkey_exact,1024,347,347,exact passkey offset chosen by RNG and exposed as the query offset,19,0.00910458,1,0.05153995,8,0.03332452,1,0.06313108,26,0.02820559
+multi_needle_seed401_L1024_001,401,multi_needle,1024,104,104,third same-token occurrence in increasing delta order,16,0.01022689,1,0.04992336,3,0.03658033,1,0.06268577,34,0.02601015
+aggregation_seed401_L1024_001,401,aggregation,1024,607,607;708,two explicit offsets selected by the aggregation packet generator,3,0.10061907,1,0.07998266,22,0.04258688,1,0.08939422,9,0.0520203
+passkey_exact_seed401_L1024_002,401,passkey_exact,1024,738,738,exact passkey offset chosen by RNG and exposed as the query offset,21,0.00670223,1,0.05428165,23,0.02133461,1,0.06671253,11,0.02820559
+multi_needle_seed401_L1024_002,401,multi_needle,1024,235,235,third same-token occurrence in increasing delta order,21,0.00879242,1,0.04925098,3,0.03545206,1,0.06326665,34,0.02601015
+aggregation_seed401_L1024_002,401,aggregation,1024,656,656;737,two explicit offsets selected by the aggregation packet generator,17,0.0220667,1,0.07995543,23,0.04249543,1,0.09136581,11,0.0520203
+passkey_exact_seed401_L1024_003,401,passkey_exact,1024,454,454,exact passkey offset chosen by RNG and exposed as the query offset,17,0.01039542,1,0.05381177,17,0.0268253,1,0.06483332,17,0.02820559
+multi_needle_seed401_L1024_003,401,multi_needle,1024,70,70,third same-token occurrence in increasing delta order,22,0.00675061,1,0.04975937,3,0.03760426,1,0.06429308,34,0.02601015
+aggregation_seed401_L1024_003,401,aggregation,1024,316,316;393,two explicit offsets selected by the aggregation packet generator,4,0.09268829,1,0.07945773,15,0.0557973,1,0.09544819,19,0.0520203
+passkey_exact_seed409_L128_000,409,passkey_exact,128,34,34,exact passkey offset chosen by RNG and exposed as the query offset,8,0.02833052,1,0.13620197,3,0.10930523,1,0.1507292,9,0.0885933
+multi_needle_seed409_L128_000,409,multi_needle,128,25,25,third same-token occurrence in increasing delta order,8,0.028074,1,0.11567351,3,0.09531095,1,0.12562854,10,0.08139971
+aggregation_seed409_L128_000,409,aggregation,128,91,91;97,two explicit offsets selected by the aggregation packet generator,3,0.11803487,1,0.18869342,12,0.10188723,1,0.21805341,2,0.14005505
+passkey_exact_seed409_L128_001,409,passkey_exact,128,82,82,exact passkey offset chosen by RNG and exposed as the query offset,9,0.03115669,1,0.1306958,9,0.07395769,1,0.15536058,3,0.0885933
+multi_needle_seed409_L128_001,409,multi_needle,128,51,51,third same-token occurrence in increasing delta order,5,0.03002223,1,0.11763894,3,0.08995011,1,0.13586209,10,0.08139971
+aggregation_seed409_L128_001,409,aggregation,128,74,74;86,two explicit offsets selected by the aggregation packet generator,7,0.0653992,1,0.16992356,6,0.13091864,1,0.18686856,5,0.14005505
+passkey_exact_seed409_L128_002,409,passkey_exact,128,64,64,exact passkey offset chosen by RNG and exposed as the query offset,6,0.04180465,1,0.12765726,7,0.08195552,1,0.15049847,5,0.0885933
+multi_needle_seed409_L128_002,409,multi_needle,128,28,28,third same-token occurrence in increasing delta order,5,0.02394081,1,0.12438069,3,0.10136605,1,0.13951693,10,0.08139971
+aggregation_seed409_L128_002,409,aggregation,128,82,82;89,two explicit offsets selected by the aggregation packet generator,6,0.0426815,1,0.18542374,8,0.12148975,1,0.2068677,6,0.14005505
+passkey_exact_seed409_L128_003,409,passkey_exact,128,102,102,exact passkey offset chosen by RNG and exposed as the query offset,5,0.0624431,1,0.13994288,11,0.05694799,1,0.15846963,1,0.0885933
+multi_needle_seed409_L128_003,409,multi_needle,128,53,53,third same-token occurrence in increasing delta order,7,0.05045103,1,0.12373588,3,0.09908527,1,0.14437067,10,0.08139971
+aggregation_seed409_L128_003,409,aggregation,128,88,88;93,two explicit offsets selected by the aggregation packet generator,3,0.20764448,1,0.18407076,11,0.10925311,1,0.20384443,3,0.14005505
+passkey_exact_seed409_L256_000,409,passkey_exact,256,231,231,exact passkey offset chosen by RNG and exposed as the query offset,6,0.03243754,1,0.14080838,10,0.05596052,1,0.16174183,2,0.08617112
+multi_needle_seed409_L256_000,409,multi_needle,256,70,70,third same-token occurrence in increasing delta order,8,0.0395186,1,0.12185001,3,0.09388069,1,0.14364713,10,0.07935036
+aggregation_seed409_L256_000,409,aggregation,256,138,138;164,two explicit offsets selected by the aggregation packet generator,6,0.07793909,1,0.17257137,4,0.13415575,1,0.19879373,6,0.1370109
+passkey_exact_seed409_L256_001,409,passkey_exact,256,165,165,exact passkey offset chosen by RNG and exposed as the query offset,5,0.0513928,1,0.13473038,7,0.07380363,1,0.15473049,5,0.08617112
+multi_needle_seed409_L256_001,409,multi_needle,256,19,19,third same-token occurrence in increasing delta order,9,0.01760273,1,0.12056472,3,0.10381779,1,0.14546713,10,0.07935036
+aggregation_seed409_L256_001,409,aggregation,256,121,121;150,two explicit offsets selected by the aggregation packet generator,1,0.17745451,1,0.16296359,8,0.12175874,1,0.19819622,3,0.1370109
+passkey_exact_seed409_L256_002,409,passkey_exact,256,50,50,exact passkey offset chosen by RNG and exposed as the query offset,5,0.04124096,1,0.14271305,3,0.11287853,1,0.16937003,9,0.08617112
+multi_needle_seed409_L256_002,409,multi_needle,256,127,127,third same-token occurrence in increasing delta order,7,0.03583986,1,0.12601597,3,0.08522425,1,0.14289363,10,0.07935036
+aggregation_seed409_L256_002,409,aggregation,256,189,189;204,two explicit offsets selected by the aggregation packet generator,6,0.06709702,1,0.18217089,12,0.0939215,1,0.19623145,1,0.1370109
+passkey_exact_seed409_L256_003,409,passkey_exact,256,86,86,exact passkey offset chosen by RNG and exposed as the query offset,3,0.06730224,1,0.13270853,7,0.08669134,1,0.15854774,5,0.08617112
+multi_needle_seed409_L256_003,409,multi_needle,256,58,58,third same-token occurrence in increasing delta order,9,0.02606771,1,0.12464813,3,0.10288827,1,0.13777056,10,0.07935036
+aggregation_seed409_L256_003,409,aggregation,256,190,190;220,two explicit offsets selected by the aggregation packet generator,1,0.21514443,1,0.16961291,10,0.10919009,1,0.20087601,3,0.1370109
+passkey_exact_seed409_L512_000,409,passkey_exact,512,292,292,exact passkey offset chosen by RNG and exposed as the query offset,9,0.01826607,1,0.09420771,10,0.04813831,1,0.11560694,8,0.05487118
+multi_needle_seed409_L512_000,409,multi_needle,512,135,135,third same-token occurrence in increasing delta order,9,0.01374338,1,0.09103947,3,0.06691241,1,0.10502818,16,0.05202366
+aggregation_seed409_L512_000,409,aggregation,512,222,222;274,two explicit offsets selected by the aggregation packet generator,3,0.1699721,1,0.13007974,11,0.08811601,1,0.14308918,5,0.09891419
+passkey_exact_seed409_L512_001,409,passkey_exact,512,215,215,exact passkey offset chosen by RNG and exposed as the query offset,6,0.02264894,1,0.09618182,9,0.05373071,1,0.11851646,9,0.05487118
+multi_needle_seed409_L512_001,409,multi_needle,512,123,123,third same-token occurrence in increasing delta order,7,0.01920979,1,0.0881497,3,0.06479198,1,0.105403,16,0.05202366
+aggregation_seed409_L512_001,409,aggregation,512,475,475;508,two explicit offsets selected by the aggregation packet generator,12,0.02434464,1,0.13368079,14,0.06548032,1,0.14564561,1,0.09891419
+passkey_exact_seed409_L512_002,409,passkey_exact,512,411,411,exact passkey offset chosen by RNG and exposed as the query offset,11,0.01634915,1,0.09213119,12,0.04044051,1,0.11203641,6,0.05487118
+multi_needle_seed409_L512_002,409,multi_needle,512,55,55,third same-token occurrence in increasing delta order,12,0.01070123,1,0.09473343,3,0.06629915,1,0.10994533,16,0.05202366
+aggregation_seed409_L512_002,409,aggregation,512,248,248;254,two explicit offsets selected by the aggregation packet generator,5,0.06732186,1,0.14543523,10,0.09298224,1,0.17023882,9,0.09891419
+passkey_exact_seed409_L512_003,409,passkey_exact,512,343,343,exact passkey offset chosen by RNG and exposed as the query offset,7,0.03838011,1,0.09593218,13,0.04107382,1,0.11597167,5,0.05487118
+multi_needle_seed409_L512_003,409,multi_needle,512,95,95,third same-token occurrence in increasing delta order,11,0.01668426,1,0.08913282,3,0.06947151,1,0.11072943,16,0.05202366
+aggregation_seed409_L512_003,409,aggregation,512,131,131;156,two explicit offsets selected by the aggregation packet generator,10,0.05282093,1,0.14693607,7,0.1153173,1,0.1753799,11,0.09891419
+passkey_exact_seed409_L1024_000,409,passkey_exact,1024,278,278,exact passkey offset chosen by RNG and exposed as the query offset,11,0.01225996,1,0.0519952,12,0.03201462,1,0.06431453,22,0.02820559
+multi_needle_seed409_L1024_000,409,multi_needle,1024,37,37,third same-token occurrence in increasing delta order,23,0.0070105,1,0.05132941,3,0.03707122,1,0.06109257,34,0.02601015
+aggregation_seed409_L1024_000,409,aggregation,1024,1004,1004;1014,two explicit offsets selected by the aggregation packet generator,16,0.02265455,1,0.08735567,35,0.03144885,1,0.10236041,1,0.0520203
+passkey_exact_seed409_L1024_001,409,passkey_exact,1024,202,202,exact passkey offset chosen by RNG and exposed as the query offset,21,0.01085342,1,0.05386356,9,0.03503808,1,0.06381997,25,0.02820559
+multi_needle_seed409_L1024_001,409,multi_needle,1024,28,28,third same-token occurrence in increasing delta order,16,0.01007899,1,0.04855306,3,0.03564388,1,0.05993938,34,0.02601015
+aggregation_seed409_L1024_001,409,aggregation,1024,207,207;308,two explicit offsets selected by the aggregation packet generator,2,0.11174649,1,0.08347142,6,0.06390537,1,0.09504933,25,0.0520203
+passkey_exact_seed409_L1024_002,409,passkey_exact,1024,605,605,exact passkey offset chosen by RNG and exposed as the query offset,17,0.0080417,1,0.0516863,19,0.0253801,1,0.06531189,15,0.02820559
+multi_needle_seed409_L1024_002,409,multi_needle,1024,23,23,third same-token occurrence in increasing delta order,20,0.006966,1,0.05322717,3,0.042681,1,0.0672758,34,0.02601015
+aggregation_seed409_L1024_002,409,aggregation,1024,646,646;699,two explicit offsets selected by the aggregation packet generator,1,0.09548282,1,0.07235716,23,0.04311412,1,0.07995876,10,0.0520203
+passkey_exact_seed409_L1024_003,409,passkey_exact,1024,786,786,exact passkey offset chosen by RNG and exposed as the query offset,19,0.00731466,1,0.05293595,24,0.02068769,1,0.06532266,10,0.02820559
+multi_needle_seed409_L1024_003,409,multi_needle,1024,37,37,third same-token occurrence in increasing delta order,24,0.00782434,1,0.05081729,3,0.03738643,1,0.06513994,34,0.02601015
+aggregation_seed409_L1024_003,409,aggregation,1024,912,912;979,two explicit offsets selected by the aggregation packet generator,1,0.09448934,1,0.0831141,32,0.03346476,1,0.08904475,2,0.0520203
+passkey_exact_seed419_L128_000,419,passkey_exact,128,100,100,exact passkey offset chosen by RNG and exposed as the query offset,7,0.0200434,1,0.12352347,8,0.07352304,1,0.14232901,4,0.0885933
+multi_needle_seed419_L128_000,419,multi_needle,128,17,17,third same-token occurrence in increasing delta order,6,0.02213678,1,0.12229001,3,0.10709367,1,0.14375507,10,0.08139971
+aggregation_seed419_L128_000,419,aggregation,128,38,38;48,two explicit offsets selected by the aggregation packet generator,5,0.07363947,1,0.17406163,2,0.17424366,1,0.18192893,10,0.14005505
+passkey_exact_seed419_L128_001,419,passkey_exact,128,50,50,exact passkey offset chosen by RNG and exposed as the query offset,4,0.0437356,1,0.13179374,6,0.08826682,1,0.15160428,6,0.0885933
+multi_needle_seed419_L128_001,419,multi_needle,128,28,28,third same-token occurrence in increasing delta order,8,0.02484202,1,0.12776969,3,0.10505545,1,0.14814264,10,0.08139971
+aggregation_seed419_L128_001,419,aggregation,128,106,106;114,two explicit offsets selected by the aggregation packet generator,4,0.07027341,1,0.17332886,10,0.10629308,1,0.18294135,4,0.14005505
+passkey_exact_seed419_L128_002,419,passkey_exact,128,58,58,exact passkey offset chosen by RNG and exposed as the query offset,6,0.038388,1,0.14586364,5,0.08585629,1,0.16765239,7,0.0885933
+multi_needle_seed419_L128_002,419,multi_needle,128,41,41,third same-token occurrence in increasing delta order,6,0.04306168,1,0.12255896,3,0.10675795,1,0.13799243,10,0.08139971
+aggregation_seed419_L128_002,419,aggregation,128,94,94;102,two explicit offsets selected by the aggregation packet generator,5,0.0479329,1,0.17766097,13,0.09816517,1,0.19633983,1,0.14005505
+passkey_exact_seed419_L128_003,419,passkey_exact,128,74,74,exact passkey offset chosen by RNG and exposed as the query offset,4,0.03093563,1,0.13378072,7,0.07641702,1,0.15854831,5,0.0885933
+multi_needle_seed419_L128_003,419,multi_needle,128,43,43,third same-token occurrence in increasing delta order,8,0.02703164,1,0.12521823,3,0.09364988,1,0.13957393,10,0.08139971
+aggregation_seed419_L128_003,419,aggregation,128,82,82;95,two explicit offsets selected by the aggregation packet generator,7,0.05108715,1,0.17755515,9,0.10937473,1,0.19498208,4,0.14005505
+passkey_exact_seed419_L256_000,419,passkey_exact,256,183,183,exact passkey offset chosen by RNG and exposed as the query offset,6,0.05012872,1,0.13785186,9,0.06870879,1,0.15575252,3,0.08617112
+multi_needle_seed419_L256_000,419,multi_needle,256,73,73,third same-token occurrence in increasing delta order,6,0.0367539,1,0.13360363,3,0.10103238,1,0.14399096,10,0.07935036
+aggregation_seed419_L256_000,419,aggregation,256,190,190;210,two explicit offsets selected by the aggregation packet generator,2,0.26269038,1,0.17915151,10,0.10902201,1,0.18494528,4,0.1370109
+passkey_exact_seed419_L256_001,419,passkey_exact,256,177,177,exact passkey offset chosen by RNG and exposed as the query offset,5,0.03365689,1,0.1360887,5,0.08302734,1,0.15962966,7,0.08617112
+multi_needle_seed419_L256_001,419,multi_needle,256,43,43,third same-token occurrence in increasing delta order,6,0.04048534,1,0.13569314,3,0.10237759,1,0.15852865,10,0.07935036
+aggregation_seed419_L256_001,419,aggregation,256,96,96;116,two explicit offsets selected by the aggregation packet generator,2,0.22474583,1,0.18004311,5,0.1497954,1,0.18051676,8,0.1370109
+passkey_exact_seed419_L256_002,419,passkey_exact,256,71,71,exact passkey offset chosen by RNG and exposed as the query offset,4,0.05616751,1,0.13141709,2,0.10501479,1,0.15024502,10,0.08617112
+multi_needle_seed419_L256_002,419,multi_needle,256,36,36,third same-token occurrence in increasing delta order,9,0.0334167,1,0.12932145,3,0.10581689,1,0.13782218,10,0.07935036
+aggregation_seed419_L256_002,419,aggregation,256,101,101;113,two explicit offsets selected by the aggregation packet generator,8,0.06317732,1,0.20047874,7,0.13106853,1,0.22020439,7,0.1370109
+passkey_exact_seed419_L256_003,419,passkey_exact,256,185,185,exact passkey offset chosen by RNG and exposed as the query offset,6,0.03720652,1,0.13119888,7,0.07761403,1,0.14689296,5,0.08617112
+multi_needle_seed419_L256_003,419,multi_needle,256,19,19,third same-token occurrence in increasing delta order,4,0.02306559,1,0.13209308,3,0.11998065,1,0.16120679,10,0.07935036
+aggregation_seed419_L256_003,419,aggregation,256,173,173;189,two explicit offsets selected by the aggregation packet generator,11,0.04546783,1,0.18274925,9,0.10575271,1,0.20686422,5,0.1370109
+passkey_exact_seed419_L512_000,419,passkey_exact,512,433,433,exact passkey offset chosen by RNG and exposed as the query offset,8,0.03360492,1,0.09732652,15,0.03776303,1,0.11395727,3,0.05487118
+multi_needle_seed419_L512_000,419,multi_needle,512,16,16,third same-token occurrence in increasing delta order,12,0.01784063,1,0.08738544,3,0.07137187,1,0.10491032,16,0.05202366
+aggregation_seed419_L512_000,419,aggregation,512,414,414;437,two explicit offsets selected by the aggregation packet generator,9,0.03823713,1,0.14115027,16,0.06826745,1,0.15171427,2,0.09891419
+passkey_exact_seed419_L512_001,419,passkey_exact,512,161,161,exact passkey offset chosen by RNG and exposed as the query offset,8,0.02556092,1,0.09799756,3,0.06811928,1,0.11956171,15,0.05487118
+multi_needle_seed419_L512_001,419,multi_needle,512,104,104,third same-token occurrence in increasing delta order,8,0.01750191,1,0.09344811,3,0.06759006,1,0.11549039,16,0.05202366
+aggregation_seed419_L512_001,419,aggregation,512,401,401;420,two explicit offsets selected by the aggregation packet generator,2,0.14081268,1,0.14401526,13,0.0761239,1,0.16113211,6,0.09891419
+passkey_exact_seed419_L512_002,419,passkey_exact,512,332,332,exact passkey offset chosen by RNG and exposed as the query offset,8,0.02345745,1,0.09293359,10,0.04649808,1,0.10830098,8,0.05487118
+multi_needle_seed419_L512_002,419,multi_needle,512,12,12,third same-token occurrence in increasing delta order,10,0.0160962,1,0.09141273,3,0.07692457,1,0.11167522,16,0.05202366
+aggregation_seed419_L512_002,419,aggregation,512,375,375;401,two explicit offsets selected by the aggregation packet generator,7,0.05378312,1,0.14251253,13,0.07745169,1,0.17834248,6,0.09891419
+passkey_exact_seed419_L512_003,419,passkey_exact,512,449,449,exact passkey offset chosen by RNG and exposed as the query offset,10,0.01533778,1,0.10215999,16,0.03490002,1,0.12627078,2,0.05487118
+multi_needle_seed419_L512_003,419,multi_needle,512,65,65,third same-token occurrence in increasing delta order,10,0.02603379,1,0.09186414,3,0.0734002,1,0.11591677,16,0.05202366
+aggregation_seed419_L512_003,419,aggregation,512,496,496;508,two explicit offsets selected by the aggregation packet generator,7,0.03384158,1,0.15966473,18,0.05743404,1,0.18560253,1,0.09891419
+passkey_exact_seed419_L1024_000,419,passkey_exact,1024,437,437,exact passkey offset chosen by RNG and exposed as the query offset,19,0.01542734,1,0.05365445,14,0.02977543,1,0.06694309,20,0.02820559
+multi_needle_seed419_L1024_000,419,multi_needle,1024,80,80,third same-token occurrence in increasing delta order,20,0.0085173,1,0.05006426,3,0.03707415,1,0.06210375,34,0.02601015
+aggregation_seed419_L1024_000,419,aggregation,1024,922,922;931,two explicit offsets selected by the aggregation packet generator,21,0.01507721,1,0.08709639,33,0.03261135,1,0.09778595,3,0.0520203
+passkey_exact_seed419_L1024_001,419,passkey_exact,1024,845,845,exact passkey offset chosen by RNG and exposed as the query offset,22,0.00850627,1,0.05383155,30,0.02047447,1,0.06949425,4,0.02820559
+multi_needle_seed419_L1024_001,419,multi_needle,1024,54,54,third same-token occurrence in increasing delta order,19,0.00972919,1,0.05213765,3,0.03761257,1,0.0629995,34,0.02601015
+aggregation_seed419_L1024_001,419,aggregation,1024,393,393;449,two explicit offsets selected by the aggregation packet generator,23,0.01055719,1,0.0824646,12,0.05827209,1,0.09588806,23,0.0520203
+passkey_exact_seed419_L1024_002,419,passkey_exact,1024,305,305,exact passkey offset chosen by RNG and exposed as the query offset,20,0.00901613,1,0.05162627,12,0.03095251,1,0.06534335,22,0.02820559
+multi_needle_seed419_L1024_002,419,multi_needle,1024,47,47,third same-token occurrence in increasing delta order,19,0.00925473,1,0.05127963,3,0.03877873,1,0.06146456,34,0.02601015
+aggregation_seed419_L1024_002,419,aggregation,1024,490,490;593,two explicit offsets selected by the aggregation packet generator,18,0.01520422,1,0.0744442,22,0.04627395,1,0.08284164,11,0.0520203
+passkey_exact_seed419_L1024_003,419,passkey_exact,1024,750,750,exact passkey offset chosen by RNG and exposed as the query offset,15,0.0091836,1,0.05192511,25,0.02231075,1,0.06380091,9,0.02820559
+multi_needle_seed419_L1024_003,419,multi_needle,1024,55,55,third same-token occurrence in increasing delta order,20,0.0079724,1,0.05046904,3,0.03978489,1,0.06123676,34,0.02601015
+aggregation_seed419_L1024_003,419,aggregation,1024,612,612;726,two explicit offsets selected by the aggregation packet generator,7,0.04851889,1,0.07619199,21,0.04369155,1,0.08143152,13,0.0520203
+passkey_exact_seed421_L128_000,421,passkey_exact,128,35,35,exact passkey offset chosen by RNG and exposed as the query offset,5,0.02544321,1,0.1291461,6,0.10022533,1,0.14192865,6,0.0885933
+multi_needle_seed421_L128_000,421,multi_needle,128,32,32,third same-token occurrence in increasing delta order,8,0.02665053,1,0.12122688,3,0.10141927,1,0.14517033,10,0.08139971
+aggregation_seed421_L128_000,421,aggregation,128,59,59;73,two explicit offsets selected by the aggregation packet generator,8,0.07167922,1,0.1765065,5,0.14547514,1,0.20716144,8,0.14005505
+passkey_exact_seed421_L128_001,421,passkey_exact,128,99,99,exact passkey offset chosen by RNG and exposed as the query offset,6,0.0237551,1,0.12849977,7,0.07891166,1,0.14892372,5,0.0885933
+multi_needle_seed421_L128_001,421,multi_needle,128,58,58,third same-token occurrence in increasing delta order,4,0.04288828,1,0.12832427,3,0.09443206,1,0.15583019,10,0.08139971
+aggregation_seed421_L128_001,421,aggregation,128,57,57;70,two explicit offsets selected by the aggregation packet generator,9,0.04614795,1,0.17018393,9,0.12332408,1,0.18595113,3,0.14005505
+passkey_exact_seed421_L128_002,421,passkey_exact,128,116,116,exact passkey offset chosen by RNG and exposed as the query offset,6,0.04726811,1,0.12987894,11,0.05770034,1,0.14674418,1,0.0885933
+multi_needle_seed421_L128_002,421,multi_needle,128,36,36,third same-token occurrence in increasing delta order,9,0.01791722,1,0.12190635,3,0.09777479,1,0.13996264,10,0.08139971
+aggregation_seed421_L128_002,421,aggregation,128,37,37;48,two explicit offsets selected by the aggregation packet generator,8,0.04060691,1,0.1853867,2,0.17088716,1,0.20304563,11,0.14005505
+passkey_exact_seed421_L128_003,421,passkey_exact,128,41,41,exact passkey offset chosen by RNG and exposed as the query offset,8,0.05084074,1,0.13136028,2,0.10953096,1,0.14636987,10,0.0885933
+multi_needle_seed421_L128_003,421,multi_needle,128,24,24,third same-token occurrence in increasing delta order,5,0.03024607,1,0.12142193,3,0.10743711,1,0.13287021,10,0.08139971
+aggregation_seed421_L128_003,421,aggregation,128,56,56;70,two explicit offsets selected by the aggregation packet generator,6,0.04029391,1,0.16798984,5,0.14244929,1,0.18524186,6,0.14005505
+passkey_exact_seed421_L256_000,421,passkey_exact,256,196,196,exact passkey offset chosen by RNG and exposed as the query offset,7,0.03308515,1,0.1382805,8,0.06731478,1,0.1514667,4,0.08617112
+multi_needle_seed421_L256_000,421,multi_needle,256,27,27,third same-token occurrence in increasing delta order,8,0.02824102,1,0.12520092,3,0.10271108,1,0.13981445,10,0.07935036
+aggregation_seed421_L256_000,421,aggregation,256,62,62;79,two explicit offsets selected by the aggregation packet generator,9,0.04298087,1,0.1703395,4,0.15954401,1,0.17922499,10,0.1370109
+passkey_exact_seed421_L256_001,421,passkey_exact,256,117,117,exact passkey offset chosen by RNG and exposed as the query offset,5,0.07716869,1,0.13111103,4,0.09446518,1,0.15583155,8,0.08617112
+multi_needle_seed421_L256_001,421,multi_needle,256,76,76,third same-token occurrence in increasing delta order,6,0.02342121,1,0.11922984,3,0.09014881,1,0.13960878,10,0.07935036
+aggregation_seed421_L256_001,421,aggregation,256,65,65;95,two explicit offsets selected by the aggregation packet generator,4,0.08859399,1,0.17360058,7,0.1449562,1,0.20752706,7,0.1370109
+passkey_exact_seed421_L256_002,421,passkey_exact,256,91,91,exact passkey offset chosen by RNG and exposed as the query offset,8,0.02879566,1,0.13661745,5,0.09383317,1,0.16185411,7,0.08617112
+multi_needle_seed421_L256_002,421,multi_needle,256,77,77,third same-token occurrence in increasing delta order,9,0.0260457,1,0.12898689,3,0.10003719,1,0.14774392,10,0.07935036
+aggregation_seed421_L256_002,421,aggregation,256,161,161;172,two explicit offsets selected by the aggregation packet generator,6,0.0703484,1,0.18196852,10,0.11486978,1,0.2037646,4,0.1370109
+passkey_exact_seed421_L256_003,421,passkey_exact,256,170,170,exact passkey offset chosen by RNG and exposed as the query offset,9,0.03791307,1,0.14718366,5,0.07826919,1,0.1540931,7,0.08617112
+multi_needle_seed421_L256_003,421,multi_needle,256,45,45,third same-token occurrence in increasing delta order,8,0.05058638,1,0.12587898,3,0.10612122,1,0.14688181,10,0.07935036
+aggregation_seed421_L256_003,421,aggregation,256,51,51;57,two explicit offsets selected by the aggregation packet generator,6,0.06563211,1,0.18240841,4,0.15697268,1,0.20137085,9,0.1370109
+passkey_exact_seed421_L512_000,421,passkey_exact,512,206,206,exact passkey offset chosen by RNG and exposed as the query offset,8,0.01704775,1,0.09730297,10,0.05253076,1,0.11599772,8,0.05487118
+multi_needle_seed421_L512_000,421,multi_needle,512,50,50,third same-token occurrence in increasing delta order,10,0.03315048,1,0.09153288,3,0.07684977,1,0.10958101,16,0.05202366
+aggregation_seed421_L512_000,421,aggregation,512,114,114;145,two explicit offsets selected by the aggregation packet generator,13,0.02642294,1,0.14094024,4,0.11918467,1,0.17153892,14,0.09891419
+passkey_exact_seed421_L512_001,421,passkey_exact,512,268,268,exact passkey offset chosen by RNG and exposed as the query offset,10,0.01680918,1,0.09161584,6,0.05746446,1,0.1071894,12,0.05487118
+multi_needle_seed421_L512_001,421,multi_needle,512,44,44,third same-token occurrence in increasing delta order,8,0.02257674,1,0.09135107,3,0.07539192,1,0.10685447,16,0.05202366
+aggregation_seed421_L512_001,421,aggregation,512,455,455;500,two explicit offsets selected by the aggregation packet generator,7,0.07269229,1,0.148246,18,0.05908274,1,0.17176922,1,0.09891419
+passkey_exact_seed421_L512_002,421,passkey_exact,512,249,249,exact passkey offset chosen by RNG and exposed as the query offset,11,0.01479251,1,0.08875904,4,0.05918762,1,0.1003968,14,0.05487118
+multi_needle_seed421_L512_002,421,multi_needle,512,66,66,third same-token occurrence in increasing delta order,10,0.01914651,1,0.09027393,3,0.07249617,1,0.11118708,16,0.05202366
+aggregation_seed421_L512_002,421,aggregation,512,102,102;126,two explicit offsets selected by the aggregation packet generator,6,0.03819601,1,0.14090022,6,0.1112743,1,0.15323788,12,0.09891419
+passkey_exact_seed421_L512_003,421,passkey_exact,512,435,435,exact passkey offset chosen by RNG and exposed as the query offset,9,0.01813075,1,0.09670117,16,0.03251136,1,0.12082644,2,0.05487118
+multi_needle_seed421_L512_003,421,multi_needle,512,74,74,third same-token occurrence in increasing delta order,7,0.02211125,1,0.09586926,3,0.07459101,1,0.11334028,16,0.05202366
+aggregation_seed421_L512_003,421,aggregation,512,417,417;452,two explicit offsets selected by the aggregation packet generator,8,0.03513201,1,0.13797721,16,0.07080361,1,0.14449416,2,0.09891419
+passkey_exact_seed421_L1024_000,421,passkey_exact,1024,448,448,exact passkey offset chosen by RNG and exposed as the query offset,13,0.01172232,1,0.0539163,11,0.03084922,1,0.06438637,23,0.02820559
+multi_needle_seed421_L1024_000,421,multi_needle,1024,87,87,third same-token occurrence in increasing delta order,20,0.00983683,1,0.049957,3,0.0362341,1,0.06033981,34,0.02601015
+aggregation_seed421_L1024_000,421,aggregation,1024,433,433;537,two explicit offsets selected by the aggregation packet generator,22,0.01313444,1,0.07457633,16,0.05191432,1,0.08610236,16,0.0520203
+passkey_exact_seed421_L1024_001,421,passkey_exact,1024,603,603,exact passkey offset chosen by RNG and exposed as the query offset,20,0.00731301,1,0.05238196,16,0.02594473,1,0.0646045,18,0.02820559
+multi_needle_seed421_L1024_001,421,multi_needle,1024,56,56,third same-token occurrence in increasing delta order,21,0.00688618,1,0.05096801,3,0.03710068,1,0.06150956,34,0.02601015
+aggregation_seed421_L1024_001,421,aggregation,1024,865,865;884,two explicit offsets selected by the aggregation packet generator,3,0.11619129,1,0.082153,28,0.03631213,1,0.09252658,7,0.0520203
+passkey_exact_seed421_L1024_002,421,passkey_exact,1024,795,795,exact passkey offset chosen by RNG and exposed as the query offset,15,0.01178293,1,0.05153503,29,0.02031082,1,0.06463221,5,0.02820559
+multi_needle_seed421_L1024_002,421,multi_needle,1024,77,77,third same-token occurrence in increasing delta order,22,0.00731262,1,0.05248945,3,0.03834011,1,0.06322152,34,0.02601015
+aggregation_seed421_L1024_002,421,aggregation,1024,522,522;632,two explicit offsets selected by the aggregation packet generator,10,0.02771044,1,0.07502732,19,0.04858607,1,0.08035245,14,0.0520203
+passkey_exact_seed421_L1024_003,421,passkey_exact,1024,634,634,exact passkey offset chosen by RNG and exposed as the query offset,17,0.00979182,1,0.05180636,20,0.02481043,1,0.06626015,14,0.02820559
+multi_needle_seed421_L1024_003,421,multi_needle,1024,44,44,third same-token occurrence in increasing delta order,17,0.01198076,1,0.05095027,3,0.03856692,1,0.06335392,34,0.02601015
+aggregation_seed421_L1024_003,421,aggregation,1024,954,954;1020,two explicit offsets selected by the aggregation packet generator,5,0.05054534,1,0.08209619,32,0.03057372,1,0.0886508,1,0.0520203
+passkey_exact_seed431_L128_000,431,passkey_exact,128,100,100,exact passkey offset chosen by RNG and exposed as the query offset,5,0.02775363,1,0.13506617,11,0.06327225,1,0.15101798,1,0.0885933
+multi_needle_seed431_L128_000,431,multi_needle,128,19,19,third same-token occurrence in increasing delta order,8,0.01768943,1,0.1207201,3,0.09836818,1,0.1321054,10,0.08139971
+aggregation_seed431_L128_000,431,aggregation,128,77,77;87,two explicit offsets selected by the aggregation packet generator,7,0.0384735,1,0.18189962,8,0.11342225,1,0.20108998,5,0.14005505
+passkey_exact_seed431_L128_001,431,passkey_exact,128,53,53,exact passkey offset chosen by RNG and exposed as the query offset,5,0.03057713,1,0.13727925,3,0.10068785,1,0.16208066,9,0.0885933
+multi_needle_seed431_L128_001,431,multi_needle,128,32,32,third same-token occurrence in increasing delta order,7,0.02503746,1,0.12521461,3,0.10076817,1,0.15130541,10,0.08139971
+aggregation_seed431_L128_001,431,aggregation,128,114,114;124,two explicit offsets selected by the aggregation packet generator,8,0.04595952,1,0.18013435,12,0.1016392,1,0.19806769,1,0.14005505
+passkey_exact_seed431_L128_002,431,passkey_exact,128,24,24,exact passkey offset chosen by RNG and exposed as the query offset,6,0.03449618,1,0.13360923,4,0.10920501,1,0.14901301,8,0.0885933
+multi_needle_seed431_L128_002,431,multi_needle,128,48,48,third same-token occurrence in increasing delta order,7,0.02762162,1,0.12266413,3,0.09462141,1,0.14176382,10,0.08139971
+aggregation_seed431_L128_002,431,aggregation,128,30,30;44,two explicit offsets selected by the aggregation packet generator,7,0.03846267,1,0.16996388,3,0.16447221,1,0.18287392,9,0.14005505
+passkey_exact_seed431_L128_003,431,passkey_exact,128,86,86,exact passkey offset chosen by RNG and exposed as the query offset,5,0.04165074,1,0.12906918,8,0.07451481,1,0.14901689,4,0.0885933
+multi_needle_seed431_L128_003,431,multi_needle,128,30,30,third same-token occurrence in increasing delta order,8,0.03062785,1,0.12180087,3,0.09985965,1,0.14391138,10,0.08139971
+aggregation_seed431_L128_003,431,aggregation,128,89,89;103,two explicit offsets selected by the aggregation packet generator,5,0.0601752,1,0.18247586,11,0.10123842,1,0.20566938,2,0.14005505
+passkey_exact_seed431_L256_000,431,passkey_exact,256,135,135,exact passkey offset chosen by RNG and exposed as the query offset,9,0.02516067,1,0.12765891,5,0.08999093,1,0.14945558,7,0.08617112
+multi_needle_seed431_L256_000,431,multi_needle,256,128,128,third same-token occurrence in increasing delta order,6,0.03501416,1,0.12401096,3,0.09089454,1,0.15269834,10,0.07935036
+aggregation_seed431_L256_000,431,aggregation,256,118,118;142,two explicit offsets selected by the aggregation packet generator,10,0.02766092,1,0.17644314,4,0.14453726,1,0.19563803,8,0.1370109
+passkey_exact_seed431_L256_001,431,passkey_exact,256,236,236,exact passkey offset chosen by RNG and exposed as the query offset,6,0.03078819,1,0.14396488,11,0.05559419,1,0.17395832,1,0.08617112
+multi_needle_seed431_L256_001,431,multi_needle,256,49,49,third same-token occurrence in increasing delta order,5,0.0365529,1,0.12640482,3,0.09628099,1,0.13492856,10,0.07935036
+aggregation_seed431_L256_001,431,aggregation,256,135,135;147,two explicit offsets selected by the aggregation packet generator,9,0.02998719,1,0.19837889,10,0.11659145,1,0.22594366,4,0.1370109
+passkey_exact_seed431_L256_002,431,passkey_exact,256,145,145,exact passkey offset chosen by RNG and exposed as the query offset,5,0.0279106,1,0.13721191,9,0.06557391,1,0.15925759,3,0.08617112
+multi_needle_seed431_L256_002,431,multi_needle,256,89,89,third same-token occurrence in increasing delta order,6,0.02831426,1,0.12572209,3,0.09216363,1,0.14967013,10,0.07935036
+aggregation_seed431_L256_002,431,aggregation,256,152,152;179,two explicit offsets selected by the aggregation packet generator,4,0.12809634,1,0.17955248,8,0.11655874,1,0.198125,5,0.1370109
+passkey_exact_seed431_L256_003,431,passkey_exact,256,119,119,exact passkey offset chosen by RNG and exposed as the query offset,8,0.03010241,1,0.14301914,8,0.07514124,1,0.16914152,4,0.08617112
+multi_needle_seed431_L256_003,431,multi_needle,256,91,91,third same-token occurrence in increasing delta order,7,0.02793498,1,0.12099003,3,0.08961316,1,0.13698141,10,0.07935036
+aggregation_seed431_L256_003,431,aggregation,256,240,240;252,two explicit offsets selected by the aggregation packet generator,8,0.04077547,1,0.20230271,13,0.08638986,1,0.221141,1,0.1370109
+passkey_exact_seed431_L512_000,431,passkey_exact,512,461,461,exact passkey offset chosen by RNG and exposed as the query offset,8,0.02048593,1,0.09500064,17,0.03677064,1,0.11099848,1,0.05487118
+multi_needle_seed431_L512_000,431,multi_needle,512,38,38,third same-token occurrence in increasing delta order,10,0.02212522,1,0.08813537,3,0.06888007,1,0.10742172,16,0.05202366
+aggregation_seed431_L512_000,431,aggregation,512,306,306;342,two explicit offsets selected by the aggregation packet generator,11,0.02850237,1,0.13803835,14,0.07784983,1,0.1532097,4,0.09891419
+passkey_exact_seed431_L512_001,431,passkey_exact,512,137,137,exact passkey offset chosen by RNG and exposed as the query offset,9,0.01995991,1,0.09689623,4,0.06680622,1,0.1182071,14,0.05487118
+multi_needle_seed431_L512_001,431,multi_needle,512,195,195,third same-token occurrence in increasing delta order,12,0.01404961,1,0.08466317,3,0.06102487,1,0.0983195,16,0.05202366
+aggregation_seed431_L512_001,431,aggregation,512,412,412;472,two explicit offsets selected by the aggregation packet generator,11,0.02940963,1,0.13636615,17,0.06847652,1,0.15422978,2,0.09891419
+passkey_exact_seed431_L512_002,431,passkey_exact,512,164,164,exact passkey offset chosen by RNG and exposed as the query offset,11,0.02180683,1,0.09375676,4,0.05962681,1,0.10284451,14,0.05487118
+multi_needle_seed431_L512_002,431,multi_needle,512,40,40,third same-token occurrence in increasing delta order,10,0.02086144,1,0.0902391,3,0.0725856,1,0.10476986,16,0.05202366
+aggregation_seed431_L512_002,431,aggregation,512,102,102;123,two explicit offsets selected by the aggregation packet generator,4,0.11010484,1,0.14289325,5,0.12166173,1,0.15238319,14,0.09891419
+passkey_exact_seed431_L512_003,431,passkey_exact,512,232,232,exact passkey offset chosen by RNG and exposed as the query offset,10,0.01625896,1,0.09513085,6,0.05782934,1,0.1122353,12,0.05487118
+multi_needle_seed431_L512_003,431,multi_needle,512,37,37,third same-token occurrence in increasing delta order,8,0.02135823,1,0.09267541,3,0.07293814,1,0.11339159,16,0.05202366
+aggregation_seed431_L512_003,431,aggregation,512,437,437;466,two explicit offsets selected by the aggregation packet generator,5,0.15117952,1,0.13784134,17,0.0641301,1,0.16957778,2,0.09891419
+passkey_exact_seed431_L1024_000,431,passkey_exact,1024,593,593,exact passkey offset chosen by RNG and exposed as the query offset,21,0.00962671,1,0.05189452,18,0.02585792,1,0.06193764,16,0.02820559
+multi_needle_seed431_L1024_000,431,multi_needle,1024,69,69,third same-token occurrence in increasing delta order,16,0.01196509,1,0.05140767,3,0.03744633,1,0.06146338,34,0.02601015
+aggregation_seed431_L1024_000,431,aggregation,1024,690,690;728,two explicit offsets selected by the aggregation packet generator,9,0.02772447,1,0.07928421,19,0.0456103,1,0.08762771,15,0.0520203
+passkey_exact_seed431_L1024_001,431,passkey_exact,1024,1012,1012,exact passkey offset chosen by RNG and exposed as the query offset,16,0.00970893,1,0.05662759,33,0.01657153,1,0.06811658,1,0.02820559
+multi_needle_seed431_L1024_001,431,multi_needle,1024,160,160,third same-token occurrence in increasing delta order,26,0.00689802,1,0.05197291,3,0.03825367,1,0.06517251,34,0.02601015
+aggregation_seed431_L1024_001,431,aggregation,1024,257,257;302,two explicit offsets selected by the aggregation packet generator,9,0.04504108,1,0.0810783,8,0.06184329,1,0.09743621,28,0.0520203
+passkey_exact_seed431_L1024_002,431,passkey_exact,1024,172,172,exact passkey offset chosen by RNG and exposed as the query offset,12,0.01545987,1,0.05554318,9,0.03620495,1,0.06799117,25,0.02820559
+multi_needle_seed431_L1024_002,431,multi_needle,1024,39,39,third same-token occurrence in increasing delta order,19,0.01169613,1,0.0525658,3,0.0386593,1,0.06774108,34,0.02601015
+aggregation_seed431_L1024_002,431,aggregation,1024,368,368;391,two explicit offsets selected by the aggregation packet generator,17,0.02919463,1,0.08121102,17,0.05264705,1,0.09186376,18,0.0520203
+passkey_exact_seed431_L1024_003,431,passkey_exact,1024,335,335,exact passkey offset chosen by RNG and exposed as the query offset,19,0.01084817,1,0.0532566,10,0.03322861,1,0.06329025,24,0.02820559
+multi_needle_seed431_L1024_003,431,multi_needle,1024,25,25,third same-token occurrence in increasing delta order,17,0.00801715,1,0.05170139,3,0.03787841,1,0.06154504,34,0.02601015
+aggregation_seed431_L1024_003,431,aggregation,1024,647,647;746,two explicit offsets selected by the aggregation packet generator,11,0.04355208,1,0.07687152,21,0.04354829,1,0.08161097,12,0.0520203

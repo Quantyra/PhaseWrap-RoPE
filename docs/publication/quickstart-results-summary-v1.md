@@ -132,6 +132,14 @@ python scripts/run_stage11_phasewrap_theory.py
 
 This writes `logs/automated_stage_gates/stage11_phasewrap_theory/manifest.json`, `results.json`, `alias_summary.csv`, `period_pair_summary.csv`, and `residue_score_table.csv`. The current result verifies that the fixed 8/12 score is a mod-24 periodic feature with translation invariance, mirror aliases, 10 distinct residue scores, alias growth with context length, and exact small Fourier support `[1, 2, 3, 5]`.
 
+Run the Stage 12 no-credential RULER-style retrieval benchmark:
+
+```bash
+python scripts/run_stage12_ruler_retrieval.py
+```
+
+This writes `logs/automated_stage_gates/stage12_ruler_retrieval/manifest.json`, `results.json`, `summary.csv`, `task_summary.csv`, and `per_example_results.csv`. The current result is non-phase-cued: RoPE-like and sinusoidal baselines solve the fixed passkey/multi-needle/aggregation-style packet, while the fixed 8/12 PhaseWrap score does not.
+
 ## What This Supports
 
 - A bounded phase-wrap scoring method using mod-8 and mod-12 wrapped residual margins.
@@ -148,6 +156,7 @@ This writes `logs/automated_stage_gates/stage11_phasewrap_theory/manifest.json`,
 - A deterministic Stage 9 trained positional-attention ablation where `phasewrap_adapter` has mean test top-1 `0.668750` and mean test MRR `0.745096` on the phase-cued train-short/test-long packet, while `rope_relative` is strongest on the exact-offset passkey packet whose answer is not selected by the PhaseWrap score.
 - A Stage 10 small decoder-only transformer ablation showing that this very small autograd-backed model does not yet produce a meaningful PhaseWrap advantage on the tested phase-cued, passkey, or tiny text-fact QA lanes; the capacity probe also indicates weak training-set fit.
 - A Stage 11 score-theory analysis showing that the fixed 8/12 score is compact and exactly auditable as a classical periodic feature, with explicit long-context aliasing limits.
+- A deterministic Stage 12 RULER-style retrieval benchmark showing that exact-offset passkey, multi-needle, and aggregation-style retrieval currently favor RoPE-like and sinusoidal baselines over the fixed 8/12 PhaseWrap score.
 
 ## What This Does Not Support
 
@@ -164,12 +173,13 @@ This writes `logs/automated_stage_gates/stage11_phasewrap_theory/manifest.json`,
 - a claim that Stage 9 is a full language-model benchmark, production transformer result, or proof that PhaseWrap-RoPE replaces RoPE.
 - a claim that Stage 10 establishes production transformer superiority, a RoPE replacement result, or a full language-model benchmark.
 - a claim that Stage 11 proves the 8/12 period pair is globally optimal or resolves long-context aliasing by itself.
+- a claim that Stage 12 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
 
 ## Open Questions
 
 - **Why mod-8 and mod-12?** They provide two distinct wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band interaction through the product of signed margins. Stage 8 adds a release-local period-pair ablation where `(8, 12)` is best on the phase-cued Needle-style packet, and Stage 11 shows the fixed 8/12 score is exactly a mod-24 periodic feature with frequency support `[1, 2, 3, 5]`; this is still not a proof of global optimality.
-- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 10 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance and does not show a meaningful PhaseWrap advantage.
-- **What would make the RoPE-replacement case stronger?** The next expansion should train a stronger matched small decoder-only transformer with RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional mechanisms; evaluate train-short/test-long context extrapolation; include non-synthetic retrieval or QA tasks; run at least five seeds; and publish failed runs plus confidence intervals.
+- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 12 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not.
+- **What would make the RoPE-replacement case stronger?** The next expansion should train a stronger matched small decoder-only transformer with RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional mechanisms; evaluate train-short/test-long context extrapolation; include non-synthetic retrieval or QA tasks; run at least five seeds; and publish failed runs plus confidence intervals. Stage 12 makes clear that the fixed score alone is not enough for exact-offset retrieval.
 - **Why the CX variant?** It is the smallest entangling extension of the product-state witness: keep the two `RY` margin encodings, add one `CX(q0 -> q1)`, and read a target-qubit parity/product signal while preserving the same packet discipline.
 - **Will the packet generation pipeline be reusable?** The current pipeline is open in `src/qrope/automated_stage_gates.py` and the Stage 4 runner/verifier scripts. A cleaner researcher-facing API is a packaging task, not new scientific evidence.
 - **Should more hardware be run?** Yes, but as independent replication: new dates, new frozen packets, and cost-justified provider targets. IonQ was unavailable through Amazon Braket during the checked window; Quandela/AQT require separate execution and budget decisions.
@@ -187,5 +197,6 @@ This writes `logs/automated_stage_gates/stage11_phasewrap_theory/manifest.json`,
 | Stage 9 | Trained transformer ablation | Executable subset complete for phase-cued and exact-offset passkey trained positional-attention packets; remaining work is full small decoder-only transformer training and non-synthetic retrieval or QA tasks. |
 | Stage 10 | Full small decoder-only transformer ablation | Complete for a very small one-block decoder-only transformer with phase-cued, passkey, and tiny text-fact QA lanes; result is near chance, so stronger small-transformer and harder non-synthetic tasks remain next. |
 | Stage 11 | Theory of the score | Complete for the fixed 8/12 score: invariances, aliasing, period-pair tradeoffs, context-length behavior, and exact periodic-feature support are artifact-backed. Remaining work is task-distribution theory. |
-| Stage 12 | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
-| Stage 13 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |
+| Stage 12 | RULER-style retrieval benchmark | Complete for a deterministic non-phase-cued passkey, multi-needle, and aggregation-style local packet. Result is negative for the fixed 8/12 PhaseWrap score against RoPE-like and sinusoidal baselines. |
+| Stage 13 | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
+| Stage 14 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |

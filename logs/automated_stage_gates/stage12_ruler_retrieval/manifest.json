@@ -1,0 +1,51 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A stricter local retrieval comparison where targets are not defined by the PhaseWrap score.",
+      "Matched deterministic scoring rules across PhaseWrap-RoPE, RoPE-like, ALiBI-like, sinusoidal, and no-position baselines.",
+      "Bootstrap intervals over benchmark rows for top-1, MRR, and target probability mass."
+    ]
+  },
+  "context_lengths": [
+    128,
+    256,
+    512,
+    1024
+  ],
+  "dataset": "deterministic_ruler_style_non_phase_cued_retrieval_v1",
+  "examples_per_task_length": 4,
+  "method_names": [
+    "phasewrap_rope_8_12",
+    "rope_relative",
+    "alibi",
+    "sinusoidal",
+    "no_position"
+  ],
+  "no_hardware_submission": true,
+  "per_example_csv_path": "logs/automated_stage_gates/stage12_ruler_retrieval/per_example_results.csv",
+  "result_path": "logs/automated_stage_gates/stage12_ruler_retrieval/results.json",
+  "row_count": 240,
+  "schema_version": "qrope_stage12_ruler_retrieval_v1",
+  "seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "stage": "stage12_ruler_retrieval",
+  "summary_csv_path": "logs/automated_stage_gates/stage12_ruler_retrieval/summary.csv",
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_summary_csv_path": "logs/automated_stage_gates/stage12_ruler_retrieval/task_summary.csv"
+}
