@@ -1,0 +1,53 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic long-context retrieval stress test using explicit passkey, multi-needle, and aggregation target rules.",
+      "Evidence about whether fixed positional scoring rules remain competitive as local retrieval contexts extend to 4096 tokens.",
+      "Reported weak or failed method rows under a predeclared top-1 threshold."
+    ]
+  },
+  "context_lengths": [
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "dataset": "deterministic_long_context_ruler_style_retrieval_v1",
+  "examples_per_task_length": 4,
+  "length_summary_csv_path": "logs/automated_stage_gates/stage22_long_context_retrieval/length_summary.csv",
+  "method_names": [
+    "phasewrap_rope_8_12",
+    "rope_relative",
+    "alibi",
+    "sinusoidal",
+    "no_position"
+  ],
+  "no_hardware_submission": true,
+  "per_example_csv_path": "logs/automated_stage_gates/stage22_long_context_retrieval/per_example_results.csv",
+  "result_path": "logs/automated_stage_gates/stage22_long_context_retrieval/results.json",
+  "row_count": 240,
+  "schema_version": "qrope_stage22_long_context_retrieval_v1",
+  "seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "source_stage": "stage12_ruler_retrieval",
+  "stage": "stage22_long_context_retrieval",
+  "summary_csv_path": "logs/automated_stage_gates/stage22_long_context_retrieval/summary.csv",
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_summary_csv_path": "logs/automated_stage_gates/stage22_long_context_retrieval/task_summary.csv"
+}
