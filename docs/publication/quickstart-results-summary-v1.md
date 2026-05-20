@@ -148,6 +148,14 @@ python scripts/run_stage13_positional_adapter.py
 
 This writes `logs/automated_stage_gates/stage13_positional_adapter/manifest.json`, `results.json`, `summary.csv`, and `task_summary.csv`. The current result shows that `phasewrap_distance_adapter` matches `rope_relative` on held-out top-1 and MRR, while `rope_relative` has higher target-probability mass.
 
+Run the Stage 14 no-credential attention-readout benchmark:
+
+```bash
+python scripts/run_stage14_attention_readout.py
+```
+
+This writes `logs/automated_stage_gates/stage14_attention_readout/manifest.json`, `results.json`, `summary.csv`, and `task_summary.csv`. The current result turns the Stage 12 rows into key-value readout rows and preserves the Stage 13 pattern: PhaseWrap-plus-distance matches RoPE-like top-1/MRR, while RoPE-like scoring has higher target value probability.
+
 ## What This Supports
 
 - A bounded phase-wrap scoring method using mod-8 and mod-12 wrapped residual margins.
@@ -166,6 +174,7 @@ This writes `logs/automated_stage_gates/stage13_positional_adapter/manifest.json
 - A Stage 11 score-theory analysis showing that the fixed 8/12 score is compact and exactly auditable as a classical periodic feature, with explicit long-context aliasing limits.
 - A deterministic Stage 12 RULER-style retrieval benchmark showing that exact-offset passkey, multi-needle, and aggregation-style retrieval currently favor RoPE-like and sinusoidal baselines over the fixed 8/12 PhaseWrap score.
 - A deterministic Stage 13 positional-adapter benchmark showing that PhaseWrap-derived distance features can close argmax ranking on the local non-phase-cued packet, while RoPE-like scoring remains better on target-probability mass.
+- A deterministic Stage 14 attention-readout benchmark showing the same PhaseWrap-plus-distance argmax result after the target is converted into value-token retrieval, while RoPE-like scoring remains better on target value probability.
 
 ## What This Does Not Support
 
@@ -184,11 +193,12 @@ This writes `logs/automated_stage_gates/stage13_positional_adapter/manifest.json
 - a claim that Stage 11 proves the 8/12 period pair is globally optimal or resolves long-context aliasing by itself.
 - a claim that Stage 12 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
 - a claim that Stage 13 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 14 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
 
 ## Open Questions
 
 - **Why mod-8 and mod-12?** They provide two distinct wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band interaction through the product of signed margins. Stage 8 adds a release-local period-pair ablation where `(8, 12)` is best on the phase-cued Needle-style packet, and Stage 11 shows the fixed 8/12 score is exactly a mod-24 periodic feature with frequency support `[1, 2, 3, 5]`; this is still not a proof of global optimality.
-- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 13 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stage 13 shows that a PhaseWrap-plus-distance adapter can close argmax ranking on that local packet, but not target-probability mass.
+- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 14 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stage 13 shows that a PhaseWrap-plus-distance adapter can close argmax ranking on that local packet, but not target-probability mass. Stage 14 preserves that pattern in key-value attention readout.
 - **What would make the RoPE-replacement case stronger?** The next expansion should train a stronger matched small decoder-only transformer with RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional mechanisms; evaluate train-short/test-long context extrapolation; include non-synthetic retrieval or QA tasks; run at least five seeds; and publish failed runs plus confidence intervals. Stage 12 and Stage 13 make clear that the fixed score alone is not enough; the useful direction is an explicit positional mechanism or adapter.
 - **Why the CX variant?** It is the smallest entangling extension of the product-state witness: keep the two `RY` margin encodings, add one `CX(q0 -> q1)`, and read a target-qubit parity/product signal while preserving the same packet discipline.
 - **Will the packet generation pipeline be reusable?** The current pipeline is open in `src/qrope/automated_stage_gates.py` and the Stage 4 runner/verifier scripts. A cleaner researcher-facing API is a packaging task, not new scientific evidence.
@@ -209,5 +219,6 @@ This writes `logs/automated_stage_gates/stage13_positional_adapter/manifest.json
 | Stage 11 | Theory of the score | Complete for the fixed 8/12 score: invariances, aliasing, period-pair tradeoffs, context-length behavior, and exact periodic-feature support are artifact-backed. Remaining work is task-distribution theory. |
 | Stage 12 | RULER-style retrieval benchmark | Complete for a deterministic non-phase-cued passkey, multi-needle, and aggregation-style local packet. Result is negative for the fixed 8/12 PhaseWrap score against RoPE-like and sinusoidal baselines. |
 | Stage 13 | Positional-adapter benchmark | Complete for a local train-short/test-long adapter on Stage 12 rows. PhaseWrap-plus-distance matches RoPE on top-1/MRR, while RoPE remains better on target-probability mass. |
-| Stage 14 | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
-| Stage 15 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |
+| Stage 14 | Attention-readout benchmark | Complete for key-value readout rows derived from Stage 12. PhaseWrap-plus-distance matches RoPE on top-1/MRR, while RoPE remains better on target value probability. |
+| Stage 15 | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
+| Stage 16 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |

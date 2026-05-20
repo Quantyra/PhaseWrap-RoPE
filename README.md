@@ -38,6 +38,7 @@ python scripts/run_stage10_small_decoder_transformer.py
 python scripts/run_stage11_phasewrap_theory.py
 python scripts/run_stage12_ruler_retrieval.py
 python scripts/run_stage13_positional_adapter.py
+python scripts/run_stage14_attention_readout.py
 ```
 
 ## Status
@@ -50,7 +51,7 @@ python scripts/run_stage13_positional_adapter.py
 - `Stage 4 cost posture`: local recomputation of the committed Stage 4 sweep is covered by a deterministic classical compute estimate: 4,096 static operations over 163,072 recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - `Stage 4 preregistration posture`: future replication lanes now have no-hardware preregistered row-set artifacts with fixed seeds, families, shots, row counts, and row-set hashes; they are not submitted hardware evidence.
 - `Stage 4 calibration posture`: provider bitstring calibration packet specs and a failing-by-default verifier contract now exist for IBM-style `q1q0` and Amazon Braket-style `q0q1` known-state checks; real calibration counts are still missing.
-- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, and Stage 13 tests trained positional adapters on that non-phase-cued packet. Stage 13 shows the fixed score alone remains weak, while a PhaseWrap-plus-distance adapter closes argmax ranking against RoPE on the local packet but not target-probability mass.
+- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, and Stage 14 turns the non-phase-cued rows into key-value attention readout. Stages 13 and 14 show the fixed score alone remains weak, while PhaseWrap-plus-distance closes argmax ranking against RoPE on local packets but not probability mass.
 - `Score theory posture`: Stage 11 formalizes the fixed 8/12 score as a mod-24 periodic feature with translation invariance, mirror aliases, 10 distinct residue scores, and exact small Fourier support. This clarifies why stronger transformer benchmarks must resolve aliasing before any replacement claim.
 - `Hardware posture`: IBM Fez product-state, IBM Fez CX, Amazon Braket/Rigetti product-state, and Amazon Braket CX lanes have completed active Stage 4 hardware artifacts; additional IBM machines are deferred from the active sweep; Amazon Braket/IonQ was checked on 2026-05-19 and was not run because Forte devices were `OFFLINE` and Aria 1 was `RETIRED`; AQT IBEX Q1 is deferred due cost.
 - `Evidence tree posture`: `logs/automated_stage_gates/stage4_hardware_packet/` remains the default single-packet verifier path. The same IBM Fez 2026-05-17 product-state pass is also preserved as an immutable named run under `logs/automated_stage_gates/stage4_hardware_packet_ibm_fez_20260517_pass/` for the sweep manifest.
@@ -102,6 +103,7 @@ The public claim frame excludes:
 - [Stage 11 PhaseWrap score theory analysis](docs/research/q-rope-stage11-phasewrap-theory-v1.md)
 - [Stage 12 RULER-style retrieval benchmark](docs/research/q-rope-stage12-ruler-retrieval-v1.md)
 - [Stage 13 positional-adapter benchmark](docs/research/q-rope-stage13-positional-adapter-v1.md)
+- [Stage 14 attention-readout benchmark](docs/research/q-rope-stage14-attention-readout-v1.md)
 - [Amazon Braket hardware runbook](docs/evidence/E002-braket-hardware-runbook.md)
 - [Automated terminal human-review packet](docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md)
 - [Phase-wrap algorithm note](docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md)
@@ -279,6 +281,14 @@ python scripts/run_stage13_positional_adapter.py
 
 Stage 13 trains lightweight positional adapters on short Stage 12 contexts and evaluates on held-out length-1024 rows. The fixed `phasewrap_score` remains weak; `phasewrap_residual_adapter` improves ranking; `phasewrap_distance_adapter` matches `rope_relative` on top-1 and MRR but has lower target-probability mass. This is a mechanism clue, not a production transformer result.
 
+Run the deterministic Stage 14 attention-readout benchmark:
+
+```bash
+python scripts/run_stage14_attention_readout.py
+```
+
+Stage 14 converts the Stage 12 retrieval rows into key-value attention-readout rows. `phasewrap_distance_adapter` again matches `rope_relative` on top-1 and MRR, while `rope_relative` has higher target value probability. This supports testing PhaseWrap-plus-distance inside a stronger small decoder, not a replacement claim.
+
 ## Reviewer path in 10 minutes
 
 - Read the claim boundary in this README.
@@ -297,6 +307,7 @@ Stage 13 trains lightweight positional adapters on short Stage 12 contexts and e
 - Run `python scripts/run_stage11_phasewrap_theory.py` for the score invariance and aliasing analysis.
 - Run `python scripts/run_stage12_ruler_retrieval.py` for the stricter non-phase-cued retrieval benchmark.
 - Run `python scripts/run_stage13_positional_adapter.py` for the trained positional-adapter follow-up.
+- Run `python scripts/run_stage14_attention_readout.py` for the key-value attention-readout follow-up.
 
 ## CI and test coverage
 
@@ -334,7 +345,8 @@ The current release is ready for bounded repository/preprint publication. The ne
 | 9 | Theory of the score | Complete for the fixed 8/12 score: Stage 11 verifies mod-24 periodicity, translation invariance, mirror aliases, alias growth, period-pair tradeoffs, and exact small Fourier support. Remaining work is to connect those facts to task distributions and stronger trained mechanisms. |
 | 10 | Stage 12 non-phase-cued retrieval benchmark | Complete for passkey, multi-needle, and aggregation-style local retrieval. RoPE-like and sinusoidal baselines solve the packet while the fixed 8/12 PhaseWrap score does not, making the remaining mechanism gap explicit. |
 | 11 | Stage 13 positional-adapter benchmark | Complete for a train-short/test-long adapter on Stage 12 rows. PhaseWrap-plus-distance closes argmax ranking on this local packet, while RoPE remains better calibrated by target probability mass. |
-| 12 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
+| 12 | Stage 14 attention-readout benchmark | Complete for key-value readout rows derived from Stage 12. PhaseWrap-plus-distance again closes argmax value retrieval, while RoPE remains better calibrated by target value probability. |
+| 13 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
 
 The mod-8/mod-12 choice is a fixed first-release design: two wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band product signal. Stage 8 now includes a release-local period-pair ablation in which `(8, 12)` is best on the synthetic phase-cued Needle-style packet. That supports the current design choice for this packet, but it is not a proof of global optimality.
 

@@ -1,0 +1,885 @@
+{
+  "best_method_by_top1_mrr": "rope_relative",
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic attention-readout comparison using non-phase-cued key-value retrieval targets.",
+      "Evidence about whether PhaseWrap-derived adapters can retrieve held-out value tokens under train-short/test-long context extrapolation.",
+      "Bootstrap intervals over held-out test rows for top-1, MRR, and target value probability."
+    ]
+  },
+  "context_lengths": [
+    128,
+    256,
+    512,
+    1024
+  ],
+  "dataset": "deterministic_non_phase_cued_key_value_attention_readout_v1",
+  "examples_per_task_length": 4,
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_score",
+    "phasewrap_residual_adapter",
+    "phasewrap_distance_adapter"
+  ],
+  "no_hardware_submission": true,
+  "schema_version": "qrope_stage14_attention_readout_v1",
+  "seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "selection_table": [
+    {
+      "loss": 0.19911,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.824888,
+      "method": "rope_relative",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.220316,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.846354,
+      "target_value_probability_ci_low": 0.801735,
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.871356,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.432405,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 2.390149,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.462192,
+      "target_value_probability_ci_low": 0.403621,
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.983057,
+      "mean_first_relevant_value_rank": 1.316667,
+      "mean_target_value_probability": 0.386298,
+      "method": "sinusoidal",
+      "mrr": 0.859722,
+      "mrr_ci_high": 0.913889,
+      "mrr_ci_low": 0.802778,
+      "perplexity": 2.672615,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.408651,
+      "target_value_probability_ci_low": 0.362154,
+      "top1_accuracy": 0.733333,
+      "top1_ci_high": 0.833333,
+      "top1_ci_low": 0.616667
+    },
+    {
+      "loss": 1.374143,
+      "mean_first_relevant_value_rank": 1.716667,
+      "mean_target_value_probability": 0.266586,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.718056,
+      "mrr_ci_high": 0.8,
+      "mrr_ci_low": 0.640278,
+      "perplexity": 3.951689,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.288373,
+      "target_value_probability_ci_low": 0.245579,
+      "top1_accuracy": 0.5,
+      "top1_ci_high": 0.616667,
+      "top1_ci_low": 0.383333
+    },
+    {
+      "loss": 3.194127,
+      "mean_first_relevant_value_rank": 12.216667,
+      "mean_target_value_probability": 0.043489,
+      "method": "alibi",
+      "mrr": 0.214748,
+      "mrr_ci_high": 0.289779,
+      "mrr_ci_low": 0.153077,
+      "perplexity": 24.388884,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.047858,
+      "target_value_probability_ci_low": 0.039972,
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.166667,
+      "top1_ci_low": 0.016667
+    },
+    {
+      "loss": 3.233878,
+      "mean_first_relevant_value_rank": 14.466667,
+      "mean_target_value_probability": 0.042635,
+      "method": "no_position",
+      "mrr": 0.195125,
+      "mrr_ci_high": 0.268153,
+      "mrr_ci_low": 0.127224,
+      "perplexity": 25.377885,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.04718,
+      "target_value_probability_ci_low": 0.038047,
+      "top1_accuracy": 0.083333,
+      "top1_ci_high": 0.166667,
+      "top1_ci_low": 0.016667
+    },
+    {
+      "loss": 3.062697,
+      "mean_first_relevant_value_rank": 14.3,
+      "mean_target_value_probability": 0.05001,
+      "method": "phasewrap_score",
+      "mrr": 0.147274,
+      "mrr_ci_high": 0.217219,
+      "mrr_ci_low": 0.091964,
+      "perplexity": 21.385156,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.05544,
+      "target_value_probability_ci_low": 0.045229,
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.1,
+      "top1_ci_low": 0.0
+    }
+  ],
+  "stage": "stage14_attention_readout",
+  "table": [
+    {
+      "loss": 3.233878,
+      "mean_first_relevant_value_rank": 14.466667,
+      "mean_target_value_probability": 0.042635,
+      "method": "no_position",
+      "mrr": 0.195125,
+      "mrr_ci_high": 0.268153,
+      "mrr_ci_low": 0.127224,
+      "perplexity": 25.377885,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.04718,
+      "target_value_probability_ci_low": 0.038047,
+      "top1_accuracy": 0.083333,
+      "top1_ci_high": 0.166667,
+      "top1_ci_low": 0.016667
+    },
+    {
+      "loss": 3.194127,
+      "mean_first_relevant_value_rank": 12.216667,
+      "mean_target_value_probability": 0.043489,
+      "method": "alibi",
+      "mrr": 0.214748,
+      "mrr_ci_high": 0.289779,
+      "mrr_ci_low": 0.153077,
+      "perplexity": 24.388884,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.047858,
+      "target_value_probability_ci_low": 0.039972,
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.166667,
+      "top1_ci_low": 0.016667
+    },
+    {
+      "loss": 0.19911,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.824888,
+      "method": "rope_relative",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.220316,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.846354,
+      "target_value_probability_ci_low": 0.801735,
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.983057,
+      "mean_first_relevant_value_rank": 1.316667,
+      "mean_target_value_probability": 0.386298,
+      "method": "sinusoidal",
+      "mrr": 0.859722,
+      "mrr_ci_high": 0.913889,
+      "mrr_ci_low": 0.802778,
+      "perplexity": 2.672615,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.408651,
+      "target_value_probability_ci_low": 0.362154,
+      "top1_accuracy": 0.733333,
+      "top1_ci_high": 0.833333,
+      "top1_ci_low": 0.616667
+    },
+    {
+      "loss": 3.062697,
+      "mean_first_relevant_value_rank": 14.3,
+      "mean_target_value_probability": 0.05001,
+      "method": "phasewrap_score",
+      "mrr": 0.147274,
+      "mrr_ci_high": 0.217219,
+      "mrr_ci_low": 0.091964,
+      "perplexity": 21.385156,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.05544,
+      "target_value_probability_ci_low": 0.045229,
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.1,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 1.374143,
+      "mean_first_relevant_value_rank": 1.716667,
+      "mean_target_value_probability": 0.266586,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.718056,
+      "mrr_ci_high": 0.8,
+      "mrr_ci_low": 0.640278,
+      "perplexity": 3.951689,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.288373,
+      "target_value_probability_ci_low": 0.245579,
+      "top1_accuracy": 0.5,
+      "top1_ci_high": 0.616667,
+      "top1_ci_low": 0.383333
+    },
+    {
+      "loss": 0.871356,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.432405,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 2.390149,
+      "row_count": 60,
+      "target_value_probability_ci_high": 0.462192,
+      "target_value_probability_ci_low": 0.403621,
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    }
+  ],
+  "task": {
+    "description": "Train-short/test-long decoder attention readout over key-value retrieval rows derived from Stage 12.",
+    "note": "This isolates attention readout behavior. It is not a full language-model benchmark or proof that PhaseWrap-RoPE replaces RoPE.",
+    "target_construction": "Targets are explicit retrieval-rule value tokens, not PhaseWrap-selected positions."
+  },
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_table": [
+    {
+      "loss": 3.392535,
+      "mean_first_relevant_value_rank": 13.3,
+      "mean_target_value_probability": 0.034848,
+      "method": "no_position",
+      "mrr": 0.164709,
+      "mrr_ci_high": 0.281039,
+      "mrr_ci_low": 0.084757,
+      "perplexity": 29.741265,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.039394,
+      "target_value_probability_ci_low": 0.030303,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.15,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 3.514204,
+      "mean_first_relevant_value_rank": 18.7,
+      "mean_target_value_probability": 0.030556,
+      "method": "no_position",
+      "mrr": 0.16411,
+      "mrr_ci_high": 0.29413,
+      "mrr_ci_low": 0.059058,
+      "perplexity": 33.589188,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.034722,
+      "target_value_probability_ci_low": 0.027778,
+      "task": "multi_needle",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 2.794895,
+      "mean_first_relevant_value_rank": 11.4,
+      "mean_target_value_probability": 0.0625,
+      "method": "no_position",
+      "mrr": 0.256556,
+      "mrr_ci_high": 0.394861,
+      "mrr_ci_low": 0.143022,
+      "perplexity": 16.360905,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.069444,
+      "target_value_probability_ci_low": 0.056944,
+      "task": "aggregation",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 3.415981,
+      "mean_first_relevant_value_rank": 15.85,
+      "mean_target_value_probability": 0.034419,
+      "method": "alibi",
+      "mrr": 0.178599,
+      "mrr_ci_high": 0.315282,
+      "mrr_ci_low": 0.063221,
+      "perplexity": 30.446813,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.040062,
+      "target_value_probability_ci_low": 0.029709,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 3.312056,
+      "mean_first_relevant_value_rank": 4.85,
+      "mean_target_value_probability": 0.037174,
+      "method": "alibi",
+      "mrr": 0.278929,
+      "mrr_ci_high": 0.398214,
+      "mrr_ci_low": 0.188571,
+      "perplexity": 27.441475,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.041467,
+      "target_value_probability_ci_low": 0.034119,
+      "task": "multi_needle",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 2.854345,
+      "mean_first_relevant_value_rank": 15.95,
+      "mean_target_value_probability": 0.058875,
+      "method": "alibi",
+      "mrr": 0.186717,
+      "mrr_ci_high": 0.324006,
+      "mrr_ci_low": 0.072147,
+      "perplexity": 17.363069,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.064656,
+      "target_value_probability_ci_low": 0.053436,
+      "task": "aggregation",
+      "top1_accuracy": 0.1,
+      "top1_ci_high": 0.25,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 0.191951,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.829863,
+      "method": "rope_relative",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.211611,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.866015,
+      "target_value_probability_ci_low": 0.792555,
+      "task": "passkey_exact",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.228429,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.801128,
+      "method": "rope_relative",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.256625,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.836657,
+      "target_value_probability_ci_low": 0.762358,
+      "task": "multi_needle",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.17695,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.843671,
+      "method": "rope_relative",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 1.193571,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.883514,
+      "target_value_probability_ci_low": 0.801481,
+      "task": "aggregation",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.938003,
+      "mean_first_relevant_value_rank": 1.3,
+      "mean_target_value_probability": 0.404083,
+      "method": "sinusoidal",
+      "mrr": 0.8875,
+      "mrr_ci_high": 0.975,
+      "mrr_ci_low": 0.7625,
+      "perplexity": 2.554874,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.445034,
+      "target_value_probability_ci_low": 0.361424,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.8,
+      "top1_ci_high": 0.95,
+      "top1_ci_low": 0.6
+    },
+    {
+      "loss": 1.039092,
+      "mean_first_relevant_value_rank": 1.4,
+      "mean_target_value_probability": 0.363219,
+      "method": "sinusoidal",
+      "mrr": 0.816667,
+      "mrr_ci_high": 0.925,
+      "mrr_ci_low": 0.7,
+      "perplexity": 2.826648,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.398976,
+      "target_value_probability_ci_low": 0.324041,
+      "task": "multi_needle",
+      "top1_accuracy": 0.65,
+      "top1_ci_high": 0.85,
+      "top1_ci_low": 0.4
+    },
+    {
+      "loss": 0.972078,
+      "mean_first_relevant_value_rank": 1.25,
+      "mean_target_value_probability": 0.391591,
+      "method": "sinusoidal",
+      "mrr": 0.875,
+      "mrr_ci_high": 0.95,
+      "mrr_ci_low": 0.775,
+      "perplexity": 2.643431,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.437318,
+      "target_value_probability_ci_low": 0.347703,
+      "task": "aggregation",
+      "top1_accuracy": 0.75,
+      "top1_ci_high": 0.95,
+      "top1_ci_low": 0.55
+    },
+    {
+      "loss": 3.14659,
+      "mean_first_relevant_value_rank": 14.05,
+      "mean_target_value_probability": 0.044492,
+      "method": "phasewrap_score",
+      "mrr": 0.145608,
+      "mrr_ci_high": 0.264599,
+      "mrr_ci_low": 0.065969,
+      "perplexity": 23.256631,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.051053,
+      "target_value_probability_ci_low": 0.039415,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.15,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 3.249766,
+      "mean_first_relevant_value_rank": 15.75,
+      "mean_target_value_probability": 0.039903,
+      "method": "phasewrap_score",
+      "mrr": 0.127708,
+      "mrr_ci_high": 0.225591,
+      "mrr_ci_low": 0.057029,
+      "perplexity": 25.784303,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.04507,
+      "target_value_probability_ci_low": 0.035693,
+      "task": "multi_needle",
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.15,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 2.791735,
+      "mean_first_relevant_value_rank": 13.1,
+      "mean_target_value_probability": 0.065635,
+      "method": "phasewrap_score",
+      "mrr": 0.168506,
+      "mrr_ci_high": 0.27942,
+      "mrr_ci_low": 0.084698,
+      "perplexity": 16.309291,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.076249,
+      "target_value_probability_ci_low": 0.055484,
+      "task": "aggregation",
+      "top1_accuracy": 0.05,
+      "top1_ci_high": 0.15,
+      "top1_ci_low": 0.0
+    },
+    {
+      "loss": 1.359241,
+      "mean_first_relevant_value_rank": 1.55,
+      "mean_target_value_probability": 0.27537,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.779167,
+      "mrr_ci_high": 0.9,
+      "mrr_ci_low": 0.658333,
+      "perplexity": 3.893239,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.319294,
+      "target_value_probability_ci_low": 0.22801,
+      "task": "passkey_exact",
+      "top1_accuracy": 0.6,
+      "top1_ci_high": 0.8,
+      "top1_ci_low": 0.4
+    },
+    {
+      "loss": 1.411988,
+      "mean_first_relevant_value_rank": 1.85,
+      "mean_target_value_probability": 0.25896,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.695833,
+      "mrr_ci_high": 0.825,
+      "mrr_ci_low": 0.558333,
+      "perplexity": 4.104107,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.306189,
+      "target_value_probability_ci_low": 0.218187,
+      "task": "multi_needle",
+      "top1_accuracy": 0.5,
+      "top1_ci_high": 0.7,
+      "top1_ci_low": 0.3
+    },
+    {
+      "loss": 1.3512,
+      "mean_first_relevant_value_rank": 1.75,
+      "mean_target_value_probability": 0.265428,
+      "method": "phasewrap_residual_adapter",
+      "mrr": 0.679167,
+      "mrr_ci_high": 0.8,
+      "mrr_ci_low": 0.566667,
+      "perplexity": 3.862056,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.296562,
+      "target_value_probability_ci_low": 0.238904,
+      "task": "aggregation",
+      "top1_accuracy": 0.4,
+      "top1_ci_high": 0.65,
+      "top1_ci_low": 0.2
+    },
+    {
+      "loss": 0.933351,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.406146,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 2.543017,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.456035,
+      "target_value_probability_ci_low": 0.359495,
+      "task": "passkey_exact",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.778496,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.473362,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 2.178193,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.52135,
+      "target_value_probability_ci_low": 0.420627,
+      "task": "multi_needle",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    },
+    {
+      "loss": 0.90222,
+      "mean_first_relevant_value_rank": 1.0,
+      "mean_target_value_probability": 0.417707,
+      "method": "phasewrap_distance_adapter",
+      "mrr": 1.0,
+      "mrr_ci_high": 1.0,
+      "mrr_ci_low": 1.0,
+      "perplexity": 2.465069,
+      "row_count": 20,
+      "target_value_probability_ci_high": 0.470795,
+      "target_value_probability_ci_low": 0.372354,
+      "task": "aggregation",
+      "top1_accuracy": 1.0,
+      "top1_ci_high": 1.0,
+      "top1_ci_low": 1.0
+    }
+  ],
+  "test_lengths": [
+    1024
+  ],
+  "test_row_count": 60,
+  "train_lengths": [
+    128,
+    256
+  ],
+  "train_row_count": 120,
+  "training_records": [
+    {
+      "epochs": 220,
+      "final_training_loss": 2.276237,
+      "l2": 0.001,
+      "learning_rate": 0.35,
+      "method": "no_position",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.276237
+        },
+        {
+          "epoch": 56,
+          "loss": 2.276237
+        },
+        {
+          "epoch": 111,
+          "loss": 2.276237
+        },
+        {
+          "epoch": 220,
+          "loss": 2.276237
+        }
+      ],
+      "weights": [
+        0.0
+      ]
+    },
+    {
+      "epochs": 220,
+      "final_training_loss": 2.265398,
+      "l2": 0.001,
+      "learning_rate": 0.35,
+      "method": "alibi",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.276237
+        },
+        {
+          "epoch": 56,
+          "loss": 2.266085
+        },
+        {
+          "epoch": 111,
+          "loss": 2.265446
+        },
+        {
+          "epoch": 220,
+          "loss": 2.265398
+        }
+      ],
+      "weights": [
+        0.0,
+        0.54523133
+      ]
+    },
+    {
+      "epochs": 220,
+      "final_training_loss": 0.247014,
+      "l2": 0.001,
+      "learning_rate": 0.35,
+      "method": "rope_relative",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.276237
+        },
+        {
+          "epoch": 56,
+          "loss": 0.250701
+        },
+        {
+          "epoch": 111,
+          "loss": 0.247333
+        },
+        {
+          "epoch": 220,
+          "loss": 0.247014
+        }
+      ],
+      "weights": [
+        -0.0,
+        1.0555344,
+        0.90631981,
+        0.09179435,
+        0.15975185,
+        0.09835969,
+        1.36576312,
+        1.48761451,
+        1.1370682,
+        0.53756371,
+        0.19456832,
+        0.06425006,
+        0.02059882,
+        0.00654232,
+        0.00207171,
+        0.00065542,
+        0.00020729
+      ]
+    },
+    {
+      "epochs": 220,
+      "final_training_loss": 0.35661,
+      "l2": 0.001,
+      "learning_rate": 0.35,
+      "method": "sinusoidal",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.276237
+        },
+        {
+          "epoch": 56,
+          "loss": 0.359941
+        },
+        {
+          "epoch": 111,
+          "loss": 0.357271
+        },
+        {
+          "epoch": 220,
+          "loss": 0.35661
+        }
+      ],
+      "weights": [
+        -0.0,
+        1.09792295,
+        0.60992802,
+        0.81654697,
+        0.21492514,
+        1.34719325
+      ]
+    },
+    {
+      "epochs": 220,
+      "final_training_loss": 2.071066,
+      "l2": 0.001,
+      "learning_rate": 0.35,
+      "method": "phasewrap_score",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.276237
+        },
+        {
+          "epoch": 56,
+          "loss": 2.071364
+        },
+        {
+          "epoch": 111,
+          "loss": 2.071069
+        },
+        {
+          "epoch": 220,
+          "loss": 2.071066
+        }
+      ],
+      "weights": [
+        -0.0,
+        -0.98196636
+      ]
+    },
+    {
+      "epochs": 220,
+      "final_training_loss": 0.571287,
+      "l2": 0.001,
+      "learning_rate": 0.35,
+      "method": "phasewrap_residual_adapter",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.276237
+        },
+        {
+          "epoch": 56,
+          "loss": 0.579279
+        },
+        {
+          "epoch": 111,
+          "loss": 0.572523
+        },
+        {
+          "epoch": 220,
+          "loss": 0.571287
+        }
+      ],
+      "weights": [
+        0.0,
+        0.11858603,
+        0.6718041,
+        1.36159419,
+        1.66317793
+      ]
+    },
+    {
+      "epochs": 220,
+      "final_training_loss": 0.362681,
+      "l2": 0.001,
+      "learning_rate": 0.35,
+      "method": "phasewrap_distance_adapter",
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 2.276237
+        },
+        {
+          "epoch": 56,
+          "loss": 0.447479
+        },
+        {
+          "epoch": 111,
+          "loss": 0.400668
+        },
+        {
+          "epoch": 220,
+          "loss": 0.362681
+        }
+      ],
+      "weights": [
+        0.0,
+        0.01724448,
+        0.39287931,
+        1.15058852,
+        1.1710769,
+        4.7100874,
+        -0.06962585
+      ]
+    }
+  ],
+  "validation_lengths": [
+    512
+  ],
+  "validation_row_count": 60
+}
