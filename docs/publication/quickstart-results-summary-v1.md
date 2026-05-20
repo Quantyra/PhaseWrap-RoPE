@@ -2,7 +2,9 @@
 
 Date: `2026-05-20`
 
-Archive DOI: `10.5281/zenodo.20306787`
+Archive DOI: `10.5281/zenodo.20306786`
+
+Current archived version DOI: `10.5281/zenodo.20311738`
 
 ## Purpose
 

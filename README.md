@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Quantyra/PhaseWrap-RoPE/actions/workflows/ci.yml/badge.svg)](https://github.com/Quantyra/PhaseWrap-RoPE/actions/workflows/ci.yml)
 [![Open verification in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Quantyra/PhaseWrap-RoPE/blob/main/docs/notebooks/phasewrap_rope_verify.ipynb)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20306787.svg)](https://doi.org/10.5281/zenodo.20306787)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20306786.svg)](https://doi.org/10.5281/zenodo.20306786)
 
 PhaseWrap-RoPE is Quantyra's public research repository for a phase-wrap positional scoring rule with two-qubit hardware readout.
 
@@ -15,7 +15,8 @@ Repository naming note: public materials use `PhaseWrap-RoPE`; Python imports, s
 Start here:
 
 - [Repository paper: PhaseWrap-RoPE bounded phase-wrap scoring rule](docs/publication/qrope-paper-v1.md)
-- Archived release DOI: [10.5281/zenodo.20306787](https://doi.org/10.5281/zenodo.20306787)
+- Zenodo concept DOI: [10.5281/zenodo.20306786](https://doi.org/10.5281/zenodo.20306786)
+- Current archived version DOI: [10.5281/zenodo.20311738](https://doi.org/10.5281/zenodo.20311738)
 - One-page reviewer summary: [Quickstart and results summary](docs/publication/quickstart-results-summary-v1.md)
 - One-cell verification notebook: [Open in Colab](https://colab.research.google.com/github/Quantyra/PhaseWrap-RoPE/blob/main/docs/notebooks/phasewrap_rope_verify.ipynb)
 
@@ -35,7 +36,7 @@ python scripts/run_stage8_needle_benchmark.py
 ## Status
 
 - `Patent/IP posture`: USPTO provisional submission received `2026-05-18`; the Electronic Acknowledgement Receipt lists application `64/068,121` and Patent Center `76347440`; final Filing Receipt pending. See [Patent status note](docs/publication/patent-status-note-v1.md).
-- `Archive DOI`: `10.5281/zenodo.20306787` for the bounded evidence release.
+- `Archive DOI`: `10.5281/zenodo.20306786` for the latest bounded evidence release; current version DOI `10.5281/zenodo.20311738`.
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
 - `Publication posture`: bounded, reproducible, evidence-disciplined.
 - `Current evidence posture`: Stage 4 real-noisy-hardware results for bounded frozen packet/backend/date/calibration contexts, including IBM Fez positives, Amazon Braket/Rigetti product-state positive evidence, and provider-aware Amazon Braket CX positive recomputations from committed raw counts.

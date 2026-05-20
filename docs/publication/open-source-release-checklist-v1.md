@@ -68,5 +68,6 @@ The public repository has been created and published:
 | Create or connect the public GitHub repository. | Done |
 | Push the prepared local repository. | Done |
 | Confirm the public repository metadata. | Done |
-| Tag the first public release after final manuscript approval. | Pending |
-| Enable Zenodo integration and mint the release DOI. | Pending |
+| Tag the public release after final manuscript approval. | Done |
+| Enable Zenodo integration and mint the release DOI. | Done |
+| Preserve latest archive handle in public docs. | Done: concept DOI `10.5281/zenodo.20306786`; current version DOI `10.5281/zenodo.20311738`. |

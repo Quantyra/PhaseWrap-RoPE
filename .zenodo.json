@@ -1,7 +1,7 @@
 {
   "title": "PhaseWrap-RoPE: Bounded Phase-Wrap Positional Scoring Evidence and Hardware-Validation Tooling",
   "upload_type": "software",
-  "description": "Open-source bounded evidence repository for PhaseWrap-RoPE, including a phase-wrap positional scoring rule, deterministic validation packets, a machine-verifiable Stage 4 hardware sweep, provider-aware IBM Runtime and Amazon Braket artifacts, Stage 5 classical attention baselines, Stage 6 downstream attention benchmark, and Stage 7 toy transformer ablation. The release does not claim broad quantum advantage, production transformer superiority, full transformer-scale validation, or general cross-backend robustness.",
+  "description": "Open-source bounded evidence repository for PhaseWrap-RoPE, including a phase-wrap positional scoring rule, deterministic validation packets, a machine-verifiable Stage 4 hardware sweep, provider-aware IBM Runtime and Amazon Braket artifacts, Stage 5 classical attention baselines, Stage 6 downstream attention benchmark, Stage 7 toy transformer ablation, and Stage 8 local phase-cued Needle-style retrieval benchmark. The release does not claim broad quantum advantage, production transformer superiority, full transformer-scale validation, or general cross-backend robustness.",
   "creators": [
     {
       "name": "Fredriksen, Daniel Eric"

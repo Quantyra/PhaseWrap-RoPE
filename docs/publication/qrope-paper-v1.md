@@ -4,7 +4,9 @@ Manuscript status: `repository-paper-v2-draft`
 
 Public claim posture: `bounded, reproducible, evidence-disciplined`
 
-Archive DOI: `10.5281/zenodo.20306787`
+Archive DOI: `10.5281/zenodo.20306786`
+
+Current archived version DOI: `10.5281/zenodo.20311738`
 
 USPTO record note: the repository reports an Electronic Acknowledgement Receipt dated `2026-05-18` listing application `64/068,121` and Patent Center number `76347440`. Public materials should continue to describe this as an acknowledgement-receipt record until the final Filing Receipt is received and checked.
 
