@@ -10,10 +10,31 @@ This repository is intended for open scientific review of the PhaseWrap-RoPE sco
 
 Repository naming note: public materials use `PhaseWrap-RoPE`; Python imports, script paths, packet IDs, and evidence IDs retain the existing `qrope` stem.
 
+## Read the Paper
+
+Start here:
+
+- [Repository paper: PhaseWrap-RoPE bounded phase-wrap scoring rule](docs/publication/qrope-paper-v1.md)
+- Archived release DOI: [10.5281/zenodo.20306787](https://doi.org/10.5281/zenodo.20306787)
+- One-page reviewer summary: [Quickstart and results summary](docs/publication/quickstart-results-summary-v1.md)
+- One-cell verification notebook: [Open in Colab](https://colab.research.google.com/github/Quantyra/PhaseWrap-RoPE/blob/main/docs/notebooks/phasewrap_rope_verify.ipynb)
+
+The paper is the canonical narrative for the current release. It frames PhaseWrap-RoPE as a bounded positional scoring rule, not as a validated production transformer positional encoding method. The repository provides the artifacts behind the paper: frozen packets, raw counts, verifier scripts, hardware sweep outputs, classical baselines, and toy downstream ablations.
+
+Minimal local verification:
+
+```bash
+python scripts/verify_stage4_hardware_packet.py
+python scripts/verify_stage4_hardware_sweep.py
+python scripts/run_stage5_attention_baselines.py
+python scripts/run_stage6_downstream_attention.py
+python scripts/run_stage7_toy_transformer_ablation.py
+```
+
 ## Status
 
 - `Patent/IP posture`: USPTO provisional submission received `2026-05-18`; the Electronic Acknowledgement Receipt lists application `64/068,121` and Patent Center `76347440`; final Filing Receipt pending. See [Patent status note](docs/publication/patent-status-note-v1.md).
-- `Archive DOI`: `10.5281/zenodo.20306787` for the `v0.2.2` bounded evidence release.
+- `Archive DOI`: `10.5281/zenodo.20306787` for the bounded evidence release.
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
 - `Publication posture`: bounded, reproducible, evidence-disciplined.
 - `Current evidence posture`: Stage 4 real-noisy-hardware results for bounded frozen packet/backend/date/calibration contexts, including IBM Fez positives, Amazon Braket/Rigetti product-state positive evidence, and provider-aware Amazon Braket CX positive recomputations from committed raw counts.
@@ -42,8 +63,8 @@ The public claim frame excludes:
 
 ## Key documents
 
-- [Manuscript-to-provisional support audit](docs/publication/manuscript-to-provisional-support-audit-v1.md)
 - [Repository paper v1](docs/publication/qrope-paper-v1.md)
+- [Manuscript-to-provisional support audit](docs/publication/manuscript-to-provisional-support-audit-v1.md)
 - [Patent status note](docs/publication/patent-status-note-v1.md)
 - [Quickstart and results summary](docs/publication/quickstart-results-summary-v1.md)
 - [External review response](docs/publication/external-review-response-v1.md)
