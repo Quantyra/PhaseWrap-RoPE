@@ -9,7 +9,6 @@ PhaseWrap-RoPE is a patent-pending research repository. Contributions are welcom
 - Do not broaden the claim posture beyond the evidence. Avoid claims of general quantum advantage, production-transformer superiority, or cross-backend robustness unless the repo contains direct evidence and patent review has cleared the wording.
 - Preserve raw evidence. Prefer adding new packets over mutating historical evidence packets.
 - Keep scripts deterministic where practical. Document random seeds, fixed packet identifiers, shot counts, backend metadata, and verifier settings.
-- Commit completed repository changes at the end of each work turn unless the user explicitly requests otherwise. Keep commits focused and do not leave evidence/report updates only in the working tree.
 
 ## Licensing
 
