@@ -63,7 +63,7 @@ Preferred task lanes:
 | Compact QA or language modeling | controlled text-fact QA, small natural-language corpus | Checks whether the mechanism survives a non-synthetic text setting. |
 | Synthetic diagnostics | phase-cued retrieval, alias/adversarial rows | Preserves interpretability, but cannot be the sole success criterion. |
 
-Stage 26 provides a useful compact content-key QA packet. Stage 27 adds a compact attention bridge over that packet with five deterministic model initialization seeds. Stage 28 adds a compact attention bridge directly over non-phase-cued RULER-style retrieval rows. Stage 30 reruns that bridge with matched feature width and learned parameter count across positional variants. Stage 31 moves from candidate-only ranking to learned full-prefix retrieval attention and is negative for the current PhaseWrap variants. The next step is to either improve the PhaseWrap mechanism or move these structures into a stronger small decoder-only transformer while preserving matched compute, multiple seeds, and failed-run reporting.
+Stage 26 provides a useful compact content-key QA packet. Stage 27 adds a compact attention bridge over that packet with five deterministic model initialization seeds. Stage 28 adds a compact attention bridge directly over non-phase-cued RULER-style retrieval rows. Stage 30 reruns that bridge with matched feature width and learned parameter count across positional variants. Stage 31 moves from candidate-only ranking to learned full-prefix retrieval attention and is negative for the simple PhaseWrap variants. Stage 32 adds a nonlinear full-context feature bridge and recovers PhaseWrap argmax retrieval while RoPE-like scoring remains better on probability and calibration. The next step is to move this richer mechanism into a stronger small decoder-only transformer while preserving matched compute, multiple seeds, and failed-run reporting.
 
 ## PhaseWrap Mechanism Requirements
 
@@ -115,6 +115,8 @@ PhaseWrap-RoPE can be described as a credible RoPE-replacement candidate only af
 Stage 30 closes a compact-bridge confound by equalizing feature width and parameter count, but it does not satisfy this promotion gate because it is still a retrieval bridge rather than a stronger decoder-only transformer or standard language-model/retrieval harness.
 
 Stage 31 adds a harder standard-retrieval stress test in which every prefix position competes. It also does not satisfy this promotion gate because the current PhaseWrap variants are weak against RoPE-like scoring in that setting.
+
+Stage 32 shows a richer nonlinear PhaseWrap feature bridge can recover full-prefix argmax retrieval, but it still does not satisfy this promotion gate because it is not a decoder-only transformer and RoPE-like scoring remains stronger on probability/calibration metrics.
 
 Until then, the supported claim remains narrower: PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible classical analyses, bounded hardware readout witnesses, and mixed but useful toy downstream evidence.
 

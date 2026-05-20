@@ -63,7 +63,7 @@ python scripts/run_stage26_compact_kv_qa.py
 - `Stage 4 cost posture`: local recomputation of the committed Stage 4 sweep is covered by a deterministic classical compute estimate: 4,096 static operations over 163,072 recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - `Stage 4 preregistration posture`: future replication lanes now have no-hardware preregistered row-set artifacts with fixed seeds, families, shots, row counts, and row-set hashes; they are not submitted hardware evidence.
 - `Stage 4 calibration posture`: provider bitstring calibration packet specs and a failing-by-default verifier contract now exist for IBM-style `q1q0` and Amazon Braket-style `q0q1` known-state checks; real calibration counts are still missing.
-- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, Stage 14 turns the non-phase-cued rows into key-value attention readout, Stage 15 adds a one-hidden-layer learned attention scorer, Stage 16 checks initialization stability, Stage 17 adds learned value embeddings plus output projection, Stage 18 probes that value-output bottleneck with teacher-forced attention, Stage 19 hardens the teacher-forced value-output path, Stage 20 reintroduces learned positional attention with the hardened path, Stage 21 reruns that comparison across five initialization seeds, Stage 22 extends explicit retrieval to 4096-token contexts, Stage 23 trains adapters on those long-context rows, Stage 24 adds learned value embeddings/output projection to the long-context rows, Stage 25 reruns that long-context value model across five initialization seeds, Stage 26 adds a compact key-value QA retrieval packet with explicit content keys, Stage 27 trains a compact attention bridge on that packet across five model initialization seeds, Stage 28 trains a compact attention bridge directly on non-phase-cued RULER-style retrieval rows, Stage 29 audits fixed period-pair choices on those retrieval rows, Stage 30 repeats the Stage 28 bridge with matched feature width and parameter count, and Stage 31 moves to learned full-prefix retrieval attention. Stage 31 is negative for the current PhaseWrap variants: `rope_relative` solves the held-out full-prefix packet, while PhaseWrap variants do not.
+- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, Stage 14 turns the non-phase-cued rows into key-value attention readout, Stage 15 adds a one-hidden-layer learned attention scorer, Stage 16 checks initialization stability, Stage 17 adds learned value embeddings plus output projection, Stage 18 probes that value-output bottleneck with teacher-forced attention, Stage 19 hardens the teacher-forced value-output path, Stage 20 reintroduces learned positional attention with the hardened path, Stage 21 reruns that comparison across five initialization seeds, Stage 22 extends explicit retrieval to 4096-token contexts, Stage 23 trains adapters on those long-context rows, Stage 24 adds learned value embeddings/output projection to the long-context rows, Stage 25 reruns that long-context value model across five initialization seeds, Stage 26 adds a compact key-value QA retrieval packet with explicit content keys, Stage 27 trains a compact attention bridge on that packet across five model initialization seeds, Stage 28 trains a compact attention bridge directly on non-phase-cued RULER-style retrieval rows, Stage 29 audits fixed period-pair choices on those retrieval rows, Stage 30 repeats the Stage 28 bridge with matched feature width and parameter count, Stage 31 moves to learned full-prefix retrieval attention, and Stage 32 adds a nonlinear full-context feature bridge. Stage 32 recovers PhaseWrap argmax retrieval in the full-prefix setting, while `rope_relative` keeps stronger probability/calibration metrics.
 - `Score theory posture`: Stage 11 formalizes the fixed 8/12 score as a mod-24 periodic feature with translation invariance, mirror aliases, 10 distinct residue scores, and exact small Fourier support. This clarifies why stronger transformer benchmarks must resolve aliasing before any replacement claim.
 - `Hardware posture`: IBM Fez product-state, IBM Fez CX, Amazon Braket/Rigetti product-state, and Amazon Braket CX lanes have completed active Stage 4 hardware artifacts; additional IBM machines are deferred from the active sweep; Amazon Braket/IonQ was checked on 2026-05-19 and was not run because Forte devices were `OFFLINE` and Aria 1 was `RETIRED`; AQT IBEX Q1 is deferred due cost.
 - `Evidence tree posture`: `logs/automated_stage_gates/stage4_hardware_packet/` remains the default single-packet verifier path. The same IBM Fez 2026-05-17 product-state pass is also preserved as an immutable named run under `logs/automated_stage_gates/stage4_hardware_packet_ibm_fez_20260517_pass/` for the sweep manifest.
@@ -134,6 +134,7 @@ The public claim frame excludes:
 - [Stage 29 period-pair task audit](docs/research/q-rope-stage29-period-pair-task-audit-v1.md)
 - [Stage 30 matched retrieval-bridge benchmark](docs/research/q-rope-stage30-matched-retrieval-bridge-v1.md)
 - [Stage 31 full-context retrieval-attention benchmark](docs/research/q-rope-stage31-full-context-retrieval-attention-v1.md)
+- [Stage 32 full-context feature-bridge benchmark](docs/research/q-rope-stage32-full-context-feature-bridge-v1.md)
 - [Amazon Braket hardware runbook](docs/evidence/E002-braket-hardware-runbook.md)
 - [Automated terminal human-review packet](docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md)
 - [Phase-wrap algorithm note](docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md)
@@ -455,6 +456,14 @@ python scripts/run_stage31_full_context_retrieval_attention.py
 
 Stage 31 trains the same four learned attention parameters for every positional variant while every prefix position competes, not only preselected key candidates. On the Stage 12 non-phase-cued held-out rows, `rope_relative` reaches mean top-1 `1.000000`, mean MRR `1.000000`, and mean target probability `0.821104`. The current PhaseWrap variants are weak in this harder full-context setting: `phasewrap_bias` has mean top-1 `0.016667`, and `phasewrap_distance_adapter` has mean top-1 `0.000000`. This is negative standard-retrieval evidence for the current variants.
 
+Run the deterministic Stage 32 full-context feature-bridge benchmark:
+
+```bash
+python scripts/run_stage32_full_context_feature_bridge.py
+```
+
+Stage 32 reruns the full-prefix setting with a one-hidden-layer feature bridge and equal feature width (`12`), hidden width (`10`), parameter count (`141`), optimizer, epochs, and five model seeds. `phasewrap_distance_adapter`, `phasewrap_multiscale_adapter`, and `rope_relative` all reach mean top-1 `1.000000` and mean MRR `1.000000`; `rope_relative` keeps higher mean target probability (`0.713026` versus `0.480310` for multiscale and `0.429075` for distance) and lower expected calibration error. This is constructive mechanism evidence, not a RoPE replacement claim.
+
 ## Reviewer path in 10 minutes
 
 - Read the claim boundary in this README.
@@ -491,6 +500,7 @@ Stage 31 trains the same four learned attention parameters for every positional 
 - Run `python scripts/run_stage29_period_pair_task_audit.py` for the period-pair task audit.
 - Run `python scripts/run_stage30_matched_retrieval_bridge.py` for the matched feature-budget retrieval bridge.
 - Run `python scripts/run_stage31_full_context_retrieval_attention.py` for the learned full-context retrieval-attention benchmark.
+- Run `python scripts/run_stage32_full_context_feature_bridge.py` for the nonlinear full-context feature-bridge benchmark.
 
 ## CI and test coverage
 
@@ -546,7 +556,8 @@ The current release is ready for bounded repository/preprint publication. The ne
 | 27 | Stage 29 period-pair task audit | Complete for the Stage 11 period-pair grid on local and long-context retrieval rows. Period-pair swaps alone do not solve the fixed-score retrieval gap. |
 | 28 | Stage 30 matched retrieval-bridge benchmark | Complete for five model initialization seeds on Stage 12 rows with equal feature width and parameter count across methods. PhaseWrap-plus-distance matches RoPE-like top-1/MRR, while RoPE-like scoring keeps stronger probability/calibration metrics. |
 | 29 | Stage 31 full-context retrieval-attention benchmark | Complete for five model initialization seeds on Stage 12 rows with every prefix position competing. RoPE-like scoring solves the held-out packet; current PhaseWrap variants are weak. |
-| 30 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
+| 30 | Stage 32 full-context feature-bridge benchmark | Complete for five model initialization seeds on Stage 12 rows with every prefix position competing. PhaseWrap distance and multiscale adapters recover top-1/MRR, while RoPE-like scoring remains stronger on probability/calibration. |
+| 31 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
 
 The mod-8/mod-12 choice is a fixed first-release design: two wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band product signal. Stage 8 now includes a release-local period-pair ablation in which `(8, 12)` is best on the synthetic phase-cued Needle-style packet. That supports the current design choice for this packet, but it is not a proof of global optimality.
 
@@ -558,7 +569,7 @@ For roadmap clarity, the repository separates three tracks:
 - the transformer hypothesis, which remains unproven until trained-model ablations exist;
 - the hardware witness, which audits small-circuit readout of the score and is not evidence of model advantage.
 
-The next promotion gate is documented in [Next transformer benchmark roadmap](docs/research/q-rope-next-transformer-benchmark-roadmap-v1.md). Stage 30 closes the compact bridge feature-budget confound, and Stage 31 adds a harder full-context retrieval-attention stress test that is negative for the current PhaseWrap variants. The repository still needs a stronger small decoder-only transformer or improved PhaseWrap mechanism before any RoPE-replacement claim.
+The next promotion gate is documented in [Next transformer benchmark roadmap](docs/research/q-rope-next-transformer-benchmark-roadmap-v1.md). Stage 32 shows a richer PhaseWrap feature bridge can recover full-prefix argmax retrieval, but the repository still needs a stronger small decoder-only transformer and better probability/calibration performance before any RoPE-replacement claim.
 
 ## Licensing and patent notice
 
