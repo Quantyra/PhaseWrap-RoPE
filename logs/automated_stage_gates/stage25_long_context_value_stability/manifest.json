@@ -1,0 +1,44 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic multi-initialization stability check for the Stage 24 long-context value-model comparison.",
+      "Evidence about whether the Stage 24 held-out ordering persists across learned-parameter initialization seeds.",
+      "Reported weak runs under a predeclared top-1 threshold."
+    ]
+  },
+  "dataset": "deterministic_long_context_value_retrieval_model_stability_v1",
+  "embed_dim": 16,
+  "epochs": 360,
+  "init_seeds": [
+    2401,
+    2411,
+    2423,
+    2437,
+    2459
+  ],
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_score",
+    "phasewrap_residual_adapter",
+    "phasewrap_distance_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage25_long_context_value_stability/per_run_results.csv",
+  "result_path": "logs/automated_stage_gates/stage25_long_context_value_stability/results.json",
+  "run_count": 5,
+  "schema_version": "qrope_stage25_long_context_value_stability_v1",
+  "source_stage": "stage24_long_context_value_model",
+  "stage": "stage25_long_context_value_stability",
+  "summary_csv_path": "logs/automated_stage_gates/stage25_long_context_value_stability/summary.csv",
+  "weak_run_records_path": "logs/automated_stage_gates/stage25_long_context_value_stability/weak_run_records.json"
+}

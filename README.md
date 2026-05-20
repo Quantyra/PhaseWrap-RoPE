@@ -49,6 +49,7 @@ python scripts/run_stage21_hardened_positional_stability.py
 python scripts/run_stage22_long_context_retrieval.py
 python scripts/run_stage23_long_context_adapter.py
 python scripts/run_stage24_long_context_value_model.py
+python scripts/run_stage25_long_context_value_stability.py
 ```
 
 ## Status
@@ -61,7 +62,7 @@ python scripts/run_stage24_long_context_value_model.py
 - `Stage 4 cost posture`: local recomputation of the committed Stage 4 sweep is covered by a deterministic classical compute estimate: 4,096 static operations over 163,072 recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - `Stage 4 preregistration posture`: future replication lanes now have no-hardware preregistered row-set artifacts with fixed seeds, families, shots, row counts, and row-set hashes; they are not submitted hardware evidence.
 - `Stage 4 calibration posture`: provider bitstring calibration packet specs and a failing-by-default verifier contract now exist for IBM-style `q1q0` and Amazon Braket-style `q0q1` known-state checks; real calibration counts are still missing.
-- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, Stage 14 turns the non-phase-cued rows into key-value attention readout, Stage 15 adds a one-hidden-layer learned attention scorer, Stage 16 checks initialization stability, Stage 17 adds learned value embeddings plus output projection, Stage 18 probes that value-output bottleneck with teacher-forced attention, Stage 19 hardens the teacher-forced value-output path, Stage 20 reintroduces learned positional attention with the hardened path, Stage 21 reruns that comparison across five initialization seeds, Stage 22 extends explicit retrieval to 4096-token contexts, Stage 23 trains adapters on those long-context rows, and Stage 24 adds learned value embeddings/output projection to the long-context rows. Stage 24 favors RoPE-like scoring on held-out value retrieval; the strongest PhaseWrap-derived method trails.
+- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, Stage 14 turns the non-phase-cued rows into key-value attention readout, Stage 15 adds a one-hidden-layer learned attention scorer, Stage 16 checks initialization stability, Stage 17 adds learned value embeddings plus output projection, Stage 18 probes that value-output bottleneck with teacher-forced attention, Stage 19 hardens the teacher-forced value-output path, Stage 20 reintroduces learned positional attention with the hardened path, Stage 21 reruns that comparison across five initialization seeds, Stage 22 extends explicit retrieval to 4096-token contexts, Stage 23 trains adapters on those long-context rows, Stage 24 adds learned value embeddings/output projection to the long-context rows, and Stage 25 reruns that long-context value model across five initialization seeds. Stage 25 confirms RoPE-like scoring remains strongest on this held-out value-retrieval packet.
 - `Score theory posture`: Stage 11 formalizes the fixed 8/12 score as a mod-24 periodic feature with translation invariance, mirror aliases, 10 distinct residue scores, and exact small Fourier support. This clarifies why stronger transformer benchmarks must resolve aliasing before any replacement claim.
 - `Hardware posture`: IBM Fez product-state, IBM Fez CX, Amazon Braket/Rigetti product-state, and Amazon Braket CX lanes have completed active Stage 4 hardware artifacts; additional IBM machines are deferred from the active sweep; Amazon Braket/IonQ was checked on 2026-05-19 and was not run because Forte devices were `OFFLINE` and Aria 1 was `RETIRED`; AQT IBEX Q1 is deferred due cost.
 - `Evidence tree posture`: `logs/automated_stage_gates/stage4_hardware_packet/` remains the default single-packet verifier path. The same IBM Fez 2026-05-17 product-state pass is also preserved as an immutable named run under `logs/automated_stage_gates/stage4_hardware_packet_ibm_fez_20260517_pass/` for the sweep manifest.
@@ -124,6 +125,7 @@ The public claim frame excludes:
 - [Stage 22 long-context retrieval benchmark](docs/research/q-rope-stage22-long-context-retrieval-v1.md)
 - [Stage 23 long-context adapter benchmark](docs/research/q-rope-stage23-long-context-adapter-v1.md)
 - [Stage 24 long-context value-model benchmark](docs/research/q-rope-stage24-long-context-value-model-v1.md)
+- [Stage 25 long-context value-model stability](docs/research/q-rope-stage25-long-context-value-stability-v1.md)
 - [Amazon Braket hardware runbook](docs/evidence/E002-braket-hardware-runbook.md)
 - [Automated terminal human-review packet](docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md)
 - [Phase-wrap algorithm note](docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md)
@@ -389,6 +391,14 @@ python scripts/run_stage24_long_context_value_model.py
 
 Stage 24 adds learned value embeddings and output projection to the Stage 22 long-context rows. All methods fit train, but held-out `4096` token value retrieval favors `rope_relative` with top-1 `0.350000` and MRR `0.399642`; the strongest PhaseWrap-derived result is `phasewrap_residual_adapter` with top-1 `0.133333` and MRR `0.221899`.
 
+Run the deterministic Stage 25 long-context value-model stability benchmark:
+
+```bash
+python scripts/run_stage25_long_context_value_stability.py
+```
+
+Stage 25 reruns Stage 24 across five learned-parameter initialization seeds. `rope_relative` remains strongest with mean top-1 `0.383333` and mean MRR `0.426498`; the strongest PhaseWrap-derived result is `phasewrap_residual_adapter` with mean top-1 `0.073333` and mean MRR `0.120739`.
+
 ## Reviewer path in 10 minutes
 
 - Read the claim boundary in this README.
@@ -418,6 +428,7 @@ Stage 24 adds learned value embeddings and output projection to the Stage 22 lon
 - Run `python scripts/run_stage22_long_context_retrieval.py` for the long-context explicit retrieval stress test.
 - Run `python scripts/run_stage23_long_context_adapter.py` for the trained long-context adapter benchmark.
 - Run `python scripts/run_stage24_long_context_value_model.py` for the learned long-context value-model benchmark.
+- Run `python scripts/run_stage25_long_context_value_stability.py` for the five-initialization long-context value-model stability check.
 
 ## CI and test coverage
 
@@ -466,7 +477,8 @@ The current release is ready for bounded repository/preprint publication. The ne
 | 20 | Stage 22 long-context retrieval benchmark | Complete for explicit passkey, multi-needle, and aggregation rules through 4096-token contexts. RoPE-like and sinusoidal rules solve it; fixed PhaseWrap 8/12 is weak. |
 | 21 | Stage 23 long-context adapter benchmark | Complete for train-short/test-long adapters on Stage 22 rows. PhaseWrap-plus-distance matches RoPE-like top-1/MRR at 4096, while RoPE-like scoring keeps higher target probability mass. |
 | 22 | Stage 24 long-context value-model benchmark | Complete for learned value embeddings/output projection on Stage 22 rows. RoPE-like scoring is strongest on held-out value retrieval; PhaseWrap-derived adapters remain behind. |
-| 23 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
+| 23 | Stage 25 long-context value-model stability | Complete for five initialization seeds. RoPE-like scoring remains strongest by mean top-1/MRR; PhaseWrap-derived adapters remain behind. |
+| 24 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
 
 The mod-8/mod-12 choice is a fixed first-release design: two wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band product signal. Stage 8 now includes a release-local period-pair ablation in which `(8, 12)` is best on the synthetic phase-cued Needle-style packet. That supports the current design choice for this packet, but it is not a proof of global optimality.
 
