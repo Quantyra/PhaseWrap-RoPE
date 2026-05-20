@@ -23,7 +23,9 @@ docs/research/q-rope-*.md
 docs/evidence/q-rope-*.md
 docs/protocols/automated-stage-gate-execution.md
 docs/protocols/patent-self-filing-and-global-strategy.md
-# Generated Q-RoPE hardware sweep outputs, but preserve packet evidence
-logs/automated_stage_gates/stage4_hardware_sweep/
+# Generated Q-RoPE hardware sweep outputs: preserve canonical manifest and JSON evidence
+logs/automated_stage_gates/stage4_hardware_sweep/**/run_payload.json
+!logs/automated_stage_gates/stage4_hardware_sweep/
+!logs/automated_stage_gates/stage4_hardware_sweep/**/*.json
 # Generated Q-RoPE story artifacts
 stories/S16*.md

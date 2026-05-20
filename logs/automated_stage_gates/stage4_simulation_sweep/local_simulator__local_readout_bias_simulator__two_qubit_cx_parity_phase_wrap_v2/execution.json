@@ -1,0 +1,170 @@
+{
+  "backend_metadata": {
+    "backend": "local_readout_bias_simulator",
+    "cost_usd": 0.0,
+    "hardware": false,
+    "provider": "local_simulator",
+    "simulator": true
+  },
+  "calibration_metadata": {
+    "captured_at_utc": "2026-05-18T00:00:00Z",
+    "hardware": false,
+    "model": "local_readout_bias_simulator",
+    "simulator": true
+  },
+  "jobs": [
+    {
+      "backend": "local_readout_bias_simulator",
+      "job_id": "local_readout_bias_simulator-deterministic-local-sim",
+      "provider": "local_simulator",
+      "raw_counts_by_row": [
+        {
+          "counts": {
+            "00": 42,
+            "01": 2006,
+            "10": 2006,
+            "11": 42
+          },
+          "row_id": "hwrow-000"
+        },
+        {
+          "counts": {
+            "00": 0,
+            "01": 1901,
+            "10": 32,
+            "11": 2163
+          },
+          "row_id": "hwrow-001"
+        },
+        {
+          "counts": {
+            "00": 290,
+            "01": 1501,
+            "10": 2110,
+            "11": 195
+          },
+          "row_id": "hwrow-002"
+        },
+        {
+          "counts": {
+            "00": 1254,
+            "01": 819,
+            "10": 1146,
+            "11": 877
+          },
+          "row_id": "hwrow-003"
+        },
+        {
+          "counts": {
+            "00": 0,
+            "01": 3547,
+            "10": 32,
+            "11": 517
+          },
+          "row_id": "hwrow-004"
+        },
+        {
+          "counts": {
+            "00": 144,
+            "01": 1904,
+            "10": 208,
+            "11": 1840
+          },
+          "row_id": "hwrow-005"
+        },
+        {
+          "counts": {
+            "00": 290,
+            "01": 1501,
+            "10": 2110,
+            "11": 195
+          },
+          "row_id": "hwrow-006"
+        },
+        {
+          "counts": {
+            "00": 1254,
+            "01": 819,
+            "10": 1146,
+            "11": 877
+          },
+          "row_id": "hwrow-007"
+        },
+        {
+          "counts": {
+            "00": 62,
+            "01": 2773,
+            "10": 289,
+            "11": 972
+          },
+          "row_id": "hwrow-008"
+        },
+        {
+          "counts": {
+            "00": 992,
+            "01": 1056,
+            "10": 1056,
+            "11": 992
+          },
+          "row_id": "hwrow-009"
+        },
+        {
+          "counts": {
+            "00": 290,
+            "01": 1501,
+            "10": 2110,
+            "11": 195
+          },
+          "row_id": "hwrow-010"
+        },
+        {
+          "counts": {
+            "00": 1254,
+            "01": 819,
+            "10": 1146,
+            "11": 877
+          },
+          "row_id": "hwrow-011"
+        },
+        {
+          "counts": {
+            "00": 13,
+            "01": 3610,
+            "10": 371,
+            "11": 102
+          },
+          "row_id": "hwrow-012"
+        },
+        {
+          "counts": {
+            "00": 0,
+            "01": 1901,
+            "10": 32,
+            "11": 2163
+          },
+          "row_id": "hwrow-013"
+        },
+        {
+          "counts": {
+            "00": 290,
+            "01": 1501,
+            "10": 2110,
+            "11": 195
+          },
+          "row_id": "hwrow-014"
+        },
+        {
+          "counts": {
+            "00": 1254,
+            "01": 819,
+            "10": 1146,
+            "11": 877
+          },
+          "row_id": "hwrow-015"
+        }
+      ],
+      "shot_count": 4096
+    }
+  ],
+  "status": "COMPLETED"
+}

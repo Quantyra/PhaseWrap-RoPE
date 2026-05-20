@@ -1,0 +1,172 @@
+{
+  "budget_policy": {
+    "approval_required_above_usd": 100,
+    "hardware_execution_approved": false,
+    "offline_verification_cost_usd": 0,
+    "policy": "No hardware execution is approved for this simulation-only plan."
+  },
+  "claim_boundary": {
+    "excluded": [
+      "hardware validation",
+      "broad quantum advantage",
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "general cross-backend robustness",
+      "deployed-model performance improvement"
+    ],
+    "supported": "Free local simulation validates packet, circuit-family, raw-count, and verifier mechanics only."
+  },
+  "evidence_status": "simulation_verified",
+  "expected_backends": [
+    {
+      "backend": "local_ideal_simulator",
+      "expected_shots": 4096,
+      "provider": "local_simulator"
+    },
+    {
+      "backend": "local_readout_bias_simulator",
+      "expected_shots": 4096,
+      "provider": "local_simulator"
+    }
+  ],
+  "expected_families": [
+    "two_qubit_zz_expectation_phase_wrap_v1",
+    "two_qubit_cx_parity_phase_wrap_v2"
+  ],
+  "manifest_version": "stage4_simulation_sweep_manifest_v1",
+  "records": [
+    {
+      "backend": "local_ideal_simulator",
+      "calibration_metadata_path": null,
+      "completed_at_utc": null,
+      "evaluation_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1/evaluation.json",
+      "execution_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1/execution.json",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "job_ids": [
+        "local_ideal_simulator-deterministic-local-sim"
+      ],
+      "packet_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1/frozen_packet.json",
+      "provider": "local_simulator",
+      "record_id": "local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1",
+      "recorded_metrics": null,
+      "reported_metrics": {
+        "control": {
+          "mae": 0.229743,
+          "rank_correlation": -0.171995
+        },
+        "outcome": "simulation-positive",
+        "witness": {
+          "mae": 5.1e-05,
+          "rank_correlation": 1.0
+        }
+      },
+      "rows": 16,
+      "shots": 4096,
+      "simulation_only": true,
+      "status": "completed",
+      "submitted_at_utc": null,
+      "summary_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1/summary.json",
+      "verifier_output_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1/offline_verification.json"
+    },
+    {
+      "backend": "local_ideal_simulator",
+      "calibration_metadata_path": null,
+      "completed_at_utc": null,
+      "evaluation_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2/evaluation.json",
+      "execution_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2/execution.json",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "job_ids": [
+        "local_ideal_simulator-deterministic-local-sim"
+      ],
+      "packet_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2/frozen_packet.json",
+      "provider": "local_simulator",
+      "record_id": "local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2",
+      "recorded_metrics": null,
+      "reported_metrics": {
+        "control": {
+          "mae": 0.229743,
+          "rank_correlation": -0.171995
+        },
+        "outcome": "simulation-positive",
+        "witness": {
+          "mae": 5.1e-05,
+          "rank_correlation": 1.0
+        }
+      },
+      "rows": 16,
+      "shots": 4096,
+      "simulation_only": true,
+      "status": "completed",
+      "submitted_at_utc": null,
+      "summary_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2/summary.json",
+      "verifier_output_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2/offline_verification.json"
+    },
+    {
+      "backend": "local_readout_bias_simulator",
+      "calibration_metadata_path": null,
+      "completed_at_utc": null,
+      "evaluation_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1/evaluation.json",
+      "execution_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1/execution.json",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "job_ids": [
+        "local_readout_bias_simulator-deterministic-local-sim"
+      ],
+      "packet_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1/frozen_packet.json",
+      "provider": "local_simulator",
+      "record_id": "local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1",
+      "recorded_metrics": null,
+      "reported_metrics": {
+        "control": {
+          "mae": 0.228767,
+          "rank_correlation": -0.187215
+        },
+        "outcome": "simulation-positive",
+        "witness": {
+          "mae": 0.017787,
+          "rank_correlation": 1.0
+        }
+      },
+      "rows": 16,
+      "shots": 4096,
+      "simulation_only": true,
+      "status": "completed",
+      "submitted_at_utc": null,
+      "summary_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1/summary.json",
+      "verifier_output_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1/offline_verification.json"
+    },
+    {
+      "backend": "local_readout_bias_simulator",
+      "calibration_metadata_path": null,
+      "completed_at_utc": null,
+      "evaluation_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2/evaluation.json",
+      "execution_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2/execution.json",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "job_ids": [
+        "local_readout_bias_simulator-deterministic-local-sim"
+      ],
+      "packet_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2/frozen_packet.json",
+      "provider": "local_simulator",
+      "record_id": "local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2",
+      "recorded_metrics": null,
+      "reported_metrics": {
+        "control": {
+          "mae": 0.231697,
+          "rank_correlation": -0.187215
+        },
+        "outcome": "simulation-positive",
+        "witness": {
+          "mae": 5.1e-05,
+          "rank_correlation": 1.0
+        }
+      },
+      "rows": 16,
+      "shots": 4096,
+      "simulation_only": true,
+      "status": "completed",
+      "submitted_at_utc": null,
+      "summary_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2/summary.json",
+      "verifier_output_path": "logs/automated_stage_gates/stage4_simulation_sweep/local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2/offline_verification.json"
+    }
+  ],
+  "sweep_id": "stage4-free-simulation-sweep-2026-05"
+}

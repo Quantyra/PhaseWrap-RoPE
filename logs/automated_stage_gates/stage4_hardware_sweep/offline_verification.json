@@ -1,0 +1,206 @@
+{
+  "budget_policy": {
+    "approval_required_above_usd": 100,
+    "offline_verification_cost_usd": 0,
+    "policy": "Any future hardware execution or rerun with estimated cost above 100 USD requires explicit approval before submission."
+  },
+  "claim_boundary": {
+    "excluded": [
+      "broad quantum advantage",
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "general cross-backend robustness",
+      "production LLM improvement"
+    ],
+    "supported": "Only recorded packet/backend/date/calibration-specific hardware validation outcomes are supported after raw-count evidence verifies offline."
+  },
+  "hardware_cost_usd": 0,
+  "manifest_errors": [],
+  "manifest_path": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_hardware_sweep\\manifest.json",
+  "manifest_sha256": "6eb367d3384f8f13f84ea0e75694734532917992c89176cf71ca4e42f0f8712a",
+  "missing_records": [
+    "ibm_runtime__ibm_kingston__two_qubit_zz_expectation_phase_wrap_v1",
+    "ibm_runtime__ibm_kingston__two_qubit_cx_parity_phase_wrap_v2",
+    "ibm_runtime__ibm_marrakesh__two_qubit_zz_expectation_phase_wrap_v1",
+    "ibm_runtime__ibm_marrakesh__two_qubit_cx_parity_phase_wrap_v2",
+    "ibm_runtime__ibm_fez__two_qubit_zz_expectation_phase_wrap_v1",
+    "ibm_runtime__ibm_fez__two_qubit_cx_parity_phase_wrap_v2",
+    "ionq__ionq_qpu__two_qubit_zz_expectation_phase_wrap_v1",
+    "ionq__ionq_qpu__two_qubit_cx_parity_phase_wrap_v2"
+  ],
+  "no_hardware_submission": true,
+  "pass": false,
+  "records": [
+    {
+      "backend": "ibm_kingston",
+      "checks": [
+        {
+          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
+          "name": "record_has_real_evidence",
+          "pass": false
+        }
+      ],
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "missing_artifacts": [
+        "frozen_packet.json",
+        "execution.json",
+        "evaluation.json",
+        "summary.json"
+      ],
+      "pass": false,
+      "provider": "ibm_runtime",
+      "record_id": "ibm_runtime__ibm_kingston__two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "missing"
+    },
+    {
+      "backend": "ibm_kingston",
+      "checks": [
+        {
+          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
+          "name": "record_has_real_evidence",
+          "pass": false
+        }
+      ],
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "missing_artifacts": [
+        "frozen_packet.json",
+        "execution.json",
+        "evaluation.json",
+        "summary.json"
+      ],
+      "pass": false,
+      "provider": "ibm_runtime",
+      "record_id": "ibm_runtime__ibm_kingston__two_qubit_cx_parity_phase_wrap_v2",
+      "status": "missing"
+    },
+    {
+      "backend": "ibm_marrakesh",
+      "checks": [
+        {
+          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
+          "name": "record_has_real_evidence",
+          "pass": false
+        }
+      ],
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "missing_artifacts": [
+        "frozen_packet.json",
+        "execution.json",
+        "evaluation.json",
+        "summary.json"
+      ],
+      "pass": false,
+      "provider": "ibm_runtime",
+      "record_id": "ibm_runtime__ibm_marrakesh__two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "missing"
+    },
+    {
+      "backend": "ibm_marrakesh",
+      "checks": [
+        {
+          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
+          "name": "record_has_real_evidence",
+          "pass": false
+        }
+      ],
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "missing_artifacts": [
+        "frozen_packet.json",
+        "execution.json",
+        "evaluation.json",
+        "summary.json"
+      ],
+      "pass": false,
+      "provider": "ibm_runtime",
+      "record_id": "ibm_runtime__ibm_marrakesh__two_qubit_cx_parity_phase_wrap_v2",
+      "status": "missing"
+    },
+    {
+      "backend": "ibm_fez",
+      "checks": [
+        {
+          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
+          "name": "record_has_real_evidence",
+          "pass": false
+        }
+      ],
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "missing_artifacts": [
+        "frozen_packet.json",
+        "execution.json",
+        "evaluation.json",
+        "summary.json"
+      ],
+      "pass": false,
+      "provider": "ibm_runtime",
+      "record_id": "ibm_runtime__ibm_fez__two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "missing"
+    },
+    {
+      "backend": "ibm_fez",
+      "checks": [
+        {
+          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
+          "name": "record_has_real_evidence",
+          "pass": false
+        }
+      ],
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "missing_artifacts": [
+        "frozen_packet.json",
+        "execution.json",
+        "evaluation.json",
+        "summary.json"
+      ],
+      "pass": false,
+      "provider": "ibm_runtime",
+      "record_id": "ibm_runtime__ibm_fez__two_qubit_cx_parity_phase_wrap_v2",
+      "status": "missing"
+    },
+    {
+      "backend": "ionq_qpu",
+      "checks": [
+        {
+          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
+          "name": "record_has_real_evidence",
+          "pass": false
+        }
+      ],
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "missing_artifacts": [
+        "frozen_packet.json",
+        "execution.json",
+        "evaluation.json",
+        "summary.json"
+      ],
+      "pass": false,
+      "provider": "ionq",
+      "record_id": "ionq__ionq_qpu__two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "missing"
+    },
+    {
+      "backend": "ionq_qpu",
+      "checks": [
+        {
+          "detail": "Supply real hardware run artifacts from the completed Stage 4 sweep. Do not synthesize raw counts, job IDs, timestamps, metadata, or metrics.",
+          "name": "record_has_real_evidence",
+          "pass": false
+        }
+      ],
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "missing_artifacts": [
+        "frozen_packet.json",
+        "execution.json",
+        "evaluation.json",
+        "summary.json"
+      ],
+      "pass": false,
+      "provider": "ionq",
+      "record_id": "ionq__ionq_qpu__two_qubit_cx_parity_phase_wrap_v2",
+      "status": "missing"
+    }
+  ],
+  "sweep_id": "stage4-multiplatform-hardware-sweep-2026-05",
+  "table": [],
+  "verifier": "phasewrap_rope_stage4_hardware_sweep_offline_verifier_v1"
+}

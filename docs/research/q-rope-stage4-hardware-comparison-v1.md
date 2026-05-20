@@ -1,31 +1,43 @@
-# Q-RoPE Stage 4 Hardware Comparison v1
+# PhaseWrap-RoPE Stage 4 Hardware Comparison v1
 
 Date: 2026-05-18
 
 ## BLUF
 
-The hardware run goals were completed. Both witness families were executed on all currently discovered hardware targets, and every run returned `PASS / hardware-positive`.
+The repository now treats the Stage 4 multi-platform sweep as a manifest-driven evidence lane. The narrative comparison below records the reported hardware sweep outcome, but first-class public evidence requires the tracked raw-count artifacts listed in:
 
-The product-state witness and the entangling CX witness both preserved the same qualitative pattern:
+```text
+logs/automated_stage_gates/stage4_hardware_sweep/manifest.json
+```
 
-- witness metrics were substantially better than the control metrics
-- control rank correlation remained negative on every backend
-- IBM runs used 4096 shots
-- IonQ `ionq_qpu` completed with 1024 shots, which is the exposed cap from the available provider metadata
+Run the offline verifier with:
 
-## Visual Summary
+```bash
+python scripts/verify_stage4_hardware_sweep.py
+```
 
-![Stage 4 hardware comparison](../publication/figures/qrope-stage4-comparison-v1.svg)
+If real sweep artifacts are absent, the verifier fails and lists the missing records. That failure is intentional; missing raw counts, job IDs, timestamps, or backend metadata must be supplied from real run records, not reconstructed from this report.
 
-The figure shows the same result pattern in a compact form:
+The active no-spend research lane is the free local simulation sweep:
 
-- the witness bars stay low on MAE and high on rank correlation
-- the control bars stay high on MAE and negative on rank correlation
-- the entangling CX family improves rank correlation on the IBM backends relative to the product-state family
+```bash
+python scripts/run_stage4_simulation_sweep.py
+python scripts/verify_stage4_simulation_sweep.py
+```
 
-## Hardware Targets
+That simulation lane passes offline verification and should be used to finish the current research packaging before any hardware spend is reconsidered.
 
-| Provider | Backend | Shots used | Status | Outcome |
+## Claim Boundary
+
+The comparison may support only recorded packet/backend/date/calibration-specific outcomes after offline verification from raw counts. It does not establish broad quantum advantage, production transformer superiority, full transformer-scale validation, deployed-model performance improvement, or general cross-backend robustness.
+
+Any future hardware execution or rerun with estimated cost over `$100` requires explicit approval before submission.
+
+No hardware execution is approved at this time.
+
+## Reported Hardware Targets
+
+| Provider | Backend | Shots used | Reported status | Reported outcome |
 | --- | --- | ---: | --- | --- |
 | IBM Runtime | `ibm_kingston` | 4096 | PASS | hardware-positive |
 | IBM Runtime | `ibm_marrakesh` | 4096 | PASS | hardware-positive |
@@ -54,64 +66,19 @@ Circuit family: `two_qubit_cx_parity_phase_wrap_v2`
 | `ibm_fez` | 0.016162 | 0.981446 | 0.213417 | -0.169318 |
 | `ionq_qpu` | 0.016037 | 0.908612 | 0.229827 | -0.176810 |
 
-## Comparison
+## Interpretation
 
-### Product-state vs entangling
+The reported runs preserve the intended witness/control ordering: witness MAE is lower and witness rank correlation is higher than the additive control in each reported lane. The entangling CX family is therefore a reported supporting extension, not proof of quantum advantage or broad robustness.
 
-The entangling CX witness was competitive with, and in some cases stronger than, the product-state witness on rank correlation. On IBM backends, the entangling witness reached:
-
-- `0.925187` on `ibm_kingston`
-- `0.960468` on `ibm_marrakesh`
-- `0.981446` on `ibm_fez`
-
-That is the cleanest hardware evidence that the CX variant is not merely decorative. It still needs careful claim wording, but it did execute and it did preserve the desired directionality.
-
-### Backend deltas
-
-| Backend | MAE delta, product | MAE delta, entangling | Rank delta, product | Rank delta, entangling |
-| --- | ---: | ---: | ---: | ---: |
-| `ibm_kingston` | 0.1718 | 0.1790 | 0.9326 | 1.1095 |
-| `ibm_marrakesh` | 0.2183 | 0.2101 | 1.0639 | 1.1373 |
-| `ibm_fez` | 0.2047 | 0.1973 | 1.1102 | 1.1508 |
-| `ionq_qpu` | 0.2153 | 0.2138 | 1.0458 | 1.0854 |
-
-Here the MAE delta is `control MAE - witness MAE`, so larger is better. The rank delta is `witness rank correlation - control rank correlation`, so larger is better.
-
-### IBM vs IonQ
-
-IBM delivered the most complete and directly comparable set of 4096-shot runs.
-
-IonQ also completed both families successfully, but the run was constrained to 1024 shots by the backend exposure. The qualitative result still matched the IBM pattern:
-
-- witness MAE remained low
-- control MAE remained high
-- control rank correlation stayed negative
-
-### Family-level summary
-
-| Family | Best witness MAE | Best witness rank corr | Worst control MAE | Worst control rank corr |
-| --- | ---: | ---: | ---: | ---: |
-| Product-state | 0.011859 | 0.940875 | 0.230163 | -0.184302 |
-| Entangling CX | 0.015108 | 0.981446 | 0.229827 | -0.184302 |
-
-### Goal status
-
-The execution goals are complete:
-
-1. run the existing product-state hardware witness on all available non-simulator hardware targets
-2. run the entangling CX witness variant on the same set
-3. record backend-specific artifacts and job IDs
-4. preserve the 4096-shot target where supported
+Backend calibration, queue conditions, transpilation details, shot caps, and packet composition can affect future results. The proper review path is the manifest plus verifier, not this markdown table alone.
 
 ## Evidence Pointers
 
-- [Product-state IBM/IonQ sweep logs](/C:/Users/Dan/Desktop/Projects/QuantyraQRope/logs/automated_stage_gates/stage4_hardware_sweep)
-- [Stage 4 sweep runner](/C:/Users/Dan/Desktop/Projects/QuantyraQRope/scripts/run_stage4_hardware_sweep.py)
+- Sweep manifest: `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`
+- Sweep verifier: `scripts/verify_stage4_hardware_sweep.py`
+- Sweep verifier output: `logs/automated_stage_gates/stage4_hardware_sweep/offline_verification.json`
+- Stage 4 sweep runner: `scripts/run_stage4_hardware_sweep.py`
 
-## Recommendation
+## Next Step
 
-The next step is documentation packaging, not more execution:
-
-1. fold these run results into the publication docs
-2. decide whether the entangling witness should be described as a confirmed result or a supporting extension
-3. keep the 4096-shot wording for IBM and explicitly note the IonQ cap
+Finish the research package against the free simulation sweep first. Hardware remains deferred until the simulation-only output is reviewed and an explicit hardware budget decision is made.

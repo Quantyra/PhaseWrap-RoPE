@@ -809,9 +809,9 @@ def ideal_counts_for_hardware_row(row_payload: dict[str, Any], shots: int) -> di
     if row_payload["circuit_parameters"].get("embedding") == ENTANGLING_CX_CIRCUIT_FAMILY:
         probabilities = {
             "00": product_probabilities["00"],
-            "01": product_probabilities["01"],
-            "10": product_probabilities["11"],
-            "11": product_probabilities["10"],
+            "01": product_probabilities["11"],
+            "10": product_probabilities["10"],
+            "11": product_probabilities["01"],
         }
     else:
         probabilities = product_probabilities

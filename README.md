@@ -19,15 +19,15 @@ PhaseWrap-RoPE presents:
 - phase-wrap residual features using mod-8 and mod-12 structure;
 - a cross-band score computed from the product of the mod-8 and mod-12 signed margins;
 - deterministic validation packets with raw counts, backend metadata, and offline recomputation;
-- a bounded Stage 4 real-hardware validation result;
-- a completed hardware comparison report covering the product-state witness and entangling CX witness family.
+- a free local Stage 4 simulation sweep for product-state and entangling-CX witness mechanics;
+- a deferred Stage 4 hardware lane that becomes first-class evidence only when backed by tracked raw-count records and offline verification.
 
 The paper does not claim broad quantum advantage, full transformer-scale superiority, or general cross-backend robustness.
 
 ## Status
 
-- `Evidence`: bounded Stage 4 hardware-positive result for the recorded packet/backend/date/calibration context.
-- `Hardware`: IBM Quantum is the primary Stage 4 hardware lane; IonQ and Quandela paths require explicit provider configuration.
+- `Evidence`: free local Stage 4 simulation sweep verified; hardware evidence is deferred until real raw-count artifacts are supplied and verified.
+- `Hardware`: no hardware execution is approved at this time.
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
 - `Patent/IP`: patent pending; USPTO provisional application `64/068,121`. Additional receipt identifiers are retained in internal IP records.
 
@@ -57,19 +57,26 @@ Verify the saved Stage 4 packet arithmetic from the published raw-count evidence
 python scripts/verify_stage4_hardware_packet.py
 ```
 
-Expected verifier summary:
+Verify the Stage 4 multi-platform sweep manifest:
 
-```json
-{
-  "pass": true,
-  "provider": "ibm_runtime",
-  "backend": "ibm_fez",
-  "packet_id": "qrope-hardware-73c61893576297ff",
-  "job_ids": ["d84jbq00bvlc73d4krr0"]
-}
+```bash
+python scripts/verify_stage4_hardware_sweep.py
 ```
 
-Install provider dependencies only when preparing a hardware rerun:
+The sweep verifier is strict: it passes only when real packet, execution/raw-count, evaluation, summary, and metadata artifacts are present for every manifest record. If artifacts are missing, it fails and lists the missing records.
+
+Run and verify the free local Stage 4 simulation sweep:
+
+```bash
+python scripts/run_stage4_simulation_sweep.py
+python scripts/verify_stage4_simulation_sweep.py
+```
+
+The simulation sweep uses no provider credentials and submits no hardware jobs. It validates the packet, circuit-family, raw-count, and verifier mechanics only; it is not hardware evidence.
+
+Offline verification does not submit hardware jobs and has no provider cost. Any future hardware execution or rerun with estimated cost over `$100` requires explicit approval before submission.
+
+Install provider dependencies only when preparing an approved hardware rerun:
 
 ```bash
 python -m pip install -e ".[ibm]"
@@ -80,7 +87,11 @@ python -m pip install -e ".[ibm]"
 - Read the paper.
 - Inspect the Stage 4 packet files under `logs/automated_stage_gates/stage4_hardware_packet/`.
 - Run `python scripts/verify_stage4_hardware_packet.py`.
-- Compare the verifier output with `logs/automated_stage_gates/stage4_hardware_packet/offline_verification.json`.
+- Inspect the simulation sweep manifest at `logs/automated_stage_gates/stage4_simulation_sweep/manifest.json`.
+- Run `python scripts/verify_stage4_simulation_sweep.py`.
+- Inspect the sweep manifest at `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`.
+- Run `python scripts/verify_stage4_hardware_sweep.py`.
+- Compare verifier outputs with the corresponding `offline_verification.json` files.
 
 ## Appendix: Figures
 
@@ -97,6 +108,7 @@ python -m pip install -e ".[ibm]"
 - [External release plan](docs/publication/external-release-plan-v1.md)
 - [Open-source release checklist](docs/publication/open-source-release-checklist-v1.md)
 - [Stage 4 real-hardware validation result](docs/research/q-rope-stage4-real-hardware-validation-result-v1.md)
+- [Stage 4 simulation sweep](docs/research/phasewrap-rope-stage4-simulation-sweep-v1.md)
 - [Phase-wrap algorithm note](docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md)
 
 ## Appendix: Licensing and Patent Notice

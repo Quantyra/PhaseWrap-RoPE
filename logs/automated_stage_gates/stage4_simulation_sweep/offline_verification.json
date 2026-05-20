@@ -1,0 +1,788 @@
+{
+  "budget_policy": {
+    "approval_required_above_usd": 100,
+    "hardware_execution_approved": false,
+    "offline_verification_cost_usd": 0,
+    "policy": "No hardware execution is approved for this simulation-only plan."
+  },
+  "claim_boundary": {
+    "excluded": [
+      "hardware validation",
+      "broad quantum advantage",
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "general cross-backend robustness",
+      "deployed-model performance improvement"
+    ],
+    "supported": "Free local simulation validates packet, circuit-family, raw-count, and verifier mechanics only."
+  },
+  "hardware_cost_usd": 0,
+  "manifest_errors": [],
+  "manifest_path": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\manifest.json",
+  "manifest_sha256": "3bb43b09f2ce88aa87f5b32d5fb2b884c61f3732b9e59337f930b3574060d015",
+  "missing_records": [],
+  "no_hardware_submission": true,
+  "pass": true,
+  "records": [
+    {
+      "backend": "local_ideal_simulator",
+      "checks": [
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1\\frozen_packet.json",
+          "name": "packet_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1\\execution.json",
+          "name": "execution_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1\\evaluation.json",
+          "name": "evaluation_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1\\summary.json",
+          "name": "summary_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "local_simulator",
+          "name": "provider_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": "local_ideal_simulator",
+          "name": "backend_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": "two_qubit_zz_expectation_phase_wrap_v1",
+          "name": "family_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": 16,
+          "name": "rows_match_manifest",
+          "pass": true
+        },
+        {
+          "detail": 4096,
+          "name": "shots_match_manifest",
+          "pass": true
+        },
+        {
+          "detail": "COMPLETED",
+          "name": "execution_completed",
+          "pass": true
+        },
+        {
+          "detail": {
+            "recomputed": {
+              "comparability_pass": true,
+              "control": {
+                "mae": 0.229743,
+                "rank_correlation": -0.171995
+              },
+              "direction_agreement": true,
+              "fail_reasons": [],
+              "gate_pass": true,
+              "hardware_direction_positive": true,
+              "metadata_complete": true,
+              "missing_metadata": [],
+              "noisy_direction_positive": true,
+              "outcome": "hardware-positive",
+              "status": "PASS",
+              "witness": {
+                "mae": 5.1e-05,
+                "rank_correlation": 1.0
+              }
+            },
+            "recorded": {
+              "comparability_pass": true,
+              "control": {
+                "mae": 0.229743,
+                "rank_correlation": -0.171995
+              },
+              "direction_agreement": true,
+              "fail_reasons": [],
+              "gate_pass": true,
+              "hardware_direction_positive": true,
+              "metadata_complete": true,
+              "missing_metadata": [],
+              "noisy_direction_positive": true,
+              "outcome": "hardware-positive",
+              "status": "PASS",
+              "witness": {
+                "mae": 5.1e-05,
+                "rank_correlation": 1.0
+              }
+            }
+          },
+          "name": "recorded_evaluation_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": "PASS",
+          "name": "summary_status_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": "hardware-positive",
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": {
+            "control": {
+              "mae": 0.229743,
+              "rank_correlation": -0.171995
+            },
+            "witness": {
+              "mae": 5.1e-05,
+              "rank_correlation": 1.0
+            }
+          },
+          "name": "witness_mae_beats_control",
+          "pass": true
+        },
+        {
+          "detail": {
+            "control": {
+              "mae": 0.229743,
+              "rank_correlation": -0.171995
+            },
+            "witness": {
+              "mae": 5.1e-05,
+              "rank_correlation": 1.0
+            }
+          },
+          "name": "witness_rank_beats_control",
+          "pass": true
+        }
+      ],
+      "evaluation_sha256": "979e1b2c704d82323a5734622b9cd0bf85640a9a45fffe669819e8e332544b38",
+      "execution_sha256": "48c11486c70e6c56d891cd86512bf73fdc790bbb3f3f85ee634797481d803876",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "job_ids": [
+        "local_ideal_simulator-deterministic-local-sim"
+      ],
+      "missing_artifacts": [],
+      "packet_id": "qrope-hardware-6eac815bfbbfac97",
+      "packet_sha256": "5d4c52d7e15cd704f9a08f9de890d3817c59ca88fec1d3a1b206e76302ed6e89",
+      "pass": true,
+      "provider": "local_simulator",
+      "recomputed_metrics": {
+        "control": {
+          "mae": 0.229743,
+          "rank_correlation": -0.171995
+        },
+        "gate_pass": true,
+        "outcome": "simulation-positive",
+        "witness": {
+          "mae": 5.1e-05,
+          "rank_correlation": 1.0
+        }
+      },
+      "record_id": "local_simulator__local_ideal_simulator__two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "completed",
+      "summary_sha256": "960a51a87f876350b6f0ffc6e809bfb3a905acae7a820fbcaae1ce84631b4ea9",
+      "table_row": {
+        "backend": "local_ideal_simulator",
+        "control_mae": 0.229743,
+        "control_rank_corr": -0.171995,
+        "family": "two_qubit_zz_expectation_phase_wrap_v1",
+        "outcome": "simulation-positive",
+        "provider": "local_simulator",
+        "rows": 16,
+        "shots": 4096,
+        "witness_mae": 5.1e-05,
+        "witness_rank_corr": 1.0
+      }
+    },
+    {
+      "backend": "local_ideal_simulator",
+      "checks": [
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2\\frozen_packet.json",
+          "name": "packet_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2\\execution.json",
+          "name": "execution_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2\\evaluation.json",
+          "name": "evaluation_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2\\summary.json",
+          "name": "summary_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "local_simulator",
+          "name": "provider_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": "local_ideal_simulator",
+          "name": "backend_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": "two_qubit_cx_parity_phase_wrap_v2",
+          "name": "family_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": 16,
+          "name": "rows_match_manifest",
+          "pass": true
+        },
+        {
+          "detail": 4096,
+          "name": "shots_match_manifest",
+          "pass": true
+        },
+        {
+          "detail": "COMPLETED",
+          "name": "execution_completed",
+          "pass": true
+        },
+        {
+          "detail": {
+            "recomputed": {
+              "comparability_pass": true,
+              "control": {
+                "mae": 0.229743,
+                "rank_correlation": -0.171995
+              },
+              "direction_agreement": true,
+              "fail_reasons": [],
+              "gate_pass": true,
+              "hardware_direction_positive": true,
+              "metadata_complete": true,
+              "missing_metadata": [],
+              "noisy_direction_positive": true,
+              "outcome": "hardware-positive",
+              "status": "PASS",
+              "witness": {
+                "mae": 5.1e-05,
+                "rank_correlation": 1.0
+              }
+            },
+            "recorded": {
+              "comparability_pass": true,
+              "control": {
+                "mae": 0.229743,
+                "rank_correlation": -0.171995
+              },
+              "direction_agreement": true,
+              "fail_reasons": [],
+              "gate_pass": true,
+              "hardware_direction_positive": true,
+              "metadata_complete": true,
+              "missing_metadata": [],
+              "noisy_direction_positive": true,
+              "outcome": "hardware-positive",
+              "status": "PASS",
+              "witness": {
+                "mae": 5.1e-05,
+                "rank_correlation": 1.0
+              }
+            }
+          },
+          "name": "recorded_evaluation_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": "PASS",
+          "name": "summary_status_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": "hardware-positive",
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": {
+            "control": {
+              "mae": 0.229743,
+              "rank_correlation": -0.171995
+            },
+            "witness": {
+              "mae": 5.1e-05,
+              "rank_correlation": 1.0
+            }
+          },
+          "name": "witness_mae_beats_control",
+          "pass": true
+        },
+        {
+          "detail": {
+            "control": {
+              "mae": 0.229743,
+              "rank_correlation": -0.171995
+            },
+            "witness": {
+              "mae": 5.1e-05,
+              "rank_correlation": 1.0
+            }
+          },
+          "name": "witness_rank_beats_control",
+          "pass": true
+        }
+      ],
+      "evaluation_sha256": "7b270eb83ee13787989e7831b76cb223001ecadcb065236763dae6195b7c745f",
+      "execution_sha256": "8bed33283dbdcd8e334bfd07577494740ba33971465f26d3e5f98f8bf5b1e2a8",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "job_ids": [
+        "local_ideal_simulator-deterministic-local-sim"
+      ],
+      "missing_artifacts": [],
+      "packet_id": "qrope-hardware-56dfc8fd8976a72d",
+      "packet_sha256": "ee12375a6822afc333e363a35e40a1a361c9c48358c7257575a97a75e6b25e8d",
+      "pass": true,
+      "provider": "local_simulator",
+      "recomputed_metrics": {
+        "control": {
+          "mae": 0.229743,
+          "rank_correlation": -0.171995
+        },
+        "gate_pass": true,
+        "outcome": "simulation-positive",
+        "witness": {
+          "mae": 5.1e-05,
+          "rank_correlation": 1.0
+        }
+      },
+      "record_id": "local_simulator__local_ideal_simulator__two_qubit_cx_parity_phase_wrap_v2",
+      "status": "completed",
+      "summary_sha256": "960a51a87f876350b6f0ffc6e809bfb3a905acae7a820fbcaae1ce84631b4ea9",
+      "table_row": {
+        "backend": "local_ideal_simulator",
+        "control_mae": 0.229743,
+        "control_rank_corr": -0.171995,
+        "family": "two_qubit_cx_parity_phase_wrap_v2",
+        "outcome": "simulation-positive",
+        "provider": "local_simulator",
+        "rows": 16,
+        "shots": 4096,
+        "witness_mae": 5.1e-05,
+        "witness_rank_corr": 1.0
+      }
+    },
+    {
+      "backend": "local_readout_bias_simulator",
+      "checks": [
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1\\frozen_packet.json",
+          "name": "packet_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1\\execution.json",
+          "name": "execution_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1\\evaluation.json",
+          "name": "evaluation_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1\\summary.json",
+          "name": "summary_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "local_simulator",
+          "name": "provider_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": "local_readout_bias_simulator",
+          "name": "backend_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": "two_qubit_zz_expectation_phase_wrap_v1",
+          "name": "family_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": 16,
+          "name": "rows_match_manifest",
+          "pass": true
+        },
+        {
+          "detail": 4096,
+          "name": "shots_match_manifest",
+          "pass": true
+        },
+        {
+          "detail": "COMPLETED",
+          "name": "execution_completed",
+          "pass": true
+        },
+        {
+          "detail": {
+            "recomputed": {
+              "comparability_pass": true,
+              "control": {
+                "mae": 0.228767,
+                "rank_correlation": -0.187215
+              },
+              "direction_agreement": true,
+              "fail_reasons": [],
+              "gate_pass": true,
+              "hardware_direction_positive": true,
+              "metadata_complete": true,
+              "missing_metadata": [],
+              "noisy_direction_positive": true,
+              "outcome": "hardware-positive",
+              "status": "PASS",
+              "witness": {
+                "mae": 0.017787,
+                "rank_correlation": 1.0
+              }
+            },
+            "recorded": {
+              "comparability_pass": true,
+              "control": {
+                "mae": 0.228767,
+                "rank_correlation": -0.187215
+              },
+              "direction_agreement": true,
+              "fail_reasons": [],
+              "gate_pass": true,
+              "hardware_direction_positive": true,
+              "metadata_complete": true,
+              "missing_metadata": [],
+              "noisy_direction_positive": true,
+              "outcome": "hardware-positive",
+              "status": "PASS",
+              "witness": {
+                "mae": 0.017787,
+                "rank_correlation": 1.0
+              }
+            }
+          },
+          "name": "recorded_evaluation_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": "PASS",
+          "name": "summary_status_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": "hardware-positive",
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": {
+            "control": {
+              "mae": 0.228767,
+              "rank_correlation": -0.187215
+            },
+            "witness": {
+              "mae": 0.017787,
+              "rank_correlation": 1.0
+            }
+          },
+          "name": "witness_mae_beats_control",
+          "pass": true
+        },
+        {
+          "detail": {
+            "control": {
+              "mae": 0.228767,
+              "rank_correlation": -0.187215
+            },
+            "witness": {
+              "mae": 0.017787,
+              "rank_correlation": 1.0
+            }
+          },
+          "name": "witness_rank_beats_control",
+          "pass": true
+        }
+      ],
+      "evaluation_sha256": "6600631c82ff2fc33330c6a3264a1e8241e6726b76aaa5ba3593dd9e17e92af4",
+      "execution_sha256": "dc3f0e43771bb97956a31a120c46ee22b7ff83c7e5aa6dc5069c068fa761f7b5",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "job_ids": [
+        "local_readout_bias_simulator-deterministic-local-sim"
+      ],
+      "missing_artifacts": [],
+      "packet_id": "qrope-hardware-1ab5d854de511ca4",
+      "packet_sha256": "e422c714f1a60c5908c938a4611467fe7212df871e8c8d28480faafe63388d0d",
+      "pass": true,
+      "provider": "local_simulator",
+      "recomputed_metrics": {
+        "control": {
+          "mae": 0.228767,
+          "rank_correlation": -0.187215
+        },
+        "gate_pass": true,
+        "outcome": "simulation-positive",
+        "witness": {
+          "mae": 0.017787,
+          "rank_correlation": 1.0
+        }
+      },
+      "record_id": "local_simulator__local_readout_bias_simulator__two_qubit_zz_expectation_phase_wrap_v1",
+      "status": "completed",
+      "summary_sha256": "960a51a87f876350b6f0ffc6e809bfb3a905acae7a820fbcaae1ce84631b4ea9",
+      "table_row": {
+        "backend": "local_readout_bias_simulator",
+        "control_mae": 0.228767,
+        "control_rank_corr": -0.187215,
+        "family": "two_qubit_zz_expectation_phase_wrap_v1",
+        "outcome": "simulation-positive",
+        "provider": "local_simulator",
+        "rows": 16,
+        "shots": 4096,
+        "witness_mae": 0.017787,
+        "witness_rank_corr": 1.0
+      }
+    },
+    {
+      "backend": "local_readout_bias_simulator",
+      "checks": [
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2\\frozen_packet.json",
+          "name": "packet_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2\\execution.json",
+          "name": "execution_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2\\evaluation.json",
+          "name": "evaluation_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "C:\\Users\\Dan\\Desktop\\Projects\\QuantyraQRope\\logs\\automated_stage_gates\\stage4_simulation_sweep\\local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2\\summary.json",
+          "name": "summary_path_exists",
+          "pass": true
+        },
+        {
+          "detail": "local_simulator",
+          "name": "provider_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": "local_readout_bias_simulator",
+          "name": "backend_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": "two_qubit_cx_parity_phase_wrap_v2",
+          "name": "family_matches_manifest",
+          "pass": true
+        },
+        {
+          "detail": 16,
+          "name": "rows_match_manifest",
+          "pass": true
+        },
+        {
+          "detail": 4096,
+          "name": "shots_match_manifest",
+          "pass": true
+        },
+        {
+          "detail": "COMPLETED",
+          "name": "execution_completed",
+          "pass": true
+        },
+        {
+          "detail": {
+            "recomputed": {
+              "comparability_pass": true,
+              "control": {
+                "mae": 0.231697,
+                "rank_correlation": -0.187215
+              },
+              "direction_agreement": true,
+              "fail_reasons": [],
+              "gate_pass": true,
+              "hardware_direction_positive": true,
+              "metadata_complete": true,
+              "missing_metadata": [],
+              "noisy_direction_positive": true,
+              "outcome": "hardware-positive",
+              "status": "PASS",
+              "witness": {
+                "mae": 5.1e-05,
+                "rank_correlation": 1.0
+              }
+            },
+            "recorded": {
+              "comparability_pass": true,
+              "control": {
+                "mae": 0.231697,
+                "rank_correlation": -0.187215
+              },
+              "direction_agreement": true,
+              "fail_reasons": [],
+              "gate_pass": true,
+              "hardware_direction_positive": true,
+              "metadata_complete": true,
+              "missing_metadata": [],
+              "noisy_direction_positive": true,
+              "outcome": "hardware-positive",
+              "status": "PASS",
+              "witness": {
+                "mae": 5.1e-05,
+                "rank_correlation": 1.0
+              }
+            }
+          },
+          "name": "recorded_evaluation_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": "PASS",
+          "name": "summary_status_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": "hardware-positive",
+          "name": "summary_outcome_matches_recomputed",
+          "pass": true
+        },
+        {
+          "detail": {
+            "control": {
+              "mae": 0.231697,
+              "rank_correlation": -0.187215
+            },
+            "witness": {
+              "mae": 5.1e-05,
+              "rank_correlation": 1.0
+            }
+          },
+          "name": "witness_mae_beats_control",
+          "pass": true
+        },
+        {
+          "detail": {
+            "control": {
+              "mae": 0.231697,
+              "rank_correlation": -0.187215
+            },
+            "witness": {
+              "mae": 5.1e-05,
+              "rank_correlation": 1.0
+            }
+          },
+          "name": "witness_rank_beats_control",
+          "pass": true
+        }
+      ],
+      "evaluation_sha256": "cb93c1c3e93bf1413a2780455f8fc288738179b3d4c2ca44a22c0134c89be499",
+      "execution_sha256": "c3b3132b143e2276f1d317fd0d6cc66c2dff1fda6cdfd2ce6be2d58e294ccf5f",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "job_ids": [
+        "local_readout_bias_simulator-deterministic-local-sim"
+      ],
+      "missing_artifacts": [],
+      "packet_id": "qrope-hardware-04ac41de459c7c55",
+      "packet_sha256": "9e779234390acff0d7b2f0440853294fa11a0ed81609df4b78c5ee9b23a98677",
+      "pass": true,
+      "provider": "local_simulator",
+      "recomputed_metrics": {
+        "control": {
+          "mae": 0.231697,
+          "rank_correlation": -0.187215
+        },
+        "gate_pass": true,
+        "outcome": "simulation-positive",
+        "witness": {
+          "mae": 5.1e-05,
+          "rank_correlation": 1.0
+        }
+      },
+      "record_id": "local_simulator__local_readout_bias_simulator__two_qubit_cx_parity_phase_wrap_v2",
+      "status": "completed",
+      "summary_sha256": "960a51a87f876350b6f0ffc6e809bfb3a905acae7a820fbcaae1ce84631b4ea9",
+      "table_row": {
+        "backend": "local_readout_bias_simulator",
+        "control_mae": 0.231697,
+        "control_rank_corr": -0.187215,
+        "family": "two_qubit_cx_parity_phase_wrap_v2",
+        "outcome": "simulation-positive",
+        "provider": "local_simulator",
+        "rows": 16,
+        "shots": 4096,
+        "witness_mae": 5.1e-05,
+        "witness_rank_corr": 1.0
+      }
+    }
+  ],
+  "sweep_id": "stage4-free-simulation-sweep-2026-05",
+  "table": [
+    {
+      "backend": "local_ideal_simulator",
+      "control_mae": 0.229743,
+      "control_rank_corr": -0.171995,
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "outcome": "simulation-positive",
+      "provider": "local_simulator",
+      "rows": 16,
+      "shots": 4096,
+      "witness_mae": 5.1e-05,
+      "witness_rank_corr": 1.0
+    },
+    {
+      "backend": "local_ideal_simulator",
+      "control_mae": 0.229743,
+      "control_rank_corr": -0.171995,
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "outcome": "simulation-positive",
+      "provider": "local_simulator",
+      "rows": 16,
+      "shots": 4096,
+      "witness_mae": 5.1e-05,
+      "witness_rank_corr": 1.0
+    },
+    {
+      "backend": "local_readout_bias_simulator",
+      "control_mae": 0.228767,
+      "control_rank_corr": -0.187215,
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "outcome": "simulation-positive",
+      "provider": "local_simulator",
+      "rows": 16,
+      "shots": 4096,
+      "witness_mae": 0.017787,
+      "witness_rank_corr": 1.0
+    },
+    {
+      "backend": "local_readout_bias_simulator",
+      "control_mae": 0.231697,
+      "control_rank_corr": -0.187215,
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "outcome": "simulation-positive",
+      "provider": "local_simulator",
+      "rows": 16,
+      "shots": 4096,
+      "witness_mae": 5.1e-05,
+      "witness_rank_corr": 1.0
+    }
+  ],
+  "verifier": "phasewrap_rope_stage4_simulation_sweep_offline_verifier_v1"
+}

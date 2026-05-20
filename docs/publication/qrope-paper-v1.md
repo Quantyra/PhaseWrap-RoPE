@@ -10,9 +10,9 @@ License context: repository software released under `AGPL-3.0-only`
 
 ## Abstract
 
-PhaseWrap-RoPE is a positional-encoding research method based on phase-wrap residual structure. The method computes wrapped residuals in two modular bases, derives signed margins from cosine thresholds, and combines the margins into a cross-band score. This repository paper presents the PhaseWrap-RoPE method, its deterministic validation protocol, and completed Stage 4 real-noisy-hardware comparison runs across IBM Quantum and IonQ hardware.
+PhaseWrap-RoPE is a positional-encoding research method based on phase-wrap residual structure. The method computes wrapped residuals in two modular bases, derives signed margins from cosine thresholds, and combines the margins into a cross-band score. This repository paper presents the PhaseWrap-RoPE method, its deterministic validation protocol, and a completed no-spend Stage 4 simulation sweep covering the product-state and entangling-CX witness families.
 
-The result should be read as a bounded evidence claim. It supports the reported packet/backend/date/calibration-specific validation outcome, not broad quantum advantage, not transformer-scale superiority, and not general cross-backend robustness. The contribution is a reproducible review path: fixed packets, fixed shot counts, raw measurement counts, backend metadata, offline recomputation, and explicit claim boundaries.
+The result should be read as a bounded evidence claim. The active evidence supports simulator-specific packet and verifier mechanics, not hardware validation, not broad quantum advantage, not transformer-scale superiority, and not general cross-backend robustness. The contribution is a reproducible review path: fixed packets, fixed shot counts, raw measurement counts, metadata, offline recomputation, and explicit claim boundaries.
 
 ## Keywords
 
@@ -30,7 +30,7 @@ The contribution is threefold:
 
 - A PhaseWrap-RoPE scoring method using mod-8 and mod-12 signed margins.
 - A deterministic validation protocol based on frozen packets, fixed rows, fixed shot counts, raw counts, backend metadata, and offline recomputation.
-- A Stage 4 real-noisy-hardware comparison across IBM Kingston, IBM Marrakesh, IBM Fez, and IonQ QPU, with completed product-state and entangling-CX witness families.
+- A Stage 4 free local simulation sweep covering ideal and readout-biased simulator lanes for the product-state and entangling-CX witness families.
 
 ## 2. Related work and claim boundary
 
@@ -41,7 +41,7 @@ The allowed public claims are:
 - PhaseWrap-RoPE defines a phase-wrap positional scoring method.
 - The cross-band score is computed from mod-8 and mod-12 signed-margin structure.
 - The validation lane uses frozen packets, raw counts, backend metadata, and offline recomputation.
-- The Stage 4 evidence record reports completed hardware-positive results for the recorded packet/backend/date/calibration context and the completed hardware comparison sweep.
+- The Stage 4 evidence record reports completed simulation-positive results for the recorded simulator packet contexts.
 
 The excluded claims are:
 
@@ -138,7 +138,7 @@ witness_cx = clamp(0.5 + 0.5 * score_scale * E[Z1 after CX], 0, 1)
 control_cx = clamp(0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX]), 0, 1)
 ```
 
-This variant is now part of the completed Stage 4 hardware evidence and is summarized in the comparison report and comparison figure.
+This variant is part of the completed Stage 4 simulation lane. It becomes first-class hardware evidence only if corresponding hardware raw-count artifacts are later supplied in the hardware sweep manifest and pass offline verification.
 
 Implementation reference: `src/qrope/automated_stage_gates.py`.
 
@@ -176,6 +176,29 @@ The default verifier output is:
 
 - `logs/automated_stage_gates/stage4_hardware_packet/offline_verification.json`
 
+For the Stage 4 multi-platform sweep, the manifest and verifier entry point are:
+
+```bash
+python scripts/verify_stage4_hardware_sweep.py
+```
+
+- `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`
+- `logs/automated_stage_gates/stage4_hardware_sweep/offline_verification.json`
+
+The sweep verifier passes only when real packet, execution/raw-count, evaluation, summary, and metadata artifacts are present for every manifest record. If evidence files are missing, the verifier fails and lists the missing records.
+
+For the no-spend simulation lane, the entry points are:
+
+```bash
+python scripts/run_stage4_simulation_sweep.py
+python scripts/verify_stage4_simulation_sweep.py
+```
+
+- `logs/automated_stage_gates/stage4_simulation_sweep/manifest.json`
+- `logs/automated_stage_gates/stage4_simulation_sweep/offline_verification.json`
+
+The simulation lane validates packet, circuit-family, raw-count, and verifier mechanics only. It does not replace hardware validation.
+
 IBM Quantum Runtime primitives provide the execution model used by the hardware lane: Sampler samples circuit output registers, while IBM backend documentation describes dynamic backend properties and calibration metadata that can change over time [3-5].
 
 This verifier supports recomputation, not independent replication. Recomputing the saved packet verifies that the reported metrics follow from the published raw counts and metadata. Replication requires a new execution of the same frozen packet, preferably across additional dates and backends.
@@ -184,11 +207,11 @@ This verifier supports recomputation, not independent replication. Recomputing t
 
 ![PhaseWrap-RoPE Stage 4 hardware comparison](figures/qrope-stage4-comparison-v1.svg)
 
-Figure 3. Stage 4 hardware comparison. Source data: `logs/automated_stage_gates/stage4_hardware_sweep/`.
+Figure 3. Historical Stage 4 hardware comparison graphic. The active no-spend evidence path is `logs/automated_stage_gates/stage4_simulation_sweep/manifest.json` plus `scripts/verify_stage4_simulation_sweep.py`. The hardware sweep path remains deferred.
 
-The Stage 4 evidence record includes completed product-state and entangling-CX hardware runs on IBM Kingston, IBM Marrakesh, IBM Fez, and IonQ QPU.
+The active Stage 4 evidence record contains completed product-state and entangling-CX simulation runs on `local_ideal_simulator` and `local_readout_bias_simulator`. Public evidence status is determined by the simulation manifest and offline verifier, not by the narrative table alone.
 
-The IBM Quantum run records:
+Historical IBM Quantum materials in the repository reference:
 
 - provider: `ibm_runtime`;
 - backend: `ibm_fez`;
@@ -207,20 +230,20 @@ The IBM Quantum run records:
 - control rank correlation: `-0.176940`;
 - outcome: `hardware-positive`.
 
-The completed hardware sweep records:
+The verified simulation sweep records:
 
-- IBM Kingston, IBM Marrakesh, and IBM Fez each completed at `4096` shots for both witness families.
-- IonQ `ionq_qpu` completed at `1024` shots for both witness families, which is the exposed provider cap in the available metadata.
-- Every completed hardware run preserved the witness/control ordering expected by the claim boundary.
+- `local_ideal_simulator` completed at `4096` shots for both witness families.
+- `local_readout_bias_simulator` completed at `4096` shots for both witness families.
+- Every verified simulation run preserved the witness/control ordering expected by the simulation claim boundary.
 
 The comparison report summarizes the completed sweep in a backend-wise view:
 
 | Family | Best witness MAE | Best witness rank corr | Worst control MAE | Worst control rank corr |
 | --- | ---: | ---: | ---: | ---: |
-| Product-state | 0.011859 | 0.940875 | 0.230163 | -0.184302 |
-| Entangling CX | 0.015108 | 0.981446 | 0.229827 | -0.184302 |
+| Product-state | 0.000051 | 1.000000 | 0.229743 | -0.187215 |
+| Entangling CX | 0.000051 | 1.000000 | 0.231697 | -0.187215 |
 
-The completed comparison figure shows the same story visually: the witness bars stay low on MAE and high on rank correlation, while the control bars stay high on MAE and negative on rank correlation.
+The verified simulation output shows the same intended pattern: the witness metrics stay low on MAE and high on rank correlation, while the control metrics stay high on MAE and negative on rank correlation. The figure is not a substitute for raw-count verification.
 
 The control condition is the additive single-band readout baseline:
 
@@ -234,7 +257,7 @@ The witness condition uses the cross-band product readout:
 witness = clamp(0.5 + 0.5 * score_scale * E[Z0 Z1], 0, 1)
 ```
 
-The completed comparison sweep supports the Stage 4 packet outcome under the recorded conditions. Backend calibration, queue conditions, transpilation details, and packet composition can affect replication results. The result therefore remains scoped to the stated packet, backend, date, calibration window, and metrics.
+The simulation sweep supports only the Stage 4 simulator packet outcome for records whose raw-count artifacts are present and pass offline verification. Backend calibration, queue conditions, transpilation details, and packet composition can affect future hardware results. The result therefore remains scoped to the stated packet, simulator lane, and metrics.
 
 ## 6. Reproducibility artifacts
 
@@ -245,13 +268,17 @@ The repository prioritizes evidence files over narrative-only claims. The minimu
 - inspect `docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md`;
 - inspect `docs/publication/manuscript-to-provisional-support-audit-v1.md`;
 - run or inspect `scripts/verify_stage4_hardware_packet.py`;
-- compare the verifier output with `logs/automated_stage_gates/stage4_hardware_packet/offline_verification.json`.
+- run or inspect `scripts/verify_stage4_simulation_sweep.py`;
+- inspect `logs/automated_stage_gates/stage4_simulation_sweep/manifest.json`;
+- inspect `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`;
+- run or inspect `scripts/verify_stage4_hardware_sweep.py`;
+- compare the verifier outputs with the corresponding `offline_verification.json` files.
 
 The intended reproducibility standard is not that every future backend execution match the present numbers. The standard is that the reported numbers are traceable to packet files, execution records, raw counts, and deterministic recomputation.
 
 ## 7. Patent and open-source notice
 
-PhaseWrap-RoPE is patent pending under USPTO provisional application `64/068,121`. The completed hardware comparison sweep is documented separately in `docs/research/q-rope-stage4-hardware-comparison-v1.md`.
+PhaseWrap-RoPE is patent pending under USPTO provisional application `64/068,121`. The active no-spend simulation sweep is documented in `docs/research/phasewrap-rope-stage4-simulation-sweep-v1.md`; the hardware comparison lane remains deferred until real raw-count artifacts are supplied and verified.
 
 The repository software is released under `AGPL-3.0-only`. The patent/IP-status notice does not convert the repository into a broad patent grant beyond the applicable open-source license and contributor grants for covered software. Commercial patent licensing, non-AGPL use, assignments, and sublicensing should be handled separately with Quantyra/CYINT IP.
 
@@ -259,9 +286,9 @@ The repository software is released under `AGPL-3.0-only`. The patent/IP-status 
 
 The present result has important limitations:
 
-- The Stage 4 evidence is still bounded to a small set of recorded packet/backend/date/calibration contexts rather than a broad backend survey.
+- The Stage 4 active evidence is still bounded to local simulator contexts rather than hardware execution.
 - The paper does not report transformer-scale training or evaluation.
-- The paper reports completed cross-backend comparison runs, but it does not claim that these few backends establish general cross-backend robustness.
+- The paper reports completed simulator comparison runs, but it does not claim that these establish hardware behavior or general cross-backend robustness.
 - The paper does not compare against production language-model baselines.
 - The paper does not establish quantum advantage.
 
@@ -275,10 +302,18 @@ PhaseWrap-RoPE provides an open-source research lane for phase-wrap positional s
 
 - `src/qrope/automated_stage_gates.py`
 - `scripts/verify_stage4_hardware_packet.py`
+- `scripts/run_stage4_simulation_sweep.py`
+- `scripts/verify_stage4_simulation_sweep.py`
+- `scripts/verify_stage4_hardware_sweep.py`
 - `logs/automated_stage_gates/stage4_hardware_packet/frozen_packet.json`
 - `logs/automated_stage_gates/stage4_hardware_packet/execution.json`
 - `logs/automated_stage_gates/stage4_hardware_packet/evaluation.json`
 - `logs/automated_stage_gates/stage4_hardware_packet/offline_verification.json`
+- `logs/automated_stage_gates/stage4_simulation_sweep/manifest.json`
+- `logs/automated_stage_gates/stage4_simulation_sweep/offline_verification.json`
+- `logs/automated_stage_gates/stage4_hardware_sweep/manifest.json`
+- `logs/automated_stage_gates/stage4_hardware_sweep/offline_verification.json`
+- `docs/research/phasewrap-rope-stage4-simulation-sweep-v1.md`
 - `docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md`
 - `docs/research/q-rope-stage4-real-hardware-validation-result-v1.md`
 - `docs/research/q-rope-stage4-hardware-comparison-v1.md`
