@@ -44,6 +44,7 @@ python scripts/run_stage16_learned_attention_stability.py
 python scripts/run_stage17_small_decoder_value_model.py
 python scripts/run_stage18_value_output_capacity.py
 python scripts/run_stage19_value_output_hardening.py
+python scripts/run_stage20_hardened_positional_value_model.py
 ```
 
 ## Status
@@ -56,7 +57,7 @@ python scripts/run_stage19_value_output_hardening.py
 - `Stage 4 cost posture`: local recomputation of the committed Stage 4 sweep is covered by a deterministic classical compute estimate: 4,096 static operations over 163,072 recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - `Stage 4 preregistration posture`: future replication lanes now have no-hardware preregistered row-set artifacts with fixed seeds, families, shots, row counts, and row-set hashes; they are not submitted hardware evidence.
 - `Stage 4 calibration posture`: provider bitstring calibration packet specs and a failing-by-default verifier contract now exist for IBM-style `q1q0` and Amazon Braket-style `q0q1` known-state checks; real calibration counts are still missing.
-- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, Stage 14 turns the non-phase-cued rows into key-value attention readout, Stage 15 adds a one-hidden-layer learned attention scorer, Stage 16 checks initialization stability, Stage 17 adds learned value embeddings plus output projection, Stage 18 probes that value-output bottleneck with teacher-forced attention, and Stage 19 hardens the teacher-forced value-output path with Adam and larger embeddings. Stage 19 fits train and improves held-out value-token retrieval, but it is not a positional-method comparison because attention is teacher-forced.
+- `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, Stage 14 turns the non-phase-cued rows into key-value attention readout, Stage 15 adds a one-hidden-layer learned attention scorer, Stage 16 checks initialization stability, Stage 17 adds learned value embeddings plus output projection, Stage 18 probes that value-output bottleneck with teacher-forced attention, Stage 19 hardens the teacher-forced value-output path, and Stage 20 reintroduces learned positional attention with the hardened path. Stage 20 favors `rope_relative` on the held-out packet; PhaseWrap-plus-distance remains viable but does not beat RoPE-like scoring there.
 - `Score theory posture`: Stage 11 formalizes the fixed 8/12 score as a mod-24 periodic feature with translation invariance, mirror aliases, 10 distinct residue scores, and exact small Fourier support. This clarifies why stronger transformer benchmarks must resolve aliasing before any replacement claim.
 - `Hardware posture`: IBM Fez product-state, IBM Fez CX, Amazon Braket/Rigetti product-state, and Amazon Braket CX lanes have completed active Stage 4 hardware artifacts; additional IBM machines are deferred from the active sweep; Amazon Braket/IonQ was checked on 2026-05-19 and was not run because Forte devices were `OFFLINE` and Aria 1 was `RETIRED`; AQT IBEX Q1 is deferred due cost.
 - `Evidence tree posture`: `logs/automated_stage_gates/stage4_hardware_packet/` remains the default single-packet verifier path. The same IBM Fez 2026-05-17 product-state pass is also preserved as an immutable named run under `logs/automated_stage_gates/stage4_hardware_packet_ibm_fez_20260517_pass/` for the sweep manifest.
@@ -114,6 +115,7 @@ The public claim frame excludes:
 - [Stage 17 small decoder value-model benchmark](docs/research/q-rope-stage17-small-decoder-value-model-v1.md)
 - [Stage 18 value-output capacity probe](docs/research/q-rope-stage18-value-output-capacity-v1.md)
 - [Stage 19 value-output hardening probe](docs/research/q-rope-stage19-value-output-hardening-v1.md)
+- [Stage 20 hardened positional value-model benchmark](docs/research/q-rope-stage20-hardened-positional-value-model-v1.md)
 - [Amazon Braket hardware runbook](docs/evidence/E002-braket-hardware-runbook.md)
 - [Automated terminal human-review packet](docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md)
 - [Phase-wrap algorithm note](docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md)
@@ -339,6 +341,14 @@ python scripts/run_stage19_value_output_hardening.py
 
 Stage 19 keeps attention teacher-forced and hardens the value-output path with full-batch Adam and larger value embeddings. It fits train perfectly and reaches held-out top-1 around `0.50` to `0.53`, so the value-output bottleneck is improvable. This is not a PhaseWrap-versus-RoPE result because positional attention is bypassed.
 
+Run the deterministic Stage 20 hardened positional value-model benchmark:
+
+```bash
+python scripts/run_stage20_hardened_positional_value_model.py
+```
+
+Stage 20 reintroduces learned positional attention with the hardened value-output path. All methods fit train, but held-out value retrieval favors `rope_relative` with top-1 `0.383333` and MRR `0.429275`; `phasewrap_distance_adapter` has top-1 `0.250000` and MRR `0.321470`. This is useful negative/mixed evidence for the current PhaseWrap adapter, not a replacement claim.
+
 ## Reviewer path in 10 minutes
 
 - Read the claim boundary in this README.
@@ -363,6 +373,7 @@ Stage 19 keeps attention teacher-forced and hardens the value-output path with f
 - Run `python scripts/run_stage17_small_decoder_value_model.py` for the learned value-embedding/output readout check.
 - Run `python scripts/run_stage18_value_output_capacity.py` for the value-output capacity probe.
 - Run `python scripts/run_stage19_value_output_hardening.py` for the hardened teacher-forced value-output probe.
+- Run `python scripts/run_stage20_hardened_positional_value_model.py` for the hardened learned positional value-model comparison.
 
 ## CI and test coverage
 
@@ -406,7 +417,8 @@ The current release is ready for bounded repository/preprint publication. The ne
 | 15 | Stage 17 small decoder value-model benchmark | Complete for learned value embeddings plus output projection. All methods are near chance, so the next transformer step is optimization/capacity hardening. |
 | 16 | Stage 18 value-output capacity probe | Complete for uniform and teacher-forced attention. Teacher forcing does not substantially fix the learned value-output path, so capacity/optimization hardening is next. |
 | 17 | Stage 19 value-output hardening probe | Complete for teacher-forced attention with Adam and larger embeddings. Train fit is solved and held-out retrieval improves, so the next step is reintroducing learned positional attention. |
-| 18 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
+| 18 | Stage 20 hardened positional value-model benchmark | Complete for learned positional attention using the hardened value-output path. `rope_relative` is strongest on the held-out packet; PhaseWrap-plus-distance remains behind. |
+| 19 | Larger or error-aware witnesses | Explore larger qubit witnesses or mitigation analysis after downstream and replication evidence justify the added complexity. |
 
 The mod-8/mod-12 choice is a fixed first-release design: two wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band product signal. Stage 8 now includes a release-local period-pair ablation in which `(8, 12)` is best on the synthetic phase-cued Needle-style packet. That supports the current design choice for this packet, but it is not a proof of global optimality.
 
