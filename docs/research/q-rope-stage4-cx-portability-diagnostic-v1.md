@@ -68,7 +68,7 @@ This is not a license to claim general cross-backend CX robustness. The historic
 3. Completed: recompute corrected Braket CX evaluation files from the already committed raw counts.
 4. Completed: keep the old negative interpretation visible as a diagnostic finding, not as the final scientific classification.
 5. Planned: add known-state provider calibration packets for `|00>`, `|01>`, `|10>`, and `|11>` before promoting broader provider-wide bit-order claims.
-6. Partly completed after this diagnostic: the Stage 4 sweep verifier now emits deterministic row-bootstrap and shot-resampling intervals from committed artifacts, Stage 4 has a deterministic local recomputation cost estimate, and future replication packet row sets are preregistered. Remaining hardware-hardening work is independent reruns across dates and queue conditions plus provider bit-order calibration packets.
+6. Partly completed after this diagnostic: the Stage 4 sweep verifier now emits deterministic row-bootstrap and shot-resampling intervals from committed artifacts, Stage 4 has a deterministic local recomputation cost estimate, future replication packet row sets are preregistered, and provider bitstring calibration packet specs plus a failing-by-default verifier contract are present. Remaining hardware-hardening work is real calibration execution and independent reruns across dates and queue conditions.
 7. Future work: only after provider-aware decoding is verified should native CZ or XX-family variants be considered.
 
 ## Claim Boundary

@@ -52,7 +52,14 @@ This rehearsal uses deterministic ideal counts and submits no hardware job. It i
 
 Current provider posture (2026-05-19): IBM Fez and Amazon Braket/Rigetti have active Stage 4 evidence paths in this repository. The Braket/Rigetti product-state artifact is present and machine-verifiable. The IBM Fez CX artifact is present and machine-verifiable as hardware-positive. Braket CX executions on Rigetti Cepheus, IQM Garnet, and IQM Emerald are present and machine-verifiable as hardware-positive under provider-aware `q0q1` Amazon Braket decoding. Additional IBM backends remain deferred from the active public sweep unless real per-backend/per-family raw-count artifacts are added. IonQ is excluded from the active sweep: the current intended IonQ route is Amazon Braket, but the checked Braket IonQ devices were unavailable on 2026-05-19: `Forte-1` and `Forte-Enterprise-1` were `OFFLINE`, and `Aria-1` was `RETIRED`; no IonQ hardware task was submitted. AQT IBEX Q1 was online but deferred because the estimated cost for an 8-row 1000-shot CX run was about `$188`. Quandela Stage 4 execution remains configured to simulator profiles unless explicitly changed.
 
-Before promoting new provider-level bitstring decoding claims, add a known-state calibration packet for each provider/device path with `|00>`, `|01>`, `|10>`, and `|11>` preparations, raw counts, task or job IDs, backend metadata, timestamps, and offline verifier output.
+Before promoting new provider-level bitstring decoding claims, add a known-state calibration packet for each provider/device path with `|00>`, `|01>`, `|10>`, and `|11>` preparations, raw counts, task or job IDs, backend metadata, timestamps, and offline verifier output. The packet specs and failing-by-default verifier contract are now present:
+
+```bash
+python scripts/prepare_stage4_bitstring_calibration_packets.py
+python scripts/verify_stage4_bitstring_calibration.py
+```
+
+The default verifier output at `logs/automated_stage_gates/stage4_bitstring_calibration/offline_verification.json` reports `missing-evidence` until real calibration counts are supplied.
 
 ## Preregistered Future Packet Sets
 

@@ -128,6 +128,12 @@ Future replication row sets are preregistered at:
 
 Those artifacts freeze future IBM-style and Amazon Braket-style product-state/CX row sets before any future submission. They are not hardware evidence.
 
+Provider bitstring calibration packet specs are prepared at:
+
+`logs/automated_stage_gates/stage4_bitstring_calibration/manifest.json`
+
+The corresponding verifier output currently reports `missing-evidence` because no real known-state calibration counts have been supplied. This is intentional and prevents the Braket `q0q1` convention from being overpromoted into a provider-wide calibration claim.
+
 Current repository state distinguishes active sweep records from deferred or excluded targets:
 
 - The IBM Fez 4096-shot artifact is present and recomputable from raw counts.
@@ -180,7 +186,8 @@ The active evidence packaging goals are complete:
 7. add deterministic row-bootstrap and shot-resampling intervals from committed artifacts
 8. add a deterministic local classical recomputation cost estimate
 9. preregister future replication packet row sets before additional execution
-10. keep additional IBM hardware execution lanes deferred unless real artifacts are later added
+10. add provider bitstring calibration packet specs and a verifier contract that fails until real counts are supplied
+11. keep additional IBM hardware execution lanes deferred unless real artifacts are later added
 
 ## Evidence Pointers
 
@@ -197,6 +204,7 @@ The active evidence packaging goals are complete:
 - Stage 4 sweep verifier: `scripts/verify_stage4_hardware_sweep.py`
 - Stage 4 sweep runner: `scripts/run_stage4_hardware_sweep.py`
 - Stage 4 preregistered replication packets: `logs/automated_stage_gates/stage4_preregistered_replication_packets/manifest.json`
+- Stage 4 bitstring calibration plan: `logs/automated_stage_gates/stage4_bitstring_calibration/manifest.json`
 
 ## Recommendation
 

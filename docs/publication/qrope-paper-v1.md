@@ -269,6 +269,13 @@ For preregistering future Stage 4 replication packet sets without hardware submi
 python scripts/preregister_stage4_replication_packets.py
 ```
 
+For preparing provider bitstring calibration specs and checking whether real calibration counts are present, the entry points are:
+
+```bash
+python scripts/prepare_stage4_bitstring_calibration_packets.py
+python scripts/verify_stage4_bitstring_calibration.py
+```
+
 The sweep verifier recomputes metrics only for active completed records whose packet, execution, evaluation, and summary artifacts are present. Deferred or unavailable targets are documented in the manifest but are not treated as required verifier records.
 
 The default verifier inputs are:
@@ -414,6 +421,13 @@ The Stage 4 preregistered replication packet artifacts are:
 - `logs/automated_stage_gates/stage4_preregistered_replication_packets/braket_product_seed2718_rows8_shots1000.json`
 - `logs/automated_stage_gates/stage4_preregistered_replication_packets/braket_cx_seed2718_rows8_shots1000.json`
 
+The Stage 4 bitstring calibration planning artifacts are:
+
+- `logs/automated_stage_gates/stage4_bitstring_calibration/manifest.json`
+- `logs/automated_stage_gates/stage4_bitstring_calibration/offline_verification.json`
+- `logs/automated_stage_gates/stage4_bitstring_calibration/ibm_runtime_known_state_packet.json`
+- `logs/automated_stage_gates/stage4_bitstring_calibration/amazon_braket_known_state_packet.json`
+
 The Stage 11 score-theory artifacts are:
 
 - `logs/automated_stage_gates/stage11_phasewrap_theory/manifest.json`
@@ -478,6 +492,8 @@ The Stage 4 classical recomputation cost estimate makes the hardware witness int
 
 The preregistered Stage 4 replication packets add a process guardrail for future hardware work. They freeze four future row sets before execution: IBM-style product-state and CX lanes with seed `314`, 16 rows, and 4096 shots, plus Amazon Braket-style product-state and CX lanes with seed `2718`, 8 rows, and 1000 shots. These packet files are not hardware evidence; they only make future reruns harder to tune after observing provider behavior.
 
+The bitstring calibration packet specs add a second process guardrail. They predeclare known-state `|00>`, `|01>`, `|10>`, and `|11>` checks for IBM-style `q1q0` and Amazon Braket-style `q0q1` conventions. The current verifier output is intentionally `missing-evidence`; real calibration counts are still required before any broader provider-level decoding claim is made.
+
 The Stage 5 through Stage 10 classical experiments clarify the downstream interpretation. Stage 5 showed that the original synthetic attention-scoring target is exactly recoverable by simple exposed-feature baselines, which prevents overreading that result. Stage 6 made the target less tautological by mixing content and positional signal, but it remains an oracle phase-feature sanity check because the PhaseWrap model sees the normalized phase label directly. Stage 7 then moved one step closer to a transformer-like setting by swapping the PhaseWrap positional term into a four-layer attention-only toy stack, where it had the best argmax retrieval ranking on a synthetic length-extrapolation packet while calibration remained mixed. Stage 8 added a local Needle-style retrieval packet with multiple seeds, bootstrap intervals, and a period-pair ablation. Stage 9 adds a trained decoder-style positional attention ablation where `phasewrap_adapter` is strongest on the phase-cued train-short/test-long packet, while `rope_relative` is strongest on the exact-offset passkey packet. Stage 10 adds a first full small-transformer sanity check and is near chance across the tested lanes. These experiments support continued RoPE-facing downstream study; they do not establish production transformer superiority or full transformer-scale validation.
 
 Stage 11 adds theory evidence for the score itself. It shows that the 8/12 rule is exactly periodic over mod 24, has only 10 distinct residue scores because of mirrored and zero-margin aliases, and is exactly expressible as a small classical Fourier feature map. This helps explain why the score can be compact and auditable while still requiring stronger mechanisms or auxiliary information for long-context transformer use.
@@ -493,7 +509,7 @@ The next scientific step is not broader rhetoric about the current hardware reco
 | 1 | Stronger Stage 10 trained transformer ablation | Extend the current very small autograd-backed transformer to a stronger small decoder-only implementation and harder tasks. Compare RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional variants under matched parameter counts, optimizer settings, training tokens, seeds, and hyperparameter budget. |
 | 2 | Standard retrieval tasks | Move beyond the current Stage 8 and Stage 9 synthetic packets toward Needle-in-Haystack, passkey retrieval, multi-needle retrieval, RULER-style multi-hop/aggregation, or compact natural-language QA tasks where the correct answer is not defined by the PhaseWrap score. |
 | 3 | Comparable PhaseWrap mechanism | Implement PhaseWrap as a genuine positional mechanism: a positional attention bias, a query/key rotation analogue, or a learned adapter around PhaseWrap features. Avoid treating the normalized phase label as an oracle scalar input. |
-| 4 | Hardware witness hardening | Treat hardware as an auditable witness for a classical phase score. The sweep verifier now includes deterministic row-bootstrap and shot-resampling intervals from committed artifacts, Stage 4 includes a deterministic local classical recomputation cost estimate, and future replication row sets are preregistered. Remaining hardening requires provider bit-order and observable calibration circuits plus independent reruns across dates and queue conditions. |
+| 4 | Hardware witness hardening | Treat hardware as an auditable witness for a classical phase score. The sweep verifier now includes deterministic row-bootstrap and shot-resampling intervals from committed artifacts, Stage 4 includes a deterministic local classical recomputation cost estimate, future replication row sets are preregistered, and provider bitstring calibration specs/verifier contract are present. Remaining hardening requires real provider calibration execution plus independent reruns across dates and queue conditions. |
 | 5 | Theory-to-task connection | Stage 11 now formalizes invariances, unavoidable aliases, period-pair tradeoffs, context-length behavior, and exact periodic-feature support. Next, connect those facts to task distributions and mechanism designs where the score should help or hurt. |
 | 6 | Larger or error-aware witnesses | Explore larger witness families or mitigation analysis only when the packet generator, controls, costs, and verifier can preserve the current artifact discipline. |
 

@@ -1,0 +1,63 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "completed provider calibration",
+      "new hardware evidence",
+      "provider-wide bitstring-order claim"
+    ],
+    "supported": [
+      "Calibration packet structure is fixed before future execution.",
+      "Verifier will fail clearly until real raw counts are supplied."
+    ]
+  },
+  "no_hardware_submission": true,
+  "prepared_at_utc": "2026-05-20T00:00:00Z",
+  "purpose": "Predeclare provider known-state packets for bitstring-order calibration.",
+  "records": [
+    {
+      "execution_path": null,
+      "expected_bitstring_order": "q1q0",
+      "missing_evidence": [
+        "real execution raw counts for |00>, |01>, |10>, and |11>",
+        "task or job IDs",
+        "backend metadata",
+        "timestamps"
+      ],
+      "packet_path": "logs/automated_stage_gates/stage4_bitstring_calibration/ibm_runtime_known_state_packet.json",
+      "provider": "ibm_runtime",
+      "provider_label": "IBM provider path",
+      "record_id": "ibm_runtime__known_state_bitstring_order_v1",
+      "shots_per_state": 1000,
+      "states": [
+        "00",
+        "01",
+        "10",
+        "11"
+      ],
+      "status": "missing_evidence"
+    },
+    {
+      "execution_path": null,
+      "expected_bitstring_order": "q0q1",
+      "missing_evidence": [
+        "real execution raw counts for |00>, |01>, |10>, and |11>",
+        "task or job IDs",
+        "backend metadata",
+        "timestamps"
+      ],
+      "packet_path": "logs/automated_stage_gates/stage4_bitstring_calibration/amazon_braket_known_state_packet.json",
+      "provider": "amazon_braket",
+      "provider_label": "Amazon Braket provider path",
+      "record_id": "amazon_braket__known_state_bitstring_order_v1",
+      "shots_per_state": 1000,
+      "states": [
+        "00",
+        "01",
+        "10",
+        "11"
+      ],
+      "status": "missing_evidence"
+    }
+  ],
+  "schema_version": "qrope_stage4_bitstring_calibration_manifest_v1"
+}

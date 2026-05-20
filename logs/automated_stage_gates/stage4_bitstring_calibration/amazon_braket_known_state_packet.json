@@ -1,0 +1,35 @@
+{
+  "expected_bitstring_order": "q0q1",
+  "no_hardware_submission": true,
+  "provider": "amazon_braket",
+  "required_execution_fields": [
+    "job_or_task_ids",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "raw_counts_by_state"
+  ],
+  "schema_version": "qrope_stage4_bitstring_calibration_packet_v1",
+  "states": [
+    {
+      "expected_dominant_key": "00",
+      "preparation": "prepare computational basis |00> on q0,q1",
+      "state": "00"
+    },
+    {
+      "expected_dominant_key": "01",
+      "preparation": "prepare computational basis |01> on q0,q1",
+      "state": "01"
+    },
+    {
+      "expected_dominant_key": "10",
+      "preparation": "prepare computational basis |10> on q0,q1",
+      "state": "10"
+    },
+    {
+      "expected_dominant_key": "11",
+      "preparation": "prepare computational basis |11> on q0,q1",
+      "state": "11"
+    }
+  ]
+}
