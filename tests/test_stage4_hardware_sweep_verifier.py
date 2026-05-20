@@ -18,6 +18,7 @@ from scripts.verify_stage4_hardware_sweep import (
     raw_counts_to_expectations,
     row_bootstrap_intervals,
     scan_public_docs_for_overclaims,
+    shot_resampling_intervals,
     validate_manifest,
     verify_manifest,
 )
@@ -149,6 +150,8 @@ def test_product_state_witness_metric_recomputation(tmp_path: Path) -> None:
     intervals = verification["records"][0]["uncertainty_intervals"]
     assert intervals["method"] == "row_bootstrap_percentile"
     assert intervals["metrics"]["witness_mae"]["low"] <= row["witness_mae"] <= intervals["metrics"]["witness_mae"]["high"]
+    assert intervals["shot_resampling"]["method"] == "shot_resampling_percentile"
+    assert intervals["shot_resampling"]["metrics"]["witness_mae"]["low"] <= intervals["shot_resampling"]["metrics"]["witness_mae"]["high"]
 
 
 def test_nested_packet_summary_is_accepted(tmp_path: Path) -> None:
@@ -189,6 +192,31 @@ def test_row_bootstrap_intervals_are_deterministic() -> None:
     second = row_bootstrap_intervals(rows, seed_text="synthetic", iterations=100)
     assert first == second
     assert first["metrics"]["witness_mae"]["point"] == 0.1
+
+
+def test_shot_resampling_intervals_are_deterministic(tmp_path: Path) -> None:
+    result_dir, record = _synthetic_result(tmp_path)
+    packet = json.loads((result_dir / "frozen_packet.json").read_text(encoding="utf-8"))
+    execution = json.loads((result_dir / "execution.json").read_text(encoding="utf-8"))
+    first = shot_resampling_intervals(
+        packet,
+        execution,
+        bitstring_order=record["bitstring_order"],
+        seed_text="synthetic-shots",
+        iterations=20,
+    )
+    second = shot_resampling_intervals(
+        packet,
+        execution,
+        bitstring_order=record["bitstring_order"],
+        seed_text="synthetic-shots",
+        iterations=20,
+    )
+    assert first == second
+    assert first["method"] == "shot_resampling_percentile"
+    assert first["shot_count"] == 256
+    assert first["metrics"]["witness_mae"]["low"] <= first["metrics"]["witness_mae"]["high"]
+    assert first["metrics"]["witness_mae"]["point"] == 0.001071
 
 
 def test_missing_evidence_files_fail_clearly(tmp_path: Path) -> None:

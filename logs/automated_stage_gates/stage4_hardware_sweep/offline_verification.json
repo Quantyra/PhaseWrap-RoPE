@@ -947,7 +947,45 @@
           }
         },
         "row_count": 16,
-        "shot_resampling": "not_performed"
+        "shot_resampling": {
+          "confidence_level": 0.95,
+          "iterations": 200,
+          "method": "shot_resampling_percentile",
+          "metrics": {
+            "control_mae": {
+              "high": 0.219301,
+              "low": 0.214986,
+              "point": 0.217262
+            },
+            "control_minus_witness_mae": {
+              "high": 0.201044,
+              "low": 0.192327,
+              "point": 0.19888
+            },
+            "control_rank_correlation": {
+              "high": -0.169318,
+              "low": -0.184302,
+              "point": -0.17694
+            },
+            "witness_mae": {
+              "high": 0.024981,
+              "low": 0.017004,
+              "point": 0.018382
+            },
+            "witness_minus_control_rank_correlation": {
+              "high": 1.119375,
+              "low": 0.996429,
+              "point": 1.053498
+            },
+            "witness_rank_correlation": {
+              "high": 0.949979,
+              "low": 0.819619,
+              "point": 0.876558
+            }
+          },
+          "row_count": 16,
+          "shot_count": 4096
+        }
       }
     },
     {
@@ -1545,7 +1583,45 @@
           }
         },
         "row_count": 8,
-        "shot_resampling": "not_performed"
+        "shot_resampling": {
+          "confidence_level": 0.95,
+          "iterations": 200,
+          "method": "shot_resampling_percentile",
+          "metrics": {
+            "control_mae": {
+              "high": 0.157939,
+              "low": 0.145472,
+              "point": 0.149995
+            },
+            "control_minus_witness_mae": {
+              "high": 0.092233,
+              "low": 0.059039,
+              "point": 0.080094
+            },
+            "control_rank_correlation": {
+              "high": 0.121232,
+              "low": 0.084863,
+              "point": 0.121232
+            },
+            "witness_mae": {
+              "high": 0.088949,
+              "low": 0.062423,
+              "point": 0.069901
+            },
+            "witness_minus_control_rank_correlation": {
+              "high": 0.75164,
+              "low": 0.472806,
+              "point": 0.665412
+            },
+            "witness_rank_correlation": {
+              "high": 0.872872,
+              "low": 0.594038,
+              "point": 0.786644
+            }
+          },
+          "row_count": 8,
+          "shot_count": 1000
+        }
       }
     },
     {
@@ -2472,7 +2548,45 @@
           }
         },
         "row_count": 16,
-        "shot_resampling": "not_performed"
+        "shot_resampling": {
+          "confidence_level": 0.95,
+          "iterations": 200,
+          "method": "shot_resampling_percentile",
+          "metrics": {
+            "control_mae": {
+              "high": 0.215661,
+              "low": 0.210752,
+              "point": 0.212516
+            },
+            "control_minus_witness_mae": {
+              "high": 0.193953,
+              "low": 0.184384,
+              "point": 0.191058
+            },
+            "control_rank_correlation": {
+              "high": -0.169318,
+              "low": -0.169443,
+              "point": -0.169318
+            },
+            "witness_mae": {
+              "high": 0.027762,
+              "low": 0.019492,
+              "point": 0.021458
+            },
+            "witness_minus_control_rank_correlation": {
+              "high": 1.150764,
+              "low": 1.051795,
+              "point": 1.141773
+            },
+            "witness_rank_correlation": {
+              "high": 0.981446,
+              "low": 0.882477,
+              "point": 0.972455
+            }
+          },
+          "row_count": 16,
+          "shot_count": 4096
+        }
       }
     },
     {
@@ -3071,7 +3185,45 @@
           }
         },
         "row_count": 8,
-        "shot_resampling": "not_performed"
+        "shot_resampling": {
+          "confidence_level": 0.95,
+          "iterations": 200,
+          "method": "shot_resampling_percentile",
+          "metrics": {
+            "control_mae": {
+              "high": 0.201064,
+              "low": 0.187927,
+              "point": 0.19437
+            },
+            "control_minus_witness_mae": {
+              "high": 0.14514,
+              "low": 0.118237,
+              "point": 0.132727
+            },
+            "control_rank_correlation": {
+              "high": -0.060616,
+              "low": -0.096986,
+              "point": -0.060616
+            },
+            "witness_mae": {
+              "high": 0.076311,
+              "low": 0.051555,
+              "point": 0.061643
+            },
+            "witness_minus_control_rank_correlation": {
+              "high": 0.841439,
+              "low": 0.350361,
+              "point": 0.618284
+            },
+            "witness_rank_correlation": {
+              "high": 0.764672,
+              "low": 0.289745,
+              "point": 0.557668
+            }
+          },
+          "row_count": 8,
+          "shot_count": 1000
+        }
       }
     },
     {
@@ -3670,7 +3822,45 @@
           }
         },
         "row_count": 8,
-        "shot_resampling": "not_performed"
+        "shot_resampling": {
+          "confidence_level": 0.95,
+          "iterations": 200,
+          "method": "shot_resampling_percentile",
+          "metrics": {
+            "control_mae": {
+              "high": 0.211186,
+              "low": 0.197118,
+              "point": 0.20437
+            },
+            "control_minus_witness_mae": {
+              "high": 0.19102,
+              "low": 0.165388,
+              "point": 0.182651
+            },
+            "control_rank_correlation": {
+              "high": -0.060616,
+              "low": -0.096986,
+              "point": -0.060616
+            },
+            "witness_mae": {
+              "high": 0.03759,
+              "low": 0.016609,
+              "point": 0.021719
+            },
+            "witness_minus_control_rank_correlation": {
+              "high": 1.078967,
+              "low": 0.860445,
+              "point": 1.042597
+            },
+            "witness_rank_correlation": {
+              "high": 0.981981,
+              "low": 0.788009,
+              "point": 0.981981
+            }
+          },
+          "row_count": 8,
+          "shot_count": 1000
+        }
       }
     },
     {
@@ -4269,7 +4459,45 @@
           }
         },
         "row_count": 8,
-        "shot_resampling": "not_performed"
+        "shot_resampling": {
+          "confidence_level": 0.95,
+          "iterations": 200,
+          "method": "shot_resampling_percentile",
+          "metrics": {
+            "control_mae": {
+              "high": 0.217816,
+              "low": 0.205549,
+              "point": 0.210995
+            },
+            "control_minus_witness_mae": {
+              "high": 0.197165,
+              "low": 0.172387,
+              "point": 0.189516
+            },
+            "control_rank_correlation": {
+              "high": -0.060616,
+              "low": -0.133355,
+              "point": -0.096986
+            },
+            "witness_mae": {
+              "high": 0.037472,
+              "low": 0.016966,
+              "point": 0.021479
+            },
+            "witness_minus_control_rank_correlation": {
+              "high": 1.030207,
+              "low": 0.787706,
+              "point": 0.981981
+            },
+            "witness_rank_correlation": {
+              "high": 0.933791,
+              "low": 0.71527,
+              "point": 0.884995
+            }
+          },
+          "row_count": 8,
+          "shot_count": 1000
+        }
       }
     }
   ],
@@ -4361,6 +4589,6 @@
       "witness_rank_corr": 0.884995
     }
   ],
-  "uncertainty_note": "Intervals are deterministic row-bootstrap percentile intervals over committed per-row records; shot-level resampling is not performed by this verifier.",
+  "uncertainty_note": "Intervals include deterministic row-bootstrap percentile intervals over committed per-row records plus deterministic shot-resampling percentile intervals from committed raw counts. They are verifier diagnostics, not independent reruns.",
   "verifier": "qrope_stage4_hardware_sweep_offline_verifier_v1"
 }

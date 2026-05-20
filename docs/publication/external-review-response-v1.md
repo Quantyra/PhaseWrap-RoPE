@@ -34,6 +34,6 @@ Date: `2026-05-18`
 - Wait for CI to complete on GitHub and respond to any failures.
 - Post an arXiv/OSF preprint and mint a Zenodo DOI.
 - Add harder multi-seed downstream benchmarks. Stage 6, Stage 7, and Stage 8 now provide bounded synthetic packets, but broader downstream claims require standard retrieval tasks or small trained transformer experiments.
-- Add repeated hardware evidence across dates/calibration windows and maintain confidence or bootstrap intervals for MAE/rank correlations.
+- Add repeated hardware evidence across dates/calibration windows. The current sweep verifier now maintains deterministic row-bootstrap and shot-resampling intervals for MAE/rank correlations from committed artifacts, but those intervals are not substitutes for independent reruns.
 
 These remaining items require new execution, repo restructuring, or external publication steps and should not be represented as complete.

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import random
@@ -155,7 +156,66 @@ def row_bootstrap_intervals(
         "confidence_level": 0.95,
         "iterations": iterations,
         "row_count": len(per_row_results),
-        "shot_resampling": "not_performed",
+        "metrics": intervals,
+    }
+
+
+def _resample_counts(counts: dict[str, int], rng: random.Random) -> dict[str, int]:
+    keys = sorted(str(key) for key in counts)
+    weights = [int(counts[key]) for key in keys]
+    shots = sum(weights)
+    if shots <= 0:
+        return {key: 0 for key in keys}
+    sampled = rng.choices(keys, weights=weights, k=shots)
+    resampled = {key: 0 for key in keys}
+    for key in sampled:
+        resampled[key] += 1
+    return resampled
+
+
+def _resampled_execution(execution: dict[str, Any], rng: random.Random) -> dict[str, Any]:
+    resampled = copy.deepcopy(execution)
+    for job in resampled.get("jobs", []):
+        for item in job.get("raw_counts_by_row", []):
+            item["counts"] = _resample_counts(
+                {str(key): int(value) for key, value in item.get("counts", {}).items()},
+                rng,
+            )
+    return resampled
+
+
+def shot_resampling_intervals(
+    packet: dict[str, Any],
+    execution: dict[str, Any],
+    *,
+    bitstring_order: str,
+    seed_text: str,
+    iterations: int = 200,
+) -> dict[str, Any]:
+    rng = random.Random(int(hashlib.sha256(seed_text.encode("utf-8")).hexdigest()[:16], 16))
+    point = _metrics_from_per_row(evaluate_hardware_execution(packet, execution, bitstring_order=bitstring_order).get("per_row_results", []))
+    samples: dict[str, list[float]] = {key: [] for key in point}
+    for _ in range(iterations):
+        resampled = _resampled_execution(execution, rng)
+        metrics = _metrics_from_per_row(
+            evaluate_hardware_execution(packet, resampled, bitstring_order=bitstring_order).get("per_row_results", [])
+        )
+        for key, value in metrics.items():
+            samples[key].append(float(value))
+    intervals: dict[str, Any] = {}
+    for key, values in samples.items():
+        ordered = sorted(values)
+        intervals[key] = {
+            "point": point[key],
+            "low": round(_percentile(ordered, 0.025), 6),
+            "high": round(_percentile(ordered, 0.975), 6),
+        }
+    return {
+        "method": "shot_resampling_percentile",
+        "confidence_level": 0.95,
+        "iterations": iterations,
+        "row_count": len(packet.get("rows", [])),
+        "shot_count": packet.get("shot_count"),
         "metrics": intervals,
     }
 
@@ -392,10 +452,20 @@ def verify_record(manifest_path: Path, record: dict[str, Any]) -> dict[str, Any]
     evaluation = read_json(REPO_ROOT / resolved_paths["evaluation_path"])
     summary = read_json(REPO_ROOT / resolved_paths["summary_path"])
     recomputed = evaluate_hardware_execution(packet, execution, bitstring_order=record.get("bitstring_order"))
-    uncertainty_intervals = row_bootstrap_intervals(
+    row_intervals = row_bootstrap_intervals(
         recomputed.get("per_row_results", []),
         seed_text=str(record.get("record_id")),
     )
+    shot_intervals = shot_resampling_intervals(
+        packet,
+        execution,
+        bitstring_order=str(record.get("bitstring_order")),
+        seed_text=f"{record.get('record_id')}:shots",
+    )
+    uncertainty_intervals = {
+        **row_intervals,
+        "shot_resampling": shot_intervals,
+    }
     summary_result = summary.get("result", summary)
     summary_evaluation = summary_result.get("evaluation", summary_result)
     checks = _record_metric_checks(evaluation, recomputed, record.get("expected_outcome"))
@@ -500,7 +570,7 @@ def verify_manifest(manifest_path: Path) -> dict[str, Any]:
         "schema_errors": schema_errors,
         "records": records,
         "table": completed_rows,
-        "uncertainty_note": "Intervals are deterministic row-bootstrap percentile intervals over committed per-row records; shot-level resampling is not performed by this verifier.",
+        "uncertainty_note": "Intervals include deterministic row-bootstrap percentile intervals over committed per-row records plus deterministic shot-resampling percentile intervals from committed raw counts. They are verifier diagnostics, not independent reruns.",
         "missing_evidence": missing,
         "pass": not schema_errors and bool(records) and all(record.get("pass") for record in records),
     }

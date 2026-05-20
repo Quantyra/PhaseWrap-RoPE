@@ -114,7 +114,7 @@ The verifier output is:
 
 `logs/automated_stage_gates/stage4_hardware_sweep/offline_verification.json`
 
-The current verifier includes deterministic row-bootstrap percentile intervals over committed per-row records for witness/control MAE, rank correlation, and witness-control deltas. Shot-level resampling is not performed by this verifier.
+The current verifier includes deterministic row-bootstrap percentile intervals over committed per-row records and deterministic shot-resampling percentile intervals from committed raw counts for witness/control MAE, rank correlation, and witness-control deltas. These intervals are verifier diagnostics over recorded artifacts, not independent hardware reruns.
 
 Current repository state distinguishes active sweep records from deferred or excluded targets:
 
@@ -133,6 +133,21 @@ Deferred IBM rows should not be treated as machine-verifiable public evidence un
 ### Provider bitstring calibration status
 
 Amazon Braket CX records are positive only under the manifest-declared `q0q1` result-key convention. The current support for that convention is the provider-aware manifest plus the CX portability diagnostic over committed raw counts. A stronger future replication packet should add known-state provider calibration runs for `|00>`, `|01>`, `|10>`, and `|11>` before promoting any broader provider-level decoding claim.
+
+### Shot-resampling intervals
+
+The sweep verifier writes per-record `uncertainty_intervals.shot_resampling` blocks in `logs/automated_stage_gates/stage4_hardware_sweep/offline_verification.json`. The witness-MAE point estimates and 95% shot-resampling intervals are:
+
+| Backend/context | Family | Witness MAE point | 95% shot-resampling interval |
+| --- | --- | ---: | --- |
+| IBM Fez | product-state | 0.018382 | 0.017004-0.024981 |
+| Rigetti Cepheus-1-108Q | product-state | 0.069901 | 0.062423-0.088949 |
+| IBM Fez | CX | 0.021458 | 0.019492-0.027762 |
+| Rigetti Cepheus-1-108Q | CX | 0.061643 | 0.051555-0.076311 |
+| IQM Garnet | CX | 0.021719 | 0.016609-0.037590 |
+| IQM Emerald | CX | 0.021479 | 0.016966-0.037472 |
+
+These intervals do not replace the need for independent reruns across dates and calibration windows.
 
 ### Family-level summary
 

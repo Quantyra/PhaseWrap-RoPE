@@ -149,7 +149,7 @@ This writes `logs/automated_stage_gates/stage11_phasewrap_theory/manifest.json`,
 - **Why the CX variant?** It is the smallest entangling extension of the product-state witness: keep the two `RY` margin encodings, add one `CX(q0 -> q1)`, and read a target-qubit parity/product signal while preserving the same packet discipline.
 - **Will the packet generation pipeline be reusable?** The current pipeline is open in `src/qrope/automated_stage_gates.py` and the Stage 4 runner/verifier scripts. A cleaner researcher-facing API is a packaging task, not new scientific evidence.
 - **Should more hardware be run?** Yes, but as independent replication: new dates, new frozen packets, and cost-justified provider targets. IonQ was unavailable through Amazon Braket during the checked window; Quandela/AQT require separate execution and budget decisions.
-- **How should the hardware be interpreted?** As an auditable witness for a classical phase score, not as quantum-enhanced attention. The next hardware hardening step is provider bit-order calibration circuits, shot-noise intervals, independent reruns, preregistered packet sets, and classical compute timing/cost estimates.
+- **How should the hardware be interpreted?** As an auditable witness for a classical phase score, not as quantum-enhanced attention. The sweep verifier now includes deterministic row-bootstrap and shot-resampling intervals from committed artifacts; the next hardware hardening step is provider bit-order calibration circuits, independent reruns, preregistered packet sets, and classical compute timing/cost estimates.
 
 ## Next Research Stages
 
@@ -163,5 +163,5 @@ This writes `logs/automated_stage_gates/stage11_phasewrap_theory/manifest.json`,
 | Stage 9 | Trained transformer ablation | Executable subset complete for phase-cued and exact-offset passkey trained positional-attention packets; remaining work is full small decoder-only transformer training and non-synthetic retrieval or QA tasks. |
 | Stage 10 | Full small decoder-only transformer ablation | Complete for a very small one-block decoder-only transformer with phase-cued, passkey, and tiny text-fact QA lanes; result is near chance, so stronger small-transformer and harder non-synthetic tasks remain next. |
 | Stage 11 | Theory of the score | Complete for the fixed 8/12 score: invariances, aliasing, period-pair tradeoffs, context-length behavior, and exact periodic-feature support are artifact-backed. Remaining work is task-distribution theory. |
-| Stage 12 | Hardware witness hardening | Add provider bit-order calibration circuits, shot-noise intervals, independent reruns, preregistered packets, and classical compute timing/cost estimates. |
+| Stage 12 | Hardware witness hardening | Partly complete for row-bootstrap and shot-resampling intervals from committed artifacts. Remaining work is provider bit-order calibration circuits, independent reruns, preregistered packets, and classical compute timing/cost estimates. |
 | Stage 13 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |
