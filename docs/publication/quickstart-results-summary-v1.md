@@ -204,6 +204,14 @@ python scripts/run_stage20_hardened_positional_value_model.py
 
 This writes `logs/automated_stage_gates/stage20_hardened_positional_value_model/manifest.json`, `results.json`, `summary.csv`, and `task_summary.csv`. The current result reintroduces learned positional attention with the hardened value-output path. All methods fit train, but held-out value retrieval favors RoPE-like scoring; PhaseWrap-plus-distance remains behind on this non-phase-cued packet.
 
+Run the Stage 21 no-credential hardened positional stability benchmark:
+
+```bash
+python scripts/run_stage21_hardened_positional_stability.py
+```
+
+This writes `logs/automated_stage_gates/stage21_hardened_positional_stability/manifest.json`, `results.json`, `summary.csv`, and `per_run_results.csv`. The current result reruns Stage 20 across five learned-parameter initialization seeds. RoPE-like scoring remains strongest by mean held-out top-1/MRR; PhaseWrap-plus-distance remains behind on MRR.
+
 ## What This Supports
 
 - A bounded phase-wrap scoring method using mod-8 and mod-12 wrapped residual margins.
@@ -229,6 +237,7 @@ This writes `logs/automated_stage_gates/stage20_hardened_positional_value_model/
 - A deterministic Stage 18 value-output capacity probe showing that teacher-forced target attention does not substantially fix the current learned value-output path.
 - A deterministic Stage 19 value-output hardening probe showing that full-batch Adam and larger value embeddings can fit train and improve held-out value-token retrieval under teacher-forced attention.
 - A deterministic Stage 20 hardened positional value-model benchmark showing that the value-output bottleneck is no longer the blocker, and that RoPE-like scoring is stronger than the tested PhaseWrap adapters on the current held-out non-phase-cued packet.
+- A deterministic Stage 21 five-initialization stability check showing the Stage 20 RoPE-like held-out advantage is stable on this packet.
 
 ## What This Does Not Support
 
@@ -254,11 +263,12 @@ This writes `logs/automated_stage_gates/stage20_hardened_positional_value_model/
 - a claim that Stage 18 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
 - a claim that Stage 19 establishes production transformer superiority, compares positional mechanisms, or proves that PhaseWrap-RoPE replaces RoPE.
 - a claim that Stage 20 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 21 establishes production transformer superiority or that PhaseWrap-RoPE replaces RoPE.
 
 ## Open Questions
 
 - **Why mod-8 and mod-12?** They provide two distinct wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band interaction through the product of signed margins. Stage 8 adds a release-local period-pair ablation where `(8, 12)` is best on the phase-cued Needle-style packet, and Stage 11 shows the fixed 8/12 score is exactly a mod-24 periodic feature with frequency support `[1, 2, 3, 5]`; this is still not a proof of global optimality.
-- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 20 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stages 13 and 14 show that a PhaseWrap-plus-distance adapter can close argmax ranking on local value-retrieval packets, but not target-probability mass. Stage 15 shows the learned PhaseWrap-plus-distance scorer can lead argmax value retrieval while RoPE remains stronger on probability mass. Stage 16 shows the ranking result is stable across the tested initialization seeds. Stage 17 shows the current learned value-output bottleneck is near chance for all methods. Stage 18 shows teacher-forced attention does not substantially fix that bottleneck with the compact optimizer. Stage 19 shows Adam and larger value embeddings can solve train fit and improve held-out value-token retrieval under teacher-forced attention. Stage 20 then reintroduces learned positional attention and favors RoPE-like scoring over the tested PhaseWrap adapters on held-out rows.
+- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 21 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stages 13 and 14 show that a PhaseWrap-plus-distance adapter can close argmax ranking on local value-retrieval packets, but not target-probability mass. Stage 15 shows the learned PhaseWrap-plus-distance scorer can lead argmax value retrieval while RoPE remains stronger on probability mass. Stage 16 shows the ranking result is stable across the tested initialization seeds. Stage 17 shows the current learned value-output bottleneck is near chance for all methods. Stage 18 shows teacher-forced attention does not substantially fix that bottleneck with the compact optimizer. Stage 19 shows Adam and larger value embeddings can solve train fit and improve held-out value-token retrieval under teacher-forced attention. Stage 20 then reintroduces learned positional attention and favors RoPE-like scoring over the tested PhaseWrap adapters on held-out rows. Stage 21 confirms that ordering across five learned-parameter initialization seeds.
 - **What would make the RoPE-replacement case stronger?** The next expansion should train a stronger matched small decoder-only transformer with RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional mechanisms; evaluate train-short/test-long context extrapolation; include non-synthetic retrieval or QA tasks; run at least five seeds; and publish failed runs plus confidence intervals. Stage 12 and Stage 13 make clear that the fixed score alone is not enough; the useful direction is an explicit positional mechanism or adapter.
 - **Why the CX variant?** It is the smallest entangling extension of the product-state witness: keep the two `RY` margin encodings, add one `CX(q0 -> q1)`, and read a target-qubit parity/product signal while preserving the same packet discipline.
 - **Will the packet generation pipeline be reusable?** The current pipeline is open in `src/qrope/automated_stage_gates.py` and the Stage 4 runner/verifier scripts. A cleaner researcher-facing API is a packaging task, not new scientific evidence.
@@ -286,5 +296,6 @@ This writes `logs/automated_stage_gates/stage20_hardened_positional_value_model/
 | Stage 18 | Value-output capacity probe | Complete for uniform and teacher-forced attention through the learned value-output path. Teacher forcing does not substantially fix the bottleneck, so capacity/optimization hardening is next. |
 | Stage 19 | Value-output hardening probe | Complete for teacher-forced attention with Adam and larger embeddings. Train fit is solved and held-out retrieval improves, so the next step is reintroducing learned positional attention. |
 | Stage 20 | Hardened positional value-model benchmark | Complete for learned positional attention using the hardened value-output path. RoPE-like scoring is strongest on the held-out packet; PhaseWrap-plus-distance remains behind. |
-| Stage 21 | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
-| Stage 22 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |
+| Stage 21 | Hardened positional stability benchmark | Complete for five initialization seeds. RoPE-like scoring remains strongest by mean top-1/MRR; PhaseWrap-plus-distance remains behind on MRR. |
+| Stage 22 | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
+| Stage 23 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |

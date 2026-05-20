@@ -21,6 +21,7 @@
   ],
   "dataset": "deterministic_hardened_positional_value_model_v1",
   "examples_per_task_length": 4,
+  "init_seed": 2001,
   "method_names": [
     "no_position",
     "alibi",
@@ -33,6 +34,7 @@
   "model": {
     "embed_dim": 12,
     "epochs": 500,
+    "init_seed": 2001,
     "optimizer": "full_batch_adam",
     "trained_parameters": "attention feature weights, value embeddings, output projection, output bias",
     "type": "learned_positional_attention_with_hardened_value_output",

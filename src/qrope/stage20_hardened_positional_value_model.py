@@ -221,6 +221,7 @@ def run_stage20_benchmark(
     examples_per_task_length: int = DEFAULT_EXAMPLES_PER_TASK_LENGTH,
     epochs: int = 500,
     method_names: tuple[str, ...] = METHOD_NAMES,
+    init_seed: int = 2001,
 ) -> dict[str, Any]:
     rows = make_stage14_examples(seeds=seeds, context_lengths=context_lengths, examples_per_task_length=examples_per_task_length)
     splits = split_examples(rows)
@@ -228,7 +229,7 @@ def run_stage20_benchmark(
     task_table: list[dict[str, Any]] = []
     training_records: list[dict[str, Any]] = []
     for method_name in method_names:
-        training = train_hardened_positional_value_model(splits["train"], method_name, epochs=epochs)
+        training = train_hardened_positional_value_model(splits["train"], method_name, epochs=epochs, seed=init_seed)
         params = _params_from_record(training)
         training_records.append(training)
         for split_name in ("train", "validation", "test"):
@@ -255,6 +256,7 @@ def run_stage20_benchmark(
         "seeds": list(seeds),
         "context_lengths": list(context_lengths),
         "examples_per_task_length": examples_per_task_length,
+        "init_seed": init_seed,
         "train_row_count": len(splits["train"]),
         "validation_row_count": len(splits["validation"]),
         "test_row_count": len(splits["test"]),
@@ -265,6 +267,7 @@ def run_stage20_benchmark(
             "embed_dim": EMBED_DIM,
             "value_vocab_size": VALUE_VOCAB_SIZE,
             "epochs": epochs,
+            "init_seed": init_seed,
             "optimizer": "full_batch_adam",
             "trained_parameters": "attention feature weights, value embeddings, output projection, output bias",
         },
@@ -302,6 +305,7 @@ def write_stage20_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OUT
         "method_names": result["method_names"],
         "task_names": result["task_names"],
         "model": result["model"],
+        "init_seed": result["init_seed"],
         "result_path": str((output_dir / "results.json").as_posix()),
         "summary_csv_path": str((output_dir / "summary.csv").as_posix()),
         "task_summary_csv_path": str((output_dir / "task_summary.csv").as_posix()),

@@ -1,0 +1,41 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic multi-initialization stability check for the Stage 20 hardened positional value-model comparison.",
+      "Evidence about whether the Stage 20 held-out ordering persists across learned-parameter initialization seeds."
+    ]
+  },
+  "dataset": "deterministic_hardened_positional_value_model_stability_v1",
+  "epochs": 500,
+  "init_seeds": [
+    2001,
+    2011,
+    2027,
+    2039,
+    2053
+  ],
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_score",
+    "phasewrap_residual_adapter",
+    "phasewrap_distance_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage21_hardened_positional_stability/per_run_results.csv",
+  "result_path": "logs/automated_stage_gates/stage21_hardened_positional_stability/results.json",
+  "run_count": 5,
+  "schema_version": "qrope_stage21_hardened_positional_stability_v1",
+  "source_stage": "stage20_hardened_positional_value_model",
+  "stage": "stage21_hardened_positional_stability",
+  "summary_csv_path": "logs/automated_stage_gates/stage21_hardened_positional_stability/summary.csv"
+}
