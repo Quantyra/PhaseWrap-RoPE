@@ -148,9 +148,11 @@ Stage 45 runs the same fair-comparison frame in a matched one-block decoder-only
 
 Stage 46 audits that capacity/optimization failure with longer training. It still does not satisfy this promotion gate because the best train top-1 reaches only `0.500000`, below the `0.750000` capacity threshold. PhaseWrap variants lead weak tiny text-fact QA rows, but the harness is still not a reliable positional-method discriminator.
 
+Stage 47 replaces plain gradient descent with Adam on the same one-block decoder harness. It still does not satisfy this promotion gate because the retrieval lanes fail held-out generalization, even though train fit is solved and PhaseWrap variants lead the tiny text-fact QA lane.
+
 Until then, the supported claim remains narrower: PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible classical analyses, bounded hardware readout witnesses, and mixed but useful toy downstream evidence.
 
-The next gate should replace or materially strengthen the matched decoder-only transformer enough to learn the task, then rerun the same fair-comparison frame. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
+The next gate should replace or materially strengthen the matched decoder-only transformer enough to generalize on retrieval tasks, then rerun the same fair-comparison frame. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
 
 ## Researcher Use Context
 

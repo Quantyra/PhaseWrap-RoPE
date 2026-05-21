@@ -1,0 +1,62 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that train fit alone is promotion evidence",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential Adam optimizer audit for the matched one-block decoder-only gate.",
+      "Evidence that optimizer hardening can establish train fit on the current one-block harness.",
+      "Separated train/validation/test metrics showing whether train fit generalizes under the fair positional comparison."
+    ]
+  },
+  "decision": {
+    "all_retrieval_tasks_generalize": false,
+    "all_tasks_generalize": false,
+    "best_test_method": "phasewrap_bias",
+    "best_test_task": "tiny_text_fact_qa",
+    "best_test_top1": 0.75,
+    "best_train_method": "sinusoidal",
+    "best_train_task": "tiny_text_fact_qa",
+    "best_train_top1": 1.0,
+    "best_validation_method": "rope_relative",
+    "best_validation_task": "tiny_text_fact_qa",
+    "best_validation_top1": 0.5,
+    "capacity_train_top1_threshold": 0.75,
+    "claim_boundary": "Adam hardening establishes train fit, but generalization is incomplete across retrieval tasks, so positional-method promotion remains unsupported.",
+    "decision": "TRAIN_FIT_WITH_PARTIAL_GENERALIZATION",
+    "generalization_task_names": [
+      "tiny_text_fact_qa"
+    ],
+    "generalization_top1_threshold": 0.5,
+    "phasewrap_generalization_task_names": [
+      "tiny_text_fact_qa"
+    ],
+    "retrieval_generalization_task_names": []
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage47_adam_decoder_generalization_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage47_adam_decoder_generalization_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage47_adam_decoder_generalization_audit/results.json",
+  "schema_version": "qrope_stage47_adam_decoder_generalization_audit_v1",
+  "stage": "stage47_adam_decoder_generalization_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage47_adam_decoder_generalization_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}

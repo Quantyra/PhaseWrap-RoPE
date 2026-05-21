@@ -33,6 +33,7 @@ Supported now:
 - Stage 44 records Stages 39-43 as a compact-diagnostic plateau: useful bounded mechanism evidence, not promotion evidence.
 - Stage 45 runs a matched one-block decoder-only gate and records `PROMOTION_NOT_SUPPORTED`; the harness remains near chance and is not a reliable promotion discriminator.
 - Stage 46 applies longer training to that one-block harness and records `CAPACITY_NOT_ESTABLISHED`; weak PhaseWrap tiny text-fact QA positives remain below the capacity threshold.
+- Stage 47 applies Adam optimizer hardening and records `TRAIN_FIT_WITH_PARTIAL_GENERALIZATION`; PhaseWrap leads tiny text-fact QA, but retrieval lanes still fail held-out generalization.
 
 Not supported now:
 
@@ -45,6 +46,7 @@ Not supported now:
 - a claim that additional compact copy-path diagnostics should broaden the claim boundary after the Stage 44 plateau audit.
 - a claim that Stage 45 validates PhaseWrap-RoPE as a replacement or production transformer mechanism.
 - a claim that Stage 46 validates the one-block decoder harness as a positional-method discriminator.
+- a claim that Stage 47's tiny text-fact QA positive is enough for a RoPE-replacement claim.
 
 ## Decision Outcomes
 
@@ -58,12 +60,12 @@ Until a matched transformer-style benchmark satisfies the evidence standard, the
 
 ## Next Gate
 
-The next gate should replace or materially strengthen the matched decoder-only implementation enough to learn the task, then rerun the same fair RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap comparison.
+The next gate should replace or materially strengthen the matched decoder-only implementation enough to generalize on retrieval tasks, then rerun the same fair RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap comparison.
 
 Preferred next direction:
 
 - keep RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons matched;
-- move from the capacity-failed one-block decoder-only gate into a stronger decoder-only harness;
+- move from the partially generalizing one-block decoder-only gate into a stronger decoder-only harness;
 - report ranking and calibration even if the PhaseWrap result weakens.
 
-Because Stage 44 records the compact plateau and Stages 45-46 record a capacity-failed one-block decoder result, another diagnostic should be justified only if it directly improves the matched decoder-only transformer implementation.
+Because Stage 44 records the compact plateau and Stages 45-47 show the one-block decoder only partially generalizes, another diagnostic should be justified only if it directly improves retrieval generalization in the matched decoder-only transformer implementation.
