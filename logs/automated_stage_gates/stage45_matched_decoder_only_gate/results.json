@@ -1,0 +1,4336 @@
+{
+  "aggregate_table": [
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851984,
+      "final_training_loss_ci_low": 4.851933,
+      "final_training_loss_mean": 4.851958,
+      "method": "no_position",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852051,
+      "test_loss_ci_low": 4.85199,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.13894,
+      "test_mrr_ci_low": 0.017687,
+      "test_mrr_mean": 0.066105,
+      "test_perplexity_ci_high": 128.002849,
+      "test_perplexity_ci_low": 127.995154,
+      "test_perplexity_mean": 127.999243,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852054,
+      "validation_loss_ci_low": 4.851958,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851981,
+      "final_training_loss_ci_low": 4.851934,
+      "final_training_loss_mean": 4.851958,
+      "method": "sinusoidal",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.85205,
+      "test_loss_ci_low": 4.85199,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.140665,
+      "test_mrr_ci_low": 0.017497,
+      "test_mrr_mean": 0.066336,
+      "test_perplexity_ci_high": 128.002769,
+      "test_perplexity_ci_low": 127.995128,
+      "test_perplexity_mean": 127.999183,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852054,
+      "validation_loss_ci_low": 4.851957,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851981,
+      "final_training_loss_ci_low": 4.851932,
+      "final_training_loss_mean": 4.851958,
+      "method": "alibi",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852052,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.137825,
+      "test_mrr_ci_low": 0.017469,
+      "test_mrr_mean": 0.064997,
+      "test_perplexity_ci_high": 128.00263,
+      "test_perplexity_ci_low": 127.994346,
+      "test_perplexity_mean": 127.999244,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852053,
+      "validation_loss_ci_low": 4.851958,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851985,
+      "final_training_loss_ci_low": 4.851931,
+      "final_training_loss_mean": 4.851958,
+      "method": "rope_relative",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852054,
+      "test_loss_ci_low": 4.851992,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.139267,
+      "test_mrr_ci_low": 0.01747,
+      "test_mrr_mean": 0.066144,
+      "test_perplexity_ci_high": 128.003059,
+      "test_perplexity_ci_low": 127.994921,
+      "test_perplexity_mean": 127.999237,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852054,
+      "validation_loss_ci_low": 4.851958,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851982,
+      "final_training_loss_ci_low": 4.851934,
+      "final_training_loss_mean": 4.851959,
+      "method": "phasewrap_bias",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852054,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.136914,
+      "test_mrr_ci_low": 0.017172,
+      "test_mrr_mean": 0.063756,
+      "test_perplexity_ci_high": 128.002791,
+      "test_perplexity_ci_low": 127.994912,
+      "test_perplexity_mean": 127.999218,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852051,
+      "validation_loss_ci_low": 4.851954,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851985,
+      "final_training_loss_ci_low": 4.851931,
+      "final_training_loss_mean": 4.851959,
+      "method": "phasewrap_adapter",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852051,
+      "test_loss_ci_low": 4.851992,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.130471,
+      "test_mrr_ci_low": 0.017205,
+      "test_mrr_mean": 0.063826,
+      "test_perplexity_ci_high": 128.002778,
+      "test_perplexity_ci_low": 127.994912,
+      "test_perplexity_mean": 127.999213,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852052,
+      "validation_loss_ci_low": 4.851947,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851979,
+      "final_training_loss_ci_low": 4.851887,
+      "final_training_loss_mean": 4.851935,
+      "method": "no_position",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.852031,
+      "test_loss_ci_low": 4.852013,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.099536,
+      "test_mrr_ci_low": 0.027435,
+      "test_mrr_mean": 0.051819,
+      "test_perplexity_ci_high": 127.999941,
+      "test_perplexity_ci_low": 127.997854,
+      "test_perplexity_mean": 127.998898,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852041,
+      "validation_loss_ci_low": 4.851985,
+      "validation_loss_mean": 4.852015
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851979,
+      "final_training_loss_ci_low": 4.851886,
+      "final_training_loss_mean": 4.851935,
+      "method": "sinusoidal",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.85203,
+      "test_loss_ci_low": 4.852013,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.099254,
+      "test_mrr_ci_low": 0.027461,
+      "test_mrr_mean": 0.051811,
+      "test_perplexity_ci_high": 127.999977,
+      "test_perplexity_ci_low": 127.997825,
+      "test_perplexity_mean": 127.998901,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852037,
+      "validation_loss_ci_low": 4.851985,
+      "validation_loss_mean": 4.852014
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851972,
+      "final_training_loss_ci_low": 4.851887,
+      "final_training_loss_mean": 4.851936,
+      "method": "alibi",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.852029,
+      "test_loss_ci_low": 4.852013,
+      "test_loss_mean": 4.852021,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.09936,
+      "test_mrr_ci_low": 0.026787,
+      "test_mrr_mean": 0.051391,
+      "test_perplexity_ci_high": 127.999921,
+      "test_perplexity_ci_low": 127.997846,
+      "test_perplexity_mean": 127.998881,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.85204,
+      "validation_loss_ci_low": 4.851987,
+      "validation_loss_mean": 4.852014
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851976,
+      "final_training_loss_ci_low": 4.851882,
+      "final_training_loss_mean": 4.851935,
+      "method": "rope_relative",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.85203,
+      "test_loss_ci_low": 4.852014,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.099242,
+      "test_mrr_ci_low": 0.027461,
+      "test_mrr_mean": 0.051835,
+      "test_perplexity_ci_high": 127.999946,
+      "test_perplexity_ci_low": 127.997746,
+      "test_perplexity_mean": 127.998893,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.85204,
+      "validation_loss_ci_low": 4.851988,
+      "validation_loss_mean": 4.852015
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851981,
+      "final_training_loss_ci_low": 4.851888,
+      "final_training_loss_mean": 4.851937,
+      "method": "phasewrap_bias",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.85203,
+      "test_loss_ci_low": 4.852014,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.099757,
+      "test_mrr_ci_low": 0.027526,
+      "test_mrr_mean": 0.052386,
+      "test_perplexity_ci_high": 127.999939,
+      "test_perplexity_ci_low": 127.997888,
+      "test_perplexity_mean": 127.998891,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852036,
+      "validation_loss_ci_low": 4.851991,
+      "validation_loss_mean": 4.852016
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851977,
+      "final_training_loss_ci_low": 4.851895,
+      "final_training_loss_mean": 4.851937,
+      "method": "phasewrap_adapter",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.85203,
+      "test_loss_ci_low": 4.852014,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.100079,
+      "test_mrr_ci_low": 0.027773,
+      "test_mrr_mean": 0.052398,
+      "test_perplexity_ci_high": 128.000001,
+      "test_perplexity_ci_low": 127.997909,
+      "test_perplexity_mean": 127.998889,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.85204,
+      "validation_loss_ci_low": 4.851988,
+      "validation_loss_mean": 4.852016
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851892,
+      "final_training_loss_mean": 4.851933,
+      "method": "no_position",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.852019,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.044695,
+      "test_mrr_ci_low": 0.026566,
+      "test_mrr_mean": 0.033582,
+      "test_perplexity_ci_high": 127.998845,
+      "test_perplexity_ci_low": 127.994762,
+      "test_perplexity_mean": 127.996935,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852001,
+      "validation_loss_ci_low": 4.851961,
+      "validation_loss_mean": 4.851981
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851892,
+      "final_training_loss_mean": 4.851934,
+      "method": "sinusoidal",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.85202,
+      "test_loss_ci_low": 4.851992,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.044521,
+      "test_mrr_ci_low": 0.026959,
+      "test_mrr_mean": 0.033558,
+      "test_perplexity_ci_high": 127.998827,
+      "test_perplexity_ci_low": 127.995055,
+      "test_perplexity_mean": 127.996941,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852002,
+      "validation_loss_ci_low": 4.851961,
+      "validation_loss_mean": 4.851981
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851888,
+      "final_training_loss_mean": 4.851934,
+      "method": "alibi",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.852021,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852007,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.044222,
+      "test_mrr_ci_low": 0.02694,
+      "test_mrr_mean": 0.033301,
+      "test_perplexity_ci_high": 127.998844,
+      "test_perplexity_ci_low": 127.995115,
+      "test_perplexity_mean": 127.996979,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852001,
+      "validation_loss_ci_low": 4.851964,
+      "validation_loss_mean": 4.851981
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851894,
+      "final_training_loss_mean": 4.851934,
+      "method": "rope_relative",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.852019,
+      "test_loss_ci_low": 4.85199,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.044546,
+      "test_mrr_ci_low": 0.027086,
+      "test_mrr_mean": 0.033587,
+      "test_perplexity_ci_high": 127.998839,
+      "test_perplexity_ci_low": 127.995039,
+      "test_perplexity_mean": 127.996939,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.851999,
+      "validation_loss_ci_low": 4.851964,
+      "validation_loss_mean": 4.851982
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851888,
+      "final_training_loss_mean": 4.851933,
+      "method": "phasewrap_bias",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.852021,
+      "test_loss_ci_low": 4.851994,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.045207,
+      "test_mrr_ci_low": 0.026759,
+      "test_mrr_mean": 0.033763,
+      "test_perplexity_ci_high": 127.998741,
+      "test_perplexity_ci_low": 127.994841,
+      "test_perplexity_mean": 127.996847,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852002,
+      "validation_loss_ci_low": 4.851963,
+      "validation_loss_mean": 4.851983
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851894,
+      "final_training_loss_mean": 4.851933,
+      "method": "phasewrap_adapter",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.85202,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.045243,
+      "test_mrr_ci_low": 0.026845,
+      "test_mrr_mean": 0.033809,
+      "test_perplexity_ci_high": 127.998593,
+      "test_perplexity_ci_low": 127.994956,
+      "test_perplexity_mean": 127.996847,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852002,
+      "validation_loss_ci_low": 4.851963,
+      "validation_loss_mean": 4.851983
+    }
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "broad quantum advantage",
+      "a claim that a one-block synthetic decoder gate is sufficient for promotion"
+    ],
+    "supported": [
+      "A no-credential matched one-block decoder-only transformer gate after the Stage 44 compact plateau.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons under matched seeds, tasks, model shape, optimizer, epochs, and train-short/test-long splits.",
+      "Preservation of both positive and negative downstream evidence through aggregate metrics, per-seed rows, and failed-run artifacts."
+    ]
+  },
+  "dataset": "synthetic_small_decoder_train_short_test_long_v1",
+  "epochs": 60,
+  "examples_per_length": 4,
+  "failed_runs": [],
+  "gate_decision": {
+    "best_method_by_task": {
+      "exact_offset_passkey": "phasewrap_adapter",
+      "phase_cued_retrieval": "sinusoidal",
+      "tiny_text_fact_qa": "phasewrap_adapter"
+    },
+    "best_top1_by_task": {
+      "exact_offset_passkey": 0.025,
+      "phase_cued_retrieval": 0.025,
+      "tiny_text_fact_qa": 0.0
+    },
+    "claim_boundary": "This matched one-block decoder-only gate does not promote PhaseWrap-RoPE beyond the bounded claim.",
+    "decision": "PROMOTION_NOT_SUPPORTED",
+    "high_confidence_tasks": [],
+    "phasewrap_best_tasks_above_threshold": [],
+    "promotion_min_top1": 0.5,
+    "rope_best_tasks": []
+  },
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "model": {
+    "fair_comparison_controls": [
+      "same train/validation/test rows",
+      "same seeds",
+      "same optimizer and epoch count",
+      "same model shape and trainable parameterization",
+      "same metrics and artifact retention"
+    ],
+    "trained_components": "token embeddings, q/k/v projections, output projection, positional scale",
+    "type": "matched_one_block_decoder_only_single_head_attention"
+  },
+  "no_hardware_submission": true,
+  "per_seed_table": [
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851917,
+      "method": "no_position",
+      "seed": 307,
+      "stage10_method_alias": "no_position",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852053,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.015565,
+      "test_perplexity": 128.002962,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.85201
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851965
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851917
+        }
+      ],
+      "validation_loss": 4.851906
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851917,
+      "method": "sinusoidal",
+      "seed": 307,
+      "stage10_method_alias": "sinusoidal",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852053,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.015747,
+      "test_perplexity": 128.002905,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.85201
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851965
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851917
+        }
+      ],
+      "validation_loss": 4.851907
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851918,
+      "method": "alibi",
+      "seed": 307,
+      "stage10_method_alias": "alibi",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852053,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.015652,
+      "test_perplexity": 128.002929,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852012
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851918
+        }
+      ],
+      "validation_loss": 4.851905
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851916,
+      "method": "rope_relative",
+      "seed": 307,
+      "stage10_method_alias": "rope",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852053,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.015683,
+      "test_perplexity": 128.002954,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.85201
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851964
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851916
+        }
+      ],
+      "validation_loss": 4.851906
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851921,
+      "method": "phasewrap_bias",
+      "seed": 307,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852054,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.015599,
+      "test_perplexity": 128.002994,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852012
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851967
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851921
+        }
+      ],
+      "validation_loss": 4.851902
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851921,
+      "method": "phasewrap_adapter",
+      "seed": 307,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852054,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.015615,
+      "test_perplexity": 128.002978,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852012
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851967
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851921
+        }
+      ],
+      "validation_loss": 4.851902
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851938,
+      "method": "no_position",
+      "seed": 311,
+      "stage10_method_alias": "no_position",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.851962,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.20222,
+      "test_perplexity": 127.991274,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851992
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851938
+        }
+      ],
+      "validation_loss": 4.852008
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851938,
+      "method": "sinusoidal",
+      "seed": 311,
+      "stage10_method_alias": "sinusoidal",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.851962,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.202264,
+      "test_perplexity": 127.991282,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851992
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851938
+        }
+      ],
+      "validation_loss": 4.852008
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851938,
+      "method": "alibi",
+      "seed": 311,
+      "stage10_method_alias": "alibi",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.851962,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.202264,
+      "test_perplexity": 127.991275,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851992
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851938
+        }
+      ],
+      "validation_loss": 4.852008
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851938,
+      "method": "rope_relative",
+      "seed": 311,
+      "stage10_method_alias": "rope",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.851962,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.202264,
+      "test_perplexity": 127.991276,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851992
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851938
+        }
+      ],
+      "validation_loss": 4.852008
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851938,
+      "method": "phasewrap_bias",
+      "seed": 311,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.851962,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.202425,
+      "test_perplexity": 127.991253,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851992
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851938
+        }
+      ],
+      "validation_loss": 4.852008
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851938,
+      "method": "phasewrap_adapter",
+      "seed": 311,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.851962,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.202233,
+      "test_perplexity": 127.991253,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851992
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851938
+        }
+      ],
+      "validation_loss": 4.852008
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851982,
+      "method": "no_position",
+      "seed": 313,
+      "stage10_method_alias": "no_position",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852013,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.072474,
+      "test_perplexity": 127.997801,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852027
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852005
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851982
+        }
+      ],
+      "validation_loss": 4.852013
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851982,
+      "method": "sinusoidal",
+      "seed": 313,
+      "stage10_method_alias": "sinusoidal",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852012,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.073422,
+      "test_perplexity": 127.997692,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852027
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852005
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851982
+        }
+      ],
+      "validation_loss": 4.852013
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851982,
+      "method": "alibi",
+      "seed": 313,
+      "stage10_method_alias": "alibi",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852014,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.066683,
+      "test_perplexity": 127.997878,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852027
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852004
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851982
+        }
+      ],
+      "validation_loss": 4.852013
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851982,
+      "method": "rope_relative",
+      "seed": 313,
+      "stage10_method_alias": "rope",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852013,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.072474,
+      "test_perplexity": 127.997824,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852027
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852005
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851982
+        }
+      ],
+      "validation_loss": 4.852013
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851982,
+      "method": "phasewrap_bias",
+      "seed": 313,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852013,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.061695,
+      "test_perplexity": 127.997809,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852027
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852005
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851982
+        }
+      ],
+      "validation_loss": 4.852014
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851982,
+      "method": "phasewrap_adapter",
+      "seed": 313,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852013,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.062103,
+      "test_perplexity": 127.997821,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852027
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852005
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851982
+        }
+      ],
+      "validation_loss": 4.852014
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852001,
+      "method": "no_position",
+      "seed": 317,
+      "stage10_method_alias": "no_position",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852063,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.017036,
+      "test_perplexity": 128.004145,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852052
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852026
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852001
+        }
+      ],
+      "validation_loss": 4.852059
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852,
+      "method": "sinusoidal",
+      "seed": 317,
+      "stage10_method_alias": "sinusoidal",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852062,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.017135,
+      "test_perplexity": 128.004001,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852052
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852025
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852
+        }
+      ],
+      "validation_loss": 4.852058
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852001,
+      "method": "alibi",
+      "seed": 317,
+      "stage10_method_alias": "alibi",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852062,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.017157,
+      "test_perplexity": 128.004114,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852052
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852026
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852001
+        }
+      ],
+      "validation_loss": 4.852059
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852001,
+      "method": "rope_relative",
+      "seed": 317,
+      "stage10_method_alias": "rope",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852062,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.017069,
+      "test_perplexity": 128.004104,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852052
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852026
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852001
+        }
+      ],
+      "validation_loss": 4.852059
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852003,
+      "method": "phasewrap_bias",
+      "seed": 317,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852061,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.016233,
+      "test_perplexity": 128.003937,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852054
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852028
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852003
+        }
+      ],
+      "validation_loss": 4.852058
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852003,
+      "method": "phasewrap_adapter",
+      "seed": 317,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852061,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.01635,
+      "test_perplexity": 128.003921,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852054
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852028
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852003
+        }
+      ],
+      "validation_loss": 4.852058
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851953,
+      "method": "no_position",
+      "seed": 331,
+      "stage10_method_alias": "no_position",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852031,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.023231,
+      "test_perplexity": 128.000033,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851999
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851976
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851953
+        }
+      ],
+      "validation_loss": 4.852066
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851953,
+      "method": "sinusoidal",
+      "seed": 331,
+      "stage10_method_alias": "sinusoidal",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852031,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.023111,
+      "test_perplexity": 128.000034,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851999
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851976
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851953
+        }
+      ],
+      "validation_loss": 4.852066
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851953,
+      "method": "alibi",
+      "seed": 331,
+      "stage10_method_alias": "alibi",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.85203,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.023231,
+      "test_perplexity": 128.000025,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851999
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851976
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851953
+        }
+      ],
+      "validation_loss": 4.852066
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851953,
+      "method": "rope_relative",
+      "seed": 331,
+      "stage10_method_alias": "rope",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.85203,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.023231,
+      "test_perplexity": 128.000028,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851999
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851976
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851953
+        }
+      ],
+      "validation_loss": 4.852066
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851953,
+      "method": "phasewrap_bias",
+      "seed": 331,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852031,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.022828,
+      "test_perplexity": 128.000095,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851998
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851976
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851953
+        }
+      ],
+      "validation_loss": 4.852066
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851953,
+      "method": "phasewrap_adapter",
+      "seed": 331,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852031,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.022828,
+      "test_perplexity": 128.000094,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851998
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851976
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851953
+        }
+      ],
+      "validation_loss": 4.852066
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851936,
+      "method": "no_position",
+      "seed": 307,
+      "stage10_method_alias": "no_position",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852014,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.02794,
+      "test_perplexity": 127.997958,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852019
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851977
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851936
+        }
+      ],
+      "validation_loss": 4.852027
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851936,
+      "method": "sinusoidal",
+      "seed": 307,
+      "stage10_method_alias": "sinusoidal",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852014,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.028037,
+      "test_perplexity": 127.99786,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.85202
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851978
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851936
+        }
+      ],
+      "validation_loss": 4.852024
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851937,
+      "method": "alibi",
+      "seed": 307,
+      "stage10_method_alias": "alibi",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852014,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.027058,
+      "test_perplexity": 127.997945,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852021
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851979
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851937
+        }
+      ],
+      "validation_loss": 4.852026
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851936,
+      "method": "rope_relative",
+      "seed": 307,
+      "stage10_method_alias": "rope",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852014,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.028081,
+      "test_perplexity": 127.997923,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852019
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851977
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851936
+        }
+      ],
+      "validation_loss": 4.852026
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85194,
+      "method": "phasewrap_bias",
+      "seed": 307,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852016,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.03083,
+      "test_perplexity": 127.99813,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852023
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851981
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85194
+        }
+      ],
+      "validation_loss": 4.852025
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851941,
+      "method": "phasewrap_adapter",
+      "seed": 307,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852016,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.03083,
+      "test_perplexity": 127.998114,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852023
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851982
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851941
+        }
+      ],
+      "validation_loss": 4.852025
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85196,
+      "method": "no_position",
+      "seed": 311,
+      "stage10_method_alias": "no_position",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.852035,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.146655,
+      "test_perplexity": 128.000545,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852008
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851984
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85196
+        }
+      ],
+      "validation_loss": 4.851994
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85196,
+      "method": "sinusoidal",
+      "seed": 311,
+      "stage10_method_alias": "sinusoidal",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.852034,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.146655,
+      "test_perplexity": 128.000541,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852009
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851984
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85196
+        }
+      ],
+      "validation_loss": 4.851994
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85196,
+      "method": "alibi",
+      "seed": 311,
+      "stage10_method_alias": "alibi",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.852035,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.146655,
+      "test_perplexity": 128.000545,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852008
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851984
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85196
+        }
+      ],
+      "validation_loss": 4.851994
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85196,
+      "method": "rope_relative",
+      "seed": 311,
+      "stage10_method_alias": "rope",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.852035,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.146634,
+      "test_perplexity": 128.000547,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852008
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851984
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85196
+        }
+      ],
+      "validation_loss": 4.851994
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85196,
+      "method": "phasewrap_bias",
+      "seed": 311,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.852035,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.146597,
+      "test_perplexity": 128.000561,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852008
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851984
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85196
+        }
+      ],
+      "validation_loss": 4.851994
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85196,
+      "method": "phasewrap_adapter",
+      "seed": 311,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.117186,
+      "test_loss": 4.852035,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.146597,
+      "test_perplexity": 128.000563,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.125,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852008
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851984
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85196
+        }
+      ],
+      "validation_loss": 4.851994
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852007,
+      "method": "no_position",
+      "seed": 313,
+      "stage10_method_alias": "no_position",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852031,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.028236,
+      "test_perplexity": 128.000081,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852052
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852029
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852007
+        }
+      ],
+      "validation_loss": 4.852038
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852007,
+      "method": "sinusoidal",
+      "seed": 313,
+      "stage10_method_alias": "sinusoidal",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852032,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.028058,
+      "test_perplexity": 128.000163,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852052
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852029
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852007
+        }
+      ],
+      "validation_loss": 4.852037
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852007,
+      "method": "alibi",
+      "seed": 313,
+      "stage10_method_alias": "alibi",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.85203,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.026858,
+      "test_perplexity": 128.000027,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852052
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852029
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852007
+        }
+      ],
+      "validation_loss": 4.852038
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852007,
+      "method": "rope_relative",
+      "seed": 313,
+      "stage10_method_alias": "rope",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852031,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.028155,
+      "test_perplexity": 128.000097,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852052
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852029
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852007
+        }
+      ],
+      "validation_loss": 4.852038
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852007,
+      "method": "phasewrap_bias",
+      "seed": 313,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852031,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.028165,
+      "test_perplexity": 128.000036,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852053
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852029
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852007
+        }
+      ],
+      "validation_loss": 4.852038
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.852007,
+      "method": "phasewrap_adapter",
+      "seed": 313,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852031,
+      "test_mean_target_probability": 0.007812,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.028165,
+      "test_perplexity": 128.000053,
+      "test_target_probability_mae": 0.992188,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852053
+        },
+        {
+          "epoch": 31,
+          "loss": 4.85203
+        },
+        {
+          "epoch": 60,
+          "loss": 4.852007
+        }
+      ],
+      "validation_loss": 4.852038
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85185,
+      "method": "no_position",
+      "seed": 317,
+      "stage10_method_alias": "no_position",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007815,
+      "test_loss": 4.852018,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007815,
+      "test_mrr": 0.026486,
+      "test_perplexity": 127.998455,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851929
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851891
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85185
+        }
+      ],
+      "validation_loss": 4.851965
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851849,
+      "method": "sinusoidal",
+      "seed": 317,
+      "stage10_method_alias": "sinusoidal",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007815,
+      "test_loss": 4.852018,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007815,
+      "test_mrr": 0.026576,
+      "test_perplexity": 127.998476,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851929
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851891
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851849
+        }
+      ],
+      "validation_loss": 4.851965
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85185,
+      "method": "alibi",
+      "seed": 317,
+      "stage10_method_alias": "alibi",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007815,
+      "test_loss": 4.852018,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007815,
+      "test_mrr": 0.026606,
+      "test_perplexity": 127.998439,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.85193
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851892
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85185
+        }
+      ],
+      "validation_loss": 4.851963
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.85185,
+      "method": "rope_relative",
+      "seed": 317,
+      "stage10_method_alias": "rope",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007815,
+      "test_loss": 4.852018,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007815,
+      "test_mrr": 0.026531,
+      "test_perplexity": 127.998442,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.85193
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851892
+        },
+        {
+          "epoch": 60,
+          "loss": 4.85185
+        }
+      ],
+      "validation_loss": 4.851966
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851852,
+      "method": "phasewrap_bias",
+      "seed": 317,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007815,
+      "test_loss": 4.852017,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007815,
+      "test_mrr": 0.026563,
+      "test_perplexity": 127.99828,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851931
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851893
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851852
+        }
+      ],
+      "validation_loss": 4.851972
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851852,
+      "method": "phasewrap_adapter",
+      "seed": 317,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007815,
+      "test_loss": 4.852017,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007815,
+      "test_mrr": 0.026624,
+      "test_perplexity": 127.998265,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851931
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851893
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851852
+        }
+      ],
+      "validation_loss": 4.851973
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851924,
+      "method": "no_position",
+      "seed": 331,
+      "stage10_method_alias": "no_position",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.85201,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.029776,
+      "test_perplexity": 127.99745,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852004
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851965
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851924
+        }
+      ],
+      "validation_loss": 4.85205
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851924,
+      "method": "sinusoidal",
+      "seed": 331,
+      "stage10_method_alias": "sinusoidal",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.85201,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.029731,
+      "test_perplexity": 127.997465,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852004
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851965
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851924
+        }
+      ],
+      "validation_loss": 4.85205
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851924,
+      "method": "alibi",
+      "seed": 331,
+      "stage10_method_alias": "alibi",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.85201,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.029776,
+      "test_perplexity": 127.997451,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852004
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851965
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851924
+        }
+      ],
+      "validation_loss": 4.85205
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851924,
+      "method": "rope_relative",
+      "seed": 331,
+      "stage10_method_alias": "rope",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.85201,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.029776,
+      "test_perplexity": 127.997455,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852004
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851965
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851924
+        }
+      ],
+      "validation_loss": 4.85205
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851925,
+      "method": "phasewrap_bias",
+      "seed": 331,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.85201,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.029776,
+      "test_perplexity": 127.99745,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852004
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851925
+        }
+      ],
+      "validation_loss": 4.85205
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851925,
+      "method": "phasewrap_adapter",
+      "seed": 331,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.85201,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.029776,
+      "test_perplexity": 127.99745,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852004
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851925
+        }
+      ],
+      "validation_loss": 4.85205
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851854,
+      "method": "no_position",
+      "seed": 307,
+      "stage10_method_alias": "no_position",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851993,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.029636,
+      "test_perplexity": 127.995288,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851991
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851929
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851854
+        }
+      ],
+      "validation_loss": 4.851954
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851855,
+      "method": "sinusoidal",
+      "seed": 307,
+      "stage10_method_alias": "sinusoidal",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851994,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.029575,
+      "test_perplexity": 127.995318,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851991
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851929
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851855
+        }
+      ],
+      "validation_loss": 4.851955
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851857,
+      "method": "alibi",
+      "seed": 307,
+      "stage10_method_alias": "alibi",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851995,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.028575,
+      "test_perplexity": 127.995445,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851992
+        },
+        {
+          "epoch": 31,
+          "loss": 4.85193
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851857
+        }
+      ],
+      "validation_loss": 4.851954
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851855,
+      "method": "rope_relative",
+      "seed": 307,
+      "stage10_method_alias": "rope",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851994,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.029701,
+      "test_perplexity": 127.995317,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851991
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851929
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851855
+        }
+      ],
+      "validation_loss": 4.851955
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851855,
+      "method": "phasewrap_bias",
+      "seed": 307,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851994,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.030217,
+      "test_perplexity": 127.995327,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851991
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851928
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851855
+        }
+      ],
+      "validation_loss": 4.851958
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851855,
+      "method": "phasewrap_adapter",
+      "seed": 307,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851994,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.030306,
+      "test_perplexity": 127.995336,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.851991
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851929
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851855
+        }
+      ],
+      "validation_loss": 4.851958
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851957,
+      "method": "no_position",
+      "seed": 311,
+      "stage10_method_alias": "no_position",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851983,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.055254,
+      "test_perplexity": 127.993971,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852017
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851988
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851957
+        }
+      ],
+      "validation_loss": 4.852001
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851957,
+      "method": "sinusoidal",
+      "seed": 311,
+      "stage10_method_alias": "sinusoidal",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851983,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.055254,
+      "test_perplexity": 127.99397,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852017
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851988
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851957
+        }
+      ],
+      "validation_loss": 4.852002
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851957,
+      "method": "alibi",
+      "seed": 311,
+      "stage10_method_alias": "alibi",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851983,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.055201,
+      "test_perplexity": 127.993974,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852017
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851988
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851957
+        }
+      ],
+      "validation_loss": 4.852001
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851957,
+      "method": "rope_relative",
+      "seed": 311,
+      "stage10_method_alias": "rope",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851983,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.055254,
+      "test_perplexity": 127.993974,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852017
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851988
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851957
+        }
+      ],
+      "validation_loss": 4.852001
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851957,
+      "method": "phasewrap_bias",
+      "seed": 311,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851984,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.055201,
+      "test_perplexity": 127.994023,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852017
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851988
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851957
+        }
+      ],
+      "validation_loss": 4.852002
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851957,
+      "method": "phasewrap_adapter",
+      "seed": 311,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851984,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.055201,
+      "test_perplexity": 127.994024,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852017
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851988
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851957
+        }
+      ],
+      "validation_loss": 4.852002
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851948,
+      "method": "no_position",
+      "seed": 313,
+      "stage10_method_alias": "no_position",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852025,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.027266,
+      "test_perplexity": 127.99937,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852009
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851979
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851948
+        }
+      ],
+      "validation_loss": 4.851987
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851947,
+      "method": "sinusoidal",
+      "seed": 313,
+      "stage10_method_alias": "sinusoidal",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852025,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.027266,
+      "test_perplexity": 127.999288,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852009
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851979
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851947
+        }
+      ],
+      "validation_loss": 4.851986
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851948,
+      "method": "alibi",
+      "seed": 313,
+      "stage10_method_alias": "alibi",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852025,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.027222,
+      "test_perplexity": 127.999295,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852009
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851979
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851948
+        }
+      ],
+      "validation_loss": 4.851987
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851948,
+      "method": "rope_relative",
+      "seed": 313,
+      "stage10_method_alias": "rope",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852025,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.027266,
+      "test_perplexity": 127.999357,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852009
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851979
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851948
+        }
+      ],
+      "validation_loss": 4.851987
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851948,
+      "method": "phasewrap_bias",
+      "seed": 313,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852025,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.027287,
+      "test_perplexity": 127.999355,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852009
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851979
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851948
+        }
+      ],
+      "validation_loss": 4.851989
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851948,
+      "method": "phasewrap_adapter",
+      "seed": 313,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852025,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.027287,
+      "test_perplexity": 127.999352,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852009
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851979
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851948
+        }
+      ],
+      "validation_loss": 4.851989
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851922,
+      "method": "no_position",
+      "seed": 317,
+      "stage10_method_alias": "no_position",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852004,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.030445,
+      "test_perplexity": 127.996607,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852006
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851922
+        }
+      ],
+      "validation_loss": 4.851955
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851924,
+      "method": "sinusoidal",
+      "seed": 317,
+      "stage10_method_alias": "sinusoidal",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852004,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.030352,
+      "test_perplexity": 127.996698,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852008
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851968
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851924
+        }
+      ],
+      "validation_loss": 4.851956
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851922,
+      "method": "alibi",
+      "seed": 317,
+      "stage10_method_alias": "alibi",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852005,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.030195,
+      "test_perplexity": 127.996736,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852006
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851966
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851922
+        }
+      ],
+      "validation_loss": 4.851956
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851922,
+      "method": "rope_relative",
+      "seed": 317,
+      "stage10_method_alias": "rope",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852004,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.030371,
+      "test_perplexity": 127.996614,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852007
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851967
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851922
+        }
+      ],
+      "validation_loss": 4.851956
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851919,
+      "method": "phasewrap_bias",
+      "seed": 317,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.03091,
+      "test_perplexity": 127.996067,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852005
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851964
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851919
+        }
+      ],
+      "validation_loss": 4.851956
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851919,
+      "method": "phasewrap_adapter",
+      "seed": 317,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.851999,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.03091,
+      "test_perplexity": 127.996061,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852005
+        },
+        {
+          "epoch": 31,
+          "loss": 4.851964
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851919
+        }
+      ],
+      "validation_loss": 4.851956
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851986,
+      "method": "no_position",
+      "seed": 331,
+      "stage10_method_alias": "no_position",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852026,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.02531,
+      "test_perplexity": 127.99944,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852062
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852023
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851986
+        }
+      ],
+      "validation_loss": 4.852009
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851986,
+      "method": "sinusoidal",
+      "seed": 331,
+      "stage10_method_alias": "sinusoidal",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852026,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.025343,
+      "test_perplexity": 127.99943,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852062
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852023
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851986
+        }
+      ],
+      "validation_loss": 4.852008
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851986,
+      "method": "alibi",
+      "seed": 331,
+      "stage10_method_alias": "alibi",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852026,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.02531,
+      "test_perplexity": 127.999446,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852062
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852023
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851986
+        }
+      ],
+      "validation_loss": 4.852009
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851986,
+      "method": "rope_relative",
+      "seed": 331,
+      "stage10_method_alias": "rope",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852026,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.025343,
+      "test_perplexity": 127.999433,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852062
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852023
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851986
+        }
+      ],
+      "validation_loss": 4.852009
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851986,
+      "method": "phasewrap_bias",
+      "seed": 331,
+      "stage10_method_alias": "phasewrap_bias",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852026,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.025199,
+      "test_perplexity": 127.999464,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852062
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852023
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851986
+        }
+      ],
+      "validation_loss": 4.852009
+    },
+    {
+      "epochs": 60,
+      "final_training_loss": 4.851986,
+      "method": "phasewrap_adapter",
+      "seed": 331,
+      "stage10_method_alias": "phasewrap_adapter",
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error": 0.007814,
+      "test_loss": 4.852026,
+      "test_mean_target_probability": 0.007813,
+      "test_mean_top1_confidence": 0.007814,
+      "test_mrr": 0.025343,
+      "test_perplexity": 127.999463,
+      "test_target_probability_mae": 0.992187,
+      "test_top1_accuracy": 0.0,
+      "train_row_count": 8,
+      "training_history": [
+        {
+          "epoch": 1,
+          "loss": 4.852062
+        },
+        {
+          "epoch": 31,
+          "loss": 4.852023
+        },
+        {
+          "epoch": 60,
+          "loss": 4.851986
+        }
+      ],
+      "validation_loss": 4.852009
+    }
+  ],
+  "provider_credentials_required": false,
+  "ranking_table": [
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851894,
+      "final_training_loss_mean": 4.851933,
+      "method": "phasewrap_adapter",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.85202,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.045243,
+      "test_mrr_ci_low": 0.026845,
+      "test_mrr_mean": 0.033809,
+      "test_perplexity_ci_high": 127.998593,
+      "test_perplexity_ci_low": 127.994956,
+      "test_perplexity_mean": 127.996847,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852002,
+      "validation_loss_ci_low": 4.851963,
+      "validation_loss_mean": 4.851983
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851888,
+      "final_training_loss_mean": 4.851933,
+      "method": "phasewrap_bias",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.852021,
+      "test_loss_ci_low": 4.851994,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.045207,
+      "test_mrr_ci_low": 0.026759,
+      "test_mrr_mean": 0.033763,
+      "test_perplexity_ci_high": 127.998741,
+      "test_perplexity_ci_low": 127.994841,
+      "test_perplexity_mean": 127.996847,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852002,
+      "validation_loss_ci_low": 4.851963,
+      "validation_loss_mean": 4.851983
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851894,
+      "final_training_loss_mean": 4.851934,
+      "method": "rope_relative",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.852019,
+      "test_loss_ci_low": 4.85199,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.044546,
+      "test_mrr_ci_low": 0.027086,
+      "test_mrr_mean": 0.033587,
+      "test_perplexity_ci_high": 127.998839,
+      "test_perplexity_ci_low": 127.995039,
+      "test_perplexity_mean": 127.996939,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.851999,
+      "validation_loss_ci_low": 4.851964,
+      "validation_loss_mean": 4.851982
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851892,
+      "final_training_loss_mean": 4.851933,
+      "method": "no_position",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.852019,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.044695,
+      "test_mrr_ci_low": 0.026566,
+      "test_mrr_mean": 0.033582,
+      "test_perplexity_ci_high": 127.998845,
+      "test_perplexity_ci_low": 127.994762,
+      "test_perplexity_mean": 127.996935,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852001,
+      "validation_loss_ci_low": 4.851961,
+      "validation_loss_mean": 4.851981
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851892,
+      "final_training_loss_mean": 4.851934,
+      "method": "sinusoidal",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.85202,
+      "test_loss_ci_low": 4.851992,
+      "test_loss_mean": 4.852006,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.044521,
+      "test_mrr_ci_low": 0.026959,
+      "test_mrr_mean": 0.033558,
+      "test_perplexity_ci_high": 127.998827,
+      "test_perplexity_ci_low": 127.995055,
+      "test_perplexity_mean": 127.996941,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852002,
+      "validation_loss_ci_low": 4.851961,
+      "validation_loss_mean": 4.851981
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851967,
+      "final_training_loss_ci_low": 4.851888,
+      "final_training_loss_mean": 4.851934,
+      "method": "alibi",
+      "seed_count": 5,
+      "task": "tiny_text_fact_qa",
+      "test_expected_calibration_error_ci_high": 0.007814,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.007814,
+      "test_loss_ci_high": 4.852021,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852007,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007813,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.044222,
+      "test_mrr_ci_low": 0.02694,
+      "test_mrr_mean": 0.033301,
+      "test_perplexity_ci_high": 127.998844,
+      "test_perplexity_ci_low": 127.995115,
+      "test_perplexity_mean": 127.996979,
+      "test_target_probability_mae_ci_high": 0.992187,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.0,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.0,
+      "validation_loss_ci_high": 4.852001,
+      "validation_loss_ci_low": 4.851964,
+      "validation_loss_mean": 4.851981
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851981,
+      "final_training_loss_ci_low": 4.851934,
+      "final_training_loss_mean": 4.851958,
+      "method": "sinusoidal",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.85205,
+      "test_loss_ci_low": 4.85199,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.140665,
+      "test_mrr_ci_low": 0.017497,
+      "test_mrr_mean": 0.066336,
+      "test_perplexity_ci_high": 128.002769,
+      "test_perplexity_ci_low": 127.995128,
+      "test_perplexity_mean": 127.999183,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852054,
+      "validation_loss_ci_low": 4.851957,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851985,
+      "final_training_loss_ci_low": 4.851931,
+      "final_training_loss_mean": 4.851958,
+      "method": "rope_relative",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852054,
+      "test_loss_ci_low": 4.851992,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.139267,
+      "test_mrr_ci_low": 0.01747,
+      "test_mrr_mean": 0.066144,
+      "test_perplexity_ci_high": 128.003059,
+      "test_perplexity_ci_low": 127.994921,
+      "test_perplexity_mean": 127.999237,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852054,
+      "validation_loss_ci_low": 4.851958,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851984,
+      "final_training_loss_ci_low": 4.851933,
+      "final_training_loss_mean": 4.851958,
+      "method": "no_position",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852051,
+      "test_loss_ci_low": 4.85199,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.13894,
+      "test_mrr_ci_low": 0.017687,
+      "test_mrr_mean": 0.066105,
+      "test_perplexity_ci_high": 128.002849,
+      "test_perplexity_ci_low": 127.995154,
+      "test_perplexity_mean": 127.999243,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852054,
+      "validation_loss_ci_low": 4.851958,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851981,
+      "final_training_loss_ci_low": 4.851932,
+      "final_training_loss_mean": 4.851958,
+      "method": "alibi",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852052,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.137825,
+      "test_mrr_ci_low": 0.017469,
+      "test_mrr_mean": 0.064997,
+      "test_perplexity_ci_high": 128.00263,
+      "test_perplexity_ci_low": 127.994346,
+      "test_perplexity_mean": 127.999244,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852053,
+      "validation_loss_ci_low": 4.851958,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851985,
+      "final_training_loss_ci_low": 4.851931,
+      "final_training_loss_mean": 4.851959,
+      "method": "phasewrap_adapter",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852051,
+      "test_loss_ci_low": 4.851992,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.130471,
+      "test_mrr_ci_low": 0.017205,
+      "test_mrr_mean": 0.063826,
+      "test_perplexity_ci_high": 128.002778,
+      "test_perplexity_ci_low": 127.994912,
+      "test_perplexity_mean": 127.999213,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852052,
+      "validation_loss_ci_low": 4.851947,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851982,
+      "final_training_loss_ci_low": 4.851934,
+      "final_training_loss_mean": 4.851959,
+      "method": "phasewrap_bias",
+      "seed_count": 5,
+      "task": "phase_cued_retrieval",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029688,
+      "test_loss_ci_high": 4.852054,
+      "test_loss_ci_low": 4.851991,
+      "test_loss_mean": 4.852024,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007812,
+      "test_mean_top1_confidence_ci_high": 0.007814,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.136914,
+      "test_mrr_ci_low": 0.017172,
+      "test_mrr_mean": 0.063756,
+      "test_perplexity_ci_high": 128.002791,
+      "test_perplexity_ci_low": 127.994912,
+      "test_perplexity_mean": 127.999218,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992188,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852051,
+      "validation_loss_ci_low": 4.851954,
+      "validation_loss_mean": 4.85201
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851977,
+      "final_training_loss_ci_low": 4.851895,
+      "final_training_loss_mean": 4.851937,
+      "method": "phasewrap_adapter",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.85203,
+      "test_loss_ci_low": 4.852014,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.100079,
+      "test_mrr_ci_low": 0.027773,
+      "test_mrr_mean": 0.052398,
+      "test_perplexity_ci_high": 128.000001,
+      "test_perplexity_ci_low": 127.997909,
+      "test_perplexity_mean": 127.998889,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.85204,
+      "validation_loss_ci_low": 4.851988,
+      "validation_loss_mean": 4.852016
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851981,
+      "final_training_loss_ci_low": 4.851888,
+      "final_training_loss_mean": 4.851937,
+      "method": "phasewrap_bias",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.85203,
+      "test_loss_ci_low": 4.852014,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.099757,
+      "test_mrr_ci_low": 0.027526,
+      "test_mrr_mean": 0.052386,
+      "test_perplexity_ci_high": 127.999939,
+      "test_perplexity_ci_low": 127.997888,
+      "test_perplexity_mean": 127.998891,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852036,
+      "validation_loss_ci_low": 4.851991,
+      "validation_loss_mean": 4.852016
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851976,
+      "final_training_loss_ci_low": 4.851882,
+      "final_training_loss_mean": 4.851935,
+      "method": "rope_relative",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.85203,
+      "test_loss_ci_low": 4.852014,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.099242,
+      "test_mrr_ci_low": 0.027461,
+      "test_mrr_mean": 0.051835,
+      "test_perplexity_ci_high": 127.999946,
+      "test_perplexity_ci_low": 127.997746,
+      "test_perplexity_mean": 127.998893,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.85204,
+      "validation_loss_ci_low": 4.851988,
+      "validation_loss_mean": 4.852015
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851979,
+      "final_training_loss_ci_low": 4.851887,
+      "final_training_loss_mean": 4.851935,
+      "method": "no_position",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.852031,
+      "test_loss_ci_low": 4.852013,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.099536,
+      "test_mrr_ci_low": 0.027435,
+      "test_mrr_mean": 0.051819,
+      "test_perplexity_ci_high": 127.999941,
+      "test_perplexity_ci_low": 127.997854,
+      "test_perplexity_mean": 127.998898,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852041,
+      "validation_loss_ci_low": 4.851985,
+      "validation_loss_mean": 4.852015
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851979,
+      "final_training_loss_ci_low": 4.851886,
+      "final_training_loss_mean": 4.851935,
+      "method": "sinusoidal",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.85203,
+      "test_loss_ci_low": 4.852013,
+      "test_loss_mean": 4.852022,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.099254,
+      "test_mrr_ci_low": 0.027461,
+      "test_mrr_mean": 0.051811,
+      "test_perplexity_ci_high": 127.999977,
+      "test_perplexity_ci_low": 127.997825,
+      "test_perplexity_mean": 127.998901,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.852037,
+      "validation_loss_ci_low": 4.851985,
+      "validation_loss_mean": 4.852014
+    },
+    {
+      "failed_run_count": 0,
+      "final_training_loss_ci_high": 4.851972,
+      "final_training_loss_ci_low": 4.851887,
+      "final_training_loss_mean": 4.851936,
+      "method": "alibi",
+      "seed_count": 5,
+      "task": "exact_offset_passkey",
+      "test_expected_calibration_error_ci_high": 0.073437,
+      "test_expected_calibration_error_ci_low": 0.007814,
+      "test_expected_calibration_error_mean": 0.029689,
+      "test_loss_ci_high": 4.852029,
+      "test_loss_ci_low": 4.852013,
+      "test_loss_mean": 4.852021,
+      "test_mean_target_probability_ci_high": 0.007813,
+      "test_mean_target_probability_ci_low": 0.007812,
+      "test_mean_target_probability_mean": 0.007813,
+      "test_mean_top1_confidence_ci_high": 0.007815,
+      "test_mean_top1_confidence_ci_low": 0.007814,
+      "test_mean_top1_confidence_mean": 0.007814,
+      "test_mrr_ci_high": 0.09936,
+      "test_mrr_ci_low": 0.026787,
+      "test_mrr_mean": 0.051391,
+      "test_perplexity_ci_high": 127.999921,
+      "test_perplexity_ci_low": 127.997846,
+      "test_perplexity_mean": 127.998881,
+      "test_target_probability_mae_ci_high": 0.992188,
+      "test_target_probability_mae_ci_low": 0.992187,
+      "test_target_probability_mae_mean": 0.992187,
+      "test_top1_accuracy_ci_high": 0.075,
+      "test_top1_accuracy_ci_low": 0.0,
+      "test_top1_accuracy_mean": 0.025,
+      "validation_loss_ci_high": 4.85204,
+      "validation_loss_ci_low": 4.851987,
+      "validation_loss_mean": 4.852014
+    }
+  ],
+  "schema_version": "qrope_stage45_matched_decoder_only_gate_v1",
+  "seeds": [
+    307,
+    311,
+    313,
+    317,
+    331
+  ],
+  "source_model": "stage10_small_decoder_transformer one-block decoder-only attention",
+  "splits": {
+    "exact_offset_passkey": {
+      "test": {
+        "lengths": [
+          48,
+          64
+        ],
+        "row_count": 40
+      },
+      "train": {
+        "lengths": [
+          24,
+          32
+        ],
+        "row_count": 40
+      },
+      "validation": {
+        "lengths": [
+          40
+        ],
+        "row_count": 20
+      }
+    },
+    "phase_cued_retrieval": {
+      "test": {
+        "lengths": [
+          48,
+          64
+        ],
+        "row_count": 40
+      },
+      "train": {
+        "lengths": [
+          24,
+          32
+        ],
+        "row_count": 40
+      },
+      "validation": {
+        "lengths": [
+          40
+        ],
+        "row_count": 20
+      }
+    },
+    "tiny_text_fact_qa": {
+      "test": {
+        "lengths": [
+          48,
+          64
+        ],
+        "row_count": 40
+      },
+      "train": {
+        "lengths": [
+          24,
+          32
+        ],
+        "row_count": 40
+      },
+      "validation": {
+        "lengths": [
+          40
+        ],
+        "row_count": 20
+      }
+    }
+  },
+  "stage": "stage45_matched_decoder_only_gate",
+  "status": "completed",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ],
+  "test_lengths": [
+    48,
+    64
+  ],
+  "train_lengths": [
+    24,
+    32
+  ],
+  "validation_lengths": [
+    40
+  ]
+}

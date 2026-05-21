@@ -1,0 +1,56 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "broad quantum advantage",
+      "a claim that a one-block synthetic decoder gate is sufficient for promotion"
+    ],
+    "supported": [
+      "A no-credential matched one-block decoder-only transformer gate after the Stage 44 compact plateau.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons under matched seeds, tasks, model shape, optimizer, epochs, and train-short/test-long splits.",
+      "Preservation of both positive and negative downstream evidence through aggregate metrics, per-seed rows, and failed-run artifacts."
+    ]
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage45_matched_decoder_only_gate/failed_runs.json",
+  "gate_decision": {
+    "best_method_by_task": {
+      "exact_offset_passkey": "phasewrap_adapter",
+      "phase_cued_retrieval": "sinusoidal",
+      "tiny_text_fact_qa": "phasewrap_adapter"
+    },
+    "best_top1_by_task": {
+      "exact_offset_passkey": 0.025,
+      "phase_cued_retrieval": 0.025,
+      "tiny_text_fact_qa": 0.0
+    },
+    "claim_boundary": "This matched one-block decoder-only gate does not promote PhaseWrap-RoPE beyond the bounded claim.",
+    "decision": "PROMOTION_NOT_SUPPORTED",
+    "high_confidence_tasks": [],
+    "phasewrap_best_tasks_above_threshold": [],
+    "promotion_min_top1": 0.5,
+    "rope_best_tasks": []
+  },
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_seed_csv_path": "logs/automated_stage_gates/stage45_matched_decoder_only_gate/per_seed_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage45_matched_decoder_only_gate/results.json",
+  "schema_version": "qrope_stage45_matched_decoder_only_gate_v1",
+  "stage": "stage45_matched_decoder_only_gate",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage45_matched_decoder_only_gate/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
