@@ -1,0 +1,104 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that fallback decoding is a matched decoder-only transformer",
+      "a claim that strict seed-local support coverage solves held-out phase-cued retrieval",
+      "a claim that this deterministic cue-copy diagnostic is positional-method promotion evidence",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A support fallback strictness diagnostic over the Stage 59 seed-local lookup row family.",
+      "Evidence about whether Stage 59's threshold-crossing result depends on fallback decoding for query residues absent from seed-local train support.",
+      "Fair reporting across the same RoPE/ALiBI/sinusoidal/no-position/PhaseWrap method set, with failed-run retention."
+    ]
+  },
+  "decision": {
+    "claim_boundary": "Phase-cued retrieval crosses threshold only with fallback decoding; strict known-support decoding does not support promotion.",
+    "decision": "FALLBACK_DEPENDENT_PHASE_CUED_RETRIEVAL_NOT_PROMOTION",
+    "fallback_phase_cued_best_top1": 0.75,
+    "phase_cued_test_support_known_fraction": 0.0,
+    "policy_decisions": {
+      "fallback_mod16": {
+        "claim_boundary": "fallback_mod16 solves retrieval for no-position too; this is not positional-method promotion.",
+        "decision": "FALLBACK_MOD16_SOLVES_NOT_PROMOTION",
+        "generalization_top1_threshold": 0.5,
+        "no_position_solved_retrieval_tasks": [
+          "phase_cued_retrieval"
+        ],
+        "phasewrap_best_retrieval_tasks": [
+          "phase_cued_retrieval"
+        ],
+        "retrieval_best_methods": {
+          "exact_offset_passkey": "rope_relative",
+          "phase_cued_retrieval": "phasewrap_bias"
+        },
+        "retrieval_best_target_probability": {
+          "exact_offset_passkey": 0.356896,
+          "phase_cued_retrieval": 0.394084
+        },
+        "retrieval_best_top1": {
+          "exact_offset_passkey": 0.8,
+          "phase_cued_retrieval": 0.75
+        },
+        "retrieval_solved_tasks": [
+          "phase_cued_retrieval",
+          "exact_offset_passkey"
+        ],
+        "support_policy": "fallback_mod16",
+        "tiny_text_best_method": "rope_relative",
+        "tiny_text_best_top1": 1.0
+      },
+      "strict_known_only": {
+        "claim_boundary": "strict_known_only solves at least one retrieval lane but not the full retrieval set.",
+        "decision": "STRICT_KNOWN_ONLY_PARTIAL_RETRIEVAL",
+        "generalization_top1_threshold": 0.5,
+        "no_position_solved_retrieval_tasks": [],
+        "phasewrap_best_retrieval_tasks": [],
+        "retrieval_best_methods": {
+          "exact_offset_passkey": "rope_relative",
+          "phase_cued_retrieval": "sinusoidal"
+        },
+        "retrieval_best_target_probability": {
+          "exact_offset_passkey": 0.277514,
+          "phase_cued_retrieval": 0.057033
+        },
+        "retrieval_best_top1": {
+          "exact_offset_passkey": 0.95,
+          "phase_cued_retrieval": 0.2
+        },
+        "retrieval_solved_tasks": [
+          "exact_offset_passkey"
+        ],
+        "support_policy": "strict_known_only",
+        "tiny_text_best_method": "rope_relative",
+        "tiny_text_best_top1": 1.0
+      }
+    },
+    "strict_phase_cued_best_top1": 0.2
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage60_support_fallback_strictness_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage60_support_fallback_strictness_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage60_support_fallback_strictness_audit/results.json",
+  "schema_version": "qrope_stage60_support_fallback_strictness_audit_v1",
+  "stage": "stage60_support_fallback_strictness_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage60_support_fallback_strictness_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
