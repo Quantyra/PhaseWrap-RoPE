@@ -1,0 +1,61 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that support-complete training alone establishes learned retrieval generalization",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential support-complete two-block decoder capacity audit.",
+      "A learned vocab-softmax check with no fixed copy output, no lookup output, and no fallback cue decoder.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons with failed-run retention."
+    ]
+  },
+  "decision": {
+    "base_stage52_decision": "TWO_BLOCK_CAPACITY_NOT_ESTABLISHED",
+    "best_train_method": "no_position",
+    "best_train_task": "exact_offset_passkey",
+    "best_train_top1": 0.183333,
+    "capacity_established": false,
+    "capacity_train_top1_threshold": 0.75,
+    "claim_boundary": "Even support-complete phase-cued train coverage does not make the learned two-block decoder fit well enough for promotion.",
+    "decision": "SUPPORT_COMPLETE_TWO_BLOCK_CAPACITY_NOT_ESTABLISHED",
+    "generalization_top1_threshold": 0.5,
+    "phasewrap_retrieval_generalized_tasks": [],
+    "retrieval_best_methods": {
+      "exact_offset_passkey": "no_position",
+      "phase_cued_retrieval": "no_position"
+    },
+    "retrieval_best_top1": {
+      "exact_offset_passkey": 0.016667,
+      "phase_cued_retrieval": 0.0
+    },
+    "retrieval_generalized_tasks": [],
+    "tiny_text_best_method": "sinusoidal",
+    "tiny_text_best_top1": 0.166667
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage61_support_complete_two_block_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage61_support_complete_two_block_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage61_support_complete_two_block_audit/results.json",
+  "schema_version": "qrope_stage61_support_complete_two_block_audit_v1",
+  "stage": "stage61_support_complete_two_block_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage61_support_complete_two_block_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
