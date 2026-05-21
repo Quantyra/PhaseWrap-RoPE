@@ -1,0 +1,63 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that a copy-output repair is equivalent to free learned value generation",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A matched copy-decoder repair audit over the Stage 45-48 train-short/test-long rows.",
+      "Evidence about whether retrieval failure persists after replacing the learned vocab output with copied prefix-token mass.",
+      "Validation-selected positional scale, five-seed aggregation, calibration metrics, and failed-run retention across the fair method set."
+    ]
+  },
+  "dataset": "synthetic_small_decoder_train_short_test_long_v1",
+  "decision": {
+    "claim_boundary": "Copy-output repair helps at least one retrieval lane but does not solve the full retrieval set.",
+    "decision": "COPY_DECODER_PARTIALLY_REPAIRS_RETRIEVAL",
+    "phasewrap_repaired_tasks": [],
+    "retrieval_best_methods": {
+      "exact_offset_passkey": "rope_relative",
+      "phase_cued_retrieval": "sinusoidal"
+    },
+    "retrieval_best_target_probability": {
+      "exact_offset_passkey": 0.305822,
+      "phase_cued_retrieval": 0.013302
+    },
+    "retrieval_best_top1": {
+      "exact_offset_passkey": 1.0,
+      "phase_cued_retrieval": 0.1
+    },
+    "retrieval_repair_top1_threshold": 0.5,
+    "retrieval_repaired_tasks": [
+      "exact_offset_passkey"
+    ],
+    "tiny_text_best_method": "sinusoidal",
+    "tiny_text_best_target_probability": 0.998,
+    "tiny_text_best_top1": 1.0
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage49_copy_decoder_retrieval_repair_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage49_copy_decoder_retrieval_repair_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage49_copy_decoder_retrieval_repair_audit/results.json",
+  "schema_version": "qrope_stage49_copy_decoder_retrieval_repair_audit_v1",
+  "stage": "stage49_copy_decoder_retrieval_repair_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage49_copy_decoder_retrieval_repair_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
