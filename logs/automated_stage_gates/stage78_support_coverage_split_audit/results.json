@@ -1,0 +1,1411 @@
+{
+  "aggregate_table": [
+    {
+      "exact_query_support_fraction_mean": 0.0,
+      "known_query_mod_fraction_mean": 0.0,
+      "seed_count": 5,
+      "support_class_count_mean": 3.0,
+      "support_class_fraction_mean": 0.0,
+      "support_query_mod_count_mean": 3.0,
+      "support_row_count_mean": 4.0,
+      "support_strategy": "same_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_row_count_mean": 4.0
+    },
+    {
+      "exact_query_support_fraction_mean": 0.25,
+      "known_query_mod_fraction_mean": 0.25,
+      "seed_count": 5,
+      "support_class_count_mean": 4.0,
+      "support_class_fraction_mean": 0.25,
+      "support_query_mod_count_mean": 4.0,
+      "support_row_count_mean": 6.0,
+      "support_strategy": "same_seed_train_validation",
+      "task": "phase_cued_retrieval",
+      "test_row_count_mean": 4.0
+    },
+    {
+      "exact_query_support_fraction_mean": 1.0,
+      "known_query_mod_fraction_mean": 1.0,
+      "seed_count": 5,
+      "support_class_count_mean": 6.8,
+      "support_class_fraction_mean": 1.0,
+      "support_query_mod_count_mean": 6.8,
+      "support_row_count_mean": 16.0,
+      "support_strategy": "cross_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_row_count_mean": 4.0
+    },
+    {
+      "exact_query_support_fraction_mean": 1.0,
+      "known_query_mod_fraction_mean": 1.0,
+      "seed_count": 5,
+      "support_class_count_mean": 7.0,
+      "support_class_fraction_mean": 1.0,
+      "support_query_mod_count_mean": 7.0,
+      "support_row_count_mean": 20.0,
+      "support_strategy": "pooled_train",
+      "task": "phase_cued_retrieval",
+      "test_row_count_mean": 4.0
+    }
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that support coverage alone validates a matched decoder-only transformer",
+      "a claim that cross-seed support availability is positional-method promotion evidence",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential split-coverage audit for original Stage10 phase-cued query-support rows.",
+      "Evidence about whether the Stage76/77 same-seed support heads have held-out support classes available.",
+      "Fair preservation of support-coverage failure modes before further decoder promotion work."
+    ]
+  },
+  "dataset": "synthetic_stage10_original_phase_cued_support_coverage_v1",
+  "decision": {
+    "claim_boundary": "Default same-seed train rows provide zero held-out phase-cued query-support coverage, while cross-seed and pooled train rows provide full coverage.",
+    "cross_seed_train_exact_query_support_fraction_mean": 1.0,
+    "decision": "SAME_SEED_SUPPORT_COVERAGE_SPLIT_EXPLAINS_STAGE77_FAILURE",
+    "pooled_train_exact_query_support_fraction_mean": 1.0,
+    "same_seed_train_exact_query_support_fraction_mean": 0.0
+  },
+  "examples_per_length": 2,
+  "failed_runs": [],
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "provider_credentials_required": false,
+  "ranking_table": [
+    {
+      "exact_query_support_fraction_mean": 1.0,
+      "known_query_mod_fraction_mean": 1.0,
+      "seed_count": 5,
+      "support_class_count_mean": 6.8,
+      "support_class_fraction_mean": 1.0,
+      "support_query_mod_count_mean": 6.8,
+      "support_row_count_mean": 16.0,
+      "support_strategy": "cross_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_row_count_mean": 4.0
+    },
+    {
+      "exact_query_support_fraction_mean": 1.0,
+      "known_query_mod_fraction_mean": 1.0,
+      "seed_count": 5,
+      "support_class_count_mean": 7.0,
+      "support_class_fraction_mean": 1.0,
+      "support_query_mod_count_mean": 7.0,
+      "support_row_count_mean": 20.0,
+      "support_strategy": "pooled_train",
+      "task": "phase_cued_retrieval",
+      "test_row_count_mean": 4.0
+    },
+    {
+      "exact_query_support_fraction_mean": 0.25,
+      "known_query_mod_fraction_mean": 0.25,
+      "seed_count": 5,
+      "support_class_count_mean": 4.0,
+      "support_class_fraction_mean": 0.25,
+      "support_query_mod_count_mean": 4.0,
+      "support_row_count_mean": 6.0,
+      "support_strategy": "same_seed_train_validation",
+      "task": "phase_cued_retrieval",
+      "test_row_count_mean": 4.0
+    },
+    {
+      "exact_query_support_fraction_mean": 0.0,
+      "known_query_mod_fraction_mean": 0.0,
+      "seed_count": 5,
+      "support_class_count_mean": 3.0,
+      "support_class_fraction_mean": 0.0,
+      "support_query_mod_count_mean": 3.0,
+      "support_row_count_mean": 4.0,
+      "support_strategy": "same_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_row_count_mean": 4.0
+    }
+  ],
+  "run_table": [
+    {
+      "exact_query_support_fraction": 0.0,
+      "known_query_mod_fraction": 0.0,
+      "missing_classes": [
+        5,
+        7,
+        16,
+        19
+      ],
+      "missing_query_mods": [
+        0,
+        3,
+        5,
+        7
+      ],
+      "seed": 307,
+      "support_class_count": 3,
+      "support_class_fraction": 0.0,
+      "support_classes": [
+        8,
+        11,
+        12
+      ],
+      "support_map": {
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 3,
+      "support_query_mods": [
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 4,
+      "support_strategy": "same_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        5,
+        7,
+        16,
+        19
+      ],
+      "test_query_mods": [
+        0,
+        3,
+        5,
+        7
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 0.25,
+      "known_query_mod_fraction": 0.25,
+      "missing_classes": [
+        5,
+        7,
+        19
+      ],
+      "missing_query_mods": [
+        3,
+        5,
+        7
+      ],
+      "seed": 307,
+      "support_class_count": 4,
+      "support_class_fraction": 0.25,
+      "support_classes": [
+        8,
+        11,
+        12,
+        16
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 4,
+      "support_query_mods": [
+        0,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 6,
+      "support_strategy": "same_seed_train_validation",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        5,
+        7,
+        16,
+        19
+      ],
+      "test_query_mods": [
+        0,
+        3,
+        5,
+        7
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 307,
+      "support_class_count": 6,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 6,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11
+      ],
+      "support_row_count": 16,
+      "support_strategy": "cross_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        5,
+        7,
+        16,
+        19
+      ],
+      "test_query_mods": [
+        0,
+        3,
+        5,
+        7
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 307,
+      "support_class_count": 7,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        12,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 7,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 20,
+      "support_strategy": "pooled_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        5,
+        7,
+        16,
+        19
+      ],
+      "test_query_mods": [
+        0,
+        3,
+        5,
+        7
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 0.0,
+      "known_query_mod_fraction": 0.0,
+      "missing_classes": [
+        8,
+        11,
+        12,
+        16
+      ],
+      "missing_query_mods": [
+        0,
+        8,
+        11,
+        12
+      ],
+      "seed": 311,
+      "support_class_count": 3,
+      "support_class_fraction": 0.0,
+      "support_classes": [
+        5,
+        7,
+        19
+      ],
+      "support_map": {
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ]
+      },
+      "support_query_mod_count": 3,
+      "support_query_mods": [
+        3,
+        5,
+        7
+      ],
+      "support_row_count": 4,
+      "support_strategy": "same_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        8,
+        11,
+        12,
+        16
+      ],
+      "test_query_mods": [
+        0,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 0.25,
+      "known_query_mod_fraction": 0.25,
+      "missing_classes": [
+        11,
+        12,
+        16
+      ],
+      "missing_query_mods": [
+        0,
+        11,
+        12
+      ],
+      "seed": 311,
+      "support_class_count": 4,
+      "support_class_fraction": 0.25,
+      "support_classes": [
+        5,
+        7,
+        8,
+        19
+      ],
+      "support_map": {
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 4,
+      "support_query_mods": [
+        3,
+        5,
+        7,
+        8
+      ],
+      "support_row_count": 6,
+      "support_strategy": "same_seed_train_validation",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        8,
+        11,
+        12,
+        16
+      ],
+      "test_query_mods": [
+        0,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 311,
+      "support_class_count": 7,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        12,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 7,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 16,
+      "support_strategy": "cross_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        8,
+        11,
+        12,
+        16
+      ],
+      "test_query_mods": [
+        0,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 311,
+      "support_class_count": 7,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        12,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 7,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 20,
+      "support_strategy": "pooled_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        8,
+        11,
+        12,
+        16
+      ],
+      "test_query_mods": [
+        0,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 0.0,
+      "known_query_mod_fraction": 0.0,
+      "missing_classes": [
+        5,
+        12,
+        16,
+        19
+      ],
+      "missing_query_mods": [
+        0,
+        3,
+        5,
+        12
+      ],
+      "seed": 313,
+      "support_class_count": 3,
+      "support_class_fraction": 0.0,
+      "support_classes": [
+        7,
+        8,
+        11
+      ],
+      "support_map": {
+        "11": [
+          11
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 3,
+      "support_query_mods": [
+        7,
+        8,
+        11
+      ],
+      "support_row_count": 4,
+      "support_strategy": "same_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        5,
+        12,
+        16,
+        19
+      ],
+      "test_query_mods": [
+        0,
+        3,
+        5,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 0.25,
+      "known_query_mod_fraction": 0.25,
+      "missing_classes": [
+        5,
+        16,
+        19
+      ],
+      "missing_query_mods": [
+        0,
+        3,
+        5
+      ],
+      "seed": 313,
+      "support_class_count": 4,
+      "support_class_fraction": 0.25,
+      "support_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_map": {
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 4,
+      "support_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 6,
+      "support_strategy": "same_seed_train_validation",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        5,
+        12,
+        16,
+        19
+      ],
+      "test_query_mods": [
+        0,
+        3,
+        5,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 313,
+      "support_class_count": 7,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        12,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 7,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 16,
+      "support_strategy": "cross_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        5,
+        12,
+        16,
+        19
+      ],
+      "test_query_mods": [
+        0,
+        3,
+        5,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 313,
+      "support_class_count": 7,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        12,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 7,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 20,
+      "support_strategy": "pooled_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        5,
+        12,
+        16,
+        19
+      ],
+      "test_query_mods": [
+        0,
+        3,
+        5,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 0.0,
+      "known_query_mod_fraction": 0.0,
+      "missing_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "missing_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "seed": 317,
+      "support_class_count": 3,
+      "support_class_fraction": 0.0,
+      "support_classes": [
+        5,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ]
+      },
+      "support_query_mod_count": 3,
+      "support_query_mods": [
+        0,
+        3,
+        5
+      ],
+      "support_row_count": 4,
+      "support_strategy": "same_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 0.25,
+      "known_query_mod_fraction": 0.25,
+      "missing_classes": [
+        8,
+        11,
+        12
+      ],
+      "missing_query_mods": [
+        8,
+        11,
+        12
+      ],
+      "seed": 317,
+      "support_class_count": 4,
+      "support_class_fraction": 0.25,
+      "support_classes": [
+        5,
+        7,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ]
+      },
+      "support_query_mod_count": 4,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7
+      ],
+      "support_row_count": 6,
+      "support_strategy": "same_seed_train_validation",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 317,
+      "support_class_count": 7,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        12,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 7,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 16,
+      "support_strategy": "cross_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 317,
+      "support_class_count": 7,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        12,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 7,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 20,
+      "support_strategy": "pooled_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 0.0,
+      "known_query_mod_fraction": 0.0,
+      "missing_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "missing_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "seed": 331,
+      "support_class_count": 3,
+      "support_class_fraction": 0.0,
+      "support_classes": [
+        5,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ]
+      },
+      "support_query_mod_count": 3,
+      "support_query_mods": [
+        0,
+        3,
+        5
+      ],
+      "support_row_count": 4,
+      "support_strategy": "same_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 0.25,
+      "known_query_mod_fraction": 0.25,
+      "missing_classes": [
+        8,
+        11,
+        12
+      ],
+      "missing_query_mods": [
+        8,
+        11,
+        12
+      ],
+      "seed": 331,
+      "support_class_count": 4,
+      "support_class_fraction": 0.25,
+      "support_classes": [
+        5,
+        7,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ]
+      },
+      "support_query_mod_count": 4,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7
+      ],
+      "support_row_count": 6,
+      "support_strategy": "same_seed_train_validation",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 331,
+      "support_class_count": 7,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        12,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 7,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 16,
+      "support_strategy": "cross_seed_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    },
+    {
+      "exact_query_support_fraction": 1.0,
+      "known_query_mod_fraction": 1.0,
+      "missing_classes": [],
+      "missing_query_mods": [],
+      "seed": 331,
+      "support_class_count": 7,
+      "support_class_fraction": 1.0,
+      "support_classes": [
+        5,
+        7,
+        8,
+        11,
+        12,
+        16,
+        19
+      ],
+      "support_map": {
+        "0": [
+          16
+        ],
+        "11": [
+          11
+        ],
+        "12": [
+          12
+        ],
+        "3": [
+          19
+        ],
+        "5": [
+          5
+        ],
+        "7": [
+          7
+        ],
+        "8": [
+          8
+        ]
+      },
+      "support_query_mod_count": 7,
+      "support_query_mods": [
+        0,
+        3,
+        5,
+        7,
+        8,
+        11,
+        12
+      ],
+      "support_row_count": 20,
+      "support_strategy": "pooled_train",
+      "task": "phase_cued_retrieval",
+      "test_classes": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_query_mods": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "test_row_count": 4
+    }
+  ],
+  "schema_version": "qrope_stage78_support_coverage_split_audit_v1",
+  "seeds": [
+    307,
+    311,
+    313,
+    317,
+    331
+  ],
+  "source_stage": "stage77_auxiliary_support_copy_head_audit",
+  "stage": "stage78_support_coverage_split_audit",
+  "status": "completed",
+  "support_strategies": [
+    "same_seed_train",
+    "same_seed_train_validation",
+    "cross_seed_train",
+    "pooled_train"
+  ],
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}

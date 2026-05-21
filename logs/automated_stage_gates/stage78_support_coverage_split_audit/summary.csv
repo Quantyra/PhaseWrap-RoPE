@@ -1,0 +1,5 @@
+task,support_strategy,seed_count,support_row_count_mean,test_row_count_mean,support_class_count_mean,support_query_mod_count_mean,known_query_mod_fraction_mean,support_class_fraction_mean,exact_query_support_fraction_mean
+phase_cued_retrieval,same_seed_train,5,4.0,4.0,3.0,3.0,0.0,0.0,0.0
+phase_cued_retrieval,same_seed_train_validation,5,6.0,4.0,4.0,4.0,0.25,0.25,0.25
+phase_cued_retrieval,cross_seed_train,5,16.0,4.0,6.8,6.8,1.0,1.0,1.0
+phase_cued_retrieval,pooled_train,5,20.0,4.0,7.0,7.0,1.0,1.0,1.0

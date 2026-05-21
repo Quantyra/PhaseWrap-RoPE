@@ -1,0 +1,46 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that support coverage alone validates a matched decoder-only transformer",
+      "a claim that cross-seed support availability is positional-method promotion evidence",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential split-coverage audit for original Stage10 phase-cued query-support rows.",
+      "Evidence about whether the Stage76/77 same-seed support heads have held-out support classes available.",
+      "Fair preservation of support-coverage failure modes before further decoder promotion work."
+    ]
+  },
+  "decision": {
+    "claim_boundary": "Default same-seed train rows provide zero held-out phase-cued query-support coverage, while cross-seed and pooled train rows provide full coverage.",
+    "cross_seed_train_exact_query_support_fraction_mean": 1.0,
+    "decision": "SAME_SEED_SUPPORT_COVERAGE_SPLIT_EXPLAINS_STAGE77_FAILURE",
+    "pooled_train_exact_query_support_fraction_mean": 1.0,
+    "same_seed_train_exact_query_support_fraction_mean": 0.0
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage78_support_coverage_split_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage78_support_coverage_split_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage78_support_coverage_split_audit/results.json",
+  "schema_version": "qrope_stage78_support_coverage_split_audit_v1",
+  "stage": "stage78_support_coverage_split_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage78_support_coverage_split_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
