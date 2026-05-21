@@ -1,0 +1,69 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that content-key rows are equivalent to the original phase-cued retrieval gate",
+      "a claim that row-redesign success would be positional-method promotion evidence by itself",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential content-key retrieval row-redesign audit for the two-block learned pointer-generator path.",
+      "Evidence about whether a standard visible key/value cue repairs held-out 48/64 retrieval generalization.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons with failed-run retention."
+    ]
+  },
+  "decision": {
+    "best_train_method": "phasewrap_adapter",
+    "best_train_task": "content_key_retrieval",
+    "best_train_top1": 1.0,
+    "capacity_established": true,
+    "capacity_train_top1_threshold": 0.75,
+    "claim_boundary": "The content-key row redesign is solvable for every tested method, including no_position.",
+    "decision": "CONTENT_KEY_RETRIEVAL_SOLVABLE_FOR_ALL_METHODS_NOT_PROMOTION",
+    "generalization_top1_threshold": 0.5,
+    "phasewrap_retrieval_generalized_tasks": [
+      "content_key_retrieval"
+    ],
+    "retrieval_best_methods": {
+      "content_key_retrieval": "phasewrap_bias"
+    },
+    "retrieval_best_top1": {
+      "content_key_retrieval": 1.0
+    },
+    "retrieval_generalized_methods": [
+      "no_position",
+      "sinusoidal",
+      "alibi",
+      "rope_relative",
+      "phasewrap_bias",
+      "phasewrap_adapter"
+    ],
+    "retrieval_generalized_tasks": [
+      "content_key_retrieval"
+    ],
+    "tiny_text_best_method": null,
+    "tiny_text_best_top1": null
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage67_content_key_retrieval_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage67_content_key_retrieval_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage67_content_key_retrieval_audit/results.json",
+  "schema_version": "qrope_stage67_content_key_retrieval_audit_v1",
+  "stage": "stage67_content_key_retrieval_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage67_content_key_retrieval_audit/summary.csv",
+  "tasks": [
+    "content_key_retrieval"
+  ]
+}
