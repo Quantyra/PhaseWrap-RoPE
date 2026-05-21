@@ -45,6 +45,7 @@ Supported now:
 - Stage 56 restricts cue-copy to visible input tokens and records `STANDARD_INPUT_CUE_COPY_PARTIAL_RETRIEVAL`; exact-offset passkey is partially repaired for `rope_relative`, but phase-cued retrieval remains weak.
 - Stage 57 adds a known support prior to visible query-token cue decoding and records `SUPPORT_AWARE_QUERY_CUE_SOLVES_PHASE_CUED_NOT_PROMOTION`; phase-cued retrieval is solvable from the query cue plus support prior, but `no_position` solves too.
 - Stage 58 learns the query-token support map from pooled train rows and records `POOLED_TRAIN_QUERY_SUPPORT_SOLVES_PHASE_CUED_NOT_PROMOTION`; the support prior is train-recoverable, but the repair still solves for `no_position` too.
+- Stage 59 makes the support lookup seed-local and records `SEED_LOCAL_QUERY_SUPPORT_PARTIAL_COVERAGE_SOLVES_NOT_PROMOTION`; held-out phase-cued support coverage is incomplete per seed, fallback cue decoding crosses threshold, and `no_position` solves too.
 
 Not supported now:
 
@@ -69,6 +70,7 @@ Not supported now:
 - a claim that Stage 56 solves the phase-cued retrieval blocker or validates a learned decoder-only transformer.
 - a claim that Stage 57 is positional-method promotion evidence or that the known support prior is a learned decoder-only transformer capability.
 - a claim that Stage 58 is positional-method promotion evidence or that a pooled lookup map is a matched decoder-only transformer.
+- a claim that Stage 59 is positional-method promotion evidence, that seed-local lookup/fallback is a matched decoder-only transformer, or that per-seed support coverage is complete on held-out phase-cued rows.
 
 ## Decision Outcomes
 
@@ -82,12 +84,12 @@ Until a matched transformer-style benchmark satisfies the evidence standard, the
 
 ## Next Gate
 
-The next gate should redesign the stronger matched decoder-only implementation beyond Stage 58 so the support-aware phase-cued retrieval rule is internalized by a matched decoder rather than an external pooled lookup, under the same fair RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap comparison.
+The next gate should redesign the stronger matched decoder-only implementation beyond Stage 59 so the support-aware phase-cued retrieval rule is internalized by a matched decoder rather than an external lookup/fallback path, under the same fair RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap comparison.
 
 Preferred next direction:
 
 - keep RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons matched;
-- move from the partially generalizing one-block decoder-only gate, bounded copy-output repair, failed learned pointer-generator repair, Stage 51 plateau, Stage 52 feasibility result, Stage 53 failed hardening result, Stage 54 failed attention-supervision result, Stage 55 metadata upper bound, Stage 56 standard-input partial repair, Stage 57 support-aware cue upper bound, and Stage 58 pooled lookup into a redesigned retrieval-targeted decoder-only harness;
+- move from the partially generalizing one-block decoder-only gate, bounded copy-output repair, failed learned pointer-generator repair, Stage 51 plateau, Stage 52 feasibility result, Stage 53 failed hardening result, Stage 54 failed attention-supervision result, Stage 55 metadata upper bound, Stage 56 standard-input partial repair, Stage 57 support-aware cue upper bound, Stage 58 pooled lookup, and Stage 59 seed-local lookup/fallback diagnostic into a redesigned retrieval-targeted decoder-only harness;
 - report ranking and calibration even if the PhaseWrap result weakens.
 
-Because Stage 44 records the compact plateau and Stage 51 records the decoder-path plateau, another diagnostic should be justified only if it directly improves retrieval generalization in a materially stronger matched decoder-only transformer implementation. Stage 52 starts that stronger path, Stage 53 hardens it, Stage 54 adds target-attention supervision, Stage 55 proves metadata-cue solvability, Stage 56 tests visible-token cues, and Stage 57 adds the known support prior, but none establishes fair positional-method promotion.
+Because Stage 44 records the compact plateau and Stage 51 records the decoder-path plateau, another diagnostic should be justified only if it directly improves retrieval generalization in a materially stronger matched decoder-only transformer implementation. Stage 52 starts that stronger path, Stage 53 hardens it, Stage 54 adds target-attention supervision, Stage 55 proves metadata-cue solvability, Stage 56 tests visible-token cues, Stage 57 adds the known support prior, Stage 58 learns the pooled support map, and Stage 59 makes that map seed-local, but none establishes fair positional-method promotion.
