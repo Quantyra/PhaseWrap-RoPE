@@ -1,0 +1,61 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that a one-seed hardening audit satisfies the five-seed promotion standard",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A retrieval-exposure and training-budget hardening audit for the Stage 52 two-block decoder.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons under the same matched row family.",
+      "Evidence about whether the stronger decoder path begins to repair retrieval before five-seed scale-up."
+    ]
+  },
+  "decision": {
+    "best_train_method": "alibi",
+    "best_train_task": "exact_offset_passkey",
+    "best_train_top1": 0.75,
+    "capacity_established": true,
+    "capacity_train_top1_threshold": 0.75,
+    "claim_boundary": "Retrieval hardening still does not establish held-out retrieval generalization.",
+    "decision": "TWO_BLOCK_RETRIEVAL_HARDENING_FAILED",
+    "generalization_top1_threshold": 0.5,
+    "phasewrap_retrieval_generalized_tasks": [],
+    "retrieval_best_methods": {
+      "exact_offset_passkey": "sinusoidal",
+      "phase_cued_retrieval": "sinusoidal"
+    },
+    "retrieval_best_top1": {
+      "exact_offset_passkey": 0.0,
+      "phase_cued_retrieval": 0.0
+    },
+    "retrieval_generalized_tasks": [],
+    "retrieval_hardening_generalization_top1_threshold": 0.5,
+    "tiny_text_best_method": "phasewrap_bias",
+    "tiny_text_best_top1": 0.5
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage53_two_block_retrieval_hardening_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage53_two_block_retrieval_hardening_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage53_two_block_retrieval_hardening_audit/results.json",
+  "schema_version": "qrope_stage53_two_block_retrieval_hardening_audit_v1",
+  "stage": "stage53_two_block_retrieval_hardening_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage53_two_block_retrieval_hardening_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
