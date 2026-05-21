@@ -1,0 +1,95 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic temperature-calibration audit for the Stage 36 copy-value bridge.",
+      "Evidence about whether scalar attention sharpness closes the copy-value probability-mass gap.",
+      "Matched data splits, feature width, hidden width, model seeds, confidence intervals, and weak-run reporting."
+    ]
+  },
+  "data_seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "dataset": "stage14_non_phase_cued_key_value_retrieval_v1",
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_distance_adapter",
+    "phasewrap_multiscale_adapter"
+  ],
+  "model": {
+    "base_model": "stage36_nonlinear_attention_copy_value_bridge",
+    "epochs": 80,
+    "feature_dim": 12,
+    "hidden_dim": 10,
+    "optimizer": "full_batch_gradient_descent",
+    "parameter_count": 141,
+    "posthoc_calibration": "temperature selected on validation loss over a fixed grid",
+    "temperature_grid": [
+      0.25,
+      0.33,
+      0.5,
+      0.67,
+      0.8,
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      4.0
+    ],
+    "trained_parameters": "feature bridge attention only",
+    "value_output_mode": "copy attention mass to candidate value tokens"
+  },
+  "model_seeds": [
+    3707,
+    3719,
+    3727,
+    3733,
+    3739
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage37_copy_value_temperature_calibration/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage37_copy_value_temperature_calibration/results.json",
+  "schema_version": "qrope_stage37_copy_value_temperature_calibration_v1",
+  "stage": "stage37_copy_value_temperature_calibration",
+  "summary_csv_path": "logs/automated_stage_gates/stage37_copy_value_temperature_calibration/summary.csv",
+  "task": {
+    "description": "Validation-selected post-hoc temperature calibration for the Stage 36 copy-value bridge.",
+    "scope": "This tests whether the remaining Stage 36 probability-mass gap is a scalar sharpness issue.",
+    "target_construction": "Targets are explicit Stage 12 retrieval-rule value tokens, not PhaseWrap-selected labels."
+  },
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_summary_csv_path": "logs/automated_stage_gates/stage37_copy_value_temperature_calibration/task_summary.csv",
+  "test_lengths": [
+    1024
+  ],
+  "test_row_count": 60,
+  "train_lengths": [
+    128,
+    256
+  ],
+  "train_row_count": 120,
+  "validation_lengths": [
+    512
+  ],
+  "validation_row_count": 60,
+  "weak_runs_path": "logs/automated_stage_gates/stage37_copy_value_temperature_calibration/weak_runs.json"
+}

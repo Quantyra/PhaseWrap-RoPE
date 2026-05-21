@@ -1,0 +1,82 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic multi-initialization compact decoder-style value benchmark on non-phase-cued retrieval rows.",
+      "A stronger follow-up to Stage 32/33 because the retrieved value must pass through learned value embeddings and an output projection.",
+      "Matched architecture, optimizer, parameter count, data splits, confidence intervals, and explicit weak-run reporting across positional variants."
+    ]
+  },
+  "data_seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "dataset": "stage14_non_phase_cued_key_value_retrieval_v1",
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_distance_adapter",
+    "phasewrap_multiscale_adapter"
+  ],
+  "model": {
+    "epochs": 160,
+    "feature_dim": 12,
+    "hidden_dim": 10,
+    "optimizer": "full_batch_adam",
+    "parameter_count": 8622,
+    "trained_parameters": "feature bridge attention, value embeddings, output projection, output bias",
+    "type": "nonlinear_attention_plus_learned_value_output_bridge",
+    "value_embed_dim": 16,
+    "value_vocab_size": 257
+  },
+  "model_seeds": [
+    3407,
+    3413,
+    3433,
+    3449,
+    3457
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage34_small_decoder_value_bridge/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage34_small_decoder_value_bridge/results.json",
+  "schema_version": "qrope_stage34_small_decoder_value_bridge_v1",
+  "stage": "stage34_small_decoder_value_bridge",
+  "summary_csv_path": "logs/automated_stage_gates/stage34_small_decoder_value_bridge/summary.csv",
+  "task": {
+    "description": "Train-short/test-long key-value retrieval with learned attention and learned value-token output.",
+    "scope": "This is a compact decoder-style value bridge, not a production decoder-only language-model benchmark.",
+    "target_construction": "Targets are explicit Stage 12 retrieval-rule value tokens, not PhaseWrap-selected labels."
+  },
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_summary_csv_path": "logs/automated_stage_gates/stage34_small_decoder_value_bridge/task_summary.csv",
+  "test_lengths": [
+    1024
+  ],
+  "test_row_count": 60,
+  "train_lengths": [
+    128,
+    256
+  ],
+  "train_row_count": 120,
+  "validation_lengths": [
+    512
+  ],
+  "validation_row_count": 60,
+  "weak_runs_path": "logs/automated_stage_gates/stage34_small_decoder_value_bridge/weak_runs.json"
+}

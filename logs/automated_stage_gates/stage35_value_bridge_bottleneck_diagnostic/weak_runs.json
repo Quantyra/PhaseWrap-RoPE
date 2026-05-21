@@ -1,0 +1,212 @@
+[
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "no_position",
+    "model_seed": 3503,
+    "mrr": 0.552629,
+    "top1_accuracy": 0.533333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "no_position",
+    "model_seed": 3511,
+    "mrr": 0.552515,
+    "top1_accuracy": 0.533333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "no_position",
+    "model_seed": 3517,
+    "mrr": 0.533085,
+    "top1_accuracy": 0.5
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "no_position",
+    "model_seed": 3527,
+    "mrr": 0.544167,
+    "top1_accuracy": 0.516667
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "no_position",
+    "model_seed": 3529,
+    "mrr": 0.556787,
+    "top1_accuracy": 0.55
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "alibi",
+    "model_seed": 3503,
+    "mrr": 0.544099,
+    "top1_accuracy": 0.516667
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "alibi",
+    "model_seed": 3511,
+    "mrr": 0.552512,
+    "top1_accuracy": 0.533333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "alibi",
+    "model_seed": 3517,
+    "mrr": 0.552451,
+    "top1_accuracy": 0.533333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "alibi",
+    "model_seed": 3527,
+    "mrr": 0.569191,
+    "top1_accuracy": 0.566667
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "alibi",
+    "model_seed": 3529,
+    "mrr": 0.531881,
+    "top1_accuracy": 0.5
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "rope_relative",
+    "model_seed": 3503,
+    "mrr": 0.552592,
+    "top1_accuracy": 0.533333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "rope_relative",
+    "model_seed": 3511,
+    "mrr": 0.541349,
+    "top1_accuracy": 0.516667
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "rope_relative",
+    "model_seed": 3517,
+    "mrr": 0.541438,
+    "top1_accuracy": 0.516667
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "rope_relative",
+    "model_seed": 3527,
+    "mrr": 0.549819,
+    "top1_accuracy": 0.533333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "rope_relative",
+    "model_seed": 3529,
+    "mrr": 0.549696,
+    "top1_accuracy": 0.533333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "sinusoidal",
+    "model_seed": 3503,
+    "mrr": 0.527419,
+    "top1_accuracy": 0.483333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "sinusoidal",
+    "model_seed": 3511,
+    "mrr": 0.527471,
+    "top1_accuracy": 0.483333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "sinusoidal",
+    "model_seed": 3517,
+    "mrr": 0.544174,
+    "top1_accuracy": 0.516667
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "sinusoidal",
+    "model_seed": 3527,
+    "mrr": 0.544032,
+    "top1_accuracy": 0.516667
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "sinusoidal",
+    "model_seed": 3529,
+    "mrr": 0.548313,
+    "top1_accuracy": 0.533333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3503,
+    "mrr": 0.533093,
+    "top1_accuracy": 0.5
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3511,
+    "mrr": 0.533365,
+    "top1_accuracy": 0.5
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3517,
+    "mrr": 0.552542,
+    "top1_accuracy": 0.533333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3527,
+    "mrr": 0.554177,
+    "top1_accuracy": 0.55
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3529,
+    "mrr": 0.537045,
+    "top1_accuracy": 0.516667
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3503,
+    "mrr": 0.544149,
+    "top1_accuracy": 0.516667
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3511,
+    "mrr": 0.521945,
+    "top1_accuracy": 0.483333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3517,
+    "mrr": 0.531642,
+    "top1_accuracy": 0.5
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3527,
+    "mrr": 0.524598,
+    "top1_accuracy": 0.483333
+  },
+  {
+    "criterion": "teacher_forced_test_top1_accuracy_below_0.9",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3529,
+    "mrr": 0.541474,
+    "top1_accuracy": 0.516667
+  }
+]

@@ -1,0 +1,519 @@
+from __future__ import annotations
+
+import csv
+import hashlib
+import json
+import math
+import random
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+
+from .stage14_attention_readout import (
+    DEFAULT_EXAMPLES_PER_TASK_LENGTH,
+    DEFAULT_SEEDS as DATA_SEEDS,
+    TASK_NAMES,
+    VALUE_VOCAB_SIZE,
+    Stage14Example,
+    make_stage14_examples,
+)
+from .stage34_small_decoder_value_bridge import METHOD_NAMES
+from .stage39_sequence_decoder_retrieval import (
+    DEFAULT_LEARNING_RATE,
+    DEFAULT_L2,
+    FEATURE_DIM,
+    HIDDEN_DIM,
+    VALUE_EMBED_DIM,
+    sequence_decoder_features,
+    sequence_tokens,
+)
+
+
+STAGE40_SCHEMA_VERSION = "qrope_stage40_sequence_length_curriculum_v1"
+DEFAULT_OUTPUT_DIR = Path("logs") / "automated_stage_gates" / "stage40_sequence_length_curriculum"
+DEFAULT_MODEL_SEEDS = (4001, 4003, 4007, 4013, 4019)
+TRAIN_LENGTHS = (128, 256, 512)
+VALIDATION_LENGTHS = (1024,)
+TEST_LENGTHS = (2048,)
+DEFAULT_CONTEXT_LENGTHS = TRAIN_LENGTHS + VALIDATION_LENGTHS + TEST_LENGTHS
+DEFAULT_EPOCHS = 60
+
+
+@dataclass(frozen=True)
+class PreparedSequenceRow:
+    row: Stage14Example
+    features: np.ndarray
+    token_ids: np.ndarray
+    target_distribution: np.ndarray
+
+
+def split_by_curriculum_lengths(rows: list[Stage14Example]) -> dict[str, list[Stage14Example]]:
+    return {
+        "train": [row for row in rows if row.sequence_length in TRAIN_LENGTHS],
+        "validation": [row for row in rows if row.sequence_length in VALIDATION_LENGTHS],
+        "test": [row for row in rows if row.sequence_length in TEST_LENGTHS],
+    }
+
+
+def _target_distribution(row: Stage14Example) -> np.ndarray:
+    target = np.zeros(VALUE_VOCAB_SIZE, dtype=float)
+    for token_id in row.target_values:
+        target[token_id] = 1.0 / float(len(row.target_values))
+    return target
+
+
+def prepare_sequence_rows(rows: list[Stage14Example], method_name: str) -> list[PreparedSequenceRow]:
+    return [
+        PreparedSequenceRow(
+            row=row,
+            features=sequence_decoder_features(row, method_name),
+            token_ids=sequence_tokens(row),
+            target_distribution=_target_distribution(row),
+        )
+        for row in rows
+    ]
+
+
+def _softmax(values: np.ndarray) -> np.ndarray:
+    shifted = values - np.max(values)
+    exp_values = np.exp(shifted)
+    return exp_values / np.sum(exp_values)
+
+
+def _init_params(*, method_name: str, model_seed: int, hidden_dim: int, value_embed_dim: int) -> dict[str, np.ndarray]:
+    seed_text = f"stage40:{method_name}:{model_seed}:{FEATURE_DIM}:{hidden_dim}:{value_embed_dim}"
+    seed = int(hashlib.sha256(seed_text.encode("utf-8")).hexdigest()[:16], 16) % (2**32)
+    rng = np.random.default_rng(seed)
+    return {
+        "w1": rng.normal(0.0, 0.035, size=(FEATURE_DIM, hidden_dim)),
+        "b1": np.zeros(hidden_dim, dtype=float),
+        "w2": rng.normal(0.0, 0.035, size=hidden_dim),
+        "b2": np.zeros(1, dtype=float),
+        "value_embedding": rng.normal(0.0, 0.04, size=(VALUE_VOCAB_SIZE, value_embed_dim)),
+        "output_w": rng.normal(0.0, 0.04, size=(value_embed_dim, VALUE_VOCAB_SIZE)),
+        "output_b": np.zeros(VALUE_VOCAB_SIZE, dtype=float),
+    }
+
+
+def _parameter_count(hidden_dim: int = HIDDEN_DIM, value_embed_dim: int = VALUE_EMBED_DIM) -> int:
+    return (
+        FEATURE_DIM * hidden_dim
+        + hidden_dim
+        + hidden_dim
+        + 1
+        + VALUE_VOCAB_SIZE * value_embed_dim
+        + value_embed_dim * VALUE_VOCAB_SIZE
+        + VALUE_VOCAB_SIZE
+    )
+
+
+def _forward(prepared: PreparedSequenceRow, params: dict[str, np.ndarray]) -> tuple[np.ndarray, dict[str, np.ndarray]]:
+    hidden_pre = prepared.features @ params["w1"] + params["b1"]
+    hidden = np.tanh(hidden_pre)
+    attention_logits = hidden @ params["w2"] + float(params["b2"][0])
+    attention = _softmax(attention_logits)
+    token_embeddings = params["value_embedding"][prepared.token_ids]
+    context = attention @ token_embeddings
+    value_logits = context @ params["output_w"] + params["output_b"]
+    value_probabilities = _softmax(value_logits)
+    return value_probabilities, {
+        "hidden": hidden,
+        "attention": attention,
+        "token_embeddings": token_embeddings,
+        "context": context,
+    }
+
+
+def _loss_and_gradient(rows: list[PreparedSequenceRow], params: dict[str, np.ndarray], l2: float) -> tuple[float, dict[str, np.ndarray]]:
+    grads = {key: np.zeros_like(value) for key, value in params.items()}
+    total_loss = 0.0
+    for prepared in rows:
+        probabilities, cache = _forward(prepared, params)
+        target = prepared.target_distribution
+        target_mass = max(float(np.sum(probabilities[target > 0.0])), 1e-12)
+        total_loss += -math.log(target_mass)
+
+        grad_value_logits = probabilities - target
+        context = cache["context"]
+        attention = cache["attention"]
+        token_embeddings = cache["token_embeddings"]
+        hidden = cache["hidden"]
+
+        grads["output_w"] += np.outer(context, grad_value_logits)
+        grads["output_b"] += grad_value_logits
+        grad_context = grad_value_logits @ params["output_w"].T
+        for token_index, token_id in enumerate(prepared.token_ids):
+            grads["value_embedding"][token_id] += attention[token_index] * grad_context
+
+        grad_attention = token_embeddings @ grad_context
+        grad_attention_logits = attention * (grad_attention - float(attention @ grad_attention))
+        grads["w2"] += hidden.T @ grad_attention_logits
+        grads["b2"] += np.array([float(np.sum(grad_attention_logits))])
+        grad_hidden = grad_attention_logits[:, None] * params["w2"][None, :]
+        grad_hidden_pre = grad_hidden * (1.0 - hidden * hidden)
+        grads["w1"] += prepared.features.T @ grad_hidden_pre
+        grads["b1"] += np.sum(grad_hidden_pre, axis=0)
+
+    scale = 1.0 / float(len(rows))
+    total_loss *= scale
+    for key, value in params.items():
+        grads[key] *= scale
+        if key not in {"output_b", "b1", "b2"}:
+            total_loss += 0.5 * l2 * float(np.sum(value * value))
+            grads[key] += l2 * value
+    return float(total_loss), grads
+
+
+def train_curriculum_sequence_decoder(
+    rows: list[PreparedSequenceRow],
+    method_name: str,
+    *,
+    model_seed: int,
+    epochs: int = DEFAULT_EPOCHS,
+    learning_rate: float = DEFAULT_LEARNING_RATE,
+    l2: float = DEFAULT_L2,
+    hidden_dim: int = HIDDEN_DIM,
+    value_embed_dim: int = VALUE_EMBED_DIM,
+) -> dict[str, Any]:
+    params = _init_params(method_name=method_name, model_seed=model_seed, hidden_dim=hidden_dim, value_embed_dim=value_embed_dim)
+    moments = {key: np.zeros_like(value) for key, value in params.items()}
+    velocities = {key: np.zeros_like(value) for key, value in params.items()}
+    beta1 = 0.9
+    beta2 = 0.999
+    epsilon = 1e-8
+    history: list[dict[str, float]] = []
+    for epoch in range(1, epochs + 1):
+        loss, grads = _loss_and_gradient(rows, params, l2)
+        for key in params:
+            moments[key] = beta1 * moments[key] + (1.0 - beta1) * grads[key]
+            velocities[key] = beta2 * velocities[key] + (1.0 - beta2) * (grads[key] * grads[key])
+            moment_hat = moments[key] / (1.0 - beta1**epoch)
+            velocity_hat = velocities[key] / (1.0 - beta2**epoch)
+            params[key] -= learning_rate * moment_hat / (np.sqrt(velocity_hat) + epsilon)
+        if epoch in {1, epochs // 4, epochs // 2, (3 * epochs) // 4, epochs}:
+            history.append({"epoch": epoch, "loss": round(float(loss), 6)})
+    rounded_params = {key: np.round(value, 8).tolist() for key, value in params.items()}
+    param_bytes = json.dumps(rounded_params, sort_keys=True).encode("utf-8")
+    return {
+        "method": method_name,
+        "model_seed": model_seed,
+        "feature_dim": FEATURE_DIM,
+        "hidden_dim": hidden_dim,
+        "value_embed_dim": value_embed_dim,
+        "parameter_count": _parameter_count(hidden_dim, value_embed_dim),
+        "epochs": epochs,
+        "learning_rate": learning_rate,
+        "l2": l2,
+        "optimizer": "full_batch_adam",
+        "params": rounded_params,
+        "param_sha256": hashlib.sha256(param_bytes).hexdigest(),
+        "training_history": history,
+        "final_training_loss": history[-1]["loss"],
+    }
+
+
+def _params_from_record(record: dict[str, Any]) -> dict[str, np.ndarray]:
+    return {key: np.array(value, dtype=float) for key, value in record["params"].items()}
+
+
+def _ranked_indices(values: np.ndarray) -> list[int]:
+    return sorted(range(len(values)), key=lambda index: (-float(values[index]), index))
+
+
+def _first_relevant_rank(values: np.ndarray, targets: tuple[int, ...]) -> int:
+    target_set = set(targets)
+    for rank, index in enumerate(_ranked_indices(values), start=1):
+        if index in target_set:
+            return rank
+    raise RuntimeError("target absent from value distribution")
+
+
+def _expected_calibration_error(confidences: list[float], correctness: list[float], *, bins: int = 10) -> float:
+    total = float(len(confidences))
+    ece = 0.0
+    for bin_index in range(bins):
+        low = bin_index / float(bins)
+        high = (bin_index + 1) / float(bins)
+        if bin_index == bins - 1:
+            indices = [index for index, value in enumerate(confidences) if low <= value <= high]
+        else:
+            indices = [index for index, value in enumerate(confidences) if low <= value < high]
+        if not indices:
+            continue
+        avg_confidence = float(np.mean([confidences[index] for index in indices]))
+        avg_accuracy = float(np.mean([correctness[index] for index in indices]))
+        ece += (len(indices) / total) * abs(avg_confidence - avg_accuracy)
+    return float(ece)
+
+
+def evaluate_curriculum_sequence_decoder(rows: list[PreparedSequenceRow], params: dict[str, np.ndarray]) -> dict[str, Any]:
+    losses: list[float] = []
+    top1_hits: list[float] = []
+    reciprocal_ranks: list[float] = []
+    target_masses: list[float] = []
+    top1_confidences: list[float] = []
+    ranks: list[int] = []
+    for prepared in rows:
+        probabilities, _ = _forward(prepared, params)
+        target_values = prepared.row.target_values
+        target_mass = max(float(np.sum(probabilities[list(target_values)])), 1e-12)
+        rank = _first_relevant_rank(probabilities, target_values)
+        top_value = _ranked_indices(probabilities)[0]
+        top1_correct = 1.0 if top_value in set(target_values) else 0.0
+        losses.append(-math.log(target_mass))
+        top1_hits.append(top1_correct)
+        reciprocal_ranks.append(1.0 / float(rank))
+        target_masses.append(target_mass)
+        top1_confidences.append(float(probabilities[top_value]))
+        ranks.append(rank)
+    mean_loss = float(np.mean(losses))
+    return {
+        "row_count": len(rows),
+        "loss": round(mean_loss, 6),
+        "perplexity": round(float(math.exp(mean_loss)), 6),
+        "top1_accuracy": round(float(np.mean(top1_hits)), 6),
+        "mrr": round(float(np.mean(reciprocal_ranks)), 6),
+        "mean_target_value_probability": round(float(np.mean(target_masses)), 6),
+        "target_value_probability_mae": round(float(np.mean([1.0 - value for value in target_masses])), 6),
+        "mean_top1_confidence": round(float(np.mean(top1_confidences)), 6),
+        "expected_calibration_error": round(_expected_calibration_error(top1_confidences, top1_hits), 6),
+        "mean_first_relevant_value_rank": round(float(np.mean(ranks)), 6),
+    }
+
+
+def _metric_ci(values: list[float], *, seed_text: str, iterations: int = 600) -> dict[str, float]:
+    rng = random.Random(int(hashlib.sha256(seed_text.encode("utf-8")).hexdigest()[:16], 16))
+    means: list[float] = []
+    for _ in range(iterations):
+        sample = [values[rng.randrange(len(values))] for _ in range(len(values))]
+        means.append(float(sum(sample) / len(sample)))
+    means.sort()
+    return {"low": round(means[int(0.025 * (iterations - 1))], 6), "high": round(means[int(0.975 * (iterations - 1))], 6)}
+
+
+def _aggregate_runs(run_rows: list[dict[str, Any]], *, method_name: str, hidden_dim: int, value_embed_dim: int) -> dict[str, Any]:
+    metric_names = (
+        "loss",
+        "top1_accuracy",
+        "mrr",
+        "mean_target_value_probability",
+        "target_value_probability_mae",
+        "mean_top1_confidence",
+        "expected_calibration_error",
+        "mean_first_relevant_value_rank",
+    )
+    row: dict[str, Any] = {
+        "method": method_name,
+        "run_count": len(run_rows),
+        "row_count": run_rows[0]["row_count"],
+        "feature_dim": FEATURE_DIM,
+        "hidden_dim": hidden_dim,
+        "value_embed_dim": value_embed_dim,
+        "parameter_count": _parameter_count(hidden_dim, value_embed_dim),
+        "attention_scope": "full_prefix_sequence_tokens",
+        "curriculum": "train_128_256_512_validate_1024_test_2048",
+    }
+    for metric_name in metric_names:
+        values = [float(item[metric_name]) for item in run_rows]
+        ci = _metric_ci(values, seed_text=f"stage40:{method_name}:{metric_name}")
+        row[f"{metric_name}_mean"] = round(float(np.mean(values)), 6)
+        row[f"{metric_name}_ci_low"] = ci["low"]
+        row[f"{metric_name}_ci_high"] = ci["high"]
+    return row
+
+
+def run_stage40_benchmark(
+    *,
+    data_seeds: tuple[int, ...] = DATA_SEEDS,
+    model_seeds: tuple[int, ...] = DEFAULT_MODEL_SEEDS,
+    context_lengths: tuple[int, ...] = DEFAULT_CONTEXT_LENGTHS,
+    examples_per_task_length: int = DEFAULT_EXAMPLES_PER_TASK_LENGTH,
+    epochs: int = DEFAULT_EPOCHS,
+    learning_rate: float = DEFAULT_LEARNING_RATE,
+    l2: float = DEFAULT_L2,
+    hidden_dim: int = HIDDEN_DIM,
+    value_embed_dim: int = VALUE_EMBED_DIM,
+    method_names: tuple[str, ...] = METHOD_NAMES,
+) -> dict[str, Any]:
+    rows = make_stage14_examples(seeds=data_seeds, context_lengths=context_lengths, examples_per_task_length=examples_per_task_length)
+    raw_splits = split_by_curriculum_lengths(rows)
+    training_records: list[dict[str, Any]] = []
+    train_table: list[dict[str, Any]] = []
+    validation_table: list[dict[str, Any]] = []
+    run_table: list[dict[str, Any]] = []
+    task_table: list[dict[str, Any]] = []
+    weak_runs: list[dict[str, Any]] = []
+    for method_name in method_names:
+        prepared_splits = {split_name: prepare_sequence_rows(split_rows, method_name) for split_name, split_rows in raw_splits.items()}
+        for model_seed in model_seeds:
+            training = train_curriculum_sequence_decoder(
+                prepared_splits["train"],
+                method_name,
+                model_seed=model_seed,
+                epochs=epochs,
+                learning_rate=learning_rate,
+                l2=l2,
+                hidden_dim=hidden_dim,
+                value_embed_dim=value_embed_dim,
+            )
+            training_records.append(training)
+            params = _params_from_record(training)
+            for split_name, target_table in (("train", train_table), ("validation", validation_table), ("test", run_table)):
+                row = evaluate_curriculum_sequence_decoder(prepared_splits[split_name], params)
+                row["method"] = method_name
+                row["model_seed"] = model_seed
+                row["split"] = split_name
+                target_table.append(row)
+            test_row = run_table[-1]
+            if float(test_row["top1_accuracy"]) < 0.5:
+                weak_runs.append({"method": method_name, "model_seed": model_seed, "top1_accuracy": test_row["top1_accuracy"], "mrr": test_row["mrr"], "criterion": "test_top1_accuracy_below_0.5"})
+            for task_name in TASK_NAMES:
+                task_rows = [prepared for prepared in prepared_splits["test"] if prepared.row.task == task_name]
+                task_result = evaluate_curriculum_sequence_decoder(task_rows, params)
+                task_result["method"] = method_name
+                task_result["model_seed"] = model_seed
+                task_result["task"] = task_name
+                task_table.append(task_result)
+    table = [
+        _aggregate_runs([row for row in run_table if row["method"] == method_name], method_name=method_name, hidden_dim=hidden_dim, value_embed_dim=value_embed_dim)
+        for method_name in method_names
+    ]
+    train_summary = [
+        _aggregate_runs([row for row in train_table if row["method"] == method_name], method_name=method_name, hidden_dim=hidden_dim, value_embed_dim=value_embed_dim)
+        for method_name in method_names
+    ]
+    validation_summary = [
+        _aggregate_runs([row for row in validation_table if row["method"] == method_name], method_name=method_name, hidden_dim=hidden_dim, value_embed_dim=value_embed_dim)
+        for method_name in method_names
+    ]
+    selection_table = sorted(table, key=lambda row: (row["top1_accuracy_mean"], row["mrr_mean"], row["mean_target_value_probability_mean"], row["method"]), reverse=True)
+    return {
+        "schema_version": STAGE40_SCHEMA_VERSION,
+        "stage": "stage40_sequence_length_curriculum",
+        "dataset": "stage14_full_prefix_sequence_decoder_length_curriculum_v1",
+        "no_hardware_submission": True,
+        "provider_credentials_required": False,
+        "data_seeds": list(data_seeds),
+        "model_seeds": list(model_seeds),
+        "context_lengths": list(context_lengths),
+        "train_lengths": list(TRAIN_LENGTHS),
+        "validation_lengths": list(VALIDATION_LENGTHS),
+        "test_lengths": list(TEST_LENGTHS),
+        "examples_per_task_length": examples_per_task_length,
+        "task_names": list(TASK_NAMES),
+        "method_names": list(method_names),
+        "train_row_count": len(raw_splits["train"]),
+        "validation_row_count": len(raw_splits["validation"]),
+        "test_row_count": len(raw_splits["test"]),
+        "model": {
+            "type": "single_query_sequence_decoder_full_prefix_value_prediction",
+            "feature_dim": FEATURE_DIM,
+            "hidden_dim": hidden_dim,
+            "value_vocab_size": VALUE_VOCAB_SIZE,
+            "value_embed_dim": value_embed_dim,
+            "parameter_count": _parameter_count(hidden_dim, value_embed_dim),
+            "epochs": epochs,
+            "learning_rate": learning_rate,
+            "l2": l2,
+            "optimizer": "full_batch_adam",
+            "attention_scope": "all prefix sequence tokens compete",
+            "curriculum": "train 128/256/512, validate 1024, test 2048",
+            "trained_parameters": "feature bridge attention, token/value embeddings, output projection, output bias",
+        },
+        "task": {
+            "description": "Length-curriculum repair attempt for the Stage 39 all-prefix sequence decoder.",
+            "target_construction": "Targets are explicit Stage 12 retrieval-rule value tokens, not PhaseWrap-selected labels.",
+            "scope": "This tests whether broader train lengths repair compact sequence-decoder length extrapolation.",
+        },
+        "claim_boundary": {
+            "supported": [
+                "A deterministic length-curriculum diagnostic for the all-prefix compact sequence decoder.",
+                "Evidence about whether training on 128/256/512 repairs validation/test length generalization.",
+                "Matched architecture, optimizer, parameter count, data splits, confidence intervals, and weak-run reporting across positional variants.",
+            ],
+            "excluded": [
+                "production transformer superiority",
+                "full transformer-scale validation",
+                "broad quantum advantage",
+                "general cross-backend robustness",
+                "a claim that PhaseWrap-RoPE is a validated RoPE replacement",
+            ],
+        },
+        "training_records": training_records,
+        "train_table": train_table,
+        "validation_table": validation_table,
+        "run_table": run_table,
+        "task_table": task_table,
+        "train_summary": train_summary,
+        "validation_summary": validation_summary,
+        "table": table,
+        "selection_table": selection_table,
+        "weak_runs": weak_runs,
+        "best_method_by_test_top1_mrr": selection_table[0]["method"],
+    }
+
+
+def write_stage40_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OUTPUT_DIR) -> dict[str, str]:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    manifest = {
+        "schema_version": result["schema_version"],
+        "stage": result["stage"],
+        "dataset": result["dataset"],
+        "no_hardware_submission": result["no_hardware_submission"],
+        "provider_credentials_required": result["provider_credentials_required"],
+        "data_seeds": result["data_seeds"],
+        "model_seeds": result["model_seeds"],
+        "train_lengths": result["train_lengths"],
+        "validation_lengths": result["validation_lengths"],
+        "test_lengths": result["test_lengths"],
+        "train_row_count": result["train_row_count"],
+        "validation_row_count": result["validation_row_count"],
+        "test_row_count": result["test_row_count"],
+        "task_names": result["task_names"],
+        "method_names": result["method_names"],
+        "model": result["model"],
+        "task": result["task"],
+        "result_path": str((output_dir / "results.json").as_posix()),
+        "summary_csv_path": str((output_dir / "summary.csv").as_posix()),
+        "train_summary_csv_path": str((output_dir / "train_summary.csv").as_posix()),
+        "validation_summary_csv_path": str((output_dir / "validation_summary.csv").as_posix()),
+        "per_run_csv_path": str((output_dir / "per_run_results.csv").as_posix()),
+        "task_summary_csv_path": str((output_dir / "task_summary.csv").as_posix()),
+        "weak_runs_path": str((output_dir / "weak_runs.json").as_posix()),
+        "claim_boundary": result["claim_boundary"],
+    }
+    paths = {
+        "manifest": str(output_dir / "manifest.json"),
+        "results": str(output_dir / "results.json"),
+        "summary_csv": str(output_dir / "summary.csv"),
+        "train_summary_csv": str(output_dir / "train_summary.csv"),
+        "validation_summary_csv": str(output_dir / "validation_summary.csv"),
+        "per_run_csv": str(output_dir / "per_run_results.csv"),
+        "task_summary_csv": str(output_dir / "task_summary.csv"),
+        "weak_runs": str(output_dir / "weak_runs.json"),
+    }
+    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    (output_dir / "results.json").write_text(json.dumps(result, indent=2, sort_keys=True), encoding="utf-8")
+    (output_dir / "weak_runs.json").write_text(json.dumps(result["weak_runs"], indent=2, sort_keys=True), encoding="utf-8")
+    for file_name, table_name in (
+        ("summary.csv", "table"),
+        ("train_summary.csv", "train_summary"),
+        ("validation_summary.csv", "validation_summary"),
+        ("per_run_results.csv", "run_table"),
+        ("task_summary.csv", "task_table"),
+    ):
+        with (output_dir / file_name).open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=list(result[table_name][0].keys()))
+            writer.writeheader()
+            writer.writerows(result[table_name])
+    return paths
+
+
+def print_stage40_table(result: dict[str, Any]) -> None:
+    columns = ("method", "run_count", "parameter_count", "top1_accuracy_mean", "mrr_mean", "mean_target_value_probability_mean", "expected_calibration_error_mean")
+    print(" | ".join(columns))
+    print(" | ".join("---" for _ in columns))
+    for row in result["selection_table"]:
+        print(" | ".join(str(row[column]) for column in columns))

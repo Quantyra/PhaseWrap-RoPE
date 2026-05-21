@@ -1,0 +1,82 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic temperature-calibration audit for Stage 32 full-context feature-bridge outputs.",
+      "Evidence about whether the PhaseWrap probability/calibration gap is closed by simple post-hoc temperature scaling.",
+      "Confidence intervals over initialization seeds and explicit weak-run reporting."
+    ]
+  },
+  "data_seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "dataset": "stage12_non_phase_cued_ruler_style_retrieval_v1",
+  "method_names": [
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_distance_adapter",
+    "phasewrap_multiscale_adapter"
+  ],
+  "model": {
+    "base_model": "stage32_one_hidden_layer_full_context_feature_bridge",
+    "epochs": 45,
+    "hidden_dim": 10,
+    "posthoc_calibration": "temperature selected on validation loss over a fixed grid",
+    "temperature_grid": [
+      0.25,
+      0.33,
+      0.5,
+      0.67,
+      0.8,
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      4.0
+    ]
+  },
+  "model_seeds": [
+    3203,
+    3217,
+    3221,
+    3229,
+    3251
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage33_temperature_calibration/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage33_temperature_calibration/results.json",
+  "schema_version": "qrope_stage33_temperature_calibration_v1",
+  "stage": "stage33_temperature_calibration",
+  "summary_csv_path": "logs/automated_stage_gates/stage33_temperature_calibration/summary.csv",
+  "task": {
+    "description": "Validation-selected post-hoc temperature calibration for the Stage 32 full-context feature bridge.",
+    "scope": "This is a calibration audit for a compact feature bridge, not a full decoder-only language-model benchmark.",
+    "target_construction": "Targets are selected by explicit retrieval rules, not by the PhaseWrap score."
+  },
+  "test_lengths": [
+    1024
+  ],
+  "test_row_count": 60,
+  "train_lengths": [
+    128,
+    256
+  ],
+  "train_row_count": 120,
+  "validation_lengths": [
+    512
+  ],
+  "validation_row_count": 60,
+  "weak_runs_path": "logs/automated_stage_gates/stage33_temperature_calibration/weak_runs.json"
+}

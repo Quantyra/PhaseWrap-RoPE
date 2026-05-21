@@ -1,0 +1,87 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic diagnostic separating Stage 34 value-output behavior from learned positional attention selection.",
+      "Evidence about whether the compact learned value-output path works when target attention is supplied.",
+      "Matched data splits, optimizer, value-output dimensions, confidence intervals, and weak-run reporting."
+    ]
+  },
+  "data_seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "dataset": "stage14_non_phase_cued_key_value_retrieval_v1",
+  "diagnosis": {
+    "interpretation": "Teacher-forced target attention removes positional selection. Remaining errors measure value-output capacity/generalization rather than PhaseWrap attention ranking.",
+    "mean_target_value_probability_across_methods": 0.490852,
+    "mean_top1_across_methods": 0.518334,
+    "verdict": "value_output_partly_viable_attention_selection_still_primary"
+  },
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_distance_adapter",
+    "phasewrap_multiscale_adapter"
+  ],
+  "model": {
+    "attention_mode": "teacher_forced_target_positions",
+    "epochs": 160,
+    "optimizer": "full_batch_adam",
+    "parameter_count": 8481,
+    "trained_parameters": "value embeddings, output projection, output bias",
+    "type": "teacher_forced_attention_value_output_diagnostic",
+    "value_embed_dim": 16,
+    "value_vocab_size": 257
+  },
+  "model_seeds": [
+    3503,
+    3511,
+    3517,
+    3527,
+    3529
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage35_value_bridge_bottleneck_diagnostic/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage35_value_bridge_bottleneck_diagnostic/results.json",
+  "schema_version": "qrope_stage35_value_bridge_bottleneck_diagnostic_v1",
+  "stage": "stage35_value_bridge_bottleneck_diagnostic",
+  "summary_csv_path": "logs/automated_stage_gates/stage35_value_bridge_bottleneck_diagnostic/summary.csv",
+  "task": {
+    "description": "Teacher-forced value-output diagnostic on the Stage 34 key-value retrieval rows.",
+    "scope": "This removes positional attention selection and tests value-output capacity/generalization.",
+    "target_construction": "Targets are explicit Stage 12 retrieval-rule value tokens, not PhaseWrap-selected labels."
+  },
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_summary_csv_path": "logs/automated_stage_gates/stage35_value_bridge_bottleneck_diagnostic/task_summary.csv",
+  "test_lengths": [
+    1024
+  ],
+  "test_row_count": 60,
+  "train_lengths": [
+    128,
+    256
+  ],
+  "train_row_count": 120,
+  "validation_lengths": [
+    512
+  ],
+  "validation_row_count": 60,
+  "weak_runs_path": "logs/automated_stage_gates/stage35_value_bridge_bottleneck_diagnostic/weak_runs.json"
+}

@@ -300,6 +300,86 @@ python scripts/run_stage32_full_context_feature_bridge.py
 
 This writes `logs/automated_stage_gates/stage32_full_context_feature_bridge/manifest.json`, `results.json`, `summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result uses a nonlinear full-prefix feature bridge. `phasewrap_distance_adapter`, `phasewrap_multiscale_adapter`, and `rope_relative` all reach mean top-1 `1.000000` and mean MRR `1.000000`; `rope_relative` keeps higher target probability and better calibration.
 
+Run the Stage 33 no-credential temperature-calibration audit:
+
+```bash
+python scripts/run_stage33_temperature_calibration.py
+```
+
+This writes `logs/automated_stage_gates/stage33_temperature_calibration/manifest.json`, `results.json`, `summary.csv`, `per_run_results.csv`, and `weak_runs.json`. The current result applies validation-selected post-hoc temperature scaling to the Stage 32 bridge. `phasewrap_distance_adapter`, `phasewrap_multiscale_adapter`, and `rope_relative` retain mean top-1 `1.000000` and mean MRR `1.000000`; `rope_relative` remains strongest on calibrated target probability (`0.993605`) and ECE (`0.006395`), followed by `phasewrap_multiscale_adapter` (`0.960102`, ECE `0.041080`) and `phasewrap_distance_adapter` (`0.917118`, ECE `0.084114`).
+
+Run the Stage 34 no-credential small-decoder value-bridge benchmark:
+
+```bash
+python scripts/run_stage34_small_decoder_value_bridge.py
+```
+
+This writes `logs/automated_stage_gates/stage34_small_decoder_value_bridge/manifest.json`, `results.json`, `summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result trains learned attention plus learned value embeddings/output projection on Stage 14 key-value rows. `rope_relative` is strongest with top-1 `0.360000`, MRR `0.403972`, and mean target value probability `0.345612`; the strongest PhaseWrap-derived row is `phasewrap_distance_adapter` with top-1 `0.283333`, MRR `0.333489`, and mean target value probability `0.244297`.
+
+Run the Stage 35 no-credential value-bridge bottleneck diagnostic:
+
+```bash
+python scripts/run_stage35_value_bridge_bottleneck_diagnostic.py
+```
+
+This writes `logs/automated_stage_gates/stage35_value_bridge_bottleneck_diagnostic/manifest.json`, `results.json`, `summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result teacher-forces target attention on the Stage 34 rows and trains only learned value embeddings plus output projection. It reaches mean top-1 around `0.50-0.53` and mean target value probability around `0.49`; the recorded verdict is `value_output_partly_viable_attention_selection_still_primary`.
+
+Run the Stage 36 no-credential copy-value bridge:
+
+```bash
+python scripts/run_stage36_copy_value_bridge.py
+```
+
+This writes `logs/automated_stage_gates/stage36_copy_value_bridge/manifest.json`, `results.json`, `summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result copies learned attention mass directly onto candidate value tokens. `rope_relative`, `phasewrap_multiscale_adapter`, and `phasewrap_distance_adapter` all reach top-1 `1.000000` and MRR `1.000000`; `rope_relative` keeps higher target value probability (`0.659427`) than `phasewrap_multiscale_adapter` (`0.510753`) and `phasewrap_distance_adapter` (`0.447922`).
+
+Run the Stage 37 no-credential copy-value temperature-calibration audit:
+
+```bash
+python scripts/run_stage37_copy_value_temperature_calibration.py
+```
+
+This writes `logs/automated_stage_gates/stage37_copy_value_temperature_calibration/manifest.json`, `results.json`, `summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result applies validation-selected temperature scaling to the Stage 36 copy-value bridge. `rope_relative`, `phasewrap_multiscale_adapter`, and `phasewrap_distance_adapter` all retain top-1 `1.000000` and MRR `1.000000`; PhaseWrap-derived target value probability improves to `0.920368` for multiscale and `0.907215` for distance, while `rope_relative` remains strongest at `0.998545`.
+
+Run the Stage 38 no-credential hardened decoder value bridge:
+
+```bash
+python scripts/run_stage38_hardened_decoder_value_bridge.py
+```
+
+This writes `logs/automated_stage_gates/stage38_hardened_decoder_value_bridge/manifest.json`, `results.json`, `summary.csv`, `train_summary.csv`, `validation_summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result hardens the learned value-output path with hidden width `16`, value embedding width `64`, and `360` Adam epochs. All methods fit train, but held-out length generalization still favors `rope_relative` with top-1 `0.370000`, MRR `0.419859`, and target value probability `0.350489`; the strongest PhaseWrap-derived row is `phasewrap_multiscale_adapter` with top-1 `0.306667`, MRR `0.358125`, and target value probability `0.213638`.
+
+Run the Stage 39 no-credential sequence decoder retrieval diagnostic:
+
+```bash
+python scripts/run_stage39_sequence_decoder_retrieval.py
+```
+
+This writes `logs/automated_stage_gates/stage39_sequence_decoder_retrieval/manifest.json`, `results.json`, `summary.csv`, `train_summary.csv`, `validation_summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result makes all prefix tokens compete in a compact sequence-style decoder. Several methods fit train, but all methods are near chance on held-out length extrapolation: `phasewrap_multiscale_adapter` has train top-1 `0.973334` and test top-1 `0.003333`; `rope_relative` has train top-1 `0.935000` and test top-1 `0.010000`.
+
+Run the Stage 40 no-credential sequence length-curriculum diagnostic:
+
+```bash
+python scripts/run_stage40_sequence_length_curriculum.py
+```
+
+This writes `logs/automated_stage_gates/stage40_sequence_length_curriculum/manifest.json`, `results.json`, `summary.csv`, `train_summary.csv`, `validation_summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result trains the all-prefix compact sequence decoder on lengths `128`, `256`, and `512`, validates on `1024`, and tests on `2048`. The curriculum does not repair length extrapolation: `phasewrap_distance_adapter` is strongest on the weak `2048` test rows with top-1 `0.030000`, MRR `0.060933`, and target value probability `0.020555`.
+
+Run the Stage 41 no-credential pointer/copy sequence diagnostic:
+
+```bash
+python scripts/run_stage41_pointer_copy_sequence.py
+```
+
+This writes `logs/automated_stage_gates/stage41_pointer_copy_sequence/manifest.json`, `results.json`, `summary.csv`, `train_summary.csv`, `validation_summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result keeps the Stage 40 length curriculum and all-prefix token competition but replaces learned value-token output with copy-style output over observed prefix token IDs. `rope_relative` and `phasewrap_multiscale_adapter` both reach test top-1 `1.000000` and MRR `1.000000` at length `2048`; `phasewrap_distance_adapter` reaches top-1 `0.966667` and MRR `0.983333`. `rope_relative` remains strongest on target value probability (`0.999834`) and ECE (`0.000166`).
+
+Run the Stage 42 no-credential trainable pointer-generator sequence diagnostic:
+
+```bash
+python scripts/run_stage42_trainable_pointer_generator_sequence.py
+```
+
+This writes `logs/automated_stage_gates/stage42_trainable_pointer_generator_sequence/manifest.json`, `results.json`, `summary.csv`, `train_summary.csv`, `validation_summary.csv`, `per_run_results.csv`, `task_summary.csv`, and `weak_runs.json`. The current result keeps the Stage 40/41 curriculum and all-prefix token competition, but mixes copied prefix-token mass with a learned vocab distribution through a trainable gate. At length `2048`, `rope_relative` reaches top-1 `1.000000` and MRR `1.000000`; `phasewrap_distance_adapter` reaches top-1 `0.966667` and MRR `0.983333`; `phasewrap_multiscale_adapter` reaches top-1 `0.946667` and MRR `0.973333`. The learned generator branch remains near uniform target mass, so the repair is still mainly copy-route driven.
+
 ## What This Supports
 
 - A bounded phase-wrap scoring method using mod-8 and mod-12 wrapped residual margins.
@@ -337,6 +417,17 @@ This writes `logs/automated_stage_gates/stage32_full_context_feature_bridge/mani
 - A deterministic Stage 30 matched retrieval-bridge benchmark showing that the Stage 28 PhaseWrap-plus-distance top-1/MRR tie persists when feature width and learned parameter count are equalized, while RoPE-like scoring still has stronger probability and calibration metrics.
 - A deterministic Stage 31 full-context retrieval-attention benchmark showing that the current PhaseWrap variants do not solve the harder full-prefix non-phase-cued retrieval packet, while RoPE-like scoring does.
 - A deterministic Stage 32 full-context feature-bridge benchmark showing that richer PhaseWrap-derived adapters can recover full-prefix argmax retrieval, while RoPE-like scoring remains stronger on probability and calibration.
+- A deterministic Stage 33 temperature-calibration audit showing that simple post-hoc calibration improves Stage 32 probability/ECE for all solved methods, while RoPE-like scoring remains strongest on calibrated probability/ECE.
+- A deterministic Stage 34 compact decoder-style value bridge showing that RoPE-like scoring remains strongest once learned value-token output is required.
+- A deterministic Stage 35 teacher-forced diagnostic showing that value output is partly viable but not solved, and learned attention/mechanism selection remains a major bottleneck.
+- A deterministic Stage 36 copy-value bridge showing that PhaseWrap-derived adapters recover held-out top-1/MRR when value-output coupling is hardened, while RoPE-like scoring keeps higher probability mass.
+- A deterministic Stage 37 copy-value temperature-calibration audit showing that scalar sharpening sharply improves PhaseWrap-derived target probability under hardened value output, while RoPE-like scoring remains strongest on calibrated probability/ECE.
+- A deterministic Stage 38 hardened decoder value-bridge benchmark showing that all methods fit train with larger value-output capacity, but held-out length generalization still favors RoPE-like scoring.
+- A deterministic Stage 39 sequence decoder retrieval diagnostic showing that all-prefix token competition causes severe held-out length failure for every tested positional method in the current compact decoder.
+- A deterministic Stage 40 length-curriculum diagnostic showing that adding train length `512` does not repair held-out `1024`/`2048` generalization, although PhaseWrap-derived adapters lead the weak `2048` test rows.
+- A deterministic Stage 41 pointer/copy sequence diagnostic showing that copy-style value output repairs held-out `2048` ranking for RoPE-like scoring and PhaseWrap multiscale, while RoPE-like scoring remains best calibrated.
+- A deterministic Stage 42 trainable pointer-generator sequence diagnostic showing that learned copy/vocab mixing preserves much of the Stage 41 repair, while RoPE-like scoring remains best and the learned generator branch remains weak.
+- An active claim-boundary research goal: find the strongest honest claim PhaseWrap-RoPE can support under fair RoPE, ALiBI, sinusoidal, and no-position comparisons while preserving both positive evidence and failure modes.
 
 ## What This Does Not Support
 
@@ -374,11 +465,21 @@ This writes `logs/automated_stage_gates/stage32_full_context_feature_bridge/mani
 - a claim that Stage 30 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
 - a claim that Stage 31 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
 - a claim that Stage 32 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 33 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 34 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 35 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 36 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 37 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 38 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 39 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 40 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 41 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 42 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
 
 ## Open Questions
 
 - **Why mod-8 and mod-12?** They provide two distinct wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band interaction through the product of signed margins. Stage 8 adds a release-local period-pair ablation where `(8, 12)` is best on the phase-cued Needle-style packet, and Stage 11 shows the fixed 8/12 score is exactly a mod-24 periodic feature with frequency support `[1, 2, 3, 5]`; this is still not a proof of global optimality.
-- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 32 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stages 13 and 14 show that a PhaseWrap-plus-distance adapter can close argmax ranking on local value-retrieval packets, but not target-probability mass. Stage 15 shows the learned PhaseWrap-plus-distance scorer can lead argmax value retrieval while RoPE remains stronger on probability mass. Stage 16 shows the ranking result is stable across the tested initialization seeds. Stage 17 shows the current learned value-output bottleneck is near chance for all methods. Stage 18 shows teacher-forced attention does not substantially fix that bottleneck with the compact optimizer. Stage 19 shows Adam and larger value embeddings can solve train fit and improve held-out value-token retrieval under teacher-forced attention. Stage 20 then reintroduces learned positional attention and favors RoPE-like scoring over the tested PhaseWrap adapters on held-out rows. Stage 21 confirms that ordering across five learned-parameter initialization seeds. Stage 22 extends explicit retrieval through 4096-token contexts and is strongly negative for the fixed PhaseWrap 8/12 score. Stage 23 trains adapters on those rows and shows PhaseWrap-plus-distance can recover held-out argmax ranking, but not RoPE-like target probability mass. Stage 24 adds learned value embeddings and output projection to the long-context rows; RoPE-like scoring is strongest and the PhaseWrap-derived adapters trail. Stage 25 confirms the Stage 24 RoPE-like held-out advantage across five initialization seeds. Stage 26 adds a compact content-key QA retrieval packet where PhaseWrap-derived adapters match ALiBI-style top-1/MRR. Stage 27 trains a compact attention bridge on the Stage 26 rows and preserves the PhaseWrap-plus-distance/ALiBI top-1 and MRR tie across five model initialization seeds. Stage 28 trains a compact attention bridge on Stage 12 non-phase-cued retrieval rows and shows PhaseWrap-plus-distance matching RoPE-like top-1/MRR, with lower target probability. Stage 29 shows period-pair swaps alone do not solve the fixed-score retrieval gap. Stage 30 equalizes the Stage 28 bridge feature width and parameter count, preserving the PhaseWrap-plus-distance top-1/MRR tie while RoPE remains stronger on probability and calibration. Stage 31 then makes every prefix position compete and is negative for the current PhaseWrap variants. Stage 32 adds a nonlinear full-context bridge and recovers PhaseWrap argmax retrieval, but not RoPE-like probability/calibration.
+- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 42 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stages 13 and 14 show that a PhaseWrap-plus-distance adapter can close argmax ranking on local value-retrieval packets, but not target-probability mass. Stage 15 shows the learned PhaseWrap-plus-distance scorer can lead argmax value retrieval while RoPE remains stronger on probability mass. Stage 16 shows the ranking result is stable across the tested initialization seeds. Stage 17 shows the current learned value-output bottleneck is near chance for all methods. Stage 18 shows teacher-forced attention does not substantially fix that bottleneck with the compact optimizer. Stage 19 shows Adam and larger value embeddings can solve train fit and improve held-out value-token retrieval under teacher-forced attention. Stage 20 then reintroduces learned positional attention and favors RoPE-like scoring over the tested PhaseWrap adapters on held-out rows. Stage 21 confirms that ordering across five learned-parameter initialization seeds. Stage 22 extends explicit retrieval through 4096-token contexts and is strongly negative for the fixed PhaseWrap 8/12 score. Stage 23 trains adapters on those rows and shows PhaseWrap-plus-distance can recover held-out argmax ranking, but not RoPE-like target probability mass. Stage 24 adds learned value embeddings and output projection to the long-context rows; RoPE-like scoring is strongest and the PhaseWrap-derived adapters trail. Stage 25 confirms the Stage 24 RoPE-like held-out advantage across five initialization seeds. Stage 26 adds a compact content-key QA retrieval packet where PhaseWrap-derived adapters match ALiBI-style top-1/MRR. Stage 27 trains a compact attention bridge on the Stage 26 rows and preserves the PhaseWrap-plus-distance/ALiBI top-1 and MRR tie across five model initialization seeds. Stage 28 trains a compact attention bridge on Stage 12 non-phase-cued retrieval rows and shows PhaseWrap-plus-distance matching RoPE-like top-1/MRR, with lower target probability. Stage 29 shows period-pair swaps alone do not solve the fixed-score retrieval gap. Stage 30 equalizes the Stage 28 bridge feature width and parameter count, preserving the PhaseWrap-plus-distance top-1/MRR tie while RoPE remains stronger on probability and calibration. Stage 31 then makes every prefix position compete and is negative for the current PhaseWrap variants. Stage 32 adds a nonlinear full-context bridge and recovers PhaseWrap argmax retrieval, Stage 33 shows post-hoc temperature calibration improves probabilities without removing the RoPE-like calibration lead, Stage 34 shows RoPE-like scoring remains strongest when learned value-token output is required, Stage 35 shows teacher-forced target attention only partly solves the value-output path, Stage 36 shows PhaseWrap-derived adapters recover top-1/MRR when value output copies candidate values directly, Stage 37 shows scalar calibration sharply improves PhaseWrap-derived copy-value probability while RoPE-like scoring remains best calibrated, Stage 38 shows hardened learned value-output training fits train but still generalizes best with RoPE-like scoring, Stage 39 shows the current all-prefix compact sequence decoder fails held-out length extrapolation for all tested positional methods, Stage 40 shows that adding train length `512` does not repair that sequence-level generalization failure, Stage 41 shows a pointer/copy sequence head can repair ranking for RoPE-like scoring and PhaseWrap multiscale while leaving RoPE-like calibration strongest, and Stage 42 shows a trainable pointer-generator preserves much of that repair while relying mostly on the copy route.
 - **What would make the RoPE-replacement case stronger?** The next expansion should train a stronger matched small decoder-only transformer with RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional mechanisms; evaluate train-short/test-long context extrapolation; include non-synthetic retrieval or QA tasks; run at least five seeds; and publish failed runs plus confidence intervals. Stage 12 and Stage 13 make clear that the fixed score alone is not enough; the useful direction is an explicit positional mechanism or adapter. The detailed gate is tracked in `docs/research/q-rope-next-transformer-benchmark-roadmap-v1.md`.
 - **Why the CX variant?** It is the smallest entangling extension of the product-state witness: keep the two `RY` margin encodings, add one `CX(q0 -> q1)`, and read a target-qubit parity/product signal while preserving the same packet discipline.
 - **Will the packet generation pipeline be reusable?** The current pipeline is open in `src/qrope/automated_stage_gates.py` and the Stage 4 runner/verifier scripts. A cleaner researcher-facing API is a packaging task, not new scientific evidence.
@@ -418,5 +519,16 @@ This writes `logs/automated_stage_gates/stage32_full_context_feature_bridge/mani
 | Stage 30 | Matched retrieval bridge | Complete for five model initialization seeds on Stage 12 rows with equal feature width and parameter count. PhaseWrap-plus-distance matches RoPE-like top-1/MRR, while RoPE-like scoring keeps stronger probability/calibration metrics. |
 | Stage 31 | Full-context retrieval attention | Complete for five model initialization seeds on Stage 12 rows. RoPE-like scoring solves the held-out full-prefix packet; current PhaseWrap variants are weak. |
 | Stage 32 | Full-context feature bridge | Complete for five model initialization seeds on Stage 12 rows. PhaseWrap distance/multiscale adapters recover full-prefix top-1/MRR, while RoPE-like scoring keeps stronger probability/calibration metrics. |
-| Stage 33 | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
-| Stage 34 | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |
+| Stage 33 | Temperature calibration audit | Complete for the Stage 32 bridge. Temperature scaling improves probability/ECE, but RoPE-like scoring remains strongest on calibrated probability/ECE. |
+| Stage 34 | Small decoder value bridge | Complete for five model initialization seeds on Stage 14 key-value rows. RoPE-like scoring is strongest; current PhaseWrap-derived adapters trail under the learned value-output bottleneck. |
+| Stage 35 | Value-bridge bottleneck diagnostic | Complete for five model initialization seeds with teacher-forced target attention. Value output is partly viable but not solved; learned attention/mechanism selection remains a major bottleneck. |
+| Stage 36 | Copy-value bridge | Complete for five model initialization seeds on Stage 14 key-value rows. PhaseWrap-derived adapters recover perfect top-1/MRR when value output copies candidate values, while RoPE-like scoring keeps higher target probability mass. |
+| Stage 37 | Copy-value temperature calibration | Complete for five model initialization seeds on the Stage 36 bridge. PhaseWrap-derived adapters retain perfect top-1/MRR and sharply improve calibrated target probability, while RoPE-like scoring remains strongest on probability/ECE. |
+| Stage 38 | Hardened decoder value bridge | Complete for five model initialization seeds on Stage 14 rows. All methods fit train with larger value-output capacity, but held-out length generalization still favors RoPE-like scoring. |
+| Stage 39 | Sequence decoder retrieval | Complete for five model initialization seeds with all prefix tokens competing. Several methods fit train, but all tested methods collapse on held-out length extrapolation. |
+| Stage 40 | Sequence length curriculum | Complete for five model initialization seeds with train lengths 128/256/512. The curriculum does not repair held-out 1024/2048 generalization; PhaseWrap-derived adapters lead the weak 2048 test rows. |
+| Stage 41 | Pointer/copy sequence diagnostic | Complete for five model initialization seeds with the Stage 40 curriculum and copy-style sequence output. RoPE-like and PhaseWrap multiscale both reach perfect 2048-token top-1/MRR, while RoPE-like scoring remains best calibrated. |
+| Stage 42 | Trainable pointer-generator sequence | Complete for five model initialization seeds with copied prefix-token mass mixed by a learned gate and learned vocab output. Strong ranking mostly survives, but RoPE-like scoring remains best and the generator branch is weak. |
+| Stage 43 | Claim-boundary output hardening | Harden the trainable pointer-generator output path, or move the same fair-comparison frame into a stronger matched decoder-only transformer; promotion requires closing evidence gaps beyond compact diagnostics. |
+| Hardware replication track | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
+| Later hardware track | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |

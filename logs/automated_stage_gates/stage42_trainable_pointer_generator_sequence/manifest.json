@@ -1,0 +1,91 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic trainable pointer-generator diagnostic for the all-prefix compact sequence decoder.",
+      "Evidence about whether learned copy/vocab mixing preserves the Stage 41 sequence-length repair.",
+      "Matched feature bridge, optimizer, data splits, confidence intervals, and weak-run reporting across positional variants."
+    ]
+  },
+  "data_seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "dataset": "stage14_full_prefix_trainable_pointer_generator_sequence_v1",
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_distance_adapter",
+    "phasewrap_multiscale_adapter"
+  ],
+  "model": {
+    "attention_scope": "all prefix sequence tokens compete",
+    "curriculum": "train 128/256/512, validate 1024, test 2048",
+    "epochs": 40,
+    "feature_dim": 14,
+    "hidden_dim": 16,
+    "initial_copy_gate_logit": 1.5,
+    "l2": 5e-05,
+    "learning_rate": 0.06,
+    "optimizer": "full_batch_adam",
+    "parameter_count": 4635,
+    "trained_parameters": "feature bridge attention, token/value embeddings, output projection, output bias, copy/generator gate",
+    "type": "single_query_sequence_decoder_trainable_pointer_generator",
+    "value_embed_dim": 8,
+    "value_output_mode": "trainable pointer-generator mixture of copied prefix-token mass and learned vocab distribution",
+    "value_vocab_size": 257
+  },
+  "model_seeds": [
+    4201,
+    4211,
+    4217,
+    4219,
+    4229
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage42_trainable_pointer_generator_sequence/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage42_trainable_pointer_generator_sequence/results.json",
+  "schema_version": "qrope_stage42_trainable_pointer_generator_sequence_v1",
+  "stage": "stage42_trainable_pointer_generator_sequence",
+  "summary_csv_path": "logs/automated_stage_gates/stage42_trainable_pointer_generator_sequence/summary.csv",
+  "task": {
+    "description": "Trainable pointer-generator follow-up to the Stage 41 deterministic pointer/copy sequence diagnostic.",
+    "scope": "This tests whether a learned copy/vocab mixture preserves the Stage 41 sequence-length repair.",
+    "target_construction": "Targets are explicit Stage 12 retrieval-rule value tokens, not PhaseWrap-selected labels."
+  },
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_summary_csv_path": "logs/automated_stage_gates/stage42_trainable_pointer_generator_sequence/task_summary.csv",
+  "test_lengths": [
+    2048
+  ],
+  "test_row_count": 60,
+  "train_lengths": [
+    128,
+    256,
+    512
+  ],
+  "train_row_count": 180,
+  "train_summary_csv_path": "logs/automated_stage_gates/stage42_trainable_pointer_generator_sequence/train_summary.csv",
+  "validation_lengths": [
+    1024
+  ],
+  "validation_row_count": 60,
+  "validation_summary_csv_path": "logs/automated_stage_gates/stage42_trainable_pointer_generator_sequence/validation_summary.csv",
+  "weak_runs_path": "logs/automated_stage_gates/stage42_trainable_pointer_generator_sequence/weak_runs.json"
+}

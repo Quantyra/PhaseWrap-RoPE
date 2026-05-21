@@ -1,0 +1,212 @@
+[
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "no_position",
+    "model_seed": 3407,
+    "mrr": 0.036073,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "no_position",
+    "model_seed": 3413,
+    "mrr": 0.036127,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "no_position",
+    "model_seed": 3433,
+    "mrr": 0.029925,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "no_position",
+    "model_seed": 3449,
+    "mrr": 0.041221,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "no_position",
+    "model_seed": 3457,
+    "mrr": 0.030137,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "alibi",
+    "model_seed": 3407,
+    "mrr": 0.040612,
+    "top1_accuracy": 0.016667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "alibi",
+    "model_seed": 3413,
+    "mrr": 0.029015,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "alibi",
+    "model_seed": 3433,
+    "mrr": 0.036141,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "alibi",
+    "model_seed": 3449,
+    "mrr": 0.023741,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "alibi",
+    "model_seed": 3457,
+    "mrr": 0.025828,
+    "top1_accuracy": 0.0
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "rope_relative",
+    "model_seed": 3407,
+    "mrr": 0.423482,
+    "top1_accuracy": 0.366667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "rope_relative",
+    "model_seed": 3413,
+    "mrr": 0.39281,
+    "top1_accuracy": 0.35
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "rope_relative",
+    "model_seed": 3433,
+    "mrr": 0.394721,
+    "top1_accuracy": 0.35
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "rope_relative",
+    "model_seed": 3449,
+    "mrr": 0.404629,
+    "top1_accuracy": 0.366667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "rope_relative",
+    "model_seed": 3457,
+    "mrr": 0.404217,
+    "top1_accuracy": 0.366667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "sinusoidal",
+    "model_seed": 3407,
+    "mrr": 0.369159,
+    "top1_accuracy": 0.316667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "sinusoidal",
+    "model_seed": 3413,
+    "mrr": 0.404672,
+    "top1_accuracy": 0.366667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "sinusoidal",
+    "model_seed": 3433,
+    "mrr": 0.350861,
+    "top1_accuracy": 0.283333
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "sinusoidal",
+    "model_seed": 3449,
+    "mrr": 0.372732,
+    "top1_accuracy": 0.316667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "sinusoidal",
+    "model_seed": 3457,
+    "mrr": 0.343407,
+    "top1_accuracy": 0.283333
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3407,
+    "mrr": 0.327524,
+    "top1_accuracy": 0.266667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3413,
+    "mrr": 0.3371,
+    "top1_accuracy": 0.3
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3433,
+    "mrr": 0.340264,
+    "top1_accuracy": 0.3
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3449,
+    "mrr": 0.334925,
+    "top1_accuracy": 0.283333
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_distance_adapter",
+    "model_seed": 3457,
+    "mrr": 0.32763,
+    "top1_accuracy": 0.266667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3407,
+    "mrr": 0.330904,
+    "top1_accuracy": 0.283333
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3413,
+    "mrr": 0.306364,
+    "top1_accuracy": 0.233333
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3433,
+    "mrr": 0.328504,
+    "top1_accuracy": 0.283333
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3449,
+    "mrr": 0.28501,
+    "top1_accuracy": 0.216667
+  },
+  {
+    "criterion": "test_top1_accuracy_below_0.5",
+    "method": "phasewrap_multiscale_adapter",
+    "model_seed": 3457,
+    "mrr": 0.315179,
+    "top1_accuracy": 0.25
+  }
+]

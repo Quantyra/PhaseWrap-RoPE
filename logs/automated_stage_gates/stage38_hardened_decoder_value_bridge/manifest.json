@@ -1,0 +1,86 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage",
+      "general cross-backend robustness",
+      "a claim that PhaseWrap-RoPE is a validated RoPE replacement"
+    ],
+    "supported": [
+      "A deterministic hardened compact decoder-style value benchmark on non-phase-cued retrieval rows.",
+      "Evidence about whether larger value embeddings, larger hidden width, and longer Adam training improve Stage 34.",
+      "Matched architecture, optimizer, parameter count, data splits, confidence intervals, and explicit weak-run reporting across positional variants."
+    ]
+  },
+  "data_seeds": [
+    401,
+    409,
+    419,
+    421,
+    431
+  ],
+  "dataset": "stage14_non_phase_cued_key_value_retrieval_v1",
+  "method_names": [
+    "no_position",
+    "alibi",
+    "rope_relative",
+    "sinusoidal",
+    "phasewrap_distance_adapter",
+    "phasewrap_multiscale_adapter"
+  ],
+  "model": {
+    "epochs": 360,
+    "feature_dim": 12,
+    "hidden_dim": 16,
+    "l2": 1e-05,
+    "learning_rate": 0.03,
+    "optimizer": "full_batch_adam",
+    "parameter_count": 33378,
+    "trained_parameters": "feature bridge attention, value embeddings, output projection, output bias",
+    "type": "hardened_nonlinear_attention_plus_learned_value_output_bridge",
+    "value_embed_dim": 64,
+    "value_vocab_size": 257
+  },
+  "model_seeds": [
+    3803,
+    3821,
+    3823,
+    3833,
+    3847
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage38_hardened_decoder_value_bridge/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage38_hardened_decoder_value_bridge/results.json",
+  "schema_version": "qrope_stage38_hardened_decoder_value_bridge_v1",
+  "stage": "stage38_hardened_decoder_value_bridge",
+  "summary_csv_path": "logs/automated_stage_gates/stage38_hardened_decoder_value_bridge/summary.csv",
+  "task": {
+    "description": "Train-short/test-long key-value retrieval with hardened learned attention and learned value-token output.",
+    "scope": "This tests whether capacity/training hardening improves the learned decoder-style value bridge without copy-value output.",
+    "target_construction": "Targets are explicit Stage 12 retrieval-rule value tokens, not PhaseWrap-selected labels."
+  },
+  "task_names": [
+    "passkey_exact",
+    "multi_needle",
+    "aggregation"
+  ],
+  "task_summary_csv_path": "logs/automated_stage_gates/stage38_hardened_decoder_value_bridge/task_summary.csv",
+  "test_lengths": [
+    1024
+  ],
+  "test_row_count": 60,
+  "train_lengths": [
+    128,
+    256
+  ],
+  "train_row_count": 120,
+  "train_summary_csv_path": "logs/automated_stage_gates/stage38_hardened_decoder_value_bridge/train_summary.csv",
+  "validation_lengths": [
+    512
+  ],
+  "validation_row_count": 60,
+  "validation_summary_csv_path": "logs/automated_stage_gates/stage38_hardened_decoder_value_bridge/validation_summary.csv",
+  "weak_runs_path": "logs/automated_stage_gates/stage38_hardened_decoder_value_bridge/weak_runs.json"
+}
