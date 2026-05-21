@@ -1,0 +1,62 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that validation-length curriculum training is the same as the original train-short/test-long gate",
+      "a claim that output-path or curriculum diagnostics are positional-method promotion evidence",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential length-curriculum audit for the two-block learned pointer-generator path.",
+      "Evidence about whether adding the intermediate length-40 rows repairs held-out 48/64 retrieval generalization.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons with failed-run retention."
+    ]
+  },
+  "decision": {
+    "base_capacity_train_top1_threshold": 0.75,
+    "best_train_method": "sinusoidal",
+    "best_train_task": "exact_offset_passkey",
+    "best_train_top1": 1.0,
+    "capacity_established": true,
+    "capacity_train_top1_threshold": 0.75,
+    "claim_boundary": "Adding length-40 rows preserves capacity but does not generalize all retrieval lanes.",
+    "decision": "POINTER_GENERATOR_LENGTH_CURRICULUM_WITHOUT_RETRIEVAL_GENERALIZATION",
+    "generalization_top1_threshold": 0.5,
+    "phasewrap_retrieval_generalized_tasks": [],
+    "retrieval_best_methods": {
+      "exact_offset_passkey": "sinusoidal",
+      "phase_cued_retrieval": "rope_relative"
+    },
+    "retrieval_best_top1": {
+      "exact_offset_passkey": 0.033333,
+      "phase_cued_retrieval": 0.033333
+    },
+    "retrieval_generalized_tasks": [],
+    "tiny_text_best_method": "sinusoidal",
+    "tiny_text_best_top1": 0.783333
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage65_pointer_generator_length_curriculum_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage65_pointer_generator_length_curriculum_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage65_pointer_generator_length_curriculum_audit/results.json",
+  "schema_version": "qrope_stage65_pointer_generator_length_curriculum_audit_v1",
+  "stage": "stage65_pointer_generator_length_curriculum_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage65_pointer_generator_length_curriculum_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
