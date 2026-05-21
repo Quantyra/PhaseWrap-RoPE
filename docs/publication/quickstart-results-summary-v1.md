@@ -404,6 +404,14 @@ python scripts/run_stage45_matched_decoder_only_gate.py
 
 This writes `logs/automated_stage_gates/stage45_matched_decoder_only_gate/manifest.json`, `results.json`, `summary.csv`, `per_seed_results.csv`, and `failed_runs.json`. The gate records `PROMOTION_NOT_SUPPORTED`: the matched one-block decoder-only harness remains near chance, with target probability near uniform for all methods and tasks. PhaseWrap adapters are ranking-best by MRR on exact-offset passkey and tiny text-fact QA, but absolute accuracy and probability are too weak for promotion.
 
+Run the Stage 46 no-credential decoder capacity hardening audit:
+
+```bash
+python scripts/run_stage46_decoder_capacity_hardening_audit.py
+```
+
+This writes `logs/automated_stage_gates/stage46_decoder_capacity_hardening_audit/manifest.json`, `results.json`, `summary.csv`, `per_run_results.csv`, and `failed_runs.json`. The audit records `CAPACITY_NOT_ESTABLISHED`: longer training improves the tiny text-fact QA lane, where PhaseWrap variants reach train/test top-1 `0.500000`, but the best train top-1 remains below the `0.750000` capacity threshold and retrieval lanes do not generalize.
+
 ## What This Supports
 
 - A bounded phase-wrap scoring method using mod-8 and mod-12 wrapped residual margins.
@@ -454,6 +462,7 @@ This writes `logs/automated_stage_gates/stage45_matched_decoder_only_gate/manife
 - A deterministic Stage 43 generator-hardened pointer sequence diagnostic showing that auxiliary generator supervision improves learned generator target probability, while RoPE-like scoring remains strongest overall and generator-only top-1 remains weak.
 - A deterministic Stage 44 plateau audit showing that Stages 39-43 are bounded compact diagnostics, not RoPE-replacement evidence.
 - A deterministic Stage 45 matched one-block decoder-only gate showing `PROMOTION_NOT_SUPPORTED`; the harness remains near chance, so it is negative promotion evidence rather than a useful positional-method discriminator.
+- A deterministic Stage 46 capacity audit showing longer training does not make the one-block decoder reliable enough for positional-method promotion, while preserving weak PhaseWrap tiny text-fact QA positives.
 - An active claim-boundary research goal: find the strongest honest claim PhaseWrap-RoPE can support under fair RoPE, ALiBI, sinusoidal, and no-position comparisons while preserving both positive evidence and failure modes.
 
 ## What This Does Not Support
@@ -505,11 +514,12 @@ This writes `logs/automated_stage_gates/stage45_matched_decoder_only_gate/manife
 - a claim that Stage 43 establishes production transformer superiority, full decoder-only language-model validation, solved free value generation, or that PhaseWrap-RoPE replaces RoPE.
 - a claim that Stage 44 establishes production transformer superiority, full decoder-only language-model validation, or that compact diagnostics can substitute for the matched decoder-only transformer gate.
 - a claim that Stage 45 establishes production transformer superiority, full decoder-only language-model validation, or that PhaseWrap-RoPE replaces RoPE.
+- a claim that Stage 46 establishes production transformer superiority, full decoder-only language-model validation, or that the one-block decoder is a reliable positional-method discriminator.
 
 ## Open Questions
 
 - **Why mod-8 and mod-12?** They provide two distinct wrapped residual bases with one-step thresholds at `pi/4` and `pi/6`, producing a cross-band interaction through the product of signed margins. Stage 8 adds a release-local period-pair ablation where `(8, 12)` is best on the phase-cued Needle-style packet, and Stage 11 shows the fixed 8/12 score is exactly a mod-24 periodic feature with frequency support `[1, 2, 3, 5]`; this is still not a proof of global optimality.
-- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 45 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stages 13-43 preserve a mixed pattern: PhaseWrap-derived adapters can recover ranking in selected compact settings, while RoPE-like scoring often keeps stronger probability/calibration and the learned value-generation path remains weak. Stage 44 records the compact sequence and pointer-generator diagnostics as a bounded plateau. Stage 45 then runs a matched one-block decoder-only gate and records `PROMOTION_NOT_SUPPORTED`; the harness remains near chance, so the result is negative promotion evidence rather than a validated replacement claim.
+- **Does PhaseWrap-RoPE help a classical ML task?** Stage 5 through Stage 46 are now present as bounded synthetic downstream checks. Stage 9 gives a compact trained positional-attention result with a useful split: PhaseWrap wins the phase-cued lane, while RoPE-relative wins the exact-offset passkey lane. Stage 10 adds a very small decoder-only transformer run, but it is near chance. Stage 12 adds a stricter non-phase-cued retrieval packet where RoPE-like and sinusoidal baselines solve the task and the fixed PhaseWrap score does not. Stages 13-43 preserve a mixed pattern: PhaseWrap-derived adapters can recover ranking in selected compact settings, while RoPE-like scoring often keeps stronger probability/calibration and the learned value-generation path remains weak. Stage 44 records the compact sequence and pointer-generator diagnostics as a bounded plateau. Stage 45 then runs a matched one-block decoder-only gate and records `PROMOTION_NOT_SUPPORTED`; Stage 46 confirms longer training still leaves the harness below capacity threshold, while preserving weak PhaseWrap tiny text-fact QA positives.
 - **What would make the RoPE-replacement case stronger?** The next expansion should train a stronger matched small decoder-only transformer with RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap positional mechanisms; evaluate train-short/test-long context extrapolation; include non-synthetic retrieval or QA tasks; run at least five seeds; and publish failed runs plus confidence intervals. Stage 12 and Stage 13 make clear that the fixed score alone is not enough; the useful direction is an explicit positional mechanism or adapter. The detailed gate is tracked in `docs/research/q-rope-next-transformer-benchmark-roadmap-v1.md`.
 - **Why the CX variant?** It is the smallest entangling extension of the product-state witness: keep the two `RY` margin encodings, add one `CX(q0 -> q1)`, and read a target-qubit parity/product signal while preserving the same packet discipline.
 - **Will the packet generation pipeline be reusable?** The current pipeline is open in `src/qrope/automated_stage_gates.py` and the Stage 4 runner/verifier scripts. A cleaner researcher-facing API is a packaging task, not new scientific evidence.
@@ -562,6 +572,7 @@ This writes `logs/automated_stage_gates/stage45_matched_decoder_only_gate/manife
 | Stage 43 | Generator-hardened pointer sequence | Complete for five model initialization seeds with auxiliary generator-target loss. Generator target probability improves, but RoPE-like scoring remains strongest and generator-only top-1 remains weak. |
 | Stage 44 | Compact-diagnostic plateau audit | Complete over Stages 39-43. Decision: `BOUND_COMPACT_DIAGNOSTIC_PLATEAU`; compact diagnostics should not broaden the claim boundary. |
 | Stage 45 | Matched decoder-only gate | Complete for a matched one-block decoder-only harness. Decision: `PROMOTION_NOT_SUPPORTED`; the model remains near chance. |
-| Next downstream gate | Stronger decoder-only transformer | Strengthen the decoder-only implementation enough to learn the task, then rerun the same fair comparison. |
+| Stage 46 | Decoder capacity hardening audit | Complete for longer training on the one-block harness. Decision: `CAPACITY_NOT_ESTABLISHED`; train fit remains below threshold. |
+| Next downstream gate | Stronger decoder-only transformer | Replace or materially strengthen the decoder-only implementation enough to learn the task, then rerun the same fair comparison. |
 | Hardware replication track | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
 | Later hardware track | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |

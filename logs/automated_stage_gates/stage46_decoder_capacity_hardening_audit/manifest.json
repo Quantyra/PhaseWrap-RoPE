@@ -1,0 +1,52 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that a capacity-failed harness discriminates positional methods",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential capacity/optimization audit for the matched one-block decoder-only gate.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons under longer training on the same model family.",
+      "Separated train, validation, and test metrics so capacity failure is not mistaken for positional-method evidence."
+    ]
+  },
+  "decision": {
+    "best_test_method": "phasewrap_adapter",
+    "best_test_mrr": 0.75,
+    "best_test_task": "tiny_text_fact_qa",
+    "best_test_top1": 0.5,
+    "best_train_method": "phasewrap_adapter",
+    "best_train_mrr": 0.75,
+    "best_train_task": "tiny_text_fact_qa",
+    "best_train_top1": 0.5,
+    "capacity_train_top1_threshold": 0.75,
+    "claim_boundary": "Longer training does not make the one-block decoder fit the training rows well enough for positional-method promotion.",
+    "decision": "CAPACITY_NOT_ESTABLISHED",
+    "useful_test_top1_threshold": 0.5
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage46_decoder_capacity_hardening_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage46_decoder_capacity_hardening_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage46_decoder_capacity_hardening_audit/results.json",
+  "schema_version": "qrope_stage46_decoder_capacity_hardening_audit_v1",
+  "stage": "stage46_decoder_capacity_hardening_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage46_decoder_capacity_hardening_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
