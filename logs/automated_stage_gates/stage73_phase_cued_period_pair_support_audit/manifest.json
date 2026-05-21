@@ -1,0 +1,100 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that period-pair selection after seeing held-out rows is promotion evidence",
+      "a claim that fixed-score support is learned decoder-only transformer behavior",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential fixed period-pair sweep over original Stage10 phase-cued rows.",
+      "Evidence about whether alternate PhaseWrap period pairs put the held-out phase-cued target in max-score support.",
+      "A fair no-training comparison among predeclared PhaseWrap period pairs without row metadata or fallback lookup."
+    ]
+  },
+  "decision": {
+    "best_support_period_pair": "12/24",
+    "best_support_rate": 0.0,
+    "best_top1": 0.033333,
+    "best_top1_period_pair": "12/24",
+    "claim_boundary": "The tested fixed PhaseWrap period pairs do not put the original held-out phase-cued target in max-score support often enough.",
+    "decision": "PHASE_CUED_PERIOD_PAIR_SWEEP_DOES_NOT_REPAIR_SUPPORT",
+    "default_8_12_support_rate": 0.0,
+    "default_8_12_top1": 0.016667,
+    "generalization_top1_threshold": 0.5,
+    "support_rate_by_period_pair": {
+      "10/16": 0.0,
+      "12/24": 0.0,
+      "16/32": 0.0,
+      "4/8": 0.0,
+      "5/10": 0.0,
+      "6/12": 0.0,
+      "7/11": 0.0,
+      "8/12": 0.0,
+      "8/16": 0.0,
+      "8/24": 0.0,
+      "9/15": 0.0
+    }
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage73_phase_cued_period_pair_support_audit/failed_runs.json",
+  "no_hardware_submission": true,
+  "per_example_csv_path": "logs/automated_stage_gates/stage73_phase_cued_period_pair_support_audit/per_example_results.csv",
+  "per_run_csv_path": "logs/automated_stage_gates/stage73_phase_cued_period_pair_support_audit/per_run_results.csv",
+  "period_pairs": [
+    [
+      4,
+      8
+    ],
+    [
+      5,
+      10
+    ],
+    [
+      6,
+      12
+    ],
+    [
+      7,
+      11
+    ],
+    [
+      8,
+      12
+    ],
+    [
+      8,
+      16
+    ],
+    [
+      8,
+      24
+    ],
+    [
+      9,
+      15
+    ],
+    [
+      10,
+      16
+    ],
+    [
+      12,
+      24
+    ],
+    [
+      16,
+      32
+    ]
+  ],
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage73_phase_cued_period_pair_support_audit/results.json",
+  "schema_version": "qrope_stage73_phase_cued_period_pair_support_audit_v1",
+  "stage": "stage73_phase_cued_period_pair_support_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage73_phase_cued_period_pair_support_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval"
+  ]
+}
