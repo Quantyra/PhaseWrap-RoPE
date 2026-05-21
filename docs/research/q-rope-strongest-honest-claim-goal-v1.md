@@ -34,6 +34,7 @@ Supported now:
 - Stage 45 runs a matched one-block decoder-only gate and records `PROMOTION_NOT_SUPPORTED`; the harness remains near chance and is not a reliable promotion discriminator.
 - Stage 46 applies longer training to that one-block harness and records `CAPACITY_NOT_ESTABLISHED`; weak PhaseWrap tiny text-fact QA positives remain below the capacity threshold.
 - Stage 47 applies Adam optimizer hardening and records `TRAIN_FIT_WITH_PARTIAL_GENERALIZATION`; PhaseWrap leads tiny text-fact QA, but retrieval lanes still fail held-out generalization.
+- Stage 48 reruns the Adam decoder audit across five seeds and records `TINY_QA_POSITIVE_NOT_PHASEWRAP_STABLE_RETRIEVAL_FAILED`; tiny text-fact QA stays positive, but the PhaseWrap lead is not stable and retrieval still fails.
 
 Not supported now:
 
@@ -47,6 +48,7 @@ Not supported now:
 - a claim that Stage 45 validates PhaseWrap-RoPE as a replacement or production transformer mechanism.
 - a claim that Stage 46 validates the one-block decoder harness as a positional-method discriminator.
 - a claim that Stage 47's tiny text-fact QA positive is enough for a RoPE-replacement claim.
+- a claim that the Stage 47 one-seed PhaseWrap tiny text-fact QA lead is stable across seeds.
 
 ## Decision Outcomes
 
@@ -68,4 +70,4 @@ Preferred next direction:
 - move from the partially generalizing one-block decoder-only gate into a stronger decoder-only harness;
 - report ranking and calibration even if the PhaseWrap result weakens.
 
-Because Stage 44 records the compact plateau and Stages 45-47 show the one-block decoder only partially generalizes, another diagnostic should be justified only if it directly improves retrieval generalization in the matched decoder-only transformer implementation.
+Because Stage 44 records the compact plateau and Stages 45-48 show the one-block decoder only partially generalizes, another diagnostic should be justified only if it directly improves retrieval generalization in the matched decoder-only transformer implementation.

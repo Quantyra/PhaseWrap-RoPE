@@ -150,6 +150,8 @@ Stage 46 audits that capacity/optimization failure with longer training. It stil
 
 Stage 47 replaces plain gradient descent with Adam on the same one-block decoder harness. It still does not satisfy this promotion gate because the retrieval lanes fail held-out generalization, even though train fit is solved and PhaseWrap variants lead the tiny text-fact QA lane.
 
+Stage 48 reruns the Adam decoder audit across five seeds. It still does not satisfy this promotion gate because the tiny text-fact QA positive is not PhaseWrap-stable and both retrieval lanes still have zero held-out top-1 for every method.
+
 Until then, the supported claim remains narrower: PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible classical analyses, bounded hardware readout witnesses, and mixed but useful toy downstream evidence.
 
 The next gate should replace or materially strengthen the matched decoder-only transformer enough to generalize on retrieval tasks, then rerun the same fair-comparison frame. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.

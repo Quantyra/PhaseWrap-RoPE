@@ -1,0 +1,60 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that a one-seed tiny text-fact QA lead is stable without multi-seed support",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A multi-seed stability audit for the Stage 47 Adam one-block decoder result.",
+      "Preservation of tiny text-fact QA positives and retrieval-generalization failures under the same fair method set.",
+      "Evidence about whether the one-seed PhaseWrap tiny text-fact QA lead is stable across seeds."
+    ]
+  },
+  "decision": {
+    "all_retrieval_failed": true,
+    "claim_boundary": "Tiny text-fact QA remains positive, but the one-seed PhaseWrap lead is not stable and retrieval still fails.",
+    "decision": "TINY_QA_POSITIVE_NOT_PHASEWRAP_STABLE_RETRIEVAL_FAILED",
+    "phasewrap_tiny_text_best": false,
+    "retrieval_best_methods": {
+      "exact_offset_passkey": "sinusoidal",
+      "phase_cued_retrieval": "phasewrap_adapter"
+    },
+    "retrieval_best_top1": {
+      "exact_offset_passkey": 0.0,
+      "phase_cued_retrieval": 0.0
+    },
+    "retrieval_generalizes": {
+      "exact_offset_passkey": false,
+      "phase_cued_retrieval": false
+    },
+    "tiny_text_best_method": "rope_relative",
+    "tiny_text_best_mrr": 0.651572,
+    "tiny_text_best_target_probability": 0.490031,
+    "tiny_text_best_top1": 0.5
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage48_adam_decoder_stability_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage48_adam_decoder_stability_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage48_adam_decoder_stability_audit/results.json",
+  "schema_version": "qrope_stage48_adam_decoder_stability_audit_v1",
+  "stage": "stage48_adam_decoder_stability_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage48_adam_decoder_stability_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
