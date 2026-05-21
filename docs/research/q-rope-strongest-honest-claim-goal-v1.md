@@ -37,6 +37,7 @@ Supported now:
 - Stage 48 reruns the Adam decoder audit across five seeds and records `TINY_QA_POSITIVE_NOT_PHASEWRAP_STABLE_RETRIEVAL_FAILED`; tiny text-fact QA stays positive, but the PhaseWrap lead is not stable and retrieval still fails.
 - Stage 49 applies a copy-decoder retrieval repair to the same row family and records `COPY_DECODER_PARTIALLY_REPAIRS_RETRIEVAL`; exact-offset passkey is repaired for `rope_relative`, tiny text-fact QA becomes easy for all methods, and phase-cued retrieval remains weak.
 - Stage 50 trains a learned pointer-generator decoder on the same row family and records `LEARNED_POINTER_GENERATOR_RETRIEVAL_REPAIR_FAILED`; tiny text-fact QA remains positive, but learned attention/gating does not preserve the Stage 49 fixed-copy exact-offset repair.
+- Stage 51 audits Stages 45-50 and records `BOUND_DECODER_PATH_PLATEAU`; optimizer and output-path repairs are useful bottleneck diagnostics, but learned decoder retrieval generalization is not established and PhaseWrap does not lead a repaired retrieval lane.
 
 Not supported now:
 
@@ -53,6 +54,7 @@ Not supported now:
 - a claim that the Stage 47 one-seed PhaseWrap tiny text-fact QA lead is stable across seeds.
 - a claim that Stage 49's copy-output repair is equivalent to free learned value generation or promotes PhaseWrap-RoPE over RoPE.
 - a claim that Stage 50 validates PhaseWrap-RoPE as a RoPE replacement or solves learned retrieval generation.
+- a claim that the Stage 45-50 decoder path should broaden the claim boundary after the Stage 51 plateau audit.
 
 ## Decision Outcomes
 
@@ -66,12 +68,12 @@ Until a matched transformer-style benchmark satisfies the evidence standard, the
 
 ## Next Gate
 
-The next gate should replace or materially strengthen the matched decoder-only implementation beyond the Stage 50 learned pointer-generator, then rerun the same fair RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap comparison.
+The next gate should replace or materially strengthen the matched decoder-only implementation beyond the Stage 51 decoder-path plateau, then rerun the same fair RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap comparison.
 
 Preferred next direction:
 
 - keep RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons matched;
-- move from the partially generalizing one-block decoder-only gate, bounded copy-output repair, and failed learned pointer-generator repair into a stronger decoder-only harness;
+- move from the partially generalizing one-block decoder-only gate, bounded copy-output repair, failed learned pointer-generator repair, and Stage 51 plateau into a stronger decoder-only harness;
 - report ranking and calibration even if the PhaseWrap result weakens.
 
-Because Stage 44 records the compact plateau and Stages 45-50 show that output repair only partially repairs retrieval and learned pointer-generation regresses that repair, another diagnostic should be justified only if it directly improves retrieval generalization in the matched decoder-only transformer implementation.
+Because Stage 44 records the compact plateau and Stage 51 records the decoder-path plateau, another diagnostic should be justified only if it directly improves retrieval generalization in a materially stronger matched decoder-only transformer implementation.

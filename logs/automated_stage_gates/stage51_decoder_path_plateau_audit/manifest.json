@@ -1,0 +1,34 @@
+{
+  "decision": {
+    "all_failed_runs_retained_empty": true,
+    "any_retrieval_generalized_by_stage": {
+      "stage49_copy_decoder_retrieval_repair_audit": [
+        "exact_offset_passkey"
+      ]
+    },
+    "claim_boundary": "Stages 45-50 form a bounded decoder-path plateau: optimizer and output repairs expose useful diagnostics, but learned decoder retrieval generalization is not established and PhaseWrap does not lead a repaired retrieval lane.",
+    "decision": "BOUND_DECODER_PATH_PLATEAU",
+    "final_stage_name": "stage50_learned_pointer_generator_decoder_audit",
+    "final_stage_retrieval_generalized": false,
+    "fixed_copy_only_generalizes": true,
+    "next_gate": "Move beyond one-block and pointer-generator repairs into a materially stronger matched decoder-only transformer before broadening positional-method claims.",
+    "phasewrap_retrieval_generalized_by_stage": {},
+    "retrieval_top1_threshold": 0.5
+  },
+  "result_path": "logs/automated_stage_gates/stage51_decoder_path_plateau_audit/results.json",
+  "retrieval_tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey"
+  ],
+  "schema_version": "qrope_stage51_decoder_path_plateau_audit_v1",
+  "source_stages": [
+    "stage45_matched_decoder_only_gate",
+    "stage46_decoder_capacity_hardening_audit",
+    "stage47_adam_decoder_generalization_audit",
+    "stage48_adam_decoder_stability_audit",
+    "stage49_copy_decoder_retrieval_repair_audit",
+    "stage50_learned_pointer_generator_decoder_audit"
+  ],
+  "stage": "stage51_decoder_path_plateau_audit",
+  "summary_csv_path": "logs/automated_stage_gates/stage51_decoder_path_plateau_audit/summary.csv"
+}

@@ -1,0 +1,245 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "broad quantum advantage",
+      "a claim that the Stage 49 fixed-copy repair solves learned retrieval generation"
+    ],
+    "supported": [
+      "A reproducible plateau audit over the matched one-block, fixed-copy, and learned pointer-generator decoder path.",
+      "A bounded claim that output repairs diagnose bottlenecks without establishing learned retrieval generation.",
+      "A negative claim that Stages 45-50 do not justify RoPE-replacement or production-transformer claims."
+    ]
+  },
+  "decision": {
+    "all_failed_runs_retained_empty": true,
+    "any_retrieval_generalized_by_stage": {
+      "stage49_copy_decoder_retrieval_repair_audit": [
+        "exact_offset_passkey"
+      ]
+    },
+    "claim_boundary": "Stages 45-50 form a bounded decoder-path plateau: optimizer and output repairs expose useful diagnostics, but learned decoder retrieval generalization is not established and PhaseWrap does not lead a repaired retrieval lane.",
+    "decision": "BOUND_DECODER_PATH_PLATEAU",
+    "final_stage_name": "stage50_learned_pointer_generator_decoder_audit",
+    "final_stage_retrieval_generalized": false,
+    "fixed_copy_only_generalizes": true,
+    "next_gate": "Move beyond one-block and pointer-generator repairs into a materially stronger matched decoder-only transformer before broadening positional-method claims.",
+    "phasewrap_retrieval_generalized_by_stage": {},
+    "retrieval_top1_threshold": 0.5
+  },
+  "retrieval_tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey"
+  ],
+  "schema_version": "qrope_stage51_decoder_path_plateau_audit_v1",
+  "source_stages": [
+    "stage45_matched_decoder_only_gate",
+    "stage46_decoder_capacity_hardening_audit",
+    "stage47_adam_decoder_generalization_audit",
+    "stage48_adam_decoder_stability_audit",
+    "stage49_copy_decoder_retrieval_repair_audit",
+    "stage50_learned_pointer_generator_decoder_audit"
+  ],
+  "stage": "stage51_decoder_path_plateau_audit",
+  "stage_records": [
+    {
+      "claim_boundary": "This matched one-block decoder-only gate does not promote PhaseWrap-RoPE beyond the bounded claim.",
+      "decision": "PROMOTION_NOT_SUPPORTED",
+      "diagnostic_class": "matched_one_block_decoder_gate",
+      "failed_run_count": 0,
+      "method_names": [
+        "no_position",
+        "sinusoidal",
+        "alibi",
+        "rope_relative",
+        "phasewrap_bias",
+        "phasewrap_adapter"
+      ],
+      "phasewrap_retrieval_generalized_tasks": [],
+      "retrieval_best_methods": {
+        "exact_offset_passkey": "phasewrap_adapter",
+        "phase_cued_retrieval": "sinusoidal",
+        "tiny_text_fact_qa": "phasewrap_adapter"
+      },
+      "retrieval_best_top1": {
+        "exact_offset_passkey": 0.025,
+        "phase_cued_retrieval": 0.025,
+        "tiny_text_fact_qa": 0.0
+      },
+      "retrieval_generalized_tasks": [],
+      "stage_name": "stage45_matched_decoder_only_gate",
+      "stage_number": 45,
+      "status": "completed",
+      "tasks": [
+        "phase_cued_retrieval",
+        "exact_offset_passkey",
+        "tiny_text_fact_qa"
+      ],
+      "tiny_text_best_method": null,
+      "tiny_text_best_top1": null
+    },
+    {
+      "claim_boundary": "Longer training does not make the one-block decoder fit the training rows well enough for positional-method promotion.",
+      "decision": "CAPACITY_NOT_ESTABLISHED",
+      "diagnostic_class": "one_block_capacity_hardening",
+      "failed_run_count": 0,
+      "method_names": [
+        "no_position",
+        "sinusoidal",
+        "alibi",
+        "rope_relative",
+        "phasewrap_bias",
+        "phasewrap_adapter"
+      ],
+      "phasewrap_retrieval_generalized_tasks": [],
+      "retrieval_best_methods": {},
+      "retrieval_best_top1": {},
+      "retrieval_generalized_tasks": [],
+      "stage_name": "stage46_decoder_capacity_hardening_audit",
+      "stage_number": 46,
+      "status": "completed",
+      "tasks": [
+        "phase_cued_retrieval",
+        "exact_offset_passkey",
+        "tiny_text_fact_qa"
+      ],
+      "tiny_text_best_method": "phasewrap_adapter",
+      "tiny_text_best_top1": 0.5
+    },
+    {
+      "claim_boundary": "Adam hardening establishes train fit, but generalization is incomplete across retrieval tasks, so positional-method promotion remains unsupported.",
+      "decision": "TRAIN_FIT_WITH_PARTIAL_GENERALIZATION",
+      "diagnostic_class": "one_block_adam_generalization",
+      "failed_run_count": 0,
+      "method_names": [
+        "no_position",
+        "sinusoidal",
+        "alibi",
+        "rope_relative",
+        "phasewrap_bias",
+        "phasewrap_adapter"
+      ],
+      "phasewrap_retrieval_generalized_tasks": [],
+      "retrieval_best_methods": {},
+      "retrieval_best_top1": {},
+      "retrieval_generalized_tasks": [],
+      "stage_name": "stage47_adam_decoder_generalization_audit",
+      "stage_number": 47,
+      "status": "completed",
+      "tasks": [
+        "phase_cued_retrieval",
+        "exact_offset_passkey",
+        "tiny_text_fact_qa"
+      ],
+      "tiny_text_best_method": "phasewrap_bias",
+      "tiny_text_best_top1": 0.75
+    },
+    {
+      "claim_boundary": "Tiny text-fact QA remains positive, but the one-seed PhaseWrap lead is not stable and retrieval still fails.",
+      "decision": "TINY_QA_POSITIVE_NOT_PHASEWRAP_STABLE_RETRIEVAL_FAILED",
+      "diagnostic_class": "one_block_adam_stability",
+      "failed_run_count": 0,
+      "method_names": [
+        "no_position",
+        "sinusoidal",
+        "alibi",
+        "rope_relative",
+        "phasewrap_bias",
+        "phasewrap_adapter"
+      ],
+      "phasewrap_retrieval_generalized_tasks": [],
+      "retrieval_best_methods": {
+        "exact_offset_passkey": "sinusoidal",
+        "phase_cued_retrieval": "phasewrap_adapter"
+      },
+      "retrieval_best_top1": {
+        "exact_offset_passkey": 0.0,
+        "phase_cued_retrieval": 0.0
+      },
+      "retrieval_generalized_tasks": [],
+      "stage_name": "stage48_adam_decoder_stability_audit",
+      "stage_number": 48,
+      "status": "completed",
+      "tasks": [
+        "phase_cued_retrieval",
+        "exact_offset_passkey",
+        "tiny_text_fact_qa"
+      ],
+      "tiny_text_best_method": "rope_relative",
+      "tiny_text_best_top1": 0.5
+    },
+    {
+      "claim_boundary": "Copy-output repair helps at least one retrieval lane but does not solve the full retrieval set.",
+      "decision": "COPY_DECODER_PARTIALLY_REPAIRS_RETRIEVAL",
+      "diagnostic_class": "fixed_copy_decoder_repair",
+      "failed_run_count": 0,
+      "method_names": [
+        "no_position",
+        "sinusoidal",
+        "alibi",
+        "rope_relative",
+        "phasewrap_bias",
+        "phasewrap_adapter"
+      ],
+      "phasewrap_retrieval_generalized_tasks": [],
+      "retrieval_best_methods": {
+        "exact_offset_passkey": "rope_relative",
+        "phase_cued_retrieval": "sinusoidal"
+      },
+      "retrieval_best_top1": {
+        "exact_offset_passkey": 1.0,
+        "phase_cued_retrieval": 0.1
+      },
+      "retrieval_generalized_tasks": [
+        "exact_offset_passkey"
+      ],
+      "stage_name": "stage49_copy_decoder_retrieval_repair_audit",
+      "stage_number": 49,
+      "status": "completed",
+      "tasks": [
+        "phase_cued_retrieval",
+        "exact_offset_passkey",
+        "tiny_text_fact_qa"
+      ],
+      "tiny_text_best_method": "sinusoidal",
+      "tiny_text_best_top1": 1.0
+    },
+    {
+      "claim_boundary": "The learned pointer-generator does not establish retrieval generalization.",
+      "decision": "LEARNED_POINTER_GENERATOR_RETRIEVAL_REPAIR_FAILED",
+      "diagnostic_class": "learned_pointer_generator_decoder",
+      "failed_run_count": 0,
+      "method_names": [
+        "no_position",
+        "sinusoidal",
+        "alibi",
+        "rope_relative",
+        "phasewrap_bias",
+        "phasewrap_adapter"
+      ],
+      "phasewrap_retrieval_generalized_tasks": [],
+      "retrieval_best_methods": {
+        "exact_offset_passkey": "sinusoidal",
+        "phase_cued_retrieval": "no_position"
+      },
+      "retrieval_best_top1": {
+        "exact_offset_passkey": 0.1,
+        "phase_cued_retrieval": 0.1
+      },
+      "retrieval_generalized_tasks": [],
+      "stage_name": "stage50_learned_pointer_generator_decoder_audit",
+      "stage_number": 50,
+      "status": "completed",
+      "tasks": [
+        "phase_cued_retrieval",
+        "exact_offset_passkey",
+        "tiny_text_fact_qa"
+      ],
+      "tiny_text_best_method": "sinusoidal",
+      "tiny_text_best_top1": 0.9
+    }
+  ],
+  "tiny_text_task": "tiny_text_fact_qa"
+}
