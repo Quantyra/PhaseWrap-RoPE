@@ -29,7 +29,7 @@ Supported now:
 - PhaseWrap-RoPE is an auditable modular phase-wrap scoring rule with reproducible classical analyses.
 - The repository contains bounded small-circuit hardware readout witnesses for the recorded packets, providers, dates, and calibration contexts.
 - PhaseWrap-derived adapters can be competitive on ranking in several compact retrieval and copy-aware diagnostics.
-- Stage 42 shows that a trainable pointer-generator preserves much of the Stage 41 sequence repair, with PhaseWrap-derived adapters still ranking competitively.
+- Stage 43 shows that generator-target hardening improves the Stage 42 learned vocab branch and preserves PhaseWrap-derived ranking competitiveness.
 
 Not supported now:
 
@@ -38,7 +38,7 @@ Not supported now:
 - broad quantum advantage;
 - a claim that PhaseWrap-RoPE replaces RoPE;
 - a claim that the Stage 4 hardware witnesses establish model advantage;
-- a claim that Stage 42 solves free learned value generation.
+- a claim that Stage 43 solves free learned value generation or validates PhaseWrap-RoPE as a RoPE replacement.
 
 ## Decision Outcomes
 
@@ -52,13 +52,12 @@ Until a matched transformer-style benchmark satisfies the evidence standard, the
 
 ## Next Gate
 
-The next gate should test the Stage 42 bottleneck directly: whether copy-aware ranking can survive a stronger trainable output mechanism and close some of the RoPE-like probability/calibration gap.
+The next gate should move beyond compact output-path diagnostics: either test the same fair comparison in a stronger matched decoder-only transformer, or record a bounded compact-diagnostic plateau before further claim expansion.
 
-Preferred Stage 43 direction:
+Preferred next direction:
 
-- harden the trainable pointer-generator output path with copy-gate calibration, copy supervision, or generator-target hardening;
 - keep RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons matched;
-- retain the Stage 40-42 train-short/test-long setup unless a stronger decoder-only harness is implemented in the same fair-comparison frame;
+- move from compact pointer-generator diagnostics toward a stronger decoder-only harness when practical;
 - report ranking and calibration even if the PhaseWrap result weakens.
 
-If Stage 43 still leaves RoPE-like scoring clearly stronger on probability/calibration, the next step should move to a stronger matched decoder-only transformer or record a bounded-claim plateau rather than adding more compact diagnostics.
+Because Stage 43 still leaves RoPE-like scoring clearly stronger on probability/calibration, another compact diagnostic should be justified only if it directly prepares the matched decoder-only transformer or a bounded-claim plateau audit.
