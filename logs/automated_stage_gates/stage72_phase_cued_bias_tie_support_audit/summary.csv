@@ -1,0 +1,7 @@
+task,method,seed_count,failed_run_count,train_top1_accuracy_mean,train_mrr_mean,train_mean_target_probability_mean,train_target_in_max_tie_rate_mean,train_mean_max_tie_count_mean,train_mean_target_bias_rank_mean,validation_top1_accuracy_mean,validation_mrr_mean,validation_mean_target_probability_mean,validation_target_in_max_tie_rate_mean,validation_mean_max_tie_count_mean,validation_mean_target_bias_rank_mean,test_top1_accuracy_mean,test_mrr_mean,test_mean_target_probability_mean,test_target_in_max_tie_rate_mean,test_mean_max_tie_count_mean,test_mean_target_bias_rank_mean
+phase_cued_retrieval,no_position,5,0,0.066667,0.18982,0.045792,1.0,27.0,14.966667,0.033333,0.151683,0.035043,1.0,39.0,11.466667,0.066666,0.165671,0.026973,1.0,55.0,11.9
+phase_cued_retrieval,sinusoidal,5,0,0.916667,0.918542,0.916667,0.916667,1.0,1.416667,0.3,0.321755,0.3,0.266667,1.3,5.833333,0.0,0.049748,0.008333,0.0,1.833333,8.683333
+phase_cued_retrieval,alibi,5,0,0.0,0.043376,0.0,0.0,1.0,13.033333,0.0,0.026409,0.0,0.0,1.0,28.533333,0.0,0.049985,0.0,0.0,1.0,44.1
+phase_cued_retrieval,rope_relative,5,0,0.916667,0.918542,0.916667,0.916667,1.0,2.583333,0.3,0.323948,0.3,0.266667,1.0,17.333333,0.016667,0.066365,0.016667,0.0,1.0,39.283333
+phase_cued_retrieval,phasewrap_bias,5,0,0.016667,0.073409,0.027778,0.0,2.15,14.733333,0.0,0.038703,0.011111,0.0,3.3,21.5,0.016667,0.050266,0.006667,0.0,4.5,29.083333
+phase_cued_retrieval,phasewrap_adapter,5,0,0.016667,0.076248,0.033334,0.0,1.766667,15.416667,0.0,0.024677,0.0,0.0,1.866666,29.0,0.016667,0.058062,0.008333,0.0,1.866667,42.1

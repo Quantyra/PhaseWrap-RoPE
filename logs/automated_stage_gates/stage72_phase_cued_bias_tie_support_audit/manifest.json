@@ -1,0 +1,63 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that tie-aware support is learned decoder-only transformer behavior",
+      "a claim that no-position all-support ambiguity is positional-method evidence",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential tie-aware positional-bias support audit on original phase-cued rows.",
+      "Evidence about whether the target position appears in each method's maximum-bias candidate set.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons without row metadata, learned parameters, or fallback lookup."
+    ]
+  },
+  "decision": {
+    "best_target_in_max_tie_method": "no_position",
+    "best_top1": 0.066666,
+    "best_top1_method": "no_position",
+    "claim_boundary": "PhaseWrap max-bias support does not include the original held-out phase-cued target often enough to explain the blocker as argmax tie-breaking.",
+    "decision": "PHASE_CUED_TARGET_NOT_IN_PHASEWRAP_MAX_BIAS_SUPPORT",
+    "generalization_top1_threshold": 0.5,
+    "mean_max_tie_count_by_method": {
+      "alibi": 1.0,
+      "no_position": 55.0,
+      "phasewrap_adapter": 1.866667,
+      "phasewrap_bias": 4.5,
+      "rope_relative": 1.0,
+      "sinusoidal": 1.833333
+    },
+    "phasewrap_best_target_in_max_tie_rate": 0.0,
+    "target_in_max_tie_rate_by_method": {
+      "alibi": 0.0,
+      "no_position": 1.0,
+      "phasewrap_adapter": 0.0,
+      "phasewrap_bias": 0.0,
+      "rope_relative": 0.0,
+      "sinusoidal": 0.0
+    }
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage72_phase_cued_bias_tie_support_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_example_csv_path": "logs/automated_stage_gates/stage72_phase_cued_bias_tie_support_audit/per_example_results.csv",
+  "per_run_csv_path": "logs/automated_stage_gates/stage72_phase_cued_bias_tie_support_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage72_phase_cued_bias_tie_support_audit/results.json",
+  "schema_version": "qrope_stage72_phase_cued_bias_tie_support_audit_v1",
+  "stage": "stage72_phase_cued_bias_tie_support_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage72_phase_cued_bias_tie_support_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval"
+  ]
+}

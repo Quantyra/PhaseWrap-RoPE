@@ -1,0 +1,901 @@
+task,split,seed,method,example_id,sequence_length,query_pos,reference_delta,target_delta,target_pos,label_token,target_probability,target_rank,top1_hit,top1_confidence,target_in_max_tie,max_tie_count,target_bias_rank,best_bias,target_bias,best_deltas
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L24_000,24,23,8,8,15,3,0.043478,5,0.0,0.086957,True,23,16,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L24_001,24,23,11,11,12,13,0.043478,3,0.0,0.043478,True,23,13,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L24_002,24,23,12,12,11,21,0.043478,7,0.0,0.086957,True,23,12,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L24_003,24,23,16,16,7,32,0.043478,7,0.0,0.086957,True,23,8,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L24_004,24,23,19,19,4,42,0.130435,1,1.0,0.130435,True,23,5,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L24_005,24,23,5,5,18,35,0.043478,9,0.0,0.043478,True,23,19,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L32_000,32,31,11,11,20,94,0.032258,25,0.0,0.064516,True,31,21,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L32_001,32,31,12,12,19,102,0.032258,25,0.0,0.064516,True,31,20,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L32_002,32,31,16,16,15,1,0.032258,5,0.0,0.064516,True,31,16,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L32_003,32,31,19,19,12,11,0.064516,3,0.0,0.096774,True,31,13,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L32_004,32,31,5,29,2,28,0.032258,11,0.0,0.064516,True,31,3,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,307,no_position,phase_cued_retrieval_train_seed307_L32_005,32,31,7,7,24,13,0.096774,1,1.0,0.096774,True,31,25,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,validation,307,no_position,phase_cued_retrieval_validation_seed307_L40_000,40,39,12,36,3,95,0.051282,6,0.0,0.102564,True,39,4,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,307,no_position,phase_cued_retrieval_validation_seed307_L40_001,40,39,16,16,23,82,0.076923,1,1.0,0.076923,True,39,24,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,307,no_position,phase_cued_retrieval_validation_seed307_L40_002,40,39,19,19,20,92,0.025641,28,0.0,0.076923,True,39,21,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,307,no_position,phase_cued_retrieval_validation_seed307_L40_003,40,39,5,29,10,109,0.025641,34,0.0,0.051282,True,39,11,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,307,no_position,phase_cued_retrieval_validation_seed307_L40_004,40,39,7,31,8,6,0.025641,4,0.0,0.076923,True,39,9,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,307,no_position,phase_cued_retrieval_validation_seed307_L40_005,40,39,8,32,7,14,0.025641,8,0.0,0.051282,True,39,8,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L48_000,48,47,16,40,7,75,0.042553,8,0.0,0.042553,True,47,8,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L48_001,48,47,19,43,4,85,0.021277,31,0.0,0.085106,True,47,5,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L48_002,48,47,5,29,18,78,0.042553,3,0.0,0.085106,True,47,19,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L48_003,48,47,7,31,16,87,0.021277,30,0.0,0.06383,True,47,17,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L48_004,48,47,8,32,15,95,0.021277,33,0.0,0.085106,True,47,16,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L48_005,48,47,11,35,12,105,0.06383,1,1.0,0.06383,True,47,13,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L64_000,64,63,5,53,10,40,0.015873,23,0.0,0.063492,True,63,11,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L64_001,64,63,7,55,8,49,0.031746,7,0.0,0.047619,True,63,9,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L64_002,64,63,8,56,7,57,0.015873,33,0.0,0.047619,True,63,8,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L64_003,64,63,11,59,4,67,0.031746,9,0.0,0.031746,True,63,5,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L64_004,64,63,12,60,3,75,0.015873,36,0.0,0.063492,True,63,4,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,307,no_position,phase_cued_retrieval_test_seed307_L64_005,64,63,16,40,23,62,0.015873,34,0.0,0.047619,True,63,24,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L24_000,24,23,8,8,15,3,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L24_001,24,23,11,11,12,13,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L24_002,24,23,12,12,11,21,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L24_003,24,23,16,16,7,32,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L24_004,24,23,19,19,4,42,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L24_005,24,23,5,5,18,35,1.0,1,1.0,1.0,True,1,1,1.0,1.0,5
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L32_000,32,31,11,11,20,94,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L32_001,32,31,12,12,19,102,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L32_002,32,31,16,16,15,1,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L32_003,32,31,19,19,12,11,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L32_004,32,31,5,29,2,28,0.0,30,0.0,1.0,False,1,6,1.0,0.25,5
+phase_cued_retrieval,train,307,sinusoidal,phase_cued_retrieval_train_seed307_L32_005,32,31,7,7,24,13,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,validation,307,sinusoidal,phase_cued_retrieval_validation_seed307_L40_000,40,39,12,36,3,95,0.0,96,0.0,1.0,False,1,7,1.0,0.25,12
+phase_cued_retrieval,validation,307,sinusoidal,phase_cued_retrieval_validation_seed307_L40_001,40,39,16,16,23,82,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,validation,307,sinusoidal,phase_cued_retrieval_validation_seed307_L40_002,40,39,19,19,20,92,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,validation,307,sinusoidal,phase_cued_retrieval_validation_seed307_L40_003,40,39,5,29,10,109,0.0,110,0.0,0.5,False,2,9,1.0,0.25,37 5
+phase_cued_retrieval,validation,307,sinusoidal,phase_cued_retrieval_validation_seed307_L40_004,40,39,7,31,8,6,0.0,9,0.0,0.5,False,2,8,1.0,0.25,39 7
+phase_cued_retrieval,validation,307,sinusoidal,phase_cued_retrieval_validation_seed307_L40_005,40,39,8,32,7,14,0.0,16,0.0,1.0,False,1,7,1.0,0.25,8
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L48_000,48,47,16,40,7,75,0.0,76,0.0,1.0,False,1,8,1.0,0.25,16
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L48_001,48,47,19,43,4,85,0.0,87,0.0,1.0,False,1,8,1.0,0.25,19
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L48_002,48,47,5,29,18,78,0.0,81,0.0,0.5,False,2,10,1.0,0.25,37 5
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L48_003,48,47,7,31,16,87,0.0,88,0.0,0.5,False,2,10,1.0,0.25,39 7
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L48_004,48,47,8,32,15,95,0.0,96,0.0,0.5,False,2,9,1.0,0.25,40 8
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L48_005,48,47,11,35,12,105,0.0,106,0.0,0.5,False,2,10,1.0,0.25,43 11
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L64_000,64,63,5,53,10,40,0.0,43,0.0,0.5,False,2,7,1.0,0.5,37 5
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L64_001,64,63,7,55,8,49,0.0,51,0.0,0.5,False,2,7,1.0,0.5,39 7
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L64_002,64,63,8,56,7,57,0.0,59,0.0,0.5,False,2,7,1.0,0.5,40 8
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L64_003,64,63,11,59,4,67,0.0,70,0.0,0.5,False,2,7,1.0,0.5,43 11
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L64_004,64,63,12,60,3,75,0.0,77,0.0,0.5,False,2,7,1.0,0.5,44 12
+phase_cued_retrieval,test,307,sinusoidal,phase_cued_retrieval_test_seed307_L64_005,64,63,16,40,23,62,0.0,64,0.0,0.5,False,2,11,1.0,0.25,48 16
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L24_000,24,23,8,8,15,3,0.0,5,0.0,1.0,False,1,8,-0.043478,-0.347826,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L24_001,24,23,11,11,12,13,0.0,15,0.0,1.0,False,1,11,-0.043478,-0.478261,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L24_002,24,23,12,12,11,21,0.0,23,0.0,1.0,False,1,12,-0.043478,-0.521739,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L24_003,24,23,16,16,7,32,0.0,34,0.0,1.0,False,1,16,-0.043478,-0.695652,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L24_004,24,23,19,19,4,42,0.0,44,0.0,1.0,False,1,19,-0.043478,-0.826087,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L24_005,24,23,5,5,18,35,0.0,37,0.0,1.0,False,1,5,-0.043478,-0.217391,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L32_000,32,31,11,11,20,94,0.0,95,0.0,1.0,False,1,11,-0.032258,-0.354839,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L32_001,32,31,12,12,19,102,0.0,104,0.0,1.0,False,1,12,-0.032258,-0.387097,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L32_002,32,31,16,16,15,1,0.0,3,0.0,1.0,False,1,16,-0.032258,-0.516129,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L32_003,32,31,19,19,12,11,0.0,13,0.0,1.0,False,1,19,-0.032258,-0.612903,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L32_004,32,31,5,29,2,28,0.0,30,0.0,1.0,False,1,29,-0.032258,-0.935484,1
+phase_cued_retrieval,train,307,alibi,phase_cued_retrieval_train_seed307_L32_005,32,31,7,7,24,13,0.0,15,0.0,1.0,False,1,7,-0.032258,-0.225806,1
+phase_cued_retrieval,validation,307,alibi,phase_cued_retrieval_validation_seed307_L40_000,40,39,12,36,3,95,0.0,96,0.0,1.0,False,1,36,-0.025641,-0.923077,1
+phase_cued_retrieval,validation,307,alibi,phase_cued_retrieval_validation_seed307_L40_001,40,39,16,16,23,82,0.0,83,0.0,1.0,False,1,16,-0.025641,-0.410256,1
+phase_cued_retrieval,validation,307,alibi,phase_cued_retrieval_validation_seed307_L40_002,40,39,19,19,20,92,0.0,93,0.0,1.0,False,1,19,-0.025641,-0.487179,1
+phase_cued_retrieval,validation,307,alibi,phase_cued_retrieval_validation_seed307_L40_003,40,39,5,29,10,109,0.0,110,0.0,1.0,False,1,29,-0.025641,-0.74359,1
+phase_cued_retrieval,validation,307,alibi,phase_cued_retrieval_validation_seed307_L40_004,40,39,7,31,8,6,0.0,8,0.0,1.0,False,1,31,-0.025641,-0.794872,1
+phase_cued_retrieval,validation,307,alibi,phase_cued_retrieval_validation_seed307_L40_005,40,39,8,32,7,14,0.0,16,0.0,1.0,False,1,32,-0.025641,-0.820513,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L48_000,48,47,16,40,7,75,0.0,76,0.0,1.0,False,1,40,-0.021277,-0.851064,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L48_001,48,47,19,43,4,85,0.0,86,0.0,1.0,False,1,43,-0.021277,-0.914894,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L48_002,48,47,5,29,18,78,0.0,79,0.0,1.0,False,1,29,-0.021277,-0.617021,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L48_003,48,47,7,31,16,87,0.0,88,0.0,1.0,False,1,31,-0.021277,-0.659574,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L48_004,48,47,8,32,15,95,0.0,96,0.0,1.0,False,1,32,-0.021277,-0.680851,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L48_005,48,47,11,35,12,105,0.0,106,0.0,1.0,False,1,35,-0.021277,-0.744681,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L64_000,64,63,5,53,10,40,0.0,42,0.0,1.0,False,1,53,-0.015873,-0.84127,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L64_001,64,63,7,55,8,49,0.0,51,0.0,1.0,False,1,55,-0.015873,-0.873016,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L64_002,64,63,8,56,7,57,0.0,58,0.0,1.0,False,1,56,-0.015873,-0.888889,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L64_003,64,63,11,59,4,67,0.0,69,0.0,1.0,False,1,59,-0.015873,-0.936508,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L64_004,64,63,12,60,3,75,0.0,77,0.0,1.0,False,1,60,-0.015873,-0.952381,1
+phase_cued_retrieval,test,307,alibi,phase_cued_retrieval_test_seed307_L64_005,64,63,16,40,23,62,0.0,63,0.0,1.0,False,1,40,-0.015873,-0.634921,1
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L24_000,24,23,8,8,15,3,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L24_001,24,23,11,11,12,13,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L24_002,24,23,12,12,11,21,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L24_003,24,23,16,16,7,32,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L24_004,24,23,19,19,4,42,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L24_005,24,23,5,5,18,35,1.0,1,1.0,1.0,True,1,1,1.0,1.0,5
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L32_000,32,31,11,11,20,94,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L32_001,32,31,12,12,19,102,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L32_002,32,31,16,16,15,1,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L32_003,32,31,19,19,12,11,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L32_004,32,31,5,29,2,28,0.0,30,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,train,307,rope_relative,phase_cued_retrieval_train_seed307_L32_005,32,31,7,7,24,13,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,validation,307,rope_relative,phase_cued_retrieval_validation_seed307_L40_000,40,39,12,36,3,95,0.0,96,0.0,1.0,False,1,26,1.0,0.620591,12
+phase_cued_retrieval,validation,307,rope_relative,phase_cued_retrieval_validation_seed307_L40_001,40,39,16,16,23,82,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,validation,307,rope_relative,phase_cued_retrieval_validation_seed307_L40_002,40,39,19,19,20,92,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,validation,307,rope_relative,phase_cued_retrieval_validation_seed307_L40_003,40,39,5,29,10,109,0.0,110,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,validation,307,rope_relative,phase_cued_retrieval_validation_seed307_L40_004,40,39,7,31,8,6,0.0,8,0.0,1.0,False,1,22,1.0,0.620591,7
+phase_cued_retrieval,validation,307,rope_relative,phase_cued_retrieval_validation_seed307_L40_005,40,39,8,32,7,14,0.0,16,0.0,1.0,False,1,23,1.0,0.620591,8
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L48_000,48,47,16,40,7,75,0.0,76,0.0,1.0,False,1,28,1.0,0.620591,16
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L48_001,48,47,19,43,4,85,0.0,87,0.0,1.0,False,1,28,1.0,0.620591,19
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L48_002,48,47,5,29,18,78,0.0,80,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L48_003,48,47,7,31,16,87,0.0,88,0.0,1.0,False,1,22,1.0,0.620591,7
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L48_004,48,47,8,32,15,95,0.0,96,0.0,1.0,False,1,23,1.0,0.620591,8
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L48_005,48,47,11,35,12,105,0.0,106,0.0,1.0,False,1,25,1.0,0.620591,11
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L64_000,64,63,5,53,10,40,0.0,42,0.0,1.0,False,1,63,1.0,0.331841,5
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L64_001,64,63,7,55,8,49,0.0,51,0.0,1.0,False,1,63,1.0,0.331841,7
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L64_002,64,63,8,56,7,57,0.0,59,0.0,1.0,False,1,63,1.0,0.331841,8
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L64_003,64,63,11,59,4,67,0.0,69,0.0,1.0,False,1,63,1.0,0.331841,11
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L64_004,64,63,12,60,3,75,0.0,76,0.0,1.0,False,1,63,1.0,0.331841,12
+phase_cued_retrieval,test,307,rope_relative,phase_cued_retrieval_test_seed307_L64_005,64,63,16,40,23,62,0.0,63,0.0,1.0,False,1,28,1.0,0.620591,16
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L24_000,24,23,8,8,15,3,0.0,6,0.0,0.5,False,2,13,2.44949,0.03924,13 3
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L24_001,24,23,11,11,12,13,0.0,16,0.0,0.5,False,2,13,2.44949,0.03924,16 6
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L24_002,24,23,12,12,11,21,0.0,23,0.0,0.5,False,2,13,2.44949,0.03924,17 7
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L24_003,24,23,16,16,7,32,0.0,35,0.0,0.5,False,2,13,2.44949,0.03924,21 11
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L24_004,24,23,19,19,4,42,0.0,44,0.0,1.0,False,1,12,2.44949,0.03924,14
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L24_005,24,23,5,5,18,35,0.0,36,0.0,1.0,False,1,12,2.44949,0.03924,10
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L32_000,32,31,11,11,20,94,0.0,96,0.0,0.333333,False,3,17,2.44949,0.03924,30 16 6
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L32_001,32,31,12,12,19,102,0.0,104,0.0,0.333333,False,3,16,2.44949,0.03924,31 17 7
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L32_002,32,31,16,16,15,1,0.0,4,0.0,0.5,False,2,15,2.44949,0.03924,21 11
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L32_003,32,31,19,19,12,11,0.0,13,0.0,0.5,False,2,15,2.44949,0.03924,24 14
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L32_004,32,31,5,29,2,28,0.0,31,0.0,0.5,False,2,17,2.44949,0.03924,24 10
+phase_cued_retrieval,train,307,phasewrap_bias,phase_cued_retrieval_train_seed307_L32_005,32,31,7,7,24,13,0.333333,2,0.0,0.333333,False,3,19,2.44949,0.03924,26 12 2
+phase_cued_retrieval,validation,307,phasewrap_bias,phase_cued_retrieval_validation_seed307_L40_000,40,39,12,36,3,95,0.333333,2,0.0,0.666667,False,3,21,2.44949,0.03924,31 17 7
+phase_cued_retrieval,validation,307,phasewrap_bias,phase_cued_retrieval_validation_seed307_L40_001,40,39,16,16,23,82,0.0,85,0.0,0.333333,False,3,20,2.44949,0.03924,35 21 11
+phase_cued_retrieval,validation,307,phasewrap_bias,phase_cued_retrieval_validation_seed307_L40_002,40,39,19,19,20,92,0.0,95,0.0,0.333333,False,3,19,2.44949,0.03924,38 24 14
+phase_cued_retrieval,validation,307,phasewrap_bias,phase_cued_retrieval_validation_seed307_L40_003,40,39,5,29,10,109,0.0,110,0.0,0.333333,False,3,22,2.44949,0.03924,34 24 10
+phase_cued_retrieval,validation,307,phasewrap_bias,phase_cued_retrieval_validation_seed307_L40_004,40,39,7,31,8,6,0.0,11,0.0,0.25,False,4,23,2.44949,0.03924,36 26 12 2
+phase_cued_retrieval,validation,307,phasewrap_bias,phase_cued_retrieval_validation_seed307_L40_005,40,39,8,32,7,14,0.0,18,0.0,0.25,False,4,23,2.44949,0.03924,37 27 13 3
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L48_000,48,47,16,40,7,75,0.0,77,0.0,0.25,False,4,25,2.44949,0.03924,45 35 21 11
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L48_001,48,47,19,43,4,85,0.0,87,0.0,0.333333,False,3,24,2.44949,0.03924,38 24 14
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L48_002,48,47,5,29,18,78,0.0,79,0.0,0.333333,False,3,24,2.44949,0.03924,34 24 10
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L48_003,48,47,7,31,16,87,0.0,89,0.0,0.25,False,4,25,2.44949,0.03924,36 26 12 2
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L48_004,48,47,8,32,15,95,0.0,96,0.0,0.5,False,4,25,2.44949,0.03924,37 27 13 3
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L48_005,48,47,11,35,12,105,0.0,106,0.0,0.25,False,4,25,2.44949,0.03924,40 30 16 6
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L64_000,64,63,5,53,10,40,0.0,41,0.0,0.2,False,5,34,2.44949,0.03924,58 48 34 24 10
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L64_001,64,63,7,55,8,49,0.0,55,0.0,0.166667,False,6,35,2.44949,0.03924,60 50 36 26 12 2
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L64_002,64,63,8,56,7,57,0.0,61,0.0,0.166667,False,6,35,2.44949,0.03924,61 51 37 27 13 3
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L64_003,64,63,11,59,4,67,0.2,4,0.0,0.2,False,5,34,2.44949,0.03924,54 40 30 16 6
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L64_004,64,63,12,60,3,75,0.0,77,0.0,0.4,False,5,33,2.44949,0.03924,55 41 31 17 7
+phase_cued_retrieval,test,307,phasewrap_bias,phase_cued_retrieval_test_seed307_L64_005,64,63,16,40,23,62,0.0,66,0.0,0.2,False,5,32,2.44949,0.03924,59 45 35 21 11
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L24_000,24,23,8,8,15,3,0.0,6,0.0,0.5,False,2,13,2.395142,0.03924,13 3
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L24_001,24,23,11,11,12,13,0.0,16,0.0,0.5,False,2,13,2.395142,0.03924,16 6
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L24_002,24,23,12,12,11,21,0.0,23,0.0,0.5,False,2,13,2.395142,0.03924,17 7
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L24_003,24,23,16,16,7,32,0.0,35,0.0,0.5,False,2,13,2.395142,0.03924,21 11
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L24_004,24,23,19,19,4,42,0.0,44,0.0,1.0,False,1,12,2.395142,0.03924,14
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L24_005,24,23,5,5,18,35,0.0,36,0.0,1.0,False,1,12,2.395142,0.03924,10
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L32_000,32,31,11,11,20,94,0.0,96,0.0,0.5,False,2,17,2.409167,0.03924,16 6
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L32_001,32,31,12,12,19,102,0.0,103,0.0,0.5,False,2,16,2.409167,0.03924,17 7
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L32_002,32,31,16,16,15,1,0.0,4,0.0,0.5,False,2,15,2.409167,0.03924,21 11
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L32_003,32,31,19,19,12,11,0.0,13,0.0,0.5,False,2,15,2.409167,0.03924,24 14
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L32_004,32,31,5,29,2,28,0.0,30,0.0,1.0,False,1,26,2.409167,-0.154308,10
+phase_cued_retrieval,train,307,phasewrap_adapter,phase_cued_retrieval_train_seed307_L32_005,32,31,7,7,24,13,0.5,2,0.0,0.5,False,2,18,2.409167,0.03924,12 2
+phase_cued_retrieval,validation,307,phasewrap_adapter,phase_cued_retrieval_validation_seed307_L40_000,40,39,12,36,3,95,0.0,96,0.0,1.0,False,2,33,2.417438,-0.114606,17 7
+phase_cued_retrieval,validation,307,phasewrap_adapter,phase_cued_retrieval_validation_seed307_L40_001,40,39,16,16,23,82,0.0,84,0.0,0.5,False,2,20,2.417438,0.03924,21 11
+phase_cued_retrieval,validation,307,phasewrap_adapter,phase_cued_retrieval_validation_seed307_L40_002,40,39,19,19,20,92,0.0,94,0.0,0.5,False,2,19,2.417438,0.03924,24 14
+phase_cued_retrieval,validation,307,phasewrap_adapter,phase_cued_retrieval_validation_seed307_L40_003,40,39,5,29,10,109,0.0,110,0.0,1.0,False,1,31,2.417438,-0.114606,10
+phase_cued_retrieval,validation,307,phasewrap_adapter,phase_cued_retrieval_validation_seed307_L40_004,40,39,7,31,8,6,0.0,9,0.0,0.5,False,2,32,2.417438,-0.114606,12 2
+phase_cued_retrieval,validation,307,phasewrap_adapter,phase_cued_retrieval_validation_seed307_L40_005,40,39,8,32,7,14,0.0,17,0.0,0.5,False,2,33,2.417438,-0.114606,13 3
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L48_000,48,47,16,40,7,75,0.0,77,0.0,0.5,False,2,38,2.422894,-0.088419,21 11
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L48_001,48,47,19,43,4,85,0.0,87,0.0,0.5,False,2,37,2.422894,-0.088419,24 14
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L48_002,48,47,5,29,18,78,0.0,79,0.0,1.0,False,1,32,2.422894,-0.088419,10
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L48_003,48,47,7,31,16,87,0.0,88,0.0,0.5,False,2,33,2.422894,-0.088419,12 2
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L48_004,48,47,8,32,15,95,0.0,96,0.0,0.5,False,2,34,2.422894,-0.088419,13 3
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L48_005,48,47,11,35,12,105,0.0,106,0.0,0.5,False,2,35,2.422894,-0.088419,16 6
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L64_000,64,63,5,53,10,40,0.0,41,0.0,1.0,False,1,50,2.429648,-0.151236,10
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L64_001,64,63,7,55,8,49,0.0,52,0.0,0.5,False,2,51,2.429648,-0.151236,12 2
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L64_002,64,63,8,56,7,57,0.0,59,0.0,0.5,False,2,52,2.429648,-0.151236,13 3
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L64_003,64,63,11,59,4,67,0.5,1,1.0,0.5,False,2,52,2.429648,-0.151236,16 6
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L64_004,64,63,12,60,3,75,0.0,77,0.0,0.5,False,2,52,2.429648,-0.151236,17 7
+phase_cued_retrieval,test,307,phasewrap_adapter,phase_cued_retrieval_test_seed307_L64_005,64,63,16,40,23,62,0.0,63,0.0,0.5,False,2,43,2.429648,-0.055998,21 11
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L24_000,24,23,19,19,4,82,0.043478,20,0.0,0.086957,True,23,5,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L24_001,24,23,5,5,18,75,0.043478,14,0.0,0.086957,True,23,19,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L24_002,24,23,7,7,16,84,0.043478,15,0.0,0.086957,True,23,17,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L24_003,24,23,8,8,15,92,0.043478,18,0.0,0.086957,True,23,16,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L24_004,24,23,11,11,12,102,0.043478,18,0.0,0.086957,True,23,13,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L24_005,24,23,12,12,11,110,0.086957,3,0.0,0.086957,True,23,12,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L32_000,32,31,5,29,2,68,0.064516,2,0.0,0.064516,True,31,3,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L32_001,32,31,7,7,24,53,0.032258,16,0.0,0.064516,True,31,25,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L32_002,32,31,8,8,23,61,0.032258,16,0.0,0.064516,True,31,24,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L32_003,32,31,11,11,20,71,0.032258,22,0.0,0.064516,True,31,21,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L32_004,32,31,12,12,19,79,0.032258,19,0.0,0.064516,True,31,20,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,311,no_position,phase_cued_retrieval_train_seed311_L32_005,32,31,16,16,15,90,0.032258,22,0.0,0.064516,True,31,16,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,validation,311,no_position,phase_cued_retrieval_validation_seed311_L40_000,40,39,7,31,8,46,0.025641,20,0.0,0.076923,True,39,9,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,311,no_position,phase_cued_retrieval_validation_seed311_L40_001,40,39,8,32,7,54,0.025641,20,0.0,0.051282,True,39,8,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,311,no_position,phase_cued_retrieval_validation_seed311_L40_002,40,39,11,35,4,64,0.025641,19,0.0,0.051282,True,39,5,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,311,no_position,phase_cued_retrieval_validation_seed311_L40_003,40,39,12,36,3,72,0.025641,27,0.0,0.051282,True,39,4,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,311,no_position,phase_cued_retrieval_validation_seed311_L40_004,40,39,16,16,23,59,0.025641,22,0.0,0.051282,True,39,24,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,311,no_position,phase_cued_retrieval_validation_seed311_L40_005,40,39,19,19,20,69,0.051282,4,0.0,0.051282,True,39,21,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L48_000,48,47,8,32,15,23,0.021277,18,0.0,0.042553,True,47,16,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L48_001,48,47,11,35,12,33,0.021277,14,0.0,0.06383,True,47,13,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L48_002,48,47,12,36,11,41,0.021277,18,0.0,0.06383,True,47,12,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L48_003,48,47,16,40,7,52,0.021277,25,0.0,0.06383,True,47,8,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L48_004,48,47,19,43,4,62,0.021277,27,0.0,0.06383,True,47,5,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L48_005,48,47,5,29,18,55,0.021277,27,0.0,0.042553,True,47,19,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L64_000,64,63,12,60,3,3,0.031746,4,0.0,0.063492,True,63,4,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L64_001,64,63,16,40,23,102,0.031746,14,0.0,0.047619,True,63,24,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L64_002,64,63,19,43,20,0,0.047619,1,1.0,0.047619,True,63,21,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L64_003,64,63,5,53,10,17,0.031746,2,0.0,0.079365,True,63,11,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L64_004,64,63,7,55,8,26,0.031746,7,0.0,0.047619,True,63,9,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,311,no_position,phase_cued_retrieval_test_seed311_L64_005,64,63,8,56,7,34,0.015873,24,0.0,0.047619,True,63,8,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L24_000,24,23,19,19,4,82,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L24_001,24,23,5,5,18,75,1.0,1,1.0,1.0,True,1,1,1.0,1.0,5
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L24_002,24,23,7,7,16,84,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L24_003,24,23,8,8,15,92,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L24_004,24,23,11,11,12,102,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L24_005,24,23,12,12,11,110,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L32_000,32,31,5,29,2,68,0.0,69,0.0,1.0,False,1,6,1.0,0.25,5
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L32_001,32,31,7,7,24,53,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L32_002,32,31,8,8,23,61,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L32_003,32,31,11,11,20,71,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L32_004,32,31,12,12,19,79,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,311,sinusoidal,phase_cued_retrieval_train_seed311_L32_005,32,31,16,16,15,90,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,validation,311,sinusoidal,phase_cued_retrieval_validation_seed311_L40_000,40,39,7,31,8,46,0.0,49,0.0,0.5,False,2,8,1.0,0.25,39 7
+phase_cued_retrieval,validation,311,sinusoidal,phase_cued_retrieval_validation_seed311_L40_001,40,39,8,32,7,54,0.0,55,0.0,1.0,False,1,7,1.0,0.25,8
+phase_cued_retrieval,validation,311,sinusoidal,phase_cued_retrieval_validation_seed311_L40_002,40,39,11,35,4,64,0.0,65,0.0,1.0,False,1,7,1.0,0.25,11
+phase_cued_retrieval,validation,311,sinusoidal,phase_cued_retrieval_validation_seed311_L40_003,40,39,12,36,3,72,0.0,73,0.0,1.0,False,1,7,1.0,0.25,12
+phase_cued_retrieval,validation,311,sinusoidal,phase_cued_retrieval_validation_seed311_L40_004,40,39,16,16,23,59,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,validation,311,sinusoidal,phase_cued_retrieval_validation_seed311_L40_005,40,39,19,19,20,69,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L48_000,48,47,8,32,15,23,0.0,25,0.0,0.5,False,2,9,1.0,0.25,40 8
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L48_001,48,47,11,35,12,33,0.0,35,0.0,0.5,False,2,10,1.0,0.25,43 11
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L48_002,48,47,12,36,11,41,0.0,44,0.0,0.5,False,2,10,1.0,0.25,44 12
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L48_003,48,47,16,40,7,52,0.0,53,0.0,1.0,False,1,8,1.0,0.25,16
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L48_004,48,47,19,43,4,62,0.0,63,0.0,1.0,False,1,8,1.0,0.25,19
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L48_005,48,47,5,29,18,55,0.0,56,0.0,0.5,False,2,10,1.0,0.25,37 5
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L64_000,64,63,12,60,3,3,0.0,6,0.0,0.5,False,2,7,1.0,0.5,44 12
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L64_001,64,63,16,40,23,102,0.0,103,0.0,0.5,False,2,11,1.0,0.25,48 16
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L64_002,64,63,19,43,20,0,0.0,3,0.0,0.5,False,2,12,1.0,0.25,51 19
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L64_003,64,63,5,53,10,17,0.0,19,0.0,0.5,False,2,7,1.0,0.5,37 5
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L64_004,64,63,7,55,8,26,0.0,29,0.0,0.5,False,2,7,1.0,0.5,39 7
+phase_cued_retrieval,test,311,sinusoidal,phase_cued_retrieval_test_seed311_L64_005,64,63,8,56,7,34,0.0,37,0.0,0.5,False,2,7,1.0,0.5,40 8
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L24_000,24,23,19,19,4,82,0.0,83,0.0,1.0,False,1,19,-0.043478,-0.826087,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L24_001,24,23,5,5,18,75,0.0,76,0.0,1.0,False,1,5,-0.043478,-0.217391,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L24_002,24,23,7,7,16,84,0.0,85,0.0,1.0,False,1,7,-0.043478,-0.304348,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L24_003,24,23,8,8,15,92,0.0,94,0.0,1.0,False,1,8,-0.043478,-0.347826,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L24_004,24,23,11,11,12,102,0.0,103,0.0,1.0,False,1,11,-0.043478,-0.478261,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L24_005,24,23,12,12,11,110,0.0,111,0.0,1.0,False,1,12,-0.043478,-0.521739,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L32_000,32,31,5,29,2,68,0.0,69,0.0,1.0,False,1,29,-0.032258,-0.935484,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L32_001,32,31,7,7,24,53,0.0,55,0.0,1.0,False,1,7,-0.032258,-0.225806,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L32_002,32,31,8,8,23,61,0.0,62,0.0,1.0,False,1,8,-0.032258,-0.258065,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L32_003,32,31,11,11,20,71,0.0,72,0.0,1.0,False,1,11,-0.032258,-0.354839,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L32_004,32,31,12,12,19,79,0.0,81,0.0,1.0,False,1,12,-0.032258,-0.387097,1
+phase_cued_retrieval,train,311,alibi,phase_cued_retrieval_train_seed311_L32_005,32,31,16,16,15,90,0.0,91,0.0,1.0,False,1,16,-0.032258,-0.516129,1
+phase_cued_retrieval,validation,311,alibi,phase_cued_retrieval_validation_seed311_L40_000,40,39,7,31,8,46,0.0,47,0.0,1.0,False,1,31,-0.025641,-0.794872,1
+phase_cued_retrieval,validation,311,alibi,phase_cued_retrieval_validation_seed311_L40_001,40,39,8,32,7,54,0.0,56,0.0,1.0,False,1,32,-0.025641,-0.820513,1
+phase_cued_retrieval,validation,311,alibi,phase_cued_retrieval_validation_seed311_L40_002,40,39,11,35,4,64,0.0,65,0.0,1.0,False,1,35,-0.025641,-0.897436,1
+phase_cued_retrieval,validation,311,alibi,phase_cued_retrieval_validation_seed311_L40_003,40,39,12,36,3,72,0.0,74,0.0,1.0,False,1,36,-0.025641,-0.923077,1
+phase_cued_retrieval,validation,311,alibi,phase_cued_retrieval_validation_seed311_L40_004,40,39,16,16,23,59,0.0,60,0.0,1.0,False,1,16,-0.025641,-0.410256,1
+phase_cued_retrieval,validation,311,alibi,phase_cued_retrieval_validation_seed311_L40_005,40,39,19,19,20,69,0.0,70,0.0,1.0,False,1,19,-0.025641,-0.487179,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L48_000,48,47,8,32,15,23,0.0,25,0.0,1.0,False,1,32,-0.021277,-0.680851,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L48_001,48,47,11,35,12,33,0.0,34,0.0,1.0,False,1,35,-0.021277,-0.744681,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L48_002,48,47,12,36,11,41,0.0,43,0.0,1.0,False,1,36,-0.021277,-0.765957,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L48_003,48,47,16,40,7,52,0.0,53,0.0,1.0,False,1,40,-0.021277,-0.851064,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L48_004,48,47,19,43,4,62,0.0,63,0.0,1.0,False,1,43,-0.021277,-0.914894,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L48_005,48,47,5,29,18,55,0.0,57,0.0,1.0,False,1,29,-0.021277,-0.617021,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L64_000,64,63,12,60,3,3,0.0,5,0.0,1.0,False,1,60,-0.015873,-0.952381,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L64_001,64,63,16,40,23,102,0.0,103,0.0,1.0,False,1,40,-0.015873,-0.634921,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L64_002,64,63,19,43,20,0,0.0,2,0.0,1.0,False,1,43,-0.015873,-0.68254,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L64_003,64,63,5,53,10,17,0.0,19,0.0,1.0,False,1,53,-0.015873,-0.84127,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L64_004,64,63,7,55,8,26,0.0,28,0.0,1.0,False,1,55,-0.015873,-0.873016,1
+phase_cued_retrieval,test,311,alibi,phase_cued_retrieval_test_seed311_L64_005,64,63,8,56,7,34,0.0,36,0.0,1.0,False,1,56,-0.015873,-0.888889,1
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L24_000,24,23,19,19,4,82,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L24_001,24,23,5,5,18,75,1.0,1,1.0,1.0,True,1,1,1.0,1.0,5
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L24_002,24,23,7,7,16,84,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L24_003,24,23,8,8,15,92,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L24_004,24,23,11,11,12,102,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L24_005,24,23,12,12,11,110,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L32_000,32,31,5,29,2,68,0.0,69,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L32_001,32,31,7,7,24,53,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L32_002,32,31,8,8,23,61,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L32_003,32,31,11,11,20,71,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L32_004,32,31,12,12,19,79,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,311,rope_relative,phase_cued_retrieval_train_seed311_L32_005,32,31,16,16,15,90,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,validation,311,rope_relative,phase_cued_retrieval_validation_seed311_L40_000,40,39,7,31,8,46,0.0,48,0.0,1.0,False,1,22,1.0,0.620591,7
+phase_cued_retrieval,validation,311,rope_relative,phase_cued_retrieval_validation_seed311_L40_001,40,39,8,32,7,54,0.0,55,0.0,1.0,False,1,23,1.0,0.620591,8
+phase_cued_retrieval,validation,311,rope_relative,phase_cued_retrieval_validation_seed311_L40_002,40,39,11,35,4,64,0.0,65,0.0,1.0,False,1,25,1.0,0.620591,11
+phase_cued_retrieval,validation,311,rope_relative,phase_cued_retrieval_validation_seed311_L40_003,40,39,12,36,3,72,0.0,73,0.0,1.0,False,1,26,1.0,0.620591,12
+phase_cued_retrieval,validation,311,rope_relative,phase_cued_retrieval_validation_seed311_L40_004,40,39,16,16,23,59,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,validation,311,rope_relative,phase_cued_retrieval_validation_seed311_L40_005,40,39,19,19,20,69,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L48_000,48,47,8,32,15,23,0.0,25,0.0,1.0,False,1,23,1.0,0.620591,8
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L48_001,48,47,11,35,12,33,0.0,35,0.0,1.0,False,1,25,1.0,0.620591,11
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L48_002,48,47,12,36,11,41,0.0,43,0.0,1.0,False,1,26,1.0,0.620591,12
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L48_003,48,47,16,40,7,52,0.0,53,0.0,1.0,False,1,28,1.0,0.620591,16
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L48_004,48,47,19,43,4,62,0.0,63,0.0,1.0,False,1,28,1.0,0.620591,19
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L48_005,48,47,5,29,18,55,0.0,56,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L64_000,64,63,12,60,3,3,0.0,5,0.0,1.0,False,1,63,1.0,0.331841,12
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L64_001,64,63,16,40,23,102,0.0,103,0.0,1.0,False,1,28,1.0,0.620591,16
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L64_002,64,63,19,43,20,0,0.0,2,0.0,1.0,False,1,28,1.0,0.620591,19
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L64_003,64,63,5,53,10,17,0.0,18,0.0,1.0,False,1,63,1.0,0.331841,5
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L64_004,64,63,7,55,8,26,0.0,28,0.0,1.0,False,1,63,1.0,0.331841,7
+phase_cued_retrieval,test,311,rope_relative,phase_cued_retrieval_test_seed311_L64_005,64,63,8,56,7,34,0.0,36,0.0,1.0,False,1,63,1.0,0.331841,8
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L24_000,24,23,19,19,4,82,0.0,83,0.0,1.0,False,1,12,2.44949,0.03924,14
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L24_001,24,23,5,5,18,75,0.0,76,0.0,1.0,False,1,12,2.44949,0.03924,10
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L24_002,24,23,7,7,16,84,0.0,87,0.0,0.5,False,2,13,2.44949,0.03924,12 2
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L24_003,24,23,8,8,15,92,0.0,93,0.0,0.5,False,2,13,2.44949,0.03924,13 3
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L24_004,24,23,11,11,12,102,0.0,103,0.0,0.5,False,2,13,2.44949,0.03924,16 6
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L24_005,24,23,12,12,11,110,0.0,111,0.0,0.5,False,2,13,2.44949,0.03924,17 7
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L32_000,32,31,5,29,2,68,0.0,71,0.0,0.5,False,2,17,2.44949,0.03924,24 10
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L32_001,32,31,7,7,24,53,0.0,56,0.0,0.333333,False,3,19,2.44949,0.03924,26 12 2
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L32_002,32,31,8,8,23,61,0.0,63,0.0,0.333333,False,3,18,2.44949,0.03924,27 13 3
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L32_003,32,31,11,11,20,71,0.0,73,0.0,0.333333,False,3,17,2.44949,0.03924,30 16 6
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L32_004,32,31,12,12,19,79,0.0,81,0.0,0.666667,False,3,16,2.44949,0.03924,31 17 7
+phase_cued_retrieval,train,311,phasewrap_bias,phase_cued_retrieval_train_seed311_L32_005,32,31,16,16,15,90,0.0,92,0.0,0.5,False,2,15,2.44949,0.03924,21 11
+phase_cued_retrieval,validation,311,phasewrap_bias,phase_cued_retrieval_validation_seed311_L40_000,40,39,7,31,8,46,0.0,48,0.0,0.25,False,4,23,2.44949,0.03924,36 26 12 2
+phase_cued_retrieval,validation,311,phasewrap_bias,phase_cued_retrieval_validation_seed311_L40_001,40,39,8,32,7,54,0.0,56,0.0,0.25,False,4,23,2.44949,0.03924,37 27 13 3
+phase_cued_retrieval,validation,311,phasewrap_bias,phase_cued_retrieval_validation_seed311_L40_002,40,39,11,35,4,64,0.0,65,0.0,0.333333,False,3,22,2.44949,0.03924,30 16 6
+phase_cued_retrieval,validation,311,phasewrap_bias,phase_cued_retrieval_validation_seed311_L40_003,40,39,12,36,3,72,0.0,73,0.0,0.333333,False,3,21,2.44949,0.03924,31 17 7
+phase_cued_retrieval,validation,311,phasewrap_bias,phase_cued_retrieval_validation_seed311_L40_004,40,39,16,16,23,59,0.0,61,0.0,0.333333,False,3,20,2.44949,0.03924,35 21 11
+phase_cued_retrieval,validation,311,phasewrap_bias,phase_cued_retrieval_validation_seed311_L40_005,40,39,19,19,20,69,0.0,72,0.0,0.333333,False,3,19,2.44949,0.03924,38 24 14
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L48_000,48,47,8,32,15,23,0.0,27,0.0,0.25,False,4,25,2.44949,0.03924,37 27 13 3
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L48_001,48,47,11,35,12,33,0.0,38,0.0,0.25,False,4,25,2.44949,0.03924,40 30 16 6
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L48_002,48,47,12,36,11,41,0.0,44,0.0,0.25,False,4,25,2.44949,0.03924,41 31 17 7
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L48_003,48,47,16,40,7,52,0.0,57,0.0,0.25,False,4,25,2.44949,0.03924,45 35 21 11
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L48_004,48,47,19,43,4,62,0.0,65,0.0,0.333333,False,3,24,2.44949,0.03924,38 24 14
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L48_005,48,47,5,29,18,55,0.0,56,0.0,0.333333,False,3,24,2.44949,0.03924,34 24 10
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L64_000,64,63,12,60,3,3,0.2,1,1.0,0.2,False,5,33,2.44949,0.03924,55 41 31 17 7
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L64_001,64,63,16,40,23,102,0.0,103,0.0,0.2,False,5,32,2.44949,0.03924,59 45 35 21 11
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L64_002,64,63,19,43,20,0,0.0,6,0.0,0.2,False,5,31,2.44949,0.03924,62 48 38 24 14
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L64_003,64,63,5,53,10,17,0.0,22,0.0,0.4,False,5,34,2.44949,0.03924,58 48 34 24 10
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L64_004,64,63,7,55,8,26,0.0,32,0.0,0.166667,False,6,35,2.44949,0.03924,60 50 36 26 12 2
+phase_cued_retrieval,test,311,phasewrap_bias,phase_cued_retrieval_test_seed311_L64_005,64,63,8,56,7,34,0.0,39,0.0,0.166667,False,6,35,2.44949,0.03924,61 51 37 27 13 3
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L24_000,24,23,19,19,4,82,0.0,83,0.0,1.0,False,1,12,2.395142,0.03924,14
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L24_001,24,23,5,5,18,75,0.0,76,0.0,1.0,False,1,12,2.395142,0.03924,10
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L24_002,24,23,7,7,16,84,0.0,87,0.0,0.5,False,2,13,2.395142,0.03924,12 2
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L24_003,24,23,8,8,15,92,0.0,93,0.0,0.5,False,2,13,2.395142,0.03924,13 3
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L24_004,24,23,11,11,12,102,0.0,103,0.0,0.5,False,2,13,2.395142,0.03924,16 6
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L24_005,24,23,12,12,11,110,0.0,111,0.0,0.5,False,2,13,2.395142,0.03924,17 7
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L32_000,32,31,5,29,2,68,0.0,70,0.0,1.0,False,1,26,2.409167,-0.154308,10
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L32_001,32,31,7,7,24,53,0.0,56,0.0,0.5,False,2,18,2.409167,0.03924,12 2
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L32_002,32,31,8,8,23,61,0.0,63,0.0,0.5,False,2,18,2.409167,0.03924,13 3
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L32_003,32,31,11,11,20,71,0.0,72,0.0,0.5,False,2,17,2.409167,0.03924,16 6
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L32_004,32,31,12,12,19,79,0.0,81,0.0,0.5,False,2,16,2.409167,0.03924,17 7
+phase_cued_retrieval,train,311,phasewrap_adapter,phase_cued_retrieval_train_seed311_L32_005,32,31,16,16,15,90,0.0,92,0.0,0.5,False,2,15,2.409167,0.03924,21 11
+phase_cued_retrieval,validation,311,phasewrap_adapter,phase_cued_retrieval_validation_seed311_L40_000,40,39,7,31,8,46,0.0,47,0.0,0.5,False,2,32,2.417438,-0.114606,12 2
+phase_cued_retrieval,validation,311,phasewrap_adapter,phase_cued_retrieval_validation_seed311_L40_001,40,39,8,32,7,54,0.0,55,0.0,0.5,False,2,33,2.417438,-0.114606,13 3
+phase_cued_retrieval,validation,311,phasewrap_adapter,phase_cued_retrieval_validation_seed311_L40_002,40,39,11,35,4,64,0.0,65,0.0,0.5,False,2,33,2.417438,-0.114606,16 6
+phase_cued_retrieval,validation,311,phasewrap_adapter,phase_cued_retrieval_validation_seed311_L40_003,40,39,12,36,3,72,0.0,73,0.0,0.5,False,2,33,2.417438,-0.114606,17 7
+phase_cued_retrieval,validation,311,phasewrap_adapter,phase_cued_retrieval_validation_seed311_L40_004,40,39,16,16,23,59,0.0,61,0.0,0.5,False,2,20,2.417438,0.03924,21 11
+phase_cued_retrieval,validation,311,phasewrap_adapter,phase_cued_retrieval_validation_seed311_L40_005,40,39,19,19,20,69,0.0,71,0.0,0.5,False,2,19,2.417438,0.03924,24 14
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L48_000,48,47,8,32,15,23,0.0,25,0.0,0.5,False,2,34,2.422894,-0.088419,13 3
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L48_001,48,47,11,35,12,33,0.0,36,0.0,0.5,False,2,35,2.422894,-0.088419,16 6
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L48_002,48,47,12,36,11,41,0.0,43,0.0,0.5,False,2,36,2.422894,-0.088419,17 7
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L48_003,48,47,16,40,7,52,0.0,55,0.0,0.5,False,2,38,2.422894,-0.088419,21 11
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L48_004,48,47,19,43,4,62,0.0,64,0.0,0.5,False,2,37,2.422894,-0.088419,24 14
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L48_005,48,47,5,29,18,55,0.0,56,0.0,1.0,False,1,32,2.422894,-0.088419,10
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L64_000,64,63,12,60,3,3,0.0,6,0.0,0.5,False,2,52,2.429648,-0.151236,17 7
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L64_001,64,63,16,40,23,102,0.0,103,0.0,0.5,False,2,43,2.429648,-0.055998,21 11
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L64_002,64,63,19,43,20,0,0.0,3,0.0,0.5,False,2,42,2.429648,-0.055998,24 14
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L64_003,64,63,5,53,10,17,0.0,19,0.0,1.0,False,1,50,2.429648,-0.151236,10
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L64_004,64,63,7,55,8,26,0.0,28,0.0,0.5,False,2,51,2.429648,-0.151236,12 2
+phase_cued_retrieval,test,311,phasewrap_adapter,phase_cued_retrieval_test_seed311_L64_005,64,63,8,56,7,34,0.0,37,0.0,0.5,False,2,52,2.429648,-0.151236,13 3
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L24_000,24,23,7,7,16,104,0.043478,20,0.0,0.086957,True,23,17,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L24_001,24,23,8,8,15,0,0.043478,4,0.0,0.173913,True,23,16,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L24_002,24,23,11,11,12,10,0.043478,4,0.0,0.086957,True,23,13,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L24_003,24,23,12,12,11,18,0.043478,6,0.0,0.086957,True,23,12,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L24_004,24,23,16,16,7,29,0.130435,1,1.0,0.130435,True,23,8,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L24_005,24,23,19,19,4,39,0.043478,10,0.0,0.086957,True,23,5,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L32_000,32,31,8,8,23,81,0.032258,22,0.0,0.064516,True,31,24,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L32_001,32,31,11,11,20,91,0.032258,22,0.0,0.064516,True,31,21,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L32_002,32,31,12,12,19,99,0.032258,25,0.0,0.064516,True,31,20,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L32_003,32,31,16,16,15,110,0.032258,29,0.0,0.064516,True,31,16,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L32_004,32,31,19,19,12,8,0.032258,6,0.0,0.064516,True,31,13,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,313,no_position,phase_cued_retrieval_train_seed313_L32_005,32,31,5,29,2,25,0.032258,11,0.0,0.096774,True,31,3,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,validation,313,no_position,phase_cued_retrieval_validation_seed313_L40_000,40,39,11,35,4,84,0.051282,7,0.0,0.051282,True,39,5,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,313,no_position,phase_cued_retrieval_validation_seed313_L40_001,40,39,12,36,3,92,0.025641,28,0.0,0.076923,True,39,4,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,313,no_position,phase_cued_retrieval_validation_seed313_L40_002,40,39,16,16,23,79,0.051282,4,0.0,0.076923,True,39,24,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,313,no_position,phase_cued_retrieval_validation_seed313_L40_003,40,39,19,19,20,89,0.025641,31,0.0,0.076923,True,39,21,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,313,no_position,phase_cued_retrieval_validation_seed313_L40_004,40,39,5,29,10,106,0.025641,33,0.0,0.051282,True,39,11,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,313,no_position,phase_cued_retrieval_validation_seed313_L40_005,40,39,7,31,8,3,0.025641,6,0.0,0.076923,True,39,9,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L48_000,48,47,12,36,11,61,0.042553,7,0.0,0.06383,True,47,12,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L48_001,48,47,16,40,7,72,0.021277,27,0.0,0.06383,True,47,8,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L48_002,48,47,19,43,4,82,0.021277,33,0.0,0.06383,True,47,5,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L48_003,48,47,5,29,18,75,0.042553,5,0.0,0.042553,True,47,19,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L48_004,48,47,7,31,16,84,0.021277,32,0.0,0.06383,True,47,17,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L48_005,48,47,8,32,15,92,0.042553,5,0.0,0.06383,True,47,16,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L64_000,64,63,19,43,20,20,0.031746,4,0.0,0.047619,True,63,21,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L64_001,64,63,5,53,10,37,0.015873,23,0.0,0.047619,True,63,11,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L64_002,64,63,7,55,8,46,0.015873,29,0.0,0.047619,True,63,9,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L64_003,64,63,8,56,7,54,0.015873,28,0.0,0.063492,True,63,8,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L64_004,64,63,11,59,4,64,0.031746,10,0.0,0.063492,True,63,5,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,313,no_position,phase_cued_retrieval_test_seed313_L64_005,64,63,12,60,3,72,0.031746,10,0.0,0.031746,True,63,4,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L24_000,24,23,7,7,16,104,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L24_001,24,23,8,8,15,0,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L24_002,24,23,11,11,12,10,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L24_003,24,23,12,12,11,18,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L24_004,24,23,16,16,7,29,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L24_005,24,23,19,19,4,39,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L32_000,32,31,8,8,23,81,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L32_001,32,31,11,11,20,91,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L32_002,32,31,12,12,19,99,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L32_003,32,31,16,16,15,110,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L32_004,32,31,19,19,12,8,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,313,sinusoidal,phase_cued_retrieval_train_seed313_L32_005,32,31,5,29,2,25,0.0,27,0.0,1.0,False,1,6,1.0,0.25,5
+phase_cued_retrieval,validation,313,sinusoidal,phase_cued_retrieval_validation_seed313_L40_000,40,39,11,35,4,84,0.0,85,0.0,1.0,False,1,7,1.0,0.25,11
+phase_cued_retrieval,validation,313,sinusoidal,phase_cued_retrieval_validation_seed313_L40_001,40,39,12,36,3,92,0.0,93,0.0,1.0,False,1,7,1.0,0.25,12
+phase_cued_retrieval,validation,313,sinusoidal,phase_cued_retrieval_validation_seed313_L40_002,40,39,16,16,23,79,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,validation,313,sinusoidal,phase_cued_retrieval_validation_seed313_L40_003,40,39,19,19,20,89,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,validation,313,sinusoidal,phase_cued_retrieval_validation_seed313_L40_004,40,39,5,29,10,106,0.0,107,0.0,0.5,False,2,9,1.0,0.25,37 5
+phase_cued_retrieval,validation,313,sinusoidal,phase_cued_retrieval_validation_seed313_L40_005,40,39,7,31,8,3,0.0,5,0.0,0.5,False,2,8,1.0,0.25,39 7
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L48_000,48,47,12,36,11,61,0.0,63,0.0,0.5,False,2,10,1.0,0.25,44 12
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L48_001,48,47,16,40,7,72,0.0,74,0.0,1.0,False,1,8,1.0,0.25,16
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L48_002,48,47,19,43,4,82,0.0,83,0.0,1.0,False,1,8,1.0,0.25,19
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L48_003,48,47,5,29,18,75,0.0,77,0.0,0.5,False,2,10,1.0,0.25,37 5
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L48_004,48,47,7,31,16,84,0.0,85,0.0,0.5,False,2,10,1.0,0.25,39 7
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L48_005,48,47,8,32,15,92,0.0,93,0.0,0.5,False,2,9,1.0,0.25,40 8
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L64_000,64,63,19,43,20,20,0.0,23,0.0,0.5,False,2,12,1.0,0.25,51 19
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L64_001,64,63,5,53,10,37,0.0,39,0.0,0.5,False,2,7,1.0,0.5,37 5
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L64_002,64,63,7,55,8,46,0.0,49,0.0,0.5,False,2,7,1.0,0.5,39 7
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L64_003,64,63,8,56,7,54,0.0,56,0.0,0.5,False,2,7,1.0,0.5,40 8
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L64_004,64,63,11,59,4,64,0.0,65,0.0,0.5,False,2,7,1.0,0.5,43 11
+phase_cued_retrieval,test,313,sinusoidal,phase_cued_retrieval_test_seed313_L64_005,64,63,12,60,3,72,0.5,2,0.0,0.5,False,2,7,1.0,0.5,44 12
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L24_000,24,23,7,7,16,104,0.0,105,0.0,1.0,False,1,7,-0.043478,-0.304348,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L24_001,24,23,8,8,15,0,0.0,2,0.0,1.0,False,1,8,-0.043478,-0.347826,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L24_002,24,23,11,11,12,10,0.0,12,0.0,1.0,False,1,11,-0.043478,-0.478261,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L24_003,24,23,12,12,11,18,0.0,20,0.0,1.0,False,1,12,-0.043478,-0.521739,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L24_004,24,23,16,16,7,29,0.0,31,0.0,1.0,False,1,16,-0.043478,-0.695652,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L24_005,24,23,19,19,4,39,0.0,40,0.0,1.0,False,1,19,-0.043478,-0.826087,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L32_000,32,31,8,8,23,81,0.0,82,0.0,1.0,False,1,8,-0.032258,-0.258065,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L32_001,32,31,11,11,20,91,0.0,92,0.0,1.0,False,1,11,-0.032258,-0.354839,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L32_002,32,31,12,12,19,99,0.0,100,0.0,1.0,False,1,12,-0.032258,-0.387097,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L32_003,32,31,16,16,15,110,0.0,111,0.0,1.0,False,1,16,-0.032258,-0.516129,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L32_004,32,31,19,19,12,8,0.0,9,0.0,1.0,False,1,19,-0.032258,-0.612903,1
+phase_cued_retrieval,train,313,alibi,phase_cued_retrieval_train_seed313_L32_005,32,31,5,29,2,25,0.0,27,0.0,1.0,False,1,29,-0.032258,-0.935484,1
+phase_cued_retrieval,validation,313,alibi,phase_cued_retrieval_validation_seed313_L40_000,40,39,11,35,4,84,0.0,85,0.0,1.0,False,1,35,-0.025641,-0.897436,1
+phase_cued_retrieval,validation,313,alibi,phase_cued_retrieval_validation_seed313_L40_001,40,39,12,36,3,92,0.0,94,0.0,1.0,False,1,36,-0.025641,-0.923077,1
+phase_cued_retrieval,validation,313,alibi,phase_cued_retrieval_validation_seed313_L40_002,40,39,16,16,23,79,0.0,80,0.0,1.0,False,1,16,-0.025641,-0.410256,1
+phase_cued_retrieval,validation,313,alibi,phase_cued_retrieval_validation_seed313_L40_003,40,39,19,19,20,89,0.0,90,0.0,1.0,False,1,19,-0.025641,-0.487179,1
+phase_cued_retrieval,validation,313,alibi,phase_cued_retrieval_validation_seed313_L40_004,40,39,5,29,10,106,0.0,107,0.0,1.0,False,1,29,-0.025641,-0.74359,1
+phase_cued_retrieval,validation,313,alibi,phase_cued_retrieval_validation_seed313_L40_005,40,39,7,31,8,3,0.0,5,0.0,1.0,False,1,31,-0.025641,-0.794872,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L48_000,48,47,12,36,11,61,0.0,62,0.0,1.0,False,1,36,-0.021277,-0.765957,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L48_001,48,47,16,40,7,72,0.0,73,0.0,1.0,False,1,40,-0.021277,-0.851064,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L48_002,48,47,19,43,4,82,0.0,83,0.0,1.0,False,1,43,-0.021277,-0.914894,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L48_003,48,47,5,29,18,75,0.0,77,0.0,1.0,False,1,29,-0.021277,-0.617021,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L48_004,48,47,7,31,16,84,0.0,85,0.0,1.0,False,1,31,-0.021277,-0.659574,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L48_005,48,47,8,32,15,92,0.0,93,0.0,1.0,False,1,32,-0.021277,-0.680851,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L64_000,64,63,19,43,20,20,0.0,22,0.0,1.0,False,1,43,-0.015873,-0.68254,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L64_001,64,63,5,53,10,37,0.0,38,0.0,1.0,False,1,53,-0.015873,-0.84127,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L64_002,64,63,7,55,8,46,0.0,47,0.0,1.0,False,1,55,-0.015873,-0.873016,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L64_003,64,63,8,56,7,54,0.0,56,0.0,1.0,False,1,56,-0.015873,-0.888889,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L64_004,64,63,11,59,4,64,0.0,65,0.0,1.0,False,1,59,-0.015873,-0.936508,1
+phase_cued_retrieval,test,313,alibi,phase_cued_retrieval_test_seed313_L64_005,64,63,12,60,3,72,0.0,74,0.0,1.0,False,1,60,-0.015873,-0.952381,1
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L24_000,24,23,7,7,16,104,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L24_001,24,23,8,8,15,0,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L24_002,24,23,11,11,12,10,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L24_003,24,23,12,12,11,18,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L24_004,24,23,16,16,7,29,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L24_005,24,23,19,19,4,39,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L32_000,32,31,8,8,23,81,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L32_001,32,31,11,11,20,91,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L32_002,32,31,12,12,19,99,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L32_003,32,31,16,16,15,110,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L32_004,32,31,19,19,12,8,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,313,rope_relative,phase_cued_retrieval_train_seed313_L32_005,32,31,5,29,2,25,0.0,27,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,validation,313,rope_relative,phase_cued_retrieval_validation_seed313_L40_000,40,39,11,35,4,84,0.0,85,0.0,1.0,False,1,25,1.0,0.620591,11
+phase_cued_retrieval,validation,313,rope_relative,phase_cued_retrieval_validation_seed313_L40_001,40,39,12,36,3,92,0.0,93,0.0,1.0,False,1,26,1.0,0.620591,12
+phase_cued_retrieval,validation,313,rope_relative,phase_cued_retrieval_validation_seed313_L40_002,40,39,16,16,23,79,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,validation,313,rope_relative,phase_cued_retrieval_validation_seed313_L40_003,40,39,19,19,20,89,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,validation,313,rope_relative,phase_cued_retrieval_validation_seed313_L40_004,40,39,5,29,10,106,0.0,107,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,validation,313,rope_relative,phase_cued_retrieval_validation_seed313_L40_005,40,39,7,31,8,3,0.0,4,0.0,1.0,False,1,22,1.0,0.620591,7
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L48_000,48,47,12,36,11,61,0.0,62,0.0,1.0,False,1,26,1.0,0.620591,12
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L48_001,48,47,16,40,7,72,0.0,74,0.0,1.0,False,1,28,1.0,0.620591,16
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L48_002,48,47,19,43,4,82,0.0,83,0.0,1.0,False,1,28,1.0,0.620591,19
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L48_003,48,47,5,29,18,75,0.0,76,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L48_004,48,47,7,31,16,84,0.0,85,0.0,1.0,False,1,22,1.0,0.620591,7
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L48_005,48,47,8,32,15,92,0.0,93,0.0,1.0,False,1,23,1.0,0.620591,8
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L64_000,64,63,19,43,20,20,0.0,22,0.0,1.0,False,1,28,1.0,0.620591,19
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L64_001,64,63,5,53,10,37,0.0,38,0.0,1.0,False,1,63,1.0,0.331841,5
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L64_002,64,63,7,55,8,46,0.0,48,0.0,1.0,False,1,63,1.0,0.331841,7
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L64_003,64,63,8,56,7,54,0.0,55,0.0,1.0,False,1,63,1.0,0.331841,8
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L64_004,64,63,11,59,4,64,0.0,65,0.0,1.0,False,1,63,1.0,0.331841,11
+phase_cued_retrieval,test,313,rope_relative,phase_cued_retrieval_test_seed313_L64_005,64,63,12,60,3,72,1.0,1,1.0,1.0,False,1,63,1.0,0.331841,12
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L24_000,24,23,7,7,16,104,0.0,105,0.0,0.5,False,2,13,2.44949,0.03924,12 2
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L24_001,24,23,8,8,15,0,0.0,3,0.0,0.5,False,2,13,2.44949,0.03924,13 3
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L24_002,24,23,11,11,12,10,0.0,13,0.0,0.5,False,2,13,2.44949,0.03924,16 6
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L24_003,24,23,12,12,11,18,0.0,21,0.0,0.5,False,2,13,2.44949,0.03924,17 7
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L24_004,24,23,16,16,7,29,0.5,1,1.0,0.5,False,2,13,2.44949,0.03924,21 11
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L24_005,24,23,19,19,4,39,0.0,40,0.0,1.0,False,1,12,2.44949,0.03924,14
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L32_000,32,31,8,8,23,81,0.0,84,0.0,0.333333,False,3,18,2.44949,0.03924,27 13 3
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L32_001,32,31,11,11,20,91,0.0,93,0.0,0.333333,False,3,17,2.44949,0.03924,30 16 6
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L32_002,32,31,12,12,19,99,0.0,100,0.0,0.333333,False,3,16,2.44949,0.03924,31 17 7
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L32_003,32,31,16,16,15,110,0.0,111,0.0,0.5,False,2,15,2.44949,0.03924,21 11
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L32_004,32,31,19,19,12,8,0.0,10,0.0,0.5,False,2,15,2.44949,0.03924,24 14
+phase_cued_retrieval,train,313,phasewrap_bias,phase_cued_retrieval_train_seed313_L32_005,32,31,5,29,2,25,0.0,28,0.0,0.5,False,2,17,2.44949,0.03924,24 10
+phase_cued_retrieval,validation,313,phasewrap_bias,phase_cued_retrieval_validation_seed313_L40_000,40,39,11,35,4,84,0.0,85,0.0,0.333333,False,3,22,2.44949,0.03924,30 16 6
+phase_cued_retrieval,validation,313,phasewrap_bias,phase_cued_retrieval_validation_seed313_L40_001,40,39,12,36,3,92,0.0,93,0.0,0.333333,False,3,21,2.44949,0.03924,31 17 7
+phase_cued_retrieval,validation,313,phasewrap_bias,phase_cued_retrieval_validation_seed313_L40_002,40,39,16,16,23,79,0.0,81,0.0,0.333333,False,3,20,2.44949,0.03924,35 21 11
+phase_cued_retrieval,validation,313,phasewrap_bias,phase_cued_retrieval_validation_seed313_L40_003,40,39,19,19,20,89,0.0,91,0.0,0.333333,False,3,19,2.44949,0.03924,38 24 14
+phase_cued_retrieval,validation,313,phasewrap_bias,phase_cued_retrieval_validation_seed313_L40_004,40,39,5,29,10,106,0.0,107,0.0,0.333333,False,3,22,2.44949,0.03924,34 24 10
+phase_cued_retrieval,validation,313,phasewrap_bias,phase_cued_retrieval_validation_seed313_L40_005,40,39,7,31,8,3,0.0,8,0.0,0.25,False,4,23,2.44949,0.03924,36 26 12 2
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L48_000,48,47,12,36,11,61,0.0,62,0.0,0.25,False,4,25,2.44949,0.03924,41 31 17 7
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L48_001,48,47,16,40,7,72,0.0,73,0.0,0.25,False,4,25,2.44949,0.03924,45 35 21 11
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L48_002,48,47,19,43,4,82,0.0,84,0.0,0.333333,False,3,24,2.44949,0.03924,38 24 14
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L48_003,48,47,5,29,18,75,0.0,77,0.0,0.333333,False,3,24,2.44949,0.03924,34 24 10
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L48_004,48,47,7,31,16,84,0.0,85,0.0,0.75,False,4,25,2.44949,0.03924,36 26 12 2
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L48_005,48,47,8,32,15,92,0.0,93,0.0,0.25,False,4,25,2.44949,0.03924,37 27 13 3
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L64_000,64,63,19,43,20,20,0.0,25,0.0,0.2,False,5,31,2.44949,0.03924,62 48 38 24 14
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L64_001,64,63,5,53,10,37,0.0,41,0.0,0.2,False,5,34,2.44949,0.03924,58 48 34 24 10
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L64_002,64,63,7,55,8,46,0.0,51,0.0,0.166667,False,6,35,2.44949,0.03924,60 50 36 26 12 2
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L64_003,64,63,8,56,7,54,0.0,58,0.0,0.333333,False,6,35,2.44949,0.03924,61 51 37 27 13 3
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L64_004,64,63,11,59,4,64,0.0,68,0.0,0.2,False,5,34,2.44949,0.03924,54 40 30 16 6
+phase_cued_retrieval,test,313,phasewrap_bias,phase_cued_retrieval_test_seed313_L64_005,64,63,12,60,3,72,0.0,76,0.0,0.2,False,5,33,2.44949,0.03924,55 41 31 17 7
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L24_000,24,23,7,7,16,104,0.0,105,0.0,0.5,False,2,13,2.395142,0.03924,12 2
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L24_001,24,23,8,8,15,0,0.0,3,0.0,0.5,False,2,13,2.395142,0.03924,13 3
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L24_002,24,23,11,11,12,10,0.0,13,0.0,0.5,False,2,13,2.395142,0.03924,16 6
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L24_003,24,23,12,12,11,18,0.0,21,0.0,0.5,False,2,13,2.395142,0.03924,17 7
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L24_004,24,23,16,16,7,29,0.5,1,1.0,0.5,False,2,13,2.395142,0.03924,21 11
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L24_005,24,23,19,19,4,39,0.0,40,0.0,1.0,False,1,12,2.395142,0.03924,14
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L32_000,32,31,8,8,23,81,0.0,83,0.0,0.5,False,2,18,2.409167,0.03924,13 3
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L32_001,32,31,11,11,20,91,0.0,93,0.0,0.5,False,2,17,2.409167,0.03924,16 6
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L32_002,32,31,12,12,19,99,0.0,100,0.0,0.5,False,2,16,2.409167,0.03924,17 7
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L32_003,32,31,16,16,15,110,0.0,111,0.0,0.5,False,2,15,2.409167,0.03924,21 11
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L32_004,32,31,19,19,12,8,0.0,10,0.0,0.5,False,2,15,2.409167,0.03924,24 14
+phase_cued_retrieval,train,313,phasewrap_adapter,phase_cued_retrieval_train_seed313_L32_005,32,31,5,29,2,25,0.0,27,0.0,1.0,False,1,26,2.409167,-0.154308,10
+phase_cued_retrieval,validation,313,phasewrap_adapter,phase_cued_retrieval_validation_seed313_L40_000,40,39,11,35,4,84,0.0,85,0.0,0.5,False,2,33,2.417438,-0.114606,16 6
+phase_cued_retrieval,validation,313,phasewrap_adapter,phase_cued_retrieval_validation_seed313_L40_001,40,39,12,36,3,92,0.0,93,0.0,0.5,False,2,33,2.417438,-0.114606,17 7
+phase_cued_retrieval,validation,313,phasewrap_adapter,phase_cued_retrieval_validation_seed313_L40_002,40,39,16,16,23,79,0.0,80,0.0,0.5,False,2,20,2.417438,0.03924,21 11
+phase_cued_retrieval,validation,313,phasewrap_adapter,phase_cued_retrieval_validation_seed313_L40_003,40,39,19,19,20,89,0.0,91,0.0,0.5,False,2,19,2.417438,0.03924,24 14
+phase_cued_retrieval,validation,313,phasewrap_adapter,phase_cued_retrieval_validation_seed313_L40_004,40,39,5,29,10,106,0.0,107,0.0,1.0,False,1,31,2.417438,-0.114606,10
+phase_cued_retrieval,validation,313,phasewrap_adapter,phase_cued_retrieval_validation_seed313_L40_005,40,39,7,31,8,3,0.0,6,0.0,0.5,False,2,32,2.417438,-0.114606,12 2
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L48_000,48,47,12,36,11,61,0.0,62,0.0,0.5,False,2,36,2.422894,-0.088419,17 7
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L48_001,48,47,16,40,7,72,0.0,73,0.0,0.5,False,2,38,2.422894,-0.088419,21 11
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L48_002,48,47,19,43,4,82,0.0,83,0.0,0.5,False,2,37,2.422894,-0.088419,24 14
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L48_003,48,47,5,29,18,75,0.0,76,0.0,1.0,False,1,32,2.422894,-0.088419,10
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L48_004,48,47,7,31,16,84,0.0,85,0.0,0.5,False,2,33,2.422894,-0.088419,12 2
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L48_005,48,47,8,32,15,92,0.0,93,0.0,0.5,False,2,34,2.422894,-0.088419,13 3
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L64_000,64,63,19,43,20,20,0.0,23,0.0,0.5,False,2,42,2.429648,-0.055998,24 14
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L64_001,64,63,5,53,10,37,0.0,39,0.0,1.0,False,1,50,2.429648,-0.151236,10
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L64_002,64,63,7,55,8,46,0.0,49,0.0,0.5,False,2,51,2.429648,-0.151236,12 2
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L64_003,64,63,8,56,7,54,0.0,56,0.0,0.5,False,2,52,2.429648,-0.151236,13 3
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L64_004,64,63,11,59,4,64,0.0,65,0.0,0.5,False,2,52,2.429648,-0.151236,16 6
+phase_cued_retrieval,test,313,phasewrap_adapter,phase_cued_retrieval_test_seed313_L64_005,64,63,12,60,3,72,0.0,75,0.0,0.5,False,2,52,2.429648,-0.151236,17 7
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L24_000,24,23,16,16,7,69,0.043478,15,0.0,0.086957,True,23,8,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L24_001,24,23,19,19,4,79,0.043478,20,0.0,0.086957,True,23,5,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L24_002,24,23,5,5,18,72,0.043478,14,0.0,0.086957,True,23,19,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L24_003,24,23,7,7,16,81,0.043478,16,0.0,0.130435,True,23,17,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L24_004,24,23,8,8,15,89,0.043478,19,0.0,0.086957,True,23,16,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L24_005,24,23,11,11,12,99,0.043478,16,0.0,0.086957,True,23,13,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L32_000,32,31,19,19,12,48,0.032258,14,0.0,0.064516,True,31,13,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L32_001,32,31,5,29,2,65,0.064516,2,0.0,0.064516,True,31,3,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L32_002,32,31,7,7,24,50,0.064516,1,1.0,0.064516,True,31,25,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L32_003,32,31,8,8,23,58,0.032258,15,0.0,0.064516,True,31,24,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L32_004,32,31,11,11,20,68,0.032258,19,0.0,0.064516,True,31,21,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,317,no_position,phase_cued_retrieval_train_seed317_L32_005,32,31,12,12,19,76,0.032258,17,0.0,0.096774,True,31,20,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,validation,317,no_position,phase_cued_retrieval_validation_seed317_L40_000,40,39,5,29,10,34,0.025641,17,0.0,0.051282,True,39,11,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,317,no_position,phase_cued_retrieval_validation_seed317_L40_001,40,39,7,31,8,43,0.025641,15,0.0,0.076923,True,39,9,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,317,no_position,phase_cued_retrieval_validation_seed317_L40_002,40,39,8,32,7,51,0.051282,4,0.0,0.051282,True,39,8,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,317,no_position,phase_cued_retrieval_validation_seed317_L40_003,40,39,11,35,4,61,0.051282,7,0.0,0.076923,True,39,5,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,317,no_position,phase_cued_retrieval_validation_seed317_L40_004,40,39,12,36,3,69,0.025641,22,0.0,0.076923,True,39,4,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,317,no_position,phase_cued_retrieval_validation_seed317_L40_005,40,39,16,16,23,56,0.025641,20,0.0,0.051282,True,39,24,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L48_000,48,47,7,31,16,12,0.021277,7,0.0,0.042553,True,47,17,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L48_001,48,47,8,32,15,20,0.06383,1,1.0,0.06383,True,47,16,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L48_002,48,47,11,35,12,30,0.021277,13,0.0,0.06383,True,47,13,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L48_003,48,47,12,36,11,38,0.042553,2,0.0,0.042553,True,47,12,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L48_004,48,47,16,40,7,49,0.021277,23,0.0,0.042553,True,47,8,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L48_005,48,47,19,43,4,59,0.021277,32,0.0,0.042553,True,47,5,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L64_000,64,63,11,59,4,104,0.015873,47,0.0,0.047619,True,63,5,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L64_001,64,63,12,60,3,0,0.015873,13,0.0,0.063492,True,63,4,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L64_002,64,63,16,40,23,99,0.031746,13,0.0,0.047619,True,63,24,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L64_003,64,63,19,43,20,109,0.015873,49,0.0,0.047619,True,63,21,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L64_004,64,63,5,53,10,14,0.031746,3,0.0,0.047619,True,63,11,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,317,no_position,phase_cued_retrieval_test_seed317_L64_005,64,63,7,55,8,23,0.047619,2,0.0,0.047619,True,63,9,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L24_000,24,23,16,16,7,69,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L24_001,24,23,19,19,4,79,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L24_002,24,23,5,5,18,72,1.0,1,1.0,1.0,True,1,1,1.0,1.0,5
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L24_003,24,23,7,7,16,81,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L24_004,24,23,8,8,15,89,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L24_005,24,23,11,11,12,99,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L32_000,32,31,19,19,12,48,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L32_001,32,31,5,29,2,65,0.0,66,0.0,1.0,False,1,6,1.0,0.25,5
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L32_002,32,31,7,7,24,50,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L32_003,32,31,8,8,23,58,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L32_004,32,31,11,11,20,68,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,317,sinusoidal,phase_cued_retrieval_train_seed317_L32_005,32,31,12,12,19,76,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,validation,317,sinusoidal,phase_cued_retrieval_validation_seed317_L40_000,40,39,5,29,10,34,0.0,36,0.0,0.5,False,2,9,1.0,0.25,37 5
+phase_cued_retrieval,validation,317,sinusoidal,phase_cued_retrieval_validation_seed317_L40_001,40,39,7,31,8,43,0.0,45,0.0,0.5,False,2,8,1.0,0.25,39 7
+phase_cued_retrieval,validation,317,sinusoidal,phase_cued_retrieval_validation_seed317_L40_002,40,39,8,32,7,51,0.0,52,0.0,1.0,False,1,7,1.0,0.25,8
+phase_cued_retrieval,validation,317,sinusoidal,phase_cued_retrieval_validation_seed317_L40_003,40,39,11,35,4,61,1.0,1,1.0,1.0,False,1,7,1.0,0.25,11
+phase_cued_retrieval,validation,317,sinusoidal,phase_cued_retrieval_validation_seed317_L40_004,40,39,12,36,3,69,0.0,70,0.0,1.0,False,1,7,1.0,0.25,12
+phase_cued_retrieval,validation,317,sinusoidal,phase_cued_retrieval_validation_seed317_L40_005,40,39,16,16,23,56,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L48_000,48,47,7,31,16,12,0.0,15,0.0,0.5,False,2,10,1.0,0.25,39 7
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L48_001,48,47,8,32,15,20,0.0,22,0.0,0.5,False,2,9,1.0,0.25,40 8
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L48_002,48,47,11,35,12,30,0.0,33,0.0,0.5,False,2,10,1.0,0.25,43 11
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L48_003,48,47,12,36,11,38,0.0,40,0.0,0.5,False,2,10,1.0,0.25,44 12
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L48_004,48,47,16,40,7,49,0.0,51,0.0,1.0,False,1,8,1.0,0.25,16
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L48_005,48,47,19,43,4,59,0.0,61,0.0,1.0,False,1,8,1.0,0.25,19
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L64_000,64,63,11,59,4,104,0.0,105,0.0,0.5,False,2,7,1.0,0.5,43 11
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L64_001,64,63,12,60,3,0,0.0,3,0.0,0.5,False,2,7,1.0,0.5,44 12
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L64_002,64,63,16,40,23,99,0.0,101,0.0,0.5,False,2,11,1.0,0.25,48 16
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L64_003,64,63,19,43,20,109,0.0,110,0.0,0.5,False,2,12,1.0,0.25,51 19
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L64_004,64,63,5,53,10,14,0.0,17,0.0,0.5,False,2,7,1.0,0.5,37 5
+phase_cued_retrieval,test,317,sinusoidal,phase_cued_retrieval_test_seed317_L64_005,64,63,7,55,8,23,0.0,25,0.0,0.5,False,2,7,1.0,0.5,39 7
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L24_000,24,23,16,16,7,69,0.0,70,0.0,1.0,False,1,16,-0.043478,-0.695652,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L24_001,24,23,19,19,4,79,0.0,81,0.0,1.0,False,1,19,-0.043478,-0.826087,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L24_002,24,23,5,5,18,72,0.0,74,0.0,1.0,False,1,5,-0.043478,-0.217391,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L24_003,24,23,7,7,16,81,0.0,82,0.0,1.0,False,1,7,-0.043478,-0.304348,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L24_004,24,23,8,8,15,89,0.0,90,0.0,1.0,False,1,8,-0.043478,-0.347826,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L24_005,24,23,11,11,12,99,0.0,100,0.0,1.0,False,1,11,-0.043478,-0.478261,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L32_000,32,31,19,19,12,48,0.0,49,0.0,1.0,False,1,19,-0.032258,-0.612903,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L32_001,32,31,5,29,2,65,0.0,66,0.0,1.0,False,1,29,-0.032258,-0.935484,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L32_002,32,31,7,7,24,50,0.0,52,0.0,1.0,False,1,7,-0.032258,-0.225806,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L32_003,32,31,8,8,23,58,0.0,59,0.0,1.0,False,1,8,-0.032258,-0.258065,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L32_004,32,31,11,11,20,68,0.0,70,0.0,1.0,False,1,11,-0.032258,-0.354839,1
+phase_cued_retrieval,train,317,alibi,phase_cued_retrieval_train_seed317_L32_005,32,31,12,12,19,76,0.0,78,0.0,1.0,False,1,12,-0.032258,-0.387097,1
+phase_cued_retrieval,validation,317,alibi,phase_cued_retrieval_validation_seed317_L40_000,40,39,5,29,10,34,0.0,36,0.0,1.0,False,1,29,-0.025641,-0.74359,1
+phase_cued_retrieval,validation,317,alibi,phase_cued_retrieval_validation_seed317_L40_001,40,39,7,31,8,43,0.0,45,0.0,1.0,False,1,31,-0.025641,-0.794872,1
+phase_cued_retrieval,validation,317,alibi,phase_cued_retrieval_validation_seed317_L40_002,40,39,8,32,7,51,0.0,53,0.0,1.0,False,1,32,-0.025641,-0.820513,1
+phase_cued_retrieval,validation,317,alibi,phase_cued_retrieval_validation_seed317_L40_003,40,39,11,35,4,61,0.0,62,0.0,1.0,False,1,35,-0.025641,-0.897436,1
+phase_cued_retrieval,validation,317,alibi,phase_cued_retrieval_validation_seed317_L40_004,40,39,12,36,3,69,0.0,70,0.0,1.0,False,1,36,-0.025641,-0.923077,1
+phase_cued_retrieval,validation,317,alibi,phase_cued_retrieval_validation_seed317_L40_005,40,39,16,16,23,56,0.0,57,0.0,1.0,False,1,16,-0.025641,-0.410256,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L48_000,48,47,7,31,16,12,0.0,14,0.0,1.0,False,1,31,-0.021277,-0.659574,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L48_001,48,47,8,32,15,20,0.0,21,0.0,1.0,False,1,32,-0.021277,-0.680851,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L48_002,48,47,11,35,12,30,0.0,31,0.0,1.0,False,1,35,-0.021277,-0.744681,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L48_003,48,47,12,36,11,38,0.0,40,0.0,1.0,False,1,36,-0.021277,-0.765957,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L48_004,48,47,16,40,7,49,0.0,51,0.0,1.0,False,1,40,-0.021277,-0.851064,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L48_005,48,47,19,43,4,59,0.0,60,0.0,1.0,False,1,43,-0.021277,-0.914894,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L64_000,64,63,11,59,4,104,0.0,105,0.0,1.0,False,1,59,-0.015873,-0.936508,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L64_001,64,63,12,60,3,0,0.0,2,0.0,1.0,False,1,60,-0.015873,-0.952381,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L64_002,64,63,16,40,23,99,0.0,101,0.0,1.0,False,1,40,-0.015873,-0.634921,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L64_003,64,63,19,43,20,109,0.0,110,0.0,1.0,False,1,43,-0.015873,-0.68254,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L64_004,64,63,5,53,10,14,0.0,16,0.0,1.0,False,1,53,-0.015873,-0.84127,1
+phase_cued_retrieval,test,317,alibi,phase_cued_retrieval_test_seed317_L64_005,64,63,7,55,8,23,0.0,25,0.0,1.0,False,1,55,-0.015873,-0.873016,1
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L24_000,24,23,16,16,7,69,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L24_001,24,23,19,19,4,79,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L24_002,24,23,5,5,18,72,1.0,1,1.0,1.0,True,1,1,1.0,1.0,5
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L24_003,24,23,7,7,16,81,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L24_004,24,23,8,8,15,89,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L24_005,24,23,11,11,12,99,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L32_000,32,31,19,19,12,48,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L32_001,32,31,5,29,2,65,0.0,66,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L32_002,32,31,7,7,24,50,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L32_003,32,31,8,8,23,58,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L32_004,32,31,11,11,20,68,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,317,rope_relative,phase_cued_retrieval_train_seed317_L32_005,32,31,12,12,19,76,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,validation,317,rope_relative,phase_cued_retrieval_validation_seed317_L40_000,40,39,5,29,10,34,0.0,35,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,validation,317,rope_relative,phase_cued_retrieval_validation_seed317_L40_001,40,39,7,31,8,43,0.0,45,0.0,1.0,False,1,22,1.0,0.620591,7
+phase_cued_retrieval,validation,317,rope_relative,phase_cued_retrieval_validation_seed317_L40_002,40,39,8,32,7,51,0.0,52,0.0,1.0,False,1,23,1.0,0.620591,8
+phase_cued_retrieval,validation,317,rope_relative,phase_cued_retrieval_validation_seed317_L40_003,40,39,11,35,4,61,1.0,1,1.0,1.0,False,1,25,1.0,0.620591,11
+phase_cued_retrieval,validation,317,rope_relative,phase_cued_retrieval_validation_seed317_L40_004,40,39,12,36,3,69,0.0,70,0.0,1.0,False,1,26,1.0,0.620591,12
+phase_cued_retrieval,validation,317,rope_relative,phase_cued_retrieval_validation_seed317_L40_005,40,39,16,16,23,56,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L48_000,48,47,7,31,16,12,0.0,14,0.0,1.0,False,1,22,1.0,0.620591,7
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L48_001,48,47,8,32,15,20,0.0,22,0.0,1.0,False,1,23,1.0,0.620591,8
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L48_002,48,47,11,35,12,30,0.0,32,0.0,1.0,False,1,25,1.0,0.620591,11
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L48_003,48,47,12,36,11,38,0.0,40,0.0,1.0,False,1,26,1.0,0.620591,12
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L48_004,48,47,16,40,7,49,0.0,51,0.0,1.0,False,1,28,1.0,0.620591,16
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L48_005,48,47,19,43,4,59,0.0,61,0.0,1.0,False,1,28,1.0,0.620591,19
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L64_000,64,63,11,59,4,104,0.0,105,0.0,1.0,False,1,63,1.0,0.331841,11
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L64_001,64,63,12,60,3,0,0.0,2,0.0,1.0,False,1,63,1.0,0.331841,12
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L64_002,64,63,16,40,23,99,0.0,101,0.0,1.0,False,1,28,1.0,0.620591,16
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L64_003,64,63,19,43,20,109,0.0,110,0.0,1.0,False,1,28,1.0,0.620591,19
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L64_004,64,63,5,53,10,14,0.0,16,0.0,1.0,False,1,63,1.0,0.331841,5
+phase_cued_retrieval,test,317,rope_relative,phase_cued_retrieval_test_seed317_L64_005,64,63,7,55,8,23,0.0,25,0.0,1.0,False,1,63,1.0,0.331841,7
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L24_000,24,23,16,16,7,69,0.0,71,0.0,0.5,False,2,13,2.44949,0.03924,21 11
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L24_001,24,23,19,19,4,79,0.0,80,0.0,1.0,False,1,12,2.44949,0.03924,14
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L24_002,24,23,5,5,18,72,0.0,73,0.0,1.0,False,1,12,2.44949,0.03924,10
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L24_003,24,23,7,7,16,81,0.0,82,0.0,0.5,False,2,13,2.44949,0.03924,12 2
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L24_004,24,23,8,8,15,89,0.0,90,0.0,0.5,False,2,13,2.44949,0.03924,13 3
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L24_005,24,23,11,11,12,99,0.0,100,0.0,0.5,False,2,13,2.44949,0.03924,16 6
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L32_000,32,31,19,19,12,48,0.0,49,0.0,0.5,False,2,15,2.44949,0.03924,24 14
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L32_001,32,31,5,29,2,65,0.0,67,0.0,0.5,False,2,17,2.44949,0.03924,24 10
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L32_002,32,31,7,7,24,50,0.333333,3,0.0,0.333333,False,3,19,2.44949,0.03924,26 12 2
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L32_003,32,31,8,8,23,58,0.0,62,0.0,0.333333,False,3,18,2.44949,0.03924,27 13 3
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L32_004,32,31,11,11,20,68,0.0,70,0.0,0.333333,False,3,17,2.44949,0.03924,30 16 6
+phase_cued_retrieval,train,317,phasewrap_bias,phase_cued_retrieval_train_seed317_L32_005,32,31,12,12,19,76,0.0,77,0.0,0.333333,False,3,16,2.44949,0.03924,31 17 7
+phase_cued_retrieval,validation,317,phasewrap_bias,phase_cued_retrieval_validation_seed317_L40_000,40,39,5,29,10,34,0.0,36,0.0,0.333333,False,3,22,2.44949,0.03924,34 24 10
+phase_cued_retrieval,validation,317,phasewrap_bias,phase_cued_retrieval_validation_seed317_L40_001,40,39,7,31,8,43,0.0,46,0.0,0.25,False,4,23,2.44949,0.03924,36 26 12 2
+phase_cued_retrieval,validation,317,phasewrap_bias,phase_cued_retrieval_validation_seed317_L40_002,40,39,8,32,7,51,0.0,55,0.0,0.25,False,4,23,2.44949,0.03924,37 27 13 3
+phase_cued_retrieval,validation,317,phasewrap_bias,phase_cued_retrieval_validation_seed317_L40_003,40,39,11,35,4,61,0.0,63,0.0,0.333333,False,3,22,2.44949,0.03924,30 16 6
+phase_cued_retrieval,validation,317,phasewrap_bias,phase_cued_retrieval_validation_seed317_L40_004,40,39,12,36,3,69,0.0,73,0.0,0.333333,False,3,21,2.44949,0.03924,31 17 7
+phase_cued_retrieval,validation,317,phasewrap_bias,phase_cued_retrieval_validation_seed317_L40_005,40,39,16,16,23,56,0.0,58,0.0,0.333333,False,3,20,2.44949,0.03924,35 21 11
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L48_000,48,47,7,31,16,12,0.0,17,0.0,0.25,False,4,25,2.44949,0.03924,36 26 12 2
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L48_001,48,47,8,32,15,20,0.0,25,0.0,0.25,False,4,25,2.44949,0.03924,37 27 13 3
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L48_002,48,47,11,35,12,30,0.0,34,0.0,0.25,False,4,25,2.44949,0.03924,40 30 16 6
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L48_003,48,47,12,36,11,38,0.0,42,0.0,0.25,False,4,25,2.44949,0.03924,41 31 17 7
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L48_004,48,47,16,40,7,49,0.0,53,0.0,0.5,False,4,25,2.44949,0.03924,45 35 21 11
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L48_005,48,47,19,43,4,59,0.0,62,0.0,0.333333,False,3,24,2.44949,0.03924,38 24 14
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L64_000,64,63,11,59,4,104,0.0,105,0.0,0.2,False,5,34,2.44949,0.03924,54 40 30 16 6
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L64_001,64,63,12,60,3,0,0.0,6,0.0,0.2,False,5,33,2.44949,0.03924,55 41 31 17 7
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L64_002,64,63,16,40,23,99,0.0,101,0.0,0.2,False,5,32,2.44949,0.03924,59 45 35 21 11
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L64_003,64,63,19,43,20,109,0.0,110,0.0,0.2,False,5,31,2.44949,0.03924,62 48 38 24 14
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L64_004,64,63,5,53,10,14,0.0,19,0.0,0.2,False,5,34,2.44949,0.03924,58 48 34 24 10
+phase_cued_retrieval,test,317,phasewrap_bias,phase_cued_retrieval_test_seed317_L64_005,64,63,7,55,8,23,0.0,29,0.0,0.166667,False,6,35,2.44949,0.03924,60 50 36 26 12 2
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L24_000,24,23,16,16,7,69,0.0,71,0.0,0.5,False,2,13,2.395142,0.03924,21 11
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L24_001,24,23,19,19,4,79,0.0,80,0.0,1.0,False,1,12,2.395142,0.03924,14
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L24_002,24,23,5,5,18,72,0.0,73,0.0,1.0,False,1,12,2.395142,0.03924,10
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L24_003,24,23,7,7,16,81,0.0,82,0.0,0.5,False,2,13,2.395142,0.03924,12 2
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L24_004,24,23,8,8,15,89,0.0,90,0.0,0.5,False,2,13,2.395142,0.03924,13 3
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L24_005,24,23,11,11,12,99,0.0,100,0.0,0.5,False,2,13,2.395142,0.03924,16 6
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L32_000,32,31,19,19,12,48,0.0,49,0.0,0.5,False,2,15,2.409167,0.03924,24 14
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L32_001,32,31,5,29,2,65,0.0,67,0.0,1.0,False,1,26,2.409167,-0.154308,10
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L32_002,32,31,7,7,24,50,0.5,2,0.0,0.5,False,2,18,2.409167,0.03924,12 2
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L32_003,32,31,8,8,23,58,0.0,61,0.0,0.5,False,2,18,2.409167,0.03924,13 3
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L32_004,32,31,11,11,20,68,0.0,70,0.0,0.5,False,2,17,2.409167,0.03924,16 6
+phase_cued_retrieval,train,317,phasewrap_adapter,phase_cued_retrieval_train_seed317_L32_005,32,31,12,12,19,76,0.0,77,0.0,0.5,False,2,16,2.409167,0.03924,17 7
+phase_cued_retrieval,validation,317,phasewrap_adapter,phase_cued_retrieval_validation_seed317_L40_000,40,39,5,29,10,34,0.0,35,0.0,1.0,False,1,31,2.417438,-0.114606,10
+phase_cued_retrieval,validation,317,phasewrap_adapter,phase_cued_retrieval_validation_seed317_L40_001,40,39,7,31,8,43,0.0,45,0.0,0.5,False,2,32,2.417438,-0.114606,12 2
+phase_cued_retrieval,validation,317,phasewrap_adapter,phase_cued_retrieval_validation_seed317_L40_002,40,39,8,32,7,51,0.0,54,0.0,0.5,False,2,33,2.417438,-0.114606,13 3
+phase_cued_retrieval,validation,317,phasewrap_adapter,phase_cued_retrieval_validation_seed317_L40_003,40,39,11,35,4,61,0.0,62,0.0,0.5,False,2,33,2.417438,-0.114606,16 6
+phase_cued_retrieval,validation,317,phasewrap_adapter,phase_cued_retrieval_validation_seed317_L40_004,40,39,12,36,3,69,0.0,72,0.0,0.5,False,2,33,2.417438,-0.114606,17 7
+phase_cued_retrieval,validation,317,phasewrap_adapter,phase_cued_retrieval_validation_seed317_L40_005,40,39,16,16,23,56,0.0,58,0.0,0.5,False,2,20,2.417438,0.03924,21 11
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L48_000,48,47,7,31,16,12,0.0,15,0.0,0.5,False,2,33,2.422894,-0.088419,12 2
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L48_001,48,47,8,32,15,20,0.0,23,0.0,0.5,False,2,34,2.422894,-0.088419,13 3
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L48_002,48,47,11,35,12,30,0.0,33,0.0,0.5,False,2,35,2.422894,-0.088419,16 6
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L48_003,48,47,12,36,11,38,0.0,40,0.0,0.5,False,2,36,2.422894,-0.088419,17 7
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L48_004,48,47,16,40,7,49,0.0,52,0.0,0.5,False,2,38,2.422894,-0.088419,21 11
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L48_005,48,47,19,43,4,59,0.0,61,0.0,0.5,False,2,37,2.422894,-0.088419,24 14
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L64_000,64,63,11,59,4,104,0.0,105,0.0,0.5,False,2,52,2.429648,-0.151236,16 6
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L64_001,64,63,12,60,3,0,0.0,3,0.0,0.5,False,2,52,2.429648,-0.151236,17 7
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L64_002,64,63,16,40,23,99,0.0,101,0.0,0.5,False,2,43,2.429648,-0.055998,21 11
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L64_003,64,63,19,43,20,109,0.0,110,0.0,0.5,False,2,42,2.429648,-0.055998,24 14
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L64_004,64,63,5,53,10,14,0.0,16,0.0,1.0,False,1,50,2.429648,-0.151236,10
+phase_cued_retrieval,test,317,phasewrap_adapter,phase_cued_retrieval_test_seed317_L64_005,64,63,7,55,8,23,0.0,26,0.0,0.5,False,2,51,2.429648,-0.151236,12 2
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L24_000,24,23,16,16,7,83,0.043478,15,0.0,0.130435,True,23,8,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L24_001,24,23,19,19,4,93,0.043478,17,0.0,0.086957,True,23,5,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L24_002,24,23,5,5,18,86,0.043478,14,0.0,0.086957,True,23,19,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L24_003,24,23,7,7,16,95,0.043478,17,0.0,0.130435,True,23,17,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L24_004,24,23,8,8,15,103,0.043478,23,0.0,0.043478,True,23,16,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L24_005,24,23,11,11,12,1,0.043478,2,0.0,0.086957,True,23,13,0.0,0.0,23 22 21 20 19 18 17 16
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L32_000,32,31,19,19,12,62,0.064516,2,0.0,0.064516,True,31,13,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L32_001,32,31,5,29,2,79,0.064516,2,0.0,0.096774,True,31,3,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L32_002,32,31,7,7,24,64,0.032258,14,0.0,0.064516,True,31,25,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L32_003,32,31,8,8,23,72,0.032258,21,0.0,0.064516,True,31,24,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L32_004,32,31,11,11,20,82,0.032258,23,0.0,0.064516,True,31,21,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,train,331,no_position,phase_cued_retrieval_train_seed331_L32_005,32,31,12,12,19,90,0.032258,27,0.0,0.096774,True,31,20,0.0,0.0,31 30 29 28 27 26 25 24
+phase_cued_retrieval,validation,331,no_position,phase_cued_retrieval_validation_seed331_L40_000,40,39,5,29,10,48,0.025641,18,0.0,0.051282,True,39,11,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,331,no_position,phase_cued_retrieval_validation_seed331_L40_001,40,39,7,31,8,57,0.051282,3,0.0,0.076923,True,39,9,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,331,no_position,phase_cued_retrieval_validation_seed331_L40_002,40,39,8,32,7,65,0.025641,22,0.0,0.051282,True,39,8,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,331,no_position,phase_cued_retrieval_validation_seed331_L40_003,40,39,11,35,4,75,0.051282,2,0.0,0.076923,True,39,5,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,331,no_position,phase_cued_retrieval_validation_seed331_L40_004,40,39,12,36,3,83,0.051282,5,0.0,0.051282,True,39,4,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,validation,331,no_position,phase_cued_retrieval_validation_seed331_L40_005,40,39,16,16,23,70,0.025641,19,0.0,0.051282,True,39,24,0.0,0.0,39 38 37 36 35 34 33 32
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L48_000,48,47,7,31,16,26,0.021277,17,0.0,0.042553,True,47,17,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L48_001,48,47,8,32,15,34,0.021277,17,0.0,0.06383,True,47,16,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L48_002,48,47,11,35,12,44,0.042553,7,0.0,0.06383,True,47,13,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L48_003,48,47,12,36,11,52,0.021277,18,0.0,0.085106,True,47,12,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L48_004,48,47,16,40,7,63,0.021277,21,0.0,0.06383,True,47,8,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L48_005,48,47,19,43,4,73,0.021277,26,0.0,0.06383,True,47,5,0.0,0.0,47 46 45 44 43 42 41 40
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L64_000,64,63,11,59,4,6,0.015873,14,0.0,0.047619,True,63,5,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L64_001,64,63,12,60,3,14,0.015873,17,0.0,0.047619,True,63,4,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L64_002,64,63,16,40,23,1,0.015873,18,0.0,0.047619,True,63,24,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L64_003,64,63,19,43,20,11,0.047619,1,1.0,0.047619,True,63,21,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L64_004,64,63,5,53,10,28,0.015873,21,0.0,0.047619,True,63,11,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,test,331,no_position,phase_cued_retrieval_test_seed331_L64_005,64,63,7,55,8,37,0.015873,29,0.0,0.063492,True,63,9,0.0,0.0,63 62 61 60 59 58 57 56
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L24_000,24,23,16,16,7,83,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L24_001,24,23,19,19,4,93,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L24_002,24,23,5,5,18,86,1.0,1,1.0,1.0,True,1,1,1.0,1.0,5
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L24_003,24,23,7,7,16,95,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L24_004,24,23,8,8,15,103,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L24_005,24,23,11,11,12,1,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L32_000,32,31,19,19,12,62,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L32_001,32,31,5,29,2,79,0.0,80,0.0,1.0,False,1,6,1.0,0.25,5
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L32_002,32,31,7,7,24,64,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L32_003,32,31,8,8,23,72,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L32_004,32,31,11,11,20,82,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,331,sinusoidal,phase_cued_retrieval_train_seed331_L32_005,32,31,12,12,19,90,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,validation,331,sinusoidal,phase_cued_retrieval_validation_seed331_L40_000,40,39,5,29,10,48,0.0,51,0.0,0.5,False,2,9,1.0,0.25,37 5
+phase_cued_retrieval,validation,331,sinusoidal,phase_cued_retrieval_validation_seed331_L40_001,40,39,7,31,8,57,0.0,60,0.0,0.5,False,2,8,1.0,0.25,39 7
+phase_cued_retrieval,validation,331,sinusoidal,phase_cued_retrieval_validation_seed331_L40_002,40,39,8,32,7,65,0.0,66,0.0,1.0,False,1,7,1.0,0.25,8
+phase_cued_retrieval,validation,331,sinusoidal,phase_cued_retrieval_validation_seed331_L40_003,40,39,11,35,4,75,0.0,76,0.0,1.0,False,1,7,1.0,0.25,11
+phase_cued_retrieval,validation,331,sinusoidal,phase_cued_retrieval_validation_seed331_L40_004,40,39,12,36,3,83,0.0,84,0.0,1.0,False,1,7,1.0,0.25,12
+phase_cued_retrieval,validation,331,sinusoidal,phase_cued_retrieval_validation_seed331_L40_005,40,39,16,16,23,70,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L48_000,48,47,7,31,16,26,0.0,28,0.0,0.5,False,2,10,1.0,0.25,39 7
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L48_001,48,47,8,32,15,34,0.0,36,0.0,0.5,False,2,9,1.0,0.25,40 8
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L48_002,48,47,11,35,12,44,0.0,47,0.0,0.5,False,2,10,1.0,0.25,43 11
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L48_003,48,47,12,36,11,52,0.0,54,0.0,0.5,False,2,10,1.0,0.25,44 12
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L48_004,48,47,16,40,7,63,0.0,64,0.0,1.0,False,1,8,1.0,0.25,16
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L48_005,48,47,19,43,4,73,0.0,74,0.0,1.0,False,1,8,1.0,0.25,19
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L64_000,64,63,11,59,4,6,0.0,9,0.0,0.5,False,2,7,1.0,0.5,43 11
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L64_001,64,63,12,60,3,14,0.0,17,0.0,0.5,False,2,7,1.0,0.5,44 12
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L64_002,64,63,16,40,23,1,0.0,4,0.0,0.5,False,2,11,1.0,0.25,48 16
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L64_003,64,63,19,43,20,11,0.0,14,0.0,0.5,False,2,12,1.0,0.25,51 19
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L64_004,64,63,5,53,10,28,0.0,31,0.0,0.5,False,2,7,1.0,0.5,37 5
+phase_cued_retrieval,test,331,sinusoidal,phase_cued_retrieval_test_seed331_L64_005,64,63,7,55,8,37,0.0,38,0.0,0.5,False,2,7,1.0,0.5,39 7
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L24_000,24,23,16,16,7,83,0.0,84,0.0,1.0,False,1,16,-0.043478,-0.695652,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L24_001,24,23,19,19,4,93,0.0,94,0.0,1.0,False,1,19,-0.043478,-0.826087,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L24_002,24,23,5,5,18,86,0.0,87,0.0,1.0,False,1,5,-0.043478,-0.217391,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L24_003,24,23,7,7,16,95,0.0,96,0.0,1.0,False,1,7,-0.043478,-0.304348,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L24_004,24,23,8,8,15,103,0.0,104,0.0,1.0,False,1,8,-0.043478,-0.347826,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L24_005,24,23,11,11,12,1,0.0,3,0.0,1.0,False,1,11,-0.043478,-0.478261,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L32_000,32,31,19,19,12,62,0.0,63,0.0,1.0,False,1,19,-0.032258,-0.612903,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L32_001,32,31,5,29,2,79,0.0,80,0.0,1.0,False,1,29,-0.032258,-0.935484,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L32_002,32,31,7,7,24,64,0.0,65,0.0,1.0,False,1,7,-0.032258,-0.225806,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L32_003,32,31,8,8,23,72,0.0,73,0.0,1.0,False,1,8,-0.032258,-0.258065,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L32_004,32,31,11,11,20,82,0.0,83,0.0,1.0,False,1,11,-0.032258,-0.354839,1
+phase_cued_retrieval,train,331,alibi,phase_cued_retrieval_train_seed331_L32_005,32,31,12,12,19,90,0.0,91,0.0,1.0,False,1,12,-0.032258,-0.387097,1
+phase_cued_retrieval,validation,331,alibi,phase_cued_retrieval_validation_seed331_L40_000,40,39,5,29,10,48,0.0,49,0.0,1.0,False,1,29,-0.025641,-0.74359,1
+phase_cued_retrieval,validation,331,alibi,phase_cued_retrieval_validation_seed331_L40_001,40,39,7,31,8,57,0.0,59,0.0,1.0,False,1,31,-0.025641,-0.794872,1
+phase_cued_retrieval,validation,331,alibi,phase_cued_retrieval_validation_seed331_L40_002,40,39,8,32,7,65,0.0,66,0.0,1.0,False,1,32,-0.025641,-0.820513,1
+phase_cued_retrieval,validation,331,alibi,phase_cued_retrieval_validation_seed331_L40_003,40,39,11,35,4,75,0.0,77,0.0,1.0,False,1,35,-0.025641,-0.897436,1
+phase_cued_retrieval,validation,331,alibi,phase_cued_retrieval_validation_seed331_L40_004,40,39,12,36,3,83,0.0,84,0.0,1.0,False,1,36,-0.025641,-0.923077,1
+phase_cued_retrieval,validation,331,alibi,phase_cued_retrieval_validation_seed331_L40_005,40,39,16,16,23,70,0.0,72,0.0,1.0,False,1,16,-0.025641,-0.410256,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L48_000,48,47,7,31,16,26,0.0,28,0.0,1.0,False,1,31,-0.021277,-0.659574,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L48_001,48,47,8,32,15,34,0.0,35,0.0,1.0,False,1,32,-0.021277,-0.680851,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L48_002,48,47,11,35,12,44,0.0,45,0.0,1.0,False,1,35,-0.021277,-0.744681,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L48_003,48,47,12,36,11,52,0.0,54,0.0,1.0,False,1,36,-0.021277,-0.765957,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L48_004,48,47,16,40,7,63,0.0,64,0.0,1.0,False,1,40,-0.021277,-0.851064,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L48_005,48,47,19,43,4,73,0.0,75,0.0,1.0,False,1,43,-0.021277,-0.914894,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L64_000,64,63,11,59,4,6,0.0,8,0.0,1.0,False,1,59,-0.015873,-0.936508,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L64_001,64,63,12,60,3,14,0.0,15,0.0,1.0,False,1,60,-0.015873,-0.952381,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L64_002,64,63,16,40,23,1,0.0,3,0.0,1.0,False,1,40,-0.015873,-0.634921,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L64_003,64,63,19,43,20,11,0.0,13,0.0,1.0,False,1,43,-0.015873,-0.68254,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L64_004,64,63,5,53,10,28,0.0,30,0.0,1.0,False,1,53,-0.015873,-0.84127,1
+phase_cued_retrieval,test,331,alibi,phase_cued_retrieval_test_seed331_L64_005,64,63,7,55,8,37,0.0,39,0.0,1.0,False,1,55,-0.015873,-0.873016,1
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L24_000,24,23,16,16,7,83,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L24_001,24,23,19,19,4,93,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L24_002,24,23,5,5,18,86,1.0,1,1.0,1.0,True,1,1,1.0,1.0,5
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L24_003,24,23,7,7,16,95,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L24_004,24,23,8,8,15,103,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L24_005,24,23,11,11,12,1,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L32_000,32,31,19,19,12,62,1.0,1,1.0,1.0,True,1,1,1.0,1.0,19
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L32_001,32,31,5,29,2,79,0.0,80,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L32_002,32,31,7,7,24,64,1.0,1,1.0,1.0,True,1,1,1.0,1.0,7
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L32_003,32,31,8,8,23,72,1.0,1,1.0,1.0,True,1,1,1.0,1.0,8
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L32_004,32,31,11,11,20,82,1.0,1,1.0,1.0,True,1,1,1.0,1.0,11
+phase_cued_retrieval,train,331,rope_relative,phase_cued_retrieval_train_seed331_L32_005,32,31,12,12,19,90,1.0,1,1.0,1.0,True,1,1,1.0,1.0,12
+phase_cued_retrieval,validation,331,rope_relative,phase_cued_retrieval_validation_seed331_L40_000,40,39,5,29,10,48,0.0,50,0.0,1.0,False,1,20,1.0,0.620591,5
+phase_cued_retrieval,validation,331,rope_relative,phase_cued_retrieval_validation_seed331_L40_001,40,39,7,31,8,57,0.0,59,0.0,1.0,False,1,22,1.0,0.620591,7
+phase_cued_retrieval,validation,331,rope_relative,phase_cued_retrieval_validation_seed331_L40_002,40,39,8,32,7,65,0.0,66,0.0,1.0,False,1,23,1.0,0.620591,8
+phase_cued_retrieval,validation,331,rope_relative,phase_cued_retrieval_validation_seed331_L40_003,40,39,11,35,4,75,0.0,76,0.0,1.0,False,1,25,1.0,0.620591,11
+phase_cued_retrieval,validation,331,rope_relative,phase_cued_retrieval_validation_seed331_L40_004,40,39,12,36,3,83,0.0,84,0.0,1.0,False,1,26,1.0,0.620591,12
+phase_cued_retrieval,validation,331,rope_relative,phase_cued_retrieval_validation_seed331_L40_005,40,39,16,16,23,70,1.0,1,1.0,1.0,True,1,1,1.0,1.0,16
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L48_000,48,47,7,31,16,26,0.0,27,0.0,1.0,False,1,22,1.0,0.620591,7
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L48_001,48,47,8,32,15,34,0.0,35,0.0,1.0,False,1,23,1.0,0.620591,8
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L48_002,48,47,11,35,12,44,0.0,46,0.0,1.0,False,1,25,1.0,0.620591,11
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L48_003,48,47,12,36,11,52,0.0,53,0.0,1.0,False,1,26,1.0,0.620591,12
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L48_004,48,47,16,40,7,63,0.0,64,0.0,1.0,False,1,28,1.0,0.620591,16
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L48_005,48,47,19,43,4,73,0.0,74,0.0,1.0,False,1,28,1.0,0.620591,19
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L64_000,64,63,11,59,4,6,0.0,8,0.0,1.0,False,1,63,1.0,0.331841,11
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L64_001,64,63,12,60,3,14,0.0,16,0.0,1.0,False,1,63,1.0,0.331841,12
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L64_002,64,63,16,40,23,1,0.0,3,0.0,1.0,False,1,28,1.0,0.620591,16
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L64_003,64,63,19,43,20,11,0.0,13,0.0,1.0,False,1,28,1.0,0.620591,19
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L64_004,64,63,5,53,10,28,0.0,30,0.0,1.0,False,1,63,1.0,0.331841,5
+phase_cued_retrieval,test,331,rope_relative,phase_cued_retrieval_test_seed331_L64_005,64,63,7,55,8,37,0.0,38,0.0,1.0,False,1,63,1.0,0.331841,7
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L24_000,24,23,16,16,7,83,0.0,85,0.0,0.5,False,2,13,2.44949,0.03924,21 11
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L24_001,24,23,19,19,4,93,0.0,94,0.0,1.0,False,1,12,2.44949,0.03924,14
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L24_002,24,23,5,5,18,86,0.0,87,0.0,1.0,False,1,12,2.44949,0.03924,10
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L24_003,24,23,7,7,16,95,0.0,96,0.0,0.5,False,2,13,2.44949,0.03924,12 2
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L24_004,24,23,8,8,15,103,0.0,104,0.0,0.5,False,2,13,2.44949,0.03924,13 3
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L24_005,24,23,11,11,12,1,0.0,4,0.0,0.5,False,2,13,2.44949,0.03924,16 6
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L32_000,32,31,19,19,12,62,0.5,2,0.0,0.5,False,2,15,2.44949,0.03924,24 14
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L32_001,32,31,5,29,2,79,0.0,81,0.0,0.5,False,2,17,2.44949,0.03924,24 10
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L32_002,32,31,7,7,24,64,0.0,68,0.0,0.333333,False,3,19,2.44949,0.03924,26 12 2
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L32_003,32,31,8,8,23,72,0.0,74,0.0,0.333333,False,3,18,2.44949,0.03924,27 13 3
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L32_004,32,31,11,11,20,82,0.0,84,0.0,0.333333,False,3,17,2.44949,0.03924,30 16 6
+phase_cued_retrieval,train,331,phasewrap_bias,phase_cued_retrieval_train_seed331_L32_005,32,31,12,12,19,90,0.0,92,0.0,0.666667,False,3,16,2.44949,0.03924,31 17 7
+phase_cued_retrieval,validation,331,phasewrap_bias,phase_cued_retrieval_validation_seed331_L40_000,40,39,5,29,10,48,0.0,50,0.0,0.333333,False,3,22,2.44949,0.03924,34 24 10
+phase_cued_retrieval,validation,331,phasewrap_bias,phase_cued_retrieval_validation_seed331_L40_001,40,39,7,31,8,57,0.0,59,0.0,0.25,False,4,23,2.44949,0.03924,36 26 12 2
+phase_cued_retrieval,validation,331,phasewrap_bias,phase_cued_retrieval_validation_seed331_L40_002,40,39,8,32,7,65,0.0,67,0.0,0.25,False,4,23,2.44949,0.03924,37 27 13 3
+phase_cued_retrieval,validation,331,phasewrap_bias,phase_cued_retrieval_validation_seed331_L40_003,40,39,11,35,4,75,0.0,78,0.0,0.333333,False,3,22,2.44949,0.03924,30 16 6
+phase_cued_retrieval,validation,331,phasewrap_bias,phase_cued_retrieval_validation_seed331_L40_004,40,39,12,36,3,83,0.0,84,0.0,0.333333,False,3,21,2.44949,0.03924,31 17 7
+phase_cued_retrieval,validation,331,phasewrap_bias,phase_cued_retrieval_validation_seed331_L40_005,40,39,16,16,23,70,0.0,72,0.0,0.333333,False,3,20,2.44949,0.03924,35 21 11
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L48_000,48,47,7,31,16,26,0.0,30,0.0,0.25,False,4,25,2.44949,0.03924,36 26 12 2
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L48_001,48,47,8,32,15,34,0.0,37,0.0,0.25,False,4,25,2.44949,0.03924,37 27 13 3
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L48_002,48,47,11,35,12,44,0.0,48,0.0,0.25,False,4,25,2.44949,0.03924,40 30 16 6
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L48_003,48,47,12,36,11,52,0.0,54,0.0,0.25,False,4,25,2.44949,0.03924,41 31 17 7
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L48_004,48,47,16,40,7,63,0.0,68,0.0,0.25,False,4,25,2.44949,0.03924,45 35 21 11
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L48_005,48,47,19,43,4,73,0.0,76,0.0,0.333333,False,3,24,2.44949,0.03924,38 24 14
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L64_000,64,63,11,59,4,6,0.0,12,0.0,0.2,False,5,34,2.44949,0.03924,54 40 30 16 6
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L64_001,64,63,12,60,3,14,0.0,19,0.0,0.2,False,5,33,2.44949,0.03924,55 41 31 17 7
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L64_002,64,63,16,40,23,1,0.0,7,0.0,0.2,False,5,32,2.44949,0.03924,59 45 35 21 11
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L64_003,64,63,19,43,20,11,0.0,17,0.0,0.2,False,5,31,2.44949,0.03924,62 48 38 24 14
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L64_004,64,63,5,53,10,28,0.0,33,0.0,0.2,False,5,34,2.44949,0.03924,58 48 34 24 10
+phase_cued_retrieval,test,331,phasewrap_bias,phase_cued_retrieval_test_seed331_L64_005,64,63,7,55,8,37,0.0,42,0.0,0.166667,False,6,35,2.44949,0.03924,60 50 36 26 12 2
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L24_000,24,23,16,16,7,83,0.0,85,0.0,0.5,False,2,13,2.395142,0.03924,21 11
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L24_001,24,23,19,19,4,93,0.0,94,0.0,1.0,False,1,12,2.395142,0.03924,14
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L24_002,24,23,5,5,18,86,0.0,87,0.0,1.0,False,1,12,2.395142,0.03924,10
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L24_003,24,23,7,7,16,95,0.0,96,0.0,0.5,False,2,13,2.395142,0.03924,12 2
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L24_004,24,23,8,8,15,103,0.0,104,0.0,0.5,False,2,13,2.395142,0.03924,13 3
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L24_005,24,23,11,11,12,1,0.0,4,0.0,0.5,False,2,13,2.395142,0.03924,16 6
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L32_000,32,31,19,19,12,62,0.5,2,0.0,0.5,False,2,15,2.409167,0.03924,24 14
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L32_001,32,31,5,29,2,79,0.0,81,0.0,1.0,False,1,26,2.409167,-0.154308,10
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L32_002,32,31,7,7,24,64,0.0,67,0.0,0.5,False,2,18,2.409167,0.03924,12 2
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L32_003,32,31,8,8,23,72,0.0,73,0.0,0.5,False,2,18,2.409167,0.03924,13 3
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L32_004,32,31,11,11,20,82,0.0,84,0.0,0.5,False,2,17,2.409167,0.03924,16 6
+phase_cued_retrieval,train,331,phasewrap_adapter,phase_cued_retrieval_train_seed331_L32_005,32,31,12,12,19,90,0.0,92,0.0,0.5,False,2,16,2.409167,0.03924,17 7
+phase_cued_retrieval,validation,331,phasewrap_adapter,phase_cued_retrieval_validation_seed331_L40_000,40,39,5,29,10,48,0.0,50,0.0,1.0,False,1,31,2.417438,-0.114606,10
+phase_cued_retrieval,validation,331,phasewrap_adapter,phase_cued_retrieval_validation_seed331_L40_001,40,39,7,31,8,57,0.0,59,0.0,0.5,False,2,32,2.417438,-0.114606,12 2
+phase_cued_retrieval,validation,331,phasewrap_adapter,phase_cued_retrieval_validation_seed331_L40_002,40,39,8,32,7,65,0.0,66,0.0,0.5,False,2,33,2.417438,-0.114606,13 3
+phase_cued_retrieval,validation,331,phasewrap_adapter,phase_cued_retrieval_validation_seed331_L40_003,40,39,11,35,4,75,0.0,78,0.0,0.5,False,2,33,2.417438,-0.114606,16 6
+phase_cued_retrieval,validation,331,phasewrap_adapter,phase_cued_retrieval_validation_seed331_L40_004,40,39,12,36,3,83,0.0,84,0.0,0.5,False,2,33,2.417438,-0.114606,17 7
+phase_cued_retrieval,validation,331,phasewrap_adapter,phase_cued_retrieval_validation_seed331_L40_005,40,39,16,16,23,70,0.0,72,0.0,0.5,False,2,20,2.417438,0.03924,21 11
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L48_000,48,47,7,31,16,26,0.0,29,0.0,0.5,False,2,33,2.422894,-0.088419,12 2
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L48_001,48,47,8,32,15,34,0.0,36,0.0,0.5,False,2,34,2.422894,-0.088419,13 3
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L48_002,48,47,11,35,12,44,0.0,47,0.0,0.5,False,2,35,2.422894,-0.088419,16 6
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L48_003,48,47,12,36,11,52,0.0,53,0.0,0.5,False,2,36,2.422894,-0.088419,17 7
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L48_004,48,47,16,40,7,63,0.0,66,0.0,0.5,False,2,38,2.422894,-0.088419,21 11
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L48_005,48,47,19,43,4,73,0.0,75,0.0,0.5,False,2,37,2.422894,-0.088419,24 14
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L64_000,64,63,11,59,4,6,0.0,9,0.0,0.5,False,2,52,2.429648,-0.151236,16 6
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L64_001,64,63,12,60,3,14,0.0,17,0.0,0.5,False,2,52,2.429648,-0.151236,17 7
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L64_002,64,63,16,40,23,1,0.0,4,0.0,0.5,False,2,43,2.429648,-0.055998,21 11
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L64_003,64,63,19,43,20,11,0.0,14,0.0,0.5,False,2,42,2.429648,-0.055998,24 14
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L64_004,64,63,5,53,10,28,0.0,30,0.0,1.0,False,1,50,2.429648,-0.151236,10
+phase_cued_retrieval,test,331,phasewrap_adapter,phase_cued_retrieval_test_seed331_L64_005,64,63,7,55,8,37,0.0,40,0.0,0.5,False,2,51,2.429648,-0.151236,12 2
