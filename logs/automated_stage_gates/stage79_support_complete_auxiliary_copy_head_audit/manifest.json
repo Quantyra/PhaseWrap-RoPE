@@ -1,0 +1,69 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that this compact support-complete auxiliary copy-head is a matched decoder-only transformer",
+      "a claim that support-complete auxiliary copy training alone establishes positional-method promotion",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential support-complete same-seed auxiliary support/copy-head audit over original Stage10 rows.",
+      "Evidence about whether Stage77's failure persists after same-seed phase-cued support coverage is restored.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap reporting with failed-run retention."
+    ]
+  },
+  "decision": {
+    "base_stage77_decision": "AUXILIARY_SUPPORT_COPY_HEAD_PARTIAL_RETRIEVAL",
+    "claim_boundary": "Same-seed support-complete training recovers held-out support labels but still does not repair phase-cued token retrieval.",
+    "decision": "SUPPORT_COMPLETE_AUXILIARY_COPY_HEAD_SUPPORT_RECOVERED_RETRIEVAL_FAILED",
+    "generalization_top1_threshold": 0.5,
+    "mean_phase_cued_test_support_accuracy": 1.0,
+    "no_position_solved_retrieval_tasks": [],
+    "phase_cued_best_method": "phasewrap_adapter",
+    "phase_cued_best_top1": 0.016667,
+    "phasewrap_best_retrieval_tasks": [
+      "phase_cued_retrieval"
+    ],
+    "retrieval_best_methods": {
+      "exact_offset_passkey": "sinusoidal",
+      "phase_cued_retrieval": "phasewrap_adapter"
+    },
+    "retrieval_best_target_probability": {
+      "exact_offset_passkey": 0.340343,
+      "phase_cued_retrieval": 0.065183
+    },
+    "retrieval_best_top1": {
+      "exact_offset_passkey": 0.65,
+      "phase_cued_retrieval": 0.016667
+    },
+    "retrieval_solved_tasks": [
+      "exact_offset_passkey"
+    ],
+    "tiny_text_best_method": "sinusoidal",
+    "tiny_text_best_top1": 1.0
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage79_support_complete_auxiliary_copy_head_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage79_support_complete_auxiliary_copy_head_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage79_support_complete_auxiliary_copy_head_audit/results.json",
+  "schema_version": "qrope_stage79_support_complete_auxiliary_copy_head_audit_v1",
+  "stage": "stage79_support_complete_auxiliary_copy_head_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage79_support_complete_auxiliary_copy_head_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}
