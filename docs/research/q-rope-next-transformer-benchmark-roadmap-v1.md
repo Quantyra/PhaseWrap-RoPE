@@ -142,9 +142,11 @@ Stage 42 tests a trainable version of that repair by mixing copied prefix-token 
 
 Stage 43 tests generator-target hardening for the Stage 42 pointer-generator. It still does not satisfy this promotion gate because it remains a compact diagnostic and RoPE-like scoring remains strongest overall, even though generator target probability improves substantially for the successful methods.
 
+Stage 44 audits Stages 39-43 as a compact-diagnostic plateau. It still does not satisfy this promotion gate because it trains no decoder-only transformer and instead records that the compact lane should remain bounded evidence rather than claim-expansion evidence.
+
 Until then, the supported claim remains narrower: PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible classical analyses, bounded hardware readout witnesses, and mixed but useful toy downstream evidence.
 
-The next gate should move the same fair-comparison frame into a stronger matched decoder-only transformer or explicitly record a bounded compact-diagnostic plateau. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
+The next gate should move the same fair-comparison frame into a stronger matched decoder-only transformer. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
 
 ## Researcher Use Context
 

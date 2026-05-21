@@ -1,0 +1,322 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "broad quantum advantage",
+      "a claim that additional compact copy-path diagnostics should expand the claim boundary"
+    ],
+    "supported": [
+      "A reproducible plateau audit over the sealed compact sequence and pointer-generator diagnostics.",
+      "A bounded claim that PhaseWrap-derived methods can be ranking-competitive in compact diagnostics.",
+      "A negative claim that Stages 39-43 do not justify RoPE-replacement or production-transformer claims."
+    ]
+  },
+  "decision": {
+    "claim_boundary": "Stages 39-43 should be treated as a compact-diagnostic plateau: useful bounded mechanism evidence, not RoPE-replacement or production-transformer evidence.",
+    "compact_only": true,
+    "decision": "BOUND_COMPACT_DIAGNOSTIC_PLATEAU",
+    "final_stage_name": "stage43_generator_hardened_pointer_sequence",
+    "final_stage_phasewrap_best_calibration": false,
+    "final_stage_rope_strongest_on_ranking_and_probability": true,
+    "next_gate": "Move the fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparison into a stronger matched decoder-only transformer benchmark before expanding claims.",
+    "phasewrap_sweep_stage_names": []
+  },
+  "primary_metrics": [
+    "top1_accuracy_mean",
+    "mrr_mean",
+    "mean_target_value_probability_mean",
+    "expected_calibration_error_mean"
+  ],
+  "schema_version": "qrope_stage44_compact_diagnostic_plateau_audit_v1",
+  "source_stages": [
+    "stage39_sequence_decoder_retrieval",
+    "stage40_sequence_length_curriculum",
+    "stage41_pointer_copy_sequence",
+    "stage42_trainable_pointer_generator_sequence",
+    "stage43_generator_hardened_pointer_sequence"
+  ],
+  "stage": "stage44_compact_diagnostic_plateau_audit",
+  "stage_records": [
+    {
+      "best_by_metric": {
+        "expected_calibration_error_mean": "alibi",
+        "mean_target_value_probability_mean": "sinusoidal",
+        "mrr_mean": "rope_relative",
+        "top1_accuracy_mean": "no_position"
+      },
+      "diagnostic_class": "compact_all_prefix_sequence_decoder",
+      "method_count": 6,
+      "metric_records": [
+        {
+          "best_method": "no_position",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 0.003333,
+          "best_value": 0.013334,
+          "larger_is_better": true,
+          "metric": "top1_accuracy_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 0.02814,
+          "best_value": 0.039489,
+          "larger_is_better": true,
+          "metric": "mrr_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "sinusoidal",
+          "best_phasewrap_method": "phasewrap_distance_adapter",
+          "best_phasewrap_value": 0.003759,
+          "best_value": 0.008371,
+          "larger_is_better": true,
+          "metric": "mean_target_value_probability_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "alibi",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 0.428141,
+          "best_value": 0.322806,
+          "larger_is_better": false,
+          "metric": "expected_calibration_error_mean",
+          "phasewrap_matches_best": false
+        }
+      ],
+      "parameter_count": 25186,
+      "phasewrap_win_metrics": [],
+      "phasewrap_wins_all_primary_metrics": false,
+      "row_count_per_method": 60,
+      "run_count_per_method": 5,
+      "stage_name": "stage39_sequence_decoder_retrieval",
+      "stage_number": 39
+    },
+    {
+      "best_by_metric": {
+        "expected_calibration_error_mean": "no_position",
+        "mean_target_value_probability_mean": "phasewrap_distance_adapter",
+        "mrr_mean": "phasewrap_distance_adapter",
+        "top1_accuracy_mean": "phasewrap_distance_adapter"
+      },
+      "diagnostic_class": "compact_all_prefix_sequence_decoder_curriculum",
+      "method_count": 6,
+      "metric_records": [
+        {
+          "best_method": "phasewrap_distance_adapter",
+          "best_phasewrap_method": "phasewrap_distance_adapter",
+          "best_phasewrap_value": 0.03,
+          "best_value": 0.03,
+          "larger_is_better": true,
+          "metric": "top1_accuracy_mean",
+          "phasewrap_matches_best": true
+        },
+        {
+          "best_method": "phasewrap_distance_adapter",
+          "best_phasewrap_method": "phasewrap_distance_adapter",
+          "best_phasewrap_value": 0.060933,
+          "best_value": 0.060933,
+          "larger_is_better": true,
+          "metric": "mrr_mean",
+          "phasewrap_matches_best": true
+        },
+        {
+          "best_method": "phasewrap_distance_adapter",
+          "best_phasewrap_method": "phasewrap_distance_adapter",
+          "best_phasewrap_value": 0.020555,
+          "best_value": 0.020555,
+          "larger_is_better": true,
+          "metric": "mean_target_value_probability_mean",
+          "phasewrap_matches_best": true
+        },
+        {
+          "best_method": "no_position",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 0.355857,
+          "best_value": 0.150268,
+          "larger_is_better": false,
+          "metric": "expected_calibration_error_mean",
+          "phasewrap_matches_best": false
+        }
+      ],
+      "parameter_count": 25186,
+      "phasewrap_win_metrics": [
+        "top1_accuracy_mean",
+        "mrr_mean",
+        "mean_target_value_probability_mean"
+      ],
+      "phasewrap_wins_all_primary_metrics": false,
+      "row_count_per_method": 60,
+      "run_count_per_method": 5,
+      "stage_name": "stage40_sequence_length_curriculum",
+      "stage_number": 40
+    },
+    {
+      "best_by_metric": {
+        "expected_calibration_error_mean": "rope_relative",
+        "mean_target_value_probability_mean": "rope_relative",
+        "mrr_mean": "rope_relative",
+        "top1_accuracy_mean": "rope_relative"
+      },
+      "diagnostic_class": "compact_pointer_copy_diagnostic",
+      "method_count": 6,
+      "metric_records": [
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 1.0,
+          "best_value": 1.0,
+          "larger_is_better": true,
+          "metric": "top1_accuracy_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 1.0,
+          "best_value": 1.0,
+          "larger_is_better": true,
+          "metric": "mrr_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 0.969476,
+          "best_value": 0.999834,
+          "larger_is_better": true,
+          "metric": "mean_target_value_probability_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 0.038697,
+          "best_value": 0.000166,
+          "larger_is_better": false,
+          "metric": "expected_calibration_error_mean",
+          "phasewrap_matches_best": false
+        }
+      ],
+      "parameter_count": 257,
+      "phasewrap_win_metrics": [],
+      "phasewrap_wins_all_primary_metrics": false,
+      "row_count_per_method": 60,
+      "run_count_per_method": 5,
+      "stage_name": "stage41_pointer_copy_sequence",
+      "stage_number": 41
+    },
+    {
+      "best_by_metric": {
+        "expected_calibration_error_mean": "no_position",
+        "mean_target_value_probability_mean": "rope_relative",
+        "mrr_mean": "rope_relative",
+        "top1_accuracy_mean": "rope_relative"
+      },
+      "diagnostic_class": "compact_trainable_pointer_generator",
+      "method_count": 6,
+      "metric_records": [
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_distance_adapter",
+          "best_phasewrap_value": 0.966667,
+          "best_value": 1.0,
+          "larger_is_better": true,
+          "metric": "top1_accuracy_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_distance_adapter",
+          "best_phasewrap_value": 0.983333,
+          "best_value": 1.0,
+          "larger_is_better": true,
+          "metric": "mrr_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_distance_adapter",
+          "best_phasewrap_value": 0.904314,
+          "best_value": 0.937847,
+          "larger_is_better": true,
+          "metric": "mean_target_value_probability_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "no_position",
+          "best_phasewrap_method": "phasewrap_distance_adapter",
+          "best_phasewrap_value": 0.077651,
+          "best_value": 0.010117,
+          "larger_is_better": false,
+          "metric": "expected_calibration_error_mean",
+          "phasewrap_matches_best": false
+        }
+      ],
+      "parameter_count": 4635,
+      "phasewrap_win_metrics": [],
+      "phasewrap_wins_all_primary_metrics": false,
+      "row_count_per_method": 60,
+      "run_count_per_method": 5,
+      "stage_name": "stage42_trainable_pointer_generator_sequence",
+      "stage_number": 42
+    },
+    {
+      "best_by_metric": {
+        "expected_calibration_error_mean": "no_position",
+        "mean_target_value_probability_mean": "rope_relative",
+        "mrr_mean": "rope_relative",
+        "top1_accuracy_mean": "rope_relative"
+      },
+      "diagnostic_class": "compact_generator_hardened_pointer_generator",
+      "method_count": 6,
+      "metric_records": [
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 0.97,
+          "best_value": 1.0,
+          "larger_is_better": true,
+          "metric": "top1_accuracy_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 0.985,
+          "best_value": 1.0,
+          "larger_is_better": true,
+          "metric": "mrr_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "rope_relative",
+          "best_phasewrap_method": "phasewrap_multiscale_adapter",
+          "best_phasewrap_value": 0.935594,
+          "best_value": 0.975293,
+          "larger_is_better": true,
+          "metric": "mean_target_value_probability_mean",
+          "phasewrap_matches_best": false
+        },
+        {
+          "best_method": "no_position",
+          "best_phasewrap_method": "phasewrap_distance_adapter",
+          "best_phasewrap_value": 0.046893,
+          "best_value": 0.017866,
+          "larger_is_better": false,
+          "metric": "expected_calibration_error_mean",
+          "phasewrap_matches_best": false
+        }
+      ],
+      "parameter_count": 4635,
+      "phasewrap_win_metrics": [],
+      "phasewrap_wins_all_primary_metrics": false,
+      "row_count_per_method": 60,
+      "run_count_per_method": 5,
+      "stage_name": "stage43_generator_hardened_pointer_sequence",
+      "stage_number": 43
+    }
+  ]
+}

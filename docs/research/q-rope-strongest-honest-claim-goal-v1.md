@@ -30,6 +30,7 @@ Supported now:
 - The repository contains bounded small-circuit hardware readout witnesses for the recorded packets, providers, dates, and calibration contexts.
 - PhaseWrap-derived adapters can be competitive on ranking in several compact retrieval and copy-aware diagnostics.
 - Stage 43 shows that generator-target hardening improves the Stage 42 learned vocab branch and preserves PhaseWrap-derived ranking competitiveness.
+- Stage 44 records Stages 39-43 as a compact-diagnostic plateau: useful bounded mechanism evidence, not promotion evidence.
 
 Not supported now:
 
@@ -39,6 +40,7 @@ Not supported now:
 - a claim that PhaseWrap-RoPE replaces RoPE;
 - a claim that the Stage 4 hardware witnesses establish model advantage;
 - a claim that Stage 43 solves free learned value generation or validates PhaseWrap-RoPE as a RoPE replacement.
+- a claim that additional compact copy-path diagnostics should broaden the claim boundary after the Stage 44 plateau audit.
 
 ## Decision Outcomes
 
@@ -52,12 +54,12 @@ Until a matched transformer-style benchmark satisfies the evidence standard, the
 
 ## Next Gate
 
-The next gate should move beyond compact output-path diagnostics: either test the same fair comparison in a stronger matched decoder-only transformer, or record a bounded compact-diagnostic plateau before further claim expansion.
+The next gate should move beyond compact output-path diagnostics: Stage 44 has now recorded the bounded compact-diagnostic plateau, so the next evidence-producing promotion gate is a stronger matched decoder-only transformer.
 
 Preferred next direction:
 
 - keep RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons matched;
-- move from compact pointer-generator diagnostics toward a stronger decoder-only harness when practical;
+- move from compact pointer-generator diagnostics into a stronger decoder-only harness;
 - report ranking and calibration even if the PhaseWrap result weakens.
 
-Because Stage 43 still leaves RoPE-like scoring clearly stronger on probability/calibration, another compact diagnostic should be justified only if it directly prepares the matched decoder-only transformer or a bounded-claim plateau audit.
+Because Stage 44 records the compact plateau, another compact diagnostic should be justified only if it directly prepares the matched decoder-only transformer implementation.

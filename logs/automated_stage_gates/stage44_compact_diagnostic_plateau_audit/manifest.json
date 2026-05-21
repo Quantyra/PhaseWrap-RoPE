@@ -1,0 +1,29 @@
+{
+  "decision": {
+    "claim_boundary": "Stages 39-43 should be treated as a compact-diagnostic plateau: useful bounded mechanism evidence, not RoPE-replacement or production-transformer evidence.",
+    "compact_only": true,
+    "decision": "BOUND_COMPACT_DIAGNOSTIC_PLATEAU",
+    "final_stage_name": "stage43_generator_hardened_pointer_sequence",
+    "final_stage_phasewrap_best_calibration": false,
+    "final_stage_rope_strongest_on_ranking_and_probability": true,
+    "next_gate": "Move the fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparison into a stronger matched decoder-only transformer benchmark before expanding claims.",
+    "phasewrap_sweep_stage_names": []
+  },
+  "primary_metrics": [
+    "top1_accuracy_mean",
+    "mrr_mean",
+    "mean_target_value_probability_mean",
+    "expected_calibration_error_mean"
+  ],
+  "result_path": "logs/automated_stage_gates/stage44_compact_diagnostic_plateau_audit/results.json",
+  "schema_version": "qrope_stage44_compact_diagnostic_plateau_audit_v1",
+  "source_stages": [
+    "stage39_sequence_decoder_retrieval",
+    "stage40_sequence_length_curriculum",
+    "stage41_pointer_copy_sequence",
+    "stage42_trainable_pointer_generator_sequence",
+    "stage43_generator_hardened_pointer_sequence"
+  ],
+  "stage": "stage44_compact_diagnostic_plateau_audit",
+  "summary_csv_path": "logs/automated_stage_gates/stage44_compact_diagnostic_plateau_audit/summary.csv"
+}
