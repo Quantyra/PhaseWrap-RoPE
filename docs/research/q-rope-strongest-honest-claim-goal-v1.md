@@ -49,6 +49,7 @@ Supported now:
 - Stage 60 removes fallback cue help for unseen seed-local residues and records `FALLBACK_DEPENDENT_PHASE_CUED_RETRIEVAL_NOT_PROMOTION`; phase-cued retrieval crosses threshold only with fallback decoding, while strict known-support decoding falls below threshold.
 - Stage 61 returns to a learned two-block vocab-softmax decoder with complete phase-cued support coverage and records `SUPPORT_COMPLETE_TWO_BLOCK_CAPACITY_NOT_ESTABLISHED`; support coverage alone does not make the learned decoder fit or generalize retrieval.
 - Stage 62 increases the support-complete learned two-block decoder to longer training and records `LONG_TRAINING_SUPPORT_COMPLETE_CAPACITY_NOT_ESTABLISHED`; train fit improves, including a PhaseWrap-adapter phase-cued train lead, but capacity and held-out retrieval remain below threshold.
+- Stage 63 replaces the learned vocab softmax with learned copy-output attention and records `TWO_BLOCK_COPY_OUTPUT_CAPACITY_WITHOUT_RETRIEVAL_GENERALIZATION`; train capacity is established, but held-out retrieval remains below threshold.
 
 Not supported now:
 
@@ -77,6 +78,7 @@ Not supported now:
 - a claim that Stage 60 is positional-method promotion evidence, that fallback decoding is learned decoder behavior, or that strict seed-local support solves held-out phase-cued retrieval.
 - a claim that Stage 61 is positional-method promotion evidence or that complete support coverage alone establishes learned decoder capacity.
 - a claim that Stage 62 is positional-method promotion evidence or that longer training alone establishes learned decoder capacity.
+- a claim that Stage 63 is positional-method promotion evidence, that copy output is equivalent to free learned value generation, or that copy-output capacity establishes held-out retrieval generalization.
 
 ## Decision Outcomes
 
@@ -90,12 +92,12 @@ Until a matched transformer-style benchmark satisfies the evidence standard, the
 
 ## Next Gate
 
-The next gate should redesign the stronger matched decoder-only implementation beyond Stage 62 so learned capacity is established before positional-method promotion is evaluated, under the same fair RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap comparison.
+The next gate should redesign the stronger matched decoder-only implementation beyond Stage 63 so capacity is preserved with a standard/free output path before positional-method promotion is evaluated, under the same fair RoPE, ALiBI, sinusoidal, no-position, and PhaseWrap comparison.
 
 Preferred next direction:
 
 - keep RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons matched;
-- move from the partially generalizing one-block decoder-only gate, bounded copy-output repair, failed learned pointer-generator repair, Stage 51 plateau, Stage 52 feasibility result, Stage 53 failed hardening result, Stage 54 failed attention-supervision result, Stage 55 metadata upper bound, Stage 56 standard-input partial repair, Stage 57 support-aware cue upper bound, Stage 58 pooled lookup, Stage 59 seed-local lookup/fallback diagnostic, Stage 60 fallback strictness result, Stage 61 support-complete capacity failure, and Stage 62 long-training capacity failure into a redesigned retrieval-targeted decoder-only harness;
+- move from the partially generalizing one-block decoder-only gate, bounded copy-output repair, failed learned pointer-generator repair, Stage 51 plateau, Stage 52 feasibility result, Stage 53 failed hardening result, Stage 54 failed attention-supervision result, Stage 55 metadata upper bound, Stage 56 standard-input partial repair, Stage 57 support-aware cue upper bound, Stage 58 pooled lookup, Stage 59 seed-local lookup/fallback diagnostic, Stage 60 fallback strictness result, Stage 61 support-complete capacity failure, Stage 62 long-training capacity failure, and Stage 63 copy-output capacity-without-generalization result into a redesigned retrieval-targeted decoder-only harness;
 - report ranking and calibration even if the PhaseWrap result weakens.
 
-Because Stage 44 records the compact plateau and Stage 51 records the decoder-path plateau, another diagnostic should be justified only if it directly improves retrieval generalization in a materially stronger matched decoder-only transformer implementation. Stage 52 starts that stronger path, Stage 53 hardens it, Stage 54 adds target-attention supervision, Stage 55 proves metadata-cue solvability, Stage 56 tests visible-token cues, Stage 57 adds the known support prior, Stage 58 learns the pooled support map, Stage 59 makes that map seed-local, Stage 60 shows phase-cued success is fallback-dependent, Stage 61 shows support completeness still does not establish learned decoder capacity, and Stage 62 shows longer training is still below capacity; none establishes fair positional-method promotion.
+Because Stage 44 records the compact plateau and Stage 51 records the decoder-path plateau, another diagnostic should be justified only if it directly improves retrieval generalization in a materially stronger matched decoder-only transformer implementation. Stage 52 starts that stronger path, Stage 53 hardens it, Stage 54 adds target-attention supervision, Stage 55 proves metadata-cue solvability, Stage 56 tests visible-token cues, Stage 57 adds the known support prior, Stage 58 learns the pooled support map, Stage 59 makes that map seed-local, Stage 60 shows phase-cued success is fallback-dependent, Stage 61 shows support completeness still does not establish learned decoder capacity, Stage 62 shows longer training is still below capacity, and Stage 63 shows copy output repairs capacity without repairing retrieval generalization; none establishes fair positional-method promotion.
