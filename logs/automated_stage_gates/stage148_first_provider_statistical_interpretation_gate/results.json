@@ -101,6 +101,7 @@
     "supported": [
       "binding of later IBM interpretation to Stage 147 calibration-confidence thresholds",
       "binding of later IBM PhaseWrap MAE margins to Stage 146 shot-noise separation thresholds",
+      "binding of final statistical interpretation to Stage 113-assembled calibration evidence and Stage 103 ready decisions",
       "a blocked outcome until observed provider evidence satisfies both statistical guardrails"
     ]
   },
@@ -117,6 +118,7 @@
       "phasewrap_mean_absolute_score_error": null,
       "provider": "ibm_runtime",
       "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "stage103_ready_for_interpretation": false,
       "stage103_results_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_00/stage103/results.json",
       "window_id": "ibm_runtime__independent_window_00"
     },
@@ -130,6 +132,7 @@
       "phasewrap_mean_absolute_score_error": null,
       "provider": "ibm_runtime",
       "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "stage103_ready_for_interpretation": false,
       "stage103_results_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_00/stage103/results.json",
       "window_id": "ibm_runtime__independent_window_00"
     },
@@ -143,6 +146,7 @@
       "phasewrap_mean_absolute_score_error": null,
       "provider": "ibm_runtime",
       "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "stage103_ready_for_interpretation": false,
       "stage103_results_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_01/stage103/results.json",
       "window_id": "ibm_runtime__independent_window_01"
     },
@@ -156,6 +160,7 @@
       "phasewrap_mean_absolute_score_error": null,
       "provider": "ibm_runtime",
       "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "stage103_ready_for_interpretation": false,
       "stage103_results_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_01/stage103/results.json",
       "window_id": "ibm_runtime__independent_window_01"
     }

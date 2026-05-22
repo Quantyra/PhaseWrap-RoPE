@@ -60,6 +60,8 @@ def _fixture(tmp_path, *, ready: bool) -> tuple[object, object, object]:
         _write_json(
             calibration_path,
             {
+                "status": "assembled_from_stage113_results",
+                "no_hardware_submission": False,
                 "raw_counts_by_state": [
                     {"state": "00", "counts": {"00": 900, "01": 100}},
                     {"state": "01", "counts": {"10": 900, "00": 100}},
@@ -76,6 +78,7 @@ def _fixture(tmp_path, *, ready: bool) -> tuple[object, object, object]:
         _write_json(
             stage103_path,
             {
+                "decision": "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION",
                 "comparison_summary": [
                     {
                         "source_lane_id": "lane_a",
@@ -110,6 +113,34 @@ def test_stage148_reports_ready_when_calibration_and_margins_pass(tmp_path) -> N
     assert result["ready_calibration_record_count"] == 1
     assert result["shot_noise_separated_lane_count"] == 1
     assert result["lane_records"][0]["phasewrap_mae_margin"] == 0.03
+
+
+def test_stage148_blocks_complete_calibration_counts_without_stage113_status(tmp_path) -> None:
+    plans, stage146, stage147 = _fixture(tmp_path, ready=True)
+    calibration_path = tmp_path / "window" / "calibration" / "ibm_runtime_known_state_execution.json"
+    calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
+    calibration.pop("status")
+    _write_json(calibration_path, calibration)
+
+    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+
+    assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
+    assert result["ready_calibration_record_count"] == 0
+    assert "stage113_assembled_calibration_status" in result["calibration_records"][0]["missing_evidence"]
+
+
+def test_stage148_blocks_summary_shaped_stage103_without_ready_decision(tmp_path) -> None:
+    plans, stage146, stage147 = _fixture(tmp_path, ready=True)
+    stage103_path = tmp_path / "window" / "stage103" / "results.json"
+    stage103 = json.loads(stage103_path.read_text(encoding="utf-8"))
+    stage103.pop("decision")
+    _write_json(stage103_path, stage103)
+
+    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+
+    assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
+    assert result["stage103_lower_mae_lane_count"] == 0
+    assert result["lane_records"][0]["stage103_ready_for_interpretation"] is False
 
 
 def test_stage148_outputs_are_written(tmp_path) -> None:

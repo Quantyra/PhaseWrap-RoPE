@@ -56,6 +56,10 @@ def _lane_thresholds(stage146: dict[str, Any] | None) -> dict[tuple[str, str, st
     }
 
 
+def _assembled_from_stage113(execution: dict[str, Any]) -> bool:
+    return execution.get("status") == "assembled_from_stage113_results" and execution.get("no_hardware_submission") is False
+
+
 def _calibration_record(plan: dict[str, Any], thresholds: dict[str, dict[str, Any]]) -> dict[str, Any]:
     calibration_step = _step(plan, "known_state_calibration_execution")
     calibration_path = Path(str(calibration_step.get("output_path", "")))
@@ -66,6 +70,8 @@ def _calibration_record(plan: dict[str, Any], thresholds: dict[str, dict[str, An
     missing = []
     if not isinstance(calibration, dict):
         missing.append("calibration_execution_json")
+    elif not _assembled_from_stage113(calibration):
+        missing.append("stage113_assembled_calibration_status")
     if not (
         isinstance(stage101, dict)
         and stage101.get("decision") == "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION"
@@ -107,6 +113,9 @@ def _stage103_records(plan: dict[str, Any], thresholds: dict[tuple[str, str, str
     packet_step = _step(plan, "matched_packet_execution")
     stage103_path = Path(str(packet_step.get("output_dir", ""))).parent / "stage103" / "results.json"
     stage103 = _load_json(stage103_path)
+    stage103_ready = bool(
+        isinstance(stage103, dict) and stage103.get("decision") == "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION"
+    )
     records = []
     for summary in stage103.get("comparison_summary", []) if isinstance(stage103, dict) else []:
         key = (
@@ -134,11 +143,13 @@ def _stage103_records(plan: dict[str, Any], thresholds: dict[tuple[str, str, str
                 "phasewrap_mae_margin": round(margin, 12) if margin is not None else None,
                 "minimum_shot_noise_separation_margin": required,
                 "passes_stage103_lower_mae_rule": bool(
-                    summary.get("all_families_present") is True
+                    stage103_ready
+                    and summary.get("all_families_present") is True
                     and summary.get("phasewrap_lower_error_than")
                     and len(summary.get("phasewrap_lower_error_than", [])) >= 4
                 ),
                 "passes_stage146_shot_noise_separation": shot_separated,
+                "stage103_ready_for_interpretation": stage103_ready,
                 "stage103_results_path": str(stage103_path.as_posix()),
             }
         )
@@ -160,6 +171,7 @@ def _stage103_records(plan: dict[str, Any], thresholds: dict[tuple[str, str, str
                         ),
                         "passes_stage103_lower_mae_rule": False,
                         "passes_stage146_shot_noise_separation": False,
+                        "stage103_ready_for_interpretation": stage103_ready,
                         "stage103_results_path": str(stage103_path.as_posix()),
                     }
                 )
@@ -223,6 +235,7 @@ def run_stage148_gate(
             "supported": [
                 "binding of later IBM interpretation to Stage 147 calibration-confidence thresholds",
                 "binding of later IBM PhaseWrap MAE margins to Stage 146 shot-noise separation thresholds",
+                "binding of final statistical interpretation to Stage 113-assembled calibration evidence and Stage 103 ready decisions",
                 "a blocked outcome until observed provider evidence satisfies both statistical guardrails",
             ],
             "excluded": [

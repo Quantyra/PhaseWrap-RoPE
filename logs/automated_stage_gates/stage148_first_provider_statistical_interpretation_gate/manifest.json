@@ -11,6 +11,7 @@
     "supported": [
       "binding of later IBM interpretation to Stage 147 calibration-confidence thresholds",
       "binding of later IBM PhaseWrap MAE margins to Stage 146 shot-noise separation thresholds",
+      "binding of final statistical interpretation to Stage 113-assembled calibration evidence and Stage 103 ready decisions",
       "a blocked outcome until observed provider evidence satisfies both statistical guardrails"
     ]
   },
