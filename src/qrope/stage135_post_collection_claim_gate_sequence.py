@@ -94,6 +94,146 @@ def _stage134_extra_blockers(stage134: dict[str, Any] | None) -> list[str]:
     return blockers
 
 
+def _stage103_extra_blockers(stage103: dict[str, Any] | None) -> list[str]:
+    if not isinstance(stage103, dict):
+        return []
+    blockers = []
+    if stage103.get("ready_to_interpret_hardware_metrics") is not True:
+        blockers.append("stage103_ready_to_interpret_hardware_metrics_false")
+    if stage103.get("comparison_groups_complete") is not True:
+        blockers.append("stage103_comparison_groups_incomplete")
+    if stage103.get("stage104_matched_surface_ready") is not True:
+        blockers.append("stage103_stage104_matched_surface_not_ready")
+    if stage103.get("stage113_live_submit_provenance_ready") is not True:
+        blockers.append("stage103_stage113_live_submit_provenance_not_ready")
+    if int(stage103.get("missing_execution_count") or 0) != 0:
+        blockers.append("stage103_missing_executions_present")
+    if int(stage103.get("metric_record_count") or 0) <= 0:
+        blockers.append("stage103_metric_records_missing")
+    return blockers
+
+
+def _stage137_extra_blockers(stage137: dict[str, Any] | None) -> list[str]:
+    if not isinstance(stage137, dict):
+        return []
+    blockers = []
+    if stage137.get("stage136_ready") is not True:
+        blockers.append("stage137_stage136_not_ready")
+    if stage137.get("stage113_live_submit_provenance_ready") is not True:
+        blockers.append("stage137_stage113_live_submit_provenance_not_ready")
+    if stage137.get("ready_window_count") != stage137.get("window_count"):
+        blockers.append("stage137_ready_window_count_incomplete")
+    if int(stage137.get("window_count") or 0) <= 0:
+        blockers.append("stage137_windows_missing")
+    return blockers
+
+
+def _stage148_lane_source_counts(stage148: dict[str, Any] | None) -> dict[str, int]:
+    if not isinstance(stage148, dict):
+        return {
+            "stage103_source_ready_lane_count": 0,
+            "stage103_provider_aligned_lane_count": 0,
+            "stage103_stage104_matched_surface_lane_count": 0,
+            "stage103_stage113_live_submit_provenance_lane_count": 0,
+        }
+    provider_scope = stage148.get("provider_scope")
+    lane_records = stage148.get("lane_records", [])
+    if not isinstance(lane_records, list):
+        lane_records = []
+    provider_aligned = 0
+    stage104_ready = 0
+    stage113_ready = 0
+    source_ready = 0
+    for record in lane_records:
+        if not isinstance(record, dict):
+            continue
+        record_provider_aligned = bool(
+            provider_scope
+            and record.get("provider") == provider_scope
+            and record.get("stage103_summary_provider") == provider_scope
+            and record.get("stage103_summary_provider_matches_window") is True
+        )
+        record_stage104_ready = bool(
+            record.get("stage103_stage104_matched_surface_ready") is True
+            and int(record.get("stage103_stage104_complete_matched_group_count") or 0) > 0
+        )
+        record_stage113_ready = record.get("stage103_stage113_live_submit_provenance_ready") is True
+        if record_provider_aligned:
+            provider_aligned += 1
+        if record_stage104_ready:
+            stage104_ready += 1
+        if record_stage113_ready:
+            stage113_ready += 1
+        if (
+            record_provider_aligned
+            and record_stage104_ready
+            and record_stage113_ready
+            and record.get("stage103_ready_for_interpretation") is True
+            and record.get("stage103_ready_to_interpret_hardware_metrics") is True
+            and record.get("stage103_comparison_groups_complete") is True
+            and int(record.get("stage103_missing_execution_count") or 0) == 0
+            and int(record.get("stage103_metric_record_count") or 0) > 0
+        ):
+            source_ready += 1
+    return {
+        "stage103_source_ready_lane_count": source_ready,
+        "stage103_provider_aligned_lane_count": provider_aligned,
+        "stage103_stage104_matched_surface_lane_count": stage104_ready,
+        "stage103_stage113_live_submit_provenance_lane_count": stage113_ready,
+    }
+
+
+def _stage148_extra_blockers(stage148: dict[str, Any] | None) -> list[str]:
+    if not isinstance(stage148, dict):
+        return []
+    blockers = []
+    lane_count = int(stage148.get("lane_record_count") or 0)
+    if stage148.get("stage146_ready") is not True:
+        blockers.append("stage148_stage146_not_ready")
+    if stage148.get("stage147_ready") is not True:
+        blockers.append("stage148_stage147_not_ready")
+    if stage148.get("stage113_live_submit_provenance_ready") is not True:
+        blockers.append("stage148_stage113_live_submit_provenance_not_ready")
+    if stage148.get("ready_calibration_record_count") != stage148.get("calibration_record_count"):
+        blockers.append("stage148_ready_calibration_count_incomplete")
+    if stage148.get("stage103_lower_mae_lane_count") != stage148.get("lane_record_count"):
+        blockers.append("stage148_stage103_lower_mae_count_incomplete")
+    if stage148.get("shot_noise_separated_lane_count") != stage148.get("lane_record_count"):
+        blockers.append("stage148_shot_noise_separation_count_incomplete")
+    if lane_count <= 0:
+        blockers.append("stage148_lane_records_missing")
+    lane_counts = _stage148_lane_source_counts(stage148)
+    expected_counts = {
+        "stage103_source_ready_lane_count": "stage148_stage103_source_readiness_incomplete",
+        "stage103_provider_aligned_lane_count": "stage148_stage103_provider_alignment_incomplete",
+        "stage103_stage104_matched_surface_lane_count": "stage148_stage103_stage104_matched_surface_incomplete",
+        "stage103_stage113_live_submit_provenance_lane_count": "stage148_stage103_stage113_provenance_incomplete",
+    }
+    for key, blocker in expected_counts.items():
+        if lane_counts[key] != lane_count:
+            blockers.append(blocker)
+    return blockers
+
+
+def _stage138_extra_blockers(stage138: dict[str, Any] | None) -> list[str]:
+    if not isinstance(stage138, dict):
+        return []
+    blockers = []
+    if stage138.get("objective_terminal") is not True:
+        blockers.append("stage138_objective_terminal_false")
+    if stage138.get("statistical_interpretation_required") is True:
+        lane_count = int(stage138.get("stage148_lane_record_count") or 0)
+        if int(stage138.get("stage148_stage103_source_ready_lane_count") or 0) != lane_count:
+            blockers.append("stage138_stage148_stage103_source_readiness_incomplete")
+        if int(stage138.get("stage148_stage103_provider_aligned_lane_count") or 0) != lane_count:
+            blockers.append("stage138_stage148_stage103_provider_alignment_incomplete")
+        if int(stage138.get("stage148_stage103_stage104_matched_surface_lane_count") or 0) != lane_count:
+            blockers.append("stage138_stage148_stage103_stage104_matched_surface_incomplete")
+        if int(stage138.get("stage148_stage103_stage113_live_submit_provenance_lane_count") or 0) != lane_count:
+            blockers.append("stage138_stage148_stage103_stage113_provenance_incomplete")
+    return blockers
+
+
 def run_stage135_sequence_audit(
     *,
     stage115_results_path: Path = DEFAULT_STAGE115_RESULTS,
@@ -134,6 +274,10 @@ def run_stage135_sequence_audit(
     ]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
     stage134_extra_blockers = _stage134_extra_blockers(stage134)
+    stage103_extra_blockers = _stage103_extra_blockers(stage103)
+    stage137_extra_blockers = _stage137_extra_blockers(stage137)
+    stage148_extra_blockers = _stage148_extra_blockers(stage148)
+    stage138_extra_blockers = _stage138_extra_blockers(stage138)
 
     gate_records = [
         _gate_record(
@@ -186,6 +330,7 @@ def run_stage135_sequence_audit(
             purpose="recompute preregistered lower-MAE score errors for PhaseWrap and every comparator family",
             command="python scripts/run_stage103_robustness_metric_preregistration.py",
             blocker_hint="stage103_metrics_not_ready_for_interpretation",
+            extra_blockers=stage103_extra_blockers,
         ),
         _gate_record(
             stage_id="stage136",
@@ -206,6 +351,7 @@ def run_stage135_sequence_audit(
             purpose="evaluate component reconstruction auditability metrics from calibrated provider packet counts",
             command="python scripts/run_stage137_auditability_metric_evaluator.py",
             blocker_hint="stage137_auditability_metrics_not_ready",
+            extra_blockers=stage137_extra_blockers,
         ),
         _gate_record(
             stage_id="stage148",
@@ -216,6 +362,7 @@ def run_stage135_sequence_audit(
             purpose="enforce Stage 146 shot-noise and Stage 147 calibration-confidence guardrails before advantage wording",
             command="python scripts/run_stage148_first_provider_statistical_interpretation_gate.py",
             blocker_hint="stage148_statistical_interpretation_not_ready",
+            extra_blockers=stage148_extra_blockers,
         ),
         _gate_record(
             stage_id="stage109",
@@ -246,6 +393,7 @@ def run_stage135_sequence_audit(
             purpose="combine terminal robustness and auditability branches into final objective wording",
             command="python scripts/run_stage138_objective_claim_gate.py",
             blocker_hint="stage138_objective_claim_gate_not_terminal",
+            extra_blockers=stage138_extra_blockers,
         ),
     ]
 
@@ -280,6 +428,7 @@ def run_stage135_sequence_audit(
             "supported": [
                 "an explicit post-collection rerun sequence from Stage 115 collection through Stage 138 objective claim gating",
                 "Stage 134 intake counters and missing-job counts must prove runner output readiness before Stage 113",
+                "Stage 103, Stage 137, Stage 148, and Stage 138 source-readiness counters must remain intact before the sequence can complete",
                 "a deterministic no-claim boundary when any downstream collection, assembly, calibration, metric, intake, or claim gate is blocked",
                 "a terminal decision distinction between replicated PhaseWrap advantage supported and not supported by the preregistered rule",
             ],

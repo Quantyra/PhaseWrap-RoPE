@@ -11,6 +11,7 @@
     "supported": [
       "an explicit post-collection rerun sequence from Stage 115 collection through Stage 138 objective claim gating",
       "Stage 134 intake counters and missing-job counts must prove runner output readiness before Stage 113",
+      "Stage 103, Stage 137, Stage 148, and Stage 138 source-readiness counters must remain intact before the sequence can complete",
       "a deterministic no-claim boundary when any downstream collection, assembly, calibration, metric, intake, or claim gate is blocked",
       "a terminal decision distinction between replicated PhaseWrap advantage supported and not supported by the preregistered rule"
     ]

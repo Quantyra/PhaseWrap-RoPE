@@ -11,6 +11,7 @@
     "supported": [
       "an explicit post-collection rerun sequence from Stage 115 collection through Stage 138 objective claim gating",
       "Stage 134 intake counters and missing-job counts must prove runner output readiness before Stage 113",
+      "Stage 103, Stage 137, Stage 148, and Stage 138 source-readiness counters must remain intact before the sequence can complete",
       "a deterministic no-claim boundary when any downstream collection, assembly, calibration, metric, intake, or claim gate is blocked",
       "a terminal decision distinction between replicated PhaseWrap advantage supported and not supported by the preregistered rule"
     ]
@@ -71,7 +72,12 @@
     },
     {
       "blockers": [
-        "stage103_metrics_not_ready_for_interpretation"
+        "stage103_comparison_groups_incomplete",
+        "stage103_metric_records_missing",
+        "stage103_metrics_not_ready_for_interpretation",
+        "stage103_missing_executions_present",
+        "stage103_ready_to_interpret_hardware_metrics_false",
+        "stage103_stage113_live_submit_provenance_not_ready"
       ],
       "command": "python scripts/run_stage103_robustness_metric_preregistration.py",
       "decision": "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED",
@@ -93,7 +99,9 @@
     },
     {
       "blockers": [
-        "stage137_auditability_metrics_not_ready"
+        "stage137_auditability_metrics_not_ready",
+        "stage137_ready_window_count_incomplete",
+        "stage137_stage113_live_submit_provenance_not_ready"
       ],
       "command": "python scripts/run_stage137_auditability_metric_evaluator.py",
       "decision": "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED",
@@ -105,6 +113,14 @@
     },
     {
       "blockers": [
+        "stage148_ready_calibration_count_incomplete",
+        "stage148_shot_noise_separation_count_incomplete",
+        "stage148_stage103_lower_mae_count_incomplete",
+        "stage148_stage103_provider_alignment_incomplete",
+        "stage148_stage103_source_readiness_incomplete",
+        "stage148_stage103_stage104_matched_surface_incomplete",
+        "stage148_stage103_stage113_provenance_incomplete",
+        "stage148_stage113_live_submit_provenance_not_ready",
         "stage148_statistical_interpretation_not_ready"
       ],
       "command": "python scripts/run_stage148_first_provider_statistical_interpretation_gate.py",
@@ -141,7 +157,8 @@
     },
     {
       "blockers": [
-        "stage138_objective_claim_gate_not_terminal"
+        "stage138_objective_claim_gate_not_terminal",
+        "stage138_objective_terminal_false"
       ],
       "command": "python scripts/run_stage138_objective_claim_gate.py",
       "decision": "OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE",

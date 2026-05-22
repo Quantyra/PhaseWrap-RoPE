@@ -20,11 +20,14 @@ Stage 135 records the ordered post-collection evidence sequence that must pass b
 
 Current decision: `POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED`.
 
+The sequence now treats source-readiness counters as part of the post-collection contract, not just as downstream detail. Stage 103 must expose complete matched-group readiness, Stage 104 matched-surface readiness, Stage 113 live-submit provenance, zero missing executions, and nonzero metric records. Stage 137 must preserve Stage 136 readiness, Stage 113 live-submit provenance, and complete ready-window counters. Stage 148 must preserve lane-level Stage 103 provider alignment, Stage 104 matched-surface readiness, Stage 113 live-submit provenance, calibration readiness, lower-MAE readiness, and shot-noise-separation counters. Stage 138 must be terminal before the sequence can complete.
+
 ## Claim Boundary
 Supported:
 
 - Stage 115 through Stage 138 now have an explicit ordered rerun sequence.
 - Stage 134 intake counters and missing-job counts must prove runner output readiness before Stage 113.
+- Stage 103, Stage 137, Stage 148, and Stage 138 source-readiness counters must remain intact before the sequence can complete.
 - The pipeline distinguishes a terminal final gate from the current blocked state.
 - A noisy-hardware conclusion remains barred until Stage 148 statistical interpretation and Stage 110/138 claim gates are ready.
 

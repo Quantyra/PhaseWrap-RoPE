@@ -77,12 +77,69 @@ def _write_ready_fixture(paths, *, replicated_advantage_count: int = 0) -> None:
     )
     _write_json(paths["stage113"], {"decision": "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"})
     _write_json(paths["stage101"], {"decision": "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION"})
-    _write_json(paths["stage103"], {"decision": "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION"})
+    _write_json(
+        paths["stage103"],
+        {
+            "decision": "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION",
+            "ready_to_interpret_hardware_metrics": True,
+            "comparison_groups_complete": True,
+            "stage104_matched_surface_ready": True,
+            "stage113_live_submit_provenance_ready": True,
+            "missing_execution_count": 0,
+            "metric_record_count": 8,
+        },
+    )
     _write_json(paths["stage109"], {"decision": "WINDOW_EVIDENCE_INTAKE_READY_FOR_STAGE105_AGGREGATION"})
     _write_json(paths["stage136"], {"decision": "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED"})
-    _write_json(paths["stage137"], {"decision": "AUDITABILITY_METRICS_READY_FOR_CLAIM_GATE"})
-    _write_json(paths["stage148"], {"decision": "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_READY_FOR_CLAIM_GATES"})
-    _write_json(paths["stage138"], {"decision": "PHASEWRAP_NOISY_HARDWARE_OBJECTIVE_NOT_SUPPORTED"})
+    _write_json(
+        paths["stage137"],
+        {
+            "decision": "AUDITABILITY_METRICS_READY_FOR_CLAIM_GATE",
+            "stage136_ready": True,
+            "stage113_live_submit_provenance_ready": True,
+            "ready_window_count": 2,
+            "window_count": 2,
+        },
+    )
+    _write_json(
+        paths["stage148"],
+        {
+            "decision": "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_READY_FOR_CLAIM_GATES",
+            "provider_scope": "ibm_runtime",
+            "stage146_ready": True,
+            "stage147_ready": True,
+            "stage113_live_submit_provenance_ready": True,
+            "calibration_record_count": 2,
+            "ready_calibration_record_count": 2,
+            "lane_record_count": 2,
+            "stage103_lower_mae_lane_count": 2,
+            "shot_noise_separated_lane_count": 2,
+            "lane_records": [
+                {
+                    "provider": "ibm_runtime",
+                    "stage103_summary_provider": "ibm_runtime",
+                    "stage103_summary_provider_matches_window": True,
+                    "stage103_ready_for_interpretation": True,
+                    "stage103_ready_to_interpret_hardware_metrics": True,
+                    "stage103_comparison_groups_complete": True,
+                    "stage103_stage104_matched_surface_ready": True,
+                    "stage103_stage104_complete_matched_group_count": 4,
+                    "stage103_stage113_live_submit_provenance_ready": True,
+                    "stage103_missing_execution_count": 0,
+                    "stage103_metric_record_count": 8,
+                }
+                for _ in range(2)
+            ],
+        },
+    )
+    _write_json(
+        paths["stage138"],
+        {
+            "decision": "PHASEWRAP_NOISY_HARDWARE_OBJECTIVE_NOT_SUPPORTED",
+            "objective_terminal": True,
+            "statistical_interpretation_required": False,
+        },
+    )
     _write_json(
         paths["stage110"],
         {
@@ -153,6 +210,52 @@ def test_stage135_blocks_stage134_ready_decision_with_missing_jobs(tmp_path) -> 
     assert result["decision"] == "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED"
     assert stage134_record["ready"] is False
     assert "stage134_missing_jobs_remaining" in stage134_record["blockers"]
+
+
+def test_stage135_blocks_stage103_ready_decision_without_source_readiness(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _write_ready_fixture(paths, replicated_advantage_count=0)
+    stage103 = json.loads(paths["stage103"].read_text(encoding="utf-8"))
+    stage103["stage104_matched_surface_ready"] = False
+    _write_json(paths["stage103"], stage103)
+
+    result = _run(paths)
+    stage103_record = next(record for record in result["gate_records"] if record["stage_id"] == "stage103")
+
+    assert result["decision"] == "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED"
+    assert stage103_record["ready"] is False
+    assert "stage103_stage104_matched_surface_not_ready" in stage103_record["blockers"]
+
+
+def test_stage135_blocks_stage148_ready_decision_without_lane_source_readiness(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _write_ready_fixture(paths, replicated_advantage_count=0)
+    stage148 = json.loads(paths["stage148"].read_text(encoding="utf-8"))
+    stage148["lane_records"][0]["stage103_summary_provider"] = "amazon_braket"
+    stage148["lane_records"][0]["stage103_summary_provider_matches_window"] = False
+    _write_json(paths["stage148"], stage148)
+
+    result = _run(paths)
+    stage148_record = next(record for record in result["gate_records"] if record["stage_id"] == "stage148")
+
+    assert result["decision"] == "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED"
+    assert stage148_record["ready"] is False
+    assert "stage148_stage103_provider_alignment_incomplete" in stage148_record["blockers"]
+
+
+def test_stage135_blocks_terminal_stage138_without_objective_terminal_flag(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _write_ready_fixture(paths, replicated_advantage_count=0)
+    stage138 = json.loads(paths["stage138"].read_text(encoding="utf-8"))
+    stage138["objective_terminal"] = False
+    _write_json(paths["stage138"], stage138)
+
+    result = _run(paths)
+    stage138_record = next(record for record in result["gate_records"] if record["stage_id"] == "stage138")
+
+    assert result["decision"] == "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED"
+    assert stage138_record["ready"] is False
+    assert "stage138_objective_terminal_false" in stage138_record["blockers"]
 
 
 def test_stage135_reports_complete_after_terminal_supported_claim_gate(tmp_path) -> None:
