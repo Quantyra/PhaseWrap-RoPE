@@ -40,13 +40,13 @@
         "two_ry_cx_parity_z_readout_v1",
         "two_ry_product_state_z_readout_v1"
       ],
-      "target_count": 2
+      "target_count": 10
     }
   ],
   "recommended_hardware_probe_providers": [
     "ibm_runtime"
   ],
-  "recommended_target_count": 6,
+  "recommended_target_count": 14,
   "schema_version": "qrope_stage165_simulated_noise_margin_stability_audit_v1",
   "secret_values_recorded": false,
   "simulated_only": true,
@@ -98,6 +98,44 @@
       "provider": "amazon_braket",
       "shot_quantum": 0.001,
       "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.00625728369,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.004086995119,
+      "control_margin_shot_quanta": 16.740332,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": "observable_bias",
+      "noise_model_id": "biased_observable_plus_2pct",
+      "phasewrap_mean_absolute_score_error": 0.005922770506,
+      "positional_margin": 0.000334513184,
+      "positional_margin_shot_quanta": 1.370166,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_cx_seed577_rows16_shots4096",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.00625728369,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.004086995119,
+      "control_margin_shot_quanta": 16.740332,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": "observable_bias",
+      "noise_model_id": "biased_observable_plus_2pct",
+      "phasewrap_mean_absolute_score_error": 0.005922770506,
+      "positional_margin": 0.000334513184,
+      "positional_margin_shot_quanta": 1.370166,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_product_seed577_rows16_shots4096",
       "stability_blockers": [
         "positional_margin_below_two_shot_quanta"
       ],
@@ -159,6 +197,25 @@
       "stable_target": true
     },
     {
+      "best_positional_comparator_mean_absolute_score_error": 0.004156839845,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.006319499021,
+      "control_margin_shot_quanta": 25.884668,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": "coherent_ry_angle_offset",
+      "noise_model_id": "ry_offset_0p02rad",
+      "phasewrap_mean_absolute_score_error": 0.003690266604,
+      "positional_margin": 0.000466573241,
+      "positional_margin_shot_quanta": 1.911084,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_cx_seed577_rows16_shots4096",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
       "best_positional_comparator_mean_absolute_score_error": 0.004567580445,
       "circuit_template": "two_ry_product_state_z_readout_v1",
       "control_margin": 0.006058268142,
@@ -174,6 +231,101 @@
       "source_lane_id": "ibm_product_seed314_rows16_shots4096",
       "stability_blockers": [],
       "stable_target": true
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.004156839845,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.006319499021,
+      "control_margin_shot_quanta": 25.884668,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": "coherent_ry_angle_offset",
+      "noise_model_id": "ry_offset_0p02rad",
+      "phasewrap_mean_absolute_score_error": 0.003690266604,
+      "positional_margin": 0.000466573241,
+      "positional_margin_shot_quanta": 1.911084,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_product_seed577_rows16_shots4096",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.006666910645,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.009310221678,
+      "control_margin_shot_quanta": 38.134668,
+      "no_position_control_mean_absolute_score_error": 0.015625,
+      "noise_family": "coherent_ry_angle_scale",
+      "noise_model_id": "ry_overrotation_2pct",
+      "phasewrap_mean_absolute_score_error": 0.006314778322,
+      "positional_margin": 0.000352132323,
+      "positional_margin_shot_quanta": 1.442334,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_cx_seed577_rows16_shots4096",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.006666910645,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.009310221678,
+      "control_margin_shot_quanta": 38.134668,
+      "no_position_control_mean_absolute_score_error": 0.015625,
+      "noise_family": "coherent_ry_angle_scale",
+      "noise_model_id": "ry_overrotation_2pct",
+      "phasewrap_mean_absolute_score_error": 0.006314778322,
+      "positional_margin": 0.000352132323,
+      "positional_margin_shot_quanta": 1.442334,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_product_seed577_rows16_shots4096",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.006821858886,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.009091877932,
+      "control_margin_shot_quanta": 37.240332,
+      "no_position_control_mean_absolute_score_error": 0.015625,
+      "noise_family": "coherent_ry_angle_scale",
+      "noise_model_id": "ry_underrotation_2pct",
+      "phasewrap_mean_absolute_score_error": 0.006533122068,
+      "positional_margin": 0.000288736818,
+      "positional_margin_shot_quanta": 1.182666,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_cx_seed577_rows16_shots4096",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.006821858886,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.009091877932,
+      "control_margin_shot_quanta": 37.240332,
+      "no_position_control_mean_absolute_score_error": 0.015625,
+      "noise_family": "coherent_ry_angle_scale",
+      "noise_model_id": "ry_underrotation_2pct",
+      "phasewrap_mean_absolute_score_error": 0.006533122068,
+      "positional_margin": 0.000288736818,
+      "positional_margin_shot_quanta": 1.182666,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_product_seed577_rows16_shots4096",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
     }
   ]
 }

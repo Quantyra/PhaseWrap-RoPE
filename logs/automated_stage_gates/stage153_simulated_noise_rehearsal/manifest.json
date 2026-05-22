@@ -12,10 +12,10 @@
       "separate reporting of PhaseWrap versus positional comparators and versus the no-position/control family"
     ]
   },
-  "comparison_group_count": 36,
-  "complete_comparison_group_count": 36,
+  "comparison_group_count": 54,
+  "complete_comparison_group_count": 54,
   "decision": "SIMULATED_NOISE_PHASEWRAP_STRICT_ADVANTAGE_OBSERVED",
-  "metric_record_count": 180,
+  "metric_record_count": 270,
   "missing_source_artifacts": [],
   "next_gate": "Use this simulated-only result as a go/no-go screen. A real noisy-hardware conclusion still requires Stage 101/103/109/137/148/110/138 evidence from provider counts.",
   "no_hardware_submission": true,
@@ -112,11 +112,11 @@
       "ry_angle_scale_error": 0.01
     }
   ],
-  "noisy_comparison_group_count": 32,
+  "noisy_comparison_group_count": 48,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
-  "packet_count": 20,
-  "phasewrap_positional_advantage_group_count": 11,
-  "phasewrap_strict_advantage_group_count": 6,
+  "packet_count": 30,
+  "phasewrap_positional_advantage_group_count": 21,
+  "phasewrap_strict_advantage_group_count": 14,
   "provider_credentials_required": false,
   "result_path": "logs/automated_stage_gates/stage153_simulated_noise_rehearsal/results.json",
   "schema_version": "qrope_stage153_simulated_noise_rehearsal_v1",

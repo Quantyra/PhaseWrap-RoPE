@@ -1,6 +1,5 @@
 {
   "blockers": [
-    "real_ibm_seed_pair_count_below_broadened_scope_threshold",
     "stage167_synthetic_stress_did_not_support_broadened_scope"
   ],
   "claim_boundary": {
@@ -17,9 +16,9 @@
       "recommended additional IBM source lanes to freeze before broadening beyond the current targeted probe"
     ]
   },
-  "current_real_ibm_seed_pair_count": 1,
+  "current_real_ibm_seed_pair_count": 2,
   "decision": "REAL_SOURCE_SEED_EXPANSION_REQUIRED_BEFORE_BROADENED_SCOPE",
-  "missing_real_ibm_seed_pair_count": 1,
+  "missing_real_ibm_seed_pair_count": 0,
   "missing_source_artifacts": [],
   "next_gate": "Keep the live path scoped to the current targeted IBM probe unless additional real IBM product/CX seed pairs are frozen and rerun through Stage99/100/153/165/166/167.",
   "no_hardware_submission": true,

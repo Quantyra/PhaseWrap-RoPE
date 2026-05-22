@@ -43,6 +43,32 @@
       "shots": 4096
     },
     {
+      "backend_placeholder": "PREREGISTERED_IBM_BACKEND_TO_BE_SELECTED",
+      "execution_status": "not_submitted",
+      "family": "two_qubit_zz_expectation_phase_wrap_v1",
+      "lane_id": "ibm_product_seed577_rows16_shots4096",
+      "packet_id": "qrope-hardware-118a6506a9cf28b8",
+      "packet_path": "logs/automated_stage_gates/stage4_preregistered_replication_packets/ibm_product_seed577_rows16_shots4096.json",
+      "provider": "ibm_runtime",
+      "row_set_hash": "979b9f11ea0ad9901e4608cd7a212ee427e996075040e798d3b8ba2c6dec8d67",
+      "rows": 16,
+      "seed": 577,
+      "shots": 4096
+    },
+    {
+      "backend_placeholder": "PREREGISTERED_IBM_BACKEND_TO_BE_SELECTED",
+      "execution_status": "not_submitted",
+      "family": "two_qubit_cx_parity_phase_wrap_v2",
+      "lane_id": "ibm_cx_seed577_rows16_shots4096",
+      "packet_id": "qrope-hardware-7faa39424a6ad2d7",
+      "packet_path": "logs/automated_stage_gates/stage4_preregistered_replication_packets/ibm_cx_seed577_rows16_shots4096.json",
+      "provider": "ibm_runtime",
+      "row_set_hash": "be4483b68d25807fdff568cfb1bd06fa7a6a7fc0053e97e855721be55441ab21",
+      "rows": 16,
+      "seed": 577,
+      "shots": 4096
+    },
+    {
       "backend_placeholder": "arn:aws:braket:REGION::device/qpu/PROVIDER/DEVICE_TO_BE_SELECTED",
       "execution_status": "not_submitted",
       "family": "two_qubit_zz_expectation_phase_wrap_v1",

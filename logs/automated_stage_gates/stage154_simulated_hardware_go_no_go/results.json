@@ -19,9 +19,9 @@
   "noise_family_records": [
     {
       "noise_family": "None",
-      "noisy_group_count": 32,
-      "phasewrap_positional_advantage_group_count": 11,
-      "phasewrap_strict_advantage_group_count": 6,
+      "noisy_group_count": 48,
+      "phasewrap_positional_advantage_group_count": 21,
+      "phasewrap_strict_advantage_group_count": 14,
       "providers_with_strict_advantage": [
         "amazon_braket",
         "ibm_runtime"
@@ -32,15 +32,15 @@
       ]
     }
   ],
-  "noisy_comparison_group_count": 32,
+  "noisy_comparison_group_count": 48,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
-  "phasewrap_positional_advantage_fraction": 0.34375,
-  "phasewrap_positional_advantage_group_count": 11,
-  "phasewrap_strict_advantage_fraction": 0.1875,
-  "phasewrap_strict_advantage_group_count": 6,
+  "phasewrap_positional_advantage_fraction": 0.4375,
+  "phasewrap_positional_advantage_group_count": 21,
+  "phasewrap_strict_advantage_fraction": 0.291666666667,
+  "phasewrap_strict_advantage_group_count": 14,
   "positional_advantage_by_provider": {
     "amazon_braket": 5,
-    "ibm_runtime": 6
+    "ibm_runtime": 16
   },
   "provider_count": 2,
   "provider_credentials_required": false,
@@ -68,6 +68,30 @@
       "positional_margin": 0.000727848871,
       "provider": "amazon_braket",
       "source_lane_id": "braket_product_seed2718_rows8_shots1000"
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.00625728369,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.004086995119,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": null,
+      "noise_model_id": "biased_observable_plus_2pct",
+      "phasewrap_mean_absolute_score_error": 0.005922770506,
+      "positional_margin": 0.000334513184,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_cx_seed577_rows16_shots4096"
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.00625728369,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.004086995119,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": null,
+      "noise_model_id": "biased_observable_plus_2pct",
+      "phasewrap_mean_absolute_score_error": 0.005922770506,
+      "positional_margin": 0.000334513184,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_product_seed577_rows16_shots4096"
     },
     {
       "best_positional_comparator_mean_absolute_score_error": 0.002924270349,
@@ -106,6 +130,18 @@
       "source_lane_id": "ibm_cx_seed314_rows16_shots4096"
     },
     {
+      "best_positional_comparator_mean_absolute_score_error": 0.004156839845,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.006319499021,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": null,
+      "noise_model_id": "ry_offset_0p02rad",
+      "phasewrap_mean_absolute_score_error": 0.003690266604,
+      "positional_margin": 0.000466573241,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_cx_seed577_rows16_shots4096"
+    },
+    {
       "best_positional_comparator_mean_absolute_score_error": 0.004567580445,
       "circuit_template": "two_ry_product_state_z_readout_v1",
       "control_margin": 0.006058268142,
@@ -116,6 +152,66 @@
       "positional_margin": 0.000616082962,
       "provider": "ibm_runtime",
       "source_lane_id": "ibm_product_seed314_rows16_shots4096"
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.004156839845,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.006319499021,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": null,
+      "noise_model_id": "ry_offset_0p02rad",
+      "phasewrap_mean_absolute_score_error": 0.003690266604,
+      "positional_margin": 0.000466573241,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_product_seed577_rows16_shots4096"
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.006666910645,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.009310221678,
+      "no_position_control_mean_absolute_score_error": 0.015625,
+      "noise_family": null,
+      "noise_model_id": "ry_overrotation_2pct",
+      "phasewrap_mean_absolute_score_error": 0.006314778322,
+      "positional_margin": 0.000352132323,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_cx_seed577_rows16_shots4096"
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.006666910645,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.009310221678,
+      "no_position_control_mean_absolute_score_error": 0.015625,
+      "noise_family": null,
+      "noise_model_id": "ry_overrotation_2pct",
+      "phasewrap_mean_absolute_score_error": 0.006314778322,
+      "positional_margin": 0.000352132323,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_product_seed577_rows16_shots4096"
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.006821858886,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.009091877932,
+      "no_position_control_mean_absolute_score_error": 0.015625,
+      "noise_family": null,
+      "noise_model_id": "ry_underrotation_2pct",
+      "phasewrap_mean_absolute_score_error": 0.006533122068,
+      "positional_margin": 0.000288736818,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_cx_seed577_rows16_shots4096"
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.006821858886,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.009091877932,
+      "no_position_control_mean_absolute_score_error": 0.015625,
+      "noise_family": null,
+      "noise_model_id": "ry_underrotation_2pct",
+      "phasewrap_mean_absolute_score_error": 0.006533122068,
+      "positional_margin": 0.000288736818,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_product_seed577_rows16_shots4096"
     }
   ],
   "schema_version": "qrope_stage154_simulated_hardware_go_no_go_v1",
@@ -129,7 +225,7 @@
   "status": "completed",
   "strict_advantage_by_provider": {
     "amazon_braket": 4,
-    "ibm_runtime": 2
+    "ibm_runtime": 10
   },
   "strict_advantage_provider_count": 2,
   "strict_advantage_template_count": 2,

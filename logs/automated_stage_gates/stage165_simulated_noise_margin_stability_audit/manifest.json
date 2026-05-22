@@ -21,7 +21,7 @@
   "recommended_hardware_probe_providers": [
     "ibm_runtime"
   ],
-  "recommended_target_count": 6,
+  "recommended_target_count": 14,
   "result_path": "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json",
   "schema_version": "qrope_stage165_simulated_noise_margin_stability_audit_v1",
   "secret_values_recorded": false,

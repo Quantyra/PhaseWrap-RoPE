@@ -64,12 +64,11 @@
   "stage167_stable_seed_count": 1,
   "stage167_stable_template_count": 2,
   "stage168_broadened_scope_blockers": [
-    "real_ibm_seed_pair_count_below_broadened_scope_threshold",
     "stage167_synthetic_stress_did_not_support_broadened_scope"
   ],
-  "stage168_current_real_ibm_seed_pair_count": 1,
-  "stage168_missing_real_ibm_seed_pair_count": 1,
+  "stage168_current_real_ibm_seed_pair_count": 2,
+  "stage168_missing_real_ibm_seed_pair_count": 0,
   "status": "completed",
-  "strict_simulated_target_count_for_provider": 2,
+  "strict_simulated_target_count_for_provider": 10,
   "summary_csv_path": "logs/automated_stage_gates/stage162_first_provider_approval_dossier/summary.csv"
 }

@@ -32,7 +32,9 @@ def test_manifest_contains_expected_lanes() -> None:
     manifest = build_manifest()
     assert manifest["schema_version"] == SCHEMA_VERSION
     assert manifest["no_hardware_submission"] is True
-    assert len(manifest["records"]) == 4
+    assert len(manifest["records"]) == len(LANES)
+    assert any(record["lane_id"] == "ibm_product_seed577_rows16_shots4096" for record in manifest["records"])
+    assert any(record["lane_id"] == "ibm_cx_seed577_rows16_shots4096" for record in manifest["records"])
     families = {record["family"] for record in manifest["records"]}
     assert families == {PRODUCT_STATE_CIRCUIT_FAMILY, ENTANGLING_CX_CIRCUIT_FAMILY}
     assert all(record["execution_status"] == "not_submitted" for record in manifest["records"])

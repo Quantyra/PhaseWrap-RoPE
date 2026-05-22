@@ -14,7 +14,7 @@
     ]
   },
   "decision": "MATCHED_CX_ENCODING_PACKETS_FROZEN_NO_HARDWARE",
-  "expected_packet_count": 10,
+  "expected_packet_count": 15,
   "fixed_width_policy": {
     "active_qubits": 2,
     "circuit_template": "two_ry_cx_parity_z_readout_v1",
@@ -23,7 +23,7 @@
     "readout": "computational_basis",
     "score_observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])"
   },
-  "lane_count": 2,
+  "lane_count": 3,
   "matched_encoding_families": [
     "phasewrap",
     "rope_like",
@@ -34,13 +34,18 @@
   "missing_source_packets": [],
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
-  "packet_count": 10,
+  "packet_count": 15,
   "packet_paths": [
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed314_rows16_shots4096__phasewrap.json",
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed314_rows16_shots4096__rope_like.json",
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed314_rows16_shots4096__sinusoidal_like.json",
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed314_rows16_shots4096__alibi_like.json",
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed314_rows16_shots4096__no_position_control.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed577_rows16_shots4096__phasewrap.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed577_rows16_shots4096__rope_like.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed577_rows16_shots4096__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed577_rows16_shots4096__alibi_like.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/ibm_cx_seed577_rows16_shots4096__no_position_control.json",
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/braket_cx_seed2718_rows8_shots1000__phasewrap.json",
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/braket_cx_seed2718_rows8_shots1000__rope_like.json",
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/packets/braket_cx_seed2718_rows8_shots1000__sinusoidal_like.json",
@@ -59,6 +64,7 @@
   "schema_version": "qrope_stage100_matched_cx_encoding_packet_freezer_v1",
   "source_packet_paths": [
     "logs/automated_stage_gates/stage4_preregistered_replication_packets/ibm_cx_seed314_rows16_shots4096.json",
+    "logs/automated_stage_gates/stage4_preregistered_replication_packets/ibm_cx_seed577_rows16_shots4096.json",
     "logs/automated_stage_gates/stage4_preregistered_replication_packets/braket_cx_seed2718_rows8_shots1000.json"
   ],
   "source_stage": "stage4_preregistered_replication_packets",

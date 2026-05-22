@@ -14,13 +14,13 @@
       "explicit evidence that the current IBM signal is a narrow targeted-probe signal, not a broad claim"
     ]
   },
-  "cx_lane_count": 2,
+  "cx_lane_count": 3,
   "decision": "SIMULATED_EVIDENCE_TARGETED_PROBE_READY_BROAD_CLAIM_INSUFFICIENT",
   "missing_source_artifacts": [],
   "next_gate": "For a targeted hardware probe, pause and resolve IBM credit/provider state together before live execution. For a broader simulated claim, add independent seeds/noise models before hardware spend.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
-  "product_lane_count": 2,
+  "product_lane_count": 3,
   "provider_credentials_required": false,
   "result_path": "logs/automated_stage_gates/stage166_simulated_evidence_sufficiency_audit/results.json",
   "schema_version": "qrope_stage166_simulated_evidence_sufficiency_audit_v1",

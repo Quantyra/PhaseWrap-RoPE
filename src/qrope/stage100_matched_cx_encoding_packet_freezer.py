@@ -24,6 +24,7 @@ DEFAULT_SOURCE_PACKET_DIR = DEFAULT_ARTIFACT_ROOT / "stage4_preregistered_replic
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage100_matched_cx_encoding_packets"
 DEFAULT_SOURCE_PACKET_FILES: tuple[str, ...] = (
     "ibm_cx_seed314_rows16_shots4096.json",
+    "ibm_cx_seed577_rows16_shots4096.json",
     "braket_cx_seed2718_rows8_shots1000.json",
 )
 

@@ -1,6 +1,5 @@
 {
   "blockers": [
-    "real_ibm_seed_pair_count_below_broadened_scope_threshold",
     "stage167_synthetic_stress_did_not_support_broadened_scope"
   ],
   "claim_boundary": {
@@ -17,7 +16,7 @@
       "recommended additional IBM source lanes to freeze before broadening beyond the current targeted probe"
     ]
   },
-  "current_real_ibm_seed_pair_count": 1,
+  "current_real_ibm_seed_pair_count": 2,
   "current_real_ibm_seed_records": [
     {
       "complete_family_pair": true,
@@ -37,36 +36,36 @@
       "shot_counts": [
         4096
       ]
+    },
+    {
+      "complete_family_pair": true,
+      "families": [
+        "two_qubit_cx_parity_phase_wrap_v2",
+        "two_qubit_zz_expectation_phase_wrap_v1"
+      ],
+      "lane_ids": [
+        "ibm_cx_seed577_rows16_shots4096",
+        "ibm_product_seed577_rows16_shots4096"
+      ],
+      "provider": "ibm_runtime",
+      "row_counts": [
+        16
+      ],
+      "seed": 577,
+      "shot_counts": [
+        4096
+      ]
     }
   ],
   "decision": "REAL_SOURCE_SEED_EXPANSION_REQUIRED_BEFORE_BROADENED_SCOPE",
-  "missing_real_ibm_seed_pair_count": 1,
+  "missing_real_ibm_seed_pair_count": 0,
   "missing_source_artifacts": [],
   "next_gate": "Keep the live path scoped to the current targeted IBM probe unless additional real IBM product/CX seed pairs are frozen and rerun through Stage99/100/153/165/166/167.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider": "ibm_runtime",
   "provider_credentials_required": false,
-  "recommended_expansion_requests": [
-    {
-      "execution_status": "not_submitted",
-      "family": "two_qubit_zz_expectation_phase_wrap_v1",
-      "lane_id": "ibm_product_seed577_rows16_shots4096",
-      "provider": "ibm_runtime",
-      "row_count": 16,
-      "seed": 577,
-      "shot_count": 4096
-    },
-    {
-      "execution_status": "not_submitted",
-      "family": "two_qubit_cx_parity_phase_wrap_v2",
-      "lane_id": "ibm_cx_seed577_rows16_shots4096",
-      "provider": "ibm_runtime",
-      "row_count": 16,
-      "seed": 577,
-      "shot_count": 4096
-    }
-  ],
+  "recommended_expansion_requests": [],
   "required_families": [
     "two_qubit_zz_expectation_phase_wrap_v1",
     "two_qubit_cx_parity_phase_wrap_v2"
