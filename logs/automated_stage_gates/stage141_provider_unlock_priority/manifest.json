@@ -14,6 +14,13 @@
     ]
   },
   "decision": "PROVIDER_UNLOCK_PRIORITY_PREPARED_EXECUTION_BLOCKED",
+  "first_unlock_minimal_actions": [
+    "Set local env groups without committing values: IBM_QUANTUM_INSTANCE_CRN."
+  ],
+  "first_unlock_missing_env_groups": [
+    "IBM_QUANTUM_INSTANCE_CRN"
+  ],
+  "first_unlock_missing_sdk_modules": [],
   "first_unlock_provider": "ibm_runtime",
   "first_unlock_ready_for_preflight_rerun": false,
   "missing_source_artifacts": [],

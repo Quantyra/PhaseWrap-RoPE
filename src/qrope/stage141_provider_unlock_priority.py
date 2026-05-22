@@ -81,8 +81,9 @@ def run_stage141_priority(
         for provider in providers
     ]
     priority_records.sort(key=lambda record: (record["priority_score"], record["sdk_missing_count"], record["env_missing_count"], record["provider"]))
-    first_provider = priority_records[0]["provider"] if priority_records else None
-    first_ready = bool(priority_records and priority_records[0]["ready_for_preflight_rerun"])
+    first_record = priority_records[0] if priority_records else {}
+    first_provider = first_record.get("provider") if first_record else None
+    first_ready = bool(first_record and first_record["ready_for_preflight_rerun"])
     return {
         "schema_version": STAGE141_SCHEMA_VERSION,
         "stage": "stage141_provider_unlock_priority",
@@ -100,6 +101,9 @@ def run_stage141_priority(
         "provider_count": len(priority_records),
         "first_unlock_provider": first_provider,
         "first_unlock_ready_for_preflight_rerun": first_ready,
+        "first_unlock_missing_env_groups": list(first_record.get("missing_env_groups", [])),
+        "first_unlock_missing_sdk_modules": list(first_record.get("missing_sdk_modules", [])),
+        "first_unlock_minimal_actions": list(first_record.get("minimal_unlock_actions", [])),
         "priority_records": priority_records,
         "no_hardware_submission": True,
         "provider_credentials_required": True,
@@ -140,6 +144,9 @@ def write_stage141_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "provider_count": result["provider_count"],
         "first_unlock_provider": result["first_unlock_provider"],
         "first_unlock_ready_for_preflight_rerun": result["first_unlock_ready_for_preflight_rerun"],
+        "first_unlock_missing_env_groups": result["first_unlock_missing_env_groups"],
+        "first_unlock_missing_sdk_modules": result["first_unlock_missing_sdk_modules"],
+        "first_unlock_minimal_actions": result["first_unlock_minimal_actions"],
         "no_hardware_submission": result["no_hardware_submission"],
         "provider_credentials_required": result["provider_credentials_required"],
         "secret_values_recorded": result["secret_values_recorded"],

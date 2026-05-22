@@ -8,12 +8,13 @@ Stage 141 prioritizes the first provider unlock path using non-secret Stage 139 
 
 Current decision: `PROVIDER_UNLOCK_PRIORITY_PREPARED_EXECUTION_BLOCKED`.
 
-Current first unlock provider: `ibm_runtime`, because the IBM SDK modules are present and the remaining local blockers are environment/configuration groups. Amazon Braket remains behind missing SDK modules plus missing local configuration groups.
+Current first unlock provider: `ibm_runtime`, because the IBM SDK modules are present and the remaining local blocker is the `IBM_QUANTUM_INSTANCE_CRN` environment/configuration group. Amazon Braket remains behind missing SDK modules plus missing local configuration groups.
 
 ## Claim Boundary
 Supported:
 
 - provider unlock ordering based on non-secret env-key and SDK readiness evidence
+- top-level first-provider missing env groups, missing SDK modules, and minimal unlock actions
 - minimal first-provider unlock actions before Stage 106/111/129 reruns
 - explicit separation from live provider submission and Stage 138 objective claims
 

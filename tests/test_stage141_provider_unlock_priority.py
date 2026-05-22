@@ -53,6 +53,11 @@ def test_stage141_prioritizes_lowest_friction_provider(tmp_path) -> None:
     assert result["first_unlock_provider"] == "ibm_runtime"
     assert result["priority_records"][0]["sdk_missing_count"] == 0
     assert result["priority_records"][0]["env_missing_count"] == 1
+    assert result["first_unlock_missing_env_groups"] == ["IBM_QUANTUM_INSTANCE_CRN"]
+    assert result["first_unlock_missing_sdk_modules"] == []
+    assert result["first_unlock_minimal_actions"] == [
+        "Set local env groups without committing values: IBM_QUANTUM_INSTANCE_CRN."
+    ]
     assert result["secret_values_recorded"] is False
 
 
@@ -64,6 +69,10 @@ def test_stage141_reports_ready_when_first_provider_can_rerun_preflight(tmp_path
     assert result["decision"] == "PROVIDER_UNLOCK_PRIORITY_READY_FOR_PREFLIGHT_RERUN"
     assert result["first_unlock_provider"] == "ibm_runtime"
     assert result["first_unlock_ready_for_preflight_rerun"] is True
+    assert result["first_unlock_missing_env_groups"] == []
+    assert result["first_unlock_minimal_actions"] == [
+        "Rerun Stage 106/111/128/129/130/139; then execute only authorized Stage 133 commands."
+    ]
 
 
 def test_stage141_outputs_are_written(tmp_path) -> None:
@@ -76,4 +85,5 @@ def test_stage141_outputs_are_written(tmp_path) -> None:
 
     assert set(paths) == {"manifest", "result", "summary_csv"}
     assert manifest["first_unlock_provider"] == "ibm_runtime"
+    assert manifest["first_unlock_missing_env_groups"] == ["IBM_QUANTUM_INSTANCE_CRN"]
     assert "amazon_braket" in summary
