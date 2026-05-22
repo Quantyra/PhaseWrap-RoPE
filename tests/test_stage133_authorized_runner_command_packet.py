@@ -64,8 +64,8 @@ def test_stage133_blocks_commands_until_cutover_authorized(tmp_path) -> None:
     assert result["decision"] == "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED"
     assert result["authorized_runner_count"] == 0
     assert record["command_authorized"] is False
-    assert "--allow-live-submit" in record["live_submit_command"]
-    assert "--submitter qrope.provider_adapters.ibm_runtime:submit" in record["live_submit_command"]
+    assert record["live_submit_command_available"] is False
+    assert record["live_submit_command"] == ""
     assert "stage129:cutover_not_authorized" in record["blockers"]
 
 
@@ -77,6 +77,9 @@ def test_stage133_authorizes_only_complete_command_records(tmp_path) -> None:
     assert result["decision"] == "AUTHORIZED_RUNNER_COMMANDS_READY"
     assert result["authorized_runner_count"] == 1
     assert result["command_records"][0]["command_authorized"] is True
+    assert result["command_records"][0]["live_submit_command_available"] is True
+    assert "--allow-live-submit" in result["command_records"][0]["live_submit_command"]
+    assert "--submitter qrope.provider_adapters.ibm_runtime:submit" in result["command_records"][0]["live_submit_command"]
 
 
 def test_stage133_outputs_are_written(tmp_path) -> None:

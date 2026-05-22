@@ -61,8 +61,8 @@ def _command_record(runner: dict[str, Any], stage129: dict[str, Any] | None, sta
     submitter = SUBMITTERS.get(provider, "")
     if not submitter:
         blockers.append("submitter_import_path_missing")
-    live_submit_command = f"{runner_command} --allow-live-submit --submitter {submitter}" if submitter else runner_command
     authorized = not blockers
+    live_submit_command = f"{runner_command} --allow-live-submit --submitter {submitter}" if authorized and submitter else ""
     return {
         "provider": provider,
         "window_id": runner.get("window_id"),
@@ -74,6 +74,7 @@ def _command_record(runner: dict[str, Any], stage129: dict[str, Any] | None, sta
         "live_submit_command": live_submit_command,
         "submitter_import_path": submitter,
         "command_authorized": authorized,
+        "live_submit_command_available": authorized,
         "blockers": sorted(set(blockers)),
     }
 
@@ -120,6 +121,7 @@ def run_stage133_packet(
             "supported": [
                 "declared live-submit command templates include Stage 111, Stage 118, and Stage 129 evidence inputs",
                 "provider submitter import paths are attached to each provider/window runner command",
+                "live-submit command strings are emitted only for records with command_authorized=true",
                 "current commands remain blocked until Stage 116 readiness, Stage 129 cutover, and Stage 132 factory readiness all align",
             ],
             "excluded": [
@@ -177,6 +179,7 @@ def write_stage133_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                 "job_count",
                 "command_authorized",
                 "submitter_import_path",
+                "live_submit_command_available",
                 "blockers",
                 "live_submit_command",
             ),
@@ -190,6 +193,7 @@ def write_stage133_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                     "job_count": record["job_count"],
                     "command_authorized": record["command_authorized"],
                     "submitter_import_path": record["submitter_import_path"],
+                    "live_submit_command_available": record["live_submit_command_available"],
                     "blockers": "; ".join(record["blockers"]),
                     "live_submit_command": record["live_submit_command"],
                 }

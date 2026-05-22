@@ -13,6 +13,7 @@ Current decision:
 ## What this supports
 - Runner command templates include Stage 111 readiness, Stage 118 payload, and Stage 129 cutover evidence inputs.
 - Provider submitter import paths are attached to each provider/window command template.
+- Executable live-submit command strings are emitted only for records with `command_authorized=true`.
 - Current commands remain blocked until Stage 116 readiness, Stage 129 cutover, and Stage 132 factory readiness all align.
 
 ## What this does not support
