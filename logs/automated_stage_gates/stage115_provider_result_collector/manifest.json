@@ -38,12 +38,16 @@
   "stage": "stage115_provider_result_collector",
   "stage113_provider_results_path": "logs/automated_stage_gates/stage113_job_result_evidence_assembler/provider_job_results.jsonl",
   "stage114_decision": "PROVIDER_RESULT_CAPTURE_CONTRACT_PREPARED_RESULTS_REQUIRED",
+  "stage152_all_first_provider_commands_authorized": false,
+  "stage152_all_first_provider_commands_live_submit_ready": false,
   "stage152_blockers": [
     "stage133_no_authorized_first_provider_commands",
+    "stage133_not_all_first_provider_commands_live_submit_ready",
     "stage144_post_configuration_chain_not_ready"
   ],
   "stage152_decision": "FIRST_PROVIDER_LIVE_EXECUTION_GUARD_PREPARED_EXECUTION_BLOCKED",
   "stage152_first_provider_authorized_runner_count": 0,
+  "stage152_first_provider_live_submit_ready_count": 0,
   "stage152_first_provider_runner_command_count": 2,
   "stage152_missing_source_artifacts": [],
   "stage152_results_path": "logs/automated_stage_gates/stage152_first_provider_live_execution_guard/results.json",
@@ -63,9 +67,13 @@
   "stage152_stage144_transition_count": 9,
   "stage152_stage151_metadata_guard_ready": true,
   "stage152_write_blockers": [
+    "stage152_authorized_runner_count_incomplete",
     "stage152_blockers_present",
     "stage152_live_execution_guard_not_ready",
+    "stage152_live_submit_ready_count_incomplete",
     "stage152_no_authorized_first_provider_runner",
+    "stage152_not_all_first_provider_commands_authorized",
+    "stage152_not_all_first_provider_commands_live_submit_ready",
     "stage152_stage144_blocked_transition_present",
     "stage152_stage144_not_ready",
     "stage152_stage144_transition_counts_incomplete"

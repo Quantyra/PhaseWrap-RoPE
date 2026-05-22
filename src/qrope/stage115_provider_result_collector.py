@@ -152,8 +152,21 @@ def _stage152_write_ready(stage152: dict[str, Any] | None, selected_providers: s
         blockers.append("stage152_stage144_transition_counts_incomplete")
     if stage152.get("stage151_metadata_guard_ready") is not True:
         blockers.append("stage152_stage151_metadata_guard_not_ready")
-    if first_provider and int(stage152.get("first_provider_authorized_runner_count") or 0) <= 0:
+    runner_count = int(stage152.get("first_provider_runner_command_count") or 0)
+    authorized_runner_count = int(stage152.get("first_provider_authorized_runner_count") or 0)
+    live_submit_ready_count = int(stage152.get("first_provider_live_submit_ready_count") or 0)
+    if first_provider and authorized_runner_count <= 0:
         blockers.append("stage152_no_authorized_first_provider_runner")
+    if first_provider and runner_count <= 0:
+        blockers.append("stage152_first_provider_runner_commands_missing")
+    if first_provider and stage152.get("all_first_provider_commands_authorized") is not True:
+        blockers.append("stage152_not_all_first_provider_commands_authorized")
+    if first_provider and stage152.get("all_first_provider_commands_live_submit_ready") is not True:
+        blockers.append("stage152_not_all_first_provider_commands_live_submit_ready")
+    if first_provider and runner_count > 0 and authorized_runner_count != runner_count:
+        blockers.append("stage152_authorized_runner_count_incomplete")
+    if first_provider and runner_count > 0 and live_submit_ready_count != runner_count:
+        blockers.append("stage152_live_submit_ready_count_incomplete")
     return not blockers, sorted(set(blockers))
 
 
@@ -228,6 +241,15 @@ def run_stage115_collector(
         "stage152_first_provider_authorized_runner_count": (
             stage152.get("first_provider_authorized_runner_count") if isinstance(stage152, dict) else None
         ),
+        "stage152_first_provider_live_submit_ready_count": (
+            stage152.get("first_provider_live_submit_ready_count") if isinstance(stage152, dict) else None
+        ),
+        "stage152_all_first_provider_commands_authorized": (
+            stage152.get("all_first_provider_commands_authorized") if isinstance(stage152, dict) else None
+        ),
+        "stage152_all_first_provider_commands_live_submit_ready": (
+            stage152.get("all_first_provider_commands_live_submit_ready") if isinstance(stage152, dict) else None
+        ),
         "stage152_write_ready": stage152_write_ready,
         "stage152_write_blockers": stage152_write_blockers,
         "provider_scope": provider or "all",
@@ -291,6 +313,11 @@ def write_stage115_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "stage152_stage151_metadata_guard_ready": result["stage152_stage151_metadata_guard_ready"],
         "stage152_first_provider_runner_command_count": result["stage152_first_provider_runner_command_count"],
         "stage152_first_provider_authorized_runner_count": result["stage152_first_provider_authorized_runner_count"],
+        "stage152_first_provider_live_submit_ready_count": result["stage152_first_provider_live_submit_ready_count"],
+        "stage152_all_first_provider_commands_authorized": result["stage152_all_first_provider_commands_authorized"],
+        "stage152_all_first_provider_commands_live_submit_ready": result[
+            "stage152_all_first_provider_commands_live_submit_ready"
+        ],
         "stage152_write_ready": result["stage152_write_ready"],
         "stage152_write_blockers": result["stage152_write_blockers"],
         "provider_scope": result["provider_scope"],
