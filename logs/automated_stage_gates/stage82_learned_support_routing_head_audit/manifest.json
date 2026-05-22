@@ -1,0 +1,64 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that this compact learned routing head is a matched decoder-only transformer",
+      "a claim that learned support routing is positional-method promotion evidence when no-position solves too",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential same-seed support-complete audit that trains a small routing head over learned support probabilities.",
+      "Evidence about whether Stage81's hard farthest-congruent routing rule can be replaced by learned routing scales.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap reporting with failed-run retention."
+    ]
+  },
+  "decision": {
+    "claim_boundary": "Support labels are recovered, but learned support-to-token routing still does not repair phase-cued retrieval.",
+    "decision": "LEARNED_SUPPORT_ROUTING_HEAD_SUPPORT_RECOVERED_RETRIEVAL_FAILED",
+    "generalization_top1_threshold": 0.5,
+    "mean_phase_cued_test_support_accuracy": 1.0,
+    "no_position_solved_retrieval_tasks": [],
+    "phasewrap_best_retrieval_tasks": [],
+    "retrieval_best_methods": {
+      "exact_offset_passkey": "sinusoidal",
+      "phase_cued_retrieval": "sinusoidal"
+    },
+    "retrieval_best_target_probability": {
+      "exact_offset_passkey": 0.340343,
+      "phase_cued_retrieval": 0.275733
+    },
+    "retrieval_best_top1": {
+      "exact_offset_passkey": 0.65,
+      "phase_cued_retrieval": 0.333333
+    },
+    "retrieval_solved_tasks": [
+      "exact_offset_passkey"
+    ],
+    "tiny_text_best_method": "sinusoidal",
+    "tiny_text_best_top1": 1.0
+  },
+  "failed_runs_path": "logs/automated_stage_gates/stage82_learned_support_routing_head_audit/failed_runs.json",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "per_run_csv_path": "logs/automated_stage_gates/stage82_learned_support_routing_head_audit/per_run_results.csv",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage82_learned_support_routing_head_audit/results.json",
+  "schema_version": "qrope_stage82_learned_support_routing_head_audit_v1",
+  "stage": "stage82_learned_support_routing_head_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage82_learned_support_routing_head_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}

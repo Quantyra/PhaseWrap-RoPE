@@ -71,6 +71,8 @@ Stage 80 update: recovered support routed into farthest-congruent token selectio
 
 Stage 81 update: learned support probabilities can replace Stage 80's hard support argmax and still repair phase-cued retrieval at top-1 `1.000000` for every method, including `no_position`. The remaining non-learned part is the farthest-congruent routing rule itself, so the next gate should learn that routing inside a matched decoder path.
 
+Stage 82 update: a compact learned routing head over support-congruence, positional bias, and distance does not preserve the repair. Support accuracy remains `1.000000`, but best phase-cued top-1 falls to `0.333333`, so the remaining blocker is learned support-to-token routing capacity/structure.
+
 ## PhaseWrap Mechanism Requirements
 
 The PhaseWrap variant should be implemented as a positional mechanism comparable to RoPE or ALiBI, not as a scalar oracle feature.
@@ -222,7 +224,9 @@ Stage 80 routes recovered support into farthest-congruent token selection and re
 
 Stage 81 routes learned support probabilities into farthest-congruent token selection and records `SOFT_SUPPORT_ROUTED_TOKEN_SELECTOR_SOLVES_PHASE_CUED_NOT_PROMOTION`: the repair survives soft support uncertainty, but still solves for `no_position`.
 
-The next gate should redesign the stronger matched decoder-only transformer so it learns the farthest-congruent support-to-token routing from standard inputs and loss before testing positional-method promotion. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
+Stage 82 trains a compact support-to-token routing head and records `LEARNED_SUPPORT_ROUTING_HEAD_SUPPORT_RECOVERED_RETRIEVAL_FAILED`: support labels recover, but the learned routing head does not repair phase-cued retrieval.
+
+The next gate should redesign the stronger matched decoder-only transformer so it has enough capacity and supervision structure to learn support-to-token routing from standard inputs and loss before testing positional-method promotion. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
 
 ## Researcher Use Context
 
