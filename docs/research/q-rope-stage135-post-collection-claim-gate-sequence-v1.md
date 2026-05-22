@@ -24,6 +24,7 @@ Current decision: `POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKE
 Supported:
 
 - Stage 115 through Stage 138 now have an explicit ordered rerun sequence.
+- Stage 134 intake counters and missing-job counts must prove runner output readiness before Stage 113.
 - The pipeline distinguishes a terminal final gate from the current blocked state.
 - A noisy-hardware conclusion remains barred until Stage 148 statistical interpretation and Stage 110/138 claim gates are ready.
 

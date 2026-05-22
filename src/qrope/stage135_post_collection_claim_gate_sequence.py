@@ -52,15 +52,19 @@ def _gate_record(
     purpose: str,
     command: str,
     blocker_hint: str,
+    ready_override: bool | None = None,
+    extra_blockers: list[str] | None = None,
 ) -> dict[str, Any]:
     decision = payload.get("decision") if isinstance(payload, dict) else None
     missing = not isinstance(payload, dict)
-    ready = bool(decision in ready_decisions and not missing)
+    decision_ready = bool(decision in ready_decisions and not missing)
+    ready = bool((decision_ready if ready_override is None else ready_override) and not extra_blockers)
     blockers: list[str] = []
     if missing:
         blockers.append("result_artifact_missing")
-    if not ready:
+    if not decision_ready:
         blockers.append(blocker_hint)
+    blockers.extend(extra_blockers or [])
     return {
         "stage_id": stage_id,
         "name": name,
@@ -75,6 +79,19 @@ def _gate_record(
 
 def _claim_gate_terminal(stage110: dict[str, Any] | None) -> bool:
     return bool(isinstance(stage110, dict) and stage110.get("decision") in TERMINAL_STAGE110_DECISIONS)
+
+
+def _stage134_extra_blockers(stage134: dict[str, Any] | None) -> list[str]:
+    if not isinstance(stage134, dict):
+        return []
+    blockers = []
+    if int(stage134.get("runner_count") or 0) <= 0:
+        blockers.append("stage134_runner_count_missing")
+    if stage134.get("ready_intake_count") != stage134.get("runner_count"):
+        blockers.append("stage134_ready_intake_count_incomplete")
+    if int(stage134.get("missing_job_count") or 0) != 0:
+        blockers.append("stage134_missing_jobs_remaining")
+    return blockers
 
 
 def run_stage135_sequence_audit(
@@ -116,6 +133,7 @@ def run_stage135_sequence_audit(
         (stage138_results_path, stage138),
     ]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
+    stage134_extra_blockers = _stage134_extra_blockers(stage134)
 
     gate_records = [
         _gate_record(
@@ -137,6 +155,7 @@ def run_stage135_sequence_audit(
             purpose="confirm Stage 133 runner output paths and Stage 115 collector shards are aligned and ready",
             command="python scripts/run_stage134_runner_result_intake_alignment_audit.py",
             blocker_hint="stage134_runner_result_intake_not_ready",
+            extra_blockers=stage134_extra_blockers,
         ),
         _gate_record(
             stage_id="stage113",
@@ -260,6 +279,7 @@ def run_stage135_sequence_audit(
         "claim_boundary": {
             "supported": [
                 "an explicit post-collection rerun sequence from Stage 115 collection through Stage 138 objective claim gating",
+                "Stage 134 intake counters and missing-job counts must prove runner output readiness before Stage 113",
                 "a deterministic no-claim boundary when any downstream collection, assembly, calibration, metric, intake, or claim gate is blocked",
                 "a terminal decision distinction between replicated PhaseWrap advantage supported and not supported by the preregistered rule",
             ],

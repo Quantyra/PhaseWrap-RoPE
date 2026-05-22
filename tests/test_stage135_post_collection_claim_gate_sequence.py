@@ -44,7 +44,15 @@ def _run(paths):
 
 def _write_blocked_fixture(paths) -> None:
     _write_json(paths["stage115"], {"decision": "PROVIDER_RESULTS_COLLECTION_BLOCKED_RESULTS_MISSING"})
-    _write_json(paths["stage134"], {"decision": "RUNNER_RESULT_INTAKE_ALIGNED_EXECUTION_BLOCKED"})
+    _write_json(
+        paths["stage134"],
+        {
+            "decision": "RUNNER_RESULT_INTAKE_ALIGNED_EXECUTION_BLOCKED",
+            "runner_count": 1,
+            "ready_intake_count": 0,
+            "missing_job_count": 1,
+        },
+    )
     _write_json(paths["stage113"], {"decision": "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING"})
     _write_json(paths["stage101"], {"decision": "KNOWN_STATE_CALIBRATION_COUNTS_REQUIRED_BEFORE_HARDWARE_INTERPRETATION"})
     _write_json(paths["stage103"], {"decision": "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED"})
@@ -58,7 +66,15 @@ def _write_blocked_fixture(paths) -> None:
 
 def _write_ready_fixture(paths, *, replicated_advantage_count: int = 0) -> None:
     _write_json(paths["stage115"], {"decision": "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113"})
-    _write_json(paths["stage134"], {"decision": "RUNNER_RESULT_INTAKE_READY_FOR_STAGE113"})
+    _write_json(
+        paths["stage134"],
+        {
+            "decision": "RUNNER_RESULT_INTAKE_READY_FOR_STAGE113",
+            "runner_count": 1,
+            "ready_intake_count": 1,
+            "missing_job_count": 0,
+        },
+    )
     _write_json(paths["stage113"], {"decision": "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"})
     _write_json(paths["stage101"], {"decision": "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION"})
     _write_json(paths["stage103"], {"decision": "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION"})
@@ -107,6 +123,36 @@ def test_stage135_reports_complete_after_terminal_not_supported_claim_gate(tmp_p
     assert result["ready_gate_count"] == 11
     assert result["final_claim_gate_terminal"] is True
     assert result["replicated_advantage_count"] == 0
+
+
+def test_stage135_blocks_stage134_ready_decision_with_incomplete_intake_counts(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _write_ready_fixture(paths, replicated_advantage_count=0)
+    stage134 = json.loads(paths["stage134"].read_text(encoding="utf-8"))
+    stage134["ready_intake_count"] = 0
+    _write_json(paths["stage134"], stage134)
+
+    result = _run(paths)
+    stage134_record = next(record for record in result["gate_records"] if record["stage_id"] == "stage134")
+
+    assert result["decision"] == "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED"
+    assert stage134_record["ready"] is False
+    assert "stage134_ready_intake_count_incomplete" in stage134_record["blockers"]
+
+
+def test_stage135_blocks_stage134_ready_decision_with_missing_jobs(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _write_ready_fixture(paths, replicated_advantage_count=0)
+    stage134 = json.loads(paths["stage134"].read_text(encoding="utf-8"))
+    stage134["missing_job_count"] = 1
+    _write_json(paths["stage134"], stage134)
+
+    result = _run(paths)
+    stage134_record = next(record for record in result["gate_records"] if record["stage_id"] == "stage134")
+
+    assert result["decision"] == "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED"
+    assert stage134_record["ready"] is False
+    assert "stage134_missing_jobs_remaining" in stage134_record["blockers"]
 
 
 def test_stage135_reports_complete_after_terminal_supported_claim_gate(tmp_path) -> None:
