@@ -1,0 +1,49 @@
+{
+  "blockers": [
+    "human_credit_allowance_attestation_required"
+  ],
+  "break_even_microseconds_per_shot": 23.69722154816792,
+  "budget_cap_usd": 25.0,
+  "budget_quantum_seconds_at_doc_rate": 15.625,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider-side IBM credit balance verification",
+      "acceptance of exact live-run approval",
+      "creation of a runnable live-submit command",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "explicit reduced-scope credit attestation prompt with cost estimate",
+      "reduced-scope exposure and interpretation boundary are attached before asking the user",
+      "credit attestation remains separate from exact approval and live-runner preparation"
+    ]
+  },
+  "decision": "REDUCED_SCOPE_ATTESTATION_READY_FOR_USER_REVIEW_NOT_LIVE",
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 659360,
+  "explicit_user_approval_required": true,
+  "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
+  "human_credit_allowance_verified": false,
+  "ibm_doc_usd_per_quantum_second_example": 1.6,
+  "manual_attestation_prompt": "Please verify in IBM that the selected instance has enough remaining credit/billing/Runtime allowance for the reduced-scope run `all_lanes_half_shots_2048`: 324 row-level jobs, 659360 total shots, 2048 shots per packet row, and a $25.00 local cap. Using IBM's documented $1600/1000-quantum-second example, this cap allows 15.625 quantum seconds, so this reduced run fits only if effective quantum time is <= 23.70 microseconds/shot. If you attest yes, you are attesting account-side allowance and willingness to spend within this cap only; this still does not approve live submission or accept the exact approval phrase.",
+  "manual_attestation_prompt_required": true,
+  "missing_source_artifacts": [],
+  "next_gate": "Present this reduced-scope estimate to the user. If the user attests IBM credit allowance and willingness to spend within the cap, rerun Stage199 with human_credit_allowance_verified=true, then run exact approval review.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage199_reduced_scope_attestation_packet/results.json",
+  "runnable_commands_recorded": false,
+  "scenarios_csv_path": "logs/automated_stage_gates/stage199_reduced_scope_attestation_packet/scenarios.csv",
+  "schema_version": "qrope_stage199_reduced_scope_attestation_packet_v1",
+  "scope_id": "all_lanes_half_shots_2048",
+  "secret_values_recorded": false,
+  "shots_per_row": 2048,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage198_reduced_scope_preregistration/results.json"
+  ],
+  "stage": "stage199_reduced_scope_attestation_packet",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage199_reduced_scope_attestation_packet/summary.csv"
+}

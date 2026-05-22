@@ -1,0 +1,231 @@
+{
+  "attestation_items": [
+    {
+      "description": "Stage198 must preregister the reduced-scope claim boundary before credit attestation.",
+      "evidence": {
+        "scope_id": "all_lanes_half_shots_2048",
+        "stage198_decision": "REDUCED_SCOPE_PREREGISTERED_READY_FOR_COST_ATTESTATION_REVIEW"
+      },
+      "item_id": "reduced_scope_preregistration",
+      "status": "ready"
+    },
+    {
+      "description": "Manual attestation must include an explicit reduced-scope cost estimate.",
+      "evidence": {
+        "break_even_microseconds_per_shot": 23.69722154816792,
+        "budget_cap_usd": 25.0,
+        "estimated_total_job_count": 324,
+        "estimated_total_shots": 659360,
+        "scenarios": [
+          {
+            "estimated_quantum_seconds": 3.2968,
+            "estimated_usd": 5.2748800000000005,
+            "microseconds_per_shot": 5.0,
+            "within_25_usd_cap": true
+          },
+          {
+            "estimated_quantum_seconds": 6.5936,
+            "estimated_usd": 10.549760000000001,
+            "microseconds_per_shot": 10.0,
+            "within_25_usd_cap": true
+          },
+          {
+            "estimated_quantum_seconds": 7.846384,
+            "estimated_usd": 12.5542144,
+            "microseconds_per_shot": 11.9,
+            "within_25_usd_cap": true
+          },
+          {
+            "estimated_quantum_seconds": 16.484,
+            "estimated_usd": 26.374400000000005,
+            "microseconds_per_shot": 25.0,
+            "within_25_usd_cap": false
+          },
+          {
+            "estimated_quantum_seconds": 32.968,
+            "estimated_usd": 52.74880000000001,
+            "microseconds_per_shot": 50.0,
+            "within_25_usd_cap": false
+          },
+          {
+            "estimated_quantum_seconds": 65.936,
+            "estimated_usd": 105.49760000000002,
+            "microseconds_per_shot": 100.0,
+            "within_25_usd_cap": false
+          }
+        ]
+      },
+      "item_id": "reduced_cost_estimate",
+      "status": "ready_for_user_review"
+    },
+    {
+      "description": "User attestation does not change the preregistered reduced-precision interpretation boundary.",
+      "evidence": {
+        "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
+        "lower_precision_caveat": "A win at 2048 shots can support a reduced-precision hardware positive, but it cannot be described as the original 4096-shot evidentiary run. Any marginal result below 2 shot quanta is inconclusive, not a loss or win."
+      },
+      "item_id": "interpretation_boundary",
+      "status": "reduced_precision_boundary_attached"
+    },
+    {
+      "description": "This gate can record whether the user has verified IBM credit/billing/Runtime allowance, but it never approves live execution.",
+      "evidence": {
+        "human_credit_allowance_verified": false
+      },
+      "item_id": "human_credit_allowance",
+      "status": "awaiting_user_attestation"
+    },
+    {
+      "description": "Exact approval phrase and live-runner preparation remain later gates even after credit attestation.",
+      "evidence": {
+        "exact_approval_accepted_here": false,
+        "hardware_submitted_here": false
+      },
+      "item_id": "live_execution_boundary",
+      "status": "live_run_disallowed"
+    }
+  ],
+  "blockers": [
+    "human_credit_allowance_attestation_required"
+  ],
+  "break_even_microseconds_per_shot": 23.69722154816792,
+  "budget_cap_usd": 25.0,
+  "budget_quantum_seconds_at_doc_rate": 15.625,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider-side IBM credit balance verification",
+      "acceptance of exact live-run approval",
+      "creation of a runnable live-submit command",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "explicit reduced-scope credit attestation prompt with cost estimate",
+      "reduced-scope exposure and interpretation boundary are attached before asking the user",
+      "credit attestation remains separate from exact approval and live-runner preparation"
+    ]
+  },
+  "decision": "REDUCED_SCOPE_ATTESTATION_READY_FOR_USER_REVIEW_NOT_LIVE",
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 659360,
+  "explicit_user_approval_required": true,
+  "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
+  "human_credit_allowance_verified": false,
+  "ibm_doc_usd_per_quantum_second_example": 1.6,
+  "interpretation_boundary": {
+    "calibration_shots_per_state": 1000,
+    "calibration_states": [
+      "00",
+      "01",
+      "10",
+      "11"
+    ],
+    "cost_context": {
+      "estimated_total_jobs": 324,
+      "estimated_total_shots": 659360,
+      "estimated_usd_at_100us_per_shot": 105.49760000000002,
+      "estimated_usd_at_10us_per_shot": 10.549760000000001,
+      "estimated_usd_at_50us_per_shot": 52.74880000000001
+    },
+    "disallowed_interpretations": [
+      "claiming equivalence to the full 4096-shot Stage190 package",
+      "dropping any comparator family after hardware results are known",
+      "using the 512-shot scout boundary for robustness claims",
+      "treating directional seed577-only evidence as independent-seed replication",
+      "changing thresholds after hardware counts are collected"
+    ],
+    "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
+    "pass_fail_policy": {
+      "lower_precision_caveat": "A win at 2048 shots can support a reduced-precision hardware positive, but it cannot be described as the original 4096-shot evidentiary run. Any marginal result below 2 shot quanta is inconclusive, not a loss or win.",
+      "minimum_scaled_best_positional_margin_shot_quanta": 2.0,
+      "minimum_scaled_matched_null_margin_shot_quanta": 2.0,
+      "minimum_stable_seed_pairs": 2,
+      "minimum_stable_templates_per_seed_pair": 2,
+      "must_pass_phasewrap_vs_all_positional_comparators": true,
+      "must_pass_phasewrap_vs_matched_nonzero_null_control": true
+    },
+    "primary_metric": "normalized_noise_sensitivity_delta_v1",
+    "required_families": [
+      "phasewrap",
+      "rope_like",
+      "sinusoidal_like",
+      "alibi_like",
+      "matched_nonzero_null_control"
+    ],
+    "required_reported_metrics": [
+      "mean_absolute_score_error",
+      "normalized_noise_sensitivity_delta",
+      "slope_retention",
+      "rank_retention",
+      "matched_null_control_margin",
+      "shot_quantum_margin"
+    ],
+    "required_seed_pairs": [
+      "ibm:314",
+      "ibm:577"
+    ],
+    "required_templates": [
+      "two_ry_product_state_z_readout_v1",
+      "two_ry_cx_parity_z_readout_v1"
+    ],
+    "row_count_per_packet": 16,
+    "scope_id": "all_lanes_half_shots_2048",
+    "selected_lanes": "all four Stage189/190 IBM replacement lanes",
+    "shots_per_row": 2048
+  },
+  "manual_attestation_prompt": "Please verify in IBM that the selected instance has enough remaining credit/billing/Runtime allowance for the reduced-scope run `all_lanes_half_shots_2048`: 324 row-level jobs, 659360 total shots, 2048 shots per packet row, and a $25.00 local cap. Using IBM's documented $1600/1000-quantum-second example, this cap allows 15.625 quantum seconds, so this reduced run fits only if effective quantum time is <= 23.70 microseconds/shot. If you attest yes, you are attesting account-side allowance and willingness to spend within this cap only; this still does not approve live submission or accept the exact approval phrase.",
+  "manual_attestation_prompt_required": true,
+  "missing_source_artifacts": [],
+  "next_gate": "Present this reduced-scope estimate to the user. If the user attests IBM credit allowance and willingness to spend within the cap, rerun Stage199 with human_credit_allowance_verified=true, then run exact approval review.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "runnable_commands_recorded": false,
+  "scenario_estimates": [
+    {
+      "estimated_quantum_seconds": 3.2968,
+      "estimated_usd": 5.2748800000000005,
+      "microseconds_per_shot": 5.0,
+      "within_25_usd_cap": true
+    },
+    {
+      "estimated_quantum_seconds": 6.5936,
+      "estimated_usd": 10.549760000000001,
+      "microseconds_per_shot": 10.0,
+      "within_25_usd_cap": true
+    },
+    {
+      "estimated_quantum_seconds": 7.846384,
+      "estimated_usd": 12.5542144,
+      "microseconds_per_shot": 11.9,
+      "within_25_usd_cap": true
+    },
+    {
+      "estimated_quantum_seconds": 16.484,
+      "estimated_usd": 26.374400000000005,
+      "microseconds_per_shot": 25.0,
+      "within_25_usd_cap": false
+    },
+    {
+      "estimated_quantum_seconds": 32.968,
+      "estimated_usd": 52.74880000000001,
+      "microseconds_per_shot": 50.0,
+      "within_25_usd_cap": false
+    },
+    {
+      "estimated_quantum_seconds": 65.936,
+      "estimated_usd": 105.49760000000002,
+      "microseconds_per_shot": 100.0,
+      "within_25_usd_cap": false
+    }
+  ],
+  "schema_version": "qrope_stage199_reduced_scope_attestation_packet_v1",
+  "scope_id": "all_lanes_half_shots_2048",
+  "secret_values_recorded": false,
+  "shots_per_row": 2048,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage198_reduced_scope_preregistration/results.json"
+  ],
+  "stage": "stage199_reduced_scope_attestation_packet",
+  "status": "completed"
+}

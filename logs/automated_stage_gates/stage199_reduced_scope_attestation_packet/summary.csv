@@ -1,0 +1,6 @@
+item_id,status,description
+reduced_scope_preregistration,ready,Stage198 must preregister the reduced-scope claim boundary before credit attestation.
+reduced_cost_estimate,ready_for_user_review,Manual attestation must include an explicit reduced-scope cost estimate.
+interpretation_boundary,reduced_precision_boundary_attached,User attestation does not change the preregistered reduced-precision interpretation boundary.
+human_credit_allowance,awaiting_user_attestation,"This gate can record whether the user has verified IBM credit/billing/Runtime allowance, but it never approves live execution."
+live_execution_boundary,live_run_disallowed,Exact approval phrase and live-runner preparation remain later gates even after credit attestation.
