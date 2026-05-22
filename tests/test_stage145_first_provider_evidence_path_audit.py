@@ -31,6 +31,12 @@ def _fixture(paths, *, ready: bool) -> None:
             if ready
             else "POST_CONFIGURATION_RERUN_CHAIN_PREPARED_EXECUTION_BLOCKED",
             "first_unlock_provider": provider,
+            "transition_count": 9,
+            "ready_transition_count": 9 if ready else 2,
+            "first_blocked_transition": None
+            if ready
+            else {"stage": "stage140_local_provider_configuration_readiness"},
+            "first_provider_authorized_runner_count": 1 if ready else 0,
             "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
         },
     )
@@ -88,6 +94,21 @@ def test_stage145_reports_current_first_provider_execution_blocker(tmp_path) -> 
     assert result["first_blocked_readiness_record"]["name"] == "post_configuration_authorized_runner_chain"
     assert result["first_provider_missing_job_count"] == 164
     assert "--provider ibm_runtime" in result["provider_scoped_commands"][0]
+    assert "stage144_not_ready_for_authorized_runner" in result["first_blocked_readiness_record"]["blockers"]
+
+
+def test_stage145_rejects_stage144_ready_decision_with_incomplete_transition_counts(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _fixture(paths, ready=True)
+    stage144 = json.loads(paths["stage144_results_path"].read_text(encoding="utf-8"))
+    stage144["ready_transition_count"] = 8
+    _write_json(paths["stage144_results_path"], stage144)
+
+    result = run_stage145_audit(**paths)
+
+    assert result["decision"] == "FIRST_PROVIDER_EVIDENCE_PATH_PREPARED_RESULTS_BLOCKED"
+    assert result["first_blocked_readiness_record"]["name"] == "post_configuration_authorized_runner_chain"
+    assert "stage144_transition_counts_incomplete" in result["first_blocked_readiness_record"]["blockers"]
 
 
 def test_stage145_reports_ready_first_provider_evidence_path(tmp_path) -> None:

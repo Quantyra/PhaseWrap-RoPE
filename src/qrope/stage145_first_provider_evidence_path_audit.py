@@ -52,6 +52,17 @@ def _scoped_commands(provider: str) -> list[str]:
     ]
 
 
+def _stage144_ready(stage144: dict[str, Any] | None) -> bool:
+    return bool(
+        isinstance(stage144, dict)
+        and stage144.get("decision") == "POST_CONFIGURATION_RERUN_CHAIN_READY_FOR_AUTHORIZED_RUNNER"
+        and stage144.get("first_blocked_transition") is None
+        and stage144.get("ready_transition_count") == stage144.get("transition_count")
+        and int(stage144.get("transition_count") or 0) > 0
+        and int(stage144.get("first_provider_authorized_runner_count") or 0) > 0
+    )
+
+
 def run_stage145_audit(
     *,
     stage113_results_path: Path = DEFAULT_STAGE113_RESULTS,
@@ -81,10 +92,7 @@ def run_stage145_audit(
     missing_jobs = sum(int(record.get("missing_job_count") or 0) for record in shards)
     expected_jobs = sum(int(record.get("expected_job_count") or 0) for record in shards)
     result_records = sum(int(record.get("result_record_count") or 0) for record in shards)
-    stage144_ready = bool(
-        isinstance(payloads["stage144"], dict)
-        and payloads["stage144"].get("decision") == "POST_CONFIGURATION_RERUN_CHAIN_READY_FOR_AUTHORIZED_RUNNER"
-    )
+    stage144_ready = _stage144_ready(payloads["stage144"])
     stage115_provider_ready = bool(shards) and len(ready_shards) == len(shards)
     stage113_ready = bool(
         isinstance(payloads["stage113"], dict)
@@ -104,6 +112,16 @@ def run_stage145_audit(
             "ready": stage144_ready,
             "decision": payloads["stage144"].get("decision") if isinstance(payloads["stage144"], dict) else None,
             "next_command": payloads["stage144"].get("next_command") if isinstance(payloads["stage144"], dict) and not stage144_ready else "",
+            "blockers": [
+                blocker
+                for blocker, blocked in (
+                    ("stage144_not_ready_for_authorized_runner", not isinstance(payloads["stage144"], dict) or payloads["stage144"].get("decision") != "POST_CONFIGURATION_RERUN_CHAIN_READY_FOR_AUTHORIZED_RUNNER"),
+                    ("stage144_has_blocked_transition", isinstance(payloads["stage144"], dict) and payloads["stage144"].get("first_blocked_transition") is not None),
+                    ("stage144_transition_counts_incomplete", isinstance(payloads["stage144"], dict) and payloads["stage144"].get("ready_transition_count") != payloads["stage144"].get("transition_count")),
+                    ("stage144_no_authorized_runner_count", isinstance(payloads["stage144"], dict) and int(payloads["stage144"].get("first_provider_authorized_runner_count") or 0) <= 0),
+                )
+                if blocked
+            ],
         },
         {
             "name": "first_provider_authorized_runner_commands",
@@ -172,6 +190,7 @@ def run_stage145_audit(
         "claim_boundary": {
             "supported": [
                 "first-provider evidence intake readiness after authorized IBM Runtime execution",
+                "Stage 144 ready-transition and authorized-runner count enforcement before provider result collection",
                 "provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence",
                 "explicit blocker reporting before Stage 138 objective wording",
             ],
@@ -228,10 +247,18 @@ def write_stage145_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
     (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
     (output_dir / "results.json").write_text(json.dumps(result, indent=2, sort_keys=True), encoding="utf-8")
     with (output_dir / "summary.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=("name", "ready", "decision", "next_command"))
+        writer = csv.DictWriter(handle, fieldnames=("name", "ready", "decision", "blockers", "next_command"))
         writer.writeheader()
         for record in result["readiness_records"]:
-            writer.writerow(record)
+            writer.writerow(
+                {
+                    "name": record["name"],
+                    "ready": record["ready"],
+                    "decision": record["decision"],
+                    "blockers": "; ".join(str(blocker) for blocker in record.get("blockers", [])),
+                    "next_command": record["next_command"],
+                }
+            )
     return paths
 
 

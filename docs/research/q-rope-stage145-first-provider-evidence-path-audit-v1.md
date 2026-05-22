@@ -26,6 +26,7 @@ python scripts/run_stage138_objective_claim_gate.py
 Supported:
 
 - first-provider evidence intake readiness after authorized IBM Runtime execution
+- Stage 144 ready-transition and authorized-runner count enforcement before provider result collection
 - provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence
 - explicit blocker reporting before Stage 138 objective wording
 

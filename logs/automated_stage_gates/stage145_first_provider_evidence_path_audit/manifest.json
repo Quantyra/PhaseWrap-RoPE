@@ -9,12 +9,19 @@
     ],
     "supported": [
       "first-provider evidence intake readiness after authorized IBM Runtime execution",
+      "Stage 144 ready-transition and authorized-runner count enforcement before provider result collection",
       "provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence",
       "explicit blocker reporting before Stage 138 objective wording"
     ]
   },
   "decision": "FIRST_PROVIDER_EVIDENCE_PATH_PREPARED_RESULTS_BLOCKED",
   "first_blocked_readiness_record": {
+    "blockers": [
+      "stage144_not_ready_for_authorized_runner",
+      "stage144_has_blocked_transition",
+      "stage144_transition_counts_incomplete",
+      "stage144_no_authorized_runner_count"
+    ],
     "decision": "POST_CONFIGURATION_RERUN_CHAIN_PREPARED_EXECUTION_BLOCKED",
     "name": "post_configuration_authorized_runner_chain",
     "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
