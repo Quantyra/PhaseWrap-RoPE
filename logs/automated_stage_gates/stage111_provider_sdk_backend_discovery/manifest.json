@@ -1,0 +1,35 @@
+{
+  "allow_live_discovery": false,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "completed calibration counts",
+      "completed matched packet counts",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "a no-submission provider SDK readiness and optional backend discovery check",
+      "explicit separation between installed SDK capability, Stage 106 policy readiness, and live provider availability",
+      "non-secret reporting of provider/backend discovery status before hardware execution"
+    ]
+  },
+  "decision": "PROVIDER_SDK_BACKEND_DISCOVERY_BLOCKED",
+  "missing_source_artifacts": [],
+  "next_gate": "Install missing provider SDK extras, clear Stage 106 configuration blockers, and optionally rerun this gate with --allow-live-discovery before executing Stage 107 windows.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": false,
+  "ready_provider_count": 0,
+  "result_path": "logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json",
+  "schema_version": "qrope_stage111_provider_sdk_backend_discovery_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage106_hardware_execution_preflight/results.json"
+  ],
+  "stage": "stage111_provider_sdk_backend_discovery",
+  "stage106_decision": "HARDWARE_EXECUTION_PREFLIGHT_BLOCKED_CONFIGURATION_REQUIRED",
+  "stage106_ready_for_hardware_submission": false,
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/summary.csv"
+}
