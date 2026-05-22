@@ -1,0 +1,89 @@
+{
+  "allow_read_only_refresh": true,
+  "backend_lookup_attempted": false,
+  "backend_lookup_error": null,
+  "backend_lookup_ready": false,
+  "backend_metadata": {},
+  "blockers": [
+    "current_ibm_configuration_missing_or_incomplete"
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "Sampler or Estimator runtime execution",
+      "provider credentials, token values, CRN values, or account secrets",
+      "IBM credit balance, billing plan, or dollar-cost verification",
+      "runnable live-submit command strings",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "replacement-scoped read-only IBM backend metadata refresh when explicitly allowed",
+      "non-secret provider configuration presence and public backend status metadata",
+      "separation of provider reachability from credit/billing and exact approval"
+    ]
+  },
+  "credit_balance_verified": false,
+  "decision": "REPLACEMENT_READ_ONLY_BACKEND_REFRESH_BLOCKED",
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "explicit_user_approval_required": true,
+  "ibm_backend_env_present": false,
+  "ibm_instance_crn_present": false,
+  "ibm_token_present": false,
+  "missing_source_artifacts": [],
+  "next_gate": "If read-only backend refresh succeeds, resolve IBM credit/billing/Runtime allowance with the user, then require the exact replacement approval phrase before any live execution runner is prepared.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "qiskit_sdk_ready": true,
+  "refresh_items": [
+    {
+      "description": "Stage191 replacement approval dossier must be ready before a replacement-scoped backend refresh.",
+      "evidence": {
+        "stage191_decision": "REPLACEMENT_APPROVAL_DOSSIER_READY_FOR_HUMAN_REVIEW_NOT_LIVE"
+      },
+      "item_id": "replacement_approval_dossier",
+      "status": "ready_for_refresh"
+    },
+    {
+      "description": "IBM token, instance, and backend name must be present in the current shell; values are never recorded.",
+      "evidence": {
+        "ibm_backend_env_present": false,
+        "ibm_instance_crn_present": false,
+        "ibm_token_present": false
+      },
+      "item_id": "current_local_ibm_configuration",
+      "status": "missing_or_incomplete"
+    },
+    {
+      "description": "Read-only backend metadata refresh; no Sampler, Estimator, or hardware job submission is allowed.",
+      "evidence": {
+        "allow_read_only_refresh": true,
+        "backend": null,
+        "backend_lookup_ready": false,
+        "lookup_attempted": false,
+        "operational": null,
+        "pending_jobs": null
+      },
+      "item_id": "read_only_refresh",
+      "status": "not_attempted"
+    },
+    {
+      "description": "A successful read-only backend refresh still does not verify IBM credit, billing, or Runtime allowance.",
+      "evidence": {
+        "credit_balance_verified": false
+      },
+      "item_id": "credit_billing_runtime_allowance",
+      "status": "human_verification_required"
+    }
+  ],
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage193_replacement_read_only_backend_refresh_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage191_replacement_approval_dossier/results.json",
+    "logs/automated_stage_gates/stage192_replacement_provider_credit_preflight/results.json"
+  ],
+  "stage": "stage193_replacement_read_only_backend_refresh",
+  "status": "completed"
+}
