@@ -28,12 +28,12 @@ Stage 70 records `BOUND_STRONGEST_HONEST_CLAIM_WITH_RETRIEVAL_FAILURES`.
 
 The generated strongest honest claim is:
 
-> PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.
+> PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.
 
-The refreshed synthesis loads source manifests through Stage 92 with no missing source artifacts. It also preserves the key positive and negative evidence:
+The refreshed synthesis loads source manifests through Stage 93 with no missing source artifacts. It also preserves the key positive and negative evidence:
 
 - Stage 67 proves that standard visible content-key retrieval is solvable by the current two-block pointer-generator harness for every tested method, including `no_position`.
-- Recent pointer-generator variants preserve train capacity and include tiny text-fact QA positives, with Stage 65 reaching `0.783333` best held-out top-1.
+- Recent pointer-generator variants preserve train capacity and include tiny text-fact QA positives, with Stage 91 reaching `0.950000` best held-out top-1.
 - Stage 68 shows content-key auxiliary rows do not transfer back to original phase-cued/exact-offset retrieval.
 - Stage 69 shows original-task multitask training also does not repair original held-out retrieval.
 - Stages 80 and 81 show hard and soft support-routed token selection can solve phase-cued retrieval, but only as non-promotional/method-nonspecific diagnostics.
@@ -44,6 +44,7 @@ The refreshed synthesis loads source manifests through Stage 92 with no missing 
 - Stage 90 shows adding a third learned attention block still does not transfer structural teacher repair into free held-out retrieval.
 - Stage 91 shows adding length-40 curriculum rows still does not repair free held-out retrieval.
 - Stage 92 shows direct support-to-token binding supervision still does not repair free held-out retrieval.
+- Stage 93 formalizes the current toy decoder lane boundary: structural routes solve the row family, but free learned pointer-generator variants through Stage 92 do not solve both original retrieval tasks.
 
 ## Interpretation
 
@@ -70,4 +71,4 @@ Excluded:
 
 ## Next Gate
 
-Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion.
+Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion. Avoid treating more small pointer-generator variants as claim-expanding evidence without a materially different binding mechanism.

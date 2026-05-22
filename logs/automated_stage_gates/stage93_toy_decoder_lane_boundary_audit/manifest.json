@@ -1,0 +1,78 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that PhaseWrap-RoPE is currently better than RoPE in fair matched transformer settings",
+      "a claim that structural copy experts are standard free decoder-only language modeling",
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential boundary audit over existing structural and free learned toy decoder evidence.",
+      "Evidence that structural copy routes can solve the original retrieval row family while free learned toy pointer-generators have not internalized the route.",
+      "A next-gate recommendation for moving beyond small pointer-generator variants before any positional-method promotion claim."
+    ]
+  },
+  "decision": {
+    "claim_boundary": "Structural copy routes solve the row family, but current free learned toy pointer-generators do not generalize both original retrieval tasks.",
+    "decision": "TOY_DECODER_LANE_BOUND_FREE_RETRIEVAL_UNSOLVED",
+    "free_learned_full_retrieval_solved": false,
+    "free_learned_full_solve_stages": [],
+    "generalization_top1_threshold": 0.5,
+    "missing_source_artifact_count": 0,
+    "phasewrap_free_learned_promotion_supported": false,
+    "phasewrap_free_learned_solve_stages": [],
+    "structural_retrieval_solved": true
+  },
+  "free_learned_best_top1_by_task": {
+    "exact_offset_passkey": {
+      "method": "sinusoidal",
+      "stage": "stage90_three_block_teacher_distilled_pointer_generator_audit",
+      "top1": 0.433333
+    },
+    "phase_cued_retrieval": {
+      "method": "sinusoidal",
+      "stage": "stage85_dual_auxiliary_pointer_generator_audit",
+      "top1": 0.05
+    }
+  },
+  "lane_boundary": "The current toy pointer-generator lane has useful capacity and diagnostic positives, but its free learned variants have not internalized the support-to-token route that structural experts can supply.",
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "missing_source_artifacts": [],
+  "no_hardware_submission": true,
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage93_toy_decoder_lane_boundary_audit/results.json",
+  "reviewer_next_gate": "Move to a stronger matched decoder-only transformer implementation or a materially different learned binding mechanism; do not treat further small pointer-generator variants as RoPE-replacement evidence without free held-out retrieval improvement.",
+  "schema_version": "qrope_stage93_toy_decoder_lane_boundary_audit_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage87_in_decoder_support_routed_copy_expert_audit/manifest.json",
+    "logs/automated_stage_gates/stage88_structural_retrieval_routed_copy_expert_audit/manifest.json",
+    "logs/automated_stage_gates/stage64_two_block_pointer_generator_capacity_audit/manifest.json",
+    "logs/automated_stage_gates/stage65_pointer_generator_length_curriculum_audit/manifest.json",
+    "logs/automated_stage_gates/stage68_content_key_auxiliary_transfer_audit/manifest.json",
+    "logs/automated_stage_gates/stage69_original_multitask_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage84_support_auxiliary_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage85_dual_auxiliary_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage86_dual_auxiliary_budget_sensitivity_audit/manifest.json",
+    "logs/automated_stage_gates/stage89_structural_teacher_distilled_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage90_three_block_teacher_distilled_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage91_curriculum_teacher_distilled_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage92_support_binding_teacher_pointer_generator_audit/manifest.json"
+  ],
+  "source_stage": "stage92_support_binding_teacher_pointer_generator_audit",
+  "stage": "stage93_toy_decoder_lane_boundary_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage93_toy_decoder_lane_boundary_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey"
+  ]
+}

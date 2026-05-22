@@ -50,6 +50,7 @@ SOURCE_STAGE_DIRS: tuple[str, ...] = (
     "stage90_three_block_teacher_distilled_pointer_generator_audit",
     "stage91_curriculum_teacher_distilled_pointer_generator_audit",
     "stage92_support_binding_teacher_pointer_generator_audit",
+    "stage93_toy_decoder_lane_boundary_audit",
 )
 
 DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
@@ -81,6 +82,7 @@ DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
     "docs/research/q-rope-stage90-three-block-teacher-distilled-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage91-curriculum-teacher-distilled-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage92-support-binding-teacher-pointer-generator-audit-v1.md",
+    "docs/research/q-rope-stage93-toy-decoder-lane-boundary-audit-v1.md",
 )
 
 
@@ -264,6 +266,18 @@ def _positive_evidence(manifests: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "source": "stage88_structural_retrieval_routed_copy_expert_audit",
                 }
             )
+    for manifest in manifests:
+        if manifest.get("stage") != "stage93_toy_decoder_lane_boundary_audit":
+            continue
+        decision = manifest.get("decision", {})
+        if decision.get("structural_retrieval_solved") is True:
+            positives.append(
+                {
+                    "evidence": "Stage 93 consolidates the current toy-decoder lane: structural routes solve original retrieval while free learned pointer-generators remain below the full retrieval gate.",
+                    "claim_limit": "This is a lane-boundary result and next-gate recommendation, not a RoPE replacement or PhaseWrap promotion claim.",
+                    "source": "stage93_toy_decoder_lane_boundary_audit",
+                }
+            )
     tiny_text = _best_tiny_text(manifests)
     if tiny_text is not None:
         positives.append(
@@ -289,6 +303,20 @@ def _failure_modes(manifests: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "evidence": "Stage 68 preserves capacity but reports no generalized original retrieval tasks.",
         },
     ]
+    for manifest in manifests:
+        if manifest.get("stage") != "stage93_toy_decoder_lane_boundary_audit":
+            continue
+        decision = manifest.get("decision", {})
+        if decision.get("free_learned_full_retrieval_solved") is False:
+            failures.append(
+                {
+                    "failure": "The current toy pointer-generator lane is bounded as insufficient for free held-out original retrieval.",
+                    "evidence": decision.get("claim_boundary"),
+                    "stage": "stage93_toy_decoder_lane_boundary_audit",
+                    "decision": decision.get("decision"),
+                    "free_learned_best_top1_by_task": manifest.get("free_learned_best_top1_by_task"),
+                }
+            )
     for row in rows:
         top1_values = [value for value in row["retrieval_best_top1"].values() if isinstance(value, int | float)]
         solved_but_not_promotional = len(top1_values) == len(ORIGINAL_RETRIEVAL_TASKS) and all(
@@ -346,7 +374,7 @@ def run_stage70_synthesis(
         "schema_version": STAGE70_SCHEMA_VERSION,
         "stage": "stage70_strongest_honest_claim_synthesis",
         "status": "completed",
-        "source_stage": "stage92_support_binding_teacher_pointer_generator_audit",
+        "source_stage": "stage93_toy_decoder_lane_boundary_audit",
         "source_artifacts": source_artifacts,
         "missing_source_artifacts": missing_source_artifacts,
         "no_hardware_submission": True,
@@ -359,6 +387,7 @@ def run_stage70_synthesis(
             "hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft "
             "support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, "
             "in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. "
+            "Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. "
             "Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits "
             "do not yet support RoPE replacement or positional-method promotion."
         ),
@@ -375,7 +404,7 @@ def run_stage70_synthesis(
         "loaded_source_stages": [str(manifest.get("stage")) for manifest in manifests],
         "reviewer_next_gate": (
             "Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out "
-            "support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion."
+            "support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion; avoid treating more small pointer-generator variants as claim-expanding evidence without a materially different binding mechanism."
         ),
     }
     result["decision"] = _decision(manifests, missing_source_artifacts)

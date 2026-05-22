@@ -41,7 +41,7 @@ Additional decision fields:
 - `generalization_top1_threshold`: `0.5`
 - `generalized_original_retrieval_tasks`: `[]`
 - `retrieval_attention_repaired_tasks`: `[]`
-- `phase_cued_best_support_accuracy`: `0.866667`
+- `phase_cued_best_support_accuracy`: `0.716667`
 - `failed_runs`: `[]`
 
 ## Interpretation

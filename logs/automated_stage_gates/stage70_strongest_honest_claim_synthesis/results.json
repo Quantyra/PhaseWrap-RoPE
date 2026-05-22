@@ -32,6 +32,24 @@
       "failure": "Content-key retrieval success does not transfer back to original phase-cued or exact-offset retrieval."
     },
     {
+      "decision": "TOY_DECODER_LANE_BOUND_FREE_RETRIEVAL_UNSOLVED",
+      "evidence": "Structural copy routes solve the row family, but current free learned toy pointer-generators do not generalize both original retrieval tasks.",
+      "failure": "The current toy pointer-generator lane is bounded as insufficient for free held-out original retrieval.",
+      "free_learned_best_top1_by_task": {
+        "exact_offset_passkey": {
+          "method": "sinusoidal",
+          "stage": "stage90_three_block_teacher_distilled_pointer_generator_audit",
+          "top1": 0.433333
+        },
+        "phase_cued_retrieval": {
+          "method": "sinusoidal",
+          "stage": "stage85_dual_auxiliary_pointer_generator_audit",
+          "top1": 0.05
+        }
+      },
+      "stage": "stage93_toy_decoder_lane_boundary_audit"
+    },
+    {
       "capacity_established": null,
       "decision": null,
       "evidence": "At least one original retrieval task remains below the generalization threshold.",
@@ -441,9 +459,18 @@
         "phase_cued_retrieval": 0.05
       },
       "stage": "stage92_support_binding_teacher_pointer_generator_audit"
+    },
+    {
+      "capacity_established": null,
+      "decision": "TOY_DECODER_LANE_BOUND_FREE_RETRIEVAL_UNSOLVED",
+      "evidence": "At least one original retrieval task remains below the generalization threshold.",
+      "failure": "Original held-out retrieval remains unrepaired in a recent fair-comparison audit.",
+      "retrieval_best_methods": {},
+      "retrieval_best_top1": {},
+      "stage": "stage93_toy_decoder_lane_boundary_audit"
     }
   ],
-  "loaded_source_stage_count": 34,
+  "loaded_source_stage_count": 35,
   "loaded_source_stages": [
     "stage44_compact_diagnostic_plateau_audit",
     "stage45_matched_decoder_only_gate",
@@ -478,7 +505,8 @@
     "stage89_structural_teacher_distilled_pointer_generator_audit",
     "stage90_three_block_teacher_distilled_pointer_generator_audit",
     "stage91_curriculum_teacher_distilled_pointer_generator_audit",
-    "stage92_support_binding_teacher_pointer_generator_audit"
+    "stage92_support_binding_teacher_pointer_generator_audit",
+    "stage93_toy_decoder_lane_boundary_audit"
   ],
   "method_names": [
     "no_position",
@@ -517,6 +545,11 @@
       "source": "stage88_structural_retrieval_routed_copy_expert_audit"
     },
     {
+      "claim_limit": "This is a lane-boundary result and next-gate recommendation, not a RoPE replacement or PhaseWrap promotion claim.",
+      "evidence": "Stage 93 consolidates the current toy-decoder lane: structural routes solve original retrieval while free learned pointer-generators remain below the full retrieval gate.",
+      "source": "stage93_toy_decoder_lane_boundary_audit"
+    },
+    {
       "claim_limit": "Tiny-text QA positives are mixed downstream evidence, not original retrieval generalization.",
       "evidence": "Recent pointer-generator variants preserve capacity and reach tiny-text held-out top-1 0.950000.",
       "method": "sinusoidal",
@@ -524,7 +557,7 @@
     }
   ],
   "provider_credentials_required": false,
-  "reviewer_next_gate": "Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion.",
+  "reviewer_next_gate": "Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion; avoid treating more small pointer-generator variants as claim-expanding evidence without a materially different binding mechanism.",
   "schema_version": "qrope_stage70_strongest_honest_claim_synthesis_v1",
   "source_artifacts": [
     "logs/automated_stage_gates/stage44_compact_diagnostic_plateau_audit/manifest.json",
@@ -561,6 +594,7 @@
     "logs/automated_stage_gates/stage90_three_block_teacher_distilled_pointer_generator_audit/manifest.json",
     "logs/automated_stage_gates/stage91_curriculum_teacher_distilled_pointer_generator_audit/manifest.json",
     "logs/automated_stage_gates/stage92_support_binding_teacher_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage93_toy_decoder_lane_boundary_audit/manifest.json",
     "docs/research/q-rope-stage44-compact-diagnostic-plateau-audit-v1.md",
     "docs/research/q-rope-stage45-matched-decoder-only-gate-v1.md",
     "docs/research/q-rope-stage48-adam-decoder-stability-audit-v1.md",
@@ -588,12 +622,13 @@
     "docs/research/q-rope-stage89-structural-teacher-distilled-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage90-three-block-teacher-distilled-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage91-curriculum-teacher-distilled-pointer-generator-audit-v1.md",
-    "docs/research/q-rope-stage92-support-binding-teacher-pointer-generator-audit-v1.md"
+    "docs/research/q-rope-stage92-support-binding-teacher-pointer-generator-audit-v1.md",
+    "docs/research/q-rope-stage93-toy-decoder-lane-boundary-audit-v1.md"
   ],
-  "source_stage": "stage92_support_binding_teacher_pointer_generator_audit",
+  "source_stage": "stage93_toy_decoder_lane_boundary_audit",
   "stage": "stage70_strongest_honest_claim_synthesis",
   "status": "completed",
-  "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
+  "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
   "tasks": [
     "phase_cued_retrieval",
     "exact_offset_passkey",
