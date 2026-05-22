@@ -1,0 +1,43 @@
+{
+  "blockers": [
+    "full_scope_exceeds_budget_at_50us_scenario"
+  ],
+  "budget_cap_usd": 25.0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider-side IBM credit balance verification",
+      "acceptance of credit attestation or exact live-run approval",
+      "creation of a runnable live-submit command",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "cost-constrained comparison of full, reduced-shot, scout, and strong-lane hardware scopes",
+      "explicit distinction between claim-capable and scouting-only scope reductions",
+      "pre-attestation recommendation to avoid asking the user to approve a likely-over-budget full run"
+    ]
+  },
+  "decision": "REPLACEMENT_REDUCED_SCOPE_RECOMMENDED_BEFORE_CREDIT_ATTESTATION",
+  "explicit_user_approval_required": true,
+  "ibm_candidate_count": 4,
+  "min_ibm_matched_null_margin_shot_quanta_at_4096": 5.006154,
+  "min_ibm_positional_margin_shot_quanta_at_4096": 5.238051,
+  "missing_source_artifacts": [],
+  "next_gate": "Preregister the selected reduced-scope interpretation boundary before asking for credit attestation. Recommended default is all_lanes_half_shots_2048; use scout_512 only for operational smoke testing.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "recommended_scope_id": "all_lanes_half_shots_2048",
+  "result_path": "logs/automated_stage_gates/stage197_replacement_cost_constrained_scope_review/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage197_replacement_cost_constrained_scope_review_v1",
+  "scope_csv_path": "logs/automated_stage_gates/stage197_replacement_cost_constrained_scope_review/scope_options.csv",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage188_replacement_semantics_packet_screen/results.json",
+    "logs/automated_stage_gates/stage196_replacement_cost_estimate_packet/results.json"
+  ],
+  "stage": "stage197_replacement_cost_constrained_scope_review",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage197_replacement_cost_constrained_scope_review/summary.csv"
+}

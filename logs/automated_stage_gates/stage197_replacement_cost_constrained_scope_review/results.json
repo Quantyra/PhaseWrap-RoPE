@@ -1,0 +1,186 @@
+{
+  "blockers": [
+    "full_scope_exceeds_budget_at_50us_scenario"
+  ],
+  "budget_cap_usd": 25.0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider-side IBM credit balance verification",
+      "acceptance of credit attestation or exact live-run approval",
+      "creation of a runnable live-submit command",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "cost-constrained comparison of full, reduced-shot, scout, and strong-lane hardware scopes",
+      "explicit distinction between claim-capable and scouting-only scope reductions",
+      "pre-attestation recommendation to avoid asking the user to approve a likely-over-budget full run"
+    ]
+  },
+  "decision": "REPLACEMENT_REDUCED_SCOPE_RECOMMENDED_BEFORE_CREDIT_ATTESTATION",
+  "explicit_user_approval_required": true,
+  "ibm_candidate_count": 4,
+  "min_ibm_matched_null_margin_shot_quanta_at_4096": 5.006154,
+  "min_ibm_positional_margin_shot_quanta_at_4096": 5.238051,
+  "missing_source_artifacts": [],
+  "next_gate": "Preregister the selected reduced-scope interpretation boundary before asking for credit attestation. Recommended default is all_lanes_half_shots_2048; use scout_512 only for operational smoke testing.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "recommended_scope_id": "all_lanes_half_shots_2048",
+  "review_items": [
+    {
+      "description": "Reduced scope review requires the Stage188 replacement simulation to be positive.",
+      "evidence": {
+        "ibm_reopen_candidate_count": 4,
+        "stage188_decision": "REPLACEMENT_SEMANTICS_SIM_SUPPORTS_HARDWARE_REOPEN"
+      },
+      "item_id": "simulation_evidence",
+      "status": "positive"
+    },
+    {
+      "description": "Stage196 must establish the full run cost posture before selecting a reduced scope.",
+      "evidence": {
+        "budget_cap_usd": 25.0,
+        "full_estimated_usd_at_100us": 210.35520000000002,
+        "full_estimated_usd_at_50us": 105.17760000000001,
+        "stage196_decision": "REPLACEMENT_COST_ESTIMATE_READY_BUDGET_LIKELY_TIGHT_NOT_LIVE"
+      },
+      "item_id": "full_run_cost_posture",
+      "status": "budget_tight"
+    },
+    {
+      "description": "The recommended reduced scope preserves all lanes/families/rows while reducing shot count, but must be preregistered before any attestation.",
+      "evidence": {
+        "recommended_scope": {
+          "calibration_job_count": 4,
+          "description": "All selected IBM lanes and families, all 16 rows, 2048 shots per row.",
+          "estimated_calibration_shots": 4000,
+          "estimated_packet_shots": 655360,
+          "estimated_total_job_count": 324,
+          "estimated_total_shots": 659360,
+          "estimated_usd_at_100us_per_shot": 105.49760000000002,
+          "estimated_usd_at_10us_per_shot": 10.549760000000001,
+          "estimated_usd_at_50us_per_shot": 52.74880000000001,
+          "evidentiary_status": "borderline_claim_capable_requires_predeclared_lower_precision",
+          "family_count": 5,
+          "lane_count": 4,
+          "packet_row_job_count": 320,
+          "rationale": "Preserves coverage but halves shot resolution; weakest simulated positional margin falls near 2.6 shot quanta.",
+          "row_count_per_packet": 16,
+          "scaled_min_matched_null_margin_shot_quanta": 2.503077,
+          "scaled_min_positional_margin_shot_quanta": 2.6190255,
+          "scope_id": "all_lanes_half_shots_2048",
+          "shots_per_row": 2048
+        },
+        "recommended_scope_id": "all_lanes_half_shots_2048"
+      },
+      "item_id": "recommended_scope",
+      "status": "pre_attestation_review_ready"
+    },
+    {
+      "description": "Only the full 4096-shot plan directly inherits the Stage188 evidentiary thresholds; reduced plans need a preregistered lower-precision interpretation boundary.",
+      "evidence": {
+        "full_scope_id": "full_evidentiary_scope_4096",
+        "scouting_scope_id": "all_lanes_scout_512"
+      },
+      "item_id": "claim_boundary",
+      "status": "reduced_scope_not_final_without_preregistration"
+    }
+  ],
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage197_replacement_cost_constrained_scope_review_v1",
+  "scope_options": [
+    {
+      "calibration_job_count": 4,
+      "description": "All selected IBM lanes, all five families, all 16 rows, 4096 shots per row.",
+      "estimated_calibration_shots": 4000,
+      "estimated_packet_shots": 1310720,
+      "estimated_total_job_count": 324,
+      "estimated_total_shots": 1314720,
+      "estimated_usd_at_100us_per_shot": 210.35520000000002,
+      "estimated_usd_at_10us_per_shot": 21.03552,
+      "estimated_usd_at_50us_per_shot": 105.17760000000001,
+      "evidentiary_status": "claim_capable_if_credit_and_approval_resolved",
+      "family_count": 5,
+      "lane_count": 4,
+      "packet_row_job_count": 320,
+      "rationale": "Preserves both IBM seeds, both circuit templates, all comparators, full row coverage, and original Stage188 shot resolution.",
+      "row_count_per_packet": 16,
+      "scaled_min_matched_null_margin_shot_quanta": 5.006154,
+      "scaled_min_positional_margin_shot_quanta": 5.238051,
+      "scope_id": "full_evidentiary_scope_4096",
+      "shots_per_row": 4096
+    },
+    {
+      "calibration_job_count": 4,
+      "description": "All selected IBM lanes and families, all 16 rows, 2048 shots per row.",
+      "estimated_calibration_shots": 4000,
+      "estimated_packet_shots": 655360,
+      "estimated_total_job_count": 324,
+      "estimated_total_shots": 659360,
+      "estimated_usd_at_100us_per_shot": 105.49760000000002,
+      "estimated_usd_at_10us_per_shot": 10.549760000000001,
+      "estimated_usd_at_50us_per_shot": 52.74880000000001,
+      "evidentiary_status": "borderline_claim_capable_requires_predeclared_lower_precision",
+      "family_count": 5,
+      "lane_count": 4,
+      "packet_row_job_count": 320,
+      "rationale": "Preserves coverage but halves shot resolution; weakest simulated positional margin falls near 2.6 shot quanta.",
+      "row_count_per_packet": 16,
+      "scaled_min_matched_null_margin_shot_quanta": 2.503077,
+      "scaled_min_positional_margin_shot_quanta": 2.6190255,
+      "scope_id": "all_lanes_half_shots_2048",
+      "shots_per_row": 2048
+    },
+    {
+      "calibration_job_count": 4,
+      "description": "All selected IBM lanes and families, all 16 rows, 512 shots per row.",
+      "estimated_calibration_shots": 4000,
+      "estimated_packet_shots": 163840,
+      "estimated_total_job_count": 324,
+      "estimated_total_shots": 167840,
+      "estimated_usd_at_100us_per_shot": 26.8544,
+      "estimated_usd_at_10us_per_shot": 2.68544,
+      "estimated_usd_at_50us_per_shot": 13.4272,
+      "evidentiary_status": "scouting_only_not_claim_capable",
+      "family_count": 5,
+      "lane_count": 4,
+      "packet_row_job_count": 320,
+      "rationale": "Preserves structure but weakens shot resolution too much for the weakest Stage188 margin; useful only to test operational viability and gross direction.",
+      "row_count_per_packet": 16,
+      "scaled_min_matched_null_margin_shot_quanta": 0.62576925,
+      "scaled_min_positional_margin_shot_quanta": 0.654756375,
+      "scope_id": "all_lanes_scout_512",
+      "shots_per_row": 512
+    },
+    {
+      "calibration_job_count": 4,
+      "description": "Only seed577 product and CX lanes, all five families, all 16 rows, 4096 shots per row.",
+      "estimated_calibration_shots": 4000,
+      "estimated_packet_shots": 655360,
+      "estimated_total_job_count": 164,
+      "estimated_total_shots": 659360,
+      "estimated_usd_at_100us_per_shot": 105.49760000000002,
+      "estimated_usd_at_10us_per_shot": 10.549760000000001,
+      "estimated_usd_at_50us_per_shot": 52.74880000000001,
+      "evidentiary_status": "directional_not_full_claim_capable",
+      "family_count": 5,
+      "lane_count": 2,
+      "packet_row_job_count": 160,
+      "rationale": "Keeps strongest seed and both templates but drops independent seed replication; useful for de-risking before full run, not final evidence.",
+      "row_count_per_packet": 16,
+      "scaled_min_matched_null_margin_shot_quanta": 5.006154,
+      "scaled_min_positional_margin_shot_quanta": 17.410303,
+      "scope_id": "strong_seed577_lanes_4096",
+      "shots_per_row": 4096
+    }
+  ],
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage188_replacement_semantics_packet_screen/results.json",
+    "logs/automated_stage_gates/stage196_replacement_cost_estimate_packet/results.json"
+  ],
+  "stage": "stage197_replacement_cost_constrained_scope_review",
+  "status": "completed"
+}

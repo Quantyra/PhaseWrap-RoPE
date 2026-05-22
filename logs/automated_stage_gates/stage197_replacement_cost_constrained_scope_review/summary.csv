@@ -1,0 +1,5 @@
+item_id,status,description
+simulation_evidence,positive,Reduced scope review requires the Stage188 replacement simulation to be positive.
+full_run_cost_posture,budget_tight,Stage196 must establish the full run cost posture before selecting a reduced scope.
+recommended_scope,pre_attestation_review_ready,"The recommended reduced scope preserves all lanes/families/rows while reducing shot count, but must be preregistered before any attestation."
+claim_boundary,reduced_scope_not_final_without_preregistration,Only the full 4096-shot plan directly inherits the Stage188 evidentiary thresholds; reduced plans need a preregistered lower-precision interpretation boundary.
