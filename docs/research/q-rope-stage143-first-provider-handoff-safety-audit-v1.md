@@ -11,6 +11,7 @@ Current decision: `FIRST_PROVIDER_HANDOFF_SAFETY_VERIFIED_NO_SUBMISSION`.
 The audit verifies:
 
 - the committed environment template contains only empty assignments
+- the environment template keys match the Stage 142 missing environment groups
 - rerun commands contain no `--allow-live-submit`, `--submitter`, or provider-runner command fragments
 - Stage 142 preserved `no_hardware_submission=true` and `secret_values_recorded=false`
 
@@ -19,6 +20,7 @@ Supported:
 
 - machine-checkable safety audit for the Stage 142 first-provider handoff
 - verification that env-template assignments remain empty placeholders
+- verification that env-template keys remain scoped to the Stage 142 missing environment groups
 - verification that rerun commands do not include live-submit fragments
 
 Excluded:

@@ -10,15 +10,19 @@ def _write_json(path, payload) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def _stage142(path, *, unsafe_template: bool = False, unsafe_command: bool = False) -> None:
+def _stage142(path, *, unsafe_template: bool = False, unsafe_command: bool = False, extra_template_key: bool = False) -> None:
+    template = "IBM_QUANTUM_INSTANCE_CRN=\n"
+    if extra_template_key:
+        template = "IBM_QUANTUM_TOKEN=\nIBM_QUANTUM_INSTANCE_CRN=\n"
+    if unsafe_template:
+        template = "IBM_QUANTUM_INSTANCE_CRN=secret\n"
     _write_json(
         path,
         {
             "decision": "FIRST_PROVIDER_UNLOCK_HANDOFF_READY_ENV_OR_SDK_REQUIRED",
             "first_unlock_provider": "ibm_runtime",
-            "env_template": "IBM_QUANTUM_TOKEN=secret\nIBM_QUANTUM_INSTANCE_CRN=\n"
-            if unsafe_template
-            else "IBM_QUANTUM_TOKEN=\nIBM_QUANTUM_INSTANCE_CRN=\n",
+            "missing_env_groups": ["IBM_QUANTUM_INSTANCE_CRN"],
+            "env_template": template,
             "rerun_commands": [
                 "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
                 "python scripts/provider_runners/run_ibm_runtime_stage112_jobs.py --allow-live-submit"
@@ -40,6 +44,8 @@ def test_stage143_verifies_placeholder_and_non_live_handoff(tmp_path) -> None:
     assert result["decision"] == "FIRST_PROVIDER_HANDOFF_SAFETY_VERIFIED_NO_SUBMISSION"
     assert result["nonempty_template_assignment_count"] == 0
     assert result["forbidden_command_count"] == 0
+    assert result["template_key_scope_ready"] is True
+    assert result["observed_template_keys"] == ["IBM_QUANTUM_INSTANCE_CRN"]
     assert result["secret_values_recorded"] is False
 
 
@@ -52,6 +58,17 @@ def test_stage143_blocks_nonempty_template_assignment(tmp_path) -> None:
     assert result["decision"] == "FIRST_PROVIDER_HANDOFF_SAFETY_BLOCKED"
     assert result["nonempty_template_assignment_count"] == 1
     assert result["template_placeholders_only"] is False
+
+
+def test_stage143_blocks_unscoped_template_keys(tmp_path) -> None:
+    stage142 = tmp_path / "stage142.json"
+    _stage142(stage142, extra_template_key=True)
+
+    result = run_stage143_audit(stage142_results_path=stage142)
+
+    assert result["decision"] == "FIRST_PROVIDER_HANDOFF_SAFETY_BLOCKED"
+    assert result["template_key_scope_ready"] is False
+    assert result["unexpected_template_keys"] == ["IBM_QUANTUM_TOKEN"]
 
 
 def test_stage143_blocks_live_submit_command_fragment(tmp_path) -> None:
@@ -76,4 +93,4 @@ def test_stage143_outputs_are_written(tmp_path) -> None:
 
     assert set(paths) == {"manifest", "result", "summary_csv"}
     assert manifest["decision"] == "FIRST_PROVIDER_HANDOFF_SAFETY_VERIFIED_NO_SUBMISSION"
-    assert "IBM_QUANTUM_TOKEN" in summary
+    assert "IBM_QUANTUM_INSTANCE_CRN" in summary

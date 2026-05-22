@@ -35,6 +35,17 @@ def _template_records(template: str) -> list[dict[str, Any]]:
     return records
 
 
+def _candidate_keys(group: str) -> list[str]:
+    return [part.strip() for part in group.split(" or ") if part.strip()]
+
+
+def _expected_template_keys(missing_env_groups: list[str]) -> list[str]:
+    keys: list[str] = []
+    for group in missing_env_groups:
+        keys.extend(_candidate_keys(group))
+    return sorted(set(keys))
+
+
 def _command_records(commands: list[str]) -> list[dict[str, Any]]:
     records = []
     for command in commands:
@@ -48,9 +59,15 @@ def run_stage143_audit(*, stage142_results_path: Path = DEFAULT_STAGE142_RESULTS
     missing_sources = [] if isinstance(stage142, dict) else [str(stage142_results_path.as_posix())]
     template = str(stage142.get("env_template", "")) if isinstance(stage142, dict) else ""
     commands = [str(command) for command in stage142.get("rerun_commands", [])] if isinstance(stage142, dict) else []
+    missing_env_groups = [str(group) for group in stage142.get("missing_env_groups", [])] if isinstance(stage142, dict) else []
     template_records = _template_records(template)
+    expected_template_keys = _expected_template_keys(missing_env_groups)
+    observed_template_keys = sorted(record["key"] for record in template_records)
+    unexpected_template_keys = sorted(set(observed_template_keys) - set(expected_template_keys))
+    missing_template_keys = sorted(set(expected_template_keys) - set(observed_template_keys))
     command_records = _command_records(commands)
-    template_ready = bool(template_records) and all(record["ready"] for record in template_records)
+    template_key_scope_ready = not unexpected_template_keys and not missing_template_keys
+    template_ready = template_key_scope_ready and all(record["ready"] for record in template_records)
     commands_ready = bool(command_records) and all(record["ready"] for record in command_records)
     boundary_ready = bool(
         isinstance(stage142, dict)
@@ -74,11 +91,16 @@ def run_stage143_audit(*, stage142_results_path: Path = DEFAULT_STAGE142_RESULTS
         "first_unlock_provider": stage142.get("first_unlock_provider") if isinstance(stage142, dict) else None,
         "template_assignment_count": len(template_records),
         "nonempty_template_assignment_count": sum(1 for record in template_records if record["value_present"]),
+        "expected_template_keys": expected_template_keys,
+        "observed_template_keys": observed_template_keys,
+        "unexpected_template_keys": unexpected_template_keys,
+        "missing_template_keys": missing_template_keys,
         "rerun_command_count": len(command_records),
         "forbidden_command_count": sum(1 for record in command_records if record["forbidden_fragments"]),
         "template_records": template_records,
         "command_records": command_records,
         "template_placeholders_only": template_ready,
+        "template_key_scope_ready": template_key_scope_ready,
         "rerun_commands_non_live": commands_ready,
         "boundary_ready": boundary_ready,
         "no_hardware_submission": True,
@@ -88,6 +110,7 @@ def run_stage143_audit(*, stage142_results_path: Path = DEFAULT_STAGE142_RESULTS
             "supported": [
                 "machine-checkable safety audit for the Stage 142 first-provider handoff",
                 "verification that env-template assignments remain empty placeholders",
+                "verification that env-template keys match the Stage 142 missing environment groups",
                 "verification that rerun commands do not include live-submit fragments",
             ],
             "excluded": [
@@ -119,9 +142,14 @@ def write_stage143_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "first_unlock_provider": result["first_unlock_provider"],
         "template_assignment_count": result["template_assignment_count"],
         "nonempty_template_assignment_count": result["nonempty_template_assignment_count"],
+        "expected_template_keys": result["expected_template_keys"],
+        "observed_template_keys": result["observed_template_keys"],
+        "unexpected_template_keys": result["unexpected_template_keys"],
+        "missing_template_keys": result["missing_template_keys"],
         "rerun_command_count": result["rerun_command_count"],
         "forbidden_command_count": result["forbidden_command_count"],
         "template_placeholders_only": result["template_placeholders_only"],
+        "template_key_scope_ready": result["template_key_scope_ready"],
         "rerun_commands_non_live": result["rerun_commands_non_live"],
         "boundary_ready": result["boundary_ready"],
         "no_hardware_submission": result["no_hardware_submission"],
