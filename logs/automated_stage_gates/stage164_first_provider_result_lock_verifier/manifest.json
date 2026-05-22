@@ -1,0 +1,42 @@
+{
+  "aggregate_job_shard_lock_sha256": "cf5305b6be610d1ffb80e11095e3a0bc0bfc233e0afbee148408f7ea25072ad0",
+  "blockers": [
+    "window_result_lock_verification_blockers_present"
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "Stage115 collection or Stage113 evidence assembly",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "verification that current Stage114 IBM job shards still match the Stage163 pre-run lock",
+      "verification that provider result record counts match the locked job counts before Stage115/Stage113 acceptance",
+      "duplicate and empty-count result detection at the lock-verification boundary"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_RESULT_LOCK_VERIFICATION_BLOCKED_RESULTS_MISSING",
+  "expected_result_record_count": 328,
+  "first_unlock_provider": "ibm_runtime",
+  "hash_match_count": 2,
+  "missing_result_record_count": 328,
+  "missing_source_artifacts": [],
+  "next_gate": "After live execution, require this verifier to pass before treating Stage115 provider result collection and Stage113 evidence assembly as lock-consistent.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "provider_result_record_count": 0,
+  "result_path": "logs/automated_stage_gates/stage164_first_provider_result_lock_verifier/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage164_first_provider_result_lock_verifier_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage163_first_provider_prerun_lock/results.json"
+  ],
+  "stage": "stage164_first_provider_result_lock_verifier",
+  "stage163_decision": "FIRST_PROVIDER_PRERUN_LOCK_READY_AWAITING_APPROVAL",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage164_first_provider_result_lock_verifier/summary.csv",
+  "window_count": 2
+}

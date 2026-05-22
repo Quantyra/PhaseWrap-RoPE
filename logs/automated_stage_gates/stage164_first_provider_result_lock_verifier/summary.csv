@@ -1,0 +1,3 @@
+provider,window_id,job_shard_hash_matches,expected_result_record_count,provider_result_record_count,ready,blockers
+ibm_runtime,ibm_runtime__independent_window_00,True,164,0,False,provider_result_count_mismatch; provider_results_missing
+ibm_runtime,ibm_runtime__independent_window_01,True,164,0,False,provider_result_count_mismatch; provider_results_missing
