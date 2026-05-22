@@ -1,0 +1,139 @@
+{
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "new packet generation",
+      "hardware job submission",
+      "a noisy-hardware robustness or auditability conclusion",
+      "evidence that any redesign candidate has passed"
+    ],
+    "supported": [
+      "pre-registered redesign plan after archiving the current IBM run and exhausting existing frozen lanes",
+      "fixed-width constraints and screening thresholds for future target/circuit redesign",
+      "hardware reopen criteria tied to IBM-informed primary noise rather than hand-built coherent-only wins"
+    ]
+  },
+  "current_path_status": {
+    "current_ibm_328_job_run_archived": true,
+    "existing_frozen_surface_exhausted": true
+  },
+  "decision": "FIXED_WIDTH_TARGET_REDESIGN_PLAN_READY",
+  "design_families": [
+    {
+      "allowed_changes": [
+        "source-row selection and normalization",
+        "phase component scaling before RY preparation",
+        "matched comparator packet regeneration with identical row/source surface"
+      ],
+      "disallowed_changes": [
+        "increasing qubit count",
+        "dropping matched RoPE-like, sinusoidal-like, ALIBI-like, or no-position controls",
+        "using hardware results for model selection"
+      ],
+      "family_id": "pw_balanced_phase_window_v1",
+      "fixed_width_constraints": {
+        "active_qubits": 2,
+        "measured_qubits": 2,
+        "templates_required": [
+          "two_ry_product_state_z_readout_v1",
+          "two_ry_cx_parity_z_readout_v1"
+        ]
+      },
+      "hypothesis": "Reduce baseline score compression by centering PhaseWrap components in a balanced phase window before noisy readout."
+    },
+    {
+      "allowed_changes": [
+        "delta-pair sampling policy",
+        "score contrast scaling bounded before count generation",
+        "new frozen real-source seed pairs before any hardware run"
+      ],
+      "disallowed_changes": [
+        "post-hoc comparator removal",
+        "single-template promotion",
+        "changing shot quantum thresholds after seeing results"
+      ],
+      "family_id": "pw_contrast_amplified_delta_v1",
+      "fixed_width_constraints": {
+        "active_qubits": 2,
+        "measured_qubits": 2,
+        "templates_required": [
+          "two_ry_product_state_z_readout_v1",
+          "two_ry_cx_parity_z_readout_v1"
+        ]
+      },
+      "hypothesis": "Increase observable separation between PhaseWrap and positional comparators while preserving fixed-width score semantics."
+    },
+    {
+      "allowed_changes": [
+        "component-basis rotation in the classical packet freezer",
+        "matched transformation applied to all encoding families",
+        "IBM-informed simulated screening before packet lock"
+      ],
+      "disallowed_changes": [
+        "using provider-specific live results to tune packets",
+        "treating coherent-proxy-only wins as hardware-run approval",
+        "relaxing the no-position control requirement"
+      ],
+      "family_id": "pw_error_orthogonalized_components_v1",
+      "fixed_width_constraints": {
+        "active_qubits": 2,
+        "measured_qubits": 2,
+        "templates_required": [
+          "two_ry_product_state_z_readout_v1",
+          "two_ry_cx_parity_z_readout_v1"
+        ]
+      },
+      "hypothesis": "Choose component encodings whose PhaseWrap errors are less aligned with IBM readout and two-qubit stochastic shrinkage."
+    }
+  ],
+  "design_family_count": 3,
+  "hardware_reopen_thresholds": {
+    "min_control_margin_shot_quanta": 2.0,
+    "min_independent_seed_pairs": 2,
+    "min_positional_margin_shot_quanta": 2.0,
+    "min_primary_noise_models": 2,
+    "min_stable_templates": 2
+  },
+  "missing_source_artifacts": [],
+  "next_gate": "Implement the first redesigned packet family and screen it under the Stage177 IBM-informed primary noise models before considering any hardware reopen.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "primary_noise_model_ids": [
+    "ibm_backend_median_stochastic",
+    "ibm_backend_p75_stochastic"
+  ],
+  "provider_credentials_required": false,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage181_fixed_width_target_redesign_plan_v1",
+  "screening_sequence": [
+    {
+      "gate_id": "redesign_packet_freeze",
+      "pass_condition": "All candidate families produce product and CX packets with PhaseWrap, three positional comparators, and no-position control.",
+      "purpose": "Freeze redesigned fixed-width packet families before any provider action."
+    },
+    {
+      "gate_id": "ibm_informed_primary_screen",
+      "pass_condition": "PhaseWrap has stable strict wins on both templates under every primary IBM-informed model: ibm_backend_median_stochastic, ibm_backend_p75_stochastic",
+      "purpose": "Reject candidates that only win under hand-built coherent offsets."
+    },
+    {
+      "gate_id": "seed_stability_screen",
+      "pass_condition": "At least 2 independent real-source seed pairs pass the primary screen.",
+      "purpose": "Avoid one-seed artifacts before reopening hardware."
+    },
+    {
+      "gate_id": "hardware_reopen_gate",
+      "pass_condition": "Margins exceed 2.0 shot quanta over both best positional comparator and no-position control on at least 2 templates and 2 primary IBM-informed models.",
+      "purpose": "Reopen hardware only after simulation evidence justifies spend."
+    }
+  ],
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage177_ibm_backend_informed_noise_probe/results.json",
+    "logs/automated_stage_gates/stage179_current_ibm_hardware_path_disposition/results.json",
+    "logs/automated_stage_gates/stage180_existing_surface_reopen_screen/results.json"
+  ],
+  "stage": "stage181_fixed_width_target_redesign_plan",
+  "status": "completed"
+}

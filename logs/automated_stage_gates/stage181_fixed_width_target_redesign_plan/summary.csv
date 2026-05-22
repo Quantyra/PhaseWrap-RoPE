@@ -1,0 +1,4 @@
+family_id,hypothesis,templates_required
+pw_balanced_phase_window_v1,Reduce baseline score compression by centering PhaseWrap components in a balanced phase window before noisy readout.,two_ry_product_state_z_readout_v1; two_ry_cx_parity_z_readout_v1
+pw_contrast_amplified_delta_v1,Increase observable separation between PhaseWrap and positional comparators while preserving fixed-width score semantics.,two_ry_product_state_z_readout_v1; two_ry_cx_parity_z_readout_v1
+pw_error_orthogonalized_components_v1,Choose component encodings whose PhaseWrap errors are less aligned with IBM readout and two-qubit stochastic shrinkage.,two_ry_product_state_z_readout_v1; two_ry_cx_parity_z_readout_v1
