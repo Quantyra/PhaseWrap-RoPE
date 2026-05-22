@@ -8,19 +8,21 @@ Stage 137 implements the hardware-count-dependent auditability evaluator preregi
 
 Current decision: `AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED`.
 
-The evaluator reads the Stage 107 independent-window plan, requires each window's Stage 101 calibration result to pass, requires packet execution files to carry Stage 113 assembly status, then reconstructs `component_a` and `component_b` from the same packet execution counts used by Stage 103:
+The evaluator reads the Stage 107 independent-window plan, requires Stage 136 to expose complete fixed-width provider/lane/template comparator groups, requires each window's Stage 101 calibration result to pass, requires packet execution files to carry Stage 113 assembly status and live-submit provenance, then reconstructs `component_a` and `component_b` from the same packet execution counts used by Stage 103:
 
 - product-state template: `component_a = E[Z0]`, `component_b = E[Z1]`
 - CX/parity template: `component_a = E[Z0]`, `component_b = E[Z0 Z1]`
 
-It computes component reconstruction mean absolute error per packet family and applies the Stage 136 auditability advantage rule against the named positional comparators.
+It computes component reconstruction mean absolute error per packet family and applies the Stage 136 auditability advantage rule against the named positional comparators. The no-position/control packet must be present as a control-family member of the fixed-width comparison group, but it is not treated as a positional comparator PhaseWrap must beat for auditability-specific wording.
 
 ## Claim Boundary
 Supported:
 
 - deterministic component-reconstruction auditability evaluator
+- Stage 136 fixed-width provider/lane/template group readiness checked before evaluation
 - same-window binding to Stage 107 packet counts and Stage 101 calibration results
 - auditability interpretation requires Stage 113-assembled packet evidence
+- auditability comparison groups require PhaseWrap, every named positional comparator, and no-position/control evidence
 - blocked output while real provider packet counts are missing
 
 Excluded:

@@ -15,12 +15,118 @@
       "binding of auditability evaluation to Stage 107 packet execution counts and Stage 101 calibration results",
       "verification that packet executions preserve Stage 113 hardware-result lineage metadata",
       "verification that Stage 113 preserves Stage 115/152 all-command live-submit readiness provenance",
-      "verification that PhaseWrap and every named positional comparator are present before claim-gate readiness",
+      "verification that Stage 136 exposes complete fixed-width provider/lane/template groups before evaluation",
+      "verification that PhaseWrap, every named positional comparator, and the no-position/control family are present before claim-gate readiness",
       "a blocked outcome when real provider packet counts are missing"
     ]
   },
-  "comparison_summary": [],
-  "comparison_summary_count": 0,
+  "comparison_summary": [
+    {
+      "all_positional_comparators_present": true,
+      "all_required_families_present": true,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "no_position_control_present": true,
+      "passes_auditability_advantage_rule": false,
+      "phasewrap_component_reconstruction_mae": null,
+      "phasewrap_lower_error_than": [],
+      "phasewrap_present": true,
+      "provider": "amazon_braket",
+      "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+      "window_id": "amazon_braket__independent_window_00"
+    },
+    {
+      "all_positional_comparators_present": true,
+      "all_required_families_present": true,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "no_position_control_present": true,
+      "passes_auditability_advantage_rule": false,
+      "phasewrap_component_reconstruction_mae": null,
+      "phasewrap_lower_error_than": [],
+      "phasewrap_present": true,
+      "provider": "amazon_braket",
+      "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "window_id": "amazon_braket__independent_window_00"
+    },
+    {
+      "all_positional_comparators_present": true,
+      "all_required_families_present": true,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "no_position_control_present": true,
+      "passes_auditability_advantage_rule": false,
+      "phasewrap_component_reconstruction_mae": null,
+      "phasewrap_lower_error_than": [],
+      "phasewrap_present": true,
+      "provider": "amazon_braket",
+      "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+      "window_id": "amazon_braket__independent_window_01"
+    },
+    {
+      "all_positional_comparators_present": true,
+      "all_required_families_present": true,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "no_position_control_present": true,
+      "passes_auditability_advantage_rule": false,
+      "phasewrap_component_reconstruction_mae": null,
+      "phasewrap_lower_error_than": [],
+      "phasewrap_present": true,
+      "provider": "amazon_braket",
+      "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "window_id": "amazon_braket__independent_window_01"
+    },
+    {
+      "all_positional_comparators_present": true,
+      "all_required_families_present": true,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "no_position_control_present": true,
+      "passes_auditability_advantage_rule": false,
+      "phasewrap_component_reconstruction_mae": null,
+      "phasewrap_lower_error_than": [],
+      "phasewrap_present": true,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "window_id": "ibm_runtime__independent_window_00"
+    },
+    {
+      "all_positional_comparators_present": true,
+      "all_required_families_present": true,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "no_position_control_present": true,
+      "passes_auditability_advantage_rule": false,
+      "phasewrap_component_reconstruction_mae": null,
+      "phasewrap_lower_error_than": [],
+      "phasewrap_present": true,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "window_id": "ibm_runtime__independent_window_00"
+    },
+    {
+      "all_positional_comparators_present": true,
+      "all_required_families_present": true,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "no_position_control_present": true,
+      "passes_auditability_advantage_rule": false,
+      "phasewrap_component_reconstruction_mae": null,
+      "phasewrap_lower_error_than": [],
+      "phasewrap_present": true,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "window_id": "ibm_runtime__independent_window_01"
+    },
+    {
+      "all_positional_comparators_present": true,
+      "all_required_families_present": true,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "no_position_control_present": true,
+      "passes_auditability_advantage_rule": false,
+      "phasewrap_component_reconstruction_mae": null,
+      "phasewrap_lower_error_than": [],
+      "phasewrap_present": true,
+      "provider": "ibm_runtime",
+      "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "window_id": "ibm_runtime__independent_window_01"
+    }
+  ],
+  "comparison_summary_count": 8,
   "decision": "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED",
   "missing_source_artifacts": [],
   "next_gate": "Populate selected Stage 107 packet execution counts via Stage 113 assembly and pass per-window Stage 101 calibration, then rerun this evaluator before any auditability advantage wording.",
@@ -60,12 +166,42 @@
   ],
   "stage113_stage115_write_ready": false,
   "stage136_decision": "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED",
+  "stage136_lane_family_record_count": 4,
+  "stage136_packet_count": 20,
   "stage136_ready": true,
+  "stage136_ready_packet_count": 20,
   "status": "completed",
   "window_count": 4,
   "window_records": [
     {
-      "comparison_summary": [],
+      "comparison_summary": [
+        {
+          "all_positional_comparators_present": true,
+          "all_required_families_present": true,
+          "circuit_template": "two_ry_cx_parity_z_readout_v1",
+          "no_position_control_present": true,
+          "passes_auditability_advantage_rule": false,
+          "phasewrap_component_reconstruction_mae": null,
+          "phasewrap_lower_error_than": [],
+          "phasewrap_present": true,
+          "provider": "amazon_braket",
+          "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+          "window_id": "amazon_braket__independent_window_00"
+        },
+        {
+          "all_positional_comparators_present": true,
+          "all_required_families_present": true,
+          "circuit_template": "two_ry_product_state_z_readout_v1",
+          "no_position_control_present": true,
+          "passes_auditability_advantage_rule": false,
+          "phasewrap_component_reconstruction_mae": null,
+          "phasewrap_lower_error_than": [],
+          "phasewrap_present": true,
+          "provider": "amazon_braket",
+          "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+          "window_id": "amazon_braket__independent_window_00"
+        }
+      ],
       "missing_evidence": [
         "auditability_comparison_groups_incomplete",
         "packet_execution_counts_missing",
@@ -264,7 +400,34 @@
       "window_id": "amazon_braket__independent_window_00"
     },
     {
-      "comparison_summary": [],
+      "comparison_summary": [
+        {
+          "all_positional_comparators_present": true,
+          "all_required_families_present": true,
+          "circuit_template": "two_ry_cx_parity_z_readout_v1",
+          "no_position_control_present": true,
+          "passes_auditability_advantage_rule": false,
+          "phasewrap_component_reconstruction_mae": null,
+          "phasewrap_lower_error_than": [],
+          "phasewrap_present": true,
+          "provider": "amazon_braket",
+          "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+          "window_id": "amazon_braket__independent_window_01"
+        },
+        {
+          "all_positional_comparators_present": true,
+          "all_required_families_present": true,
+          "circuit_template": "two_ry_product_state_z_readout_v1",
+          "no_position_control_present": true,
+          "passes_auditability_advantage_rule": false,
+          "phasewrap_component_reconstruction_mae": null,
+          "phasewrap_lower_error_than": [],
+          "phasewrap_present": true,
+          "provider": "amazon_braket",
+          "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+          "window_id": "amazon_braket__independent_window_01"
+        }
+      ],
       "missing_evidence": [
         "auditability_comparison_groups_incomplete",
         "packet_execution_counts_missing",
@@ -463,7 +626,34 @@
       "window_id": "amazon_braket__independent_window_01"
     },
     {
-      "comparison_summary": [],
+      "comparison_summary": [
+        {
+          "all_positional_comparators_present": true,
+          "all_required_families_present": true,
+          "circuit_template": "two_ry_cx_parity_z_readout_v1",
+          "no_position_control_present": true,
+          "passes_auditability_advantage_rule": false,
+          "phasewrap_component_reconstruction_mae": null,
+          "phasewrap_lower_error_than": [],
+          "phasewrap_present": true,
+          "provider": "ibm_runtime",
+          "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+          "window_id": "ibm_runtime__independent_window_00"
+        },
+        {
+          "all_positional_comparators_present": true,
+          "all_required_families_present": true,
+          "circuit_template": "two_ry_product_state_z_readout_v1",
+          "no_position_control_present": true,
+          "passes_auditability_advantage_rule": false,
+          "phasewrap_component_reconstruction_mae": null,
+          "phasewrap_lower_error_than": [],
+          "phasewrap_present": true,
+          "provider": "ibm_runtime",
+          "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+          "window_id": "ibm_runtime__independent_window_00"
+        }
+      ],
       "missing_evidence": [
         "auditability_comparison_groups_incomplete",
         "packet_execution_counts_missing",
@@ -662,7 +852,34 @@
       "window_id": "ibm_runtime__independent_window_00"
     },
     {
-      "comparison_summary": [],
+      "comparison_summary": [
+        {
+          "all_positional_comparators_present": true,
+          "all_required_families_present": true,
+          "circuit_template": "two_ry_cx_parity_z_readout_v1",
+          "no_position_control_present": true,
+          "passes_auditability_advantage_rule": false,
+          "phasewrap_component_reconstruction_mae": null,
+          "phasewrap_lower_error_than": [],
+          "phasewrap_present": true,
+          "provider": "ibm_runtime",
+          "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+          "window_id": "ibm_runtime__independent_window_01"
+        },
+        {
+          "all_positional_comparators_present": true,
+          "all_required_families_present": true,
+          "circuit_template": "two_ry_product_state_z_readout_v1",
+          "no_position_control_present": true,
+          "passes_auditability_advantage_rule": false,
+          "phasewrap_component_reconstruction_mae": null,
+          "phasewrap_lower_error_than": [],
+          "phasewrap_present": true,
+          "provider": "ibm_runtime",
+          "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+          "window_id": "ibm_runtime__independent_window_01"
+        }
+      ],
       "missing_evidence": [
         "auditability_comparison_groups_incomplete",
         "packet_execution_counts_missing",

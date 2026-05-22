@@ -20,6 +20,13 @@ OBJECTIVE = (
     "under fixed circuit width."
 )
 POSITIONAL_COMPARATOR_FAMILIES: tuple[str, ...] = ("rope_like", "sinusoidal_like", "alibi_like")
+REQUIRED_ENCODING_FAMILIES: tuple[str, ...] = (
+    "phasewrap",
+    "rope_like",
+    "sinusoidal_like",
+    "alibi_like",
+    "no_position_control",
+)
 REQUIRED_EXECUTION_FIELDS: tuple[str, ...] = (
     "job_or_task_ids",
     "backend_metadata",
@@ -181,6 +188,8 @@ def _comparison_summary(packet_records: list[dict[str, Any]]) -> list[dict[str, 
                 "phasewrap_component_reconstruction_mae": phasewrap_mae,
                 "phasewrap_lower_error_than": lower_than,
                 "phasewrap_present": phasewrap is not None,
+                "no_position_control_present": "no_position_control" in by_family,
+                "all_required_families_present": all(family in by_family for family in REQUIRED_ENCODING_FAMILIES),
                 "all_positional_comparators_present": all(family in by_family for family in POSITIONAL_COMPARATOR_FAMILIES),
                 "passes_auditability_advantage_rule": all(family in lower_than for family in POSITIONAL_COMPARATOR_FAMILIES),
             }
@@ -191,9 +200,27 @@ def _comparison_summary(packet_records: list[dict[str, Any]]) -> list[dict[str, 
 def _comparison_groups_complete(comparison_summary: list[dict[str, Any]]) -> bool:
     return bool(comparison_summary) and all(
         record.get("phasewrap_present") is True
+        and record.get("no_position_control_present") is True
+        and record.get("all_required_families_present") is True
         and record.get("all_positional_comparators_present") is True
         and record.get("phasewrap_component_reconstruction_mae") is not None
         for record in comparison_summary
+    )
+
+
+def _stage136_ready_for_auditability(stage136: dict[str, Any] | None) -> bool:
+    if not isinstance(stage136, dict):
+        return False
+    packet_count = int(stage136.get("packet_count") or 0)
+    ready_packet_count = int(stage136.get("ready_packet_count") or 0)
+    lane_records = stage136.get("lane_family_records", [])
+    return bool(
+        stage136.get("decision") == "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED"
+        and packet_count > 0
+        and ready_packet_count == packet_count
+        and isinstance(lane_records, list)
+        and lane_records
+        and all(record.get("all_packet_audit_traces_ready") is True for record in lane_records if isinstance(record, dict))
     )
 
 
@@ -253,7 +280,7 @@ def _window_record(plan: dict[str, Any], stage136_ready: bool, stage113_live_sub
         "missing_evidence": sorted(set(missing)),
         "packet_records": packet_records,
         "row_records": row_records,
-        "comparison_summary": comparison_summary if ready else [],
+        "comparison_summary": comparison_summary,
     }
 
 
@@ -273,9 +300,7 @@ def run_stage137_evaluator(
     window_plans = [
         plan for plan in all_window_plans if provider is None or plan.get("provider") == provider
     ]
-    stage136_ready = bool(
-        isinstance(stage136, dict) and stage136.get("decision") == "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED"
-    )
+    stage136_ready = _stage136_ready_for_auditability(stage136)
     stage113_live_submit_ready = _stage113_live_submit_provenance_ready(stage113)
     window_records = [_window_record(plan, stage136_ready, stage113_live_submit_ready) for plan in window_plans]
     ready_window_count = sum(1 for record in window_records if record["ready"])
@@ -296,6 +321,9 @@ def run_stage137_evaluator(
         "provider_scope": provider or "all",
         "stage136_decision": stage136.get("decision") if isinstance(stage136, dict) else None,
         "stage136_ready": stage136_ready,
+        "stage136_packet_count": stage136.get("packet_count") if isinstance(stage136, dict) else None,
+        "stage136_ready_packet_count": stage136.get("ready_packet_count") if isinstance(stage136, dict) else None,
+        "stage136_lane_family_record_count": stage136.get("lane_family_record_count") if isinstance(stage136, dict) else None,
         "stage113_results_path": str(stage113_results_path.as_posix()),
         "stage113_decision": stage113.get("decision") if isinstance(stage113, dict) else None,
         "stage113_stage115_write_ready": stage113.get("stage115_write_ready") if isinstance(stage113, dict) else None,
@@ -333,7 +361,8 @@ def run_stage137_evaluator(
                 "binding of auditability evaluation to Stage 107 packet execution counts and Stage 101 calibration results",
                 "verification that packet executions preserve Stage 113 hardware-result lineage metadata",
                 "verification that Stage 113 preserves Stage 115/152 all-command live-submit readiness provenance",
-                "verification that PhaseWrap and every named positional comparator are present before claim-gate readiness",
+                "verification that Stage 136 exposes complete fixed-width provider/lane/template groups before evaluation",
+                "verification that PhaseWrap, every named positional comparator, and the no-position/control family are present before claim-gate readiness",
                 "a blocked outcome when real provider packet counts are missing",
             ],
             "excluded": [
@@ -364,6 +393,9 @@ def write_stage137_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "provider_scope": result["provider_scope"],
         "stage136_decision": result["stage136_decision"],
         "stage136_ready": result["stage136_ready"],
+        "stage136_packet_count": result["stage136_packet_count"],
+        "stage136_ready_packet_count": result["stage136_ready_packet_count"],
+        "stage136_lane_family_record_count": result["stage136_lane_family_record_count"],
         "stage113_results_path": result["stage113_results_path"],
         "stage113_decision": result["stage113_decision"],
         "stage113_stage115_write_ready": result["stage113_stage115_write_ready"],

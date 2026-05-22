@@ -70,6 +70,7 @@ def _ready_fixture(tmp_path):
         "rope_like": {"target": (1.0, 1.0), "counts": {"00": 80, "11": 20}},
         "sinusoidal_like": {"target": (1.0, 1.0), "counts": {"00": 70, "11": 30}},
         "alibi_like": {"target": (1.0, 1.0), "counts": {"00": 60, "11": 40}},
+        "no_position_control": {"target": (1.0, 1.0), "counts": {"00": 50, "11": 50}},
     }
     packet_templates = []
     for family, spec in families.items():
@@ -105,7 +106,16 @@ def _ready_fixture(tmp_path):
         }
     ]
     _write_json(tmp_path / "plans.json", plans)
-    _write_json(tmp_path / "stage136.json", {"decision": "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED"})
+    _write_json(
+        tmp_path / "stage136.json",
+        {
+            "decision": "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED",
+            "packet_count": 5,
+            "ready_packet_count": 5,
+            "lane_family_record_count": 1,
+            "lane_family_records": [{"all_packet_audit_traces_ready": True}],
+        },
+    )
     _stage113_ready(tmp_path / "stage113.json")
     return tmp_path / "plans.json", tmp_path / "stage136.json", tmp_path / "stage113.json"
 
@@ -134,6 +144,8 @@ def test_stage137_computes_component_reconstruction_advantage_when_counts_are_re
     assert result["auditability_advantage_count"] == 1
     summary = result["comparison_summary"][0]
     assert summary["passes_auditability_advantage_rule"] is True
+    assert summary["all_required_families_present"] is True
+    assert summary["no_position_control_present"] is True
     assert summary["phasewrap_lower_error_than"] == ["rope_like", "sinusoidal_like", "alibi_like"]
 
 
@@ -159,6 +171,27 @@ def test_stage137_requires_stage113_live_submit_provenance_for_claim_gate(tmp_pa
     assert result["ready_window_count"] == 0
     assert result["stage113_live_submit_provenance_ready"] is False
     assert "stage113_live_submit_provenance_not_ready" in result["window_records"][0]["missing_evidence"]
+
+
+def test_stage137_requires_stage136_fixed_width_group_counters(tmp_path) -> None:
+    plans, stage136, stage113 = _ready_fixture(tmp_path)
+    _write_json(
+        stage136,
+        {
+            "decision": "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED",
+            "packet_count": 5,
+            "ready_packet_count": 4,
+            "lane_family_record_count": 1,
+            "lane_family_records": [{"all_packet_audit_traces_ready": False}],
+        },
+    )
+
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136, stage113_results_path=stage113)
+
+    assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
+    assert result["stage136_ready"] is False
+    assert result["stage136_ready_packet_count"] == 4
+    assert "stage136_auditability_contract_not_ready" in result["window_records"][0]["missing_evidence"]
 
 
 def test_stage137_rejects_complete_counts_without_stage113_status(tmp_path) -> None:
@@ -206,6 +239,25 @@ def test_stage137_rejects_incomplete_positional_comparator_group(tmp_path) -> No
 
     assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
     assert result["ready_window_count"] == 0
+    assert "auditability_comparison_groups_incomplete" in result["window_records"][0]["missing_evidence"]
+
+
+def test_stage137_rejects_missing_no_position_control_group(tmp_path) -> None:
+    plans, stage136, stage113 = _ready_fixture(tmp_path)
+    payload = json.loads(plans.read_text(encoding="utf-8"))
+    packet_templates = payload[0]["steps"][1]["packet_templates"]
+    payload[0]["steps"][1]["packet_templates"] = [
+        record for record in packet_templates if record["encoding_family"] != "no_position_control"
+    ]
+    _write_json(plans, payload)
+
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136, stage113_results_path=stage113)
+
+    assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
+    assert result["ready_window_count"] == 0
+    summary = result["window_records"][0]["comparison_summary"][0]
+    assert summary["all_required_families_present"] is False
+    assert summary["no_position_control_present"] is False
     assert "auditability_comparison_groups_incomplete" in result["window_records"][0]["missing_evidence"]
 
 
