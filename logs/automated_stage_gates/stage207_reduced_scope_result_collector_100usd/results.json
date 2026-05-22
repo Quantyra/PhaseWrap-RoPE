@@ -1,0 +1,182 @@
+{
+  "blockers": [
+    "runtime_jobs_not_complete"
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "new hardware submission",
+      "calibration pass/fail",
+      "robustness or auditability interpretation"
+    ],
+    "supported": [
+      "provider result-count collection for completed Stage205 jobs"
+    ]
+  },
+  "collected_template_count": 0,
+  "collected_templates": [],
+  "collection_records": [
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__alibi_like",
+      "runtime_job_id": "d88dh88p0eas73dnac7g",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__matched_nonzero_null_control",
+      "runtime_job_id": "d88dha1789is739215dg",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__phasewrap",
+      "runtime_job_id": "d88dhbtg7okc73endjhg",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__rope_like",
+      "runtime_job_id": "d88dhdlg7okc73endjk0",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__sinusoidal_like",
+      "runtime_job_id": "d88dhflg7okc73endjm0",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__alibi_like",
+      "runtime_job_id": "d88dhhas46sc73f9amfg",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__matched_nonzero_null_control",
+      "runtime_job_id": "d88dhip789is739215ng",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__phasewrap",
+      "runtime_job_id": "d88dhk8p0eas73dnacn0",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__rope_like",
+      "runtime_job_id": "d88dhm1789is739215s0",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_cx_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__sinusoidal_like",
+      "runtime_job_id": "d88dhnop0eas73dnacqg",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__alibi_like",
+      "runtime_job_id": "d88dhp9789is73921600",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__matched_nonzero_null_control",
+      "runtime_job_id": "d88dhr0p0eas73dnad00",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__phasewrap",
+      "runtime_job_id": "d88dht1789is73921640",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__rope_like",
+      "runtime_job_id": "d88dhuqs46sc73f9amu0",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed314_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__sinusoidal_like",
+      "runtime_job_id": "d88di0p789is73921680",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__alibi_like",
+      "runtime_job_id": "d88di2gp0eas73dnad80",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__matched_nonzero_null_control",
+      "runtime_job_id": "d88di49789is739216c0",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__phasewrap",
+      "runtime_job_id": "d88di61789is739216f0",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__rope_like",
+      "runtime_job_id": "d88di7op0eas73dnadfg",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "ibm_product_seed577_rows16_shots2048__matched_nonzero_null_noise_sensitivity_v1__sinusoidal_like",
+      "runtime_job_id": "d88di99789is739216lg",
+      "status": "QUEUED"
+    },
+    {
+      "counts_recorded": false,
+      "error_type": "",
+      "packet_id": "",
+      "runtime_job_id": "d88dib0p0eas73dnadl0",
+      "status": "QUEUED"
+    }
+  ],
+  "decision": "REDUCED_SCOPE_RESULT_COLLECTION_PENDING_OR_BLOCKED",
+  "expected_template_count": 21,
+  "missing_source_artifacts": [],
+  "next_gate": "After all counts are collected, validate known-state calibration before computing hardware robustness and auditability metrics.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage207_reduced_scope_result_collector_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage205_reduced_scope_hardware_submission_100usd/results.json",
+    "logs/automated_stage_gates/stage203_reduced_scope_execution_package_100usd/results.json"
+  ],
+  "stage": "stage207_reduced_scope_result_collector",
+  "status": "completed"
+}

@@ -1,0 +1,34 @@
+{
+  "blockers": [
+    "runtime_jobs_not_complete"
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "new hardware submission",
+      "calibration pass/fail",
+      "robustness or auditability interpretation"
+    ],
+    "supported": [
+      "provider result-count collection for completed Stage205 jobs"
+    ]
+  },
+  "collected_template_count": 0,
+  "decision": "REDUCED_SCOPE_RESULT_COLLECTION_PENDING_OR_BLOCKED",
+  "expected_template_count": 21,
+  "missing_source_artifacts": [],
+  "next_gate": "After all counts are collected, validate known-state calibration before computing hardware robustness and auditability metrics.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "result_path": "logs/automated_stage_gates/stage207_reduced_scope_result_collector_100usd/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage207_reduced_scope_result_collector_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage205_reduced_scope_hardware_submission_100usd/results.json",
+    "logs/automated_stage_gates/stage203_reduced_scope_execution_package_100usd/results.json"
+  ],
+  "stage": "stage207_reduced_scope_result_collector",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage207_reduced_scope_result_collector_100usd/summary.csv"
+}
