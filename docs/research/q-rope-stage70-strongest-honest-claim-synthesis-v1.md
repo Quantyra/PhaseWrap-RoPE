@@ -28,9 +28,9 @@ Stage 70 records `BOUND_STRONGEST_HONEST_CLAIM_WITH_RETRIEVAL_FAILURES`.
 
 The generated strongest honest claim is:
 
-> PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, and practical budget-sensitivity routes still fail free held-out support-to-token retrieval. A structural in-decoder support-routed copy expert repairs phase-cued retrieval for no_position too, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.
+> PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, and practical budget-sensitivity routes still fail free held-out support-to-token retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.
 
-The refreshed synthesis loads source manifests through Stage 87 with no missing source artifacts. It also preserves the key positive and negative evidence:
+The refreshed synthesis loads source manifests through Stage 88 with no missing source artifacts. It also preserves the key positive and negative evidence:
 
 - Stage 67 proves that standard visible content-key retrieval is solvable by the current two-block pointer-generator harness for every tested method, including `no_position`.
 - Recent pointer-generator variants preserve train capacity and include tiny text-fact QA positives, with Stage 65 reaching `0.783333` best held-out top-1.
@@ -39,6 +39,7 @@ The refreshed synthesis loads source manifests through Stage 87 with no missing 
 - Stages 80 and 81 show hard and soft support-routed token selection can solve phase-cued retrieval, but only as non-promotional/method-nonspecific diagnostics.
 - Stages 82-86 show the current learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, and practical budget-sensitivity routes still fail held-out support-to-token retrieval.
 - Stage 87 shows a structural support-routed copy expert can repair phase-cued retrieval, but `no_position` solves too and exact-offset remains below threshold.
+- Stage 88 shows structural retrieval-routed copy experts can jointly repair phase-cued and exact-offset retrieval, but the composed repair is structural and not PhaseWrap-led.
 
 ## Interpretation
 
@@ -65,4 +66,4 @@ Excluded:
 
 ## Next Gate
 
-Run a stronger matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows before evaluating positional-method promotion.
+Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion.

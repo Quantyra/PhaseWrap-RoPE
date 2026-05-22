@@ -120,7 +120,7 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
     assert any(item.get("stage") == "stage86_dual_auxiliary_budget_sensitivity_audit" for item in result["failure_modes"])
     assert any(item.get("stage") == "stage87_in_decoder_support_routed_copy_expert_audit" for item in result["failure_modes"])
     assert any(item.get("source") == "stage87_in_decoder_support_routed_copy_expert_audit" for item in result["positive_evidence"])
-    assert result["source_stage"] == "stage87_in_decoder_support_routed_copy_expert_audit"
+    assert result["source_stage"] == "stage88_structural_retrieval_routed_copy_expert_audit"
 
 
 def test_stage70_labels_nonpromotional_solved_retrieval_without_calling_it_unrepaired(tmp_path) -> None:
