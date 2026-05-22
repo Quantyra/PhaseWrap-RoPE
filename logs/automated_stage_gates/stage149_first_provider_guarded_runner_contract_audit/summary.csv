@@ -1,0 +1,4 @@
+check,exit_code,result_file_written,ready
+valid_injected_submitter_writes_stage114_result,0,True,True
+stage129_cutover_required_before_write,4,False,True
+invalid_submitter_result_contract_rejected,5,False,True

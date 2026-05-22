@@ -1,0 +1,60 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "provider credential values",
+      "hardware job submission",
+      "live provider SDK client creation",
+      "real provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "IBM guarded runner validates Stage 114-shaped result records before writing provider result JSONL",
+      "Stage 129 cutover authorization is required before any guarded result write",
+      "invalid submitter records fail closed without writing provider result files"
+    ]
+  },
+  "current_stage111_ready": false,
+  "current_stage129_cutover_authorized": false,
+  "decision": "FIRST_PROVIDER_GUARDED_RUNNER_CONTRACT_READY_CUTOVER_BLOCKED",
+  "first_provider_authorized_runner_count": 0,
+  "first_provider_runner_command_count": 2,
+  "first_unlock_provider": "ibm_runtime",
+  "missing_source_artifacts": [],
+  "next_gate": "Clear Stage 140/106/111/129 and Stage 133 authorization, then use the guarded IBM runner. Stage 149 only proves the runner contract with synthetic injected submitters.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "schema_version": "qrope_stage149_first_provider_guarded_runner_contract_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json",
+    "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json",
+    "logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
+    "logs/automated_stage_gates/stage133_authorized_runner_command_packet/results.json",
+    "logs/automated_stage_gates/stage145_first_provider_evidence_path_audit/results.json"
+  ],
+  "stage": "stage149_first_provider_guarded_runner_contract_audit",
+  "status": "completed",
+  "synthetic_contract_check_count": 3,
+  "synthetic_contract_ready_count": 3,
+  "synthetic_contract_records": [
+    {
+      "check": "valid_injected_submitter_writes_stage114_result",
+      "exit_code": 0,
+      "ready": true,
+      "result_file_written": true
+    },
+    {
+      "check": "stage129_cutover_required_before_write",
+      "exit_code": 4,
+      "ready": true,
+      "result_file_written": false
+    },
+    {
+      "check": "invalid_submitter_result_contract_rejected",
+      "exit_code": 5,
+      "ready": true,
+      "result_file_written": false
+    }
+  ]
+}
