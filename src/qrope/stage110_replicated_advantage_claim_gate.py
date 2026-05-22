@@ -44,14 +44,19 @@ def _window_metric_records(stage109: dict[str, Any] | None) -> list[dict[str, An
             and stage103.get("decision") == STAGE103_READY
             and stage103.get("ready_to_interpret_hardware_metrics") is True
             and stage103.get("comparison_groups_complete") is True
+            and stage103.get("stage104_matched_surface_ready") is True
+            and stage103.get("stage113_live_submit_provenance_ready") is True
             and int(stage103.get("missing_execution_count") or 0) == 0
             and int(stage103.get("metric_record_count") or 0) > 0
         )
         for summary in stage103.get("comparison_summary", []) if isinstance(stage103, dict) else []:
+            summary_provider = summary.get("provider")
             records.append(
                 {
                     "window_id": window.get("window_id"),
-                    "provider": window.get("provider"),
+                    "provider": summary_provider if summary_provider is not None else window.get("provider"),
+                    "window_provider": window.get("provider"),
+                    "stage103_summary_provider": summary_provider,
                     "source_lane_id": summary.get("source_lane_id"),
                     "circuit_template": summary.get("circuit_template"),
                     "phasewrap_mean_absolute_score_error": summary.get("phasewrap_mean_absolute_score_error"),
@@ -63,10 +68,21 @@ def _window_metric_records(stage109: dict[str, Any] | None) -> list[dict[str, An
                         stage103.get("ready_to_interpret_hardware_metrics") if isinstance(stage103, dict) else None
                     ),
                     "stage103_comparison_groups_complete": stage103.get("comparison_groups_complete") if isinstance(stage103, dict) else None,
+                    "stage103_stage104_matched_surface_ready": (
+                        stage103.get("stage104_matched_surface_ready") if isinstance(stage103, dict) else None
+                    ),
+                    "stage103_stage104_complete_matched_group_count": (
+                        stage103.get("stage104_complete_matched_group_count") if isinstance(stage103, dict) else None
+                    ),
+                    "stage103_stage113_live_submit_provenance_ready": (
+                        stage103.get("stage113_live_submit_provenance_ready") if isinstance(stage103, dict) else None
+                    ),
                     "stage103_missing_execution_count": stage103.get("missing_execution_count") if isinstance(stage103, dict) else None,
                     "stage103_metric_record_count": stage103.get("metric_record_count") if isinstance(stage103, dict) else None,
                     "stage103_results_path": str(stage103_path.as_posix()),
-                    "passes_stage103_advantage_rule": stage103_ready and _comparison_pass(summary),
+                    "passes_stage103_advantage_rule": (
+                        stage103_ready and (summary_provider is None or summary_provider == window.get("provider")) and _comparison_pass(summary)
+                    ),
                 }
             )
     return records
@@ -161,6 +177,7 @@ def run_stage110_claim_gate(
                 "enforcement of the Stage 105 independent-rerun preregistration decision before aggregation",
                 "enforcement of Stage 103 ready-for-interpretation decisions before applying comparison summaries",
                 "enforcement of Stage 103 readiness counters, complete comparison groups, and zero missing executions",
+                "enforcement of Stage 103 Stage104 matched-surface readiness and Stage113 live-submit provenance",
                 "application of the preregistered Stage 103 lower-MAE rule across Stage 105 independent windows",
                 "explicit reporting of not-supported outcomes when any required window fails the advantage rule",
             ],

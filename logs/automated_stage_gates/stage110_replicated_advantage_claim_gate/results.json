@@ -11,6 +11,7 @@
       "enforcement of the Stage 105 independent-rerun preregistration decision before aggregation",
       "enforcement of Stage 103 ready-for-interpretation decisions before applying comparison summaries",
       "enforcement of Stage 103 readiness counters, complete comparison groups, and zero missing executions",
+      "enforcement of Stage 103 Stage104 matched-surface readiness and Stage113 live-submit provenance",
       "application of the preregistered Stage 103 lower-MAE rule across Stage 105 independent windows",
       "explicit reporting of not-supported outcomes when any required window fails the advantage rule"
     ]
