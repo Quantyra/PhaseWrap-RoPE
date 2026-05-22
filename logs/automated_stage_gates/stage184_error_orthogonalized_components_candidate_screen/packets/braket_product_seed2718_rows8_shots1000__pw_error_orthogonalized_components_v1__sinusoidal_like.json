@@ -1,0 +1,309 @@
+{
+  "backend": "arn:aws:braket:REGION::device/qpu/PROVIDER/DEVICE_TO_BE_SELECTED",
+  "claim_boundary": "Error-orthogonalized components candidate packet for simulated IBM-informed screening only; not a hardware robustness result.",
+  "design_family_id": "pw_error_orthogonalized_components_v1",
+  "encoding_family": "sinusoidal_like",
+  "execution_status": "not_submitted",
+  "fixed_width": {
+    "active_qubits": 2,
+    "circuit_template": "two_ry_product_state_z_readout_v1",
+    "entangling_gate": null,
+    "measured_qubits": 2,
+    "readout": "computational_basis",
+    "score_observable": "0.5 + 0.25 * (E[Z0] + E[Z1])"
+  },
+  "matching_policy": {
+    "component_transform": "zero-centered component-basis rotation intended to reduce alignment with symmetric shrink/readout",
+    "control_policy": "no-position control remains the preregistered zero-component control",
+    "hardware_scope": "simulated candidate screen only; not hardware evidence",
+    "qubit_count": "fixed at two measured qubits",
+    "row_set": "identical source rows across all encoding families within each redesigned lane"
+  },
+  "no_hardware_submission": true,
+  "packet_hash": "f85f683d50e45ee4fef32f68ec8e247e5d2951e1708f7e4020f63e1293506d93",
+  "packet_id": "braket_product_seed2718_rows8_shots1000__pw_error_orthogonalized_components_v1__sinusoidal_like",
+  "packet_version": "qrope_stage184_error_orthogonalized_components_candidate_packet_v1",
+  "provider": "amazon_braket",
+  "provider_credentials_required": false,
+  "row_count": 8,
+  "rows": [
+    {
+      "circuit_parameters": {
+        "ry_q0": 2.199114857513,
+        "ry_q1": 0.314159265359,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": -0.587785252292,
+        "z1_target": 0.951056516295
+      },
+      "components": {
+        "component_a": -0.587785252292,
+        "component_b": 0.951056516295
+      },
+      "delta": -6.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "sinusoidal_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.590817816001
+      },
+      "normalized_delta": -0.1,
+      "row_hash": "c158d48a598903fe49c8e2753ebfaa6bd5b0523707302e2aa79360dd50304b16",
+      "row_id": "hwrow-000",
+      "source": {
+        "candidate_delta": -16,
+        "context_id": "s2718_r025_1",
+        "quadrant": "00",
+        "reference_delta": -22,
+        "seed": 2718,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s2718_r025_1 slot:0 q_pos:69 ref_key_pos:91 cand_key_pos:85 ref_delta:-22 cand_delta:-16 q_tok:C ref_tok:D cand_tok:A"
+      },
+      "source_row_hash": "40e07c42cbb37f5a54eab9d9679e8d7be3621b53b11e24c30e27bb3cf4d0a2b3"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 2.827433388231,
+        "ry_q1": 0.628318530718,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": -0.951056516295,
+        "z1_target": 0.809016994375
+      },
+      "components": {
+        "component_a": -0.951056516295,
+        "component_b": 0.809016994375
+      },
+      "delta": -12.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "sinusoidal_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.46449011952
+      },
+      "normalized_delta": -0.2,
+      "row_hash": "5771a197de234d13ba5231b2f142b5ff3aebe20bec61edb8ca1f34c7d070450a",
+      "row_id": "hwrow-001",
+      "source": {
+        "candidate_delta": -10,
+        "context_id": "s2718_r025_1",
+        "quadrant": "01",
+        "reference_delta": -22,
+        "seed": 2718,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s2718_r025_1 slot:1 q_pos:69 ref_key_pos:91 cand_key_pos:79 ref_delta:-22 cand_delta:-10 q_tok:C ref_tok:D cand_tok:B"
+      },
+      "source_row_hash": "1accfdbf8160d8d1fc07d1a41f4b10277f0293500b6b0d1aeaaa1ba1387fc3b4"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 0.733038285838,
+        "ry_q1": 0.418879020479,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.743144825477,
+        "z1_target": 0.913545457643
+      },
+      "components": {
+        "component_a": 0.743144825477,
+        "component_b": 0.913545457643
+      },
+      "delta": 8.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "sinusoidal_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.91417257078
+      },
+      "normalized_delta": 0.133333333333,
+      "row_hash": "e3e854e9801ff27b53a9473ac6b873e659143cd18d26604cdfea3d7d26f87fd7",
+      "row_id": "hwrow-002",
+      "source": {
+        "candidate_delta": -30,
+        "context_id": "s2718_r025_1",
+        "quadrant": "10",
+        "reference_delta": -22,
+        "seed": 2718,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s2718_r025_1 slot:2 q_pos:69 ref_key_pos:91 cand_key_pos:99 ref_delta:-22 cand_delta:-30 q_tok:C ref_tok:D cand_tok:C"
+      },
+      "source_row_hash": "39674c90d631c91e0d7a38f99b96765e582800a7f25239b29a369f62db37753a"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 0.942477796077,
+        "ry_q1": 1.256637061436,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.587785252292,
+        "z1_target": 0.309016994375
+      },
+      "components": {
+        "component_a": 0.587785252292,
+        "component_b": 0.309016994375
+      },
+      "delta": 24.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "sinusoidal_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.724200561667
+      },
+      "normalized_delta": 0.4,
+      "row_hash": "24908f4157605e6d7e94db5982db878b6569111c703aa039d4a092ec53cae590",
+      "row_id": "hwrow-003",
+      "source": {
+        "candidate_delta": -46,
+        "context_id": "s2718_r025_1",
+        "quadrant": "11",
+        "reference_delta": -22,
+        "seed": 2718,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s2718_r025_1 slot:3 q_pos:69 ref_key_pos:91 cand_key_pos:115 ref_delta:-22 cand_delta:-46 q_tok:C ref_tok:D cand_tok:D"
+      },
+      "source_row_hash": "907ebca92293117718d292b9d2d9b3cb99458a577a057c1a855686df834ec08d"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.466076571675,
+        "ry_q1": 1.518436449235,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.104528463268,
+        "z1_target": 0.052335956243
+      },
+      "components": {
+        "component_a": 0.104528463268,
+        "component_b": 0.052335956243
+      },
+      "delta": 29.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "sinusoidal_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.539216104878
+      },
+      "normalized_delta": 0.483333333333,
+      "row_hash": "8edab9a6ea8b35cc418654b53974c8b4ab63a5a44673fcabd36ac5c3b21ca9a2",
+      "row_id": "hwrow-004",
+      "source": {
+        "candidate_delta": -44,
+        "context_id": "s2718_r032_0",
+        "quadrant": "00",
+        "reference_delta": -15,
+        "seed": 2718,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s2718_r032_0 slot:0 q_pos:68 ref_key_pos:83 cand_key_pos:112 ref_delta:-15 cand_delta:-44 q_tok:A ref_tok:B cand_tok:C"
+      },
+      "source_row_hash": "4878cc997ae79fb8bb4c2e4f7985afb97edf780a3f23db120ae71b43effe599c"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.570796326795,
+        "ry_q1": 3.14159265359,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.0,
+        "z1_target": -1.0
+      },
+      "components": {
+        "component_a": 0.0,
+        "component_b": -1.0
+      },
+      "delta": -60.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "sinusoidal_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.25
+      },
+      "normalized_delta": -1.0,
+      "row_hash": "32f99b2cbcddfe6b366ca42a816fdbc159f695b60d685c17404494d254998517",
+      "row_id": "hwrow-005",
+      "source": {
+        "candidate_delta": 45,
+        "context_id": "s2718_r032_0",
+        "quadrant": "01",
+        "reference_delta": -15,
+        "seed": 2718,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s2718_r032_0 slot:1 q_pos:68 ref_key_pos:83 cand_key_pos:23 ref_delta:-15 cand_delta:45 q_tok:A ref_tok:B cand_tok:D"
+      },
+      "source_row_hash": "e69de7399d7800eeb95b2f899a3742eaf117b13d2ba8a49c2b788b220e2494d0"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 0.733038285838,
+        "ry_q1": 0.418879020479,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.743144825477,
+        "z1_target": 0.913545457643
+      },
+      "components": {
+        "component_a": 0.743144825477,
+        "component_b": 0.913545457643
+      },
+      "delta": 8.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "sinusoidal_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.91417257078
+      },
+      "normalized_delta": 0.133333333333,
+      "row_hash": "18b11b5ece35940f380299881eb7f9e4fe69fcf0307f3b841e0734be877efce0",
+      "row_id": "hwrow-006",
+      "source": {
+        "candidate_delta": -23,
+        "context_id": "s2718_r032_0",
+        "quadrant": "10",
+        "reference_delta": -15,
+        "seed": 2718,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s2718_r032_0 slot:2 q_pos:68 ref_key_pos:83 cand_key_pos:91 ref_delta:-15 cand_delta:-23 q_tok:A ref_tok:B cand_tok:A"
+      },
+      "source_row_hash": "17139a45f7fdf260bbc7037507b45a8fe9664a0e7d0a0bfb35f8d3a6322bd2cc"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 0.314159265359,
+        "ry_q1": 2.513274122872,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.951056516295,
+        "z1_target": -0.809016994375
+      },
+      "components": {
+        "component_a": 0.951056516295,
+        "component_b": -0.809016994375
+      },
+      "delta": -48.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "sinusoidal_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.53550988048
+      },
+      "normalized_delta": -0.8,
+      "row_hash": "16a8716f7d84fd8fec466f96af9fcfa3e54f22192aafc0ad68af97ffc86e5a01",
+      "row_id": "hwrow-007",
+      "source": {
+        "candidate_delta": 33,
+        "context_id": "s2718_r032_0",
+        "quadrant": "11",
+        "reference_delta": -15,
+        "seed": 2718,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s2718_r032_0 slot:3 q_pos:68 ref_key_pos:83 cand_key_pos:35 ref_delta:-15 cand_delta:33 q_tok:A ref_tok:B cand_tok:B"
+      },
+      "source_row_hash": "9c5f244fd71332b37e033dcf1a4ff1c8d2048251a29120789a89c1614066e768"
+    }
+  ],
+  "schema_version": "qrope_stage184_error_orthogonalized_components_candidate_screen_v1",
+  "shot_count": 1000,
+  "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+  "source_packet_path": "logs/automated_stage_gates/stage4_preregistered_replication_packets/braket_product_seed2718_rows8_shots1000.json",
+  "source_row_set_hash": "68afb1a5d75f0b5bbc2327d81163c19372a379e90accba3e0be086d54357d293",
+  "source_stage": "stage4_preregistered_replication_packets"
+}

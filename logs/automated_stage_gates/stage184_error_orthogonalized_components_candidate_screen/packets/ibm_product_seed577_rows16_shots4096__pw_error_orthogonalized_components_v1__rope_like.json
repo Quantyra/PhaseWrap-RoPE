@@ -1,0 +1,581 @@
+{
+  "backend": "PREREGISTERED_IBM_BACKEND_TO_BE_SELECTED",
+  "claim_boundary": "Error-orthogonalized components candidate packet for simulated IBM-informed screening only; not a hardware robustness result.",
+  "design_family_id": "pw_error_orthogonalized_components_v1",
+  "encoding_family": "rope_like",
+  "execution_status": "not_submitted",
+  "fixed_width": {
+    "active_qubits": 2,
+    "circuit_template": "two_ry_product_state_z_readout_v1",
+    "entangling_gate": null,
+    "measured_qubits": 2,
+    "readout": "computational_basis",
+    "score_observable": "0.5 + 0.25 * (E[Z0] + E[Z1])"
+  },
+  "matching_policy": {
+    "component_transform": "zero-centered component-basis rotation intended to reduce alignment with symmetric shrink/readout",
+    "control_policy": "no-position control remains the preregistered zero-component control",
+    "hardware_scope": "simulated candidate screen only; not hardware evidence",
+    "qubit_count": "fixed at two measured qubits",
+    "row_set": "identical source rows across all encoding families within each redesigned lane"
+  },
+  "no_hardware_submission": true,
+  "packet_hash": "23b91d866f5d2ca18b750133f73fde71921358363ce4e8c84bc4c105ee0d750e",
+  "packet_id": "ibm_product_seed577_rows16_shots4096__pw_error_orthogonalized_components_v1__rope_like",
+  "packet_version": "qrope_stage184_error_orthogonalized_components_candidate_packet_v1",
+  "provider": "ibm_runtime",
+  "provider_credentials_required": false,
+  "row_count": 16,
+  "rows": [
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.400144410439,
+        "ry_q1": 1.520394907374,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.1698248319,
+        "z1_target": 0.050380082985
+      },
+      "components": {
+        "component_a": 0.1698248319,
+        "component_b": 0.050380082985
+      },
+      "delta": 29.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.555051228721
+      },
+      "normalized_delta": 0.402777777778,
+      "row_hash": "1dea08a14344def6f4e40974b5c8240d1ca631c188090ca5dba0c1edeb48720e",
+      "row_id": "hwrow-000",
+      "source": {
+        "candidate_delta": 5,
+        "context_id": "s577_r080_1",
+        "quadrant": "00",
+        "reference_delta": 34,
+        "seed": 577,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s577_r080_1 slot:0 q_pos:68 ref_key_pos:34 cand_key_pos:63 ref_delta:34 cand_delta:5 q_tok:B ref_tok:C cand_tok:D"
+      },
+      "source_row_hash": "2bd831ae07f68a04d922330b229f8758dad6c53d96f109f6b582958d2f6af1c7"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.235227784492,
+        "ry_q1": 1.47922353731,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.329306053921,
+        "z1_target": 0.091444861374
+      },
+      "components": {
+        "component_a": 0.329306053921,
+        "component_b": 0.091444861374
+      },
+      "delta": -12.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.605187728824
+      },
+      "normalized_delta": -0.166666666667,
+      "row_hash": "c80e36353797887c2641fe1752b75153848f5fe7f6daf0ac24ebb69a039d55ef",
+      "row_id": "hwrow-001",
+      "source": {
+        "candidate_delta": 46,
+        "context_id": "s577_r080_1",
+        "quadrant": "01",
+        "reference_delta": 34,
+        "seed": 577,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s577_r080_1 slot:1 q_pos:68 ref_key_pos:34 cand_key_pos:22 ref_delta:34 cand_delta:46 q_tok:B ref_tok:C cand_tok:A"
+      },
+      "source_row_hash": "4baae2f993ab2516c961de1d7b1d78cb27f7e8de343dd5eb459c5365dc0a5f31"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.848535052686,
+        "ry_q1": 1.645505873076,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": -0.274181734084,
+        "z1_target": -0.074640066915
+      },
+      "components": {
+        "component_a": -0.274181734084,
+        "component_b": -0.074640066915
+      },
+      "delta": 55.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.41279454975
+      },
+      "normalized_delta": 0.763888888889,
+      "row_hash": "4bc7aa855c42afc445014a945c1f467cca059b209f92004bf15dac1b19401313",
+      "row_id": "hwrow-002",
+      "source": {
+        "candidate_delta": -21,
+        "context_id": "s577_r080_1",
+        "quadrant": "10",
+        "reference_delta": 34,
+        "seed": 577,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s577_r080_1 slot:2 q_pos:68 ref_key_pos:34 cand_key_pos:89 ref_delta:34 cand_delta:-21 q_tok:B ref_tok:C cand_tok:B"
+      },
+      "source_row_hash": "e9284f2930b6468495971da72c39bffffc4be549a6f2472de86e9db5e70b7d66"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 2.260903418169,
+        "ry_q1": 1.764906217648,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": -0.636619772368,
+        "z1_target": -0.192893218813
+      },
+      "components": {
+        "component_a": -0.636619772368,
+        "component_b": -0.192893218813
+      },
+      "delta": 72.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.292621752205
+      },
+      "normalized_delta": 1.0,
+      "row_hash": "a199785e45b440bc70da04f41697c32d2be5fe859dcb4277d8cb325200b01d7a",
+      "row_id": "hwrow-003",
+      "source": {
+        "candidate_delta": -38,
+        "context_id": "s577_r080_1",
+        "quadrant": "11",
+        "reference_delta": 34,
+        "seed": 577,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s577_r080_1 slot:3 q_pos:68 ref_key_pos:34 cand_key_pos:106 ref_delta:34 cand_delta:-38 q_tok:B ref_tok:C cand_tok:C"
+      },
+      "source_row_hash": "ef81e08d35aee0db0a96cde847f48153b4cbebf9b78eefc3071cced21d291fa4"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.688917331405,
+        "ry_q1": 1.599372290406,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": -0.117846514207,
+        "z1_target": -0.02857207465
+      },
+      "components": {
+        "component_a": -0.117846514207,
+        "component_b": -0.02857207465
+      },
+      "delta": -47.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.463395352786
+      },
+      "normalized_delta": -0.652777777778,
+      "row_hash": "d1003afda309d5411accae1bc0f600b8998430068094649bf2f167e6f82c3ed4",
+      "row_id": "hwrow-004",
+      "source": {
+        "candidate_delta": 17,
+        "context_id": "s577_r017_0",
+        "quadrant": "00",
+        "reference_delta": -30,
+        "seed": 577,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s577_r017_0 slot:0 q_pos:67 ref_key_pos:97 cand_key_pos:50 ref_delta:-30 cand_delta:17 q_tok:B ref_tok:C cand_tok:D"
+      },
+      "source_row_hash": "3a40507e0de7eb40fdbc2370a510c3a58c150b36a55332ab12dd496db3b78196"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.958216154216,
+        "ry_q1": 1.677646186032,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": -0.377800727265,
+        "z1_target": -0.106646659709
+      },
+      "components": {
+        "component_a": -0.377800727265,
+        "component_b": -0.106646659709
+      },
+      "delta": -60.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.378888153257
+      },
+      "normalized_delta": -0.833333333333,
+      "row_hash": "a8002f9552e35afa1d46f0fa565fcb77caa2af4b9bc03efc434d17b4690f1c2c",
+      "row_id": "hwrow-005",
+      "source": {
+        "candidate_delta": 30,
+        "context_id": "s577_r017_0",
+        "quadrant": "01",
+        "reference_delta": -30,
+        "seed": 577,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s577_r017_0 slot:1 q_pos:67 ref_key_pos:97 cand_key_pos:37 ref_delta:-30 cand_delta:30 q_tok:B ref_tok:C cand_tok:A"
+      },
+      "source_row_hash": "68fbf6e3f584cba66faf061e92df383ca81bd2f5812260a496edb973b95fdc24"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.262880813547,
+        "ry_q1": 1.48588658209,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.303072848418,
+        "z1_target": 0.084807753012
+      },
+      "components": {
+        "component_a": 0.303072848418,
+        "component_b": 0.084807753012
+      },
+      "delta": 16.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.596970150358
+      },
+      "normalized_delta": 0.222222222222,
+      "row_hash": "6777ac9cfff991530a93ba3370cc0342d0a60b9c5e887c6ee7d165726aac8d11",
+      "row_id": "hwrow-006",
+      "source": {
+        "candidate_delta": -46,
+        "context_id": "s577_r017_0",
+        "quadrant": "10",
+        "reference_delta": -30,
+        "seed": 577,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s577_r017_0 slot:2 q_pos:67 ref_key_pos:97 cand_key_pos:113 ref_delta:-30 cand_delta:-46 q_tok:B ref_tok:C cand_tok:B"
+      },
+      "source_row_hash": "ce0ab2585dec7515bd0214bf694f3c65d1979f9df7e917ab9e86c88c4875223d"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.339329342097,
+        "ry_q1": 1.504822652234,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.229405631417,
+        "z1_target": 0.065925826289
+      },
+      "components": {
+        "component_a": 0.229405631417,
+        "component_b": 0.065925826289
+      },
+      "delta": -24.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.573832864426
+      },
+      "normalized_delta": -0.333333333333,
+      "row_hash": "11bdadb8d335db3750b9a60bb3e421988fa74b1f1c754d779fc778d30b585cbf",
+      "row_id": "hwrow-007",
+      "source": {
+        "candidate_delta": -6,
+        "context_id": "s577_r017_0",
+        "quadrant": "11",
+        "reference_delta": -30,
+        "seed": 577,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s577_r017_0 slot:3 q_pos:67 ref_key_pos:97 cand_key_pos:73 ref_delta:-30 cand_delta:-6 q_tok:B ref_tok:C cand_tok:C"
+      },
+      "source_row_hash": "d137388d4ff16ec3d68947b3a7816d31b1851bc06db9208ff8d1d09c80eba2a0"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 2.205576327755,
+        "ry_q1": 1.749380089216,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": -0.593000385002,
+        "z1_target": -0.17763603794
+      },
+      "components": {
+        "component_a": -0.593000385002,
+        "component_b": -0.17763603794
+      },
+      "delta": -70.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.307340894264
+      },
+      "normalized_delta": -0.972222222222,
+      "row_hash": "9936314293e8d3a075a83f9e062b8eab52644dd9cf8d36ecc35a53d350ab30aa",
+      "row_id": "hwrow-008",
+      "source": {
+        "candidate_delta": 47,
+        "context_id": "s577_r024_0",
+        "quadrant": "00",
+        "reference_delta": -23,
+        "seed": 577,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s577_r024_0 slot:0 q_pos:67 ref_key_pos:90 cand_key_pos:20 ref_delta:-23 cand_delta:47 q_tok:A ref_tok:B cand_tok:C"
+      },
+      "source_row_hash": "8c9b27e4b900226fa28d39486ba12148cb1b79f4ff599f99d46c092f8372df84"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.515875437861,
+        "ry_q1": 1.551144841576,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.054893283415,
+        "z1_target": 0.019650220405
+      },
+      "components": {
+        "component_a": 0.054893283415,
+        "component_b": 0.019650220405
+      },
+      "delta": -37.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.518635875955
+      },
+      "normalized_delta": -0.513888888889,
+      "row_hash": "c8e860ef755c40873af540dadb97e0157203e3f68c2f8d276f104bfc80c16b63",
+      "row_id": "hwrow-009",
+      "source": {
+        "candidate_delta": 14,
+        "context_id": "s577_r024_0",
+        "quadrant": "01",
+        "reference_delta": -23,
+        "seed": 577,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s577_r024_0 slot:1 q_pos:67 ref_key_pos:90 cand_key_pos:53 ref_delta:-23 cand_delta:14 q_tok:A ref_tok:B cand_tok:D"
+      },
+      "source_row_hash": "369be099457a05933cbedf61a298c5a7f01eb3278fae794d6a5e820bd9c6cd91"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.215158894593,
+        "ry_q1": 1.474452652533,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.348187980645,
+        "z1_target": 0.096194698092
+      },
+      "components": {
+        "component_a": 0.348187980645,
+        "component_b": 0.096194698092
+      },
+      "delta": -8.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.611095669684
+      },
+      "normalized_delta": -0.111111111111,
+      "row_hash": "84d1e17e31c695f097dfe0f08a86cbfd84b225e1dd457148ab886fe7c51de4bc",
+      "row_id": "hwrow-010",
+      "source": {
+        "candidate_delta": -15,
+        "context_id": "s577_r024_0",
+        "quadrant": "10",
+        "reference_delta": -23,
+        "seed": 577,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s577_r024_0 slot:2 q_pos:67 ref_key_pos:90 cand_key_pos:82 ref_delta:-23 cand_delta:-15 q_tok:A ref_tok:B cand_tok:A"
+      },
+      "source_row_hash": "0535b41050687e177b7048a1a92030ba37af175dfb0a1a0f4721d6b03335667a"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.198902737543,
+        "ry_q1": 1.470628905633,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.363380227632,
+        "z1_target": 0.1
+      },
+      "components": {
+        "component_a": 0.363380227632,
+        "component_b": 0.1
+      },
+      "delta": 0.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.615845056908
+      },
+      "normalized_delta": 0.0,
+      "row_hash": "ed053215364d46b50e459c2777ef4a0ee6fc64c2212a990eb2fb11c75b8c5123",
+      "row_id": "hwrow-011",
+      "source": {
+        "candidate_delta": -23,
+        "context_id": "s577_r024_0",
+        "quadrant": "11",
+        "reference_delta": -23,
+        "seed": 577,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s577_r024_0 slot:3 q_pos:67 ref_key_pos:90 cand_key_pos:90 ref_delta:-23 cand_delta:-23 q_tok:A ref_tok:B cand_tok:B"
+      },
+      "source_row_hash": "f2f019d711c505e6bc0c4c86d70bc1bbb0d7b78ffcfda913c30404ad2ddcd47f"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.205274640062,
+        "ry_q1": 1.472123306363,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.357436565855,
+        "z1_target": 0.09851297894
+      },
+      "components": {
+        "component_a": 0.357436565855,
+        "component_b": 0.09851297894
+      },
+      "delta": 5.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.613987386199
+      },
+      "normalized_delta": 0.069444444444,
+      "row_hash": "f199523eaddcbfba686f954fa1190c8d57be57e4cbef9590a45a8e31aa1661b4",
+      "row_id": "hwrow-012",
+      "source": {
+        "candidate_delta": -24,
+        "context_id": "s577_r028_0",
+        "quadrant": "00",
+        "reference_delta": -19,
+        "seed": 577,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s577_r028_0 slot:0 q_pos:64 ref_key_pos:83 cand_key_pos:88 ref_delta:-19 cand_delta:-24 q_tok:A ref_tok:B cand_tok:C"
+      },
+      "source_row_hash": "b5f595f1522d62d74ea3ad1207e50019614525a0cf70315f37458ba174b007e4"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.981150235483,
+        "ry_q1": 1.68437464903,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": -0.398933880041,
+        "z1_target": -0.113334285631
+      },
+      "components": {
+        "component_a": -0.398933880041,
+        "component_b": -0.113334285631
+      },
+      "delta": -61.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.371932958582
+      },
+      "normalized_delta": -0.847222222222,
+      "row_hash": "f4f2db32f0a413efc396a740b2898ef43a138bda0373d097f6d5408a353519c9",
+      "row_id": "hwrow-013",
+      "source": {
+        "candidate_delta": 42,
+        "context_id": "s577_r028_0",
+        "quadrant": "01",
+        "reference_delta": -19,
+        "seed": 577,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s577_r028_0 slot:1 q_pos:64 ref_key_pos:83 cand_key_pos:22 ref_delta:-19 cand_delta:42 q_tok:A ref_tok:B cand_tok:D"
+      },
+      "source_row_hash": "10b88b9217561f13d384a0fa13af3504743bdb6852f3af33f5f542a25e7e80df"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.215158894593,
+        "ry_q1": 1.474452652533,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": 0.348187980645,
+        "z1_target": 0.096194698092
+      },
+      "components": {
+        "component_a": 0.348187980645,
+        "component_b": 0.096194698092
+      },
+      "delta": 8.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.611095669684
+      },
+      "normalized_delta": 0.111111111111,
+      "row_hash": "9b235a7e3cebeca8af744908342aaba270a5063eff34707ed4b4b280a72ff670",
+      "row_id": "hwrow-014",
+      "source": {
+        "candidate_delta": -27,
+        "context_id": "s577_r028_0",
+        "quadrant": "10",
+        "reference_delta": -19,
+        "seed": 577,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s577_r028_0 slot:2 q_pos:64 ref_key_pos:83 cand_key_pos:91 ref_delta:-19 cand_delta:-27 q_tok:A ref_tok:B cand_tok:A"
+      },
+      "source_row_hash": "67017400ca652ffb979bdbd3baba44a10b9d5a5d26a04d13e4f9b7242be30f99"
+    },
+    {
+      "circuit_parameters": {
+        "ry_q0": 1.707844709492,
+        "ry_q1": 1.604777462402,
+        "template": "two_ry_product_state_z_readout_v1",
+        "z0_target": -0.136619772368,
+        "z1_target": -0.033974596216
+      },
+      "components": {
+        "component_a": -0.136619772368,
+        "component_b": -0.033974596216
+      },
+      "delta": -48.0,
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "encoding_family": "rope_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0] + E[Z1])",
+        "score": 0.457351407854
+      },
+      "normalized_delta": -0.666666666667,
+      "row_hash": "f25c263d4574e3ec97cd1d8ca85c6a7104f9c8a53ce61212ff54f732009557a0",
+      "row_id": "hwrow-015",
+      "source": {
+        "candidate_delta": 29,
+        "context_id": "s577_r028_0",
+        "quadrant": "11",
+        "reference_delta": -19,
+        "seed": 577,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s577_r028_0 slot:3 q_pos:64 ref_key_pos:83 cand_key_pos:35 ref_delta:-19 cand_delta:29 q_tok:A ref_tok:B cand_tok:B"
+      },
+      "source_row_hash": "a2702516ee05ef97410ac0fb577f8e39e4eb8f4f95249d3cf74c1f5d92abf8ee"
+    }
+  ],
+  "schema_version": "qrope_stage184_error_orthogonalized_components_candidate_screen_v1",
+  "shot_count": 4096,
+  "source_lane_id": "ibm_product_seed577_rows16_shots4096",
+  "source_packet_path": "logs/automated_stage_gates/stage4_preregistered_replication_packets/ibm_product_seed577_rows16_shots4096.json",
+  "source_row_set_hash": "979b9f11ea0ad9901e4608cd7a212ee427e996075040e798d3b8ba2c6dec8d67",
+  "source_stage": "stage4_preregistered_replication_packets"
+}
