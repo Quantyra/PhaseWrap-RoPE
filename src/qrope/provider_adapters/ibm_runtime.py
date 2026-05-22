@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from qrope.provider_adapters.common import ProviderAdapterBlocked, ProviderAdapterStatus, env_present, module_available
+from qrope.provider_adapters.common import ProviderAdapterBlocked, ProviderAdapterStatus, canonicalize_counts, env_present, module_available
 
 
 PROVIDER = "ibm_runtime"
@@ -57,6 +57,22 @@ def build_submission_plan(*, jobs: list[dict[str, Any]], payloads: list[dict[str
             }
         )
     return plans
+
+
+def normalize_result_counts(raw_result: Any) -> dict[str, int]:
+    if isinstance(raw_result, dict):
+        if "counts" in raw_result:
+            return canonicalize_counts(raw_result["counts"])
+        if "quasi_dists" in raw_result:
+            quasi_dists = raw_result["quasi_dists"]
+            if not quasi_dists:
+                raise ProviderAdapterBlocked("IBM Runtime quasi_dists empty")
+            shots = int(raw_result.get("shots", 0))
+            if shots <= 0:
+                raise ProviderAdapterBlocked("IBM Runtime quasi_dists require positive shots")
+            first = quasi_dists[0]
+            return canonicalize_counts({key: round(float(value) * shots) for key, value in first.items()})
+    raise ProviderAdapterBlocked("unsupported IBM Runtime result shape")
 
 
 def submit(*, provider: str, jobs: list[dict[str, Any]], payloads: list[dict[str, Any]]) -> list[dict[str, Any]]:

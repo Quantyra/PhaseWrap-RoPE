@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from qrope.provider_adapters.common import ProviderAdapterBlocked, ProviderAdapterStatus, env_present, module_available
+from qrope.provider_adapters.common import ProviderAdapterBlocked, ProviderAdapterStatus, canonicalize_counts, env_present, module_available
 
 
 PROVIDER = "amazon_braket"
@@ -63,6 +63,15 @@ def build_submission_plan(*, jobs: list[dict[str, Any]], payloads: list[dict[str
             }
         )
     return plans
+
+
+def normalize_result_counts(raw_result: Any) -> dict[str, int]:
+    if isinstance(raw_result, dict):
+        if "measurementCounts" in raw_result:
+            return canonicalize_counts(raw_result["measurementCounts"])
+        if "counts" in raw_result:
+            return canonicalize_counts(raw_result["counts"])
+    raise ProviderAdapterBlocked("unsupported Amazon Braket result shape")
 
 
 def submit(*, provider: str, jobs: list[dict[str, Any]], payloads: list[dict[str, Any]]) -> list[dict[str, Any]]:

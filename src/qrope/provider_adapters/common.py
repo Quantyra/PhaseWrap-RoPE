@@ -67,3 +67,25 @@ def env_present(required_env: tuple[str, ...]) -> dict[str, bool]:
         alternatives = [part.strip() for part in name.split(" or ")]
         presence[name] = any(bool(os.environ.get(part)) for part in alternatives)
     return presence
+
+
+def canonicalize_counts(raw_counts: Any) -> dict[str, int]:
+    if not isinstance(raw_counts, dict) or not raw_counts:
+        raise ProviderAdapterBlocked("raw provider counts missing or empty")
+    normalized: dict[str, int] = {}
+    for key, value in raw_counts.items():
+        bitstring = str(key).replace(" ", "")
+        if bitstring.startswith("0b"):
+            bitstring = bitstring[2:]
+        if not bitstring or any(char not in "01" for char in bitstring):
+            raise ProviderAdapterBlocked(f"non-bitstring count key: {key!r}")
+        try:
+            count = int(value)
+        except (TypeError, ValueError) as exc:
+            raise ProviderAdapterBlocked(f"non-integer count value for {key!r}") from exc
+        if count < 0:
+            raise ProviderAdapterBlocked(f"negative count value for {key!r}")
+        normalized[bitstring] = normalized.get(bitstring, 0) + count
+    if sum(normalized.values()) <= 0:
+        raise ProviderAdapterBlocked("canonical counts sum to zero")
+    return dict(sorted(normalized.items()))
