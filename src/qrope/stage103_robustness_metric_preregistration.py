@@ -14,6 +14,7 @@ DEFAULT_STAGE100_MANIFEST = DEFAULT_ARTIFACT_ROOT / "stage100_matched_cx_encodin
 DEFAULT_STAGE101_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage101_known_state_calibration_gate" / "results.json"
 DEFAULT_STAGE102_MANIFEST = DEFAULT_ARTIFACT_ROOT / "stage102_calibration_execution_package" / "manifest.json"
 DEFAULT_STAGE113_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage113_job_result_evidence_assembler" / "results.json"
+DEFAULT_STAGE104_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage104_matched_packet_execution_package" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage103_robustness_metric_preregistration"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
@@ -247,12 +248,12 @@ def _metrics_records(packet_paths: list[Path], execution_dir: Path | None) -> tu
 
 
 def _comparison_summary(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    by_lane: dict[tuple[str, str], dict[str, dict[str, Any]]] = {}
+    by_lane: dict[tuple[str, str, str], dict[str, dict[str, Any]]] = {}
     for record in records:
-        key = (str(record["source_lane_id"]), str(record["circuit_template"]))
+        key = (str(record.get("provider")), str(record["source_lane_id"]), str(record["circuit_template"]))
         by_lane.setdefault(key, {})[str(record["encoding_family"])] = record
     summaries = []
-    for (lane_id, template), family_records in sorted(by_lane.items()):
+    for (provider, lane_id, template), family_records in sorted(by_lane.items()):
         phasewrap = family_records.get("phasewrap")
         if phasewrap is None:
             continue
@@ -272,6 +273,7 @@ def _comparison_summary(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
         ]
         summaries.append(
             {
+                "provider": provider,
                 "source_lane_id": lane_id,
                 "circuit_template": template,
                 "phasewrap_mean_absolute_score_error": phasewrap_mae,
@@ -285,7 +287,7 @@ def _comparison_summary(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def _comparison_groups_complete(records: list[dict[str, Any]], summaries: list[dict[str, Any]]) -> bool:
     expected_groups = {
-        (str(record["source_lane_id"]), str(record["circuit_template"]))
+        (str(record.get("provider")), str(record["source_lane_id"]), str(record["circuit_template"]))
         for record in records
     }
     return bool(expected_groups) and len(summaries) == len(expected_groups) and all(
@@ -293,6 +295,24 @@ def _comparison_groups_complete(records: list[dict[str, Any]], summaries: list[d
         and record.get("phasewrap_mean_absolute_score_error") is not None
         and record.get("best_comparator_mean_absolute_score_error") is not None
         for record in summaries
+    )
+
+
+def _stage104_matched_surface_ready(stage104: dict[str, Any] | None) -> bool:
+    if not isinstance(stage104, dict):
+        return False
+    expected_packets = int(stage104.get("expected_packet_count") or 0)
+    template_count = int(stage104.get("template_count") or 0)
+    expected_groups = int(stage104.get("expected_matched_group_count") or 0)
+    matched_groups = int(stage104.get("matched_group_count") or 0)
+    complete_groups = int(stage104.get("complete_matched_group_count") or 0)
+    return bool(
+        stage104.get("decision") == "MATCHED_PACKET_EXECUTION_TEMPLATES_PREPARED_CALIBRATION_AND_COUNTS_REQUIRED"
+        and expected_packets > 0
+        and template_count == expected_packets
+        and expected_groups > 0
+        and matched_groups == expected_groups
+        and complete_groups == expected_groups
     )
 
 
@@ -321,6 +341,7 @@ def run_stage103_preregistration(
     stage101_results_path: Path = DEFAULT_STAGE101_RESULTS,
     stage102_manifest_path: Path = DEFAULT_STAGE102_MANIFEST,
     stage113_results_path: Path = DEFAULT_STAGE113_RESULTS,
+    stage104_results_path: Path = DEFAULT_STAGE104_RESULTS,
     execution_dir: Path | None = None,
 ) -> dict[str, Any]:
     stage99 = _load_json(stage99_manifest_path)
@@ -328,12 +349,14 @@ def run_stage103_preregistration(
     stage101 = _load_json(stage101_results_path)
     stage102 = _load_json(stage102_manifest_path)
     stage113 = _load_json(stage113_results_path)
+    stage104 = _load_json(stage104_results_path)
     sources = [
         (stage99_manifest_path, stage99),
         (stage100_manifest_path, stage100),
         (stage101_results_path, stage101),
         (stage102_manifest_path, stage102),
         (stage113_results_path, stage113),
+        (stage104_results_path, stage104),
     ]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
     packet_paths = _packet_paths_from_manifest(stage99) + _packet_paths_from_manifest(stage100)
@@ -347,11 +370,13 @@ def run_stage103_preregistration(
     all_packet_counts_present = bool(packet_paths) and not missing_execution and len(metric_records) == len(packet_paths)
     complete_comparison_groups = _comparison_groups_complete(metric_records, comparison_summary)
     stage113_live_submit_provenance_ready = _stage113_live_submit_provenance_ready(stage113)
+    stage104_matched_surface_ready = _stage104_matched_surface_ready(stage104)
     ready_to_interpret = (
         calibration_pass
         and all_packet_counts_present
         and complete_comparison_groups
         and stage113_live_submit_provenance_ready
+        and stage104_matched_surface_ready
     )
     decision = (
         "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION"
@@ -371,6 +396,14 @@ def run_stage103_preregistration(
         "missing_execution_count": len(missing_execution),
         "known_state_calibration_pass": calibration_pass,
         "ready_to_interpret_hardware_metrics": ready_to_interpret,
+        "stage104_results_path": str(stage104_results_path.as_posix()),
+        "stage104_decision": stage104.get("decision") if isinstance(stage104, dict) else None,
+        "stage104_template_count": stage104.get("template_count") if isinstance(stage104, dict) else None,
+        "stage104_expected_packet_count": stage104.get("expected_packet_count") if isinstance(stage104, dict) else None,
+        "stage104_matched_group_count": stage104.get("matched_group_count") if isinstance(stage104, dict) else None,
+        "stage104_expected_matched_group_count": stage104.get("expected_matched_group_count") if isinstance(stage104, dict) else None,
+        "stage104_complete_matched_group_count": stage104.get("complete_matched_group_count") if isinstance(stage104, dict) else None,
+        "stage104_matched_surface_ready": stage104_matched_surface_ready,
         "stage113_results_path": str(stage113_results_path.as_posix()),
         "stage113_decision": stage113.get("decision") if isinstance(stage113, dict) else None,
         "stage113_stage115_write_ready": stage113.get("stage115_write_ready") if isinstance(stage113, dict) else None,
@@ -406,7 +439,7 @@ def run_stage103_preregistration(
             ],
             "advantage_rule": (
                 "PhaseWrap may be described as lower-error on a lane only if its mean absolute score error is lower "
-                "than each named comparator family on the same source lane and circuit template after Stage 101 calibration passes."
+                "than each named comparator family on the same provider, source lane, and circuit template after Stage 101 calibration passes."
             ),
             "count_key_policy": "packet execution counts must be canonical q0q1 decoded after Stage 101 calibration",
         },
@@ -420,6 +453,7 @@ def run_stage103_preregistration(
                 "metric interpretation requires Stage 113-assembled packet evidence",
                 "metric interpretation requires Stage 113 hardware-result lineage metadata",
                 "metric interpretation requires Stage 113 to preserve Stage 115/152 all-command live-submit readiness provenance",
+                "metric interpretation requires Stage 104 complete fixed-width provider/lane/template comparator groups",
                 "metric interpretation requires complete row coverage and complete matched-family comparison groups",
                 "a hard separation between metric preregistration and any future hardware advantage claim",
             ],
@@ -452,6 +486,14 @@ def write_stage103_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "missing_execution_count": result["missing_execution_count"],
         "known_state_calibration_pass": result["known_state_calibration_pass"],
         "ready_to_interpret_hardware_metrics": result["ready_to_interpret_hardware_metrics"],
+        "stage104_results_path": result["stage104_results_path"],
+        "stage104_decision": result["stage104_decision"],
+        "stage104_template_count": result["stage104_template_count"],
+        "stage104_expected_packet_count": result["stage104_expected_packet_count"],
+        "stage104_matched_group_count": result["stage104_matched_group_count"],
+        "stage104_expected_matched_group_count": result["stage104_expected_matched_group_count"],
+        "stage104_complete_matched_group_count": result["stage104_complete_matched_group_count"],
+        "stage104_matched_surface_ready": result["stage104_matched_surface_ready"],
         "stage113_results_path": result["stage113_results_path"],
         "stage113_decision": result["stage113_decision"],
         "stage113_stage115_write_ready": result["stage113_stage115_write_ready"],

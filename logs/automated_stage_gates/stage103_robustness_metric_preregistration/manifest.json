@@ -12,6 +12,7 @@
       "metric interpretation requires Stage 113-assembled packet evidence",
       "metric interpretation requires Stage 113 hardware-result lineage metadata",
       "metric interpretation requires Stage 113 to preserve Stage 115/152 all-command live-submit readiness provenance",
+      "metric interpretation requires Stage 104 complete fixed-width provider/lane/template comparator groups",
       "metric interpretation requires complete row coverage and complete matched-family comparison groups",
       "a hard separation between metric preregistration and any future hardware advantage claim"
     ]
@@ -22,7 +23,7 @@
   "known_state_calibration_pass": false,
   "metric_record_count": 0,
   "metric_specification": {
-    "advantage_rule": "PhaseWrap may be described as lower-error on a lane only if its mean absolute score error is lower than each named comparator family on the same source lane and circuit template after Stage 101 calibration passes.",
+    "advantage_rule": "PhaseWrap may be described as lower-error on a lane only if its mean absolute score error is lower than each named comparator family on the same provider, source lane, and circuit template after Stage 101 calibration passes.",
     "count_key_policy": "packet execution counts must be canonical q0q1 decoded after Stage 101 calibration",
     "primary_robustness_metric": "mean_absolute_score_error between calibrated measured score and ideal packet score",
     "secondary_metrics": [
@@ -48,9 +49,18 @@
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/manifest.json",
     "logs/automated_stage_gates/stage101_known_state_calibration_gate/results.json",
     "logs/automated_stage_gates/stage102_calibration_execution_package/manifest.json",
-    "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json"
+    "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json",
+    "logs/automated_stage_gates/stage104_matched_packet_execution_package/results.json"
   ],
   "stage": "stage103_robustness_metric_preregistration",
+  "stage104_complete_matched_group_count": 4,
+  "stage104_decision": "MATCHED_PACKET_EXECUTION_TEMPLATES_PREPARED_CALIBRATION_AND_COUNTS_REQUIRED",
+  "stage104_expected_matched_group_count": 4,
+  "stage104_expected_packet_count": 20,
+  "stage104_matched_group_count": 4,
+  "stage104_matched_surface_ready": true,
+  "stage104_results_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/results.json",
+  "stage104_template_count": 20,
   "stage113_decision": "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING",
   "stage113_live_submit_provenance_ready": false,
   "stage113_results_path": "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json",

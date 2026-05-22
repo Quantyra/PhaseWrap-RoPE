@@ -61,6 +61,20 @@ def _stage113_ready(path) -> None:
     )
 
 
+def _stage104_ready(path, *, complete_groups: int = 1) -> None:
+    _write_json(
+        path,
+        {
+            "decision": "MATCHED_PACKET_EXECUTION_TEMPLATES_PREPARED_CALIBRATION_AND_COUNTS_REQUIRED",
+            "expected_packet_count": 5,
+            "template_count": 5,
+            "expected_matched_group_count": 1,
+            "matched_group_count": 1,
+            "complete_matched_group_count": complete_groups,
+        },
+    )
+
+
 def test_score_reconstruction_for_product_and_cx_counts() -> None:
     assert expectation_from_counts({"00": 10}, "z0") == 1.0
     assert expectation_from_counts({"11": 10}, "z0z1") == 1.0
@@ -128,6 +142,7 @@ def test_stage103_computes_metrics_with_complete_family_counts_after_calibration
     )
     _write_json(tmp_path / "stage102.json", {"decision": "ok"})
     _stage113_ready(tmp_path / "stage113.json")
+    _stage104_ready(tmp_path / "stage104.json")
     for family, row0_counts, row1_counts in packet_specs:
         packet_id = f"lane_a__{family}"
         _write_json(tmp_path / f"exec/{packet_id}.json", _execution(packet_id, row0_counts, row1_counts))
@@ -138,12 +153,14 @@ def test_stage103_computes_metrics_with_complete_family_counts_after_calibration
         stage101_results_path=tmp_path / "stage101.json",
         stage102_manifest_path=tmp_path / "stage102.json",
         stage113_results_path=tmp_path / "stage113.json",
+        stage104_results_path=tmp_path / "stage104.json",
         execution_dir=tmp_path / "exec",
     )
 
     assert result["decision"] == "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION"
     assert result["metric_record_count"] == 5
     assert result["comparison_groups_complete"] is True
+    assert result["stage104_matched_surface_ready"] is True
     phasewrap_record = next(record for record in result["metric_records"] if record["encoding_family"] == "phasewrap")
     assert phasewrap_record["mean_absolute_score_error"] == 0.0
 
@@ -180,6 +197,7 @@ def test_stage103_requires_stage113_live_submit_provenance_for_interpretation(tm
             "stage115_stage152_all_first_provider_commands_live_submit_ready": False,
         },
     )
+    _stage104_ready(tmp_path / "stage104.json")
     for family, row0_counts, row1_counts in packet_specs:
         packet_id = f"lane_a__{family}"
         _write_json(tmp_path / f"exec/{packet_id}.json", _execution(packet_id, row0_counts, row1_counts))
@@ -190,6 +208,7 @@ def test_stage103_requires_stage113_live_submit_provenance_for_interpretation(tm
         stage101_results_path=tmp_path / "stage101.json",
         stage102_manifest_path=tmp_path / "stage102.json",
         stage113_results_path=tmp_path / "stage113.json",
+        stage104_results_path=tmp_path / "stage104.json",
         execution_dir=tmp_path / "exec",
     )
 
@@ -199,6 +218,48 @@ def test_stage103_requires_stage113_live_submit_provenance_for_interpretation(tm
     assert result["stage113_live_submit_provenance_ready"] is False
     assert result["stage113_stage115_stage152_all_first_provider_commands_authorized"] is False
     assert result["stage113_stage115_stage152_all_first_provider_commands_live_submit_ready"] is False
+
+
+def test_stage103_requires_stage104_matched_surface_for_interpretation(tmp_path) -> None:
+    packet_specs = [
+        ("phasewrap", {"00": 10}, {"11": 10}),
+        ("rope_like", {"11": 10}, {"00": 10}),
+        ("sinusoidal_like", {"11": 10}, {"00": 10}),
+        ("alibi_like", {"11": 10}, {"00": 10}),
+        ("no_position_control", {"11": 10}, {"00": 10}),
+    ]
+    packets = [_packet(tmp_path, f"lane_a__{family}", family) for family, _, _ in packet_specs]
+    _write_json(tmp_path / "stage99.json", {"packet_paths": [str(packet["path"]) for packet in packets]})
+    _write_json(tmp_path / "stage100.json", {"packet_paths": []})
+    _write_json(
+        tmp_path / "stage101.json",
+        {
+            "known_state_calibration_pass": True,
+            "decision": "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION",
+        },
+    )
+    _write_json(tmp_path / "stage102.json", {"decision": "ok"})
+    _stage113_ready(tmp_path / "stage113.json")
+    _stage104_ready(tmp_path / "stage104.json", complete_groups=0)
+    for family, row0_counts, row1_counts in packet_specs:
+        packet_id = f"lane_a__{family}"
+        _write_json(tmp_path / f"exec/{packet_id}.json", _execution(packet_id, row0_counts, row1_counts))
+
+    result = run_stage103_preregistration(
+        stage99_manifest_path=tmp_path / "stage99.json",
+        stage100_manifest_path=tmp_path / "stage100.json",
+        stage101_results_path=tmp_path / "stage101.json",
+        stage102_manifest_path=tmp_path / "stage102.json",
+        stage113_results_path=tmp_path / "stage113.json",
+        stage104_results_path=tmp_path / "stage104.json",
+        execution_dir=tmp_path / "exec",
+    )
+
+    assert result["decision"] == "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED"
+    assert result["metric_record_count"] == 5
+    assert result["comparison_groups_complete"] is True
+    assert result["stage104_matched_surface_ready"] is False
+    assert result["stage104_complete_matched_group_count"] == 0
 
 
 def test_stage103_blocks_incomplete_family_group_after_calibration(tmp_path) -> None:
