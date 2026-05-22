@@ -1,0 +1,39 @@
+{
+  "authorized_provider_count": 0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "live provider SDK client creation",
+      "real provider result records",
+      "Stage 113 evidence assembly",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "explicit live-client cutover authorization decision from Stage 106, Stage 111, and Stage 128 evidence",
+      "provider-level blockers that must clear before SDK client factories can be enabled",
+      "confirmation that current live cutover remains blocked before hardware submission"
+    ]
+  },
+  "decision": "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED",
+  "missing_source_artifacts": [],
+  "next_gate": "Clear the listed provider blockers, rerun Stage 106, Stage 111, Stage 128, and this cutover audit, then enable live SDK client factories only for providers with cutover_authorized=true.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": true,
+  "result_path": "logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
+  "schema_version": "qrope_stage129_live_cutover_authorization_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage106_hardware_execution_preflight/results.json",
+    "logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json",
+    "logs/automated_stage_gates/stage128_sdk_client_factory_audit/results.json"
+  ],
+  "stage": "stage129_live_cutover_authorization_audit",
+  "stage106_decision": "HARDWARE_EXECUTION_PREFLIGHT_BLOCKED_CONFIGURATION_REQUIRED",
+  "stage111_decision": "PROVIDER_SDK_BACKEND_DISCOVERY_BLOCKED",
+  "stage128_decision": "SDK_CLIENT_FACTORIES_GUARDED_EXECUTION_BLOCKED",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage129_live_cutover_authorization_audit/summary.csv"
+}
