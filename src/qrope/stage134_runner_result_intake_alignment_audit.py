@@ -34,7 +34,7 @@ def _collector_record(stage115: dict[str, Any] | None, provider: str, window_id:
 
 
 def _command_output_path(record: dict[str, Any]) -> str:
-    command = str(record.get("runner_command") or record.get("live_submit_command") or "")
+    command = str(record.get("live_submit_command") or record.get("runner_command") or "")
     parts = command.split()
     for index, part in enumerate(parts):
         if part == "--provider-results" and index + 1 < len(parts):
@@ -49,6 +49,9 @@ def _intake_record(command: dict[str, Any], stage115: dict[str, Any] | None) -> 
     command_output_path = _command_output_path(command)
     collector_result_path = str(collector.get("result_path", ""))
     blockers = []
+    command_authorized = command.get("command_authorized") is True
+    live_submit_available = command.get("live_submit_command_available") is True
+    live_submit_command = str(command.get("live_submit_command", ""))
     if not command_output_path:
         blockers.append("command_output_path_missing")
     if not collector_result_path:
@@ -57,15 +60,21 @@ def _intake_record(command: dict[str, Any], stage115: dict[str, Any] | None) -> 
         blockers.append("command_output_path_mismatch_collector")
     if command.get("job_count") != collector.get("expected_job_count"):
         blockers.append("job_count_mismatch_collector")
-    if command.get("command_authorized") is not True:
+    if not command_authorized:
         blockers.append("stage133_command_not_authorized")
+    if command_authorized and (not live_submit_available or not live_submit_command):
+        blockers.append("stage133_authorized_command_missing_live_submit_command")
+    if not command_authorized and (live_submit_available or live_submit_command):
+        blockers.append("stage133_blocked_command_exposes_live_submit_command")
     if collector.get("ready") is not True:
         blockers.extend(f"stage115:{item}" for item in collector.get("missing_evidence", ["collector_shard_not_ready"]))
     return {
         "provider": provider,
         "window_id": window_id,
         "job_count": command.get("job_count"),
-        "command_authorized": command.get("command_authorized"),
+        "command_authorized": command_authorized,
+        "live_submit_command_available": live_submit_available,
+        "live_submit_command_present": bool(live_submit_command),
         "collector_ready": collector.get("ready"),
         "collector_missing_job_count": collector.get("missing_job_count"),
         "command_output_path": command_output_path,
@@ -115,6 +124,7 @@ def run_stage134_audit(
             "supported": [
                 "Stage 133 provider result output paths align with Stage 115 collector shard paths",
                 "post-run intake remains blocked until command_authorized=true and every collector shard is ready",
+                "Stage 133 live-submit command availability is consistent with command authorization before Stage 113",
                 "the Stage 115 to Stage 113 handoff is explicit before evidence assembly",
             ],
             "excluded": [
@@ -171,6 +181,8 @@ def write_stage134_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                 "window_id",
                 "job_count",
                 "command_authorized",
+                "live_submit_command_available",
+                "live_submit_command_present",
                 "collector_ready",
                 "collector_missing_job_count",
                 "stage113_ready_after_collection",
@@ -185,6 +197,8 @@ def write_stage134_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                     "window_id": record["window_id"],
                     "job_count": record["job_count"],
                     "command_authorized": record["command_authorized"],
+                    "live_submit_command_available": record["live_submit_command_available"],
+                    "live_submit_command_present": record["live_submit_command_present"],
                     "collector_ready": record["collector_ready"],
                     "collector_missing_job_count": record["collector_missing_job_count"],
                     "stage113_ready_after_collection": record["stage113_ready_after_collection"],

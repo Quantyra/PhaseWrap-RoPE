@@ -12,6 +12,7 @@ def _write_json(path, payload) -> None:
 
 def _fixture(tmp_path, *, ready: bool = False):
     output_path = "logs/provider_results/ibm_runtime/window_0/provider_job_results.jsonl"
+    runner_command = f"python runner.py --job-shard jobs.jsonl --provider-results {output_path} --stage129-results stage129.json"
     _write_json(
         tmp_path / "stage133.json",
         {
@@ -22,7 +23,9 @@ def _fixture(tmp_path, *, ready: bool = False):
                     "window_id": "window_0",
                     "job_count": 2,
                     "command_authorized": ready,
-                    "runner_command": f"python runner.py --job-shard jobs.jsonl --provider-results {output_path} --stage129-results stage129.json",
+                    "live_submit_command_available": ready,
+                    "runner_command": runner_command,
+                    "live_submit_command": f"{runner_command} --allow-live-submit" if ready else "",
                 }
             ],
         },
@@ -58,6 +61,7 @@ def test_stage134_blocks_until_command_and_collector_are_ready(tmp_path) -> None
     assert record["stage113_ready_after_collection"] is False
     assert "stage133_command_not_authorized" in record["blockers"]
     assert "stage115:provider_result_file_missing" in record["blockers"]
+    assert "stage133_blocked_command_exposes_live_submit_command" not in record["blockers"]
 
 
 def test_stage134_reports_ready_when_command_and_collector_are_ready(tmp_path) -> None:
@@ -68,6 +72,35 @@ def test_stage134_reports_ready_when_command_and_collector_are_ready(tmp_path) -
     assert result["decision"] == "RUNNER_RESULT_INTAKE_READY_FOR_STAGE113"
     assert result["ready_intake_count"] == 1
     assert result["intake_records"][0]["stage113_ready_after_collection"] is True
+    assert result["intake_records"][0]["live_submit_command_available"] is True
+    assert result["intake_records"][0]["live_submit_command_present"] is True
+
+
+def test_stage134_blocks_authorized_command_without_live_submit_command(tmp_path) -> None:
+    stage115, stage133 = _fixture(tmp_path, ready=True)
+    payload = json.loads(stage133.read_text(encoding="utf-8"))
+    payload["command_records"][0]["live_submit_command_available"] = False
+    payload["command_records"][0]["live_submit_command"] = ""
+    _write_json(stage133, payload)
+
+    result = run_stage134_audit(stage115_results_path=stage115, stage133_results_path=stage133)
+
+    record = result["intake_records"][0]
+    assert result["decision"] == "RUNNER_RESULT_INTAKE_ALIGNED_EXECUTION_BLOCKED"
+    assert "stage133_authorized_command_missing_live_submit_command" in record["blockers"]
+
+
+def test_stage134_blocks_blocked_command_that_exposes_live_submit_command(tmp_path) -> None:
+    stage115, stage133 = _fixture(tmp_path, ready=False)
+    payload = json.loads(stage133.read_text(encoding="utf-8"))
+    payload["command_records"][0]["live_submit_command_available"] = True
+    payload["command_records"][0]["live_submit_command"] = payload["command_records"][0]["runner_command"] + " --allow-live-submit"
+    _write_json(stage133, payload)
+
+    result = run_stage134_audit(stage115_results_path=stage115, stage133_results_path=stage133)
+
+    record = result["intake_records"][0]
+    assert "stage133_blocked_command_exposes_live_submit_command" in record["blockers"]
 
 
 def test_stage134_outputs_are_written(tmp_path) -> None:

@@ -10,6 +10,7 @@
     "supported": [
       "Stage 133 provider result output paths align with Stage 115 collector shard paths",
       "post-run intake remains blocked until command_authorized=true and every collector shard is ready",
+      "Stage 133 live-submit command availability is consistent with command authorization before Stage 113",
       "the Stage 115 to Stage 113 handoff is explicit before evidence assembly"
     ]
   },

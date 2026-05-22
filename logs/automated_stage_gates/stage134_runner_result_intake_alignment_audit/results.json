@@ -10,6 +10,7 @@
     "supported": [
       "Stage 133 provider result output paths align with Stage 115 collector shard paths",
       "post-run intake remains blocked until command_authorized=true and every collector shard is ready",
+      "Stage 133 live-submit command availability is consistent with command authorization before Stage 113",
       "the Stage 115 to Stage 113 handoff is explicit before evidence assembly"
     ]
   },
@@ -28,6 +29,8 @@
       "command_authorized": false,
       "command_output_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/amazon_braket/amazon_braket__independent_window_00/provider_job_results.jsonl",
       "job_count": 84,
+      "live_submit_command_available": false,
+      "live_submit_command_present": false,
       "provider": "amazon_braket",
       "stage113_ready_after_collection": false,
       "window_id": "amazon_braket__independent_window_00"
@@ -44,6 +47,8 @@
       "command_authorized": false,
       "command_output_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/amazon_braket/amazon_braket__independent_window_01/provider_job_results.jsonl",
       "job_count": 84,
+      "live_submit_command_available": false,
+      "live_submit_command_present": false,
       "provider": "amazon_braket",
       "stage113_ready_after_collection": false,
       "window_id": "amazon_braket__independent_window_01"
@@ -60,6 +65,8 @@
       "command_authorized": false,
       "command_output_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_00/provider_job_results.jsonl",
       "job_count": 164,
+      "live_submit_command_available": false,
+      "live_submit_command_present": false,
       "provider": "ibm_runtime",
       "stage113_ready_after_collection": false,
       "window_id": "ibm_runtime__independent_window_00"
@@ -76,6 +83,8 @@
       "command_authorized": false,
       "command_output_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_01/provider_job_results.jsonl",
       "job_count": 164,
+      "live_submit_command_available": false,
+      "live_submit_command_present": false,
       "provider": "ibm_runtime",
       "stage113_ready_after_collection": false,
       "window_id": "ibm_runtime__independent_window_01"

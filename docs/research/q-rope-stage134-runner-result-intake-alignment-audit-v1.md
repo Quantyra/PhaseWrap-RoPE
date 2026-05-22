@@ -13,6 +13,7 @@ Current decision:
 ## What this supports
 - Stage 133 provider result output paths map to Stage 115 collector shard paths.
 - Post-run intake remains blocked until each command has `command_authorized=true` and each collector shard is ready.
+- Stage 133 live-submit command availability must match command authorization before Stage 113 can proceed.
 - The Stage 115 to Stage 113 handoff is explicit before evidence assembly.
 
 ## What this does not support
