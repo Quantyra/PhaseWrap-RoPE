@@ -48,6 +48,40 @@ def build_client_config() -> dict[str, Any]:
     }
 
 
+def build_live_client_factory_contract() -> dict[str, Any]:
+    return {
+        "provider": PROVIDER,
+        "contract_version": "ibm_runtime_sampler_v2_factory_contract_v1",
+        "official_doc_url": "https://quantum.cloud.ibm.com/docs/en/api/qiskit-ibm-runtime/runtime-service",
+        "required_imports": [
+            "qiskit_ibm_runtime.QiskitRuntimeService",
+            "qiskit_ibm_runtime.SamplerV2",
+            "qiskit.transpiler.preset_passmanagers.generate_preset_pass_manager",
+        ],
+        "required_env": list(REQUIRED_ENV),
+        "factory_steps": [
+            "Read IBM token, instance CRN, and backend name from environment references without recording values.",
+            "Create QiskitRuntimeService only after Stage 106, Stage 111, and Stage 129 authorize this provider.",
+            "Resolve the configured backend through QiskitRuntimeService.backend().",
+            "Transpile the OpenQASM-derived circuit for the backend target before sampler execution.",
+            "Create a SamplerV2-compatible runtime client and preserve the Stage 127 run_openqasm3(plan) adapter boundary.",
+        ],
+        "result_contract": [
+            "Return provider job ID as job_or_task_id.",
+            "Return backend metadata with backend name and provider identifiers only.",
+            "Return raw counts in a shape accepted by normalize_result_counts().",
+            "Return submitted_at_utc and completed_at_utc timestamps for Stage 114 record construction.",
+        ],
+        "activation_gates": [
+            "stage106_provider_status_ready",
+            "stage111_provider_status_ready",
+            "stage129_cutover_authorized_true",
+        ],
+        "no_hardware_submission": True,
+        "secret_values_recorded": False,
+    }
+
+
 def create_live_client(*, allow_live_client: bool = False) -> Any:
     config = build_client_config()
     if not allow_live_client:

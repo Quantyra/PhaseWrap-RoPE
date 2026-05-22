@@ -53,6 +53,39 @@ def build_client_config() -> dict[str, Any]:
     }
 
 
+def build_live_client_factory_contract() -> dict[str, Any]:
+    return {
+        "provider": PROVIDER,
+        "contract_version": "amazon_braket_openqasm3_factory_contract_v1",
+        "official_doc_url": "https://docs.aws.amazon.com/braket/latest/developerguide/braket-openqasm-create-submit-task.html",
+        "required_imports": [
+            "braket.aws.AwsDevice",
+            "braket.ir.openqasm.Program",
+        ],
+        "required_env": list(REQUIRED_ENV),
+        "factory_steps": [
+            "Read AWS credential/profile, device ARN, S3 bucket, and region references without recording values.",
+            "Create AwsDevice only after Stage 106, Stage 111, and Stage 129 authorize this provider.",
+            "Wrap plan OpenQASM 3 source in braket.ir.openqasm.Program.",
+            "Run the program with the configured S3 output location and plan shot count.",
+            "Preserve the Stage 127 run_openqasm3(plan) adapter boundary around the SDK call.",
+        ],
+        "result_contract": [
+            "Return provider task ARN or ID as job_or_task_id.",
+            "Return backend metadata with device ARN, region, and provider identifiers only.",
+            "Return raw measurement counts in a shape accepted by normalize_result_counts().",
+            "Return submitted_at_utc and completed_at_utc timestamps for Stage 114 record construction.",
+        ],
+        "activation_gates": [
+            "stage106_provider_status_ready",
+            "stage111_provider_status_ready",
+            "stage129_cutover_authorized_true",
+        ],
+        "no_hardware_submission": True,
+        "secret_values_recorded": False,
+    }
+
+
 def create_live_client(*, allow_live_client: bool = False) -> Any:
     config = build_client_config()
     if not allow_live_client:

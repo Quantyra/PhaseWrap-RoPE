@@ -1,0 +1,3 @@
+provider,stage130_cutover_authorized,contract_version,official_doc_url,ready,missing_evidence
+amazon_braket,False,amazon_braket_openqasm3_factory_contract_v1,https://docs.aws.amazon.com/braket/latest/developerguide/braket-openqasm-create-submit-task.html,True,
+ibm_runtime,False,ibm_runtime_sampler_v2_factory_contract_v1,https://quantum.cloud.ibm.com/docs/en/api/qiskit-ibm-runtime/runtime-service,True,
