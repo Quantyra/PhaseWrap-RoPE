@@ -1,5 +1,3 @@
 provider,window_id,ready,expected_job_count,result_record_count,ready_result_count,missing_job_count,duplicate_job_count,unknown_job_count,missing_evidence
-amazon_braket,amazon_braket__independent_window_00,False,84,0,0,84,0,0,job_results_missing; provider_result_file_missing
-amazon_braket,amazon_braket__independent_window_01,False,84,0,0,84,0,0,job_results_missing; provider_result_file_missing
 ibm_runtime,ibm_runtime__independent_window_00,False,164,0,0,164,0,0,job_results_missing; provider_result_file_missing
 ibm_runtime,ibm_runtime__independent_window_01,False,164,0,0,164,0,0,job_results_missing; provider_result_file_missing
