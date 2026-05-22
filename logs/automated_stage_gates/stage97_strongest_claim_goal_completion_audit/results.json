@@ -1,0 +1,95 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that PhaseWrap-RoPE is currently better than RoPE in fair matched transformer settings",
+      "a claim that the promotion gate is satisfied",
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential completion audit for the active strongest-honest-claim objective.",
+      "Requirement-by-requirement evidence that the current bounded claim is packaged with positives, failures, exclusions, intervals, and next gate.",
+      "A completion decision for the research-claim boundary objective, not a promotion decision."
+    ]
+  },
+  "decision": {
+    "active_goal_complete": true,
+    "claim_boundary": "The active strongest-claim objective is complete as a bounded claim: promotion remains unsupported, but the strongest honest claim, positives, failures, exclusions, intervals, and next gate are all packaged.",
+    "decision": "ACTIVE_GOAL_COMPLETE_BOUND_STRONGEST_CLAIM",
+    "failed_requirements": []
+  },
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "missing_source_artifacts": [],
+  "no_hardware_submission": true,
+  "objective": "Find the strongest honest claim PhaseWrap-RoPE can support under fair RoPE/ALiBI/sinusoidal/no-position comparisons, preserving both positive evidence and failure modes.",
+  "provider_credentials_required": false,
+  "requirement_rows": [
+    {
+      "evidence": "Stage96 claim-card results exist and have no missing source artifacts.",
+      "requirement": "stage96_claim_card_present",
+      "status": "passed"
+    },
+    {
+      "evidence": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve. Stage 95 surfaces confidence intervals for selected headline structural positives and free learned failures without changing that boundary. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
+      "requirement": "strongest_honest_claim_present",
+      "status": "passed"
+    },
+    {
+      "evidence": "Method set includes no_position, sinusoidal, ALiBI, RoPE-relative, and PhaseWrap variants.",
+      "requirement": "fair_comparison_frame_preserved",
+      "status": "passed"
+    },
+    {
+      "evidence": "9 positive-evidence entries are present.",
+      "requirement": "positive_evidence_preserved",
+      "status": "passed"
+    },
+    {
+      "evidence": "37 failure-mode entries are present.",
+      "requirement": "failure_modes_preserved",
+      "status": "passed"
+    },
+    {
+      "evidence": "[\"PhaseWrap-RoPE replaces RoPE.\", \"PhaseWrap-RoPE is better than RoPE under current fair matched transformer comparisons.\", \"Content-key retrieval success is PhaseWrap-specific evidence.\", \"Tiny-text QA gains establish original retrieval generalization.\", \"Bounded hardware/readout witnesses establish production language-model quality gains.\"]",
+      "requirement": "unsupported_claims_excluded",
+      "status": "passed"
+    },
+    {
+      "evidence": "{\"claim_boundary\": \"Current evidence still lacks a free learned PhaseWrap-led solve of both original retrieval tasks, so the strongest claim remains bounded.\", \"decision\": \"PROMOTION_GATE_NOT_READY_STRONGEST_CLAIM_BOUNDED\", \"failed_requirements\": [\"free_learned_phasewrap_original_retrieval_solve\"], \"ready\": false}",
+      "requirement": "promotion_boundary_preserved",
+      "status": "passed"
+    },
+    {
+      "evidence": "6 headline interval rows are present.",
+      "requirement": "headline_intervals_preserved",
+      "status": "passed"
+    },
+    {
+      "evidence": "Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion; avoid treating more small pointer-generator variants as claim-expanding evidence without a materially different binding mechanism.",
+      "requirement": "next_gate_preserved",
+      "status": "passed"
+    }
+  ],
+  "schema_version": "qrope_stage97_strongest_claim_goal_completion_audit_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage96_claim_card_audit/results.json"
+  ],
+  "source_stage": "stage96_claim_card_audit",
+  "stage": "stage97_strongest_claim_goal_completion_audit",
+  "status": "completed",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "content_key_retrieval",
+    "tiny_text_fact_qa"
+  ]
+}
