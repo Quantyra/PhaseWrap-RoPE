@@ -73,6 +73,8 @@ Stage 81 update: learned support probabilities can replace Stage 80's hard suppo
 
 Stage 82 update: a compact learned routing head over support-congruence, positional bias, and distance does not preserve the repair. Support accuracy remains `1.000000`, but best phase-cued top-1 falls to `0.333333`, so the remaining blocker is learned support-to-token routing capacity/structure.
 
+Stage 83 update: a nonlinear per-position routing bridge over support-congruence, positional bias, distance, and interaction features still does not preserve the repair. Support accuracy remains `1.000000`, but best phase-cued top-1 is only `0.283333`, so the blocker persists beyond scalar-router capacity.
+
 ## PhaseWrap Mechanism Requirements
 
 The PhaseWrap variant should be implemented as a positional mechanism comparable to RoPE or ALiBI, not as a scalar oracle feature.
@@ -225,6 +227,8 @@ Stage 80 routes recovered support into farthest-congruent token selection and re
 Stage 81 routes learned support probabilities into farthest-congruent token selection and records `SOFT_SUPPORT_ROUTED_TOKEN_SELECTOR_SOLVES_PHASE_CUED_NOT_PROMOTION`: the repair survives soft support uncertainty, but still solves for `no_position`.
 
 Stage 82 trains a compact support-to-token routing head and records `LEARNED_SUPPORT_ROUTING_HEAD_SUPPORT_RECOVERED_RETRIEVAL_FAILED`: support labels recover, but the learned routing head does not repair phase-cued retrieval.
+
+Stage 83 trains a nonlinear support-routing bridge and records `NONLINEAR_SUPPORT_ROUTING_BRIDGE_SUPPORT_RECOVERED_RETRIEVAL_FAILED`: support labels recover, but nonlinear learned routing still does not repair phase-cued retrieval.
 
 The next gate should redesign the stronger matched decoder-only transformer so it has enough capacity and supervision structure to learn support-to-token routing from standard inputs and loss before testing positional-method promotion. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
 
