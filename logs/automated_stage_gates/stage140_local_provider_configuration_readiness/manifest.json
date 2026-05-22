@@ -9,6 +9,7 @@
     ],
     "supported": [
       "local non-secret provider configuration readiness based on environment key presence only",
+      "preflight rerun readiness requires the Stage 139 action checklist to be in its expected blocked-remediation state",
       "provider SDK module availability checks before rerunning Stage 106/111/129",
       "explicit no-submission gate before provider cutover reruns"
     ]

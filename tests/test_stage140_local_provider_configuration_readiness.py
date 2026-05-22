@@ -30,6 +30,9 @@ def _stage139(path) -> None:
                         "QROPE_HARDWARE_QUEUE_DEPTH_CAP",
                     ],
                     "sdk_modules": {"json": True},
+                    "action_count": 5,
+                    "runner_command_count": 2,
+                    "ready_for_live_runner_execution": False,
                 }
             ],
         },
@@ -67,8 +70,55 @@ def test_stage140_reports_provider_ready_when_env_groups_and_sdk_are_present(tmp
     assert result["decision"] == "LOCAL_PROVIDER_CONFIGURATION_READY_FOR_PREFLIGHT_RERUN"
     assert result["rerun_ready_provider_count"] == 1
     assert record["ready_for_preflight_rerun"] is True
+    assert record["stage139_source_ready_for_remediation"] is True
+    assert record["stage139_context_blockers"] == []
     assert "QISKIT_IBM_TOKEN" in record["present_env_keys"]
     assert "redacted-by-design" not in json.dumps(result)
+
+
+def test_stage140_blocks_ready_env_when_stage139_decision_is_not_remediation_checkpoint(tmp_path) -> None:
+    stage139 = tmp_path / "stage139.json"
+    _stage139(stage139)
+    payload = json.loads(stage139.read_text(encoding="utf-8"))
+    payload["decision"] = "PROVIDER_ACTION_CHECKLIST_READY_FOR_LIVE_RUNNER_EXECUTION"
+    _write_json(stage139, payload)
+    env = {
+        "QISKIT_IBM_TOKEN": "redacted-by-design",
+        "QROPE_IBM_BACKEND": "ibm_backend",
+        "IBM_QUANTUM_INSTANCE_CRN": "crn",
+        "QROPE_HARDWARE_BUDGET_USD_CAP": "50",
+        "QROPE_HARDWARE_QUEUE_DEPTH_CAP": "1",
+    }
+
+    result = run_stage140_readiness(stage139_results_path=stage139, env=env)
+
+    record = result["provider_records"][0]
+    assert result["decision"] == "LOCAL_PROVIDER_CONFIGURATION_BLOCKED_ENV_OR_SDK_REQUIRED"
+    assert record["ready_for_preflight_rerun"] is False
+    assert record["env_ready_for_stage106"] is True
+    assert "stage139_action_checklist_not_ready" in record["stage139_context_blockers"]
+
+
+def test_stage140_blocks_ready_env_without_stage139_runner_context(tmp_path) -> None:
+    stage139 = tmp_path / "stage139.json"
+    _stage139(stage139)
+    payload = json.loads(stage139.read_text(encoding="utf-8"))
+    payload["provider_records"][0]["runner_command_count"] = 0
+    _write_json(stage139, payload)
+    env = {
+        "QISKIT_IBM_TOKEN": "redacted-by-design",
+        "QROPE_IBM_BACKEND": "ibm_backend",
+        "IBM_QUANTUM_INSTANCE_CRN": "crn",
+        "QROPE_HARDWARE_BUDGET_USD_CAP": "50",
+        "QROPE_HARDWARE_QUEUE_DEPTH_CAP": "1",
+    }
+
+    result = run_stage140_readiness(stage139_results_path=stage139, env=env)
+
+    record = result["provider_records"][0]
+    assert result["decision"] == "LOCAL_PROVIDER_CONFIGURATION_BLOCKED_ENV_OR_SDK_REQUIRED"
+    assert record["ready_for_preflight_rerun"] is False
+    assert "stage139_runner_commands_missing" in record["stage139_context_blockers"]
 
 
 def test_stage140_outputs_are_written(tmp_path) -> None:

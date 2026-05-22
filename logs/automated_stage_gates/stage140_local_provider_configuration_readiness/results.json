@@ -9,6 +9,7 @@
     ],
     "supported": [
       "local non-secret provider configuration readiness based on environment key presence only",
+      "preflight rerun readiness requires the Stage 139 action checklist to be in its expected blocked-remediation state",
       "provider SDK module availability checks before rerunning Stage 106/111/129",
       "explicit no-submission gate before provider cutover reruns"
     ]
@@ -109,7 +110,9 @@
         "braket": false
       },
       "sdk_ready_for_stage111": false,
-      "stage139_first_blocker": "stage106:backend_selection_missing"
+      "stage139_context_blockers": [],
+      "stage139_first_blocker": "stage106:backend_selection_missing",
+      "stage139_source_ready_for_remediation": true
     },
     {
       "cutover_authorized": false,
@@ -189,7 +192,9 @@
         "qiskit_ibm_runtime": true
       },
       "sdk_ready_for_stage111": true,
-      "stage139_first_blocker": "stage106:ibm_instance_crn_missing"
+      "stage139_context_blockers": [],
+      "stage139_first_blocker": "stage106:ibm_instance_crn_missing",
+      "stage139_source_ready_for_remediation": true
     }
   ],
   "rerun_ready_provider_count": 0,

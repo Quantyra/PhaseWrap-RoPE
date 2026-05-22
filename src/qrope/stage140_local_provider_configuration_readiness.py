@@ -12,6 +12,7 @@ STAGE140_SCHEMA_VERSION = "qrope_stage140_local_provider_configuration_readiness
 DEFAULT_ARTIFACT_ROOT = Path("logs") / "automated_stage_gates"
 DEFAULT_STAGE139_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage139_provider_action_readiness_checklist" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage140_local_provider_configuration_readiness"
+STAGE139_READY_FOR_REMEDIATION = "PROVIDER_ACTION_CHECKLIST_READY_EXECUTION_BLOCKED"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
     "auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, "
@@ -73,14 +74,36 @@ def _env_readiness(provider_record: dict[str, Any], env: Mapping[str, str]) -> d
     }
 
 
-def _provider_record(provider_record: dict[str, Any], env: Mapping[str, str]) -> dict[str, Any]:
+def _stage139_provider_context_blockers(provider_record: dict[str, Any], stage139_source_ready: bool) -> list[str]:
+    blockers = []
+    if not stage139_source_ready:
+        blockers.append("stage139_action_checklist_not_ready")
+    if provider_record.get("cutover_authorized") is True:
+        blockers.append("stage139_provider_already_cutover_authorized")
+    if provider_record.get("ready_for_live_runner_execution") is True:
+        blockers.append("stage139_provider_already_live_runner_ready")
+    if not provider_record.get("first_blocker"):
+        blockers.append("stage139_first_blocker_missing")
+    if not provider_record.get("required_provider_env"):
+        blockers.append("stage139_required_provider_env_missing")
+    if not provider_record.get("required_common_env"):
+        blockers.append("stage139_required_common_env_missing")
+    if int(provider_record.get("runner_command_count") or 0) <= 0:
+        blockers.append("stage139_runner_commands_missing")
+    return blockers
+
+
+def _provider_record(provider_record: dict[str, Any], env: Mapping[str, str], stage139_source_ready: bool) -> dict[str, Any]:
     env_status = _env_readiness(provider_record, env)
     sdk_status = _sdk_readiness(provider_record)
-    ready_for_rerun = env_status["env_ready"] and sdk_status["sdk_ready"]
+    stage139_context_blockers = _stage139_provider_context_blockers(provider_record, stage139_source_ready)
+    ready_for_rerun = env_status["env_ready"] and sdk_status["sdk_ready"] and not stage139_context_blockers
     return {
         "provider": provider_record.get("provider"),
         "stage139_first_blocker": provider_record.get("first_blocker"),
         "cutover_authorized": provider_record.get("cutover_authorized") is True,
+        "stage139_source_ready_for_remediation": stage139_source_ready,
+        "stage139_context_blockers": stage139_context_blockers,
         "env_ready_for_stage106": env_status["env_ready"],
         "sdk_ready_for_stage111": sdk_status["sdk_ready"],
         "ready_for_preflight_rerun": ready_for_rerun,
@@ -110,8 +133,9 @@ def run_stage140_readiness(
     environ = os.environ if env is None else env
     stage139 = _load_json(stage139_results_path)
     missing_sources = [] if isinstance(stage139, dict) else [str(stage139_results_path.as_posix())]
+    stage139_source_ready = bool(isinstance(stage139, dict) and stage139.get("decision") == STAGE139_READY_FOR_REMEDIATION)
     provider_records = [
-        _provider_record(record, environ)
+        _provider_record(record, environ, stage139_source_ready)
         for record in (stage139.get("provider_records", []) if isinstance(stage139, dict) else [])
     ]
     rerun_ready_count = sum(1 for record in provider_records if record["ready_for_preflight_rerun"])
@@ -137,6 +161,7 @@ def run_stage140_readiness(
         "claim_boundary": {
             "supported": [
                 "local non-secret provider configuration readiness based on environment key presence only",
+                "preflight rerun readiness requires the Stage 139 action checklist to be in its expected blocked-remediation state",
                 "provider SDK module availability checks before rerunning Stage 106/111/129",
                 "explicit no-submission gate before provider cutover reruns",
             ],
