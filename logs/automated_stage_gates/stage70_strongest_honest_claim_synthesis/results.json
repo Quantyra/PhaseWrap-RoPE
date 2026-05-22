@@ -411,9 +411,24 @@
         "phase_cued_retrieval": 0.033333
       },
       "stage": "stage90_three_block_teacher_distilled_pointer_generator_audit"
+    },
+    {
+      "capacity_established": true,
+      "decision": "CURRICULUM_TEACHER_DISTILLED_POINTER_GENERATOR_WITHOUT_RETRIEVAL_GENERALIZATION",
+      "evidence": "At least one original retrieval task remains below the generalization threshold.",
+      "failure": "Original held-out retrieval remains unrepaired in a recent fair-comparison audit.",
+      "retrieval_best_methods": {
+        "exact_offset_passkey": "sinusoidal",
+        "phase_cued_retrieval": "sinusoidal"
+      },
+      "retrieval_best_top1": {
+        "exact_offset_passkey": 0.333333,
+        "phase_cued_retrieval": 0.033333
+      },
+      "stage": "stage91_curriculum_teacher_distilled_pointer_generator_audit"
     }
   ],
-  "loaded_source_stage_count": 32,
+  "loaded_source_stage_count": 33,
   "loaded_source_stages": [
     "stage44_compact_diagnostic_plateau_audit",
     "stage45_matched_decoder_only_gate",
@@ -446,7 +461,8 @@
     "stage87_in_decoder_support_routed_copy_expert_audit",
     "stage88_structural_retrieval_routed_copy_expert_audit",
     "stage89_structural_teacher_distilled_pointer_generator_audit",
-    "stage90_three_block_teacher_distilled_pointer_generator_audit"
+    "stage90_three_block_teacher_distilled_pointer_generator_audit",
+    "stage91_curriculum_teacher_distilled_pointer_generator_audit"
   ],
   "method_names": [
     "no_position",
@@ -486,9 +502,9 @@
     },
     {
       "claim_limit": "Tiny-text QA positives are mixed downstream evidence, not original retrieval generalization.",
-      "evidence": "Recent pointer-generator variants preserve capacity and reach tiny-text held-out top-1 0.933334.",
+      "evidence": "Recent pointer-generator variants preserve capacity and reach tiny-text held-out top-1 0.950000.",
       "method": "sinusoidal",
-      "source": "stage85_dual_auxiliary_pointer_generator_audit"
+      "source": "stage91_curriculum_teacher_distilled_pointer_generator_audit"
     }
   ],
   "provider_credentials_required": false,
@@ -527,6 +543,7 @@
     "logs/automated_stage_gates/stage88_structural_retrieval_routed_copy_expert_audit/manifest.json",
     "logs/automated_stage_gates/stage89_structural_teacher_distilled_pointer_generator_audit/manifest.json",
     "logs/automated_stage_gates/stage90_three_block_teacher_distilled_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage91_curriculum_teacher_distilled_pointer_generator_audit/manifest.json",
     "docs/research/q-rope-stage44-compact-diagnostic-plateau-audit-v1.md",
     "docs/research/q-rope-stage45-matched-decoder-only-gate-v1.md",
     "docs/research/q-rope-stage48-adam-decoder-stability-audit-v1.md",
@@ -552,12 +569,13 @@
     "docs/research/q-rope-stage87-in-decoder-support-routed-copy-expert-audit-v1.md",
     "docs/research/q-rope-stage88-structural-retrieval-routed-copy-expert-audit-v1.md",
     "docs/research/q-rope-stage89-structural-teacher-distilled-pointer-generator-audit-v1.md",
-    "docs/research/q-rope-stage90-three-block-teacher-distilled-pointer-generator-audit-v1.md"
+    "docs/research/q-rope-stage90-three-block-teacher-distilled-pointer-generator-audit-v1.md",
+    "docs/research/q-rope-stage91-curriculum-teacher-distilled-pointer-generator-audit-v1.md"
   ],
-  "source_stage": "stage90_three_block_teacher_distilled_pointer_generator_audit",
+  "source_stage": "stage91_curriculum_teacher_distilled_pointer_generator_audit",
   "stage": "stage70_strongest_honest_claim_synthesis",
   "status": "completed",
-  "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, and added-depth teacher-distillation routes still fail free held-out support-to-token retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
+  "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, and length-curriculum routes still fail free held-out support-to-token retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
   "tasks": [
     "phase_cued_retrieval",
     "exact_offset_passkey",

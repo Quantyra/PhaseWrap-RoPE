@@ -136,6 +136,21 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
             },
         },
     )
+    _write_manifest(
+        tmp_path,
+        "stage91_curriculum_teacher_distilled_pointer_generator_audit",
+        {
+            "tasks": ["phase_cued_retrieval", "exact_offset_passkey", "tiny_text_fact_qa"],
+            "decision": {
+                "decision": "CURRICULUM_TEACHER_DISTILLED_POINTER_GENERATOR_WITHOUT_RETRIEVAL_GENERALIZATION",
+                "capacity_established": True,
+                "retrieval_best_top1": {"phase_cued_retrieval": 0.033333, "exact_offset_passkey": 0.333333},
+                "retrieval_best_methods": {"phase_cued_retrieval": "sinusoidal", "exact_offset_passkey": "sinusoidal"},
+                "tiny_text_best_top1": 0.95,
+                "tiny_text_best_method": "sinusoidal",
+            },
+        },
+    )
     result = run_stage70_synthesis(artifact_root=tmp_path)
     assert result["stage"] == "stage70_strongest_honest_claim_synthesis"
     assert result["status"] == "completed"
@@ -151,8 +166,9 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
     assert any(item.get("stage") == "stage87_in_decoder_support_routed_copy_expert_audit" for item in result["failure_modes"])
     assert any(item.get("stage") == "stage89_structural_teacher_distilled_pointer_generator_audit" for item in result["failure_modes"])
     assert any(item.get("stage") == "stage90_three_block_teacher_distilled_pointer_generator_audit" for item in result["failure_modes"])
+    assert any(item.get("stage") == "stage91_curriculum_teacher_distilled_pointer_generator_audit" for item in result["failure_modes"])
     assert any(item.get("source") == "stage87_in_decoder_support_routed_copy_expert_audit" for item in result["positive_evidence"])
-    assert result["source_stage"] == "stage90_three_block_teacher_distilled_pointer_generator_audit"
+    assert result["source_stage"] == "stage91_curriculum_teacher_distilled_pointer_generator_audit"
 
 
 def test_stage70_labels_nonpromotional_solved_retrieval_without_calling_it_unrepaired(tmp_path) -> None:
