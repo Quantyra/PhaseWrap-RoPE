@@ -1,5 +1,5 @@
 {
-  "blocked_gate_count": 9,
+  "blocked_gate_count": 10,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -16,9 +16,9 @@
   },
   "decision": "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED",
   "final_claim_gate_terminal": false,
-  "gate_count": 10,
+  "gate_count": 11,
   "missing_source_artifacts": [],
-  "next_gate": "Clear the first blocked gate in order. No noisy-hardware robustness or auditability advantage conclusion is allowed until Stage 138 reaches a terminal supported/not-supported decision after Stage 115, Stage 134, Stage 113, Stage 101, Stage 103, Stage 136, Stage 137, Stage 109, and Stage 110 are ready.",
+  "next_gate": "Clear the first blocked gate in order. No noisy-hardware robustness or auditability advantage conclusion is allowed until Stage 138 reaches a terminal supported/not-supported decision after Stage 115, Stage 134, Stage 113, Stage 101, Stage 103, Stage 136, Stage 137, Stage 148, Stage 109, and Stage 110 are ready.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": false,
@@ -35,6 +35,7 @@
     "logs/automated_stage_gates/stage103_robustness_metric_preregistration/results.json",
     "logs/automated_stage_gates/stage136_auditability_metric_preregistration/results.json",
     "logs/automated_stage_gates/stage137_auditability_metric_evaluator/results.json",
+    "logs/automated_stage_gates/stage148_first_provider_statistical_interpretation_gate/results.json",
     "logs/automated_stage_gates/stage109_window_evidence_intake_validator/results.json",
     "logs/automated_stage_gates/stage110_replicated_advantage_claim_gate/results.json",
     "logs/automated_stage_gates/stage138_objective_claim_gate/results.json"

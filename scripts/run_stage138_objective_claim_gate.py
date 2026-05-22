@@ -12,6 +12,7 @@ from qrope.stage138_objective_claim_gate import (  # noqa: E402
     DEFAULT_OUTPUT_DIR,
     DEFAULT_STAGE110_RESULTS,
     DEFAULT_STAGE137_RESULTS,
+    DEFAULT_STAGE148_RESULTS,
     print_stage138_summary,
     run_stage138_claim_gate,
     write_stage138_outputs,
@@ -22,10 +23,15 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Gate the final PhaseWrap noisy-hardware robustness-or-auditability objective claim.")
     parser.add_argument("--stage110-results", type=Path, default=DEFAULT_STAGE110_RESULTS)
     parser.add_argument("--stage137-results", type=Path, default=DEFAULT_STAGE137_RESULTS)
+    parser.add_argument("--stage148-results", type=Path, default=DEFAULT_STAGE148_RESULTS)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     args = parser.parse_args(argv)
 
-    result = run_stage138_claim_gate(stage110_results_path=args.stage110_results, stage137_results_path=args.stage137_results)
+    result = run_stage138_claim_gate(
+        stage110_results_path=args.stage110_results,
+        stage137_results_path=args.stage137_results,
+        stage148_results_path=args.stage148_results,
+    )
     paths = write_stage138_outputs(result, args.output_dir)
     print_stage138_summary(result)
     print(f"wrote {paths['manifest']}")

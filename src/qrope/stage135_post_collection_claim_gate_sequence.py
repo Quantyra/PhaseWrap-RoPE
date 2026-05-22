@@ -17,6 +17,7 @@ DEFAULT_STAGE109_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage109_window_evidence_int
 DEFAULT_STAGE110_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage110_replicated_advantage_claim_gate" / "results.json"
 DEFAULT_STAGE136_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage136_auditability_metric_preregistration" / "results.json"
 DEFAULT_STAGE137_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage137_auditability_metric_evaluator" / "results.json"
+DEFAULT_STAGE148_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage148_first_provider_statistical_interpretation_gate" / "results.json"
 DEFAULT_STAGE138_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage138_objective_claim_gate" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage135_post_collection_claim_gate_sequence"
 OBJECTIVE = (
@@ -87,6 +88,7 @@ def run_stage135_sequence_audit(
     stage110_results_path: Path = DEFAULT_STAGE110_RESULTS,
     stage136_results_path: Path = DEFAULT_STAGE136_RESULTS,
     stage137_results_path: Path = DEFAULT_STAGE137_RESULTS,
+    stage148_results_path: Path = DEFAULT_STAGE148_RESULTS,
     stage138_results_path: Path = DEFAULT_STAGE138_RESULTS,
 ) -> dict[str, Any]:
     stage115 = _load_json(stage115_results_path)
@@ -98,6 +100,7 @@ def run_stage135_sequence_audit(
     stage110 = _load_json(stage110_results_path)
     stage136 = _load_json(stage136_results_path)
     stage137 = _load_json(stage137_results_path)
+    stage148 = _load_json(stage148_results_path)
     stage138 = _load_json(stage138_results_path)
     sources = [
         (stage115_results_path, stage115),
@@ -107,6 +110,7 @@ def run_stage135_sequence_audit(
         (stage103_results_path, stage103),
         (stage136_results_path, stage136),
         (stage137_results_path, stage137),
+        (stage148_results_path, stage148),
         (stage109_results_path, stage109),
         (stage110_results_path, stage110),
         (stage138_results_path, stage138),
@@ -185,6 +189,16 @@ def run_stage135_sequence_audit(
             blocker_hint="stage137_auditability_metrics_not_ready",
         ),
         _gate_record(
+            stage_id="stage148",
+            name="first-provider statistical interpretation gate",
+            result_path=stage148_results_path,
+            payload=stage148,
+            ready_decisions={"FIRST_PROVIDER_STATISTICAL_INTERPRETATION_READY_FOR_CLAIM_GATES"},
+            purpose="enforce Stage 146 shot-noise and Stage 147 calibration-confidence guardrails before advantage wording",
+            command="python scripts/run_stage148_first_provider_statistical_interpretation_gate.py",
+            blocker_hint="stage148_statistical_interpretation_not_ready",
+        ),
+        _gate_record(
             stage_id="stage109",
             name="window evidence intake validator",
             result_path=stage109_results_path,
@@ -260,7 +274,7 @@ def run_stage135_sequence_audit(
         "next_gate": (
             "Clear the first blocked gate in order. No noisy-hardware robustness or auditability advantage conclusion is "
             "allowed until Stage 138 reaches a terminal supported/not-supported decision after Stage 115, Stage 134, "
-            "Stage 113, Stage 101, Stage 103, Stage 136, Stage 137, Stage 109, and Stage 110 are ready."
+            "Stage 113, Stage 101, Stage 103, Stage 136, Stage 137, Stage 148, Stage 109, and Stage 110 are ready."
         ),
     }
 

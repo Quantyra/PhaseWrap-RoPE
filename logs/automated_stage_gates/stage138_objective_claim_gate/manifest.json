@@ -6,18 +6,19 @@
       "hardware job submission",
       "provider credentials or secret values",
       "new provider result records",
-      "a noisy-hardware objective conclusion while Stage 110 or Stage 137 is blocked",
+      "a noisy-hardware objective conclusion while Stage 110, Stage 137, or required Stage 148 statistical interpretation is blocked",
       "provider-wide or transformer-scale superiority beyond recorded matched fixed-width evidence"
     ],
     "supported": [
       "a terminal objective-level gate for robustness or auditability outcomes",
       "separate preservation of the Stage 110 robustness rule and Stage 137 auditability rule",
+      "Stage 148 statistical guardrail enforcement before supported advantage wording",
       "blocked output until both robustness and auditability evidence surfaces are terminal"
     ]
   },
   "decision": "OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE",
   "missing_source_artifacts": [],
-  "next_gate": "Clear Stage 110 and Stage 137. Only this gate should be used for the final objective wording: supported if either replicated robustness or replicated auditability is supported, otherwise not supported.",
+  "next_gate": "Clear Stage 110, Stage 137, and Stage 148 when supported advantage wording is being considered. Only this gate should be used for the final objective wording.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "objective_supported": false,
@@ -31,11 +32,15 @@
   "secret_values_recorded": false,
   "source_artifacts": [
     "logs/automated_stage_gates/stage110_replicated_advantage_claim_gate/results.json",
-    "logs/automated_stage_gates/stage137_auditability_metric_evaluator/results.json"
+    "logs/automated_stage_gates/stage137_auditability_metric_evaluator/results.json",
+    "logs/automated_stage_gates/stage148_first_provider_statistical_interpretation_gate/results.json"
   ],
   "stage": "stage138_objective_claim_gate",
   "stage110_decision": "REPLICATED_ADVANTAGE_CLAIM_BLOCKED_EVIDENCE_INTAKE_INCOMPLETE",
   "stage137_decision": "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED",
+  "stage148_decision": "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED",
+  "statistical_interpretation_ready": false,
+  "statistical_interpretation_required": false,
   "status": "completed",
   "summary_csv_path": "logs/automated_stage_gates/stage138_objective_claim_gate/summary.csv"
 }

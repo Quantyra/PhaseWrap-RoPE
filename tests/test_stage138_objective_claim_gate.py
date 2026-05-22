@@ -40,13 +40,23 @@ def _stage137(*, ready: bool, passing_windows: tuple[str, ...] = ()) -> dict:
     }
 
 
+def _stage148(*, ready: bool) -> dict:
+    return {
+        "decision": "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_READY_FOR_CLAIM_GATES"
+        if ready
+        else "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
+    }
+
+
 def test_stage138_blocks_until_both_robustness_and_auditability_gates_are_terminal(tmp_path) -> None:
     stage110 = tmp_path / "stage110.json"
     stage137 = tmp_path / "stage137.json"
+    stage148 = tmp_path / "stage148.json"
     _write_json(stage110, _stage110("REPLICATED_ADVANTAGE_CLAIM_BLOCKED_EVIDENCE_INTAKE_INCOMPLETE"))
     _write_json(stage137, _stage137(ready=False))
+    _write_json(stage148, _stage148(ready=False))
 
-    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137)
+    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137, stage148_results_path=stage148)
 
     assert result["decision"] == "OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE"
     assert result["objective_terminal"] is False
@@ -56,24 +66,46 @@ def test_stage138_blocks_until_both_robustness_and_auditability_gates_are_termin
 def test_stage138_supports_objective_when_robustness_is_supported(tmp_path) -> None:
     stage110 = tmp_path / "stage110.json"
     stage137 = tmp_path / "stage137.json"
+    stage148 = tmp_path / "stage148.json"
     _write_json(stage110, _stage110("PHASEWRAP_REPLICATED_ADVANTAGE_SUPPORTED_BY_STAGE105_RULE", replicated=1))
     _write_json(stage137, _stage137(ready=True))
+    _write_json(stage148, _stage148(ready=True))
 
-    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137)
+    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137, stage148_results_path=stage148)
 
     assert result["decision"] == "PHASEWRAP_NOISY_HARDWARE_OBJECTIVE_SUPPORTED"
     assert result["objective_terminal"] is True
     assert result["objective_supported"] is True
     assert result["robustness_supported"] is True
+    assert result["statistical_interpretation_required"] is True
+    assert result["statistical_interpretation_ready"] is True
+
+
+def test_stage138_blocks_supported_objective_when_stage148_is_not_ready(tmp_path) -> None:
+    stage110 = tmp_path / "stage110.json"
+    stage137 = tmp_path / "stage137.json"
+    stage148 = tmp_path / "stage148.json"
+    _write_json(stage110, _stage110("PHASEWRAP_REPLICATED_ADVANTAGE_SUPPORTED_BY_STAGE105_RULE", replicated=1))
+    _write_json(stage137, _stage137(ready=True))
+    _write_json(stage148, _stage148(ready=False))
+
+    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137, stage148_results_path=stage148)
+
+    assert result["decision"] == "OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE"
+    assert result["objective_terminal"] is False
+    assert result["statistical_interpretation_required"] is True
+    assert result["statistical_interpretation_ready"] is False
 
 
 def test_stage138_supports_objective_when_auditability_replicates(tmp_path) -> None:
     stage110 = tmp_path / "stage110.json"
     stage137 = tmp_path / "stage137.json"
+    stage148 = tmp_path / "stage148.json"
     _write_json(stage110, _stage110("PHASEWRAP_REPLICATED_ADVANTAGE_NOT_SUPPORTED_BY_STAGE105_RULE"))
     _write_json(stage137, _stage137(ready=True, passing_windows=("w0", "w1")))
+    _write_json(stage148, _stage148(ready=True))
 
-    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137)
+    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137, stage148_results_path=stage148)
 
     assert result["decision"] == "PHASEWRAP_NOISY_HARDWARE_OBJECTIVE_SUPPORTED"
     assert result["objective_supported"] is True
@@ -83,23 +115,28 @@ def test_stage138_supports_objective_when_auditability_replicates(tmp_path) -> N
 def test_stage138_reports_not_supported_when_terminal_without_either_advantage(tmp_path) -> None:
     stage110 = tmp_path / "stage110.json"
     stage137 = tmp_path / "stage137.json"
+    stage148 = tmp_path / "stage148.json"
     _write_json(stage110, _stage110("PHASEWRAP_REPLICATED_ADVANTAGE_NOT_SUPPORTED_BY_STAGE105_RULE"))
     _write_json(stage137, _stage137(ready=True, passing_windows=("w0",)))
+    _write_json(stage148, _stage148(ready=False))
 
-    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137)
+    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137, stage148_results_path=stage148)
 
     assert result["decision"] == "PHASEWRAP_NOISY_HARDWARE_OBJECTIVE_NOT_SUPPORTED"
     assert result["objective_terminal"] is True
     assert result["objective_supported"] is False
     assert result["replicated_auditability_advantage_count"] == 0
+    assert result["statistical_interpretation_required"] is False
 
 
 def test_stage138_outputs_are_written(tmp_path) -> None:
     stage110 = tmp_path / "stage110.json"
     stage137 = tmp_path / "stage137.json"
+    stage148 = tmp_path / "stage148.json"
     _write_json(stage110, _stage110("PHASEWRAP_REPLICATED_ADVANTAGE_NOT_SUPPORTED_BY_STAGE105_RULE"))
     _write_json(stage137, _stage137(ready=True, passing_windows=("w0", "w1")))
-    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137)
+    _write_json(stage148, _stage148(ready=True))
+    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137, stage148_results_path=stage148)
 
     paths = write_stage138_outputs(result, tmp_path / "out")
     manifest = json.loads((tmp_path / "out" / "manifest.json").read_text(encoding="utf-8"))

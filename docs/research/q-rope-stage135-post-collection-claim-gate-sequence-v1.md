@@ -13,18 +13,19 @@ Stage 135 records the ordered post-collection evidence sequence that must pass b
 5. `python scripts/run_stage103_robustness_metric_preregistration.py`
 6. `python scripts/run_stage136_auditability_metric_preregistration.py`
 7. `python scripts/run_stage137_auditability_metric_evaluator.py`
-8. `python scripts/run_stage109_window_evidence_intake_validator.py`
-9. `python scripts/run_stage110_replicated_advantage_claim_gate.py`
-10. `python scripts/run_stage138_objective_claim_gate.py`
+8. `python scripts/run_stage148_first_provider_statistical_interpretation_gate.py`
+9. `python scripts/run_stage109_window_evidence_intake_validator.py`
+10. `python scripts/run_stage110_replicated_advantage_claim_gate.py`
+11. `python scripts/run_stage138_objective_claim_gate.py`
 
 Current decision: `POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED`.
 
 ## Claim Boundary
 Supported:
 
-- Stage 115 through Stage 110 now have an explicit ordered rerun sequence.
+- Stage 115 through Stage 138 now have an explicit ordered rerun sequence.
 - The pipeline distinguishes a terminal final gate from the current blocked state.
-- A noisy-hardware conclusion remains barred until Stage 110 reaches either a supported or not-supported terminal decision after the upstream gates are ready.
+- A noisy-hardware conclusion remains barred until Stage 148 statistical interpretation and Stage 110/138 claim gates are ready.
 
 Excluded:
 

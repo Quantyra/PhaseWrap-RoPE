@@ -10,6 +10,7 @@ STAGE138_SCHEMA_VERSION = "qrope_stage138_objective_claim_gate_v1"
 DEFAULT_ARTIFACT_ROOT = Path("logs") / "automated_stage_gates"
 DEFAULT_STAGE110_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage110_replicated_advantage_claim_gate" / "results.json"
 DEFAULT_STAGE137_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage137_auditability_metric_evaluator" / "results.json"
+DEFAULT_STAGE148_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage148_first_provider_statistical_interpretation_gate" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage138_objective_claim_gate"
 ROBUSTNESS_SUPPORTED = "PHASEWRAP_REPLICATED_ADVANTAGE_SUPPORTED_BY_STAGE105_RULE"
 ROBUSTNESS_NOT_SUPPORTED = "PHASEWRAP_REPLICATED_ADVANTAGE_NOT_SUPPORTED_BY_STAGE105_RULE"
@@ -71,10 +72,12 @@ def run_stage138_claim_gate(
     *,
     stage110_results_path: Path = DEFAULT_STAGE110_RESULTS,
     stage137_results_path: Path = DEFAULT_STAGE137_RESULTS,
+    stage148_results_path: Path = DEFAULT_STAGE148_RESULTS,
 ) -> dict[str, Any]:
     stage110 = _load_json(stage110_results_path)
     stage137 = _load_json(stage137_results_path)
-    sources = [(stage110_results_path, stage110), (stage137_results_path, stage137)]
+    stage148 = _load_json(stage148_results_path)
+    sources = [(stage110_results_path, stage110), (stage137_results_path, stage137), (stage148_results_path, stage148)]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
     robustness_terminal = bool(
         isinstance(stage110, dict) and stage110.get("decision") in {ROBUSTNESS_SUPPORTED, ROBUSTNESS_NOT_SUPPORTED}
@@ -83,7 +86,12 @@ def run_stage138_claim_gate(
     auditability_ready = bool(isinstance(stage137, dict) and stage137.get("decision") == AUDITABILITY_READY)
     auditability_replication = _auditability_replication_records(stage137)
     auditability_supported = any(record["replicated_phasewrap_auditability_advantage"] for record in auditability_replication)
-    objective_terminal = robustness_terminal and auditability_ready and not missing_sources
+    statistical_ready = bool(
+        isinstance(stage148, dict)
+        and stage148.get("decision") == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_READY_FOR_CLAIM_GATES"
+    )
+    statistical_required = bool(robustness_supported or auditability_supported)
+    objective_terminal = robustness_terminal and auditability_ready and not missing_sources and (not statistical_required or statistical_ready)
 
     if missing_sources:
         decision = "OBJECTIVE_CLAIM_GATE_INCOMPLETE"
@@ -104,9 +112,12 @@ def run_stage138_claim_gate(
         "missing_source_artifacts": missing_sources,
         "stage110_decision": stage110.get("decision") if isinstance(stage110, dict) else None,
         "stage137_decision": stage137.get("decision") if isinstance(stage137, dict) else None,
+        "stage148_decision": stage148.get("decision") if isinstance(stage148, dict) else None,
         "robustness_terminal": robustness_terminal,
         "robustness_supported": robustness_supported,
         "auditability_ready": auditability_ready,
+        "statistical_interpretation_ready": statistical_ready,
+        "statistical_interpretation_required": statistical_required,
         "auditability_replication_record_count": len(auditability_replication),
         "replicated_auditability_advantage_count": sum(
             1 for record in auditability_replication if record["replicated_phasewrap_auditability_advantage"]
@@ -122,19 +133,20 @@ def run_stage138_claim_gate(
             "supported": [
                 "a terminal objective-level gate for robustness or auditability outcomes",
                 "separate preservation of the Stage 110 robustness rule and Stage 137 auditability rule",
+                "Stage 148 statistical guardrail enforcement before supported advantage wording",
                 "blocked output until both robustness and auditability evidence surfaces are terminal",
             ],
             "excluded": [
                 "hardware job submission",
                 "provider credentials or secret values",
                 "new provider result records",
-                "a noisy-hardware objective conclusion while Stage 110 or Stage 137 is blocked",
+                "a noisy-hardware objective conclusion while Stage 110, Stage 137, or required Stage 148 statistical interpretation is blocked",
                 "provider-wide or transformer-scale superiority beyond recorded matched fixed-width evidence",
             ],
         },
         "next_gate": (
-            "Clear Stage 110 and Stage 137. Only this gate should be used for the final objective wording: supported "
-            "if either replicated robustness or replicated auditability is supported, otherwise not supported."
+            "Clear Stage 110, Stage 137, and Stage 148 when supported advantage wording is being considered. Only this "
+            "gate should be used for the final objective wording."
         ),
     }
 
@@ -151,9 +163,12 @@ def write_stage138_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "missing_source_artifacts": result["missing_source_artifacts"],
         "stage110_decision": result["stage110_decision"],
         "stage137_decision": result["stage137_decision"],
+        "stage148_decision": result["stage148_decision"],
         "robustness_terminal": result["robustness_terminal"],
         "robustness_supported": result["robustness_supported"],
         "auditability_ready": result["auditability_ready"],
+        "statistical_interpretation_ready": result["statistical_interpretation_ready"],
+        "statistical_interpretation_required": result["statistical_interpretation_required"],
         "auditability_replication_record_count": result["auditability_replication_record_count"],
         "replicated_auditability_advantage_count": result["replicated_auditability_advantage_count"],
         "objective_terminal": result["objective_terminal"],
@@ -198,6 +213,7 @@ def print_stage138_summary(result: dict[str, Any]) -> None:
     print(f"decision: {result['decision']}")
     print(f"robustness_terminal: {result['robustness_terminal']}")
     print(f"auditability_ready: {result['auditability_ready']}")
+    print(f"statistical_interpretation_ready: {result['statistical_interpretation_ready']}")
     print(f"objective_terminal: {result['objective_terminal']}")
     print(f"objective_supported: {result['objective_supported']}")
     print(f"next_gate: {result['next_gate']}")
