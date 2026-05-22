@@ -1,0 +1,41 @@
+{
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "execution of the post-result command sequence",
+      "provider credentials or secret values",
+      "IBM credit balance or dollar cost verification",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "no-submit validation that the Stage160 post-result command sequence references present local scripts",
+      "no-submit validation that the post-result sequence remains ordered from lock verification through objective claim gate",
+      "explicit separation between result-analysis readiness and missing provider result records"
+    ]
+  },
+  "command_count": 12,
+  "decision": "POST_RESULT_ANALYSIS_DRY_RUN_READY_AWAITING_PROVIDER_RESULTS",
+  "first_unlock_provider": "ibm_runtime",
+  "missing_job_count": 328,
+  "missing_source_artifacts": [],
+  "next_gate": "After provider result records exist and Stage164 verifies the lock, run the Stage160 sequence in the validated order before interpreting robustness or auditability.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "provider_results_missing": true,
+  "result_path": "logs/automated_stage_gates/stage171_post_result_analysis_dry_run_audit/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage171_post_result_analysis_dry_run_audit_v1",
+  "script_ready_count": 12,
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage160_first_provider_post_run_analysis_packet/results.json",
+    "logs/automated_stage_gates/stage170_ibm_hardware_pause_resolution_packet/results.json"
+  ],
+  "stage": "stage171_post_result_analysis_dry_run_audit",
+  "stage160_decision": "FIRST_PROVIDER_POST_RUN_ANALYSIS_PACKET_READY_AWAITING_PROVIDER_RESULTS",
+  "stage170_decision": "IBM_HARDWARE_PAUSE_READY_FOR_CREDIT_PROVIDER_RESOLUTION",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage171_post_result_analysis_dry_run_audit/summary.csv"
+}

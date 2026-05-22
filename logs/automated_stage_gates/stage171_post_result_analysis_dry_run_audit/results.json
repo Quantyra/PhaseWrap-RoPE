@@ -1,0 +1,201 @@
+{
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "execution of the post-result command sequence",
+      "provider credentials or secret values",
+      "IBM credit balance or dollar cost verification",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "no-submit validation that the Stage160 post-result command sequence references present local scripts",
+      "no-submit validation that the post-result sequence remains ordered from lock verification through objective claim gate",
+      "explicit separation between result-analysis readiness and missing provider result records"
+    ]
+  },
+  "command_count": 12,
+  "command_records": [
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage164_first_provider_result_lock_verifier.py",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 1,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage164_first_provider_result_lock_verifier.py",
+      "stage_id": "stage164"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage115_provider_result_collector.py --provider ibm_runtime --write-stage113-input",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 2,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage115_provider_result_collector.py",
+      "stage_id": "stage115"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage113_job_result_evidence_assembler.py --provider ibm_runtime --write-evidence",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 3,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage113_job_result_evidence_assembler.py",
+      "stage_id": "stage113"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage101_known_state_calibration_gate.py",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 4,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage101_known_state_calibration_gate.py",
+      "stage_id": "stage101"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage103_robustness_metric_preregistration.py",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 5,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage103_robustness_metric_preregistration.py",
+      "stage_id": "stage103"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage136_auditability_metric_preregistration.py",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 6,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage136_auditability_metric_preregistration.py",
+      "stage_id": "stage136"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage137_auditability_metric_evaluator.py --provider ibm_runtime",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 7,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage137_auditability_metric_evaluator.py",
+      "stage_id": "stage137"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage148_first_provider_statistical_interpretation_gate.py",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 8,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage148_first_provider_statistical_interpretation_gate.py",
+      "stage_id": "stage148"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage109_window_evidence_intake_validator.py",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 9,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage109_window_evidence_intake_validator.py",
+      "stage_id": "stage109"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage110_replicated_advantage_claim_gate.py",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 10,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage110_replicated_advantage_claim_gate.py",
+      "stage_id": "stage110"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage138_objective_claim_gate.py",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 11,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage138_objective_claim_gate.py",
+      "stage_id": "stage138"
+    },
+    {
+      "blockers": [],
+      "command": "python scripts/run_stage135_post_collection_claim_gate_sequence.py",
+      "forbidden_fragments": [],
+      "hardware_submission_command": false,
+      "order": 12,
+      "ready": true,
+      "script_exists": true,
+      "script_path": "scripts/run_stage135_post_collection_claim_gate_sequence.py",
+      "stage_id": "stage135"
+    }
+  ],
+  "decision": "POST_RESULT_ANALYSIS_DRY_RUN_READY_AWAITING_PROVIDER_RESULTS",
+  "expected_stage_sequence": [
+    "stage164",
+    "stage115",
+    "stage113",
+    "stage101",
+    "stage103",
+    "stage136",
+    "stage137",
+    "stage148",
+    "stage109",
+    "stage110",
+    "stage138",
+    "stage135"
+  ],
+  "first_unlock_provider": "ibm_runtime",
+  "missing_job_count": 328,
+  "missing_source_artifacts": [],
+  "next_gate": "After provider result records exist and Stage164 verifies the lock, run the Stage160 sequence in the validated order before interpreting robustness or auditability.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "observed_stage_sequence": [
+    "stage164",
+    "stage115",
+    "stage113",
+    "stage101",
+    "stage103",
+    "stage136",
+    "stage137",
+    "stage148",
+    "stage109",
+    "stage110",
+    "stage138",
+    "stage135"
+  ],
+  "provider_credentials_required": false,
+  "provider_results_missing": true,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage171_post_result_analysis_dry_run_audit_v1",
+  "script_ready_count": 12,
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage160_first_provider_post_run_analysis_packet/results.json",
+    "logs/automated_stage_gates/stage170_ibm_hardware_pause_resolution_packet/results.json"
+  ],
+  "stage": "stage171_post_result_analysis_dry_run_audit",
+  "stage160_decision": "FIRST_PROVIDER_POST_RUN_ANALYSIS_PACKET_READY_AWAITING_PROVIDER_RESULTS",
+  "stage170_decision": "IBM_HARDWARE_PAUSE_READY_FOR_CREDIT_PROVIDER_RESOLUTION",
+  "status": "completed"
+}
