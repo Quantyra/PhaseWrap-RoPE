@@ -37,6 +37,32 @@ def adapter_status() -> dict[str, Any]:
     ).as_dict()
 
 
+def build_client_config() -> dict[str, Any]:
+    status = adapter_status()
+    return {
+        "provider": PROVIDER,
+        "client_kind": "amazon_braket_openqasm3_task_client",
+        "submitter_import_path": SUBMITTER_IMPORT_PATH,
+        "required_env": list(REQUIRED_ENV),
+        "sdk_modules": status["sdk_modules"],
+        "required_env_present": status["required_env_present"],
+        "client_factory_implemented": False,
+        "no_hardware_submission": True,
+        "secret_values_recorded": False,
+        "blockers": status["blockers"] + ["sdk_client_factory_not_enabled"],
+    }
+
+
+def create_live_client(*, allow_live_client: bool = False) -> Any:
+    config = build_client_config()
+    if not allow_live_client:
+        raise ProviderAdapterBlocked("Amazon Braket live client creation requires allow_live_client=True")
+    raise ProviderAdapterBlocked(
+        "Amazon Braket live client factory is intentionally blocked; "
+        f"blockers={', '.join(config['blockers'])}"
+    )
+
+
 def build_submission_plan(*, jobs: list[dict[str, Any]], payloads: list[dict[str, Any]]) -> list[dict[str, Any]]:
     if len(jobs) != len(payloads):
         raise ProviderAdapterBlocked("job/payload count mismatch before Amazon Braket plan build")

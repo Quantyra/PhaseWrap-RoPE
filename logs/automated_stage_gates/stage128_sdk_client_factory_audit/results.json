@@ -1,0 +1,121 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "live provider SDK client creation",
+      "real provider result records",
+      "Stage 113 evidence assembly",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "provider adapters expose guarded SDK client factory boundaries",
+      "client configs report non-secret readiness metadata and SDK/env blockers",
+      "live client creation fails closed while Stage 106/111 provider readiness is blocked"
+    ]
+  },
+  "decision": "SDK_CLIENT_FACTORIES_GUARDED_EXECUTION_BLOCKED",
+  "missing_source_artifacts": [],
+  "next_gate": "After Stage 106/111 readiness clears, replace the blocked client factories with real SDK client creation while preserving the Stage 127 injected-client execution contract.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": true,
+  "provider_records": [
+    {
+      "blocked_with_allow": true,
+      "blocked_without_allow": true,
+      "client_config": {
+        "blockers": [
+          "provider_sdk_missing",
+          "env_missing:AWS_ACCESS_KEY_ID or AWS_PROFILE",
+          "env_missing:QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
+          "env_missing:QROPE_BRAKET_OUTPUT_S3_BUCKET",
+          "env_missing:QROPE_BRAKET_AWS_REGION or AWS_REGION",
+          "live_submission_not_implemented",
+          "adapter_no_submit_guard_active",
+          "sdk_client_factory_not_enabled"
+        ],
+        "client_factory_implemented": false,
+        "client_kind": "amazon_braket_openqasm3_task_client",
+        "no_hardware_submission": true,
+        "provider": "amazon_braket",
+        "required_env": [
+          "AWS_ACCESS_KEY_ID or AWS_PROFILE",
+          "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
+          "QROPE_BRAKET_OUTPUT_S3_BUCKET",
+          "QROPE_BRAKET_AWS_REGION or AWS_REGION"
+        ],
+        "required_env_present": {
+          "AWS_ACCESS_KEY_ID or AWS_PROFILE": false,
+          "QROPE_BRAKET_AWS_REGION or AWS_REGION": false,
+          "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS": false,
+          "QROPE_BRAKET_OUTPUT_S3_BUCKET": false
+        },
+        "sdk_modules": {
+          "boto3": false,
+          "braket": false
+        },
+        "secret_values_recorded": false,
+        "submitter_import_path": "qrope.provider_adapters.amazon_braket:submit"
+      },
+      "missing_evidence": [],
+      "provider": "amazon_braket",
+      "ready": true,
+      "stage106_status": "blocked",
+      "stage111_status": "blocked"
+    },
+    {
+      "blocked_with_allow": true,
+      "blocked_without_allow": true,
+      "client_config": {
+        "blockers": [
+          "env_missing:IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
+          "env_missing:IBM_QUANTUM_INSTANCE_CRN",
+          "env_missing:QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
+          "live_submission_not_implemented",
+          "adapter_no_submit_guard_active",
+          "sdk_client_factory_not_enabled"
+        ],
+        "client_factory_implemented": false,
+        "client_kind": "ibm_runtime_sampler_client",
+        "no_hardware_submission": true,
+        "provider": "ibm_runtime",
+        "required_env": [
+          "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
+          "IBM_QUANTUM_INSTANCE_CRN",
+          "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND"
+        ],
+        "required_env_present": {
+          "IBM_QUANTUM_INSTANCE_CRN": false,
+          "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN": false,
+          "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND": false
+        },
+        "sdk_modules": {
+          "qiskit": true,
+          "qiskit_ibm_runtime": true
+        },
+        "secret_values_recorded": false,
+        "submitter_import_path": "qrope.provider_adapters.ibm_runtime:submit"
+      },
+      "missing_evidence": [],
+      "provider": "ibm_runtime",
+      "ready": true,
+      "stage106_status": "blocked",
+      "stage111_status": "blocked"
+    }
+  ],
+  "ready_provider_count": 2,
+  "schema_version": "qrope_stage128_sdk_client_factory_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage106_hardware_execution_preflight/results.json",
+    "logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json",
+    "logs/automated_stage_gates/stage127_injected_client_submitter_audit/results.json"
+  ],
+  "stage": "stage128_sdk_client_factory_audit",
+  "stage106_decision": "HARDWARE_EXECUTION_PREFLIGHT_BLOCKED_CONFIGURATION_REQUIRED",
+  "stage111_decision": "PROVIDER_SDK_BACKEND_DISCOVERY_BLOCKED",
+  "stage127_decision": "INJECTED_CLIENT_SUBMITTER_PATH_READY_EXECUTION_BLOCKED",
+  "status": "completed"
+}
