@@ -32,6 +32,13 @@ COMPARATOR_FAMILIES: tuple[str, ...] = (
     "alibi_like",
     "no_position_control",
 )
+REQUIRED_EXECUTION_FIELDS: tuple[str, ...] = (
+    "job_or_task_ids",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "raw_counts_by_row",
+)
 
 
 def _load_json(path: Path) -> dict[str, Any] | None:
@@ -208,7 +215,33 @@ def _metrics_records(packet_paths: list[Path], execution_dir: Path | None) -> tu
                 }
             )
             continue
-        records.append(packet_metrics(packet, execution))
+        missing_fields = [
+            field for field in REQUIRED_EXECUTION_FIELDS if field not in execution or execution.get(field) in (None, "", [])
+        ]
+        if missing_fields:
+            missing_execution.append(
+                {
+                    "packet_id": packet["packet_id"],
+                    "provider": packet.get("provider"),
+                    "encoding_family": packet.get("encoding_family"),
+                    "reason": "result_lineage_metadata_missing",
+                    "missing_fields": missing_fields,
+                }
+            )
+            continue
+        record = packet_metrics(packet, execution)
+        if record["coverage_fraction"] != 1.0 or record["missing_rows"]:
+            missing_execution.append(
+                {
+                    "packet_id": packet["packet_id"],
+                    "provider": packet.get("provider"),
+                    "encoding_family": packet.get("encoding_family"),
+                    "reason": "packet_row_counts_incomplete",
+                    "missing_rows": record["missing_rows"],
+                }
+            )
+            continue
+        records.append(record)
     return records, missing_execution
 
 
@@ -249,6 +282,19 @@ def _comparison_summary(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return summaries
 
 
+def _comparison_groups_complete(records: list[dict[str, Any]], summaries: list[dict[str, Any]]) -> bool:
+    expected_groups = {
+        (str(record["source_lane_id"]), str(record["circuit_template"]))
+        for record in records
+    }
+    return bool(expected_groups) and len(summaries) == len(expected_groups) and all(
+        record.get("all_families_present") is True
+        and record.get("phasewrap_mean_absolute_score_error") is not None
+        and record.get("best_comparator_mean_absolute_score_error") is not None
+        for record in summaries
+    )
+
+
 def run_stage103_preregistration(
     *,
     stage99_manifest_path: Path = DEFAULT_STAGE99_MANIFEST,
@@ -271,9 +317,14 @@ def run_stage103_preregistration(
     packet_paths = _packet_paths_from_manifest(stage99) + _packet_paths_from_manifest(stage100)
     metric_records, missing_execution = _metrics_records(packet_paths, execution_dir)
     comparison_summary = _comparison_summary(metric_records)
-    calibration_pass = bool(stage101 and stage101.get("known_state_calibration_pass") is True)
+    calibration_pass = bool(
+        stage101
+        and stage101.get("known_state_calibration_pass") is True
+        and stage101.get("decision") == "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION"
+    )
     all_packet_counts_present = bool(packet_paths) and not missing_execution and len(metric_records) == len(packet_paths)
-    ready_to_interpret = calibration_pass and all_packet_counts_present
+    complete_comparison_groups = _comparison_groups_complete(metric_records, comparison_summary)
+    ready_to_interpret = calibration_pass and all_packet_counts_present and complete_comparison_groups
     decision = (
         "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION"
         if ready_to_interpret
@@ -292,6 +343,8 @@ def run_stage103_preregistration(
         "missing_execution_count": len(missing_execution),
         "known_state_calibration_pass": calibration_pass,
         "ready_to_interpret_hardware_metrics": ready_to_interpret,
+        "complete_comparison_group_count": sum(1 for record in comparison_summary if record.get("all_families_present") is True),
+        "comparison_groups_complete": complete_comparison_groups,
         "no_hardware_submission": True,
         "provider_credentials_required": False,
         "metric_specification": {
@@ -317,6 +370,8 @@ def run_stage103_preregistration(
                 "predeclared robustness and auditability metrics for future calibrated Stage 99 and Stage 100 packet executions",
                 "fixed score reconstruction formulas for product-state and CX/parity packet families",
                 "metric interpretation requires Stage 113-assembled packet evidence",
+                "metric interpretation requires Stage 113 hardware-result lineage metadata",
+                "metric interpretation requires complete row coverage and complete matched-family comparison groups",
                 "a hard separation between metric preregistration and any future hardware advantage claim",
             ],
             "excluded": [
@@ -348,6 +403,8 @@ def write_stage103_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "missing_execution_count": result["missing_execution_count"],
         "known_state_calibration_pass": result["known_state_calibration_pass"],
         "ready_to_interpret_hardware_metrics": result["ready_to_interpret_hardware_metrics"],
+        "complete_comparison_group_count": result["complete_comparison_group_count"],
+        "comparison_groups_complete": result["comparison_groups_complete"],
         "no_hardware_submission": result["no_hardware_submission"],
         "provider_credentials_required": result["provider_credentials_required"],
         "metric_specification": result["metric_specification"],

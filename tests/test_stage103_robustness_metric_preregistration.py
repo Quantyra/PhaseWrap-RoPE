@@ -33,6 +33,18 @@ def _packet(root, packet_id: str, family: str = "phasewrap", template: str = "tw
     return {"path": path, "payload": payload}
 
 
+def _execution(packet_id: str, row0_counts: dict[str, int], row1_counts: dict[str, int]) -> dict[str, object]:
+    return {
+        "status": "assembled_from_stage113_results",
+        "no_hardware_submission": False,
+        "job_or_task_ids": [f"job-{packet_id}"],
+        "backend_metadata": {"provider": "ibm_runtime", "backend": "backend_a"},
+        "submitted_at_utc": "2026-05-21T00:00:00Z",
+        "completed_at_utc": "2026-05-21T00:01:00Z",
+        "raw_counts_by_row": [{"row_id": "row0", "counts": row0_counts}, {"row_id": "row1", "counts": row1_counts}],
+    }
+
+
 def test_score_reconstruction_for_product_and_cx_counts() -> None:
     assert expectation_from_counts({"00": 10}, "z0") == 1.0
     assert expectation_from_counts({"11": 10}, "z0z1") == 1.0
@@ -77,29 +89,31 @@ def test_stage103_preregisters_metrics_and_blocks_without_counts(tmp_path) -> No
     assert result["missing_execution_count"] == 1
 
 
-def test_stage103_computes_metrics_with_synthetic_counts_after_calibration(tmp_path) -> None:
-    phasewrap = _packet(tmp_path, "lane_a__phasewrap", "phasewrap")
-    rope = _packet(tmp_path, "lane_a__rope_like", "rope_like")
-    _write_json(tmp_path / "stage99.json", {"packet_paths": [str(phasewrap["path"]), str(rope["path"])]})
+def test_stage103_computes_metrics_with_complete_family_counts_after_calibration(tmp_path) -> None:
+    packet_specs = [
+        ("phasewrap", {"00": 10}, {"11": 10}),
+        ("rope_like", {"11": 10}, {"00": 10}),
+        ("sinusoidal_like", {"11": 10}, {"00": 10}),
+        ("alibi_like", {"11": 10}, {"00": 10}),
+        ("no_position_control", {"11": 10}, {"00": 10}),
+    ]
+    packets = [
+        _packet(tmp_path, f"lane_a__{family}", family)
+        for family, _, _ in packet_specs
+    ]
+    _write_json(tmp_path / "stage99.json", {"packet_paths": [str(packet["path"]) for packet in packets]})
     _write_json(tmp_path / "stage100.json", {"packet_paths": []})
-    _write_json(tmp_path / "stage101.json", {"known_state_calibration_pass": True})
+    _write_json(
+        tmp_path / "stage101.json",
+        {
+            "known_state_calibration_pass": True,
+            "decision": "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION",
+        },
+    )
     _write_json(tmp_path / "stage102.json", {"decision": "ok"})
-    _write_json(
-        tmp_path / "exec/lane_a__phasewrap.json",
-        {
-            "status": "assembled_from_stage113_results",
-            "no_hardware_submission": False,
-            "raw_counts_by_row": [{"row_id": "row0", "counts": {"00": 10}}, {"row_id": "row1", "counts": {"11": 10}}],
-        },
-    )
-    _write_json(
-        tmp_path / "exec/lane_a__rope_like.json",
-        {
-            "status": "assembled_from_stage113_results",
-            "no_hardware_submission": False,
-            "raw_counts_by_row": [{"row_id": "row0", "counts": {"11": 10}}, {"row_id": "row1", "counts": {"00": 10}}],
-        },
-    )
+    for family, row0_counts, row1_counts in packet_specs:
+        packet_id = f"lane_a__{family}"
+        _write_json(tmp_path / f"exec/{packet_id}.json", _execution(packet_id, row0_counts, row1_counts))
 
     result = run_stage103_preregistration(
         stage99_manifest_path=tmp_path / "stage99.json",
@@ -110,16 +124,112 @@ def test_stage103_computes_metrics_with_synthetic_counts_after_calibration(tmp_p
     )
 
     assert result["decision"] == "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION"
-    assert result["metric_record_count"] == 2
+    assert result["metric_record_count"] == 5
+    assert result["comparison_groups_complete"] is True
     phasewrap_record = next(record for record in result["metric_records"] if record["encoding_family"] == "phasewrap")
     assert phasewrap_record["mean_absolute_score_error"] == 0.0
+
+
+def test_stage103_blocks_incomplete_family_group_after_calibration(tmp_path) -> None:
+    phasewrap = _packet(tmp_path, "lane_a__phasewrap", "phasewrap")
+    rope = _packet(tmp_path, "lane_a__rope_like", "rope_like")
+    _write_json(tmp_path / "stage99.json", {"packet_paths": [str(phasewrap["path"]), str(rope["path"])]})
+    _write_json(tmp_path / "stage100.json", {"packet_paths": []})
+    _write_json(
+        tmp_path / "stage101.json",
+        {
+            "known_state_calibration_pass": True,
+            "decision": "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION",
+        },
+    )
+    _write_json(tmp_path / "stage102.json", {"decision": "ok"})
+    _write_json(tmp_path / "exec/lane_a__phasewrap.json", _execution("lane_a__phasewrap", {"00": 10}, {"11": 10}))
+    _write_json(tmp_path / "exec/lane_a__rope_like.json", _execution("lane_a__rope_like", {"11": 10}, {"00": 10}))
+
+    result = run_stage103_preregistration(
+        stage99_manifest_path=tmp_path / "stage99.json",
+        stage100_manifest_path=tmp_path / "stage100.json",
+        stage101_results_path=tmp_path / "stage101.json",
+        stage102_manifest_path=tmp_path / "stage102.json",
+        execution_dir=tmp_path / "exec",
+    )
+
+    assert result["decision"] == "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED"
+    assert result["metric_record_count"] == 2
+    assert result["comparison_groups_complete"] is False
+
+
+def test_stage103_blocks_counts_without_result_lineage_metadata(tmp_path) -> None:
+    phasewrap = _packet(tmp_path, "lane_a__phasewrap", "phasewrap")
+    _write_json(tmp_path / "stage99.json", {"packet_paths": [str(phasewrap["path"])]})
+    _write_json(tmp_path / "stage100.json", {"packet_paths": []})
+    _write_json(
+        tmp_path / "stage101.json",
+        {
+            "known_state_calibration_pass": True,
+            "decision": "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION",
+        },
+    )
+    _write_json(tmp_path / "stage102.json", {"decision": "ok"})
+    execution = _execution("lane_a__phasewrap", {"00": 10}, {"11": 10})
+    execution.pop("backend_metadata")
+    _write_json(tmp_path / "exec/lane_a__phasewrap.json", execution)
+
+    result = run_stage103_preregistration(
+        stage99_manifest_path=tmp_path / "stage99.json",
+        stage100_manifest_path=tmp_path / "stage100.json",
+        stage101_results_path=tmp_path / "stage101.json",
+        stage102_manifest_path=tmp_path / "stage102.json",
+        execution_dir=tmp_path / "exec",
+    )
+
+    assert result["decision"] == "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED"
+    assert result["metric_record_count"] == 0
+    assert result["missing_execution"][0]["reason"] == "result_lineage_metadata_missing"
+    assert result["missing_execution"][0]["missing_fields"] == ["backend_metadata"]
+
+
+def test_stage103_blocks_partial_row_coverage(tmp_path) -> None:
+    phasewrap = _packet(tmp_path, "lane_a__phasewrap", "phasewrap")
+    _write_json(tmp_path / "stage99.json", {"packet_paths": [str(phasewrap["path"])]})
+    _write_json(tmp_path / "stage100.json", {"packet_paths": []})
+    _write_json(
+        tmp_path / "stage101.json",
+        {
+            "known_state_calibration_pass": True,
+            "decision": "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION",
+        },
+    )
+    _write_json(tmp_path / "stage102.json", {"decision": "ok"})
+    execution = _execution("lane_a__phasewrap", {"00": 10}, {"11": 10})
+    execution["raw_counts_by_row"] = [{"row_id": "row0", "counts": {"00": 10}}]
+    _write_json(tmp_path / "exec/lane_a__phasewrap.json", execution)
+
+    result = run_stage103_preregistration(
+        stage99_manifest_path=tmp_path / "stage99.json",
+        stage100_manifest_path=tmp_path / "stage100.json",
+        stage101_results_path=tmp_path / "stage101.json",
+        stage102_manifest_path=tmp_path / "stage102.json",
+        execution_dir=tmp_path / "exec",
+    )
+
+    assert result["decision"] == "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED"
+    assert result["metric_record_count"] == 0
+    assert result["missing_execution"][0]["reason"] == "packet_row_counts_incomplete"
+    assert result["missing_execution"][0]["missing_rows"] == ["row1"]
 
 
 def test_stage103_rejects_complete_counts_without_stage113_status(tmp_path) -> None:
     phasewrap = _packet(tmp_path, "lane_a__phasewrap", "phasewrap")
     _write_json(tmp_path / "stage99.json", {"packet_paths": [str(phasewrap["path"])]})
     _write_json(tmp_path / "stage100.json", {"packet_paths": []})
-    _write_json(tmp_path / "stage101.json", {"known_state_calibration_pass": True})
+    _write_json(
+        tmp_path / "stage101.json",
+        {
+            "known_state_calibration_pass": True,
+            "decision": "KNOWN_STATE_CALIBRATION_VERIFIED_READY_FOR_MATCHED_HARDWARE_EXECUTION",
+        },
+    )
     _write_json(tmp_path / "stage102.json", {"decision": "ok"})
     _write_json(
         tmp_path / "exec/lane_a__phasewrap.json",

@@ -10,10 +10,14 @@
       "predeclared robustness and auditability metrics for future calibrated Stage 99 and Stage 100 packet executions",
       "fixed score reconstruction formulas for product-state and CX/parity packet families",
       "metric interpretation requires Stage 113-assembled packet evidence",
+      "metric interpretation requires Stage 113 hardware-result lineage metadata",
+      "metric interpretation requires complete row coverage and complete matched-family comparison groups",
       "a hard separation between metric preregistration and any future hardware advantage claim"
     ]
   },
+  "comparison_groups_complete": false,
   "comparison_summary": [],
+  "complete_comparison_group_count": 0,
   "decision": "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED",
   "known_state_calibration_pass": false,
   "metric_record_count": 0,

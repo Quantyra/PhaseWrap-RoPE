@@ -30,6 +30,10 @@ def _ready_stage109(tmp_path, *, second_window_passes: bool = True) -> dict[str,
             stage103_path,
             {
                 "decision": "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION",
+                "ready_to_interpret_hardware_metrics": True,
+                "comparison_groups_complete": True,
+                "missing_execution_count": 0,
+                "metric_record_count": 5,
                 "comparison_summary": [_summary(pass_rule)],
             },
         )
@@ -104,6 +108,25 @@ def test_stage110_rejects_summary_shaped_stage103_without_ready_decision(tmp_pat
     assert result["replicated_advantage_count"] == 0
     assert result["window_metric_records"][0]["stage103_ready_for_interpretation"] is False
     assert result["window_metric_records"][0]["passes_stage103_advantage_rule"] is False
+
+
+def test_stage110_rejects_stage103_without_readiness_counters(tmp_path) -> None:
+    _write_json(tmp_path / "stage105.json", {"decision": "INDEPENDENT_RERUN_PROTOCOL_PREREGISTERED_EXECUTION_REQUIRED"})
+    stage109 = _ready_stage109(tmp_path)
+    _write_json(tmp_path / "stage109.json", stage109)
+    stage103_path = tmp_path / "windows" / "ibm_runtime__independent_window_00" / "stage103" / "results.json"
+    stage103 = json.loads(stage103_path.read_text(encoding="utf-8"))
+    stage103["comparison_groups_complete"] = False
+    _write_json(stage103_path, stage103)
+
+    result = run_stage110_claim_gate(stage105_manifest_path=tmp_path / "stage105.json", stage109_results_path=tmp_path / "stage109.json")
+
+    assert result["decision"] == "PHASEWRAP_REPLICATED_ADVANTAGE_NOT_SUPPORTED_BY_STAGE105_RULE"
+    assert result["replicated_advantage_count"] == 0
+    first_window = result["window_metric_records"][0]
+    assert first_window["stage103_ready_for_interpretation"] is False
+    assert first_window["stage103_comparison_groups_complete"] is False
+    assert first_window["passes_stage103_advantage_rule"] is False
 
 
 def test_stage110_rejects_replicated_advantage_when_any_window_fails(tmp_path) -> None:

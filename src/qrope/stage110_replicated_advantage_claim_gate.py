@@ -39,7 +39,14 @@ def _window_metric_records(stage109: dict[str, Any] | None) -> list[dict[str, An
     for window in stage109.get("window_records", []):
         stage103_path = Path(str(window.get("stage103_results_path", "")))
         stage103 = _load_json(stage103_path)
-        stage103_ready = bool(isinstance(stage103, dict) and stage103.get("decision") == STAGE103_READY)
+        stage103_ready = bool(
+            isinstance(stage103, dict)
+            and stage103.get("decision") == STAGE103_READY
+            and stage103.get("ready_to_interpret_hardware_metrics") is True
+            and stage103.get("comparison_groups_complete") is True
+            and int(stage103.get("missing_execution_count") or 0) == 0
+            and int(stage103.get("metric_record_count") or 0) > 0
+        )
         for summary in stage103.get("comparison_summary", []) if isinstance(stage103, dict) else []:
             records.append(
                 {
@@ -52,6 +59,12 @@ def _window_metric_records(stage109: dict[str, Any] | None) -> list[dict[str, An
                     "phasewrap_lower_error_than": summary.get("phasewrap_lower_error_than", []),
                     "all_families_present": summary.get("all_families_present"),
                     "stage103_ready_for_interpretation": stage103_ready,
+                    "stage103_ready_to_interpret_hardware_metrics": (
+                        stage103.get("ready_to_interpret_hardware_metrics") if isinstance(stage103, dict) else None
+                    ),
+                    "stage103_comparison_groups_complete": stage103.get("comparison_groups_complete") if isinstance(stage103, dict) else None,
+                    "stage103_missing_execution_count": stage103.get("missing_execution_count") if isinstance(stage103, dict) else None,
+                    "stage103_metric_record_count": stage103.get("metric_record_count") if isinstance(stage103, dict) else None,
                     "stage103_results_path": str(stage103_path.as_posix()),
                     "passes_stage103_advantage_rule": stage103_ready and _comparison_pass(summary),
                 }
@@ -147,6 +160,7 @@ def run_stage110_claim_gate(
                 "a deterministic gate that binds any replicated PhaseWrap claim to Stage 109 readiness",
                 "enforcement of the Stage 105 independent-rerun preregistration decision before aggregation",
                 "enforcement of Stage 103 ready-for-interpretation decisions before applying comparison summaries",
+                "enforcement of Stage 103 readiness counters, complete comparison groups, and zero missing executions",
                 "application of the preregistered Stage 103 lower-MAE rule across Stage 105 independent windows",
                 "explicit reporting of not-supported outcomes when any required window fails the advantage rule",
             ],
