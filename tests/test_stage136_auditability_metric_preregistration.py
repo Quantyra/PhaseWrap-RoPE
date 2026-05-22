@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 from qrope.stage136_auditability_metric_preregistration import run_stage136_preregistration, write_stage136_outputs
 
@@ -14,10 +15,17 @@ def _packet(packet_id: str, family: str, template: str = "two_ry_product_state_z
     return {
         "packet_id": packet_id,
         "source_lane_id": "lane_0",
+        "source_row_set_hash": "lane-0-row-set",
         "encoding_family": family,
         "provider": "ibm_runtime",
         "row_count": 1,
-        "fixed_width": {"circuit_template": template, "measured_qubits": 2, "active_qubits": 2},
+        "shot_count": 128,
+        "fixed_width": {
+            "circuit_template": template,
+            "measured_qubits": 2,
+            "active_qubits": 2,
+            "readout": "computational_basis",
+        },
         "packet_hash": f"hash-{packet_id}",
         "rows": [
             {
@@ -84,6 +92,35 @@ def test_stage136_blocks_when_audit_trace_fields_are_missing(tmp_path) -> None:
     broken = [record for record in result["packet_records"] if not record["ready"]]
     assert broken
     assert "row_audit_fields_missing" in broken[0]["missing_audit_fields"]
+
+
+def test_stage136_blocks_when_comparator_group_is_incomplete(tmp_path) -> None:
+    stage99, stage100 = _write_fixture(tmp_path)
+    manifest = json.loads(stage99.read_text(encoding="utf-8"))
+    manifest["packet_paths"] = [path for path in manifest["packet_paths"] if not path.endswith("rope_like.json")]
+    stage99.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+
+    result = run_stage136_preregistration(stage99_manifest_path=stage99, stage100_manifest_path=stage100)
+
+    assert result["decision"] == "AUDITABILITY_METRIC_CONTRACT_INCOMPLETE"
+    incomplete = [record for record in result["lane_family_records"] if not record["all_packet_audit_traces_ready"]]
+    assert incomplete
+    assert incomplete[0]["missing_encoding_families"] == ["rope_like"]
+
+
+def test_stage136_blocks_when_fixed_width_metadata_is_incomplete(tmp_path) -> None:
+    stage99, stage100 = _write_fixture(tmp_path)
+    manifest = json.loads(stage99.read_text(encoding="utf-8"))
+    packet_path = next(path for path in manifest["packet_paths"] if path.endswith("phasewrap.json"))
+    packet = json.loads(Path(packet_path).read_text(encoding="utf-8"))
+    packet["fixed_width"]["readout"] = "x_basis"
+    Path(packet_path).write_text(json.dumps(packet, indent=2, sort_keys=True), encoding="utf-8")
+
+    result = run_stage136_preregistration(stage99_manifest_path=stage99, stage100_manifest_path=stage100)
+
+    assert result["decision"] == "AUDITABILITY_METRIC_CONTRACT_INCOMPLETE"
+    broken = [record for record in result["packet_records"] if not record["ready"]]
+    assert "fixed_width.readout" in broken[0]["missing_audit_fields"]
 
 
 def test_stage136_outputs_are_written(tmp_path) -> None:

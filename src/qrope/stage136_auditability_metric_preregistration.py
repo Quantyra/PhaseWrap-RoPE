@@ -24,6 +24,10 @@ ENCODING_FAMILIES: tuple[str, ...] = (
     "no_position_control",
 )
 POSITIONAL_COMPARATOR_FAMILIES: tuple[str, ...] = ("rope_like", "sinusoidal_like", "alibi_like")
+REQUIRED_CIRCUIT_TEMPLATES: tuple[str, ...] = (
+    "two_ry_product_state_z_readout_v1",
+    "two_ry_cx_parity_z_readout_v1",
+)
 REQUIRED_ROW_FIELDS: tuple[str, ...] = (
     "row_id",
     "source_row_hash",
@@ -112,6 +116,18 @@ def _packet_audit_record(path: Path) -> dict[str, Any]:
             "row_records": [],
         }
     packet_missing = _missing_fields(packet, REQUIRED_PACKET_FIELDS)
+    fixed_width = packet.get("fixed_width", {})
+    if not isinstance(fixed_width, dict):
+        packet_missing.append("fixed_width")
+        fixed_width = {}
+    if fixed_width.get("measured_qubits") != 2:
+        packet_missing.append("fixed_width.measured_qubits")
+    if fixed_width.get("active_qubits") != 2:
+        packet_missing.append("fixed_width.active_qubits")
+    if fixed_width.get("readout") != "computational_basis":
+        packet_missing.append("fixed_width.readout")
+    if fixed_width.get("circuit_template") not in REQUIRED_CIRCUIT_TEMPLATES:
+        packet_missing.append("fixed_width.circuit_template")
     rows = packet.get("rows", [])
     if not isinstance(rows, list):
         rows = []
@@ -131,6 +147,8 @@ def _packet_audit_record(path: Path) -> dict[str, Any]:
         "encoding_family": packet.get("encoding_family"),
         "source_lane_id": packet.get("source_lane_id"),
         "provider": packet.get("provider"),
+        "source_row_set_hash": packet.get("source_row_set_hash"),
+        "shot_count": packet.get("shot_count"),
         "circuit_template": packet.get("fixed_width", {}).get("circuit_template"),
         "row_count": row_count,
         "ready_row_count": ready_rows,
@@ -142,23 +160,49 @@ def _packet_audit_record(path: Path) -> dict[str, Any]:
 
 
 def _lane_family_records(packet_records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    grouped: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    grouped: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
     for record in packet_records:
-        key = (str(record.get("source_lane_id")), str(record.get("circuit_template")))
+        key = (str(record.get("provider")), str(record.get("source_lane_id")), str(record.get("circuit_template")))
         grouped.setdefault(key, []).append(record)
 
     records = []
-    for (source_lane_id, circuit_template), packets in sorted(grouped.items()):
+    for (provider, source_lane_id, circuit_template), packets in sorted(grouped.items()):
         families = {str(record.get("encoding_family")) for record in packets}
         complete = all(family in families for family in ENCODING_FAMILIES)
-        all_ready = complete and all(record["ready"] for record in packets)
+        row_counts = {int(record.get("row_count") or 0) for record in packets}
+        shot_counts = {int(record.get("shot_count") or 0) for record in packets}
+        row_set_hashes = {str(record.get("source_row_set_hash")) for record in packets}
+        missing_families = sorted(set(ENCODING_FAMILIES) - families)
+        extra_families = sorted(families - set(ENCODING_FAMILIES))
+        row_counts_match = len(row_counts) == 1 and 0 not in row_counts
+        shot_counts_match = len(shot_counts) == 1 and 0 not in shot_counts
+        row_sets_match = len(row_set_hashes) == 1 and "" not in row_set_hashes and "None" not in row_set_hashes
+        all_ready = (
+            complete
+            and not extra_families
+            and len(packets) == len(ENCODING_FAMILIES)
+            and row_counts_match
+            and shot_counts_match
+            and row_sets_match
+            and all(record["ready"] for record in packets)
+        )
         records.append(
             {
+                "provider": provider,
                 "source_lane_id": source_lane_id,
                 "circuit_template": circuit_template,
+                "packet_count": len(packets),
                 "family_count": len(families),
                 "families_present": sorted(families),
+                "missing_encoding_families": missing_families,
+                "extra_encoding_families": extra_families,
                 "all_families_present": complete,
+                "row_counts": sorted(row_counts),
+                "shot_counts": sorted(shot_counts),
+                "row_set_hashes": sorted(row_set_hashes),
+                "row_counts_match": row_counts_match,
+                "shot_counts_match": shot_counts_match,
+                "row_sets_match": row_sets_match,
                 "all_packet_audit_traces_ready": all_ready,
             }
         )
@@ -198,6 +242,7 @@ def run_stage136_preregistration(
         "lane_family_record_count": len(lane_family_records),
         "matched_encoding_families": list(ENCODING_FAMILIES),
         "positional_comparator_families": list(POSITIONAL_COMPARATOR_FAMILIES),
+        "required_circuit_templates": list(REQUIRED_CIRCUIT_TEMPLATES),
         "packet_records": packet_records,
         "lane_family_records": lane_family_records,
         "no_hardware_submission": True,
@@ -221,14 +266,16 @@ def run_stage136_preregistration(
                 "that PhaseWrap must beat for an auditability-specific wording."
             ),
             "fixed_width_binding": (
-                "Auditability metrics must use the same two measured qubits, same row set, same circuit template, "
-                "same shot budget, and same Stage 101 calibration evidence as the robustness metric gate."
+                "Auditability metrics must use the same two measured qubits, same computational-basis readout, same "
+                "row set, same circuit template, same shot budget, and same Stage 101 calibration evidence as the "
+                "robustness metric gate."
             ),
         },
         "claim_boundary": {
             "supported": [
                 "a preregistered auditability metric contract for Stage 99 product-state and Stage 100 CX/parity packets",
                 "static trace coverage validation across every matched packet family",
+                "provider/lane/template validation of complete fixed-width comparator groups for auditability metrics",
                 "a hardware-count-dependent component reconstruction rule that can be evaluated after Stage 113 evidence assembly",
             ],
             "excluded": [
@@ -261,6 +308,7 @@ def write_stage136_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "lane_family_record_count": result["lane_family_record_count"],
         "matched_encoding_families": result["matched_encoding_families"],
         "positional_comparator_families": result["positional_comparator_families"],
+        "required_circuit_templates": result["required_circuit_templates"],
         "no_hardware_submission": result["no_hardware_submission"],
         "provider_credentials_required": result["provider_credentials_required"],
         "secret_values_recorded": result["secret_values_recorded"],

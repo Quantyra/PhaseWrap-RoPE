@@ -10,6 +10,7 @@
     "supported": [
       "a preregistered auditability metric contract for Stage 99 product-state and Stage 100 CX/parity packets",
       "static trace coverage validation across every matched packet family",
+      "provider/lane/template validation of complete fixed-width comparator groups for auditability metrics",
       "a hardware-count-dependent component reconstruction rule that can be evaluated after Stage 113 evidence assembly"
     ]
   },
@@ -20,6 +21,7 @@
       "all_families_present": true,
       "all_packet_audit_traces_ready": true,
       "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "extra_encoding_families": [],
       "families_present": [
         "alibi_like",
         "no_position_control",
@@ -28,12 +30,28 @@
         "sinusoidal_like"
       ],
       "family_count": 5,
+      "missing_encoding_families": [],
+      "packet_count": 5,
+      "provider": "amazon_braket",
+      "row_counts": [
+        8
+      ],
+      "row_counts_match": true,
+      "row_set_hashes": [
+        "8e5837086b91ef2da179cc5a386c1668e5c41d9b01aa7a01a05160481f3f8c84"
+      ],
+      "row_sets_match": true,
+      "shot_counts": [
+        1000
+      ],
+      "shot_counts_match": true,
       "source_lane_id": "braket_cx_seed2718_rows8_shots1000"
     },
     {
       "all_families_present": true,
       "all_packet_audit_traces_ready": true,
       "circuit_template": "two_ry_product_state_z_readout_v1",
+      "extra_encoding_families": [],
       "families_present": [
         "alibi_like",
         "no_position_control",
@@ -42,12 +60,28 @@
         "sinusoidal_like"
       ],
       "family_count": 5,
+      "missing_encoding_families": [],
+      "packet_count": 5,
+      "provider": "amazon_braket",
+      "row_counts": [
+        8
+      ],
+      "row_counts_match": true,
+      "row_set_hashes": [
+        "68afb1a5d75f0b5bbc2327d81163c19372a379e90accba3e0be086d54357d293"
+      ],
+      "row_sets_match": true,
+      "shot_counts": [
+        1000
+      ],
+      "shot_counts_match": true,
       "source_lane_id": "braket_product_seed2718_rows8_shots1000"
     },
     {
       "all_families_present": true,
       "all_packet_audit_traces_ready": true,
       "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "extra_encoding_families": [],
       "families_present": [
         "alibi_like",
         "no_position_control",
@@ -56,12 +90,28 @@
         "sinusoidal_like"
       ],
       "family_count": 5,
+      "missing_encoding_families": [],
+      "packet_count": 5,
+      "provider": "ibm_runtime",
+      "row_counts": [
+        16
+      ],
+      "row_counts_match": true,
+      "row_set_hashes": [
+        "ba68fb3a4acc6dca6c0ea102627af7986f9b51a460430d57506a0e91aa6c306a"
+      ],
+      "row_sets_match": true,
+      "shot_counts": [
+        4096
+      ],
+      "shot_counts_match": true,
       "source_lane_id": "ibm_cx_seed314_rows16_shots4096"
     },
     {
       "all_families_present": true,
       "all_packet_audit_traces_ready": true,
       "circuit_template": "two_ry_product_state_z_readout_v1",
+      "extra_encoding_families": [],
       "families_present": [
         "alibi_like",
         "no_position_control",
@@ -70,6 +120,21 @@
         "sinusoidal_like"
       ],
       "family_count": 5,
+      "missing_encoding_families": [],
+      "packet_count": 5,
+      "provider": "ibm_runtime",
+      "row_counts": [
+        16
+      ],
+      "row_counts_match": true,
+      "row_set_hashes": [
+        "09434634dbe29dfbfd29abd7b8efb65c0df15198681224cc6d2dbc3bbb91267a"
+      ],
+      "row_sets_match": true,
+      "shot_counts": [
+        4096
+      ],
+      "shot_counts_match": true,
       "source_lane_id": "ibm_product_seed314_rows16_shots4096"
     }
   ],
@@ -82,7 +147,7 @@
   ],
   "metric_specification": {
     "advantage_rule": "PhaseWrap may be described as having an auditability advantage only for a provider, source lane, and circuit template where trace coverage is complete for every matched family and PhaseWrap's component reconstruction MAE is lower than every named positional comparator family in the same calibrated hardware evidence window. The no-position/control family remains a control, not a positional method that PhaseWrap must beat for an auditability-specific wording.",
-    "fixed_width_binding": "Auditability metrics must use the same two measured qubits, same row set, same circuit template, same shot budget, and same Stage 101 calibration evidence as the robustness metric gate.",
+    "fixed_width_binding": "Auditability metrics must use the same two measured qubits, same computational-basis readout, same row set, same circuit template, same shot budget, and same Stage 101 calibration evidence as the robustness metric gate.",
     "hardware_auditability_metric": "component_reconstruction_mean_absolute_error: after Stage 101 calibration, reconstruct component_a and component_b from the same calibrated observables used by Stage 103 and compute per-row absolute error against the frozen packet components.",
     "static_trace_metric": "trace_coverage_fraction: fraction of rows with source-row hash, source deltas, two ideal score components, circuit parameters, ideal score prediction, and row hash present."
   },
@@ -248,7 +313,9 @@
           "source_lane_id": "ibm_product_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "source_row_set_hash": "09434634dbe29dfbfd29abd7b8efb65c0df15198681224cc6d2dbc3bbb91267a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -407,7 +474,9 @@
           "source_lane_id": "ibm_product_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "source_row_set_hash": "09434634dbe29dfbfd29abd7b8efb65c0df15198681224cc6d2dbc3bbb91267a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -566,7 +635,9 @@
           "source_lane_id": "ibm_product_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "source_row_set_hash": "09434634dbe29dfbfd29abd7b8efb65c0df15198681224cc6d2dbc3bbb91267a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -725,7 +796,9 @@
           "source_lane_id": "ibm_product_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "source_row_set_hash": "09434634dbe29dfbfd29abd7b8efb65c0df15198681224cc6d2dbc3bbb91267a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -884,7 +957,9 @@
           "source_lane_id": "ibm_product_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "source_row_set_hash": "09434634dbe29dfbfd29abd7b8efb65c0df15198681224cc6d2dbc3bbb91267a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -971,7 +1046,9 @@
           "source_lane_id": "braket_product_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "source_row_set_hash": "68afb1a5d75f0b5bbc2327d81163c19372a379e90accba3e0be086d54357d293",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -1058,7 +1135,9 @@
           "source_lane_id": "braket_product_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "source_row_set_hash": "68afb1a5d75f0b5bbc2327d81163c19372a379e90accba3e0be086d54357d293",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -1145,7 +1224,9 @@
           "source_lane_id": "braket_product_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "source_row_set_hash": "68afb1a5d75f0b5bbc2327d81163c19372a379e90accba3e0be086d54357d293",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -1232,7 +1313,9 @@
           "source_lane_id": "braket_product_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "source_row_set_hash": "68afb1a5d75f0b5bbc2327d81163c19372a379e90accba3e0be086d54357d293",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -1319,7 +1402,9 @@
           "source_lane_id": "braket_product_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "source_row_set_hash": "68afb1a5d75f0b5bbc2327d81163c19372a379e90accba3e0be086d54357d293",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -1478,7 +1563,9 @@
           "source_lane_id": "ibm_cx_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "source_row_set_hash": "ba68fb3a4acc6dca6c0ea102627af7986f9b51a460430d57506a0e91aa6c306a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -1637,7 +1724,9 @@
           "source_lane_id": "ibm_cx_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "source_row_set_hash": "ba68fb3a4acc6dca6c0ea102627af7986f9b51a460430d57506a0e91aa6c306a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -1796,7 +1885,9 @@
           "source_lane_id": "ibm_cx_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "source_row_set_hash": "ba68fb3a4acc6dca6c0ea102627af7986f9b51a460430d57506a0e91aa6c306a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -1955,7 +2046,9 @@
           "source_lane_id": "ibm_cx_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "source_row_set_hash": "ba68fb3a4acc6dca6c0ea102627af7986f9b51a460430d57506a0e91aa6c306a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -2114,7 +2207,9 @@
           "source_lane_id": "ibm_cx_seed314_rows16_shots4096"
         }
       ],
+      "shot_count": 4096,
       "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "source_row_set_hash": "ba68fb3a4acc6dca6c0ea102627af7986f9b51a460430d57506a0e91aa6c306a",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -2201,7 +2296,9 @@
           "source_lane_id": "braket_cx_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+      "source_row_set_hash": "8e5837086b91ef2da179cc5a386c1668e5c41d9b01aa7a01a05160481f3f8c84",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -2288,7 +2385,9 @@
           "source_lane_id": "braket_cx_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+      "source_row_set_hash": "8e5837086b91ef2da179cc5a386c1668e5c41d9b01aa7a01a05160481f3f8c84",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -2375,7 +2474,9 @@
           "source_lane_id": "braket_cx_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+      "source_row_set_hash": "8e5837086b91ef2da179cc5a386c1668e5c41d9b01aa7a01a05160481f3f8c84",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -2462,7 +2563,9 @@
           "source_lane_id": "braket_cx_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+      "source_row_set_hash": "8e5837086b91ef2da179cc5a386c1668e5c41d9b01aa7a01a05160481f3f8c84",
       "trace_coverage_fraction": 1.0
     },
     {
@@ -2549,7 +2652,9 @@
           "source_lane_id": "braket_cx_seed2718_rows8_shots1000"
         }
       ],
+      "shot_count": 1000,
       "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+      "source_row_set_hash": "8e5837086b91ef2da179cc5a386c1668e5c41d9b01aa7a01a05160481f3f8c84",
       "trace_coverage_fraction": 1.0
     }
   ],
@@ -2560,6 +2665,10 @@
   ],
   "provider_credentials_required": false,
   "ready_packet_count": 20,
+  "required_circuit_templates": [
+    "two_ry_product_state_z_readout_v1",
+    "two_ry_cx_parity_z_readout_v1"
+  ],
   "schema_version": "qrope_stage136_auditability_metric_preregistration_v1",
   "secret_values_recorded": false,
   "source_artifacts": [
