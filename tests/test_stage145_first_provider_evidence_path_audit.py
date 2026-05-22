@@ -50,7 +50,22 @@ def _fixture(paths, *, ready: bool) -> None:
     _write_json(
         paths["stage115_results_path"],
         {
-            "decision": "PROVIDER_RESULTS_READY_TO_COLLECT" if ready else "PROVIDER_RESULTS_COLLECTION_BLOCKED_RESULTS_MISSING",
+            "decision": "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113" if ready else "PROVIDER_RESULTS_COLLECTION_BLOCKED_RESULTS_MISSING",
+            "wrote_stage113_input": ready,
+            "stage152_write_ready": ready,
+            "stage152_write_blockers": [],
+            "stage152_first_provider_runner_command_count": 1 if ready else 0,
+            "stage152_first_provider_authorized_runner_count": 1 if ready else 0,
+            "stage152_first_provider_live_submit_ready_count": 1 if ready else 0,
+            "stage152_all_first_provider_commands_authorized": ready,
+            "stage152_all_first_provider_commands_live_submit_ready": ready,
+            "provider_scope": provider,
+            "shard_count": 1,
+            "ready_shard_count": 1 if ready else 0,
+            "expected_job_count": 164,
+            "result_record_count": 164 if ready else 0,
+            "missing_job_count": 0 if ready else 164,
+            "invalid_result_record_count": 0,
             "shard_records": [
                 {
                     "provider": provider,
@@ -66,9 +81,12 @@ def _fixture(paths, *, ready: bool) -> None:
     _write_json(
         paths["stage113_results_path"],
         {
-            "decision": "JOB_RESULTS_READY_FOR_STAGE109_EVIDENCE_ASSEMBLY"
+            "decision": "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"
             if ready
-            else "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING"
+            else "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING",
+            "stage115_write_ready": ready,
+            "stage115_write_blockers": [],
+            "assembled_evidence_count": 3 if ready else 0,
         },
     )
     _write_json(paths["stage114_manifest_path"], {"required_result_fields": ["job_id", "counts"]})
@@ -121,6 +139,41 @@ def test_stage145_reports_ready_first_provider_evidence_path(tmp_path) -> None:
     assert result["first_blocked_readiness_record"] is None
     assert result["first_provider_authorized_runner_count"] == 1
     assert result["first_provider_ready_shard_count"] == 1
+
+
+def test_stage145_blocks_ready_shards_without_guarded_stage113_input(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _fixture(paths, ready=True)
+    stage115 = json.loads(paths["stage115_results_path"].read_text(encoding="utf-8"))
+    stage115["decision"] = "PROVIDER_RESULTS_READY_TO_COLLECT"
+    stage115["wrote_stage113_input"] = False
+    stage115["stage152_write_ready"] = False
+    stage115["stage152_write_blockers"] = ["stage152_live_execution_guard_not_ready"]
+    _write_json(paths["stage115_results_path"], stage115)
+
+    result = run_stage145_audit(**paths)
+
+    assert result["decision"] == "FIRST_PROVIDER_EVIDENCE_PATH_PREPARED_RESULTS_BLOCKED"
+    guarded_record = next(record for record in result["readiness_records"] if record["name"] == "first_provider_stage115_guarded_stage113_input")
+    assert guarded_record["ready"] is False
+    assert "stage115_not_collected_for_stage113" in guarded_record["blockers"]
+    assert "stage115_stage152_write_not_ready" in guarded_record["blockers"]
+
+
+def test_stage145_blocks_stage113_ready_decision_without_assembled_evidence(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _fixture(paths, ready=True)
+    stage113 = json.loads(paths["stage113_results_path"].read_text(encoding="utf-8"))
+    stage113["decision"] = "JOB_RESULTS_READY_FOR_STAGE109_EVIDENCE_ASSEMBLY"
+    stage113["assembled_evidence_count"] = 0
+    _write_json(paths["stage113_results_path"], stage113)
+
+    result = run_stage145_audit(**paths)
+
+    assert result["decision"] == "FIRST_PROVIDER_EVIDENCE_PATH_PREPARED_RESULTS_BLOCKED"
+    assembly_record = next(record for record in result["readiness_records"] if record["name"] == "first_provider_stage113_evidence_assembly")
+    assert "stage113_not_assembled_into_stage109_evidence" in assembly_record["blockers"]
+    assert "stage113_no_assembled_evidence" in assembly_record["blockers"]
 
 
 def test_stage145_outputs_are_written(tmp_path) -> None:

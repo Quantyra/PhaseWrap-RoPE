@@ -42,6 +42,43 @@ def _command_output_path(record: dict[str, Any]) -> str:
     return ""
 
 
+def _int_field(payload: dict[str, Any] | None, key: str) -> int:
+    if not isinstance(payload, dict):
+        return 0
+    try:
+        return int(payload.get(key) or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _stage115_handoff_blockers(stage115: dict[str, Any] | None) -> list[str]:
+    if not isinstance(stage115, dict):
+        return ["stage115_results_missing"]
+    blockers = []
+    if stage115.get("decision") != "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113":
+        blockers.append("stage115_not_collected_for_stage113")
+    if stage115.get("wrote_stage113_input") is not True:
+        blockers.append("stage115_did_not_write_stage113_input")
+    if stage115.get("stage152_write_ready") is not True:
+        blockers.append("stage115_stage152_write_not_ready")
+    if stage115.get("stage152_write_blockers"):
+        blockers.append("stage115_stage152_write_blockers_present")
+    if stage115.get("stage152_all_first_provider_commands_authorized") is not True:
+        blockers.append("stage115_stage152_commands_not_all_authorized")
+    if stage115.get("stage152_all_first_provider_commands_live_submit_ready") is not True:
+        blockers.append("stage115_stage152_commands_not_all_live_submit_ready")
+    runner_count = _int_field(stage115, "stage152_first_provider_runner_command_count")
+    authorized_count = _int_field(stage115, "stage152_first_provider_authorized_runner_count")
+    live_submit_ready_count = _int_field(stage115, "stage152_first_provider_live_submit_ready_count")
+    if runner_count <= 0:
+        blockers.append("stage115_stage152_runner_commands_missing")
+    if runner_count > 0 and authorized_count != runner_count:
+        blockers.append("stage115_stage152_authorized_runner_count_incomplete")
+    if runner_count > 0 and live_submit_ready_count != runner_count:
+        blockers.append("stage115_stage152_live_submit_ready_count_incomplete")
+    return sorted(set(blockers))
+
+
 def _intake_record(command: dict[str, Any], stage115: dict[str, Any] | None) -> dict[str, Any]:
     provider = str(command.get("provider"))
     window_id = str(command.get("window_id"))
@@ -52,6 +89,7 @@ def _intake_record(command: dict[str, Any], stage115: dict[str, Any] | None) -> 
     command_authorized = command.get("command_authorized") is True
     live_submit_available = command.get("live_submit_command_available") is True
     live_submit_command = str(command.get("live_submit_command", ""))
+    stage115_handoff_blockers = _stage115_handoff_blockers(stage115)
     if not command_output_path:
         blockers.append("command_output_path_missing")
     if not collector_result_path:
@@ -68,6 +106,7 @@ def _intake_record(command: dict[str, Any], stage115: dict[str, Any] | None) -> 
         blockers.append("stage133_blocked_command_exposes_live_submit_command")
     if collector.get("ready") is not True:
         blockers.extend(f"stage115:{item}" for item in collector.get("missing_evidence", ["collector_shard_not_ready"]))
+    blockers.extend(stage115_handoff_blockers)
     return {
         "provider": provider,
         "window_id": window_id,
@@ -79,6 +118,7 @@ def _intake_record(command: dict[str, Any], stage115: dict[str, Any] | None) -> 
         "collector_missing_job_count": collector.get("missing_job_count"),
         "command_output_path": command_output_path,
         "collector_result_path": collector_result_path,
+        "stage115_handoff_ready": not stage115_handoff_blockers,
         "stage113_ready_after_collection": command.get("command_authorized") is True and collector.get("ready") is True and not blockers,
         "blockers": sorted(set(blockers)),
     }
@@ -112,6 +152,9 @@ def run_stage134_audit(
         "missing_source_artifacts": missing_sources,
         "stage115_decision": stage115.get("decision") if isinstance(stage115, dict) else None,
         "stage133_decision": stage133.get("decision") if isinstance(stage133, dict) else None,
+        "stage115_wrote_stage113_input": stage115.get("wrote_stage113_input") if isinstance(stage115, dict) else None,
+        "stage115_stage152_write_ready": stage115.get("stage152_write_ready") if isinstance(stage115, dict) else None,
+        "stage115_stage152_write_blockers": stage115.get("stage152_write_blockers") if isinstance(stage115, dict) else None,
         "runner_count": len(records),
         "ready_intake_count": ready_count,
         "expected_job_count": sum(int(record.get("job_count") or 0) for record in records),
@@ -125,7 +168,7 @@ def run_stage134_audit(
                 "Stage 133 provider result output paths align with Stage 115 collector shard paths",
                 "post-run intake remains blocked until command_authorized=true and every collector shard is ready",
                 "Stage 133 live-submit command availability is consistent with command authorization before Stage 113",
-                "the Stage 115 to Stage 113 handoff is explicit before evidence assembly",
+                "the Stage 115 to Stage 113 handoff remains blocked until Stage 115 writes the Stage 113 input through the Stage 152 guard",
             ],
             "excluded": [
                 "hardware job submission",
@@ -154,6 +197,9 @@ def write_stage134_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "missing_source_artifacts": result["missing_source_artifacts"],
         "stage115_decision": result["stage115_decision"],
         "stage133_decision": result["stage133_decision"],
+        "stage115_wrote_stage113_input": result["stage115_wrote_stage113_input"],
+        "stage115_stage152_write_ready": result["stage115_stage152_write_ready"],
+        "stage115_stage152_write_blockers": result["stage115_stage152_write_blockers"],
         "runner_count": result["runner_count"],
         "ready_intake_count": result["ready_intake_count"],
         "expected_job_count": result["expected_job_count"],
@@ -185,6 +231,7 @@ def write_stage134_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                 "live_submit_command_present",
                 "collector_ready",
                 "collector_missing_job_count",
+                "stage115_handoff_ready",
                 "stage113_ready_after_collection",
                 "blockers",
             ),
@@ -201,6 +248,7 @@ def write_stage134_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                     "live_submit_command_present": record["live_submit_command_present"],
                     "collector_ready": record["collector_ready"],
                     "collector_missing_job_count": record["collector_missing_job_count"],
+                    "stage115_handoff_ready": record["stage115_handoff_ready"],
                     "stage113_ready_after_collection": record["stage113_ready_after_collection"],
                     "blockers": "; ".join(record["blockers"]),
                 }

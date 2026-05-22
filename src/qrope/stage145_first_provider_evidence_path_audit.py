@@ -63,6 +63,55 @@ def _stage144_ready(stage144: dict[str, Any] | None) -> bool:
     )
 
 
+def _int_field(payload: dict[str, Any] | None, key: str) -> int:
+    if not isinstance(payload, dict):
+        return 0
+    try:
+        return int(payload.get(key) or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _stage115_collected_for_stage113(stage115: dict[str, Any] | None, provider: str) -> tuple[bool, list[str]]:
+    if not isinstance(stage115, dict):
+        return False, ["stage115_results_missing"]
+    blockers = []
+    if stage115.get("decision") != "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113":
+        blockers.append("stage115_not_collected_for_stage113")
+    if stage115.get("wrote_stage113_input") is not True:
+        blockers.append("stage115_did_not_write_stage113_input")
+    if stage115.get("stage152_write_ready") is not True:
+        blockers.append("stage115_stage152_write_not_ready")
+    if stage115.get("stage152_write_blockers"):
+        blockers.append("stage115_stage152_write_blockers_present")
+    if stage115.get("stage152_all_first_provider_commands_authorized") is not True:
+        blockers.append("stage115_stage152_commands_not_all_authorized")
+    if stage115.get("stage152_all_first_provider_commands_live_submit_ready") is not True:
+        blockers.append("stage115_stage152_commands_not_all_live_submit_ready")
+    runner_count = _int_field(stage115, "stage152_first_provider_runner_command_count")
+    authorized_count = _int_field(stage115, "stage152_first_provider_authorized_runner_count")
+    live_submit_ready_count = _int_field(stage115, "stage152_first_provider_live_submit_ready_count")
+    if runner_count <= 0:
+        blockers.append("stage115_stage152_runner_commands_missing")
+    if runner_count > 0 and authorized_count != runner_count:
+        blockers.append("stage115_stage152_authorized_runner_count_incomplete")
+    if runner_count > 0 and live_submit_ready_count != runner_count:
+        blockers.append("stage115_stage152_live_submit_ready_count_incomplete")
+    provider_scope = str(stage115.get("provider_scope", ""))
+    if provider and provider_scope not in ("all", provider):
+        blockers.append("stage115_provider_scope_mismatch")
+    if _int_field(stage115, "shard_count") <= 0 or _int_field(stage115, "ready_shard_count") != _int_field(stage115, "shard_count"):
+        blockers.append("stage115_shards_not_all_ready")
+    if _int_field(stage115, "missing_job_count") != 0:
+        blockers.append("stage115_missing_jobs_present")
+    if _int_field(stage115, "invalid_result_record_count") != 0:
+        blockers.append("stage115_invalid_result_records_present")
+    expected_job_count = _int_field(stage115, "expected_job_count")
+    if expected_job_count <= 0 or _int_field(stage115, "result_record_count") != expected_job_count:
+        blockers.append("stage115_result_count_mismatch")
+    return not blockers, sorted(set(blockers))
+
+
 def run_stage145_audit(
     *,
     stage113_results_path: Path = DEFAULT_STAGE113_RESULTS,
@@ -93,13 +142,14 @@ def run_stage145_audit(
     expected_jobs = sum(int(record.get("expected_job_count") or 0) for record in shards)
     result_records = sum(int(record.get("result_record_count") or 0) for record in shards)
     stage144_ready = _stage144_ready(payloads["stage144"])
-    stage115_provider_ready = bool(shards) and len(ready_shards) == len(shards)
+    stage115_provider_shards_ready = bool(shards) and len(ready_shards) == len(shards)
+    stage115_write_ready, stage115_write_blockers = _stage115_collected_for_stage113(payloads["stage115"], provider)
     stage113_ready = bool(
         isinstance(payloads["stage113"], dict)
-        and payloads["stage113"].get("decision") in {
-            "JOB_RESULTS_READY_FOR_STAGE109_EVIDENCE_ASSEMBLY",
-            "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE",
-        }
+        and payloads["stage113"].get("decision") == "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"
+        and payloads["stage113"].get("stage115_write_ready") is True
+        and not payloads["stage113"].get("stage115_write_blockers")
+        and int(payloads["stage113"].get("assembled_evidence_count") or 0) > 0
     )
     stage137_ready = bool(
         isinstance(payloads["stage137"], dict)
@@ -131,15 +181,32 @@ def run_stage145_audit(
         },
         {
             "name": "first_provider_stage115_result_shards",
-            "ready": stage115_provider_ready,
+            "ready": stage115_provider_shards_ready,
             "decision": payloads["stage115"].get("decision") if isinstance(payloads["stage115"], dict) else None,
-            "next_command": _scoped_commands(provider)[0] if provider and not stage115_provider_ready else "",
+            "next_command": _scoped_commands(provider)[0] if provider and not stage115_provider_shards_ready else "",
+        },
+        {
+            "name": "first_provider_stage115_guarded_stage113_input",
+            "ready": stage115_write_ready,
+            "decision": payloads["stage115"].get("decision") if isinstance(payloads["stage115"], dict) else None,
+            "next_command": _scoped_commands(provider)[0] if provider and stage115_provider_shards_ready and not stage115_write_ready else "",
+            "blockers": stage115_write_blockers,
         },
         {
             "name": "first_provider_stage113_evidence_assembly",
             "ready": stage113_ready,
             "decision": payloads["stage113"].get("decision") if isinstance(payloads["stage113"], dict) else None,
-            "next_command": _scoped_commands(provider)[1] if provider and stage115_provider_ready and not stage113_ready else "",
+            "next_command": _scoped_commands(provider)[1] if provider and stage115_write_ready and not stage113_ready else "",
+            "blockers": [
+                blocker
+                for blocker, blocked in (
+                    ("stage113_not_assembled_into_stage109_evidence", not isinstance(payloads["stage113"], dict) or payloads["stage113"].get("decision") != "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"),
+                    ("stage113_stage115_write_not_ready", isinstance(payloads["stage113"], dict) and payloads["stage113"].get("stage115_write_ready") is not True),
+                    ("stage113_stage115_write_blockers_present", isinstance(payloads["stage113"], dict) and bool(payloads["stage113"].get("stage115_write_blockers"))),
+                    ("stage113_no_assembled_evidence", isinstance(payloads["stage113"], dict) and int(payloads["stage113"].get("assembled_evidence_count") or 0) <= 0),
+                )
+                if blocked
+            ],
         },
         {
             "name": "first_provider_auditability_evaluator",
@@ -154,7 +221,8 @@ def run_stage145_audit(
         and not missing_sources
         and stage144_ready
         and bool(authorized_commands)
-        and stage115_provider_ready
+        and stage115_provider_shards_ready
+        and stage115_write_ready
         and stage113_ready
     )
     return {
@@ -191,7 +259,7 @@ def run_stage145_audit(
             "supported": [
                 "first-provider evidence intake readiness after authorized IBM Runtime execution",
                 "Stage 144 ready-transition and authorized-runner count enforcement before provider result collection",
-                "provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence",
+                "provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence with guarded Stage 113 input and assembled evidence required before claim-gate readiness",
                 "explicit blocker reporting before Stage 138 objective wording",
             ],
             "excluded": [

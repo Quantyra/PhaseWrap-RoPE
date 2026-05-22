@@ -10,7 +10,7 @@
     "supported": [
       "first-provider evidence intake readiness after authorized IBM Runtime execution",
       "Stage 144 ready-transition and authorized-runner count enforcement before provider result collection",
-      "provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence",
+      "provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence with guarded Stage 113 input and assembled evidence required before claim-gate readiness",
       "explicit blocker reporting before Stage 138 objective wording"
     ]
   },
@@ -111,6 +111,31 @@
       "ready": false
     },
     {
+      "blockers": [
+        "stage115_did_not_write_stage113_input",
+        "stage115_missing_jobs_present",
+        "stage115_not_collected_for_stage113",
+        "stage115_result_count_mismatch",
+        "stage115_shards_not_all_ready",
+        "stage115_stage152_authorized_runner_count_incomplete",
+        "stage115_stage152_commands_not_all_authorized",
+        "stage115_stage152_commands_not_all_live_submit_ready",
+        "stage115_stage152_live_submit_ready_count_incomplete",
+        "stage115_stage152_write_blockers_present",
+        "stage115_stage152_write_not_ready"
+      ],
+      "decision": "PROVIDER_RESULTS_COLLECTION_BLOCKED_RESULTS_MISSING",
+      "name": "first_provider_stage115_guarded_stage113_input",
+      "next_command": "",
+      "ready": false
+    },
+    {
+      "blockers": [
+        "stage113_not_assembled_into_stage109_evidence",
+        "stage113_stage115_write_not_ready",
+        "stage113_stage115_write_blockers_present",
+        "stage113_no_assembled_evidence"
+      ],
       "decision": "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING",
       "name": "first_provider_stage113_evidence_assembly",
       "next_command": "",

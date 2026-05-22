@@ -11,7 +11,7 @@
       "Stage 133 provider result output paths align with Stage 115 collector shard paths",
       "post-run intake remains blocked until command_authorized=true and every collector shard is ready",
       "Stage 133 live-submit command availability is consistent with command authorization before Stage 113",
-      "the Stage 115 to Stage 113 handoff is explicit before evidence assembly"
+      "the Stage 115 to Stage 113 handoff remains blocked until Stage 115 writes the Stage 113 input through the Stage 152 guard"
     ]
   },
   "decision": "RUNNER_RESULT_INTAKE_ALIGNED_EXECUTION_BLOCKED",
@@ -21,6 +21,14 @@
       "blockers": [
         "stage115:job_results_missing",
         "stage115:provider_result_file_missing",
+        "stage115_did_not_write_stage113_input",
+        "stage115_not_collected_for_stage113",
+        "stage115_stage152_authorized_runner_count_incomplete",
+        "stage115_stage152_commands_not_all_authorized",
+        "stage115_stage152_commands_not_all_live_submit_ready",
+        "stage115_stage152_live_submit_ready_count_incomplete",
+        "stage115_stage152_write_blockers_present",
+        "stage115_stage152_write_not_ready",
         "stage133_command_not_authorized"
       ],
       "collector_missing_job_count": 84,
@@ -33,12 +41,21 @@
       "live_submit_command_present": false,
       "provider": "amazon_braket",
       "stage113_ready_after_collection": false,
+      "stage115_handoff_ready": false,
       "window_id": "amazon_braket__independent_window_00"
     },
     {
       "blockers": [
         "stage115:job_results_missing",
         "stage115:provider_result_file_missing",
+        "stage115_did_not_write_stage113_input",
+        "stage115_not_collected_for_stage113",
+        "stage115_stage152_authorized_runner_count_incomplete",
+        "stage115_stage152_commands_not_all_authorized",
+        "stage115_stage152_commands_not_all_live_submit_ready",
+        "stage115_stage152_live_submit_ready_count_incomplete",
+        "stage115_stage152_write_blockers_present",
+        "stage115_stage152_write_not_ready",
         "stage133_command_not_authorized"
       ],
       "collector_missing_job_count": 84,
@@ -51,12 +68,21 @@
       "live_submit_command_present": false,
       "provider": "amazon_braket",
       "stage113_ready_after_collection": false,
+      "stage115_handoff_ready": false,
       "window_id": "amazon_braket__independent_window_01"
     },
     {
       "blockers": [
         "stage115:job_results_missing",
         "stage115:provider_result_file_missing",
+        "stage115_did_not_write_stage113_input",
+        "stage115_not_collected_for_stage113",
+        "stage115_stage152_authorized_runner_count_incomplete",
+        "stage115_stage152_commands_not_all_authorized",
+        "stage115_stage152_commands_not_all_live_submit_ready",
+        "stage115_stage152_live_submit_ready_count_incomplete",
+        "stage115_stage152_write_blockers_present",
+        "stage115_stage152_write_not_ready",
         "stage133_command_not_authorized"
       ],
       "collector_missing_job_count": 164,
@@ -69,12 +95,21 @@
       "live_submit_command_present": false,
       "provider": "ibm_runtime",
       "stage113_ready_after_collection": false,
+      "stage115_handoff_ready": false,
       "window_id": "ibm_runtime__independent_window_00"
     },
     {
       "blockers": [
         "stage115:job_results_missing",
         "stage115:provider_result_file_missing",
+        "stage115_did_not_write_stage113_input",
+        "stage115_not_collected_for_stage113",
+        "stage115_stage152_authorized_runner_count_incomplete",
+        "stage115_stage152_commands_not_all_authorized",
+        "stage115_stage152_commands_not_all_live_submit_ready",
+        "stage115_stage152_live_submit_ready_count_incomplete",
+        "stage115_stage152_write_blockers_present",
+        "stage115_stage152_write_not_ready",
         "stage133_command_not_authorized"
       ],
       "collector_missing_job_count": 164,
@@ -87,6 +122,7 @@
       "live_submit_command_present": false,
       "provider": "ibm_runtime",
       "stage113_ready_after_collection": false,
+      "stage115_handoff_ready": false,
       "window_id": "ibm_runtime__independent_window_01"
     }
   ],
@@ -106,6 +142,20 @@
   ],
   "stage": "stage134_runner_result_intake_alignment_audit",
   "stage115_decision": "PROVIDER_RESULTS_COLLECTION_BLOCKED_RESULTS_MISSING",
+  "stage115_stage152_write_blockers": [
+    "stage152_authorized_runner_count_incomplete",
+    "stage152_blockers_present",
+    "stage152_live_execution_guard_not_ready",
+    "stage152_live_submit_ready_count_incomplete",
+    "stage152_no_authorized_first_provider_runner",
+    "stage152_not_all_first_provider_commands_authorized",
+    "stage152_not_all_first_provider_commands_live_submit_ready",
+    "stage152_stage144_blocked_transition_present",
+    "stage152_stage144_not_ready",
+    "stage152_stage144_transition_counts_incomplete"
+  ],
+  "stage115_stage152_write_ready": false,
+  "stage115_wrote_stage113_input": false,
   "stage133_decision": "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED",
   "status": "completed"
 }

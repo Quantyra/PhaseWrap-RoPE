@@ -10,7 +10,7 @@
     "supported": [
       "first-provider evidence intake readiness after authorized IBM Runtime execution",
       "Stage 144 ready-transition and authorized-runner count enforcement before provider result collection",
-      "provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence",
+      "provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence with guarded Stage 113 input and assembled evidence required before claim-gate readiness",
       "explicit blocker reporting before Stage 138 objective wording"
     ]
   },
