@@ -2,7 +2,8 @@
   "approval_phrase_required": "APPROVE IBM RUNTIME STAGE133 LIVE RUN",
   "backend_lookup_ready": true,
   "blockers": [
-    "provider_result_records_missing"
+    "provider_result_records_missing",
+    "stage164_provider_result_records_missing"
   ],
   "claim_boundary": {
     "excluded": [
@@ -15,86 +16,94 @@
     "supported": [
       "a deterministic no-submit analysis sequence to run after IBM provider result JSONL files exist",
       "binding of the post-result analysis packet to Stage 159 backend-readiness evidence",
+      "Stage 164 result-lock verification before Stage 115 collection or Stage 113 evidence assembly",
       "a guard that the packet contains no Stage 133 live-submit command",
       "an explicit missing-result boundary while IBM provider result records are absent"
     ]
   },
-  "command_count": 11,
+  "command_count": 12,
   "command_records": [
+    {
+      "command": "python scripts/run_stage164_first_provider_result_lock_verifier.py",
+      "hardware_submission_command": false,
+      "order": 1,
+      "purpose": "verify provider results against the pre-run job-shard lock",
+      "stage_id": "stage164"
+    },
     {
       "command": "python scripts/run_stage115_provider_result_collector.py --provider ibm_runtime --write-stage113-input",
       "hardware_submission_command": false,
-      "order": 1,
+      "order": 2,
       "purpose": "collect provider result shards into Stage 113 input",
       "stage_id": "stage115"
     },
     {
       "command": "python scripts/run_stage113_job_result_evidence_assembler.py --provider ibm_runtime --write-evidence",
       "hardware_submission_command": false,
-      "order": 2,
+      "order": 3,
       "purpose": "assemble provider job results into evidence files",
       "stage_id": "stage113"
     },
     {
       "command": "python scripts/run_stage101_known_state_calibration_gate.py",
       "hardware_submission_command": false,
-      "order": 3,
+      "order": 4,
       "purpose": "verify known-state calibration counts",
       "stage_id": "stage101"
     },
     {
       "command": "python scripts/run_stage103_robustness_metric_preregistration.py",
       "hardware_submission_command": false,
-      "order": 4,
+      "order": 5,
       "purpose": "recompute preregistered robustness metrics",
       "stage_id": "stage103"
     },
     {
       "command": "python scripts/run_stage136_auditability_metric_preregistration.py",
       "hardware_submission_command": false,
-      "order": 5,
+      "order": 6,
       "purpose": "refresh auditability metric contract",
       "stage_id": "stage136"
     },
     {
       "command": "python scripts/run_stage137_auditability_metric_evaluator.py --provider ibm_runtime",
       "hardware_submission_command": false,
-      "order": 6,
+      "order": 7,
       "purpose": "evaluate provider-scoped auditability metrics",
       "stage_id": "stage137"
     },
     {
       "command": "python scripts/run_stage148_first_provider_statistical_interpretation_gate.py",
       "hardware_submission_command": false,
-      "order": 7,
+      "order": 8,
       "purpose": "apply first-provider statistical interpretation guard",
       "stage_id": "stage148"
     },
     {
       "command": "python scripts/run_stage109_window_evidence_intake_validator.py",
       "hardware_submission_command": false,
-      "order": 8,
+      "order": 9,
       "purpose": "validate assembled evidence intake",
       "stage_id": "stage109"
     },
     {
       "command": "python scripts/run_stage110_replicated_advantage_claim_gate.py",
       "hardware_submission_command": false,
-      "order": 9,
+      "order": 10,
       "purpose": "apply replicated robustness claim gate",
       "stage_id": "stage110"
     },
     {
       "command": "python scripts/run_stage138_objective_claim_gate.py",
       "hardware_submission_command": false,
-      "order": 10,
+      "order": 11,
       "purpose": "apply objective claim gate",
       "stage_id": "stage138"
     },
     {
       "command": "python scripts/run_stage135_post_collection_claim_gate_sequence.py",
       "hardware_submission_command": false,
-      "order": 11,
+      "order": 12,
       "purpose": "audit the full post-collection claim-gate sequence",
       "stage_id": "stage135"
     }
@@ -105,10 +114,11 @@
   "first_unlock_provider": "ibm_runtime",
   "missing_job_count": 328,
   "missing_source_artifacts": [],
-  "next_gate": "After explicit hardware approval and Stage 133 execution produce IBM provider result records, run this packet's command sequence in order to refresh Stage 115 through Stage 138 evidence and determine whether the objective is supported or not supported.",
+  "next_gate": "After explicit hardware approval and Stage 133 execution produce IBM provider result records, run this packet's command sequence in order, starting with Stage 164 lock verification, then refresh Stage 115 through Stage 138 evidence and determine whether the objective is supported or not supported.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "ordered_command_sequence": [
+    "python scripts/run_stage164_first_provider_result_lock_verifier.py",
     "python scripts/run_stage115_provider_result_collector.py --provider ibm_runtime --write-stage113-input",
     "python scripts/run_stage113_job_result_evidence_assembler.py --provider ibm_runtime --write-evidence",
     "python scripts/run_stage101_known_state_calibration_gate.py",
@@ -128,6 +138,7 @@
   "secret_values_recorded": false,
   "source_artifacts": [
     "logs/automated_stage_gates/stage159_first_provider_backend_preflight/results.json",
+    "logs/automated_stage_gates/stage164_first_provider_result_lock_verifier/results.json",
     "logs/automated_stage_gates/stage115_provider_result_collector/results.json",
     "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json",
     "logs/automated_stage_gates/stage135_post_collection_claim_gate_sequence/results.json"
@@ -137,5 +148,11 @@
   "stage115_decision": "PROVIDER_RESULTS_COLLECTION_BLOCKED_RESULTS_MISSING",
   "stage135_decision": "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED",
   "stage159_decision": "FIRST_PROVIDER_BACKEND_PREFLIGHT_READY_AWAITING_APPROVAL",
+  "stage164_decision": "FIRST_PROVIDER_RESULT_LOCK_VERIFICATION_BLOCKED_RESULTS_MISSING",
+  "stage164_expected_result_record_count": 328,
+  "stage164_hash_match_count": 2,
+  "stage164_missing_result_record_count": 328,
+  "stage164_provider_result_record_count": 0,
+  "stage164_window_count": 2,
   "status": "completed"
 }

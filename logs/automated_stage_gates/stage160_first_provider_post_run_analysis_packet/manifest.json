@@ -1,7 +1,8 @@
 {
   "backend_lookup_ready": true,
   "blockers": [
-    "provider_result_records_missing"
+    "provider_result_records_missing",
+    "stage164_provider_result_records_missing"
   ],
   "claim_boundary": {
     "excluded": [
@@ -14,18 +15,19 @@
     "supported": [
       "a deterministic no-submit analysis sequence to run after IBM provider result JSONL files exist",
       "binding of the post-result analysis packet to Stage 159 backend-readiness evidence",
+      "Stage 164 result-lock verification before Stage 115 collection or Stage 113 evidence assembly",
       "a guard that the packet contains no Stage 133 live-submit command",
       "an explicit missing-result boundary while IBM provider result records are absent"
     ]
   },
-  "command_count": 11,
+  "command_count": 12,
   "decision": "FIRST_PROVIDER_POST_RUN_ANALYSIS_PACKET_READY_AWAITING_PROVIDER_RESULTS",
   "expected_job_count": 328,
   "explicit_user_approval_required_for_hardware_submission": true,
   "first_unlock_provider": "ibm_runtime",
   "missing_job_count": 328,
   "missing_source_artifacts": [],
-  "next_gate": "After explicit hardware approval and Stage 133 execution produce IBM provider result records, run this packet's command sequence in order to refresh Stage 115 through Stage 138 evidence and determine whether the objective is supported or not supported.",
+  "next_gate": "After explicit hardware approval and Stage 133 execution produce IBM provider result records, run this packet's command sequence in order, starting with Stage 164 lock verification, then refresh Stage 115 through Stage 138 evidence and determine whether the objective is supported or not supported.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": false,
@@ -36,6 +38,7 @@
   "secret_values_recorded": false,
   "source_artifacts": [
     "logs/automated_stage_gates/stage159_first_provider_backend_preflight/results.json",
+    "logs/automated_stage_gates/stage164_first_provider_result_lock_verifier/results.json",
     "logs/automated_stage_gates/stage115_provider_result_collector/results.json",
     "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json",
     "logs/automated_stage_gates/stage135_post_collection_claim_gate_sequence/results.json"
@@ -45,6 +48,12 @@
   "stage115_decision": "PROVIDER_RESULTS_COLLECTION_BLOCKED_RESULTS_MISSING",
   "stage135_decision": "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED",
   "stage159_decision": "FIRST_PROVIDER_BACKEND_PREFLIGHT_READY_AWAITING_APPROVAL",
+  "stage164_decision": "FIRST_PROVIDER_RESULT_LOCK_VERIFICATION_BLOCKED_RESULTS_MISSING",
+  "stage164_expected_result_record_count": 328,
+  "stage164_hash_match_count": 2,
+  "stage164_missing_result_record_count": 328,
+  "stage164_provider_result_record_count": 0,
+  "stage164_window_count": 2,
   "status": "completed",
   "summary_csv_path": "logs/automated_stage_gates/stage160_first_provider_post_run_analysis_packet/summary.csv"
 }

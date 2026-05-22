@@ -15,6 +15,7 @@ def _write_json(path, payload) -> None:
 
 def _sources(tmp_path, *, result_count=0, missing_count=328):
     stage159 = tmp_path / "stage159.json"
+    stage164 = tmp_path / "stage164.json"
     stage115 = tmp_path / "stage115.json"
     stage113 = tmp_path / "stage113.json"
     stage135 = tmp_path / "stage135.json"
@@ -25,6 +26,21 @@ def _sources(tmp_path, *, result_count=0, missing_count=328):
             "first_unlock_provider": "ibm_runtime",
             "approval_phrase_required": "APPROVE IBM RUNTIME STAGE133 LIVE RUN",
             "backend_lookup_ready": True,
+        },
+    )
+    _write_json(
+        stage164,
+        {
+            "decision": (
+                "FIRST_PROVIDER_RESULT_LOCK_VERIFIED_READY_FOR_STAGE115"
+                if missing_count == 0
+                else "FIRST_PROVIDER_RESULT_LOCK_VERIFICATION_BLOCKED_RESULTS_MISSING"
+            ),
+            "hash_match_count": 2,
+            "window_count": 2,
+            "expected_result_record_count": 328,
+            "provider_result_record_count": result_count,
+            "missing_result_record_count": missing_count,
         },
     )
     _write_json(
@@ -45,14 +61,15 @@ def _sources(tmp_path, *, result_count=0, missing_count=328):
         },
     )
     _write_json(stage135, {"decision": "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED"})
-    return stage159, stage115, stage113, stage135
+    return stage159, stage164, stage115, stage113, stage135
 
 
 def test_stage160_packet_ready_awaiting_provider_results(tmp_path) -> None:
-    stage159, stage115, stage113, stage135 = _sources(tmp_path)
+    stage159, stage164, stage115, stage113, stage135 = _sources(tmp_path)
 
     result = run_stage160_post_run_analysis_packet(
         stage159_results_path=stage159,
+        stage164_results_path=stage164,
         stage115_results_path=stage115,
         stage113_results_path=stage113,
         stage135_results_path=stage135,
@@ -61,15 +78,17 @@ def test_stage160_packet_ready_awaiting_provider_results(tmp_path) -> None:
     assert result["decision"] == "FIRST_PROVIDER_POST_RUN_ANALYSIS_PACKET_READY_AWAITING_PROVIDER_RESULTS"
     assert result["no_hardware_submission"] is True
     assert result["runnable_hardware_commands_recorded"] is False
-    assert result["command_count"] == 11
-    assert result["blockers"] == ["provider_result_records_missing"]
+    assert result["command_count"] == 12
+    assert result["command_records"][0]["stage_id"] == "stage164"
+    assert result["blockers"] == ["provider_result_records_missing", "stage164_provider_result_records_missing"]
 
 
 def test_stage160_sequence_ready_when_provider_results_are_complete(tmp_path) -> None:
-    stage159, stage115, stage113, stage135 = _sources(tmp_path, result_count=328, missing_count=0)
+    stage159, stage164, stage115, stage113, stage135 = _sources(tmp_path, result_count=328, missing_count=0)
 
     result = run_stage160_post_run_analysis_packet(
         stage159_results_path=stage159,
+        stage164_results_path=stage164,
         stage115_results_path=stage115,
         stage113_results_path=stage113,
         stage135_results_path=stage135,
@@ -80,11 +99,12 @@ def test_stage160_sequence_ready_when_provider_results_are_complete(tmp_path) ->
 
 
 def test_stage160_blocks_if_stage159_is_not_ready(tmp_path) -> None:
-    stage159, stage115, stage113, stage135 = _sources(tmp_path)
+    stage159, stage164, stage115, stage113, stage135 = _sources(tmp_path)
     _write_json(stage159, {"decision": "FIRST_PROVIDER_BACKEND_PREFLIGHT_BLOCKED", "first_unlock_provider": "ibm_runtime"})
 
     result = run_stage160_post_run_analysis_packet(
         stage159_results_path=stage159,
+        stage164_results_path=stage164,
         stage115_results_path=stage115,
         stage113_results_path=stage113,
         stage135_results_path=stage135,
@@ -95,9 +115,10 @@ def test_stage160_blocks_if_stage159_is_not_ready(tmp_path) -> None:
 
 
 def test_stage160_outputs_do_not_record_live_submit_or_secrets(tmp_path) -> None:
-    stage159, stage115, stage113, stage135 = _sources(tmp_path)
+    stage159, stage164, stage115, stage113, stage135 = _sources(tmp_path)
     result = run_stage160_post_run_analysis_packet(
         stage159_results_path=stage159,
+        stage164_results_path=stage164,
         stage115_results_path=stage115,
         stage113_results_path=stage113,
         stage135_results_path=stage135,

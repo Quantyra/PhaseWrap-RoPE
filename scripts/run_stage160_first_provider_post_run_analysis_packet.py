@@ -14,6 +14,7 @@ from qrope.stage160_first_provider_post_run_analysis_packet import (  # noqa: E4
     DEFAULT_STAGE115_RESULTS,
     DEFAULT_STAGE135_RESULTS,
     DEFAULT_STAGE159_RESULTS,
+    DEFAULT_STAGE164_RESULTS,
     print_stage160_summary,
     run_stage160_post_run_analysis_packet,
     write_stage160_outputs,
@@ -23,6 +24,7 @@ from qrope.stage160_first_provider_post_run_analysis_packet import (  # noqa: E4
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Prepare the no-submit first-provider post-run analysis sequence.")
     parser.add_argument("--stage159-results", type=Path, default=DEFAULT_STAGE159_RESULTS)
+    parser.add_argument("--stage164-results", type=Path, default=DEFAULT_STAGE164_RESULTS)
     parser.add_argument("--stage115-results", type=Path, default=DEFAULT_STAGE115_RESULTS)
     parser.add_argument("--stage113-results", type=Path, default=DEFAULT_STAGE113_RESULTS)
     parser.add_argument("--stage135-results", type=Path, default=DEFAULT_STAGE135_RESULTS)
@@ -31,6 +33,7 @@ def main(argv: list[str] | None = None) -> int:
 
     result = run_stage160_post_run_analysis_packet(
         stage159_results_path=args.stage159_results,
+        stage164_results_path=args.stage164_results,
         stage115_results_path=args.stage115_results,
         stage113_results_path=args.stage113_results,
         stage135_results_path=args.stage135_results,
