@@ -28,6 +28,20 @@ SOURCE_STAGE_DIRS: tuple[str, ...] = (
     "stage67_content_key_retrieval_audit",
     "stage68_content_key_auxiliary_transfer_audit",
     "stage69_original_multitask_pointer_generator_audit",
+    "stage71_positional_bias_copy_upper_bound_audit",
+    "stage72_phase_cued_bias_tie_support_audit",
+    "stage73_phase_cued_period_pair_support_audit",
+    "stage74_leave_one_seed_query_support_audit",
+    "stage75_learned_query_support_head_audit",
+    "stage76_integrated_support_copy_head_audit",
+    "stage77_auxiliary_support_copy_head_audit",
+    "stage78_support_coverage_split_audit",
+    "stage79_support_complete_auxiliary_copy_head_audit",
+    "stage80_support_routed_token_selector_audit",
+    "stage81_soft_support_routed_token_selector_audit",
+    "stage82_learned_support_routing_head_audit",
+    "stage83_nonlinear_support_routing_bridge_audit",
+    "stage84_support_auxiliary_pointer_generator_audit",
 )
 
 DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
@@ -37,6 +51,20 @@ DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
     "docs/research/q-rope-stage51-decoder-path-plateau-audit-v1.md",
     "docs/research/q-rope-stage55-row-metadata-cue-copy-upper-bound-audit-v1.md",
     "docs/research/q-rope-stage60-support-fallback-strictness-audit-v1.md",
+    "docs/research/q-rope-stage71-positional-bias-copy-upper-bound-audit-v1.md",
+    "docs/research/q-rope-stage72-phase-cued-bias-tie-support-audit-v1.md",
+    "docs/research/q-rope-stage73-phase-cued-period-pair-support-audit-v1.md",
+    "docs/research/q-rope-stage74-leave-one-seed-query-support-audit-v1.md",
+    "docs/research/q-rope-stage75-learned-query-support-head-audit-v1.md",
+    "docs/research/q-rope-stage76-integrated-support-copy-head-audit-v1.md",
+    "docs/research/q-rope-stage77-auxiliary-support-copy-head-audit-v1.md",
+    "docs/research/q-rope-stage78-support-coverage-split-audit-v1.md",
+    "docs/research/q-rope-stage79-support-complete-auxiliary-copy-head-audit-v1.md",
+    "docs/research/q-rope-stage80-support-routed-token-selector-audit-v1.md",
+    "docs/research/q-rope-stage81-soft-support-routed-token-selector-audit-v1.md",
+    "docs/research/q-rope-stage82-learned-support-routing-head-audit-v1.md",
+    "docs/research/q-rope-stage83-nonlinear-support-routing-bridge-audit-v1.md",
+    "docs/research/q-rope-stage84-support-auxiliary-pointer-generator-audit-v1.md",
 )
 
 
@@ -157,12 +185,15 @@ def _original_retrieval_failures(manifests: list[dict[str, Any]]) -> list[dict[s
 def _best_tiny_text(manifests: list[dict[str, Any]]) -> dict[str, Any] | None:
     best: dict[str, Any] | None = None
     for manifest in manifests:
+        stage = str(manifest.get("stage"))
+        if "pointer_generator" not in stage:
+            continue
         decision = manifest.get("decision", {})
         value = decision.get("tiny_text_best_top1")
         if not isinstance(value, int | float):
             continue
         candidate = {
-            "stage": manifest.get("stage"),
+            "stage": stage,
             "method": decision.get("tiny_text_best_method"),
             "top1": float(value),
         }
@@ -218,9 +249,22 @@ def _failure_modes(manifests: list[dict[str, Any]]) -> list[dict[str, Any]]:
         },
     ]
     for row in rows:
+        top1_values = [value for value in row["retrieval_best_top1"].values() if isinstance(value, int | float)]
+        solved_but_not_promotional = len(top1_values) == len(ORIGINAL_RETRIEVAL_TASKS) and all(
+            float(value) >= GENERALIZATION_TOP1_THRESHOLD for value in top1_values
+        )
         failures.append(
             {
-                "failure": "Original held-out retrieval remains unrepaired in a recent fair-comparison audit.",
+                "failure": (
+                    "Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic."
+                    if solved_but_not_promotional
+                    else "Original held-out retrieval remains unrepaired in a recent fair-comparison audit."
+                ),
+                "evidence": (
+                    "The artifact crosses retrieval thresholds, but does not make a PhaseWrap-led fair learned decoder claim."
+                    if solved_but_not_promotional
+                    else "At least one original retrieval task remains below the generalization threshold."
+                ),
                 "stage": row["stage"],
                 "decision": row["decision"],
                 "retrieval_best_top1": row["retrieval_best_top1"],
@@ -261,7 +305,7 @@ def run_stage70_synthesis(
         "schema_version": STAGE70_SCHEMA_VERSION,
         "stage": "stage70_strongest_honest_claim_synthesis",
         "status": "completed",
-        "source_stage": "stage69_original_multitask_pointer_generator_audit",
+        "source_stage": "stage84_support_auxiliary_pointer_generator_audit",
         "source_artifacts": source_artifacts,
         "missing_source_artifacts": missing_source_artifacts,
         "no_hardware_submission": True,
@@ -271,8 +315,10 @@ def run_stage70_synthesis(
         "claim_boundary": _claim_boundary(),
         "strongest_honest_claim": (
             "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible "
-            "hardware/readout witnesses and mixed toy/diagnostic downstream evidence; fair matched "
-            "decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
+            "hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft "
+            "support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, "
+            "and in-decoder support-supervised routes still fail held-out support-to-token retrieval; fair "
+            "matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
         ),
         "unsupported_claims": [
             "PhaseWrap-RoPE replaces RoPE.",
@@ -286,8 +332,8 @@ def run_stage70_synthesis(
         "loaded_source_stage_count": len(manifests),
         "loaded_source_stages": [str(manifest.get("stage")) for manifest in manifests],
         "reviewer_next_gate": (
-            "Run a stronger matched decoder-only transformer or an original-row mechanism that improves "
-            "phase-cued and exact-offset held-out retrieval before evaluating positional-method promotion."
+            "Run a stronger matched decoder-only transformer or original-row mechanism that improves held-out "
+            "support-to-token retrieval for phase-cued and exact-offset rows before evaluating positional-method promotion."
         ),
     }
     result["decision"] = _decision(manifests, missing_source_artifacts)

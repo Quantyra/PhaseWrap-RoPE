@@ -45,6 +45,21 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
             },
         },
     )
+    _write_manifest(
+        tmp_path,
+        "stage84_support_auxiliary_pointer_generator_audit",
+        {
+            "tasks": ["phase_cued_retrieval", "exact_offset_passkey", "tiny_text_fact_qa"],
+            "decision": {
+                "decision": "SUPPORT_AUXILIARY_POINTER_GENERATOR_WITHOUT_RETRIEVAL_GENERALIZATION",
+                "capacity_established": True,
+                "retrieval_best_top1": {"phase_cued_retrieval": 0.016667, "exact_offset_passkey": 0.033333},
+                "retrieval_best_methods": {"phase_cued_retrieval": "sinusoidal", "exact_offset_passkey": "sinusoidal"},
+                "tiny_text_best_top1": 0.583333,
+                "tiny_text_best_method": "sinusoidal",
+            },
+        },
+    )
     result = run_stage70_synthesis(artifact_root=tmp_path)
     assert result["stage"] == "stage70_strongest_honest_claim_synthesis"
     assert result["status"] == "completed"
@@ -54,6 +69,30 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
     assert any("replaces RoPE" in claim for claim in result["unsupported_claims"])
     assert any(item.get("source") == "stage67_content_key_retrieval_audit" for item in result["positive_evidence"])
     assert any(item.get("stage") == "stage69_original_multitask_pointer_generator_audit" for item in result["failure_modes"])
+    assert any(item.get("stage") == "stage84_support_auxiliary_pointer_generator_audit" for item in result["failure_modes"])
+    assert result["source_stage"] == "stage84_support_auxiliary_pointer_generator_audit"
+
+
+def test_stage70_labels_nonpromotional_solved_retrieval_without_calling_it_unrepaired(tmp_path) -> None:
+    _write_manifest(
+        tmp_path,
+        "stage80_support_routed_token_selector_audit",
+        {
+            "tasks": ["phase_cued_retrieval", "exact_offset_passkey", "tiny_text_fact_qa"],
+            "decision": {
+                "decision": "SUPPORT_ROUTED_TOKEN_SELECTOR_SOLVES_PHASE_CUED_NOT_PROMOTION",
+                "capacity_established": None,
+                "retrieval_best_top1": {"phase_cued_retrieval": 1.0, "exact_offset_passkey": 0.65},
+                "retrieval_best_methods": {"phase_cued_retrieval": "no_position", "exact_offset_passkey": "sinusoidal"},
+                "tiny_text_best_top1": 1.0,
+                "tiny_text_best_method": "sinusoidal",
+            },
+        },
+    )
+    result = run_stage70_synthesis(artifact_root=tmp_path)
+    stage80_rows = [item for item in result["failure_modes"] if item.get("stage") == "stage80_support_routed_token_selector_audit"]
+    assert stage80_rows
+    assert "non-promotional" in stage80_rows[0]["failure"]
 
 
 def test_stage70_synthesis_flags_promotion_review_when_phasewrap_leads(tmp_path) -> None:
