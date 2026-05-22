@@ -101,6 +101,7 @@ def _stage143_scoped_safety_ready(stage143: dict[str, Any] | None) -> bool:
         and stage143.get("template_placeholders_only") is True
         and stage143.get("template_key_scope_ready") is True
         and stage143.get("rerun_commands_non_live") is True
+        and stage143.get("stage139_context_ready") is True
         and stage143.get("boundary_ready") is True
         and int(stage143.get("template_assignment_count") or 0) > 0
         and not stage143.get("unexpected_template_keys", [])
@@ -166,6 +167,7 @@ def run_stage144_audit(
                     ("template_assignments_not_placeholders", isinstance(payloads["stage143"], dict) and payloads["stage143"].get("template_placeholders_only") is not True),
                     ("template_key_scope_not_ready", isinstance(payloads["stage143"], dict) and payloads["stage143"].get("template_key_scope_ready") is not True),
                     ("rerun_commands_not_non_live", isinstance(payloads["stage143"], dict) and payloads["stage143"].get("rerun_commands_non_live") is not True),
+                    ("stage139_context_not_ready", isinstance(payloads["stage143"], dict) and payloads["stage143"].get("stage139_context_ready") is not True),
                     ("boundary_not_ready", isinstance(payloads["stage143"], dict) and payloads["stage143"].get("boundary_ready") is not True),
                 )
                 if blocked

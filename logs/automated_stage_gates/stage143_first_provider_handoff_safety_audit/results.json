@@ -12,6 +12,7 @@
       "machine-checkable safety audit for the Stage 142 first-provider handoff",
       "verification that env-template assignments remain empty placeholders",
       "verification that env-template keys match the Stage 142 missing environment groups",
+      "verification that Stage 142 carries no Stage 139 action-checklist context blockers",
       "verification that rerun commands do not include live-submit fragments"
     ]
   },
@@ -81,6 +82,8 @@
     "logs/automated_stage_gates/stage142_first_provider_unlock_handoff/results.json"
   ],
   "stage": "stage143_first_provider_handoff_safety_audit",
+  "stage139_context_blockers": [],
+  "stage139_context_ready": true,
   "stage142_decision": "FIRST_PROVIDER_UNLOCK_HANDOFF_READY_ENV_OR_SDK_REQUIRED",
   "status": "completed",
   "template_assignment_count": 1,

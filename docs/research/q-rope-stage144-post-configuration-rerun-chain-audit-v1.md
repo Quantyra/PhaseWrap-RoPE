@@ -4,7 +4,7 @@
 Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.
 
 ## Result
-Stage 144 audits the first-provider transition chain after the local provider environment is filled outside git. It does not submit hardware jobs, create live SDK clients, or record credential values.
+Stage 144 audits the first-provider transition chain after the local provider environment is filled outside git. It does not submit hardware jobs, create live SDK clients, or record credential values. The first transition now requires Stage 143 to verify scoped empty templates, non-live rerun commands, and an empty Stage 139 action-checklist context blocker list from Stage 142.
 
 Current decision: `POST_CONFIGURATION_RERUN_CHAIN_PREPARED_EXECUTION_BLOCKED`.
 
@@ -20,7 +20,7 @@ python scripts/run_stage140_local_provider_configuration_readiness.py --load-dot
 Supported:
 
 - provider-level post-configuration transition audit from Stage 140 through Stage 133
-- Stage 143 scoped-template and non-live handoff safety enforcement before provider preflight reruns
+- Stage 143 scoped-template, Stage 139 context, and non-live handoff safety enforcement before provider preflight reruns
 - the first incomplete transition and exact non-live rerun command after local provider configuration changes
 - preservation of the Stage 138 no-claim boundary until downstream hardware result gates clear
 

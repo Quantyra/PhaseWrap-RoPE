@@ -40,6 +40,7 @@ def _write_fixture(paths, *, ready: bool) -> None:
             "unexpected_template_keys": [],
             "missing_template_keys": [],
             "rerun_commands_non_live": True,
+            "stage139_context_ready": True,
             "boundary_ready": True,
         },
     )
@@ -138,6 +139,21 @@ def test_stage144_blocks_when_stage143_did_not_verify_scoped_template(tmp_path) 
     assert result["first_blocked_transition"]["stage"] == "stage143_first_provider_handoff_safety_audit"
     assert "template_key_scope_not_ready" in result["first_blocked_transition"]["blockers"]
     assert result["next_command"] == "python scripts/run_stage143_first_provider_handoff_safety_audit.py"
+
+
+def test_stage144_blocks_when_stage143_reports_stage139_context_not_ready(tmp_path) -> None:
+    paths = _stage_paths(tmp_path)
+    _write_fixture(paths, ready=True)
+    stage143 = json.loads(paths["stage143_results_path"].read_text(encoding="utf-8"))
+    stage143["stage139_context_ready"] = False
+    stage143["stage139_context_blockers"] = ["stage139_action_checklist_not_ready"]
+    _write_json(paths["stage143_results_path"], stage143)
+
+    result = run_stage144_audit(**paths)
+
+    assert result["decision"] == "POST_CONFIGURATION_RERUN_CHAIN_PREPARED_EXECUTION_BLOCKED"
+    assert result["first_blocked_transition"]["stage"] == "stage143_first_provider_handoff_safety_audit"
+    assert "stage139_context_not_ready" in result["first_blocked_transition"]["blockers"]
 
 
 def test_stage144_reports_ready_when_first_provider_chain_and_runner_commands_authorized(tmp_path) -> None:

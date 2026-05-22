@@ -60,6 +60,9 @@ def run_stage143_audit(*, stage142_results_path: Path = DEFAULT_STAGE142_RESULTS
     template = str(stage142.get("env_template", "")) if isinstance(stage142, dict) else ""
     commands = [str(command) for command in stage142.get("rerun_commands", [])] if isinstance(stage142, dict) else []
     missing_env_groups = [str(group) for group in stage142.get("missing_env_groups", [])] if isinstance(stage142, dict) else []
+    stage139_context_blockers = [
+        str(blocker) for blocker in stage142.get("stage139_context_blockers", [])
+    ] if isinstance(stage142, dict) else []
     template_records = _template_records(template)
     expected_template_keys = _expected_template_keys(missing_env_groups)
     observed_template_keys = sorted(record["key"] for record in template_records)
@@ -74,7 +77,8 @@ def run_stage143_audit(*, stage142_results_path: Path = DEFAULT_STAGE142_RESULTS
         and stage142.get("no_hardware_submission") is True
         and stage142.get("secret_values_recorded") is False
     )
-    ready = template_ready and commands_ready and boundary_ready and not missing_sources
+    stage139_context_ready = not stage139_context_blockers
+    ready = template_ready and commands_ready and boundary_ready and stage139_context_ready and not missing_sources
     return {
         "schema_version": STAGE143_SCHEMA_VERSION,
         "stage": "stage143_first_provider_handoff_safety_audit",
@@ -97,11 +101,13 @@ def run_stage143_audit(*, stage142_results_path: Path = DEFAULT_STAGE142_RESULTS
         "missing_template_keys": missing_template_keys,
         "rerun_command_count": len(command_records),
         "forbidden_command_count": sum(1 for record in command_records if record["forbidden_fragments"]),
+        "stage139_context_blockers": stage139_context_blockers,
         "template_records": template_records,
         "command_records": command_records,
         "template_placeholders_only": template_ready,
         "template_key_scope_ready": template_key_scope_ready,
         "rerun_commands_non_live": commands_ready,
+        "stage139_context_ready": stage139_context_ready,
         "boundary_ready": boundary_ready,
         "no_hardware_submission": True,
         "provider_credentials_required": True,
@@ -111,6 +117,7 @@ def run_stage143_audit(*, stage142_results_path: Path = DEFAULT_STAGE142_RESULTS
                 "machine-checkable safety audit for the Stage 142 first-provider handoff",
                 "verification that env-template assignments remain empty placeholders",
                 "verification that env-template keys match the Stage 142 missing environment groups",
+                "verification that Stage 142 carries no Stage 139 action-checklist context blockers",
                 "verification that rerun commands do not include live-submit fragments",
             ],
             "excluded": [
@@ -148,9 +155,11 @@ def write_stage143_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "missing_template_keys": result["missing_template_keys"],
         "rerun_command_count": result["rerun_command_count"],
         "forbidden_command_count": result["forbidden_command_count"],
+        "stage139_context_blockers": result["stage139_context_blockers"],
         "template_placeholders_only": result["template_placeholders_only"],
         "template_key_scope_ready": result["template_key_scope_ready"],
         "rerun_commands_non_live": result["rerun_commands_non_live"],
+        "stage139_context_ready": result["stage139_context_ready"],
         "boundary_ready": result["boundary_ready"],
         "no_hardware_submission": result["no_hardware_submission"],
         "provider_credentials_required": result["provider_credentials_required"],
