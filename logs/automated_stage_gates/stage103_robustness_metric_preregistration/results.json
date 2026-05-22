@@ -11,6 +11,7 @@
       "fixed score reconstruction formulas for product-state and CX/parity packet families",
       "metric interpretation requires Stage 113-assembled packet evidence",
       "metric interpretation requires Stage 113 hardware-result lineage metadata",
+      "metric interpretation requires Stage 113 to preserve Stage 115/152 all-command live-submit readiness provenance",
       "metric interpretation requires complete row coverage and complete matched-family comparison groups",
       "a hard separation between metric preregistration and any future hardware advantage claim"
     ]
@@ -169,8 +170,31 @@
     "logs/automated_stage_gates/stage99_matched_fixed_width_encoding_packets/manifest.json",
     "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/manifest.json",
     "logs/automated_stage_gates/stage101_known_state_calibration_gate/results.json",
-    "logs/automated_stage_gates/stage102_calibration_execution_package/manifest.json"
+    "logs/automated_stage_gates/stage102_calibration_execution_package/manifest.json",
+    "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json"
   ],
   "stage": "stage103_robustness_metric_preregistration",
+  "stage113_decision": "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING",
+  "stage113_live_submit_provenance_ready": false,
+  "stage113_results_path": "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json",
+  "stage113_stage115_stage152_all_first_provider_commands_authorized": false,
+  "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready": false,
+  "stage113_stage115_stage152_first_provider_authorized_runner_count": 0,
+  "stage113_stage115_stage152_first_provider_live_submit_ready_count": 0,
+  "stage113_stage115_stage152_first_provider_runner_command_count": 2,
+  "stage113_stage115_write_blockers": [
+    "stage115_did_not_write_stage113_input",
+    "stage115_missing_jobs_present",
+    "stage115_not_collected_for_stage113",
+    "stage115_result_count_mismatch",
+    "stage115_shards_not_all_ready",
+    "stage115_stage152_authorized_runner_count_incomplete",
+    "stage115_stage152_commands_not_all_authorized",
+    "stage115_stage152_commands_not_all_live_submit_ready",
+    "stage115_stage152_live_submit_ready_count_incomplete",
+    "stage115_stage152_write_blockers_present",
+    "stage115_stage152_write_not_ready"
+  ],
+  "stage113_stage115_write_ready": false,
   "status": "completed"
 }

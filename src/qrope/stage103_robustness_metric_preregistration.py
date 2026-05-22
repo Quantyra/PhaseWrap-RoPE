@@ -13,6 +13,7 @@ DEFAULT_STAGE99_MANIFEST = DEFAULT_ARTIFACT_ROOT / "stage99_matched_fixed_width_
 DEFAULT_STAGE100_MANIFEST = DEFAULT_ARTIFACT_ROOT / "stage100_matched_cx_encoding_packets" / "manifest.json"
 DEFAULT_STAGE101_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage101_known_state_calibration_gate" / "results.json"
 DEFAULT_STAGE102_MANIFEST = DEFAULT_ARTIFACT_ROOT / "stage102_calibration_execution_package" / "manifest.json"
+DEFAULT_STAGE113_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage113_job_result_evidence_assembler" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage103_robustness_metric_preregistration"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
@@ -295,23 +296,44 @@ def _comparison_groups_complete(records: list[dict[str, Any]], summaries: list[d
     )
 
 
+def _stage113_live_submit_provenance_ready(stage113: dict[str, Any] | None) -> bool:
+    if not isinstance(stage113, dict):
+        return False
+    runner_count = int(stage113.get("stage115_stage152_first_provider_runner_command_count") or 0)
+    authorized_count = int(stage113.get("stage115_stage152_first_provider_authorized_runner_count") or 0)
+    live_submit_ready_count = int(stage113.get("stage115_stage152_first_provider_live_submit_ready_count") or 0)
+    return bool(
+        stage113.get("decision") == "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"
+        and stage113.get("stage115_write_ready") is True
+        and not stage113.get("stage115_write_blockers")
+        and stage113.get("stage115_stage152_all_first_provider_commands_authorized") is True
+        and stage113.get("stage115_stage152_all_first_provider_commands_live_submit_ready") is True
+        and runner_count > 0
+        and authorized_count == runner_count
+        and live_submit_ready_count == runner_count
+    )
+
+
 def run_stage103_preregistration(
     *,
     stage99_manifest_path: Path = DEFAULT_STAGE99_MANIFEST,
     stage100_manifest_path: Path = DEFAULT_STAGE100_MANIFEST,
     stage101_results_path: Path = DEFAULT_STAGE101_RESULTS,
     stage102_manifest_path: Path = DEFAULT_STAGE102_MANIFEST,
+    stage113_results_path: Path = DEFAULT_STAGE113_RESULTS,
     execution_dir: Path | None = None,
 ) -> dict[str, Any]:
     stage99 = _load_json(stage99_manifest_path)
     stage100 = _load_json(stage100_manifest_path)
     stage101 = _load_json(stage101_results_path)
     stage102 = _load_json(stage102_manifest_path)
+    stage113 = _load_json(stage113_results_path)
     sources = [
         (stage99_manifest_path, stage99),
         (stage100_manifest_path, stage100),
         (stage101_results_path, stage101),
         (stage102_manifest_path, stage102),
+        (stage113_results_path, stage113),
     ]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
     packet_paths = _packet_paths_from_manifest(stage99) + _packet_paths_from_manifest(stage100)
@@ -324,7 +346,13 @@ def run_stage103_preregistration(
     )
     all_packet_counts_present = bool(packet_paths) and not missing_execution and len(metric_records) == len(packet_paths)
     complete_comparison_groups = _comparison_groups_complete(metric_records, comparison_summary)
-    ready_to_interpret = calibration_pass and all_packet_counts_present and complete_comparison_groups
+    stage113_live_submit_provenance_ready = _stage113_live_submit_provenance_ready(stage113)
+    ready_to_interpret = (
+        calibration_pass
+        and all_packet_counts_present
+        and complete_comparison_groups
+        and stage113_live_submit_provenance_ready
+    )
     decision = (
         "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION"
         if ready_to_interpret
@@ -343,6 +371,26 @@ def run_stage103_preregistration(
         "missing_execution_count": len(missing_execution),
         "known_state_calibration_pass": calibration_pass,
         "ready_to_interpret_hardware_metrics": ready_to_interpret,
+        "stage113_results_path": str(stage113_results_path.as_posix()),
+        "stage113_decision": stage113.get("decision") if isinstance(stage113, dict) else None,
+        "stage113_stage115_write_ready": stage113.get("stage115_write_ready") if isinstance(stage113, dict) else None,
+        "stage113_stage115_write_blockers": stage113.get("stage115_write_blockers") if isinstance(stage113, dict) else None,
+        "stage113_stage115_stage152_first_provider_runner_command_count": (
+            stage113.get("stage115_stage152_first_provider_runner_command_count") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_first_provider_authorized_runner_count": (
+            stage113.get("stage115_stage152_first_provider_authorized_runner_count") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_first_provider_live_submit_ready_count": (
+            stage113.get("stage115_stage152_first_provider_live_submit_ready_count") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_all_first_provider_commands_authorized": (
+            stage113.get("stage115_stage152_all_first_provider_commands_authorized") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready": (
+            stage113.get("stage115_stage152_all_first_provider_commands_live_submit_ready") if isinstance(stage113, dict) else None
+        ),
+        "stage113_live_submit_provenance_ready": stage113_live_submit_provenance_ready,
         "complete_comparison_group_count": sum(1 for record in comparison_summary if record.get("all_families_present") is True),
         "comparison_groups_complete": complete_comparison_groups,
         "no_hardware_submission": True,
@@ -371,6 +419,7 @@ def run_stage103_preregistration(
                 "fixed score reconstruction formulas for product-state and CX/parity packet families",
                 "metric interpretation requires Stage 113-assembled packet evidence",
                 "metric interpretation requires Stage 113 hardware-result lineage metadata",
+                "metric interpretation requires Stage 113 to preserve Stage 115/152 all-command live-submit readiness provenance",
                 "metric interpretation requires complete row coverage and complete matched-family comparison groups",
                 "a hard separation between metric preregistration and any future hardware advantage claim",
             ],
@@ -403,6 +452,26 @@ def write_stage103_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "missing_execution_count": result["missing_execution_count"],
         "known_state_calibration_pass": result["known_state_calibration_pass"],
         "ready_to_interpret_hardware_metrics": result["ready_to_interpret_hardware_metrics"],
+        "stage113_results_path": result["stage113_results_path"],
+        "stage113_decision": result["stage113_decision"],
+        "stage113_stage115_write_ready": result["stage113_stage115_write_ready"],
+        "stage113_stage115_write_blockers": result["stage113_stage115_write_blockers"],
+        "stage113_stage115_stage152_first_provider_runner_command_count": result[
+            "stage113_stage115_stage152_first_provider_runner_command_count"
+        ],
+        "stage113_stage115_stage152_first_provider_authorized_runner_count": result[
+            "stage113_stage115_stage152_first_provider_authorized_runner_count"
+        ],
+        "stage113_stage115_stage152_first_provider_live_submit_ready_count": result[
+            "stage113_stage115_stage152_first_provider_live_submit_ready_count"
+        ],
+        "stage113_stage115_stage152_all_first_provider_commands_authorized": result[
+            "stage113_stage115_stage152_all_first_provider_commands_authorized"
+        ],
+        "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready": result[
+            "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready"
+        ],
+        "stage113_live_submit_provenance_ready": result["stage113_live_submit_provenance_ready"],
         "complete_comparison_group_count": result["complete_comparison_group_count"],
         "comparison_groups_complete": result["comparison_groups_complete"],
         "no_hardware_submission": result["no_hardware_submission"],
