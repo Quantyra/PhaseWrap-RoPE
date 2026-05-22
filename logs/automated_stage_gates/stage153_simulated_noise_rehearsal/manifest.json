@@ -1,0 +1,66 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "real noisy-hardware evidence",
+      "provider credential validation",
+      "hardware job submission",
+      "a Stage 110, Stage 138, or publication-ready noisy-hardware advantage claim"
+    ],
+    "supported": [
+      "deterministic simulated-noise rehearsal over frozen Stage 99 and Stage 100 matched packets",
+      "screening signal for whether real hardware execution is worth prioritizing",
+      "separate reporting of PhaseWrap versus positional comparators and versus the no-position/control family"
+    ]
+  },
+  "comparison_group_count": 16,
+  "complete_comparison_group_count": 16,
+  "decision": "SIMULATED_NOISE_PHASEWRAP_POSITIONAL_ADVANTAGE_OBSERVED_CONTROL_NOT_BEATEN",
+  "metric_record_count": 80,
+  "missing_source_artifacts": [],
+  "next_gate": "Use this simulated-only result as a go/no-go screen. A real noisy-hardware conclusion still requires Stage 101/103/109/137/148/110/138 evidence from provider counts.",
+  "no_hardware_submission": true,
+  "noise_model_count": 4,
+  "noise_models": [
+    {
+      "depolarizing_observable_shrink": 0.0,
+      "noise_family": "ideal",
+      "noise_model_id": "ideal_deterministic_counts",
+      "readout_bitflip_probability": 0.0
+    },
+    {
+      "depolarizing_observable_shrink": 0.0,
+      "noise_family": "symmetric_readout_bitflip",
+      "noise_model_id": "readout_bitflip_1pct",
+      "readout_bitflip_probability": 0.01
+    },
+    {
+      "depolarizing_observable_shrink": 0.0,
+      "noise_family": "symmetric_readout_bitflip",
+      "noise_model_id": "readout_bitflip_3pct",
+      "readout_bitflip_probability": 0.03
+    },
+    {
+      "depolarizing_observable_shrink": 0.05,
+      "noise_family": "observable_depolarizing",
+      "noise_model_id": "observable_depolarizing_5pct",
+      "readout_bitflip_probability": 0.0
+    }
+  ],
+  "noisy_comparison_group_count": 12,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_count": 20,
+  "phasewrap_positional_advantage_group_count": 2,
+  "phasewrap_strict_advantage_group_count": 0,
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage153_simulated_noise_rehearsal/results.json",
+  "schema_version": "qrope_stage153_simulated_noise_rehearsal_v1",
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage99_matched_fixed_width_encoding_packets/manifest.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/manifest.json"
+  ],
+  "stage": "stage153_simulated_noise_rehearsal",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage153_simulated_noise_rehearsal/summary.csv"
+}
