@@ -1,0 +1,96 @@
+{
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "new packet generation",
+      "simulated robustness result under the replacement semantics",
+      "hardware job submission",
+      "a final noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "replacement target/control and metric semantics are preregistered after the Stage186 audit",
+      "the next packet screen must use matched nonzero null/control exposure rather than zero-component control",
+      "hardware remains disallowed until a later IBM-informed simulation gate passes the preregistered thresholds"
+    ]
+  },
+  "decision": "REPLACEMENT_SEMANTICS_PREREGISTERED_READY_FOR_PACKET_SCREEN",
+  "hardware_path_status": "current_ibm_328_job_run_remains_archived",
+  "missing_source_artifacts": [],
+  "next_gate": "Generate fixed-width replacement-semantics packets and run an IBM-informed simulated screen against the preregistered normalized noise-sensitivity and matched-null margins.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage187_replacement_semantics_preregistration/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage187_replacement_semantics_preregistration_v1",
+  "secret_values_recorded": false,
+  "semantics": {
+    "control_definition": {
+      "allowed_forms": [
+        "paired_delta_null: components from a sign-balanced permutation of source deltas within the same lane",
+        "matched_exposure_null: components with the same absolute component histogram as PhaseWrap but row-permuted by frozen hash"
+      ],
+      "component_policy": "for each source row, assign deterministic nonzero components with the same absolute exposure envelope as the positional families but with row-wise signs or pairing independent of positional delta",
+      "control_family": "matched_nonzero_null_control",
+      "disallowed_forms": [
+        "zero-zero component control",
+        "dropping the no-position/control comparator",
+        "choosing control components after seeing simulated or hardware wins"
+      ]
+    },
+    "family_requirements": [
+      "phasewrap",
+      "rope_like",
+      "sinusoidal_like",
+      "alibi_like",
+      "matched_nonzero_null_control"
+    ],
+    "fixed_width_constraints": {
+      "active_qubits": 2,
+      "measured_qubits": 2,
+      "qubit_count_may_change": false,
+      "required_templates": [
+        "two_ry_product_state_z_readout_v1",
+        "two_ry_cx_parity_z_readout_v1"
+      ]
+    },
+    "hardware_reopen_thresholds": {
+      "coherent_proxy_only_may_reopen_hardware": false,
+      "min_best_positional_margin_shot_quanta": 2.0,
+      "min_independent_seed_pairs": 2,
+      "min_matched_null_margin_shot_quanta": 2.0,
+      "min_stable_templates": 2,
+      "required_primary_noise_models": [
+        "ibm_backend_median_stochastic",
+        "ibm_backend_p75_stochastic"
+      ]
+    },
+    "primary_metric": {
+      "definition": "compare each family by the noise-induced change in score relative to its own ideal, normalized by that row's nonzero component exposure; aggregate as mean absolute normalized shrink error",
+      "metric_id": "normalized_noise_sensitivity_delta_v1",
+      "reason": "separates task score distortion from the trivial stability of a zero ideal score, so a control can only win by being robust under comparable nonzero exposure",
+      "required_reported_metrics": [
+        "mean_absolute_score_error",
+        "normalized_noise_sensitivity_delta",
+        "slope_retention",
+        "rank_retention",
+        "matched_null_control_margin"
+      ]
+    },
+    "purpose": "replace the zero-component no-position raw-MAE hardware gate with a fixed-width control and metric surface that exposes every family, including the null, to nonzero IBM-style shrink/readout",
+    "selection_firewalls": [
+      "replacement semantics must be frozen before Stage188 packet generation",
+      "source row sets must be identical across all families within each lane",
+      "live hardware results may not be used to tune controls, thresholds, source rows, or metrics",
+      "any IBM hardware run remains disallowed until a later simulated gate passes all reopen thresholds"
+    ],
+    "semantics_id": "matched_nonzero_null_noise_sensitivity_v1"
+  },
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage186_target_control_semantics_audit/results.json"
+  ],
+  "stage": "stage187_replacement_semantics_preregistration",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage187_replacement_semantics_preregistration/summary.csv"
+}

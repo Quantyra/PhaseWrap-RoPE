@@ -1,0 +1,2 @@
+semantics_id,control_family,primary_metric_id,min_independent_seed_pairs,no_hardware_submission
+matched_nonzero_null_noise_sensitivity_v1,matched_nonzero_null_control,normalized_noise_sensitivity_delta_v1,2,True
