@@ -1,0 +1,110 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "live provider SDK submission",
+      "real provider result records",
+      "Stage 113 evidence assembly",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "normalized provider counts can be assembled into Stage 114-shaped result records",
+      "result records include job IDs, provider task IDs, backend metadata, timestamps, and non-empty counts",
+      "record assembly remains isolated from real provider result paths before live SDK submission"
+    ]
+  },
+  "decision": "STAGE114_RESULT_RECORD_BUILDER_READY_EXECUTION_BLOCKED",
+  "missing_source_artifacts": [],
+  "next_gate": "Use the Stage 126 record builder inside live provider SDK submitters so real measured counts become validated Stage 114 result records only after Stage 106/111 readiness clears.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "provider_records": [
+    {
+      "missing_evidence": [],
+      "provider": "amazon_braket",
+      "ready": true,
+      "record_ready": true,
+      "required_fields": [
+        "job_id",
+        "job_or_task_id",
+        "backend_metadata",
+        "submitted_at_utc",
+        "completed_at_utc",
+        "counts"
+      ],
+      "submission_plan_path": "logs/automated_stage_gates/stage123_provider_submission_plan_audit/submission_plans/amazon_braket/amazon_braket__independent_window_00/submission_plans.jsonl",
+      "window_id": "amazon_braket__independent_window_00"
+    },
+    {
+      "missing_evidence": [],
+      "provider": "amazon_braket",
+      "ready": true,
+      "record_ready": true,
+      "required_fields": [
+        "job_id",
+        "job_or_task_id",
+        "backend_metadata",
+        "submitted_at_utc",
+        "completed_at_utc",
+        "counts"
+      ],
+      "submission_plan_path": "logs/automated_stage_gates/stage123_provider_submission_plan_audit/submission_plans/amazon_braket/amazon_braket__independent_window_01/submission_plans.jsonl",
+      "window_id": "amazon_braket__independent_window_01"
+    },
+    {
+      "missing_evidence": [],
+      "provider": "ibm_runtime",
+      "ready": true,
+      "record_ready": true,
+      "required_fields": [
+        "job_id",
+        "job_or_task_id",
+        "backend_metadata",
+        "submitted_at_utc",
+        "completed_at_utc",
+        "counts"
+      ],
+      "submission_plan_path": "logs/automated_stage_gates/stage123_provider_submission_plan_audit/submission_plans/ibm_runtime/ibm_runtime__independent_window_00/submission_plans.jsonl",
+      "window_id": "ibm_runtime__independent_window_00"
+    },
+    {
+      "missing_evidence": [],
+      "provider": "ibm_runtime",
+      "ready": true,
+      "record_ready": true,
+      "required_fields": [
+        "job_id",
+        "job_or_task_id",
+        "backend_metadata",
+        "submitted_at_utc",
+        "completed_at_utc",
+        "counts"
+      ],
+      "submission_plan_path": "logs/automated_stage_gates/stage123_provider_submission_plan_audit/submission_plans/ibm_runtime/ibm_runtime__independent_window_01/submission_plans.jsonl",
+      "window_id": "ibm_runtime__independent_window_01"
+    }
+  ],
+  "provider_window_count": 4,
+  "ready_provider_window_count": 4,
+  "required_result_fields": [
+    "job_id",
+    "job_or_task_id",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "counts"
+  ],
+  "schema_version": "qrope_stage126_stage114_result_record_builder_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_job_result_schema.json",
+    "logs/automated_stage_gates/stage123_provider_submission_plan_audit/results.json",
+    "logs/automated_stage_gates/stage125_provider_result_normalization_audit/results.json"
+  ],
+  "stage": "stage126_stage114_result_record_builder_audit",
+  "stage123_decision": "PROVIDER_SUBMISSION_PLANS_READY_EXECUTION_BLOCKED",
+  "stage125_decision": "PROVIDER_RESULT_NORMALIZATION_READY_EXECUTION_BLOCKED",
+  "status": "completed"
+}

@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import os
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -89,3 +90,42 @@ def canonicalize_counts(raw_counts: Any) -> dict[str, int]:
     if sum(normalized.values()) <= 0:
         raise ProviderAdapterBlocked("canonical counts sum to zero")
     return dict(sorted(normalized.items()))
+
+
+def build_stage114_result_record(
+    *,
+    plan: dict[str, Any],
+    job_or_task_id: str,
+    backend_metadata: dict[str, Any],
+    counts: dict[str, int],
+    submitted_at_utc: str,
+    completed_at_utc: str,
+) -> dict[str, Any]:
+    if not job_or_task_id:
+        raise ProviderAdapterBlocked("provider job/task id missing")
+    canonical_counts = canonicalize_counts(counts)
+    if not isinstance(backend_metadata, dict) or not backend_metadata:
+        raise ProviderAdapterBlocked("backend metadata missing")
+    for timestamp_name, timestamp in (("submitted_at_utc", submitted_at_utc), ("completed_at_utc", completed_at_utc)):
+        if not timestamp:
+            raise ProviderAdapterBlocked(f"{timestamp_name} missing")
+        try:
+            datetime.fromisoformat(timestamp.replace("Z", "+00:00")).astimezone(UTC)
+        except ValueError as exc:
+            raise ProviderAdapterBlocked(f"{timestamp_name} is not ISO-8601 UTC-compatible") from exc
+    metadata = {
+        **backend_metadata,
+        "provider": plan.get("provider"),
+        "window_id": plan.get("window_id"),
+        "provider_submission_kind": plan.get("provider_submission_kind"),
+        "openqasm3_sha256": plan.get("openqasm3_sha256"),
+        "target_counts_key": plan.get("target_counts_key"),
+    }
+    return {
+        "job_id": plan.get("job_id"),
+        "job_or_task_id": job_or_task_id,
+        "backend_metadata": metadata,
+        "submitted_at_utc": submitted_at_utc,
+        "completed_at_utc": completed_at_utc,
+        "counts": canonical_counts,
+    }

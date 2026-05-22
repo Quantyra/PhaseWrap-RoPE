@@ -1,0 +1,19 @@
+{
+  "backend_metadata": {
+    "backend": "dry-run-backend",
+    "openqasm3_sha256": "9092744f08e6f8554dacfd0a5d3a05531f1346fffab900ca0982473805c02376",
+    "provider": "amazon_braket",
+    "provider_submission_kind": "amazon_braket_openqasm3_task",
+    "result_source": "stage126_record_builder_audit_not_hardware",
+    "target_counts_key": "00",
+    "window_id": "amazon_braket__independent_window_00"
+  },
+  "completed_at_utc": "1970-01-01T00:00:01Z",
+  "counts": {
+    "01": 4,
+    "10": 6
+  },
+  "job_id": "amazon_braket__independent_window_00__calibration__state_00",
+  "job_or_task_id": "DRY_RUN_TASK::amazon_braket__independent_window_00__calibration__state_00",
+  "submitted_at_utc": "1970-01-01T00:00:00Z"
+}
