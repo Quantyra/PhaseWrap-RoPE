@@ -12,6 +12,7 @@ STAGE137_SCHEMA_VERSION = "qrope_stage137_auditability_metric_evaluator_v1"
 DEFAULT_ARTIFACT_ROOT = Path("logs") / "automated_stage_gates"
 DEFAULT_STAGE107_WINDOW_PLANS = DEFAULT_ARTIFACT_ROOT / "stage107_window_execution_orchestrator" / "window_execution_plans.json"
 DEFAULT_STAGE136_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage136_auditability_metric_preregistration" / "results.json"
+DEFAULT_STAGE113_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage113_job_result_evidence_assembler" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage137_auditability_metric_evaluator"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
@@ -196,7 +197,25 @@ def _comparison_groups_complete(comparison_summary: list[dict[str, Any]]) -> boo
     )
 
 
-def _window_record(plan: dict[str, Any], stage136_ready: bool) -> dict[str, Any]:
+def _stage113_live_submit_provenance_ready(stage113: dict[str, Any] | None) -> bool:
+    if not isinstance(stage113, dict):
+        return False
+    runner_count = int(stage113.get("stage115_stage152_first_provider_runner_command_count") or 0)
+    authorized_count = int(stage113.get("stage115_stage152_first_provider_authorized_runner_count") or 0)
+    live_submit_ready_count = int(stage113.get("stage115_stage152_first_provider_live_submit_ready_count") or 0)
+    return bool(
+        stage113.get("decision") == "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"
+        and stage113.get("stage115_write_ready") is True
+        and not stage113.get("stage115_write_blockers")
+        and stage113.get("stage115_stage152_all_first_provider_commands_authorized") is True
+        and stage113.get("stage115_stage152_all_first_provider_commands_live_submit_ready") is True
+        and runner_count > 0
+        and authorized_count == runner_count
+        and live_submit_ready_count == runner_count
+    )
+
+
+def _window_record(plan: dict[str, Any], stage136_ready: bool, stage113_live_submit_ready: bool) -> dict[str, Any]:
     calibration_step = _step(plan, "known_state_calibration_execution")
     packet_step = _step(plan, "matched_packet_execution")
     calibration_execution_path = Path(str(calibration_step.get("output_path", "")))
@@ -213,6 +232,8 @@ def _window_record(plan: dict[str, Any], stage136_ready: bool) -> dict[str, Any]
     missing: list[str] = []
     if not stage136_ready:
         missing.append("stage136_auditability_contract_not_ready")
+    if not stage113_live_submit_ready:
+        missing.append("stage113_live_submit_provenance_not_ready")
     if not _stage101_ready(stage101_results_path):
         missing.append("stage101_calibration_not_verified")
     if any(not record["ready"] for record in packet_records):
@@ -240,11 +261,13 @@ def run_stage137_evaluator(
     *,
     stage107_window_plans_path: Path = DEFAULT_STAGE107_WINDOW_PLANS,
     stage136_results_path: Path = DEFAULT_STAGE136_RESULTS,
+    stage113_results_path: Path = DEFAULT_STAGE113_RESULTS,
     provider: str | None = None,
 ) -> dict[str, Any]:
     plans = _load_json(stage107_window_plans_path)
     stage136 = _load_json(stage136_results_path)
-    sources = [(stage107_window_plans_path, plans), (stage136_results_path, stage136)]
+    stage113 = _load_json(stage113_results_path)
+    sources = [(stage107_window_plans_path, plans), (stage136_results_path, stage136), (stage113_results_path, stage113)]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
     all_window_plans = plans if isinstance(plans, list) else []
     window_plans = [
@@ -253,7 +276,8 @@ def run_stage137_evaluator(
     stage136_ready = bool(
         isinstance(stage136, dict) and stage136.get("decision") == "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED"
     )
-    window_records = [_window_record(plan, stage136_ready) for plan in window_plans]
+    stage113_live_submit_ready = _stage113_live_submit_provenance_ready(stage113)
+    window_records = [_window_record(plan, stage136_ready, stage113_live_submit_ready) for plan in window_plans]
     ready_window_count = sum(1 for record in window_records if record["ready"])
     comparison_summary = [item for window in window_records for item in window["comparison_summary"]]
     ready = bool(window_records) and ready_window_count == len(window_records) and stage136_ready and not missing_sources
@@ -272,6 +296,26 @@ def run_stage137_evaluator(
         "provider_scope": provider or "all",
         "stage136_decision": stage136.get("decision") if isinstance(stage136, dict) else None,
         "stage136_ready": stage136_ready,
+        "stage113_results_path": str(stage113_results_path.as_posix()),
+        "stage113_decision": stage113.get("decision") if isinstance(stage113, dict) else None,
+        "stage113_stage115_write_ready": stage113.get("stage115_write_ready") if isinstance(stage113, dict) else None,
+        "stage113_stage115_write_blockers": stage113.get("stage115_write_blockers") if isinstance(stage113, dict) else None,
+        "stage113_stage115_stage152_first_provider_runner_command_count": (
+            stage113.get("stage115_stage152_first_provider_runner_command_count") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_first_provider_authorized_runner_count": (
+            stage113.get("stage115_stage152_first_provider_authorized_runner_count") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_first_provider_live_submit_ready_count": (
+            stage113.get("stage115_stage152_first_provider_live_submit_ready_count") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_all_first_provider_commands_authorized": (
+            stage113.get("stage115_stage152_all_first_provider_commands_authorized") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready": (
+            stage113.get("stage115_stage152_all_first_provider_commands_live_submit_ready") if isinstance(stage113, dict) else None
+        ),
+        "stage113_live_submit_provenance_ready": stage113_live_submit_ready,
         "window_count": len(window_records),
         "available_window_count": len(all_window_plans),
         "ready_window_count": ready_window_count,
@@ -288,6 +332,7 @@ def run_stage137_evaluator(
                 "optional provider-scoped auditability evaluation for first-provider replicated-window evidence",
                 "binding of auditability evaluation to Stage 107 packet execution counts and Stage 101 calibration results",
                 "verification that packet executions preserve Stage 113 hardware-result lineage metadata",
+                "verification that Stage 113 preserves Stage 115/152 all-command live-submit readiness provenance",
                 "verification that PhaseWrap and every named positional comparator are present before claim-gate readiness",
                 "a blocked outcome when real provider packet counts are missing",
             ],
@@ -319,6 +364,26 @@ def write_stage137_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "provider_scope": result["provider_scope"],
         "stage136_decision": result["stage136_decision"],
         "stage136_ready": result["stage136_ready"],
+        "stage113_results_path": result["stage113_results_path"],
+        "stage113_decision": result["stage113_decision"],
+        "stage113_stage115_write_ready": result["stage113_stage115_write_ready"],
+        "stage113_stage115_write_blockers": result["stage113_stage115_write_blockers"],
+        "stage113_stage115_stage152_first_provider_runner_command_count": result[
+            "stage113_stage115_stage152_first_provider_runner_command_count"
+        ],
+        "stage113_stage115_stage152_first_provider_authorized_runner_count": result[
+            "stage113_stage115_stage152_first_provider_authorized_runner_count"
+        ],
+        "stage113_stage115_stage152_first_provider_live_submit_ready_count": result[
+            "stage113_stage115_stage152_first_provider_live_submit_ready_count"
+        ],
+        "stage113_stage115_stage152_all_first_provider_commands_authorized": result[
+            "stage113_stage115_stage152_all_first_provider_commands_authorized"
+        ],
+        "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready": result[
+            "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready"
+        ],
+        "stage113_live_submit_provenance_ready": result["stage113_live_submit_provenance_ready"],
         "window_count": result["window_count"],
         "available_window_count": result["available_window_count"],
         "ready_window_count": result["ready_window_count"],

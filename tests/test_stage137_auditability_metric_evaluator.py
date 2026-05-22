@@ -45,6 +45,22 @@ def _execution(path, packet_id, counts) -> None:
     )
 
 
+def _stage113_ready(path) -> None:
+    _write_json(
+        path,
+        {
+            "decision": "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE",
+            "stage115_write_ready": True,
+            "stage115_write_blockers": [],
+            "stage115_stage152_first_provider_runner_command_count": 1,
+            "stage115_stage152_first_provider_authorized_runner_count": 1,
+            "stage115_stage152_first_provider_live_submit_ready_count": 1,
+            "stage115_stage152_all_first_provider_commands_authorized": True,
+            "stage115_stage152_all_first_provider_commands_live_submit_ready": True,
+        },
+    )
+
+
 def _ready_fixture(tmp_path):
     packet_dir = tmp_path / "packets"
     execution_dir = tmp_path / "executions"
@@ -90,15 +106,16 @@ def _ready_fixture(tmp_path):
     ]
     _write_json(tmp_path / "plans.json", plans)
     _write_json(tmp_path / "stage136.json", {"decision": "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED"})
-    return tmp_path / "plans.json", tmp_path / "stage136.json"
+    _stage113_ready(tmp_path / "stage113.json")
+    return tmp_path / "plans.json", tmp_path / "stage136.json", tmp_path / "stage113.json"
 
 
 def test_stage137_blocks_when_hardware_counts_are_missing(tmp_path) -> None:
-    plans, stage136 = _ready_fixture(tmp_path)
+    plans, stage136, stage113 = _ready_fixture(tmp_path)
     execution_to_remove = tmp_path / "executions" / "lane_0__phasewrap.json"
     execution_to_remove.unlink()
 
-    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136)
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136, stage113_results_path=stage113)
 
     assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
     assert result["ready_window_count"] == 0
@@ -106,11 +123,12 @@ def test_stage137_blocks_when_hardware_counts_are_missing(tmp_path) -> None:
 
 
 def test_stage137_computes_component_reconstruction_advantage_when_counts_are_ready(tmp_path) -> None:
-    plans, stage136 = _ready_fixture(tmp_path)
+    plans, stage136, stage113 = _ready_fixture(tmp_path)
 
-    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136)
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136, stage113_results_path=stage113)
 
     assert result["decision"] == "AUDITABILITY_METRICS_READY_FOR_CLAIM_GATE"
+    assert result["stage113_live_submit_provenance_ready"] is True
     assert result["ready_window_count"] == 1
     assert result["comparison_summary_count"] == 1
     assert result["auditability_advantage_count"] == 1
@@ -119,14 +137,38 @@ def test_stage137_computes_component_reconstruction_advantage_when_counts_are_re
     assert summary["phasewrap_lower_error_than"] == ["rope_like", "sinusoidal_like", "alibi_like"]
 
 
+def test_stage137_requires_stage113_live_submit_provenance_for_claim_gate(tmp_path) -> None:
+    plans, stage136, stage113 = _ready_fixture(tmp_path)
+    _write_json(
+        stage113,
+        {
+            "decision": "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE",
+            "stage115_write_ready": True,
+            "stage115_write_blockers": [],
+            "stage115_stage152_first_provider_runner_command_count": 2,
+            "stage115_stage152_first_provider_authorized_runner_count": 1,
+            "stage115_stage152_first_provider_live_submit_ready_count": 1,
+            "stage115_stage152_all_first_provider_commands_authorized": False,
+            "stage115_stage152_all_first_provider_commands_live_submit_ready": False,
+        },
+    )
+
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136, stage113_results_path=stage113)
+
+    assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
+    assert result["ready_window_count"] == 0
+    assert result["stage113_live_submit_provenance_ready"] is False
+    assert "stage113_live_submit_provenance_not_ready" in result["window_records"][0]["missing_evidence"]
+
+
 def test_stage137_rejects_complete_counts_without_stage113_status(tmp_path) -> None:
-    plans, stage136 = _ready_fixture(tmp_path)
+    plans, stage136, stage113 = _ready_fixture(tmp_path)
     execution_path = tmp_path / "executions" / "lane_0__phasewrap.json"
     execution = json.loads(execution_path.read_text(encoding="utf-8"))
     execution.pop("status")
     _write_json(execution_path, execution)
 
-    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136)
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136, stage113_results_path=stage113)
 
     assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
     assert result["ready_window_count"] == 0
@@ -136,13 +178,13 @@ def test_stage137_rejects_complete_counts_without_stage113_status(tmp_path) -> N
 
 
 def test_stage137_rejects_counts_without_result_lineage_metadata(tmp_path) -> None:
-    plans, stage136 = _ready_fixture(tmp_path)
+    plans, stage136, stage113 = _ready_fixture(tmp_path)
     execution_path = tmp_path / "executions" / "lane_0__phasewrap.json"
     execution = json.loads(execution_path.read_text(encoding="utf-8"))
     execution.pop("backend_metadata")
     _write_json(execution_path, execution)
 
-    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136)
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136, stage113_results_path=stage113)
 
     assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
     assert result["ready_window_count"] == 0
@@ -152,7 +194,7 @@ def test_stage137_rejects_counts_without_result_lineage_metadata(tmp_path) -> No
 
 
 def test_stage137_rejects_incomplete_positional_comparator_group(tmp_path) -> None:
-    plans, stage136 = _ready_fixture(tmp_path)
+    plans, stage136, stage113 = _ready_fixture(tmp_path)
     payload = json.loads(plans.read_text(encoding="utf-8"))
     packet_templates = payload[0]["steps"][1]["packet_templates"]
     payload[0]["steps"][1]["packet_templates"] = [
@@ -160,7 +202,7 @@ def test_stage137_rejects_incomplete_positional_comparator_group(tmp_path) -> No
     ]
     _write_json(plans, payload)
 
-    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136)
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136, stage113_results_path=stage113)
 
     assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
     assert result["ready_window_count"] == 0
@@ -168,8 +210,8 @@ def test_stage137_rejects_incomplete_positional_comparator_group(tmp_path) -> No
 
 
 def test_stage137_outputs_are_written(tmp_path) -> None:
-    plans, stage136 = _ready_fixture(tmp_path)
-    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136)
+    plans, stage136, stage113 = _ready_fixture(tmp_path)
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136, stage113_results_path=stage113)
 
     paths = write_stage137_outputs(result, tmp_path / "out")
     manifest = json.loads((tmp_path / "out" / "manifest.json").read_text(encoding="utf-8"))
