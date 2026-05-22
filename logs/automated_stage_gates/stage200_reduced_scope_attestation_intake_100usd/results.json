@@ -3,8 +3,8 @@
   "blockers": [
     "exact_reduced_scope_attestation_phrase_required"
   ],
-  "break_even_microseconds_per_shot": 23.69722154816792,
-  "budget_cap_usd": 25.0,
+  "break_even_microseconds_per_shot": 94.78888619267168,
+  "budget_cap_usd": 100.0,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -29,7 +29,7 @@
     {
       "description": "Stage199 must present the reduced-scope cost estimate before any attestation phrase can be accepted.",
       "evidence": {
-        "break_even_microseconds_per_shot": 23.69722154816792,
+        "break_even_microseconds_per_shot": 94.78888619267168,
         "estimated_total_shots": 659360,
         "scope_id": "all_lanes_half_shots_2048",
         "stage199_decision": "REDUCED_SCOPE_ATTESTATION_READY_FOR_USER_REVIEW_NOT_LIVE"
@@ -42,7 +42,7 @@
       "evidence": {
         "attestation_phrase_matches": false,
         "provided_attestation_phrase_present": false,
-        "required_attestation_phrase": "ATTEST IBM CREDIT FOR REDUCED SCOPE STAGE199 WITH 25 USD CAP"
+        "required_attestation_phrase": "ATTEST IBM CREDIT FOR REDUCED SCOPE STAGE199 WITH 100 USD CAP"
       },
       "item_id": "exact_attestation_phrase",
       "status": "awaiting_exact_phrase"
@@ -50,7 +50,7 @@
     {
       "description": "Accepted attestation means IBM account allowance and willingness to spend within the reduced-scope cap only.",
       "evidence": {
-        "budget_cap_usd": 25.0,
+        "budget_cap_usd": 100.0,
         "does_not_accept_exact_live_approval_phrase": true,
         "does_not_approve_live_submission": true,
         "scope_id": "all_lanes_half_shots_2048"
@@ -75,13 +75,13 @@
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provided_attestation_phrase_present": false,
   "provider_credentials_required": false,
-  "required_attestation_phrase": "ATTEST IBM CREDIT FOR REDUCED SCOPE STAGE199 WITH 25 USD CAP",
+  "required_attestation_phrase": "ATTEST IBM CREDIT FOR REDUCED SCOPE STAGE199 WITH 100 USD CAP",
   "runnable_commands_recorded": false,
   "schema_version": "qrope_stage200_reduced_scope_attestation_intake_v1",
   "scope_id": "all_lanes_half_shots_2048",
   "secret_values_recorded": false,
   "source_artifacts": [
-    "logs/automated_stage_gates/stage199_reduced_scope_attestation_packet/results.json"
+    "logs/automated_stage_gates/stage199_reduced_scope_attestation_packet_100usd/results.json"
   ],
   "stage": "stage200_reduced_scope_attestation_intake",
   "status": "completed"

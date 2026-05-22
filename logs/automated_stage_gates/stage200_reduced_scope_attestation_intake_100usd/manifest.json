@@ -3,8 +3,8 @@
   "blockers": [
     "exact_reduced_scope_attestation_phrase_required"
   ],
-  "break_even_microseconds_per_shot": 23.69722154816792,
-  "budget_cap_usd": 25.0,
+  "break_even_microseconds_per_shot": 94.78888619267168,
+  "budget_cap_usd": 100.0,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -32,16 +32,16 @@
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provided_attestation_phrase_present": false,
   "provider_credentials_required": false,
-  "required_attestation_phrase": "ATTEST IBM CREDIT FOR REDUCED SCOPE STAGE199 WITH 25 USD CAP",
-  "result_path": "logs/automated_stage_gates/stage200_reduced_scope_attestation_intake/results.json",
+  "required_attestation_phrase": "ATTEST IBM CREDIT FOR REDUCED SCOPE STAGE199 WITH 100 USD CAP",
+  "result_path": "logs/automated_stage_gates/stage200_reduced_scope_attestation_intake_100usd/results.json",
   "runnable_commands_recorded": false,
   "schema_version": "qrope_stage200_reduced_scope_attestation_intake_v1",
   "scope_id": "all_lanes_half_shots_2048",
   "secret_values_recorded": false,
   "source_artifacts": [
-    "logs/automated_stage_gates/stage199_reduced_scope_attestation_packet/results.json"
+    "logs/automated_stage_gates/stage199_reduced_scope_attestation_packet_100usd/results.json"
   ],
   "stage": "stage200_reduced_scope_attestation_intake",
   "status": "completed",
-  "summary_csv_path": "logs/automated_stage_gates/stage200_reduced_scope_attestation_intake/summary.csv"
+  "summary_csv_path": "logs/automated_stage_gates/stage200_reduced_scope_attestation_intake_100usd/summary.csv"
 }

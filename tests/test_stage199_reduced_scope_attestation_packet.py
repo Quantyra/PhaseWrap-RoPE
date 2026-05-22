@@ -73,8 +73,8 @@ def test_stage199_scenario_estimates_for_reduced_scope(tmp_path) -> None:
 
     assert round(scenarios[10.0]["estimated_usd"], 2) == 10.55
     assert round(scenarios[25.0]["estimated_usd"], 2) == 26.37
-    assert scenarios[10.0]["within_25_usd_cap"] is True
-    assert scenarios[25.0]["within_25_usd_cap"] is False
+    assert scenarios[10.0]["within_budget_cap"] is True
+    assert scenarios[25.0]["within_budget_cap"] is False
 
 
 def test_stage199_outputs_do_not_record_secrets_or_live_submit(tmp_path) -> None:

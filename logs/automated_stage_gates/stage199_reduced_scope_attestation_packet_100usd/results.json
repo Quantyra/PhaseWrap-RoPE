@@ -12,8 +12,8 @@
     {
       "description": "Manual attestation must include an explicit reduced-scope cost estimate.",
       "evidence": {
-        "break_even_microseconds_per_shot": 23.69722154816792,
-        "budget_cap_usd": 25.0,
+        "break_even_microseconds_per_shot": 94.78888619267168,
+        "budget_cap_usd": 100.0,
         "estimated_total_job_count": 324,
         "estimated_total_shots": 659360,
         "scenarios": [
@@ -39,13 +39,13 @@
             "estimated_quantum_seconds": 16.484,
             "estimated_usd": 26.374400000000005,
             "microseconds_per_shot": 25.0,
-            "within_budget_cap": false
+            "within_budget_cap": true
           },
           {
             "estimated_quantum_seconds": 32.968,
             "estimated_usd": 52.74880000000001,
             "microseconds_per_shot": 50.0,
-            "within_budget_cap": false
+            "within_budget_cap": true
           },
           {
             "estimated_quantum_seconds": 65.936,
@@ -88,9 +88,9 @@
   "blockers": [
     "human_credit_allowance_attestation_required"
   ],
-  "break_even_microseconds_per_shot": 23.69722154816792,
-  "budget_cap_usd": 25.0,
-  "budget_quantum_seconds_at_doc_rate": 15.625,
+  "break_even_microseconds_per_shot": 94.78888619267168,
+  "budget_cap_usd": 100.0,
+  "budget_quantum_seconds_at_doc_rate": 62.5,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -173,7 +173,7 @@
     "selected_lanes": "all four Stage189/190 IBM replacement lanes",
     "shots_per_row": 2048
   },
-  "manual_attestation_prompt": "Please verify in IBM that the selected instance has enough remaining credit/billing/Runtime allowance for the reduced-scope run `all_lanes_half_shots_2048`: 324 row-level jobs, 659360 total shots, 2048 shots per packet row, and a $25.00 local cap. Using IBM's documented $1600/1000-quantum-second example, this cap allows 15.625 quantum seconds, so this reduced run fits only if effective quantum time is <= 23.70 microseconds/shot. If you attest yes, you are attesting account-side allowance and willingness to spend within this cap only; this still does not approve live submission or accept the exact approval phrase.",
+  "manual_attestation_prompt": "Please verify in IBM that the selected instance has enough remaining credit/billing/Runtime allowance for the reduced-scope run `all_lanes_half_shots_2048`: 324 row-level jobs, 659360 total shots, 2048 shots per packet row, and a $100.00 local cap. Using IBM's documented $1600/1000-quantum-second example, this cap allows 62.500 quantum seconds, so this reduced run fits only if effective quantum time is <= 94.79 microseconds/shot. If you attest yes, you are attesting account-side allowance and willingness to spend within this cap only; this still does not approve live submission or accept the exact approval phrase.",
   "manual_attestation_prompt_required": true,
   "missing_source_artifacts": [],
   "next_gate": "Present this reduced-scope estimate to the user. If the user attests IBM credit allowance and willingness to spend within the cap, rerun Stage199 with human_credit_allowance_verified=true, then run exact approval review.",
@@ -204,13 +204,13 @@
       "estimated_quantum_seconds": 16.484,
       "estimated_usd": 26.374400000000005,
       "microseconds_per_shot": 25.0,
-      "within_budget_cap": false
+      "within_budget_cap": true
     },
     {
       "estimated_quantum_seconds": 32.968,
       "estimated_usd": 52.74880000000001,
       "microseconds_per_shot": 50.0,
-      "within_budget_cap": false
+      "within_budget_cap": true
     },
     {
       "estimated_quantum_seconds": 65.936,

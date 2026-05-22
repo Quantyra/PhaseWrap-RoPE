@@ -27,6 +27,14 @@ def _item(item_id: str, status: str, description: str, evidence: Any) -> dict[st
     return {"item_id": item_id, "status": status, "description": description, "evidence": evidence}
 
 
+def required_attestation_phrase_for_budget(budget_cap_usd: float | int | None) -> str:
+    if budget_cap_usd is None:
+        return REQUIRED_ATTESTATION_PHRASE
+    cap = float(budget_cap_usd)
+    cap_text = str(int(cap)) if cap.is_integer() else f"{cap:.2f}".rstrip("0").rstrip(".")
+    return f"ATTEST IBM CREDIT FOR REDUCED SCOPE STAGE199 WITH {cap_text} USD CAP"
+
+
 def run_stage200_reduced_scope_attestation_intake(
     *,
     stage199_results_path: Path = DEFAULT_STAGE199_RESULTS,
@@ -35,8 +43,10 @@ def run_stage200_reduced_scope_attestation_intake(
     stage199 = _load_json(stage199_results_path)
     missing_sources = [] if isinstance(stage199, dict) else [str(stage199_results_path.as_posix())]
     stage199_ready = bool(isinstance(stage199, dict) and stage199.get("decision") == STAGE199_READY)
+    budget_cap_usd = stage199.get("budget_cap_usd") if isinstance(stage199, dict) else None
+    required_attestation_phrase = required_attestation_phrase_for_budget(budget_cap_usd)
     phrase_present = provided_attestation_phrase is not None
-    phrase_matches = provided_attestation_phrase == REQUIRED_ATTESTATION_PHRASE
+    phrase_matches = provided_attestation_phrase == required_attestation_phrase
     intake_items = [
         _item(
             "stage199_attestation_packet",
@@ -54,7 +64,7 @@ def run_stage200_reduced_scope_attestation_intake(
             "accepted" if stage199_ready and phrase_matches else "awaiting_exact_phrase" if not phrase_present else "mismatched",
             "Only the exact reduced-scope credit attestation phrase can record human credit allowance verification.",
             {
-                "required_attestation_phrase": REQUIRED_ATTESTATION_PHRASE,
+                "required_attestation_phrase": required_attestation_phrase,
                 "provided_attestation_phrase_present": phrase_present,
                 "attestation_phrase_matches": phrase_matches if stage199_ready else False,
             },
@@ -103,9 +113,9 @@ def run_stage200_reduced_scope_attestation_intake(
         "hardware_scope_label": stage199.get("hardware_scope_label") if isinstance(stage199, dict) else None,
         "estimated_total_job_count": stage199.get("estimated_total_job_count") if isinstance(stage199, dict) else None,
         "estimated_total_shots": stage199.get("estimated_total_shots") if isinstance(stage199, dict) else None,
-        "budget_cap_usd": stage199.get("budget_cap_usd") if isinstance(stage199, dict) else None,
+        "budget_cap_usd": budget_cap_usd,
         "break_even_microseconds_per_shot": stage199.get("break_even_microseconds_per_shot") if isinstance(stage199, dict) else None,
-        "required_attestation_phrase": REQUIRED_ATTESTATION_PHRASE,
+        "required_attestation_phrase": required_attestation_phrase,
         "provided_attestation_phrase_present": phrase_present,
         "attestation_phrase_matches": phrase_matches if stage199_ready else False,
         "human_credit_allowance_verified": stage199_ready and phrase_matches,
@@ -119,7 +129,7 @@ def run_stage200_reduced_scope_attestation_intake(
         "claim_boundary": {
             "supported": [
                 "exact reduced-scope credit attestation phrase intake",
-                "credit attestation is bounded to Stage199 reduced scope and 25 USD cap",
+                "credit attestation is bounded to Stage199 reduced scope and the current recorded USD cap",
                 "attestation remains separate from exact live approval and live-runner preparation",
             ],
             "excluded": [

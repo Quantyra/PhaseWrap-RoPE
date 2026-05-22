@@ -4,6 +4,7 @@ import json
 
 from qrope.stage200_reduced_scope_attestation_intake import (
     REQUIRED_ATTESTATION_PHRASE,
+    required_attestation_phrase_for_budget,
     run_stage200_reduced_scope_attestation_intake,
     write_stage200_outputs,
 )
@@ -14,7 +15,7 @@ def _write_json(path, payload) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def _stage199(path) -> None:
+def _stage199(path, *, budget_cap_usd: float = 25.0) -> None:
     _write_json(
         path,
         {
@@ -23,7 +24,7 @@ def _stage199(path) -> None:
             "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
             "estimated_total_job_count": 324,
             "estimated_total_shots": 659360,
-            "budget_cap_usd": 25.0,
+            "budget_cap_usd": budget_cap_usd,
             "break_even_microseconds_per_shot": 23.69722154816792,
         },
     )
@@ -71,6 +72,20 @@ def test_stage200_accepts_exact_phrase_without_live_submission(tmp_path) -> None
     assert result["attestation_phrase_matches"] is True
     assert result["live_submit_command_created"] is False
     assert result["runnable_commands_recorded"] is False
+
+
+def test_stage200_phrase_tracks_recorded_budget_cap(tmp_path) -> None:
+    stage199 = tmp_path / "stage199.json"
+    _stage199(stage199, budget_cap_usd=100.0)
+
+    result = run_stage200_reduced_scope_attestation_intake(
+        stage199_results_path=stage199,
+        provided_attestation_phrase=required_attestation_phrase_for_budget(100.0),
+    )
+
+    assert result["required_attestation_phrase"] == "ATTEST IBM CREDIT FOR REDUCED SCOPE STAGE199 WITH 100 USD CAP"
+    assert result["attestation_phrase_matches"] is True
+    assert result["human_credit_allowance_verified"] is True
 
 
 def test_stage200_outputs_do_not_record_secrets_or_live_submit(tmp_path) -> None:

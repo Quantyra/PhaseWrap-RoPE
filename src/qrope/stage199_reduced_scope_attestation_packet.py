@@ -31,7 +31,7 @@ def _scenario(total_shots: int, budget_cap_usd: float, microseconds_per_shot: fl
         "microseconds_per_shot": microseconds_per_shot,
         "estimated_quantum_seconds": quantum_seconds,
         "estimated_usd": estimated_usd,
-        "within_25_usd_cap": estimated_usd <= budget_cap_usd,
+        "within_budget_cap": estimated_usd <= budget_cap_usd,
     }
 
 
@@ -219,7 +219,7 @@ def write_stage199_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         for item in result["attestation_items"]:
             writer.writerow({field: item.get(field) for field in writer.fieldnames})
     with (output_dir / "scenarios.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=("microseconds_per_shot", "estimated_quantum_seconds", "estimated_usd", "within_25_usd_cap"))
+        writer = csv.DictWriter(handle, fieldnames=("microseconds_per_shot", "estimated_quantum_seconds", "estimated_usd", "within_budget_cap"))
         writer.writeheader()
         for scenario in result["scenario_estimates"]:
             writer.writerow({field: scenario.get(field) for field in writer.fieldnames})

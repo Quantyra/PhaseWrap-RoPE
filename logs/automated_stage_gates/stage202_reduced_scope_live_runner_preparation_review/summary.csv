@@ -1,0 +1,7 @@
+item_id,status,description
+stage201_exact_reduced_scope_approval,blocked,Live-runner preparation is disallowed until Stage201 records exact reduced-scope approval after credit attestation.
+reduced_scope_preregistration,frozen,Runner preparation must preserve the Stage198 all-lanes 2048-shot reduced-precision boundary.
+read_only_backend_refresh,ready_refresh_before_execution,The latest available IBM backend metadata is read-only evidence; it should be refreshed again close to any approved execution.
+reduced_scope_execution_package,required_not_created,Stage190 is a 4096-shot replacement package; a separate 2048-shot reduced-scope package must be generated before runner work.
+result_ingestion_contract,required_not_created,"Runner preparation must preserve canonical raw counts, job IDs, timestamps, backend metadata, and calibration counts for later Stage101/103/137/148 interpretation."
+live_execution_boundary,no_runner_created,"This review does not create runnable commands, write credentials, submit hardware, or bypass the later execution-package gate."

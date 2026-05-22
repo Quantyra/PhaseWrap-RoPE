@@ -1,0 +1,141 @@
+{
+  "backend_metadata": {
+    "backend": "ibm_fez",
+    "basis_gate_count": 5,
+    "coupling_edge_count": 352,
+    "num_qubits": 156,
+    "operational": true,
+    "pending_jobs": 16,
+    "simulator": false,
+    "version": "2"
+  },
+  "blockers": [
+    "reduced_scope_execution_package_required",
+    "result_ingestion_contract_required",
+    "stage201_exact_reduced_scope_approval_not_accepted"
+  ],
+  "budget_cap_usd": 25.0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "creation of a runnable live-submit command",
+      "provider-side IBM credit balance verification",
+      "result ingestion, calibration pass, or metric interpretation",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "reduced-scope runner preparation remains blocked until credit attestation and exact approval are accepted",
+      "Stage190 4096-shot templates are identified as non-reusable for the 2048-shot reduced scope",
+      "runner preparation requirements are enumerated without creating submit commands"
+    ]
+  },
+  "decision": "REDUCED_SCOPE_LIVE_RUNNER_PREPARATION_REVIEW_BLOCKED_APPROVAL_OR_PACKAGE_REQUIRED",
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 659360,
+  "exact_approval_ready": false,
+  "explicit_user_approval_required": true,
+  "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
+  "live_submit_command_created": false,
+  "missing_source_artifacts": [],
+  "next_gate": "After Stage200 credit attestation and Stage201 exact approval are both accepted, build a reduced-scope 2048-shot execution package and result-ingestion contract. This Stage202 review does not authorize direct hardware submission.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "preparation_items": [
+    {
+      "description": "Live-runner preparation is disallowed until Stage201 records exact reduced-scope approval after credit attestation.",
+      "evidence": {
+        "approval_phrase_matches": false,
+        "human_credit_allowance_verified": false,
+        "stage201_decision": "REDUCED_SCOPE_EXACT_APPROVAL_REVIEW_BLOCKED_CREDIT_ATTESTATION_REQUIRED"
+      },
+      "item_id": "stage201_exact_reduced_scope_approval",
+      "status": "blocked"
+    },
+    {
+      "description": "Runner preparation must preserve the Stage198 all-lanes 2048-shot reduced-precision boundary.",
+      "evidence": {
+        "estimated_total_job_count": 324,
+        "estimated_total_shots": 659360,
+        "scope_id": "all_lanes_half_shots_2048",
+        "shots_per_row": 2048,
+        "stage198_decision": "REDUCED_SCOPE_PREREGISTERED_READY_FOR_COST_ATTESTATION_REVIEW"
+      },
+      "item_id": "reduced_scope_preregistration",
+      "status": "frozen"
+    },
+    {
+      "description": "The latest available IBM backend metadata is read-only evidence; it should be refreshed again close to any approved execution.",
+      "evidence": {
+        "backend": "ibm_fez",
+        "backend_lookup_ready": true,
+        "operational": true,
+        "pending_jobs": 16,
+        "stage193_decision": "REPLACEMENT_READ_ONLY_BACKEND_REFRESH_READY_CREDIT_AND_APPROVAL_STILL_REQUIRED"
+      },
+      "item_id": "read_only_backend_refresh",
+      "status": "ready_refresh_before_execution"
+    },
+    {
+      "description": "Stage190 is a 4096-shot replacement package; a separate 2048-shot reduced-scope package must be generated before runner work.",
+      "evidence": {
+        "required_calibration_jobs": 4,
+        "required_packet_row_jobs": 320,
+        "required_packet_row_shots": 2048,
+        "stage190_scope_reusable_as_is": false
+      },
+      "item_id": "reduced_scope_execution_package",
+      "status": "required_not_created"
+    },
+    {
+      "description": "Runner preparation must preserve canonical raw counts, job IDs, timestamps, backend metadata, and calibration counts for later Stage101/103/137/148 interpretation.",
+      "evidence": {
+        "calibration_shots_per_state": 1000,
+        "required_calibration_states": [
+          "00",
+          "01",
+          "10",
+          "11"
+        ],
+        "required_packet_fields": [
+          "job_or_task_ids",
+          "backend_metadata",
+          "submitted_at_utc",
+          "completed_at_utc",
+          "raw_counts_by_row"
+        ]
+      },
+      "item_id": "result_ingestion_contract",
+      "status": "required_not_created"
+    },
+    {
+      "description": "This review does not create runnable commands, write credentials, submit hardware, or bypass the later execution-package gate.",
+      "evidence": {
+        "hardware_submitted_here": false,
+        "live_submit_command_created_here": false,
+        "runnable_commands_recorded_here": false
+      },
+      "item_id": "live_execution_boundary",
+      "status": "no_runner_created"
+    }
+  ],
+  "provider_credentials_required": false,
+  "read_only_backend_ready": true,
+  "reduced_scope_execution_package_created": false,
+  "reduced_scope_frozen": true,
+  "result_ingestion_contract_created": false,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage202_reduced_scope_live_runner_preparation_review_v1",
+  "scope_id": "all_lanes_half_shots_2048",
+  "secret_values_recorded": false,
+  "shots_per_row": 2048,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage201_reduced_scope_exact_approval_review/results.json",
+    "logs/automated_stage_gates/stage198_reduced_scope_preregistration/results.json",
+    "logs/automated_stage_gates/stage193_replacement_read_only_backend_refresh/results.json"
+  ],
+  "stage": "stage202_reduced_scope_live_runner_preparation_review",
+  "stage193_decision": "REPLACEMENT_READ_ONLY_BACKEND_REFRESH_READY_CREDIT_AND_APPROVAL_STILL_REQUIRED",
+  "stage198_decision": "REDUCED_SCOPE_PREREGISTERED_READY_FOR_COST_ATTESTATION_REVIEW",
+  "stage201_decision": "REDUCED_SCOPE_EXACT_APPROVAL_REVIEW_BLOCKED_CREDIT_ATTESTATION_REQUIRED",
+  "status": "completed"
+}

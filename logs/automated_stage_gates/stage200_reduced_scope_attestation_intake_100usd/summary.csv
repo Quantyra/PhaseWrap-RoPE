@@ -1,0 +1,5 @@
+item_id,status,description
+stage199_attestation_packet,ready,Stage199 must present the reduced-scope cost estimate before any attestation phrase can be accepted.
+exact_attestation_phrase,awaiting_exact_phrase,Only the exact reduced-scope credit attestation phrase can record human credit allowance verification.
+attestation_meaning,bounded_credit_attestation_only,Accepted attestation means IBM account allowance and willingness to spend within the reduced-scope cap only.
+live_execution_boundary,live_run_disallowed,This gate never prepares or runs hardware; exact live approval remains a later separate gate.
