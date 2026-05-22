@@ -1,0 +1,6 @@
+item_id,status,description
+replacement_exposure,recorded,Replacement workload exposure must be known before manual credit attestation.
+local_budget_cap,recorded,Local budget cap bounds the requested manual attestation.
+break_even_quantum_time,tight_budget,The full run fits the local cap only if effective quantum time per shot is below this break-even value.
+scenario_estimates,mixed,Scenario estimates use IBM's documented quantum-second cost example and do not include provider-side overhead unknowns.
+attestation_request_state,do_not_request_attestation_until_user_reviews_estimate,Manual credit attestation must cite this estimate and must not be requested as a blank credit check.
