@@ -1,0 +1,5 @@
+requirement_id,status,evidence
+locked_scope_exists,satisfied,"{""approved_job_count"": 328, ""locked_lanes"": [""ibm_cx_seed314_rows16_shots4096"", ""ibm_product_seed314_rows16_shots4096""], ""locked_total_shots"": 1318720, ""stage169_decision"": ""TARGETED_IBM_PROBE_SCOPE_LOCKED_TO_STABLE_LANES""}"
+credit_not_reason_to_proceed,satisfied,"{""credit_balance_verified"": false, ""stage176_decision"": ""IBM_CREDIT_PROVIDER_RESOLUTION_HANDOFF_READY_FOR_HUMAN_CHECK""}"
+ibm_backend_informed_simulation_support,contradicted,"{""backend"": ""ibm_fez"", ""primary_stable_target_count"": 0, ""proxy_stable_target_count"": 0, ""stage177_decision"": ""IBM_BACKEND_INFORMED_SIM_DOES_NOT_SUPPORT_TARGETED_HARDWARE_RUN_YET""}"
+coherent_offset_recovery_support,contradicted,"{""locked_offset_record_count"": 18, ""signed_offsets_radians"": [-0.04, -0.03, -0.02, -0.01, 0.0, 0.01, 0.02, 0.03, 0.04], ""stable_offset_count"": 0, ""stage178_decision"": ""IBM_COHERENT_OFFSET_SENSITIVITY_DOES_NOT_RECOVER_TARGETED_SIGNAL""}"

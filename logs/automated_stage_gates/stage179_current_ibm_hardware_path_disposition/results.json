@@ -1,0 +1,107 @@
+{
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "IBM credit or billing verification",
+      "a final noisy-hardware robustness or auditability conclusion",
+      "a claim that PhaseWrap lacks advantages on all possible noisy quantum hardware targets"
+    ],
+    "supported": [
+      "formal no-submit disposition of the current locked IBM 328-job hardware path",
+      "evidence-based separation between archiving the current IBM run and completing the broader noisy-hardware objective",
+      "reopen criteria for future hardware-path redesign"
+    ]
+  },
+  "decision": "CURRENT_IBM_HARDWARE_PATH_ARCHIVE_RECOMMENDED",
+  "disposition": "archive_current_328_job_ibm_run",
+  "evidence_summary": {
+    "stage177_primary_stable_target_count": 0,
+    "stage177_proxy_stable_target_count": 0,
+    "stage178_locked_offset_record_count": 18,
+    "stage178_stable_offset_count": 0
+  },
+  "locked_scope": {
+    "approved_job_count": 328,
+    "locked_total_shots": 1318720,
+    "stable_target_lanes": [
+      "ibm_cx_seed314_rows16_shots4096",
+      "ibm_product_seed314_rows16_shots4096"
+    ]
+  },
+  "missing_source_artifacts": [],
+  "next_gate": "Archive the current locked IBM run. Continue the objective only through redesigned fixed-width targets, alternative providers/backends, or stronger calibration evidence that changes the accepted noise model.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "reopen_requirements": [
+    "a redesigned fixed-width target/circuit family with IBM-backend-informed primary stable targets on both templates",
+    "or a new backend/provider whose readout and gate-error-informed simulation preserves PhaseWrap margins above two shot quanta",
+    "or real calibration evidence that materially changes the accepted backend-informed noise model before any full matched-packet run"
+  ],
+  "requirement_records": [
+    {
+      "evidence": {
+        "approved_job_count": 328,
+        "locked_lanes": [
+          "ibm_cx_seed314_rows16_shots4096",
+          "ibm_product_seed314_rows16_shots4096"
+        ],
+        "locked_total_shots": 1318720,
+        "stage169_decision": "TARGETED_IBM_PROBE_SCOPE_LOCKED_TO_STABLE_LANES"
+      },
+      "requirement_id": "locked_scope_exists",
+      "status": "satisfied"
+    },
+    {
+      "evidence": {
+        "credit_balance_verified": false,
+        "stage176_decision": "IBM_CREDIT_PROVIDER_RESOLUTION_HANDOFF_READY_FOR_HUMAN_CHECK"
+      },
+      "requirement_id": "credit_not_reason_to_proceed",
+      "status": "satisfied"
+    },
+    {
+      "evidence": {
+        "backend": "ibm_fez",
+        "primary_stable_target_count": 0,
+        "proxy_stable_target_count": 0,
+        "stage177_decision": "IBM_BACKEND_INFORMED_SIM_DOES_NOT_SUPPORT_TARGETED_HARDWARE_RUN_YET"
+      },
+      "requirement_id": "ibm_backend_informed_simulation_support",
+      "status": "contradicted"
+    },
+    {
+      "evidence": {
+        "locked_offset_record_count": 18,
+        "signed_offsets_radians": [
+          -0.04,
+          -0.03,
+          -0.02,
+          -0.01,
+          0.0,
+          0.01,
+          0.02,
+          0.03,
+          0.04
+        ],
+        "stable_offset_count": 0,
+        "stage178_decision": "IBM_COHERENT_OFFSET_SENSITIVITY_DOES_NOT_RECOVER_TARGETED_SIGNAL"
+      },
+      "requirement_id": "coherent_offset_recovery_support",
+      "status": "contradicted"
+    }
+  ],
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage179_current_ibm_hardware_path_disposition_v1",
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage169_targeted_probe_scope_selection/results.json",
+    "logs/automated_stage_gates/stage176_ibm_credit_provider_resolution_handoff/results.json",
+    "logs/automated_stage_gates/stage177_ibm_backend_informed_noise_probe/results.json",
+    "logs/automated_stage_gates/stage178_ibm_coherent_offset_sensitivity/results.json"
+  ],
+  "stage": "stage179_current_ibm_hardware_path_disposition",
+  "status": "completed"
+}
