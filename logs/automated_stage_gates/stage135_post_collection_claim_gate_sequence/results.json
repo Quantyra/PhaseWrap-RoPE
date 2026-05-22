@@ -1,22 +1,22 @@
 {
-  "blocked_gate_count": 8,
+  "blocked_gate_count": 9,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
       "provider credentials or secret values",
       "new provider result records",
-      "a noisy-hardware robustness conclusion before Stage 110 reaches a terminal supported/not-supported decision",
+      "a noisy-hardware robustness or auditability conclusion before Stage 138 reaches a terminal supported/not-supported decision",
       "provider-wide or transformer-scale superiority beyond the matched fixed-width evidence gates"
     ],
     "supported": [
-      "an explicit post-collection rerun sequence from Stage 115 collection through Stage 110 final claim gating",
+      "an explicit post-collection rerun sequence from Stage 115 collection through Stage 138 objective claim gating",
       "a deterministic no-claim boundary when any downstream collection, assembly, calibration, metric, intake, or claim gate is blocked",
       "a terminal decision distinction between replicated PhaseWrap advantage supported and not supported by the preregistered rule"
     ]
   },
   "decision": "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED",
   "final_claim_gate_terminal": false,
-  "gate_count": 9,
+  "gate_count": 10,
   "gate_records": [
     {
       "blockers": [
@@ -123,10 +123,22 @@
       "ready": false,
       "result_path": "logs/automated_stage_gates/stage110_replicated_advantage_claim_gate/results.json",
       "stage_id": "stage110"
+    },
+    {
+      "blockers": [
+        "stage138_objective_claim_gate_not_terminal"
+      ],
+      "command": "python scripts/run_stage138_objective_claim_gate.py",
+      "decision": "OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE",
+      "name": "objective claim gate",
+      "purpose": "combine terminal robustness and auditability branches into final objective wording",
+      "ready": false,
+      "result_path": "logs/automated_stage_gates/stage138_objective_claim_gate/results.json",
+      "stage_id": "stage138"
     }
   ],
   "missing_source_artifacts": [],
-  "next_gate": "Clear the first blocked gate in order. No noisy-hardware robustness or auditability advantage conclusion is allowed until Stage 110 reaches a terminal supported/not-supported decision after Stage 115, Stage 134, Stage 113, Stage 101, Stage 103, Stage 136, Stage 137, and Stage 109 are ready.",
+  "next_gate": "Clear the first blocked gate in order. No noisy-hardware robustness or auditability advantage conclusion is allowed until Stage 138 reaches a terminal supported/not-supported decision after Stage 115, Stage 134, Stage 113, Stage 101, Stage 103, Stage 136, Stage 137, Stage 109, and Stage 110 are ready.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "ordered_command_sequence": [
@@ -138,7 +150,8 @@
     "python scripts/run_stage136_auditability_metric_preregistration.py",
     "python scripts/run_stage137_auditability_metric_evaluator.py",
     "python scripts/run_stage109_window_evidence_intake_validator.py",
-    "python scripts/run_stage110_replicated_advantage_claim_gate.py"
+    "python scripts/run_stage110_replicated_advantage_claim_gate.py",
+    "python scripts/run_stage138_objective_claim_gate.py"
   ],
   "provider_credentials_required": false,
   "ready_gate_count": 1,
@@ -154,7 +167,8 @@
     "logs/automated_stage_gates/stage136_auditability_metric_preregistration/results.json",
     "logs/automated_stage_gates/stage137_auditability_metric_evaluator/results.json",
     "logs/automated_stage_gates/stage109_window_evidence_intake_validator/results.json",
-    "logs/automated_stage_gates/stage110_replicated_advantage_claim_gate/results.json"
+    "logs/automated_stage_gates/stage110_replicated_advantage_claim_gate/results.json",
+    "logs/automated_stage_gates/stage138_objective_claim_gate/results.json"
   ],
   "stage": "stage135_post_collection_claim_gate_sequence",
   "status": "completed"

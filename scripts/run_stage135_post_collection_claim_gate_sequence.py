@@ -19,6 +19,7 @@ from qrope.stage135_post_collection_claim_gate_sequence import (  # noqa: E402
     DEFAULT_STAGE134_RESULTS,
     DEFAULT_STAGE136_RESULTS,
     DEFAULT_STAGE137_RESULTS,
+    DEFAULT_STAGE138_RESULTS,
     print_stage135_summary,
     run_stage135_sequence_audit,
     write_stage135_outputs,
@@ -36,6 +37,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--stage110-results", type=Path, default=DEFAULT_STAGE110_RESULTS)
     parser.add_argument("--stage136-results", type=Path, default=DEFAULT_STAGE136_RESULTS)
     parser.add_argument("--stage137-results", type=Path, default=DEFAULT_STAGE137_RESULTS)
+    parser.add_argument("--stage138-results", type=Path, default=DEFAULT_STAGE138_RESULTS)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     args = parser.parse_args(argv)
 
@@ -49,6 +51,7 @@ def main(argv: list[str] | None = None) -> int:
         stage110_results_path=args.stage110_results,
         stage136_results_path=args.stage136_results,
         stage137_results_path=args.stage137_results,
+        stage138_results_path=args.stage138_results,
     )
     paths = write_stage135_outputs(result, args.output_dir)
     print_stage135_summary(result)

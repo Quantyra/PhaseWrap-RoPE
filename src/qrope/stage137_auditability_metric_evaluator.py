@@ -134,12 +134,17 @@ def _packet_template_metrics(packet_template: dict[str, Any], execution_dir: Pat
 
 
 def _comparison_summary(packet_records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    grouped: dict[tuple[str, str, str], dict[str, dict[str, Any]]] = {}
+    grouped: dict[tuple[str, str, str, str], dict[str, dict[str, Any]]] = {}
     for record in packet_records:
-        key = (str(record.get("provider")), str(record["source_lane_id"]), str(record["circuit_template"]))
+        key = (
+            str(record.get("window_id")),
+            str(record.get("provider")),
+            str(record["source_lane_id"]),
+            str(record["circuit_template"]),
+        )
         grouped.setdefault(key, {})[str(record["encoding_family"])] = record
     summaries = []
-    for (provider, source_lane_id, circuit_template), by_family in sorted(grouped.items()):
+    for (window_id, provider, source_lane_id, circuit_template), by_family in sorted(grouped.items()):
         phasewrap = by_family.get("phasewrap")
         phasewrap_mae = phasewrap.get("component_reconstruction_mean_absolute_error") if phasewrap else None
         lower_than = []
@@ -150,6 +155,7 @@ def _comparison_summary(packet_records: list[dict[str, Any]]) -> list[dict[str, 
                 lower_than.append(family)
         summaries.append(
             {
+                "window_id": window_id,
                 "provider": provider,
                 "source_lane_id": source_lane_id,
                 "circuit_template": circuit_template,

@@ -1,0 +1,41 @@
+{
+  "auditability_ready": false,
+  "auditability_replication_record_count": 0,
+  "auditability_replication_records": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "new provider result records",
+      "a noisy-hardware objective conclusion while Stage 110 or Stage 137 is blocked",
+      "provider-wide or transformer-scale superiority beyond recorded matched fixed-width evidence"
+    ],
+    "supported": [
+      "a terminal objective-level gate for robustness or auditability outcomes",
+      "separate preservation of the Stage 110 robustness rule and Stage 137 auditability rule",
+      "blocked output until both robustness and auditability evidence surfaces are terminal"
+    ]
+  },
+  "decision": "OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE",
+  "missing_source_artifacts": [],
+  "next_gate": "Clear Stage 110 and Stage 137. Only this gate should be used for the final objective wording: supported if either replicated robustness or replicated auditability is supported, otherwise not supported.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "objective_supported": false,
+  "objective_terminal": false,
+  "provider_credentials_required": false,
+  "replicated_auditability_advantage_count": 0,
+  "robustness_replication_records": [],
+  "robustness_supported": false,
+  "robustness_terminal": false,
+  "schema_version": "qrope_stage138_objective_claim_gate_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage110_replicated_advantage_claim_gate/results.json",
+    "logs/automated_stage_gates/stage137_auditability_metric_evaluator/results.json"
+  ],
+  "stage": "stage138_objective_claim_gate",
+  "stage110_decision": "REPLICATED_ADVANTAGE_CLAIM_BLOCKED_EVIDENCE_INTAKE_INCOMPLETE",
+  "stage137_decision": "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED",
+  "status": "completed"
+}

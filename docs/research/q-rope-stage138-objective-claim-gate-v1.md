@@ -1,0 +1,34 @@
+# QRoPE Stage 138 - Objective Claim Gate
+
+## Objective
+Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.
+
+## Result
+Stage 138 is the terminal objective-level claim gate for the noisy-hardware track. It keeps the robustness and auditability rules separate, then combines them only at the final wording boundary:
+
+- robustness branch: Stage 110 replicated lower-MAE rule
+- auditability branch: Stage 137 replicated component-reconstruction rule
+
+Current decision: `OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE`.
+
+The gate supports the objective only if Stage 110 is terminal, Stage 137 is ready, and either replicated robustness or replicated auditability is supported. If both branches are terminal and neither supports PhaseWrap, the objective is reported as not supported rather than silently blocked.
+
+## Claim Boundary
+Supported:
+
+- a terminal robustness-or-auditability objective gate
+- preservation of separate robustness and auditability evidence rules before final wording
+- blocked output while either evidence branch is incomplete
+
+Excluded:
+
+- hardware job submission
+- provider credentials or secret values
+- new provider result records
+- a noisy-hardware objective conclusion while Stage 110 or Stage 137 is blocked
+- provider-wide or transformer-scale superiority beyond recorded matched fixed-width evidence
+
+## Evidence
+- `logs/automated_stage_gates/stage138_objective_claim_gate/manifest.json`
+- `logs/automated_stage_gates/stage138_objective_claim_gate/results.json`
+- `logs/automated_stage_gates/stage138_objective_claim_gate/summary.csv`

@@ -17,6 +17,7 @@ DEFAULT_STAGE109_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage109_window_evidence_int
 DEFAULT_STAGE110_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage110_replicated_advantage_claim_gate" / "results.json"
 DEFAULT_STAGE136_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage136_auditability_metric_preregistration" / "results.json"
 DEFAULT_STAGE137_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage137_auditability_metric_evaluator" / "results.json"
+DEFAULT_STAGE138_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage138_objective_claim_gate" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage135_post_collection_claim_gate_sequence"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
@@ -27,6 +28,10 @@ OBJECTIVE = (
 TERMINAL_STAGE110_DECISIONS = {
     "PHASEWRAP_REPLICATED_ADVANTAGE_SUPPORTED_BY_STAGE105_RULE",
     "PHASEWRAP_REPLICATED_ADVANTAGE_NOT_SUPPORTED_BY_STAGE105_RULE",
+}
+TERMINAL_STAGE138_DECISIONS = {
+    "PHASEWRAP_NOISY_HARDWARE_OBJECTIVE_SUPPORTED",
+    "PHASEWRAP_NOISY_HARDWARE_OBJECTIVE_NOT_SUPPORTED",
 }
 
 
@@ -82,6 +87,7 @@ def run_stage135_sequence_audit(
     stage110_results_path: Path = DEFAULT_STAGE110_RESULTS,
     stage136_results_path: Path = DEFAULT_STAGE136_RESULTS,
     stage137_results_path: Path = DEFAULT_STAGE137_RESULTS,
+    stage138_results_path: Path = DEFAULT_STAGE138_RESULTS,
 ) -> dict[str, Any]:
     stage115 = _load_json(stage115_results_path)
     stage134 = _load_json(stage134_results_path)
@@ -92,6 +98,7 @@ def run_stage135_sequence_audit(
     stage110 = _load_json(stage110_results_path)
     stage136 = _load_json(stage136_results_path)
     stage137 = _load_json(stage137_results_path)
+    stage138 = _load_json(stage138_results_path)
     sources = [
         (stage115_results_path, stage115),
         (stage134_results_path, stage134),
@@ -102,6 +109,7 @@ def run_stage135_sequence_audit(
         (stage137_results_path, stage137),
         (stage109_results_path, stage109),
         (stage110_results_path, stage110),
+        (stage138_results_path, stage138),
     ]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
 
@@ -196,10 +204,20 @@ def run_stage135_sequence_audit(
             command="python scripts/run_stage110_replicated_advantage_claim_gate.py",
             blocker_hint="stage110_final_claim_gate_not_terminal",
         ),
+        _gate_record(
+            stage_id="stage138",
+            name="objective claim gate",
+            result_path=stage138_results_path,
+            payload=stage138,
+            ready_decisions=TERMINAL_STAGE138_DECISIONS,
+            purpose="combine terminal robustness and auditability branches into final objective wording",
+            command="python scripts/run_stage138_objective_claim_gate.py",
+            blocker_hint="stage138_objective_claim_gate_not_terminal",
+        ),
     ]
 
     ready_gate_count = sum(1 for record in gate_records if record["ready"])
-    final_claim_gate_terminal = _claim_gate_terminal(stage110)
+    final_claim_gate_terminal = bool(isinstance(stage138, dict) and stage138.get("decision") in TERMINAL_STAGE138_DECISIONS)
     all_ready = ready_gate_count == len(gate_records) and not missing_sources
     decision = (
         "POST_COLLECTION_CLAIM_GATE_SEQUENCE_COMPLETE_TERMINAL_CLAIM_REACHED"
@@ -227,7 +245,7 @@ def run_stage135_sequence_audit(
         "secret_values_recorded": False,
         "claim_boundary": {
             "supported": [
-                "an explicit post-collection rerun sequence from Stage 115 collection through Stage 110 final claim gating",
+                "an explicit post-collection rerun sequence from Stage 115 collection through Stage 138 objective claim gating",
                 "a deterministic no-claim boundary when any downstream collection, assembly, calibration, metric, intake, or claim gate is blocked",
                 "a terminal decision distinction between replicated PhaseWrap advantage supported and not supported by the preregistered rule",
             ],
@@ -235,14 +253,14 @@ def run_stage135_sequence_audit(
                 "hardware job submission",
                 "provider credentials or secret values",
                 "new provider result records",
-                "a noisy-hardware robustness conclusion before Stage 110 reaches a terminal supported/not-supported decision",
+                "a noisy-hardware robustness or auditability conclusion before Stage 138 reaches a terminal supported/not-supported decision",
                 "provider-wide or transformer-scale superiority beyond the matched fixed-width evidence gates",
             ],
         },
         "next_gate": (
             "Clear the first blocked gate in order. No noisy-hardware robustness or auditability advantage conclusion is "
-            "allowed until Stage 110 reaches a terminal supported/not-supported decision after Stage 115, Stage 134, "
-            "Stage 113, Stage 101, Stage 103, Stage 136, Stage 137, and Stage 109 are ready."
+            "allowed until Stage 138 reaches a terminal supported/not-supported decision after Stage 115, Stage 134, "
+            "Stage 113, Stage 101, Stage 103, Stage 136, Stage 137, Stage 109, and Stage 110 are ready."
         ),
     }
 
