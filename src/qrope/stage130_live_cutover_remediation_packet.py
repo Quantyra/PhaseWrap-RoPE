@@ -165,16 +165,18 @@ def run_stage130_packet(
             "python scripts/run_stage132_guarded_sdk_factory_implementation_audit.py",
             "python scripts/run_stage116_provider_runner_plan.py",
             "python scripts/run_stage120_live_runner_orchestration_audit.py",
+            "python scripts/run_stage151_first_provider_result_metadata_guard_audit.py",
             "python scripts/run_stage133_authorized_runner_command_packet.py",
+            "python scripts/run_stage152_first_provider_live_execution_guard.py",
         ],
         "live_execution_rule": (
-            "Do not run provider runner commands until Stage 133 reports command_authorized=true for the target "
-            "provider/window after Stage 129 reports cutover_authorized=true."
+            "Do not run provider runner commands until Stage 152 reports READY_FOR_GUARDED_RUNNER after Stage 129 "
+            "cutover, Stage 151 metadata guard readiness, and Stage 133 command authorization."
         ),
         "claim_boundary": {
             "supported": [
                 "non-secret provider remediation actions derived from Stage 106/111/128/129 evidence",
-                "ordered rerun sequence for live cutover readiness",
+                "ordered rerun sequence for live cutover readiness including the Stage 151 metadata guard",
                 "confirmation that noisy-hardware execution remains blocked until cutover authorization clears",
             ],
             "excluded": [

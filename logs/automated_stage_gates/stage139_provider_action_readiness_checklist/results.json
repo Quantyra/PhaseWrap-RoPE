@@ -103,7 +103,9 @@
     "python scripts/run_stage132_guarded_sdk_factory_implementation_audit.py",
     "python scripts/run_stage116_provider_runner_plan.py",
     "python scripts/run_stage120_live_runner_orchestration_audit.py",
-    "python scripts/run_stage133_authorized_runner_command_packet.py"
+    "python scripts/run_stage151_first_provider_result_metadata_guard_audit.py",
+    "python scripts/run_stage133_authorized_runner_command_packet.py",
+    "python scripts/run_stage152_first_provider_live_execution_guard.py"
   ],
   "schema_version": "qrope_stage139_provider_action_readiness_checklist_v1",
   "secret_values_recorded": false,

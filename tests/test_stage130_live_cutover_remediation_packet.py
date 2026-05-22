@@ -89,6 +89,8 @@ def test_stage130_builds_blocked_remediation_packet(tmp_path) -> None:
     assert any("guarded real factory" in action for action in record["remediation_actions"])
     assert result["secret_values_recorded"] is False
     assert result["no_hardware_submission"] is True
+    assert "python scripts/run_stage151_first_provider_result_metadata_guard_audit.py" in result["rerun_sequence"]
+    assert "Stage 152" in result["live_execution_rule"]
 
 
 def test_stage130_tracks_authorized_provider_state(tmp_path) -> None:
@@ -123,4 +125,6 @@ def test_stage130_writes_json_csv_and_markdown(tmp_path) -> None:
     assert set(paths) == {"manifest", "result", "summary_csv", "remediation_packet"}
     assert manifest["decision"] == "LIVE_CUTOVER_REMEDIATION_PACKET_READY_EXECUTION_BLOCKED"
     assert "QRoPE Stage 130" in packet
+    assert "run_stage151_first_provider_result_metadata_guard_audit.py" in packet
+    assert "run_stage152_first_provider_live_execution_guard.py" in packet
     assert "ibm_runtime" in summary

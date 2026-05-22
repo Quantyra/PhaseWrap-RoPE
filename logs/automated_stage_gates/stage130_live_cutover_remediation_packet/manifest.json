@@ -10,12 +10,12 @@
     ],
     "supported": [
       "non-secret provider remediation actions derived from Stage 106/111/128/129 evidence",
-      "ordered rerun sequence for live cutover readiness",
+      "ordered rerun sequence for live cutover readiness including the Stage 151 metadata guard",
       "confirmation that noisy-hardware execution remains blocked until cutover authorization clears"
     ]
   },
   "decision": "LIVE_CUTOVER_REMEDIATION_PACKET_READY_EXECUTION_BLOCKED",
-  "live_execution_rule": "Do not run provider runner commands until Stage 133 reports command_authorized=true for the target provider/window after Stage 129 reports cutover_authorized=true.",
+  "live_execution_rule": "Do not run provider runner commands until Stage 152 reports READY_FOR_GUARDED_RUNNER after Stage 129 cutover, Stage 151 metadata guard readiness, and Stage 133 command authorization.",
   "missing_source_artifacts": [],
   "next_gate": "Complete the provider remediation actions, rerun the listed stages, and only then proceed to guarded live provider runner execution for authorized providers.",
   "no_hardware_submission": true,

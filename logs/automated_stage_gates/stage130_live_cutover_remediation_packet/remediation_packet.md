@@ -12,7 +12,9 @@ LIVE_CUTOVER_REMEDIATION_PACKET_READY_EXECUTION_BLOCKED
 - `python scripts/run_stage132_guarded_sdk_factory_implementation_audit.py`
 - `python scripts/run_stage116_provider_runner_plan.py`
 - `python scripts/run_stage120_live_runner_orchestration_audit.py`
+- `python scripts/run_stage151_first_provider_result_metadata_guard_audit.py`
 - `python scripts/run_stage133_authorized_runner_command_packet.py`
+- `python scripts/run_stage152_first_provider_live_execution_guard.py`
 
 ## Provider Actions
 ### amazon_braket
@@ -32,7 +34,7 @@ LIVE_CUTOVER_REMEDIATION_PACKET_READY_EXECUTION_BLOCKED
 - Rerun Stage 129 and execute only Stage 133 command records with command_authorized=true for this provider.
 
 ## Live Execution Rule
-Do not run provider runner commands until Stage 133 reports command_authorized=true for the target provider/window after Stage 129 reports cutover_authorized=true.
+Do not run provider runner commands until Stage 152 reports READY_FOR_GUARDED_RUNNER after Stage 129 cutover, Stage 151 metadata guard readiness, and Stage 133 command authorization.
 
 ## Claim Boundary
 - No hardware submission occurred.
