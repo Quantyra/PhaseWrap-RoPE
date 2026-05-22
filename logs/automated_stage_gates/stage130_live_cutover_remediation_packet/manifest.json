@@ -1,0 +1,38 @@
+{
+  "authorized_provider_count": 0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "live provider SDK client creation",
+      "real provider result records",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "non-secret provider remediation actions derived from Stage 106/111/128/129 evidence",
+      "ordered rerun sequence for live cutover readiness",
+      "confirmation that noisy-hardware execution remains blocked until cutover authorization clears"
+    ]
+  },
+  "decision": "LIVE_CUTOVER_REMEDIATION_PACKET_READY_EXECUTION_BLOCKED",
+  "live_execution_rule": "Do not run Stage 116/117/120 provider runner commands until Stage 129 reports cutover_authorized=true for the target provider and Stage 130 has been regenerated.",
+  "missing_source_artifacts": [],
+  "next_gate": "Complete the provider remediation actions, rerun the listed stages, and only then proceed to guarded live provider runner execution for authorized providers.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": true,
+  "remediation_packet_path": "logs/automated_stage_gates/stage130_live_cutover_remediation_packet/remediation_packet.md",
+  "result_path": "logs/automated_stage_gates/stage130_live_cutover_remediation_packet/results.json",
+  "schema_version": "qrope_stage130_live_cutover_remediation_packet_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage106_hardware_execution_preflight/results.json",
+    "logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json",
+    "logs/automated_stage_gates/stage128_sdk_client_factory_audit/results.json",
+    "logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json"
+  ],
+  "stage": "stage130_live_cutover_remediation_packet",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage130_live_cutover_remediation_packet/summary.csv"
+}
