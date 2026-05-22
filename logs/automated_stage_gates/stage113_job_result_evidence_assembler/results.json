@@ -15,6 +15,7 @@
       "a deterministic assembler from Stage 112 job results into Stage 109-compatible evidence files",
       "optional provider-scoped evidence assembly for first-provider execution",
       "evidence writing is blocked until Stage 115 has collected and written the matching Stage 113 input",
+      "written evidence carries Stage 115/152 live-submit provenance for Stage 109 intake validation",
       "per-job missing, duplicate, and unknown job-result detection before evidence files are written",
       "a non-submitting bridge between provider runners and calibration/packet evidence intake"
     ]

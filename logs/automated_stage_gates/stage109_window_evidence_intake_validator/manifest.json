@@ -11,6 +11,7 @@
       "a deterministic intake check for filled Stage 107 independent-window evidence",
       "optional provider-scoped intake for first-provider replicated-window evaluation",
       "verification that calibration and packet evidence files were assembled by Stage 113",
+      "verification that Stage 113-assembled evidence carries Stage 115/152 live-submit provenance",
       "per-window verification that calibration, packet counts, and Stage 103 metric readiness are present",
       "a no-submission guard before any Stage 105 aggregation claim"
     ]

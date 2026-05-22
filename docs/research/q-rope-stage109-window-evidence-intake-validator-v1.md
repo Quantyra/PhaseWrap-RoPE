@@ -6,6 +6,7 @@ The validator reads `logs/automated_stage_gates/stage107_window_execution_orches
 
 - the filled known-state calibration execution JSON;
 - Stage 113 assembly status on calibration and packet evidence files;
+- Stage 113 live-submit provenance showing Stage 115/152 write readiness, all-command authorization, and all-command live-submit readiness;
 - Stage 101 results showing `known_state_calibration_pass: true` and the ready decision;
 - one packet execution JSON per Stage 107 packet template;
 - non-empty `job_or_task_ids`, `backend_metadata`, `submitted_at_utc`, `completed_at_utc`, and `raw_counts_by_row` fields for each packet execution;

@@ -233,6 +233,9 @@ def test_stage113_writes_evidence_when_explicitly_enabled(tmp_path) -> None:
     assert calibration["raw_counts_by_state"][0]["counts"] == {"00": 100}
     assert packet["raw_counts_by_row"][0]["counts"] == {"10": 10, "11": 90}
     assert packet["no_hardware_submission"] is False
+    assert packet["stage113_live_submit_provenance"]["ready"] is True
+    assert packet["stage113_live_submit_provenance"]["stage152_all_first_provider_commands_authorized"] is True
+    assert packet["stage113_live_submit_provenance"]["stage152_all_first_provider_commands_live_submit_ready"] is True
 
 
 def test_stage113_blocks_evidence_write_without_stage115_collection(tmp_path) -> None:

@@ -118,15 +118,42 @@ def _base_payload(template_path: Path) -> dict[str, Any]:
     return payload
 
 
-def _apply_results(jobs: list[dict[str, Any]], results_by_job: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
+def _stage115_live_submit_provenance(stage115: dict[str, Any], stage115_results_path: Path) -> dict[str, Any]:
+    runner_count = _int_field(stage115, "stage152_first_provider_runner_command_count")
+    authorized_count = _int_field(stage115, "stage152_first_provider_authorized_runner_count")
+    live_submit_ready_count = _int_field(stage115, "stage152_first_provider_live_submit_ready_count")
+    return {
+        "ready": True,
+        "stage115_results_path": str(stage115_results_path.as_posix()),
+        "stage115_decision": stage115.get("decision"),
+        "stage152_write_ready": stage115.get("stage152_write_ready"),
+        "stage152_write_blockers": stage115.get("stage152_write_blockers", []),
+        "stage152_first_provider_runner_command_count": runner_count,
+        "stage152_first_provider_authorized_runner_count": authorized_count,
+        "stage152_first_provider_live_submit_ready_count": live_submit_ready_count,
+        "stage152_all_first_provider_commands_authorized": stage115.get("stage152_all_first_provider_commands_authorized"),
+        "stage152_all_first_provider_commands_live_submit_ready": stage115.get(
+            "stage152_all_first_provider_commands_live_submit_ready"
+        ),
+    }
+
+
+def _apply_results(
+    jobs: list[dict[str, Any]],
+    results_by_job: dict[str, dict[str, Any]],
+    stage115: dict[str, Any],
+    stage115_results_path: Path,
+) -> dict[str, dict[str, Any]]:
     assembled: dict[str, dict[str, Any]] = {}
     jobs_by_target: dict[str, list[dict[str, Any]]] = {}
+    live_submit_provenance = _stage115_live_submit_provenance(stage115, stage115_results_path)
     for job in jobs:
         jobs_by_target.setdefault(str(job["target_evidence_path"]), []).append(job)
 
     for target, target_jobs in jobs_by_target.items():
         first = target_jobs[0]
         payload = _base_payload(Path(str(first["template_path"])))
+        payload["stage113_live_submit_provenance"] = live_submit_provenance
         job_results = [results_by_job[str(job["job_id"])] for job in target_jobs]
         payload["job_or_task_ids"] = _unique([result.get("job_or_task_id") for result in job_results] + [item for result in job_results for item in result.get("job_or_task_ids", [])])
         metadata = _unique([result.get("backend_metadata") for result in job_results])
@@ -252,7 +279,7 @@ def run_stage113_assembler(
     assembled_paths: list[str] = []
     if ready and write_evidence and stage115_write_ready:
         results_by_job = {str(record["job_id"]): record for record in selected_results}
-        for path_text, payload in _apply_results(selected_jobs, results_by_job).items():
+        for path_text, payload in _apply_results(selected_jobs, results_by_job, stage115, stage115_results_path).items():
             path = Path(path_text)
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
@@ -316,6 +343,7 @@ def run_stage113_assembler(
                 "a deterministic assembler from Stage 112 job results into Stage 109-compatible evidence files",
                 "optional provider-scoped evidence assembly for first-provider execution",
                 "evidence writing is blocked until Stage 115 has collected and written the matching Stage 113 input",
+                "written evidence carries Stage 115/152 live-submit provenance for Stage 109 intake validation",
                 "per-job missing, duplicate, and unknown job-result detection before evidence files are written",
                 "a non-submitting bridge between provider runners and calibration/packet evidence intake",
             ],

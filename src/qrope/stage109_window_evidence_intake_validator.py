@@ -67,6 +67,25 @@ def _assembled_from_stage113(payload: dict[str, Any]) -> bool:
     return payload.get("status") == "assembled_from_stage113_results" and payload.get("no_hardware_submission") is False
 
 
+def _stage113_live_submit_provenance_ready(payload: dict[str, Any]) -> bool:
+    provenance = payload.get("stage113_live_submit_provenance")
+    if not isinstance(provenance, dict):
+        return False
+    runner_count = int(provenance.get("stage152_first_provider_runner_command_count") or 0)
+    authorized_count = int(provenance.get("stage152_first_provider_authorized_runner_count") or 0)
+    live_submit_ready_count = int(provenance.get("stage152_first_provider_live_submit_ready_count") or 0)
+    return bool(
+        provenance.get("ready") is True
+        and provenance.get("stage152_write_ready") is True
+        and not provenance.get("stage152_write_blockers")
+        and provenance.get("stage152_all_first_provider_commands_authorized") is True
+        and provenance.get("stage152_all_first_provider_commands_live_submit_ready") is True
+        and runner_count > 0
+        and authorized_count == runner_count
+        and live_submit_ready_count == runner_count
+    )
+
+
 def _packet_record(packet_template: dict[str, Any], packet_output_dir: Path) -> dict[str, Any]:
     packet_id = str(packet_template["packet_id"])
     execution_path = packet_output_dir / f"{packet_id}.json"
@@ -80,6 +99,8 @@ def _packet_record(packet_template: dict[str, Any], packet_output_dir: Path) -> 
     else:
         if not _assembled_from_stage113(execution):
             missing.append("stage113_assembled_status")
+        if not _stage113_live_submit_provenance_ready(execution):
+            missing.append("stage113_live_submit_provenance")
         for field in ("job_or_task_ids", "backend_metadata", "submitted_at_utc", "completed_at_utc", "raw_counts_by_row"):
             if field not in execution or execution.get(field) in (None, "", []):
                 missing.append(field)
@@ -129,6 +150,8 @@ def _window_record(plan: dict[str, Any]) -> dict[str, Any]:
         missing.append("calibration_execution_json")
     elif not _assembled_from_stage113(calibration_execution):
         missing.append("calibration_stage113_assembled_status")
+    elif not _stage113_live_submit_provenance_ready(calibration_execution):
+        missing.append("calibration_stage113_live_submit_provenance")
     if not _stage101_ready(stage101):
         missing.append("stage101_results_json")
     if any(not record["ready"] for record in packet_records):
@@ -194,6 +217,7 @@ def run_stage109_intake_validator(
                 "a deterministic intake check for filled Stage 107 independent-window evidence",
                 "optional provider-scoped intake for first-provider replicated-window evaluation",
                 "verification that calibration and packet evidence files were assembled by Stage 113",
+                "verification that Stage 113-assembled evidence carries Stage 115/152 live-submit provenance",
                 "per-window verification that calibration, packet counts, and Stage 103 metric readiness are present",
                 "a no-submission guard before any Stage 105 aggregation claim",
             ],
