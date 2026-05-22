@@ -98,7 +98,7 @@ def _stage115_collected_for_stage113(stage115: dict[str, Any] | None, provider: 
     if runner_count > 0 and live_submit_ready_count != runner_count:
         blockers.append("stage115_stage152_live_submit_ready_count_incomplete")
     provider_scope = str(stage115.get("provider_scope", ""))
-    if provider and provider_scope not in ("all", provider):
+    if provider and provider_scope != provider:
         blockers.append("stage115_provider_scope_mismatch")
     if _int_field(stage115, "shard_count") <= 0 or _int_field(stage115, "ready_shard_count") != _int_field(stage115, "shard_count"):
         blockers.append("stage115_shards_not_all_ready")

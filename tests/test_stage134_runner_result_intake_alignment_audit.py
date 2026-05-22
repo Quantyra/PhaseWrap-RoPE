@@ -42,6 +42,7 @@ def _fixture(tmp_path, *, ready: bool = False):
             "stage152_first_provider_live_submit_ready_count": 1 if ready else 0,
             "stage152_all_first_provider_commands_authorized": ready,
             "stage152_all_first_provider_commands_live_submit_ready": ready,
+            "provider_scope": "ibm_runtime",
             "shard_records": [
                 {
                     "provider": "ibm_runtime",
@@ -104,6 +105,20 @@ def test_stage134_blocks_ready_shard_without_stage115_stage113_handoff(tmp_path)
     assert "stage115_not_collected_for_stage113" in record["blockers"]
     assert "stage115_did_not_write_stage113_input" in record["blockers"]
     assert "stage115_stage152_write_not_ready" in record["blockers"]
+
+
+def test_stage134_blocks_stage115_handoff_for_mismatched_provider_scope(tmp_path) -> None:
+    stage115, stage133 = _fixture(tmp_path, ready=True)
+    payload = json.loads(stage115.read_text(encoding="utf-8"))
+    payload["provider_scope"] = "all"
+    _write_json(stage115, payload)
+
+    result = run_stage134_audit(stage115_results_path=stage115, stage133_results_path=stage133)
+
+    record = result["intake_records"][0]
+    assert result["decision"] == "RUNNER_RESULT_INTAKE_ALIGNED_EXECUTION_BLOCKED"
+    assert record["stage115_handoff_ready"] is False
+    assert "stage115_provider_scope_mismatch" in record["blockers"]
 
 
 def test_stage134_blocks_authorized_command_without_live_submit_command(tmp_path) -> None:

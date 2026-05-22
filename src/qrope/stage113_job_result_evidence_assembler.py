@@ -219,7 +219,7 @@ def _stage115_write_ready(
     provider_scope = str(stage115.get("provider_scope", ""))
     if provider is None and provider_scope != "all":
         blockers.append("stage115_provider_scope_mismatch")
-    if provider is not None and provider_scope not in ("all", provider):
+    if provider is not None and provider_scope != provider:
         blockers.append("stage115_provider_scope_mismatch")
     shard_count = _int_field(stage115, "shard_count")
     ready_shard_count = _int_field(stage115, "ready_shard_count")

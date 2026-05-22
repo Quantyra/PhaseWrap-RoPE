@@ -160,6 +160,21 @@ def test_stage145_blocks_ready_shards_without_guarded_stage113_input(tmp_path) -
     assert "stage115_stage152_write_not_ready" in guarded_record["blockers"]
 
 
+def test_stage145_blocks_guarded_stage113_input_with_non_first_provider_scope(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _fixture(paths, ready=True)
+    stage115 = json.loads(paths["stage115_results_path"].read_text(encoding="utf-8"))
+    stage115["provider_scope"] = "all"
+    _write_json(paths["stage115_results_path"], stage115)
+
+    result = run_stage145_audit(**paths)
+
+    assert result["decision"] == "FIRST_PROVIDER_EVIDENCE_PATH_PREPARED_RESULTS_BLOCKED"
+    guarded_record = next(record for record in result["readiness_records"] if record["name"] == "first_provider_stage115_guarded_stage113_input")
+    assert guarded_record["ready"] is False
+    assert "stage115_provider_scope_mismatch" in guarded_record["blockers"]
+
+
 def test_stage145_blocks_stage113_ready_decision_without_assembled_evidence(tmp_path) -> None:
     paths = _paths(tmp_path)
     _fixture(paths, ready=True)

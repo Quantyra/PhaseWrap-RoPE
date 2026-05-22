@@ -51,10 +51,12 @@ def _int_field(payload: dict[str, Any] | None, key: str) -> int:
         return 0
 
 
-def _stage115_handoff_blockers(stage115: dict[str, Any] | None) -> list[str]:
+def _stage115_handoff_blockers(stage115: dict[str, Any] | None, provider: str) -> list[str]:
     if not isinstance(stage115, dict):
         return ["stage115_results_missing"]
     blockers = []
+    if str(stage115.get("provider_scope", "")) != provider:
+        blockers.append("stage115_provider_scope_mismatch")
     if stage115.get("decision") != "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113":
         blockers.append("stage115_not_collected_for_stage113")
     if stage115.get("wrote_stage113_input") is not True:
@@ -89,7 +91,7 @@ def _intake_record(command: dict[str, Any], stage115: dict[str, Any] | None) -> 
     command_authorized = command.get("command_authorized") is True
     live_submit_available = command.get("live_submit_command_available") is True
     live_submit_command = str(command.get("live_submit_command", ""))
-    stage115_handoff_blockers = _stage115_handoff_blockers(stage115)
+    stage115_handoff_blockers = _stage115_handoff_blockers(stage115, provider)
     if not command_output_path:
         blockers.append("command_output_path_missing")
     if not collector_result_path:

@@ -86,14 +86,14 @@ def _fixture(tmp_path):
     return jobs, results, calibration_target, packet_target
 
 
-def _stage115_collected(path, provider_results_path) -> None:
+def _stage115_collected(path, provider_results_path, *, provider_scope: str = "all") -> None:
     _write_json(
         path,
         {
             "decision": "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113",
             "wrote_stage113_input": True,
             "stage113_provider_results_path": str(provider_results_path.as_posix()),
-            "provider_scope": "all",
+            "provider_scope": provider_scope,
             "stage152_write_ready": True,
             "stage152_write_blockers": [],
             "stage152_first_provider_runner_command_count": 1,
@@ -159,7 +159,7 @@ def test_stage113_detects_complete_results_without_writing_by_default(tmp_path) 
     jobs, results, calibration_target, _ = _fixture(tmp_path)
     _write_jsonl(tmp_path / "jobs.jsonl", jobs)
     _write_jsonl(tmp_path / "results.jsonl", results)
-    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl")
+    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl", provider_scope="ibm_runtime")
 
     result = run_stage113_assembler(
         stage112_job_manifest_path=tmp_path / "jobs.jsonl",
@@ -177,7 +177,7 @@ def test_stage113_blocks_duplicate_result_records(tmp_path) -> None:
     jobs, results, calibration_target, _ = _fixture(tmp_path)
     _write_jsonl(tmp_path / "jobs.jsonl", jobs)
     _write_jsonl(tmp_path / "results.jsonl", results + [results[0]])
-    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl")
+    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl", provider_scope="ibm_runtime")
 
     result = run_stage113_assembler(
         stage112_job_manifest_path=tmp_path / "jobs.jsonl",
@@ -198,7 +198,7 @@ def test_stage113_blocks_unknown_result_records(tmp_path) -> None:
     unknown["job_id"] = "unknown_job"
     _write_jsonl(tmp_path / "jobs.jsonl", jobs)
     _write_jsonl(tmp_path / "results.jsonl", results + [unknown])
-    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl")
+    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl", provider_scope="ibm_runtime")
 
     result = run_stage113_assembler(
         stage112_job_manifest_path=tmp_path / "jobs.jsonl",
@@ -328,7 +328,7 @@ def test_stage113_can_assemble_provider_scoped_results(tmp_path) -> None:
     )
     _write_jsonl(tmp_path / "jobs.jsonl", jobs)
     _write_jsonl(tmp_path / "results.jsonl", results)
-    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl")
+    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl", provider_scope="ibm_runtime")
 
     result = run_stage113_assembler(
         stage112_job_manifest_path=tmp_path / "jobs.jsonl",
@@ -344,6 +344,25 @@ def test_stage113_can_assemble_provider_scoped_results(tmp_path) -> None:
     assert result["decision"] == "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"
     assert calibration_target.exists()
     assert not braket_target.exists()
+
+
+def test_stage113_blocks_provider_scoped_write_with_unscoped_stage115_collection(tmp_path) -> None:
+    jobs, results, calibration_target, _ = _fixture(tmp_path)
+    _write_jsonl(tmp_path / "jobs.jsonl", jobs)
+    _write_jsonl(tmp_path / "results.jsonl", results)
+    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl", provider_scope="all")
+
+    result = run_stage113_assembler(
+        stage112_job_manifest_path=tmp_path / "jobs.jsonl",
+        provider_results_path=tmp_path / "results.jsonl",
+        stage115_results_path=tmp_path / "stage115.json",
+        write_evidence=True,
+        provider="ibm_runtime",
+    )
+
+    assert result["decision"] == "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_STAGE115_COLLECTION_REQUIRED"
+    assert "stage115_provider_scope_mismatch" in result["stage115_write_blockers"]
+    assert not calibration_target.exists()
 
 
 def test_stage113_outputs_are_written(tmp_path) -> None:
