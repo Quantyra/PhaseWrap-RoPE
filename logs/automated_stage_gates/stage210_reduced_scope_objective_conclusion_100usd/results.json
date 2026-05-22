@@ -1,0 +1,146 @@
+{
+  "auditability_advantage_separately_supported": false,
+  "backend": "ibm_fez",
+  "bitstring_order": "q1q0",
+  "blockers": [],
+  "candidate_records": [
+    {
+      "comparison_group_count": 2,
+      "min_matched_null_margin_shot_quanta": 15.76895,
+      "min_positional_margin_shot_quanta": 11.066974,
+      "reduced_scope_hardware_positive": true,
+      "seed_pair": "ibm:314",
+      "stable_target_count": 2,
+      "stable_template_count": 2,
+      "stable_templates": [
+        "two_ry_cx_parity_z_readout_v1",
+        "two_ry_product_state_z_readout_v1"
+      ]
+    },
+    {
+      "comparison_group_count": 2,
+      "min_matched_null_margin_shot_quanta": 37.073187,
+      "min_positional_margin_shot_quanta": 23.447741,
+      "reduced_scope_hardware_positive": true,
+      "seed_pair": "ibm:577",
+      "stable_target_count": 2,
+      "stable_template_count": 2,
+      "stable_templates": [
+        "two_ry_cx_parity_z_readout_v1",
+        "two_ry_product_state_z_readout_v1"
+      ]
+    }
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "full 4096-shot evidentiary-run equivalence",
+      "standalone auditability advantage beyond the robustness metric surface",
+      "cross-backend or provider-wide superiority",
+      "transformer-scale or task-general superiority",
+      "post-hoc readout mitigation or threshold changes",
+      "new hardware submission"
+    ],
+    "supported": [
+      "reduced-precision 2048-shot IBM ibm_fez hardware robustness advantage",
+      "fixed-width matched-comparator comparison across PhaseWrap, RoPE-like, sinusoidal-like, ALIBI-like, and matched nonzero null control",
+      "two independent IBM seed pairs and two circuit templates under preregistered Stage198 thresholds",
+      "calibration-applied q1q0 bitstring ordering before metric interpretation"
+    ]
+  },
+  "comparison_group_count": 4,
+  "comparison_summary": [
+    {
+      "all_families_present": true,
+      "best_positional_normalized_noise_sensitivity_delta": 0.057581818049,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "matched_null_control_margin": 0.027887713762,
+      "matched_null_control_margin_shot_quanta": 57.114038,
+      "matched_null_control_normalized_noise_sensitivity_delta": 0.080065735725,
+      "phasewrap_normalized_noise_sensitivity_delta": 0.052178021963,
+      "positional_margin": 0.005403796086,
+      "positional_margin_shot_quanta": 11.066974,
+      "provider_family": "ibm",
+      "seed": "314",
+      "source_lane_id": "ibm_cx_seed314_rows16_shots2048",
+      "stable_reduced_scope_hardware_target": true,
+      "template_kind": "cx"
+    },
+    {
+      "all_families_present": true,
+      "best_positional_normalized_noise_sensitivity_delta": 0.065138374328,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "matched_null_control_margin": 0.018102142042,
+      "matched_null_control_margin_shot_quanta": 37.073187,
+      "matched_null_control_normalized_noise_sensitivity_delta": 0.069353575653,
+      "phasewrap_normalized_noise_sensitivity_delta": 0.051251433611,
+      "positional_margin": 0.013886940717,
+      "positional_margin_shot_quanta": 28.440455,
+      "provider_family": "ibm",
+      "seed": "577",
+      "source_lane_id": "ibm_cx_seed577_rows16_shots2048",
+      "stable_reduced_scope_hardware_target": true,
+      "template_kind": "cx"
+    },
+    {
+      "all_families_present": true,
+      "best_positional_normalized_noise_sensitivity_delta": 0.045203925699,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "matched_null_control_margin": 0.007699682634,
+      "matched_null_control_margin_shot_quanta": 15.76895,
+      "matched_null_control_normalized_noise_sensitivity_delta": 0.046161973965,
+      "phasewrap_normalized_noise_sensitivity_delta": 0.038462291331,
+      "positional_margin": 0.006741634368,
+      "positional_margin_shot_quanta": 13.806867,
+      "provider_family": "ibm",
+      "seed": "314",
+      "source_lane_id": "ibm_product_seed314_rows16_shots2048",
+      "stable_reduced_scope_hardware_target": true,
+      "template_kind": "product"
+    },
+    {
+      "all_families_present": true,
+      "best_positional_normalized_noise_sensitivity_delta": 0.040768566197,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "matched_null_control_margin": 0.020802899261,
+      "matched_null_control_margin_shot_quanta": 42.604338,
+      "matched_null_control_normalized_noise_sensitivity_delta": 0.050122373236,
+      "phasewrap_normalized_noise_sensitivity_delta": 0.029319473975,
+      "positional_margin": 0.011449092222,
+      "positional_margin_shot_quanta": 23.447741,
+      "provider_family": "ibm",
+      "seed": "577",
+      "source_lane_id": "ibm_product_seed577_rows16_shots2048",
+      "stable_reduced_scope_hardware_target": true,
+      "template_kind": "product"
+    }
+  ],
+  "decision": "REDUCED_SCOPE_OBJECTIVE_SUPPORTED_BY_HARDWARE_ROBUSTNESS",
+  "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
+  "missing_source_artifacts": [],
+  "next_gate": "Use this as the reduced-scope hardware conclusion; pause before any full 4096-shot or cross-backend spend.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "objective_supported": true,
+  "packet_template_count": 20,
+  "provider_credentials_required": false,
+  "required_matched_null_margin_shot_quanta": 2.0,
+  "required_positional_margin_shot_quanta": 2.0,
+  "required_stable_seed_pair_count": 2,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage210_reduced_scope_objective_conclusion_v1",
+  "secret_values_recorded": false,
+  "shot_count_per_packet_row": 2048,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage198_reduced_scope_preregistration/results.json",
+    "logs/automated_stage_gates/stage208_reduced_scope_calibration_validation_100usd/results.json",
+    "logs/automated_stage_gates/stage209_reduced_scope_hardware_metric_interpreter_100usd/results.json"
+  ],
+  "stable_seed_pair_count": 2,
+  "stable_template_count_per_seed_pair_required": 2,
+  "stage": "stage210_reduced_scope_objective_conclusion",
+  "status": "completed",
+  "support_mode": "robustness",
+  "supported_claim": "Under the preregistered reduced-precision fixed-width protocol on IBM ibm_fez, PhaseWrap-RoPE's compact phase-wrap positional score showed lower normalized noise sensitivity than matched RoPE-like, sinusoidal-like, ALIBI-like, and matched nonzero null-control encodings across two seeds and two circuit templates.",
+  "weakest_matched_null_margin_shot_quanta": 15.76895,
+  "weakest_positional_margin_shot_quanta": 11.066974
+}

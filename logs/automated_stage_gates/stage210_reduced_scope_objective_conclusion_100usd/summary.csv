@@ -1,0 +1,3 @@
+seed_pair,stable_template_count,min_positional_margin_shot_quanta,min_matched_null_margin_shot_quanta,reduced_scope_hardware_positive
+ibm:314,2,11.066974,15.76895,True
+ibm:577,2,23.447741,37.073187,True
