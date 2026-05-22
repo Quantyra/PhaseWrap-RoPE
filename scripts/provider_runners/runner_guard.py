@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 from pathlib import Path
 from typing import Any
@@ -71,6 +72,17 @@ def _validate_result_record(record: dict[str, Any], expected_job_ids: set[str]) 
     return sorted(set(missing))
 
 
+def _load_submitter(import_path: str) -> Any:
+    module_name, separator, attr_name = import_path.partition(":")
+    if not separator or not module_name or not attr_name:
+        raise ValueError("submitter import path must use module:callable")
+    module = importlib.import_module(module_name)
+    submitter = getattr(module, attr_name)
+    if not callable(submitter):
+        raise TypeError(f"submitter is not callable: {import_path}")
+    return submitter
+
+
 def run_guarded_provider_runner(provider: str, argv: list[str] | None = None, submitter: Any | None = None) -> int:
     parser = argparse.ArgumentParser(description=f"Guarded no-submit runner for {provider} Stage 112 jobs.")
     parser.add_argument("--job-shard", type=Path, required=True)
@@ -78,6 +90,7 @@ def run_guarded_provider_runner(provider: str, argv: list[str] | None = None, su
     parser.add_argument("--stage111-results", type=Path, default=DEFAULT_STAGE111_RESULTS)
     parser.add_argument("--stage118-results", type=Path, default=DEFAULT_STAGE118_RESULTS)
     parser.add_argument("--allow-live-submit", action="store_true")
+    parser.add_argument("--submitter", help="Import path for a provider submitter callable, formatted as module:callable.")
     args = parser.parse_args(argv)
 
     stage111 = _load_json(args.stage111_results)
@@ -109,6 +122,13 @@ def run_guarded_provider_runner(provider: str, argv: list[str] | None = None, su
         print("decision: PROVIDER_RUNNER_BLOCKED_STAGE118_PAYLOAD_COUNT_MISMATCH")
         print(f"payload_count: {len(payloads)}")
         return 4
+    if submitter is None and args.submitter:
+        try:
+            submitter = _load_submitter(args.submitter)
+        except (ImportError, AttributeError, TypeError, ValueError) as exc:
+            print("decision: PROVIDER_RUNNER_BLOCKED_SUBMITTER_IMPORT_FAILED")
+            print(f"submitter_error: {exc}")
+            return 4
     if submitter is None:
         print("decision: PROVIDER_RUNNER_LIVE_SUBMISSION_ADAPTER_REQUIRED")
         return 4

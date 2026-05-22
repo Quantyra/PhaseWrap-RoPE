@@ -1,0 +1,75 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "provider SDK adapter implementation",
+      "real provider result records",
+      "Stage 113 evidence assembly",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "provider runner CLI can bind an explicit submitter callable by import path",
+      "adapter binding remains behind Stage 111 readiness, Stage 118 payload loading, and Stage 114 result validation",
+      "live submission remains impossible without an explicit adapter selection"
+    ]
+  },
+  "decision": "PROVIDER_ADAPTER_BRIDGE_READY_PROVIDER_ADAPTERS_REQUIRED",
+  "missing_source_artifacts": [],
+  "next_gate": "Implement provider-specific submitter callables for IBM Runtime and Amazon Braket, then use the Stage 121 adapter bridge only after Stage 106/111 readiness clears.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "ready_runner_count": 4,
+  "runner_count": 4,
+  "runner_records": [
+    {
+      "accepts_stage118_results": true,
+      "accepts_submitter_import_path": true,
+      "has_allow_live_submit_flag": true,
+      "missing_evidence": [],
+      "provider": "amazon_braket",
+      "ready": true,
+      "runner_script": "scripts/provider_runners/run_amazon_braket_stage112_jobs.py",
+      "window_id": "amazon_braket__independent_window_00"
+    },
+    {
+      "accepts_stage118_results": true,
+      "accepts_submitter_import_path": true,
+      "has_allow_live_submit_flag": true,
+      "missing_evidence": [],
+      "provider": "amazon_braket",
+      "ready": true,
+      "runner_script": "scripts/provider_runners/run_amazon_braket_stage112_jobs.py",
+      "window_id": "amazon_braket__independent_window_01"
+    },
+    {
+      "accepts_stage118_results": true,
+      "accepts_submitter_import_path": true,
+      "has_allow_live_submit_flag": true,
+      "missing_evidence": [],
+      "provider": "ibm_runtime",
+      "ready": true,
+      "runner_script": "scripts/provider_runners/run_ibm_runtime_stage112_jobs.py",
+      "window_id": "ibm_runtime__independent_window_00"
+    },
+    {
+      "accepts_stage118_results": true,
+      "accepts_submitter_import_path": true,
+      "has_allow_live_submit_flag": true,
+      "missing_evidence": [],
+      "provider": "ibm_runtime",
+      "ready": true,
+      "runner_script": "scripts/provider_runners/run_ibm_runtime_stage112_jobs.py",
+      "window_id": "ibm_runtime__independent_window_01"
+    }
+  ],
+  "schema_version": "qrope_stage121_provider_adapter_bridge_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage120_live_runner_orchestration_audit/results.json"
+  ],
+  "stage": "stage121_provider_adapter_bridge_audit",
+  "stage120_decision": "LIVE_RUNNER_ORCHESTRATION_READY_ADAPTER_REQUIRED",
+  "status": "completed"
+}
