@@ -75,7 +75,7 @@ def test_stage128_reports_client_factories_guarded(tmp_path) -> None:
     assert result["decision"] == "SDK_CLIENT_FACTORIES_IMPLEMENTED_EXECUTION_BLOCKED"
     assert result["ready_provider_count"] == 2
     assert all(record["blocked_without_allow"] for record in result["provider_records"])
-    assert all(record["blocked_with_allow"] for record in result["provider_records"])
+    assert all(record["blocked_without_cutover"] for record in result["provider_records"])
 
 
 def test_stage128_outputs_are_written(tmp_path) -> None:

@@ -11,7 +11,7 @@
     "supported": [
       "provider adapters expose implemented guarded SDK client factory boundaries",
       "client configs report non-secret readiness metadata and SDK/env blockers",
-      "live client creation still fails closed while Stage 106/111 provider readiness is blocked"
+      "live client creation still fails closed unless Stage 129 cutover authorization is present"
     ]
   },
   "decision": "SDK_CLIENT_FACTORIES_IMPLEMENTED_EXECUTION_BLOCKED",

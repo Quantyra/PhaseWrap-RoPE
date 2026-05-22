@@ -9,6 +9,7 @@
     ],
     "supported": [
       "runner orchestration can load Stage 118 payload inputs before live submission",
+      "runner orchestration requires Stage 129 cutover authorization before invoking provider submitters",
       "runner guard has a result-contract validation path before writing Stage 114 provider results",
       "CLI still refuses live submission without an explicit provider adapter"
     ]
@@ -16,7 +17,7 @@
   "decision": "LIVE_RUNNER_ORCHESTRATION_READY_ADAPTER_REQUIRED",
   "job_count": 496,
   "missing_source_artifacts": [],
-  "next_gate": "Implement provider SDK adapters for IBM Runtime and Amazon Braket, clear Stage 106/111 readiness, then run guarded live submissions with --allow-live-submit.",
+  "next_gate": "Clear Stage 106/111 readiness and Stage 129 cutover authorization, then run guarded live submissions with --allow-live-submit and --stage129-results.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": true,

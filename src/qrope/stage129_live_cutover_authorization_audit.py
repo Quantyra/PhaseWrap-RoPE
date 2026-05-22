@@ -57,8 +57,8 @@ def _cutover_record(stage106: dict[str, Any] | None, stage111: dict[str, Any] | 
         blockers.append("stage128:client_factory_not_implemented")
     if client_config.get("no_hardware_submission") is not False:
         blockers.append("stage128:no_hardware_submission_guard_active")
-    if stage128_record.get("blocked_with_allow") is not False:
-        blockers.append("stage128:client_factory_still_blocked_with_allow")
+    if stage128_record.get("blocked_without_cutover") is not True:
+        blockers.append("stage128:client_factory_cutover_guard_missing")
     authorized = not blockers
     return {
         "provider": provider,
@@ -66,7 +66,7 @@ def _cutover_record(stage106: dict[str, Any] | None, stage111: dict[str, Any] | 
         "stage111_status": stage111_record.get("status"),
         "stage128_ready": stage128_record.get("ready"),
         "client_factory_implemented": client_config.get("client_factory_implemented"),
-        "client_factory_blocked_with_allow": stage128_record.get("blocked_with_allow"),
+        "client_factory_blocked_without_cutover": stage128_record.get("blocked_without_cutover"),
         "cutover_authorized": authorized,
         "blockers": sorted(set(blockers)),
     }
@@ -168,7 +168,7 @@ def write_stage129_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                 "stage111_status",
                 "stage128_ready",
                 "client_factory_implemented",
-                "client_factory_blocked_with_allow",
+                "client_factory_blocked_without_cutover",
                 "cutover_authorized",
                 "blockers",
             ),
@@ -182,7 +182,7 @@ def write_stage129_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                     "stage111_status": record["stage111_status"],
                     "stage128_ready": record["stage128_ready"],
                     "client_factory_implemented": record["client_factory_implemented"],
-                    "client_factory_blocked_with_allow": record["client_factory_blocked_with_allow"],
+                    "client_factory_blocked_without_cutover": record["client_factory_blocked_without_cutover"],
                     "cutover_authorized": record["cutover_authorized"],
                     "blockers": "; ".join(record["blockers"]),
                 }

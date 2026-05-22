@@ -13,7 +13,7 @@ LIVE_CUTOVER_REMEDIATION_PACKET_READY_EXECUTION_BLOCKED
 ## Provider Actions
 ### amazon_braket
 - Cutover authorized: `False`
-- Stage 129 blockers: stage106:backend_selection_missing; stage106:braket_output_s3_bucket_missing; stage106:braket_region_missing; stage106:provider_credentials_missing; stage111:provider_sdk_missing; stage111:stage106_provider_preflight_not_ready; stage128:client_factory_still_blocked_with_allow
+- Stage 129 blockers: stage106:backend_selection_missing; stage106:braket_output_s3_bucket_missing; stage106:braket_region_missing; stage106:provider_credentials_missing; stage111:provider_sdk_missing; stage111:stage106_provider_preflight_not_ready
 - Set or verify non-committed provider configuration for Stage 106.
 - Required provider env groups: AWS_ACCESS_KEY_ID or AWS_PROFILE; QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS; QROPE_BRAKET_OUTPUT_S3_BUCKET; QROPE_BRAKET_AWS_REGION or AWS_REGION.
 - Required common env groups: QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP.
@@ -21,7 +21,7 @@ LIVE_CUTOVER_REMEDIATION_PACKET_READY_EXECUTION_BLOCKED
 - Rerun Stage 129 and enable live runner execution only when cutover_authorized=true for this provider.
 ### ibm_runtime
 - Cutover authorized: `False`
-- Stage 129 blockers: stage106:ibm_instance_crn_missing; stage111:stage106_provider_preflight_not_ready; stage128:client_factory_still_blocked_with_allow
+- Stage 129 blockers: stage106:ibm_instance_crn_missing; stage111:stage106_provider_preflight_not_ready
 - Set or verify non-committed provider configuration for Stage 106.
 - Required provider env groups: IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN; QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND; IBM_QUANTUM_INSTANCE_CRN.
 - Required common env groups: QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP.

@@ -64,7 +64,7 @@ def _implementation_record(
         missing.append("secret_boundary_missing")
     if stage128_record.get("blocked_without_allow") is not True:
         missing.append("factory_not_blocked_without_allow")
-    if stage128_record.get("blocked_with_allow") is not True:
+    if stage128_record.get("blocked_without_cutover") is not True:
         missing.append("factory_unexpectedly_unblocked_before_cutover")
     if stage129_record.get("cutover_authorized") is not False:
         missing.append("stage129_cutover_state_not_blocked")
@@ -79,7 +79,7 @@ def _implementation_record(
         "client_factory_implemented": config.get("client_factory_implemented"),
         "client_factory_live_capable": config.get("no_hardware_submission") is False,
         "blocked_without_allow": stage128_record.get("blocked_without_allow"),
-        "blocked_with_allow": stage128_record.get("blocked_with_allow"),
+        "blocked_without_cutover": stage128_record.get("blocked_without_cutover"),
         "cutover_authorized": stage129_record.get("cutover_authorized"),
         "stage129_blockers": stage129_record.get("blockers", []),
         "contract_version": contract.get("contract_version"),
@@ -179,7 +179,7 @@ def write_stage132_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                 "provider",
                 "client_factory_implemented",
                 "client_factory_live_capable",
-                "blocked_with_allow",
+                "blocked_without_cutover",
                 "cutover_authorized",
                 "ready",
                 "missing_evidence",
@@ -192,7 +192,7 @@ def write_stage132_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                     "provider": record["provider"],
                     "client_factory_implemented": record["client_factory_implemented"],
                     "client_factory_live_capable": record["client_factory_live_capable"],
-                    "blocked_with_allow": record["blocked_with_allow"],
+                    "blocked_without_cutover": record["blocked_without_cutover"],
                     "cutover_authorized": record["cutover_authorized"],
                     "ready": record["ready"],
                     "missing_evidence": "; ".join(record["missing_evidence"]),

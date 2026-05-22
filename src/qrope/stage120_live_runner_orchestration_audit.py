@@ -42,6 +42,7 @@ def _probe_runner(command: str) -> dict[str, Any]:
         "runner_command": command,
         "runner_script": script,
         "accepts_stage118_results": "--stage118-results" in help_text,
+        "accepts_stage129_results": "--stage129-results" in help_text,
         "has_allow_live_submit_flag": "--allow-live-submit" in help_text,
     }
 
@@ -51,6 +52,8 @@ def _runner_record(record: dict[str, Any]) -> dict[str, Any]:
     missing = []
     if not probe["accepts_stage118_results"]:
         missing.append("runner_missing_stage118_payload_input")
+    if not probe["accepts_stage129_results"]:
+        missing.append("runner_missing_stage129_cutover_input")
     if not probe["has_allow_live_submit_flag"]:
         missing.append("runner_missing_live_submit_flag")
     return {
@@ -61,6 +64,7 @@ def _runner_record(record: dict[str, Any]) -> dict[str, Any]:
         "runner_command": record.get("runner_command"),
         "runner_script": probe["runner_script"],
         "accepts_stage118_results": probe["accepts_stage118_results"],
+        "accepts_stage129_results": probe["accepts_stage129_results"],
         "has_allow_live_submit_flag": probe["has_allow_live_submit_flag"],
         "missing_evidence": missing,
         "ready": not missing,
@@ -105,6 +109,7 @@ def run_stage120_audit(
         "claim_boundary": {
             "supported": [
                 "runner orchestration can load Stage 118 payload inputs before live submission",
+                "runner orchestration requires Stage 129 cutover authorization before invoking provider submitters",
                 "runner guard has a result-contract validation path before writing Stage 114 provider results",
                 "CLI still refuses live submission without an explicit provider adapter",
             ],
@@ -117,8 +122,8 @@ def run_stage120_audit(
             ],
         },
         "next_gate": (
-            "Implement provider SDK adapters for IBM Runtime and Amazon Braket, clear Stage 106/111 readiness, "
-            "then run guarded live submissions with --allow-live-submit."
+            "Clear Stage 106/111 readiness and Stage 129 cutover authorization, then run guarded live submissions "
+            "with --allow-live-submit and --stage129-results."
         ),
     }
 
@@ -163,6 +168,7 @@ def write_stage120_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                 "stage116_status",
                 "job_count",
                 "accepts_stage118_results",
+                "accepts_stage129_results",
                 "has_allow_live_submit_flag",
                 "ready",
                 "missing_evidence",
@@ -177,6 +183,7 @@ def write_stage120_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                     "stage116_status": record["stage116_status"],
                     "job_count": record["job_count"],
                     "accepts_stage118_results": record["accepts_stage118_results"],
+                    "accepts_stage129_results": record["accepts_stage129_results"],
                     "has_allow_live_submit_flag": record["has_allow_live_submit_flag"],
                     "ready": record["ready"],
                     "missing_evidence": "; ".join(record["missing_evidence"]),

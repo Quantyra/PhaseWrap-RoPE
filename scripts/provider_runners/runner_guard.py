@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import inspect
 import importlib
 import json
 from pathlib import Path
@@ -9,6 +10,7 @@ from typing import Any
 
 DEFAULT_STAGE111_RESULTS = Path("logs") / "automated_stage_gates" / "stage111_provider_sdk_backend_discovery" / "results.json"
 DEFAULT_STAGE118_RESULTS = Path("logs") / "automated_stage_gates" / "stage118_provider_payload_dry_run_audit" / "results.json"
+DEFAULT_STAGE129_RESULTS = Path("logs") / "automated_stage_gates" / "stage129_live_cutover_authorization_audit" / "results.json"
 
 
 def _load_json(path: Path) -> dict[str, Any] | None:
@@ -42,6 +44,15 @@ def _payload_record(stage118: dict[str, Any] | None, provider: str, window_id: s
         return None
     for record in stage118.get("payload_records", []):
         if record.get("provider") == provider and record.get("window_id") == window_id:
+            return record
+    return None
+
+
+def _cutover_record(stage129: dict[str, Any] | None, provider: str) -> dict[str, Any] | None:
+    if not stage129:
+        return None
+    for record in stage129.get("provider_records", []):
+        if record.get("provider") == provider:
             return record
     return None
 
@@ -83,18 +94,28 @@ def _load_submitter(import_path: str) -> Any:
     return submitter
 
 
+def _call_submitter(submitter: Any, *, provider: str, jobs: list[dict[str, Any]], payloads: list[dict[str, Any]]) -> Any:
+    parameters = inspect.signature(submitter).parameters
+    kwargs = {"provider": provider, "jobs": jobs, "payloads": payloads}
+    if "cutover_authorized" in parameters:
+        kwargs["cutover_authorized"] = True
+    return submitter(**kwargs)
+
+
 def run_guarded_provider_runner(provider: str, argv: list[str] | None = None, submitter: Any | None = None) -> int:
     parser = argparse.ArgumentParser(description=f"Guarded no-submit runner for {provider} Stage 112 jobs.")
     parser.add_argument("--job-shard", type=Path, required=True)
     parser.add_argument("--provider-results", type=Path, required=True)
     parser.add_argument("--stage111-results", type=Path, default=DEFAULT_STAGE111_RESULTS)
     parser.add_argument("--stage118-results", type=Path, default=DEFAULT_STAGE118_RESULTS)
+    parser.add_argument("--stage129-results", type=Path, default=DEFAULT_STAGE129_RESULTS)
     parser.add_argument("--allow-live-submit", action="store_true")
     parser.add_argument("--submitter", help="Import path for a provider submitter callable, formatted as module:callable.")
     args = parser.parse_args(argv)
 
     stage111 = _load_json(args.stage111_results)
     stage118 = _load_json(args.stage118_results)
+    stage129 = _load_json(args.stage129_results)
     jobs = _load_jsonl(args.job_shard)
     record = _provider_record(stage111, provider)
     window_id = _window_id_from_jobs(jobs)
@@ -113,6 +134,14 @@ def run_guarded_provider_runner(provider: str, argv: list[str] | None = None, su
     if not args.allow_live_submit:
         print("decision: PROVIDER_RUNNER_READY_LIVE_SUBMIT_FLAG_REQUIRED")
         return 3
+    cutover = _cutover_record(stage129, provider)
+    if cutover is None:
+        print("decision: PROVIDER_RUNNER_BLOCKED_STAGE129_CUTOVER_RECORD_MISSING")
+        return 4
+    if cutover.get("cutover_authorized") is not True:
+        print("decision: PROVIDER_RUNNER_BLOCKED_STAGE129_CUTOVER_NOT_AUTHORIZED")
+        print(f"blockers: {', '.join(str(item) for item in cutover.get('blockers', []))}")
+        return 4
     payload_record = _payload_record(stage118, provider, window_id)
     if payload_record is None:
         print("decision: PROVIDER_RUNNER_BLOCKED_STAGE118_PAYLOAD_RECORD_MISSING")
@@ -133,7 +162,7 @@ def run_guarded_provider_runner(provider: str, argv: list[str] | None = None, su
         print("decision: PROVIDER_RUNNER_LIVE_SUBMISSION_ADAPTER_REQUIRED")
         return 4
     try:
-        results = submitter(provider=provider, jobs=jobs, payloads=payloads)
+        results = _call_submitter(submitter, provider=provider, jobs=jobs, payloads=payloads)
     except Exception as exc:  # noqa: BLE001 - provider adapters must fail closed without partial writes.
         print("decision: PROVIDER_RUNNER_BLOCKED_SUBMITTER_FAILED")
         print(f"submitter_error: {exc}")

@@ -12,7 +12,7 @@ Current decision:
 
 ## What this supports
 - The previous missing SDK factory implementation blocker has been removed for both providers.
-- Live client creation still fails closed under the current blocked Stage 106/111/129 state.
+- Live client creation still fails closed without Stage 129 cutover authorization.
 - Stage 129 blockers now identify readiness/cutover blockers rather than missing factory code.
 
 ## What this does not support

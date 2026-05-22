@@ -40,10 +40,10 @@ def _fixture(tmp_path, *, authorized: bool = False):
                 {
                     "provider": "ibm_runtime",
                     "ready": True,
-                    "blocked_with_allow": not authorized,
+                    "blocked_without_cutover": True,
                     "client_config": {
-                        "client_factory_implemented": authorized,
-                        "no_hardware_submission": not authorized,
+                        "client_factory_implemented": True,
+                        "no_hardware_submission": False,
                     },
                 }
             ],

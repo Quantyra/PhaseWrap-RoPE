@@ -20,7 +20,7 @@ def _fixture(tmp_path):
                 {
                     "provider": provider,
                     "blocked_without_allow": True,
-                    "blocked_with_allow": True,
+                    "blocked_without_cutover": True,
                     "client_config": {
                         "client_factory_implemented": True,
                         "no_hardware_submission": False,
@@ -39,7 +39,7 @@ def _fixture(tmp_path):
                 {
                     "provider": provider,
                     "cutover_authorized": False,
-                    "blockers": ["stage106:provider_not_ready", "stage128:client_factory_still_blocked_with_allow"],
+                    "blockers": ["stage106:provider_not_ready"],
                 }
                 for provider in providers
             ],

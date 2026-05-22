@@ -147,10 +147,12 @@ def _extract_ibm_counts(result: Any) -> dict[str, int]:
     raise ProviderAdapterBlocked("IBM Runtime result did not expose counts")
 
 
-def create_live_client(*, allow_live_client: bool = False) -> Any:
+def create_live_client(*, allow_live_client: bool = False, cutover_authorized: bool = False) -> Any:
     config = build_client_config()
     if not allow_live_client:
         raise ProviderAdapterBlocked("IBM Runtime live client creation requires allow_live_client=True")
+    if not cutover_authorized:
+        raise ProviderAdapterBlocked("IBM Runtime live client creation requires Stage 129 cutover authorization")
     if config["blockers"]:
         raise ProviderAdapterBlocked(f"IBM Runtime live client factory blocked; blockers={', '.join(config['blockers'])}")
     try:
@@ -255,11 +257,19 @@ def execute_submission_plans(
     return records
 
 
-def submit(*, provider: str, jobs: list[dict[str, Any]], payloads: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def submit(
+    *,
+    provider: str,
+    jobs: list[dict[str, Any]],
+    payloads: list[dict[str, Any]],
+    cutover_authorized: bool = False,
+) -> list[dict[str, Any]]:
     if provider != PROVIDER:
         raise ProviderAdapterBlocked(f"IBM Runtime adapter received provider={provider!r}")
     if len(jobs) != len(payloads):
         raise ProviderAdapterBlocked("job/payload count mismatch before IBM Runtime submission")
     plans = build_submission_plan(jobs=jobs, payloads=payloads)
-    client = create_live_client(allow_live_client=True)
+    if not cutover_authorized:
+        raise ProviderAdapterBlocked("IBM Runtime submission requires Stage 129 cutover authorization")
+    client = create_live_client(allow_live_client=True, cutover_authorized=cutover_authorized)
     return execute_submission_plans(plans=plans, client=client, submitted_at_utc="", completed_at_utc="")

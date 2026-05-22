@@ -29,6 +29,7 @@ def _runner_fixture(tmp_path):
     results = tmp_path / "results.jsonl"
     stage111 = tmp_path / "stage111.json"
     stage118 = tmp_path / "stage118.json"
+    stage129 = tmp_path / "stage129.json"
     jobs = [
         {
             "job_id": "job_0",
@@ -76,11 +77,23 @@ def _runner_fixture(tmp_path):
             ]
         },
     )
-    return job_shard, results, stage111, stage118
+    _write_json(
+        stage129,
+        {
+            "provider_records": [
+                {
+                    "provider": "ibm_runtime",
+                    "cutover_authorized": True,
+                    "blockers": [],
+                }
+            ]
+        },
+    )
+    return job_shard, results, stage111, stage118, stage129
 
 
 def test_runner_guard_writes_results_with_injected_submitter(tmp_path) -> None:
-    job_shard, results, stage111, stage118 = _runner_fixture(tmp_path)
+    job_shard, results, stage111, stage118, stage129 = _runner_fixture(tmp_path)
 
     def submitter(*, provider, jobs, payloads):
         assert provider == "ibm_runtime"
@@ -108,6 +121,8 @@ def test_runner_guard_writes_results_with_injected_submitter(tmp_path) -> None:
             str(stage111),
             "--stage118-results",
             str(stage118),
+            "--stage129-results",
+            str(stage129),
             "--allow-live-submit",
         ],
         submitter=submitter,
@@ -119,7 +134,7 @@ def test_runner_guard_writes_results_with_injected_submitter(tmp_path) -> None:
 
 
 def test_runner_guard_rejects_invalid_submitter_results(tmp_path) -> None:
-    job_shard, results, stage111, stage118 = _runner_fixture(tmp_path)
+    job_shard, results, stage111, stage118, stage129 = _runner_fixture(tmp_path)
 
     code = run_guarded_provider_runner(
         "ibm_runtime",
@@ -132,12 +147,40 @@ def test_runner_guard_rejects_invalid_submitter_results(tmp_path) -> None:
             str(stage111),
             "--stage118-results",
             str(stage118),
+            "--stage129-results",
+            str(stage129),
             "--allow-live-submit",
         ],
         submitter=lambda **_: [{"job_id": "unknown", "counts": {}}],
     )
 
     assert code == 5
+    assert not results.exists()
+
+
+def test_runner_guard_requires_stage129_cutover_authorization(tmp_path) -> None:
+    job_shard, results, stage111, stage118, stage129 = _runner_fixture(tmp_path)
+    _write_json(stage129, {"provider_records": [{"provider": "ibm_runtime", "cutover_authorized": False, "blockers": ["stage106:not_ready"]}]})
+
+    code = run_guarded_provider_runner(
+        "ibm_runtime",
+        [
+            "--job-shard",
+            str(job_shard),
+            "--provider-results",
+            str(results),
+            "--stage111-results",
+            str(stage111),
+            "--stage118-results",
+            str(stage118),
+            "--stage129-results",
+            str(stage129),
+            "--allow-live-submit",
+        ],
+        submitter=lambda **_: [],
+    )
+
+    assert code == 4
     assert not results.exists()
 
 
@@ -168,6 +211,7 @@ def test_stage120_reports_runner_orchestration_ready(tmp_path) -> None:
 
     assert result["decision"] == "LIVE_RUNNER_ORCHESTRATION_READY_ADAPTER_REQUIRED"
     assert result["ready_runner_count"] == 1
+    assert result["runner_records"][0]["accepts_stage129_results"] is True
 
 
 def test_stage120_outputs_are_written(tmp_path) -> None:

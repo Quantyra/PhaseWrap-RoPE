@@ -73,8 +73,7 @@
         "stage106:braket_region_missing",
         "stage106:provider_credentials_missing",
         "stage111:provider_sdk_missing",
-        "stage111:stage106_provider_preflight_not_ready",
-        "stage128:client_factory_still_blocked_with_allow"
+        "stage111:stage106_provider_preflight_not_ready"
       ]
     },
     {
@@ -115,8 +114,7 @@
       "stage128_ready": true,
       "stage129_blockers": [
         "stage106:ibm_instance_crn_missing",
-        "stage111:stage106_provider_preflight_not_ready",
-        "stage128:client_factory_still_blocked_with_allow"
+        "stage111:stage106_provider_preflight_not_ready"
       ]
     }
   ],

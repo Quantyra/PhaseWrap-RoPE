@@ -29,6 +29,7 @@ def _runner_fixture(tmp_path):
     results = tmp_path / "results.jsonl"
     stage111 = tmp_path / "stage111.json"
     stage118 = tmp_path / "stage118.json"
+    stage129 = tmp_path / "stage129.json"
     _write_jsonl(
         job_shard,
         [{"job_id": "job_0", "job_kind": "known_state_calibration", "provider": "ibm_runtime", "shots": 1000, "window_id": "window_0"}],
@@ -39,7 +40,8 @@ def _runner_fixture(tmp_path):
         stage118,
         {"payload_records": [{"provider": "ibm_runtime", "window_id": "window_0", "payload_output_path": str(payloads.as_posix()), "compiled_payload_count": 1}]},
     )
-    return job_shard, results, stage111, stage118
+    _write_json(stage129, {"provider_records": [{"provider": "ibm_runtime", "cutover_authorized": True, "blockers": []}]})
+    return job_shard, results, stage111, stage118, stage129
 
 
 def test_runner_guard_loads_submitter_import_path(tmp_path, monkeypatch) -> None:
@@ -54,7 +56,7 @@ def test_runner_guard_loads_submitter_import_path(tmp_path, monkeypatch) -> None
         encoding="utf-8",
     )
     monkeypatch.syspath_prepend(str(tmp_path))
-    job_shard, results, stage111, stage118 = _runner_fixture(tmp_path)
+    job_shard, results, stage111, stage118, stage129 = _runner_fixture(tmp_path)
 
     code = run_guarded_provider_runner(
         "ibm_runtime",
@@ -67,6 +69,8 @@ def test_runner_guard_loads_submitter_import_path(tmp_path, monkeypatch) -> None
             str(stage111),
             "--stage118-results",
             str(stage118),
+            "--stage129-results",
+            str(stage129),
             "--allow-live-submit",
             "--submitter",
             "fake_adapter:submit",
@@ -78,7 +82,7 @@ def test_runner_guard_loads_submitter_import_path(tmp_path, monkeypatch) -> None
 
 
 def test_runner_guard_rejects_missing_submitter_import_path(tmp_path) -> None:
-    job_shard, results, stage111, stage118 = _runner_fixture(tmp_path)
+    job_shard, results, stage111, stage118, stage129 = _runner_fixture(tmp_path)
 
     code = run_guarded_provider_runner(
         "ibm_runtime",
@@ -91,6 +95,8 @@ def test_runner_guard_rejects_missing_submitter_import_path(tmp_path) -> None:
             str(stage111),
             "--stage118-results",
             str(stage118),
+            "--stage129-results",
+            str(stage129),
             "--allow-live-submit",
             "--submitter",
             "missing_adapter:submit",

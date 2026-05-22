@@ -22,8 +22,8 @@
   "provider_credentials_required": true,
   "provider_records": [
     {
-      "blocked_with_allow": true,
       "blocked_without_allow": true,
+      "blocked_without_cutover": true,
       "client_factory_implemented": true,
       "client_factory_live_capable": true,
       "contract_version": "amazon_braket_openqasm3_factory_contract_v1",
@@ -37,13 +37,12 @@
         "stage106:braket_region_missing",
         "stage106:provider_credentials_missing",
         "stage111:provider_sdk_missing",
-        "stage111:stage106_provider_preflight_not_ready",
-        "stage128:client_factory_still_blocked_with_allow"
+        "stage111:stage106_provider_preflight_not_ready"
       ]
     },
     {
-      "blocked_with_allow": true,
       "blocked_without_allow": true,
+      "blocked_without_cutover": true,
       "client_factory_implemented": true,
       "client_factory_live_capable": true,
       "contract_version": "ibm_runtime_sampler_v2_factory_contract_v1",
@@ -53,8 +52,7 @@
       "ready": true,
       "stage129_blockers": [
         "stage106:ibm_instance_crn_missing",
-        "stage111:stage106_provider_preflight_not_ready",
-        "stage128:client_factory_still_blocked_with_allow"
+        "stage111:stage106_provider_preflight_not_ready"
       ]
     }
   ],

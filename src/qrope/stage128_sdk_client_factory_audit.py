@@ -46,7 +46,7 @@ def _factory_record(stage106: dict[str, Any] | None, stage111: dict[str, Any] | 
     missing = []
     config: dict[str, Any] = {}
     blocked_without_allow = False
-    blocked_with_allow = False
+    blocked_without_cutover = False
     if not callable(getattr(module, "build_client_config", None)):
         missing.append("build_client_config_not_callable")
     else:
@@ -61,7 +61,7 @@ def _factory_record(stage106: dict[str, Any] | None, stage111: dict[str, Any] | 
         try:
             module.create_live_client(allow_live_client=True)
         except ProviderAdapterBlocked:
-            blocked_with_allow = True
+            blocked_without_cutover = True
     if config.get("provider") != provider:
         missing.append("client_config_provider_mismatch")
     if config.get("secret_values_recorded") is not False:
@@ -72,8 +72,8 @@ def _factory_record(stage106: dict[str, Any] | None, stage111: dict[str, Any] | 
         missing.append("client_config_live_submit_boundary_missing")
     if not blocked_without_allow:
         missing.append("client_factory_not_blocked_without_allow")
-    if not blocked_with_allow:
-        missing.append("client_factory_not_blocked_with_current_readiness")
+    if not blocked_without_cutover:
+        missing.append("client_factory_not_blocked_without_stage129_cutover")
     stage106_record = _provider_record(stage106, provider)
     stage111_record = _provider_record(stage111, provider)
     if stage106_record.get("status") != "blocked" or stage111_record.get("status") != "blocked":
@@ -84,7 +84,7 @@ def _factory_record(stage106: dict[str, Any] | None, stage111: dict[str, Any] | 
         "stage111_status": stage111_record.get("status"),
         "client_config": config,
         "blocked_without_allow": blocked_without_allow,
-        "blocked_with_allow": blocked_with_allow,
+        "blocked_without_cutover": blocked_without_cutover,
         "missing_evidence": sorted(set(missing)),
         "ready": not missing,
     }
@@ -128,7 +128,7 @@ def run_stage128_audit(
             "supported": [
                 "provider adapters expose implemented guarded SDK client factory boundaries",
                 "client configs report non-secret readiness metadata and SDK/env blockers",
-                "live client creation still fails closed while Stage 106/111 provider readiness is blocked",
+                "live client creation still fails closed unless Stage 129 cutover authorization is present",
             ],
             "excluded": [
                 "hardware job submission",
@@ -179,7 +179,7 @@ def write_stage128_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
     with (output_dir / "summary.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(
             handle,
-            fieldnames=("provider", "stage106_status", "stage111_status", "blocked_without_allow", "blocked_with_allow", "ready", "missing_evidence"),
+            fieldnames=("provider", "stage106_status", "stage111_status", "blocked_without_allow", "blocked_without_cutover", "ready", "missing_evidence"),
         )
         writer.writeheader()
         for record in result["provider_records"]:
@@ -189,7 +189,7 @@ def write_stage128_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                     "stage106_status": record["stage106_status"],
                     "stage111_status": record["stage111_status"],
                     "blocked_without_allow": record["blocked_without_allow"],
-                    "blocked_with_allow": record["blocked_with_allow"],
+                    "blocked_without_cutover": record["blocked_without_cutover"],
                     "ready": record["ready"],
                     "missing_evidence": "; ".join(record["missing_evidence"]),
                 }

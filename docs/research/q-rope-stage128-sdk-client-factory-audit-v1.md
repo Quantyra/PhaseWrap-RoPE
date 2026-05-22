@@ -13,7 +13,7 @@ Current decision:
 ## What this supports
 - Provider adapters expose non-secret client configuration metadata and implemented guarded factory entrypoints.
 - Live client creation is explicitly blocked without an allow flag.
-- Live client creation also remains blocked under current Stage 106/111 readiness blockers.
+- Live client creation also remains blocked without Stage 129 cutover authorization.
 - The guarded SDK client implementation has a single boundary that must preserve the Stage 127 injected-client execution contract.
 
 ## What this does not support

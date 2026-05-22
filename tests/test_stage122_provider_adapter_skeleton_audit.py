@@ -59,10 +59,12 @@ def test_runner_guard_catches_blocked_provider_adapter_without_writing(tmp_path)
     results = tmp_path / "results.jsonl"
     stage111 = tmp_path / "stage111.json"
     stage118 = tmp_path / "stage118.json"
+    stage129 = tmp_path / "stage129.json"
     _write_jsonl(job_shard, [{"job_id": "job_0", "provider": "ibm_runtime", "window_id": "window_0", "shots": 1000}])
     _write_jsonl(payloads, [{"job_id": "job_0", "provider": "ibm_runtime", "window_id": "window_0", "shots": 1000}])
     _write_json(stage111, {"provider_records": [{"provider": "ibm_runtime", "status": "ready", "blockers": []}]})
     _write_json(stage118, {"payload_records": [{"provider": "ibm_runtime", "window_id": "window_0", "payload_output_path": str(payloads.as_posix())}]})
+    _write_json(stage129, {"provider_records": [{"provider": "ibm_runtime", "cutover_authorized": True, "blockers": []}]})
 
     code = run_guarded_provider_runner(
         "ibm_runtime",
@@ -75,6 +77,8 @@ def test_runner_guard_catches_blocked_provider_adapter_without_writing(tmp_path)
             str(stage111),
             "--stage118-results",
             str(stage118),
+            "--stage129-results",
+            str(stage129),
             "--allow-live-submit",
             "--submitter",
             "qrope.provider_adapters.ibm_runtime:submit",
