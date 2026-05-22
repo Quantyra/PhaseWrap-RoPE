@@ -1,0 +1,75 @@
+{
+  "aggregate_job_shard_lock_sha256": "cf5305b6be610d1ffb80e11095e3a0bc0bfc233e0afbee148408f7ea25072ad0",
+  "approval_phrase_required": "APPROVE IBM RUNTIME STAGE133 LIVE RUN",
+  "approved_job_count": 328,
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "runnable Stage133 command strings",
+      "provider credentials or secret values",
+      "IBM credit balance or dollar cost verification",
+      "real provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "pre-run immutable hash lock for the approved IBM Runtime Stage114 job shards",
+      "expected provider-result file paths and empty-result checks before live execution",
+      "job and shot totals tied to Stage157 approval and Stage162 dossier readiness"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_PRERUN_LOCK_READY_AWAITING_APPROVAL",
+  "explicit_user_approval_required": true,
+  "first_unlock_provider": "ibm_runtime",
+  "locked_job_count": 328,
+  "locked_total_shots": 1318720,
+  "missing_source_artifacts": [],
+  "next_gate": "If the exact approval phrase is provided and live execution occurs, compare later result collection against this lock before accepting Stage115/Stage113 evidence.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage163_first_provider_prerun_lock_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage157_first_provider_live_run_approval_packet/results.json",
+    "logs/automated_stage_gates/stage162_first_provider_approval_dossier/results.json"
+  ],
+  "stage": "stage163_first_provider_prerun_lock",
+  "stage157_decision": "FIRST_PROVIDER_LIVE_RUN_APPROVAL_PACKET_READY",
+  "stage162_decision": "FIRST_PROVIDER_APPROVAL_DOSSIER_READY_FOR_HUMAN_GO_NO_GO",
+  "status": "completed",
+  "window_count": 2,
+  "window_locks": [
+    {
+      "approved_job_count": 164,
+      "blockers": [],
+      "job_count": 164,
+      "job_shard_exists": true,
+      "job_shard_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_00/jobs.jsonl",
+      "job_shard_sha256": "0d048c3d4ec88239e84b60f32c85a554c68992819bc7f57bb7aa21dfba875cbf",
+      "provider": "ibm_runtime",
+      "provider_results_file_exists": false,
+      "provider_results_line_count": 0,
+      "provider_results_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_00/provider_job_results.jsonl",
+      "ready": true,
+      "total_shots": 659360,
+      "window_id": "ibm_runtime__independent_window_00"
+    },
+    {
+      "approved_job_count": 164,
+      "blockers": [],
+      "job_count": 164,
+      "job_shard_exists": true,
+      "job_shard_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_01/jobs.jsonl",
+      "job_shard_sha256": "ae2943d658c0bfcd7ba977a7dc6daaeaf6555a4c63de8be03ad6f097953463eb",
+      "provider": "ibm_runtime",
+      "provider_results_file_exists": false,
+      "provider_results_line_count": 0,
+      "provider_results_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_01/provider_job_results.jsonl",
+      "ready": true,
+      "total_shots": 659360,
+      "window_id": "ibm_runtime__independent_window_01"
+    }
+  ]
+}

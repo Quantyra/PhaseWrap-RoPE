@@ -1,0 +1,44 @@
+{
+  "aggregate_job_shard_lock_sha256": "cf5305b6be610d1ffb80e11095e3a0bc0bfc233e0afbee148408f7ea25072ad0",
+  "approved_job_count": 328,
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "runnable Stage133 command strings",
+      "provider credentials or secret values",
+      "IBM credit balance or dollar cost verification",
+      "real provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "pre-run immutable hash lock for the approved IBM Runtime Stage114 job shards",
+      "expected provider-result file paths and empty-result checks before live execution",
+      "job and shot totals tied to Stage157 approval and Stage162 dossier readiness"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_PRERUN_LOCK_READY_AWAITING_APPROVAL",
+  "explicit_user_approval_required": true,
+  "first_unlock_provider": "ibm_runtime",
+  "locked_job_count": 328,
+  "locked_total_shots": 1318720,
+  "missing_source_artifacts": [],
+  "next_gate": "If the exact approval phrase is provided and live execution occurs, compare later result collection against this lock before accepting Stage115/Stage113 evidence.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage163_first_provider_prerun_lock/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage163_first_provider_prerun_lock_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage157_first_provider_live_run_approval_packet/results.json",
+    "logs/automated_stage_gates/stage162_first_provider_approval_dossier/results.json"
+  ],
+  "stage": "stage163_first_provider_prerun_lock",
+  "stage157_decision": "FIRST_PROVIDER_LIVE_RUN_APPROVAL_PACKET_READY",
+  "stage162_decision": "FIRST_PROVIDER_APPROVAL_DOSSIER_READY_FOR_HUMAN_GO_NO_GO",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage163_first_provider_prerun_lock/summary.csv",
+  "window_count": 2
+}
