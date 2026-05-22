@@ -81,6 +81,8 @@ Stage 85 update: adding both support-class and target-position attention auxilia
 
 Stage 86 update: a practical budget-sensitivity audit over the Stage 85 dual-auxiliary path does not repair retrieval. Increasing from `10` to `20` epochs keeps phase-cued retrieval at top-1 `0.050000` and reduces exact-offset from top-1 `0.416667` to `0.100000`, so the current blocker is not merely short-budget undertraining.
 
+Stage 87 update: adding a structural in-decoder support-routed copy expert repairs phase-cued retrieval at top-1 `0.783333`, but `no_position` also solves and exact-offset remains below threshold at top-1 `0.416667`. This shows the learned support signal can drive token selection when the support-to-token rule is supplied, but it is mechanism evidence rather than positional-method promotion.
+
 ## PhaseWrap Mechanism Requirements
 
 The PhaseWrap variant should be implemented as a positional mechanism comparable to RoPE or ALiBI, not as a scalar oracle feature.
@@ -242,7 +244,9 @@ Stage 85 trains a dual support/target-attention auxiliary pointer-generator deco
 
 Stage 86 runs a budget-sensitivity audit over Stage 85 and records `DUAL_AUXILIARY_BUDGET_WITHOUT_RETRIEVAL_GENERALIZATION`: the practical budget increase does not repair held-out retrieval.
 
-The next gate should redesign the stronger matched decoder-only transformer so it can generalize support-to-token routing on held-out retrieval rows before testing positional-method promotion. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
+Stage 87 adds a structural support-routed copy expert inside the Stage 85 decoder path and records `IN_DECODER_SUPPORT_ROUTED_COPY_EXPERT_SOLVES_PHASE_CUED_NOT_PROMOTION`: phase-cued retrieval is repaired, but `no_position` also solves and exact-offset remains unrepaired.
+
+The next gate should redesign the stronger matched decoder-only transformer so it can learn support-to-token routing without a hand-specified farthest-congruent copy expert before testing positional-method promotion. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
 
 ## Researcher Use Context
 

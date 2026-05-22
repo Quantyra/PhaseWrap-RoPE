@@ -1,7 +1,7 @@
 section,item,value
 decision,decision,BOUND_STRONGEST_HONEST_CLAIM_WITH_RETRIEVAL_FAILURES
 decision,claim_boundary,"The strongest honest claim remains bounded: PhaseWrap-RoPE has compact/auditable evidence and mixed diagnostics, while fair matched original retrieval does not yet support RoPE replacement."
-claim,strongest_honest_claim,"PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, and practical budget-sensitivity routes still fail held-out support-to-token retrieval; fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
+claim,strongest_honest_claim,"PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, and practical budget-sensitivity routes still fail free held-out support-to-token retrieval. A structural in-decoder support-routed copy expert repairs phase-cued retrieval for no_position too, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
 next_gate,reviewer_next_gate,Run a stronger matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows before evaluating positional-method promotion.
 unsupported_claim,1,PhaseWrap-RoPE replaces RoPE.
 unsupported_claim,2,PhaseWrap-RoPE is better than RoPE under current fair matched transformer comparisons.
@@ -11,7 +11,8 @@ unsupported_claim,5,Bounded hardware/readout witnesses establish production lang
 positive_evidence,1,Stage 4 hardware/readout witnesses remain bounded positive evidence for committed packet/backend/date/calibration contexts.
 positive_evidence,2,Stage 44 records selected compact diagnostic recovery as a plateau rather than a promotion claim.
 positive_evidence,3,"Stage 67 solves visible content-key retrieval at held-out lengths for every tested method, including no_position."
-positive_evidence,4,Recent pointer-generator variants preserve capacity and reach tiny-text held-out top-1 0.933334.
+positive_evidence,4,"Stage 87 repairs phase-cued retrieval with a structural support-routed copy expert, and no_position solves too."
+positive_evidence,5,Recent pointer-generator variants preserve capacity and reach tiny-text held-out top-1 0.933334.
 failure_mode,1,No fair matched decoder/pointer-generator artifact currently supports RoPE replacement or positional-method promotion.
 failure_mode,2,Content-key retrieval success does not transfer back to original phase-cued or exact-offset retrieval.
 failure_mode,3,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
@@ -37,3 +38,4 @@ failure_mode,22,Original held-out retrieval remains unrepaired in a recent fair-
 failure_mode,23,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,24,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,25,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,26,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
