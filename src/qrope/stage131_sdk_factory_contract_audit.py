@@ -118,8 +118,8 @@ def run_stage131_audit(*, stage130_results_path: Path = DEFAULT_STAGE130_RESULTS
             ],
         },
         "next_gate": (
-            "Implement SDK client wrappers against these contracts only after Stage 106/111 readiness and "
-            "Stage 129 cutover authorization clear for the target provider."
+            "Activate the guarded SDK client wrappers against these contracts only after Stage 106/111 readiness "
+            "and Stage 129 cutover authorization clear for the target provider."
         ),
     }
 

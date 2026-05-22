@@ -15,7 +15,7 @@
   },
   "decision": "SDK_FACTORY_CONTRACTS_READY_EXECUTION_BLOCKED",
   "missing_source_artifacts": [],
-  "next_gate": "Implement SDK client wrappers against these contracts only after Stage 106/111 readiness and Stage 129 cutover authorization clear for the target provider.",
+  "next_gate": "Activate the guarded SDK client wrappers against these contracts only after Stage 106/111 readiness and Stage 129 cutover authorization clear for the target provider.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_count": 2,

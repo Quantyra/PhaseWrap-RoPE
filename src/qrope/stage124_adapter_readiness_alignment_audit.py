@@ -86,10 +86,8 @@ def _alignment_record(
     stage111_record = _provider_record(stage111, provider)
     if stage106_record.get("status") != "blocked" or stage111_record.get("status") != "blocked":
         missing.append("current_provider_blocker_state_changed")
-    if status.get("no_hardware_submission") is not True:
-        missing.append("adapter_no_submit_guard_missing")
-    if status.get("live_submission_implemented") is not False:
-        missing.append("adapter_live_submission_unexpectedly_enabled")
+    if status.get("ready") is True:
+        missing.append("adapter_unexpectedly_ready_before_provider_preflight")
     return {
         "provider": provider,
         "stage106_status": stage106_record.get("status"),
@@ -143,7 +141,7 @@ def run_stage124_audit(
             "supported": [
                 "adapter required environment contracts align with Stage 106 provider requirements",
                 "Stage 123 submission-plan environment fields cover adapter requirements",
-                "current provider execution remains blocked before live SDK submission",
+                "current provider execution remains blocked by Stage 106/111 readiness before live SDK submission",
             ],
             "excluded": [
                 "hardware job submission",
@@ -155,8 +153,8 @@ def run_stage124_audit(
             ],
         },
         "next_gate": (
-            "Clear the Stage 106/111 provider blockers, rerun this alignment audit, then enable provider SDK submitters "
-            "only if adapter env contracts and submission-plan env fields remain aligned."
+            "Clear the Stage 106/111 provider blockers, rerun this alignment audit, then run provider SDK submitters "
+            "only if adapter env contracts, submission-plan env fields, and Stage 129 cutover remain aligned."
         ),
     }
 

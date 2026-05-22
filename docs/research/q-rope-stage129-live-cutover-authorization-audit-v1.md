@@ -12,7 +12,7 @@ Current decision:
 
 ## What this supports
 - Current provider live cutover is not authorized.
-- Provider-level blockers are enumerated before any SDK client factory can be enabled.
+- Provider-level blockers are enumerated before guarded live provider execution can run.
 - Future credential/configuration changes have a single cutover gate to rerun before live execution.
 
 ## What this does not support
@@ -29,4 +29,4 @@ Current decision:
 - `logs/automated_stage_gates/stage129_live_cutover_authorization_audit/summary.csv`
 
 ## Next gate
-Clear the listed provider blockers, rerun Stage 106, Stage 111, Stage 128, and this cutover audit, then enable live SDK client factories only for providers with `cutover_authorized=true`.
+Clear the listed provider blockers, rerun Stage 106, Stage 111, Stage 128, and this cutover audit, then run guarded live provider execution only for providers with `cutover_authorized=true`.

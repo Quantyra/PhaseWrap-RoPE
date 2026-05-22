@@ -12,12 +12,12 @@
     "supported": [
       "adapter required environment contracts align with Stage 106 provider requirements",
       "Stage 123 submission-plan environment fields cover adapter requirements",
-      "current provider execution remains blocked before live SDK submission"
+      "current provider execution remains blocked by Stage 106/111 readiness before live SDK submission"
     ]
   },
   "decision": "ADAPTER_READINESS_ALIGNED_EXECUTION_BLOCKED",
   "missing_source_artifacts": [],
-  "next_gate": "Clear the Stage 106/111 provider blockers, rerun this alignment audit, then enable provider SDK submitters only if adapter env contracts and submission-plan env fields remain aligned.",
+  "next_gate": "Clear the Stage 106/111 provider blockers, rerun this alignment audit, then run provider SDK submitters only if adapter env contracts, submission-plan env fields, and Stage 129 cutover remain aligned.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_count": 2,

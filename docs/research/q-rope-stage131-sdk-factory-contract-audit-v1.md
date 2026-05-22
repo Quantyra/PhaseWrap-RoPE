@@ -13,7 +13,7 @@ Current decision:
 ## What this supports
 - IBM Runtime and Amazon Braket adapters expose testable live-client factory contracts.
 - Contracts include official documentation URLs, required imports, required environment references, activation gates, factory steps, and result-shape obligations.
-- Future SDK wrapper work now has a concrete contract to implement after Stage 106, Stage 111, and Stage 129 readiness clear.
+- SDK wrapper activation now has a concrete contract to preserve after Stage 106, Stage 111, and Stage 129 readiness clear.
 
 ## What this does not support
 - No hardware job submission occurred.
@@ -28,4 +28,4 @@ Current decision:
 - `logs/automated_stage_gates/stage131_sdk_factory_contract_audit/summary.csv`
 
 ## Next gate
-Implement SDK client wrappers against these contracts only after Stage 106/111 readiness and Stage 129 cutover authorization clear for the target provider.
+Activate the guarded SDK client wrappers against these contracts only after Stage 106/111 readiness and Stage 129 cutover authorization clear for the target provider.

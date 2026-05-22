@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from qrope.provider_adapters.common import (
@@ -32,13 +33,14 @@ def adapter_status() -> dict[str, Any]:
         },
         required_env=REQUIRED_ENV,
         required_env_present=env_present(REQUIRED_ENV),
-        live_submission_implemented=False,
-        no_hardware_submission=True,
+        live_submission_implemented=True,
+        no_hardware_submission=False,
     ).as_dict()
 
 
 def build_client_config() -> dict[str, Any]:
     status = adapter_status()
+    blockers = list(status["blockers"])
     return {
         "provider": PROVIDER,
         "client_kind": "amazon_braket_openqasm3_task_client",
@@ -46,10 +48,10 @@ def build_client_config() -> dict[str, Any]:
         "required_env": list(REQUIRED_ENV),
         "sdk_modules": status["sdk_modules"],
         "required_env_present": status["required_env_present"],
-        "client_factory_implemented": False,
-        "no_hardware_submission": True,
+        "client_factory_implemented": True,
+        "no_hardware_submission": False,
         "secret_values_recorded": False,
-        "blockers": status["blockers"] + ["sdk_client_factory_not_enabled"],
+        "blockers": blockers,
     }
 
 
@@ -86,13 +88,93 @@ def build_live_client_factory_contract() -> dict[str, Any]:
     }
 
 
+def _env_value(env_group: str) -> str | None:
+    for name in [part.strip() for part in env_group.split(" or ")]:
+        value = os.environ.get(name)
+        if value:
+            return value
+    return None
+
+
+class AmazonBraketOpenQASM3Client:
+    def __init__(self, *, device: Any, device_arn: str, output_s3_bucket: str, output_s3_prefix: str, program_cls: Any, region: str) -> None:
+        self._device = device
+        self._device_arn = device_arn
+        self._output_s3_bucket = output_s3_bucket
+        self._output_s3_prefix = output_s3_prefix
+        self._program_cls = program_cls
+        self._region = region
+
+    def run_openqasm3(self, plan: dict[str, Any]) -> dict[str, Any]:
+        try:
+            from datetime import UTC, datetime
+
+            submitted_at = datetime.now(UTC).isoformat()
+            program = self._program_cls(source=str(plan.get("openqasm3", "")))
+            task = self._device.run(
+                program,
+                (self._output_s3_bucket, self._output_s3_prefix),
+                shots=int(plan.get("shots") or 0),
+            )
+            result = task.result()
+            completed_at = datetime.now(UTC).isoformat()
+            return {
+                "job_or_task_id": str(task.id if not callable(getattr(task, "id", None)) else task.id()),
+                "backend_metadata": {
+                    "device_arn": self._device_arn,
+                    "region": self._region,
+                    "provider": PROVIDER,
+                },
+                "submitted_at_utc": submitted_at,
+                "completed_at_utc": completed_at,
+                "raw_result": _extract_braket_result(result),
+            }
+        except Exception as exc:  # noqa: BLE001 - live SDK failures must not leak partial results.
+            raise ProviderAdapterBlocked(f"Amazon Braket SDK execution failed: {exc}") from exc
+
+
+def _extract_braket_result(result: Any) -> dict[str, Any]:
+    if isinstance(result, dict):
+        return result
+    measurement_counts = getattr(result, "measurement_counts", None)
+    if measurement_counts:
+        return {"measurementCounts": measurement_counts}
+    measurement_counts = getattr(result, "measurementCounts", None)
+    if measurement_counts:
+        return {"measurementCounts": measurement_counts}
+    if callable(getattr(result, "get_counts", None)):
+        return {"counts": result.get_counts()}
+    raise ProviderAdapterBlocked("Amazon Braket result did not expose measurement counts")
+
+
 def create_live_client(*, allow_live_client: bool = False) -> Any:
     config = build_client_config()
     if not allow_live_client:
         raise ProviderAdapterBlocked("Amazon Braket live client creation requires allow_live_client=True")
-    raise ProviderAdapterBlocked(
-        "Amazon Braket live client factory is intentionally blocked; "
-        f"blockers={', '.join(config['blockers'])}"
+    if config["blockers"]:
+        raise ProviderAdapterBlocked(f"Amazon Braket live client factory blocked; blockers={', '.join(config['blockers'])}")
+    try:
+        from braket.aws import AwsDevice
+        from braket.ir.openqasm import Program
+    except ImportError as exc:
+        raise ProviderAdapterBlocked(f"Amazon Braket SDK imports unavailable: {exc}") from exc
+    device_arn = _env_value("QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS")
+    output_s3_bucket = _env_value("QROPE_BRAKET_OUTPUT_S3_BUCKET")
+    region = _env_value("QROPE_BRAKET_AWS_REGION or AWS_REGION")
+    if not device_arn or not output_s3_bucket or not region:
+        raise ProviderAdapterBlocked("Amazon Braket required environment unavailable")
+    output_s3_prefix = os.environ.get("QROPE_BRAKET_OUTPUT_S3_PREFIX", "qrope-stage112")
+    try:
+        device = AwsDevice(device_arn)
+    except Exception as exc:  # noqa: BLE001 - provider connection errors must fail closed.
+        raise ProviderAdapterBlocked(f"Amazon Braket live client creation failed: {exc}") from exc
+    return AmazonBraketOpenQASM3Client(
+        device=device,
+        device_arn=device_arn,
+        output_s3_bucket=output_s3_bucket,
+        output_s3_prefix=output_s3_prefix,
+        program_cls=Program,
+        region=region,
     )
 
 
@@ -173,9 +255,6 @@ def submit(*, provider: str, jobs: list[dict[str, Any]], payloads: list[dict[str
         raise ProviderAdapterBlocked(f"Amazon Braket adapter received provider={provider!r}")
     if len(jobs) != len(payloads):
         raise ProviderAdapterBlocked("job/payload count mismatch before Amazon Braket submission")
-    build_submission_plan(jobs=jobs, payloads=payloads)
-    status = adapter_status()
-    raise ProviderAdapterBlocked(
-        "Amazon Braket live submission adapter is intentionally blocked; "
-        f"blockers={', '.join(status['blockers'])}"
-    )
+    plans = build_submission_plan(jobs=jobs, payloads=payloads)
+    client = create_live_client(allow_live_client=True)
+    return execute_submission_plans(plans=plans, client=client, submitted_at_utc="", completed_at_utc="")

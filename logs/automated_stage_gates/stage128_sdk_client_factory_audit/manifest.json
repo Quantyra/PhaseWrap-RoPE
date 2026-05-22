@@ -9,14 +9,14 @@
       "a noisy-hardware robustness result"
     ],
     "supported": [
-      "provider adapters expose guarded SDK client factory boundaries",
+      "provider adapters expose implemented guarded SDK client factory boundaries",
       "client configs report non-secret readiness metadata and SDK/env blockers",
-      "live client creation fails closed while Stage 106/111 provider readiness is blocked"
+      "live client creation still fails closed while Stage 106/111 provider readiness is blocked"
     ]
   },
-  "decision": "SDK_CLIENT_FACTORIES_GUARDED_EXECUTION_BLOCKED",
+  "decision": "SDK_CLIENT_FACTORIES_IMPLEMENTED_EXECUTION_BLOCKED",
   "missing_source_artifacts": [],
-  "next_gate": "After Stage 106/111 readiness clears, replace the blocked client factories with real SDK client creation while preserving the Stage 127 injected-client execution contract.",
+  "next_gate": "After Stage 106/111 readiness clears and Stage 129 authorizes cutover, run the guarded SDK factories through the Stage 127 injected-client execution contract.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_count": 2,

@@ -25,10 +25,10 @@ def test_client_configs_are_non_secret_and_blocked() -> None:
     assert braket["provider"] == "amazon_braket"
     assert ibm["secret_values_recorded"] is False
     assert braket["secret_values_recorded"] is False
-    assert ibm["no_hardware_submission"] is True
-    assert braket["no_hardware_submission"] is True
-    assert "sdk_client_factory_not_enabled" in ibm["blockers"]
-    assert "sdk_client_factory_not_enabled" in braket["blockers"]
+    assert ibm["client_factory_implemented"] is True
+    assert braket["client_factory_implemented"] is True
+    assert ibm["no_hardware_submission"] is False
+    assert braket["no_hardware_submission"] is False
 
 
 def test_live_client_factories_fail_closed() -> None:
@@ -72,7 +72,7 @@ def test_stage128_reports_client_factories_guarded(tmp_path) -> None:
 
     result = run_stage128_audit(stage106_results_path=stage106, stage111_results_path=stage111, stage127_results_path=stage127)
 
-    assert result["decision"] == "SDK_CLIENT_FACTORIES_GUARDED_EXECUTION_BLOCKED"
+    assert result["decision"] == "SDK_CLIENT_FACTORIES_IMPLEMENTED_EXECUTION_BLOCKED"
     assert result["ready_provider_count"] == 2
     assert all(record["blocked_without_allow"] for record in result["provider_records"])
     assert all(record["blocked_with_allow"] for record in result["provider_records"])

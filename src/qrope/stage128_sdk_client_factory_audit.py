@@ -66,8 +66,10 @@ def _factory_record(stage106: dict[str, Any] | None, stage111: dict[str, Any] | 
         missing.append("client_config_provider_mismatch")
     if config.get("secret_values_recorded") is not False:
         missing.append("client_config_secret_boundary_missing")
-    if config.get("no_hardware_submission") is not True:
-        missing.append("client_config_no_submit_marker_missing")
+    if config.get("client_factory_implemented") is not True:
+        missing.append("client_factory_not_implemented")
+    if config.get("no_hardware_submission") is not False:
+        missing.append("client_config_live_submit_boundary_missing")
     if not blocked_without_allow:
         missing.append("client_factory_not_blocked_without_allow")
     if not blocked_with_allow:
@@ -107,7 +109,7 @@ def run_stage128_audit(
         "status": "completed" if not missing_sources else "incomplete",
         "objective": OBJECTIVE,
         "decision": (
-            "SDK_CLIENT_FACTORIES_GUARDED_EXECUTION_BLOCKED"
+            "SDK_CLIENT_FACTORIES_IMPLEMENTED_EXECUTION_BLOCKED"
             if ready
             else "SDK_CLIENT_FACTORIES_INCOMPLETE"
         ),
@@ -124,9 +126,9 @@ def run_stage128_audit(
         "secret_values_recorded": False,
         "claim_boundary": {
             "supported": [
-                "provider adapters expose guarded SDK client factory boundaries",
+                "provider adapters expose implemented guarded SDK client factory boundaries",
                 "client configs report non-secret readiness metadata and SDK/env blockers",
-                "live client creation fails closed while Stage 106/111 provider readiness is blocked",
+                "live client creation still fails closed while Stage 106/111 provider readiness is blocked",
             ],
             "excluded": [
                 "hardware job submission",
@@ -138,8 +140,8 @@ def run_stage128_audit(
             ],
         },
         "next_gate": (
-            "After Stage 106/111 readiness clears, replace the blocked client factories with real SDK client creation "
-            "while preserving the Stage 127 injected-client execution contract."
+            "After Stage 106/111 readiness clears and Stage 129 authorizes cutover, run the guarded SDK factories "
+            "through the Stage 127 injected-client execution contract."
         ),
     }
 

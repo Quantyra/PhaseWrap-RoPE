@@ -4,7 +4,7 @@
     "excluded": [
       "hardware job submission",
       "provider credentials or secret values",
-      "live provider SDK submission implementation",
+      "authorized live provider SDK submission",
       "real provider result records",
       "Stage 113 evidence assembly",
       "a noisy-hardware robustness result"
@@ -12,12 +12,12 @@
     "supported": [
       "canonical IBM Runtime and Amazon Braket adapter import paths exist",
       "adapter modules expose callable submitters and non-secret readiness metadata",
-      "adapter submitters fail closed before any provider SDK submission implementation"
+      "adapter submitters fail closed under current provider readiness blockers"
     ]
   },
   "decision": "PROVIDER_ADAPTER_SKELETONS_READY_EXECUTION_BLOCKED",
   "missing_source_artifacts": [],
-  "next_gate": "Replace blocked adapter skeletons with provider SDK implementations that submit Stage 118 payloads and return Stage 114 records only after Stage 106/111 readiness clears.",
+  "next_gate": "Run provider SDK implementations only after Stage 106/111 readiness clears and Stage 129 authorizes cutover.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": true,

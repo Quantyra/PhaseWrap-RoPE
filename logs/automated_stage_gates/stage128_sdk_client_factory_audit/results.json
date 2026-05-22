@@ -9,14 +9,14 @@
       "a noisy-hardware robustness result"
     ],
     "supported": [
-      "provider adapters expose guarded SDK client factory boundaries",
+      "provider adapters expose implemented guarded SDK client factory boundaries",
       "client configs report non-secret readiness metadata and SDK/env blockers",
-      "live client creation fails closed while Stage 106/111 provider readiness is blocked"
+      "live client creation still fails closed while Stage 106/111 provider readiness is blocked"
     ]
   },
-  "decision": "SDK_CLIENT_FACTORIES_GUARDED_EXECUTION_BLOCKED",
+  "decision": "SDK_CLIENT_FACTORIES_IMPLEMENTED_EXECUTION_BLOCKED",
   "missing_source_artifacts": [],
-  "next_gate": "After Stage 106/111 readiness clears, replace the blocked client factories with real SDK client creation while preserving the Stage 127 injected-client execution contract.",
+  "next_gate": "After Stage 106/111 readiness clears and Stage 129 authorizes cutover, run the guarded SDK factories through the Stage 127 injected-client execution contract.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_count": 2,
@@ -31,14 +31,11 @@
           "env_missing:AWS_ACCESS_KEY_ID or AWS_PROFILE",
           "env_missing:QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
           "env_missing:QROPE_BRAKET_OUTPUT_S3_BUCKET",
-          "env_missing:QROPE_BRAKET_AWS_REGION or AWS_REGION",
-          "live_submission_not_implemented",
-          "adapter_no_submit_guard_active",
-          "sdk_client_factory_not_enabled"
+          "env_missing:QROPE_BRAKET_AWS_REGION or AWS_REGION"
         ],
-        "client_factory_implemented": false,
+        "client_factory_implemented": true,
         "client_kind": "amazon_braket_openqasm3_task_client",
-        "no_hardware_submission": true,
+        "no_hardware_submission": false,
         "provider": "amazon_braket",
         "required_env": [
           "AWS_ACCESS_KEY_ID or AWS_PROFILE",
@@ -72,14 +69,11 @@
         "blockers": [
           "env_missing:IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
           "env_missing:IBM_QUANTUM_INSTANCE_CRN",
-          "env_missing:QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
-          "live_submission_not_implemented",
-          "adapter_no_submit_guard_active",
-          "sdk_client_factory_not_enabled"
+          "env_missing:QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND"
         ],
-        "client_factory_implemented": false,
+        "client_factory_implemented": true,
         "client_kind": "ibm_runtime_sampler_client",
-        "no_hardware_submission": true,
+        "no_hardware_submission": false,
         "provider": "ibm_runtime",
         "required_env": [
           "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",

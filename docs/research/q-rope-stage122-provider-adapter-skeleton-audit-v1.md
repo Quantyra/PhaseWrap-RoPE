@@ -14,12 +14,12 @@ Current decision:
 - `qrope.provider_adapters.ibm_runtime:submit` exists and is callable.
 - `qrope.provider_adapters.amazon_braket:submit` exists and is callable.
 - Both adapters expose non-secret readiness metadata through `adapter_status()`.
-- Both adapter submitters fail closed before live provider SDK submission implementation.
+- Both adapter submitters fail closed under current provider readiness blockers.
 
 ## What this does not support
 - No hardware job submission occurred.
 - No provider credentials or secret values were read or recorded.
-- Live provider SDK submission is not implemented.
+- Authorized live provider SDK submission is not supported by the current blocked state.
 - No real provider result records were produced.
 - Stage 113 evidence assembly remains blocked.
 - No noisy-hardware robustness or PhaseWrap advantage claim is supported.
@@ -30,4 +30,4 @@ Current decision:
 - `logs/automated_stage_gates/stage122_provider_adapter_skeleton_audit/summary.csv`
 
 ## Next gate
-Replace blocked adapter skeletons with provider SDK implementations that submit Stage 118 payloads and return Stage 114 records only after Stage 106/111 readiness clears.
+Run provider SDK implementations only after Stage 106/111 readiness clears and Stage 129 authorizes cutover.

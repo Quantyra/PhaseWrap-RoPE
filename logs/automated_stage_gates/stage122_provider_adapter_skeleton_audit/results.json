@@ -6,24 +6,25 @@
       "adapter_status": {
         "blockers": [
           "provider_sdk_missing",
-          "env_missing:QROPE_BRAKET_DEVICE_ARN",
+          "env_missing:AWS_ACCESS_KEY_ID or AWS_PROFILE",
+          "env_missing:QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
           "env_missing:QROPE_BRAKET_OUTPUT_S3_BUCKET",
-          "env_missing:QROPE_BRAKET_AWS_REGION",
-          "live_submission_not_implemented",
-          "adapter_no_submit_guard_active"
+          "env_missing:QROPE_BRAKET_AWS_REGION or AWS_REGION"
         ],
-        "live_submission_implemented": false,
-        "no_hardware_submission": true,
+        "live_submission_implemented": true,
+        "no_hardware_submission": false,
         "provider": "amazon_braket",
         "ready": false,
         "required_env": [
-          "QROPE_BRAKET_DEVICE_ARN",
+          "AWS_ACCESS_KEY_ID or AWS_PROFILE",
+          "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
           "QROPE_BRAKET_OUTPUT_S3_BUCKET",
-          "QROPE_BRAKET_AWS_REGION"
+          "QROPE_BRAKET_AWS_REGION or AWS_REGION"
         ],
         "required_env_present": {
-          "QROPE_BRAKET_AWS_REGION": false,
-          "QROPE_BRAKET_DEVICE_ARN": false,
+          "AWS_ACCESS_KEY_ID or AWS_PROFILE": false,
+          "QROPE_BRAKET_AWS_REGION or AWS_REGION": false,
+          "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS": false,
           "QROPE_BRAKET_OUTPUT_S3_BUCKET": false
         },
         "sdk_modules": {
@@ -43,25 +44,23 @@
       "adapter_module_imported": true,
       "adapter_status": {
         "blockers": [
-          "env_missing:IBM_QUANTUM_TOKEN",
+          "env_missing:IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
           "env_missing:IBM_QUANTUM_INSTANCE_CRN",
-          "env_missing:QROPE_IBM_BACKEND",
-          "live_submission_not_implemented",
-          "adapter_no_submit_guard_active"
+          "env_missing:QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND"
         ],
-        "live_submission_implemented": false,
-        "no_hardware_submission": true,
+        "live_submission_implemented": true,
+        "no_hardware_submission": false,
         "provider": "ibm_runtime",
         "ready": false,
         "required_env": [
-          "IBM_QUANTUM_TOKEN",
+          "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
           "IBM_QUANTUM_INSTANCE_CRN",
-          "QROPE_IBM_BACKEND"
+          "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND"
         ],
         "required_env_present": {
           "IBM_QUANTUM_INSTANCE_CRN": false,
-          "IBM_QUANTUM_TOKEN": false,
-          "QROPE_IBM_BACKEND": false
+          "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN": false,
+          "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND": false
         },
         "sdk_modules": {
           "qiskit": true,
@@ -81,7 +80,7 @@
     "excluded": [
       "hardware job submission",
       "provider credentials or secret values",
-      "live provider SDK submission implementation",
+      "authorized live provider SDK submission",
       "real provider result records",
       "Stage 113 evidence assembly",
       "a noisy-hardware robustness result"
@@ -89,12 +88,12 @@
     "supported": [
       "canonical IBM Runtime and Amazon Braket adapter import paths exist",
       "adapter modules expose callable submitters and non-secret readiness metadata",
-      "adapter submitters fail closed before any provider SDK submission implementation"
+      "adapter submitters fail closed under current provider readiness blockers"
     ]
   },
   "decision": "PROVIDER_ADAPTER_SKELETONS_READY_EXECUTION_BLOCKED",
   "missing_source_artifacts": [],
-  "next_gate": "Replace blocked adapter skeletons with provider SDK implementations that submit Stage 118 payloads and return Stage 114 records only after Stage 106/111 readiness clears.",
+  "next_gate": "Run provider SDK implementations only after Stage 106/111 readiness clears and Stage 129 authorizes cutover.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": true,

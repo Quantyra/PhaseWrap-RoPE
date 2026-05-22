@@ -1,0 +1,74 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "live provider SDK client creation under the current blocked state",
+      "real provider result records",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "guarded SDK factory implementation blockers are removed for IBM Runtime and Amazon Braket",
+      "live client creation still fails closed under current provider readiness and cutover blockers",
+      "Stage 129 cutover blockers now point to readiness rather than missing factory code"
+    ]
+  },
+  "decision": "GUARDED_SDK_FACTORIES_IMPLEMENTED_CUTOVER_BLOCKED",
+  "missing_source_artifacts": [],
+  "next_gate": "Clear Stage 106/111 provider readiness, rerun Stage 128/129/130/131/132, and execute Stage 116/117/120 runner commands only for providers with Stage 129 cutover_authorized=true.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": true,
+  "provider_records": [
+    {
+      "blocked_with_allow": true,
+      "blocked_without_allow": true,
+      "client_factory_implemented": true,
+      "client_factory_live_capable": true,
+      "contract_version": "amazon_braket_openqasm3_factory_contract_v1",
+      "cutover_authorized": false,
+      "missing_evidence": [],
+      "provider": "amazon_braket",
+      "ready": true,
+      "stage129_blockers": [
+        "stage106:backend_selection_missing",
+        "stage106:braket_output_s3_bucket_missing",
+        "stage106:braket_region_missing",
+        "stage106:provider_credentials_missing",
+        "stage111:provider_sdk_missing",
+        "stage111:stage106_provider_preflight_not_ready",
+        "stage128:client_factory_still_blocked_with_allow"
+      ]
+    },
+    {
+      "blocked_with_allow": true,
+      "blocked_without_allow": true,
+      "client_factory_implemented": true,
+      "client_factory_live_capable": true,
+      "contract_version": "ibm_runtime_sampler_v2_factory_contract_v1",
+      "cutover_authorized": false,
+      "missing_evidence": [],
+      "provider": "ibm_runtime",
+      "ready": true,
+      "stage129_blockers": [
+        "stage106:ibm_instance_crn_missing",
+        "stage111:stage106_provider_preflight_not_ready",
+        "stage128:client_factory_still_blocked_with_allow"
+      ]
+    }
+  ],
+  "ready_provider_count": 2,
+  "schema_version": "qrope_stage132_guarded_sdk_factory_implementation_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage128_sdk_client_factory_audit/results.json",
+    "logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
+    "logs/automated_stage_gates/stage131_sdk_factory_contract_audit/results.json"
+  ],
+  "stage": "stage132_guarded_sdk_factory_implementation_audit",
+  "stage128_decision": "SDK_CLIENT_FACTORIES_IMPLEMENTED_EXECUTION_BLOCKED",
+  "stage129_decision": "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED",
+  "stage131_decision": "SDK_FACTORY_CONTRACTS_READY_EXECUTION_BLOCKED",
+  "status": "completed"
+}

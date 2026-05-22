@@ -110,7 +110,7 @@ def run_stage129_audit(
         "claim_boundary": {
             "supported": [
                 "explicit live-client cutover authorization decision from Stage 106, Stage 111, and Stage 128 evidence",
-                "provider-level blockers that must clear before SDK client factories can be enabled",
+                "provider-level blockers that must clear before guarded live provider execution",
                 "confirmation that current live cutover remains blocked before hardware submission",
             ],
             "excluded": [
@@ -124,7 +124,7 @@ def run_stage129_audit(
         },
         "next_gate": (
             "Clear the listed provider blockers, rerun Stage 106, Stage 111, Stage 128, and this cutover audit, "
-            "then enable live SDK client factories only for providers with cutover_authorized=true."
+            "then run guarded live provider execution only for providers with cutover_authorized=true."
         ),
     }
 

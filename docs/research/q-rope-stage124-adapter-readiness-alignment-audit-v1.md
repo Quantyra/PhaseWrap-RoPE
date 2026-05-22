@@ -13,12 +13,12 @@ Current decision:
 ## What this supports
 - Adapter required environment contracts match Stage 106 provider requirements, including accepted alias variables.
 - Stage 123 submission plans expose environment fields covering the adapter requirements.
-- Provider execution remains blocked before live SDK submission.
+- Provider execution remains blocked by Stage 106/111 readiness before live SDK submission.
 
 ## What this does not support
 - No hardware job submission occurred.
 - No provider credentials or secret values were read or recorded.
-- Live provider SDK submission is not implemented.
+- Authorized live provider SDK submission is not supported by the current blocked state.
 - No real provider result records were produced.
 - Stage 113 evidence assembly remains blocked.
 - No noisy-hardware robustness or PhaseWrap advantage claim is supported.
@@ -29,4 +29,4 @@ Current decision:
 - `logs/automated_stage_gates/stage124_adapter_readiness_alignment_audit/summary.csv`
 
 ## Next gate
-Clear the Stage 106/111 provider blockers, rerun this alignment audit, then enable provider SDK submitters only if adapter env contracts and submission-plan env fields remain aligned.
+Clear the Stage 106/111 provider blockers, rerun this alignment audit, then run provider SDK submitters only if adapter env contracts, submission-plan env fields, and Stage 129 cutover remain aligned.

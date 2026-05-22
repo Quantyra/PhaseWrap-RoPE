@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from qrope.provider_adapters.common import (
@@ -27,13 +28,14 @@ def adapter_status() -> dict[str, Any]:
         },
         required_env=REQUIRED_ENV,
         required_env_present=env_present(REQUIRED_ENV),
-        live_submission_implemented=False,
-        no_hardware_submission=True,
+        live_submission_implemented=True,
+        no_hardware_submission=False,
     ).as_dict()
 
 
 def build_client_config() -> dict[str, Any]:
     status = adapter_status()
+    blockers = list(status["blockers"])
     return {
         "provider": PROVIDER,
         "client_kind": "ibm_runtime_sampler_client",
@@ -41,10 +43,10 @@ def build_client_config() -> dict[str, Any]:
         "required_env": list(REQUIRED_ENV),
         "sdk_modules": status["sdk_modules"],
         "required_env_present": status["required_env_present"],
-        "client_factory_implemented": False,
-        "no_hardware_submission": True,
+        "client_factory_implemented": True,
+        "no_hardware_submission": False,
         "secret_values_recorded": False,
-        "blockers": status["blockers"] + ["sdk_client_factory_not_enabled"],
+        "blockers": blockers,
     }
 
 
@@ -82,13 +84,96 @@ def build_live_client_factory_contract() -> dict[str, Any]:
     }
 
 
+def _env_value(env_group: str) -> str | None:
+    for name in [part.strip() for part in env_group.split(" or ")]:
+        value = os.environ.get(name)
+        if value:
+            return value
+    return None
+
+
+class IBMRuntimeOpenQASM3Client:
+    def __init__(self, *, service: Any, backend: Any, backend_name: str, sampler_cls: Any, pass_manager_factory: Any) -> None:
+        self._service = service
+        self._backend = backend
+        self._backend_name = backend_name
+        self._sampler_cls = sampler_cls
+        self._pass_manager_factory = pass_manager_factory
+
+    def run_openqasm3(self, plan: dict[str, Any]) -> dict[str, Any]:
+        submitted_at = plan.get("submitted_at_utc") or ""
+        try:
+            from datetime import UTC, datetime
+
+            submitted_at = datetime.now(UTC).isoformat()
+            from qiskit import qasm3
+
+            circuit = qasm3.loads(str(plan.get("openqasm3", "")))
+            pass_manager = self._pass_manager_factory(target=self._backend.target, optimization_level=1)
+            isa_circuit = pass_manager.run(circuit)
+            sampler = self._sampler_cls(mode=self._backend)
+            job = sampler.run([isa_circuit], shots=int(plan.get("shots") or 0))
+            result = job.result()
+            counts = _extract_ibm_counts(result)
+            completed_at = datetime.now(UTC).isoformat()
+            return {
+                "job_or_task_id": str(job.job_id() if callable(getattr(job, "job_id", None)) else getattr(job, "job_id", "")),
+                "backend_metadata": {
+                    "backend_name": self._backend_name,
+                    "provider": PROVIDER,
+                },
+                "submitted_at_utc": submitted_at,
+                "completed_at_utc": completed_at,
+                "raw_result": {"counts": counts},
+            }
+        except Exception as exc:  # noqa: BLE001 - live SDK failures must not leak partial results.
+            raise ProviderAdapterBlocked(f"IBM Runtime SDK execution failed: {exc}") from exc
+
+
+def _extract_ibm_counts(result: Any) -> dict[str, int]:
+    if isinstance(result, dict):
+        return normalize_result_counts(result)
+    first = result[0] if hasattr(result, "__getitem__") else result
+    data = getattr(first, "data", None)
+    if data is not None:
+        for register_name in ("cr", "c"):
+            register = getattr(data, register_name, None)
+            if register is not None and callable(getattr(register, "get_counts", None)):
+                return canonicalize_counts(register.get_counts())
+        if callable(getattr(data, "get_counts", None)):
+            return canonicalize_counts(data.get_counts())
+    if callable(getattr(first, "get_counts", None)):
+        return canonicalize_counts(first.get_counts())
+    raise ProviderAdapterBlocked("IBM Runtime result did not expose counts")
+
+
 def create_live_client(*, allow_live_client: bool = False) -> Any:
     config = build_client_config()
     if not allow_live_client:
         raise ProviderAdapterBlocked("IBM Runtime live client creation requires allow_live_client=True")
-    raise ProviderAdapterBlocked(
-        "IBM Runtime live client factory is intentionally blocked; "
-        f"blockers={', '.join(config['blockers'])}"
+    if config["blockers"]:
+        raise ProviderAdapterBlocked(f"IBM Runtime live client factory blocked; blockers={', '.join(config['blockers'])}")
+    try:
+        from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+        from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2
+    except ImportError as exc:
+        raise ProviderAdapterBlocked(f"IBM Runtime SDK imports unavailable: {exc}") from exc
+    token = _env_value("IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN")
+    instance = _env_value("IBM_QUANTUM_INSTANCE_CRN")
+    backend_name = _env_value("QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND")
+    if not token or not instance or not backend_name:
+        raise ProviderAdapterBlocked("IBM Runtime required environment unavailable")
+    try:
+        service = QiskitRuntimeService(channel="ibm_quantum_platform", token=token, instance=instance)
+        backend = service.backend(backend_name)
+    except Exception as exc:  # noqa: BLE001 - provider connection errors must fail closed.
+        raise ProviderAdapterBlocked(f"IBM Runtime live client creation failed: {exc}") from exc
+    return IBMRuntimeOpenQASM3Client(
+        service=service,
+        backend=backend,
+        backend_name=backend_name,
+        sampler_cls=SamplerV2,
+        pass_manager_factory=generate_preset_pass_manager,
     )
 
 
@@ -175,9 +260,6 @@ def submit(*, provider: str, jobs: list[dict[str, Any]], payloads: list[dict[str
         raise ProviderAdapterBlocked(f"IBM Runtime adapter received provider={provider!r}")
     if len(jobs) != len(payloads):
         raise ProviderAdapterBlocked("job/payload count mismatch before IBM Runtime submission")
-    build_submission_plan(jobs=jobs, payloads=payloads)
-    status = adapter_status()
-    raise ProviderAdapterBlocked(
-        "IBM Runtime live submission adapter is intentionally blocked; "
-        f"blockers={', '.join(status['blockers'])}"
-    )
+    plans = build_submission_plan(jobs=jobs, payloads=payloads)
+    client = create_live_client(allow_live_client=True)
+    return execute_submission_plans(plans=plans, client=client, submitted_at_utc="", completed_at_utc="")

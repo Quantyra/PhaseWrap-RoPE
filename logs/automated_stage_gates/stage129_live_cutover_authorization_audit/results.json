@@ -11,13 +11,13 @@
     ],
     "supported": [
       "explicit live-client cutover authorization decision from Stage 106, Stage 111, and Stage 128 evidence",
-      "provider-level blockers that must clear before SDK client factories can be enabled",
+      "provider-level blockers that must clear before guarded live provider execution",
       "confirmation that current live cutover remains blocked before hardware submission"
     ]
   },
   "decision": "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED",
   "missing_source_artifacts": [],
-  "next_gate": "Clear the listed provider blockers, rerun Stage 106, Stage 111, Stage 128, and this cutover audit, then enable live SDK client factories only for providers with cutover_authorized=true.",
+  "next_gate": "Clear the listed provider blockers, rerun Stage 106, Stage 111, Stage 128, and this cutover audit, then run guarded live provider execution only for providers with cutover_authorized=true.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_count": 2,
@@ -31,12 +31,10 @@
         "stage106:provider_credentials_missing",
         "stage111:provider_sdk_missing",
         "stage111:stage106_provider_preflight_not_ready",
-        "stage128:client_factory_not_implemented",
-        "stage128:client_factory_still_blocked_with_allow",
-        "stage128:no_hardware_submission_guard_active"
+        "stage128:client_factory_still_blocked_with_allow"
       ],
       "client_factory_blocked_with_allow": true,
-      "client_factory_implemented": false,
+      "client_factory_implemented": true,
       "cutover_authorized": false,
       "provider": "amazon_braket",
       "stage106_status": "blocked",
@@ -47,12 +45,10 @@
       "blockers": [
         "stage106:ibm_instance_crn_missing",
         "stage111:stage106_provider_preflight_not_ready",
-        "stage128:client_factory_not_implemented",
-        "stage128:client_factory_still_blocked_with_allow",
-        "stage128:no_hardware_submission_guard_active"
+        "stage128:client_factory_still_blocked_with_allow"
       ],
       "client_factory_blocked_with_allow": true,
-      "client_factory_implemented": false,
+      "client_factory_implemented": true,
       "cutover_authorized": false,
       "provider": "ibm_runtime",
       "stage106_status": "blocked",
@@ -70,6 +66,6 @@
   "stage": "stage129_live_cutover_authorization_audit",
   "stage106_decision": "HARDWARE_EXECUTION_PREFLIGHT_BLOCKED_CONFIGURATION_REQUIRED",
   "stage111_decision": "PROVIDER_SDK_BACKEND_DISCOVERY_BLOCKED",
-  "stage128_decision": "SDK_CLIENT_FACTORIES_GUARDED_EXECUTION_BLOCKED",
+  "stage128_decision": "SDK_CLIENT_FACTORIES_IMPLEMENTED_EXECUTION_BLOCKED",
   "status": "completed"
 }

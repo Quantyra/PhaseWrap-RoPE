@@ -52,8 +52,8 @@ def _adapter_record(provider: str, import_path: str) -> dict[str, Any]:
         missing.append("adapter_status_not_callable")
     if status and status.get("provider") != provider:
         missing.append("adapter_provider_mismatch")
-    if status and status.get("no_hardware_submission") is not True:
-        missing.append("adapter_no_submit_guard_missing")
+    if status and status.get("secret_values_recorded") is True:
+        missing.append("adapter_secret_boundary_missing")
     return {
         "provider": provider,
         "submitter_import_path": import_path,
@@ -94,20 +94,19 @@ def run_stage122_audit(*, stage121_results_path: Path = DEFAULT_STAGE121_RESULTS
             "supported": [
                 "canonical IBM Runtime and Amazon Braket adapter import paths exist",
                 "adapter modules expose callable submitters and non-secret readiness metadata",
-                "adapter submitters fail closed before any provider SDK submission implementation",
+                "adapter submitters fail closed under current provider readiness blockers",
             ],
             "excluded": [
                 "hardware job submission",
                 "provider credentials or secret values",
-                "live provider SDK submission implementation",
+                "authorized live provider SDK submission",
                 "real provider result records",
                 "Stage 113 evidence assembly",
                 "a noisy-hardware robustness result",
             ],
         },
         "next_gate": (
-            "Replace blocked adapter skeletons with provider SDK implementations that submit Stage 118 payloads "
-            "and return Stage 114 records only after Stage 106/111 readiness clears."
+            "Run provider SDK implementations only after Stage 106/111 readiness clears and Stage 129 authorizes cutover."
         ),
     }
 

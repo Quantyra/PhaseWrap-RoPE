@@ -38,10 +38,12 @@ def test_provider_adapter_statuses_are_non_secret_and_blocked() -> None:
     assert braket["provider"] == "amazon_braket"
     assert ibm["submitter_import_path"] == "qrope.provider_adapters.ibm_runtime:submit"
     assert braket["submitter_import_path"] == "qrope.provider_adapters.amazon_braket:submit"
-    assert ibm["no_hardware_submission"] is True
-    assert braket["no_hardware_submission"] is True
-    assert "live_submission_not_implemented" in ibm["blockers"]
-    assert "live_submission_not_implemented" in braket["blockers"]
+    assert ibm["live_submission_implemented"] is True
+    assert braket["live_submission_implemented"] is True
+    assert ibm["no_hardware_submission"] is False
+    assert braket["no_hardware_submission"] is False
+    assert ibm["ready"] is False
+    assert braket["ready"] is False
 
 
 def test_provider_adapter_submitters_fail_closed() -> None:
