@@ -1,0 +1,5 @@
+state,expected_dominant_key,shots_per_state,minimum_stage101_dominant_count,minimum_wilson95_dominant_count,minimum_wilson95_dominant_fraction,wilson95_lower_bound_at_required_count,ready
+00,00,1000,800,825,0.825,0.800217877011,True
+01,10,1000,800,825,0.825,0.800217877011,True
+10,01,1000,800,825,0.825,0.800217877011,True
+11,11,1000,800,825,0.825,0.800217877011,True

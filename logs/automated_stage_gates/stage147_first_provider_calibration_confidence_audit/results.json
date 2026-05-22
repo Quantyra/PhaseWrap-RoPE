@@ -1,0 +1,82 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "provider credential values",
+      "hardware job submission",
+      "real provider calibration counts",
+      "readout mitigation or correction",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "first-provider known-state calibration confidence thresholds before matched packet interpretation",
+      "state-level Wilson 95% dominant-count requirements for the Stage 101 bitstring-order check",
+      "a non-submitting calibration-confidence guardrail for later noisy-hardware evidence"
+    ]
+  },
+  "confidence_contract": {
+    "calibration_interpretation": "Stage 101 remains necessary. Stage 147 adds a confidence guard: each known-state dominant bitstring count should meet the Wilson 95% minimum before treating the bitstring-order calibration as confidence-supported.",
+    "confidence_interval": "Wilson score lower bound",
+    "confidence_level": "95%",
+    "stage101_min_dominant_fraction": 0.8
+  },
+  "decision": "FIRST_PROVIDER_CALIBRATION_CONFIDENCE_CONTRACT_READY_COUNTS_REQUIRED",
+  "expected_bitstring_order": "q1q0",
+  "missing_source_artifacts": [],
+  "next_gate": "After IBM Runtime known-state counts are collected, require Stage 101 to pass and compare each dominant known-state count against these Wilson 95% thresholds before interpreting matched packet counts.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "provider_scope": "ibm_runtime",
+  "ready_state_count": 4,
+  "schema_version": "qrope_stage147_first_provider_calibration_confidence_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage145_first_provider_evidence_path_audit/results.json",
+    "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/ibm_runtime_known_state_execution.json"
+  ],
+  "stage": "stage147_first_provider_calibration_confidence_audit",
+  "state_count": 4,
+  "state_records": [
+    {
+      "expected_dominant_key": "00",
+      "minimum_stage101_dominant_count": 800,
+      "minimum_wilson95_dominant_count": 825,
+      "minimum_wilson95_dominant_fraction": 0.825,
+      "ready": true,
+      "shots_per_state": 1000,
+      "state": "00",
+      "wilson95_lower_bound_at_required_count": 0.800217877011
+    },
+    {
+      "expected_dominant_key": "10",
+      "minimum_stage101_dominant_count": 800,
+      "minimum_wilson95_dominant_count": 825,
+      "minimum_wilson95_dominant_fraction": 0.825,
+      "ready": true,
+      "shots_per_state": 1000,
+      "state": "01",
+      "wilson95_lower_bound_at_required_count": 0.800217877011
+    },
+    {
+      "expected_dominant_key": "01",
+      "minimum_stage101_dominant_count": 800,
+      "minimum_wilson95_dominant_count": 825,
+      "minimum_wilson95_dominant_fraction": 0.825,
+      "ready": true,
+      "shots_per_state": 1000,
+      "state": "10",
+      "wilson95_lower_bound_at_required_count": 0.800217877011
+    },
+    {
+      "expected_dominant_key": "11",
+      "minimum_stage101_dominant_count": 800,
+      "minimum_wilson95_dominant_count": 825,
+      "minimum_wilson95_dominant_fraction": 0.825,
+      "ready": true,
+      "shots_per_state": 1000,
+      "state": "11",
+      "wilson95_lower_bound_at_required_count": 0.800217877011
+    }
+  ],
+  "status": "completed"
+}
