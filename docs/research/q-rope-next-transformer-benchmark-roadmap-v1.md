@@ -75,6 +75,8 @@ Stage 82 update: a compact learned routing head over support-congruence, positio
 
 Stage 83 update: a nonlinear per-position routing bridge over support-congruence, positional bias, distance, and interaction features still does not preserve the repair. Support accuracy remains `1.000000`, but best phase-cued top-1 is only `0.283333`, so the blocker persists beyond scalar-router capacity.
 
+Stage 84 update: moving support supervision inside the two-block pointer-generator decoder preserves train capacity but still does not repair held-out retrieval. Best phase-cued top-1 is only `0.016667`, so the blocker is held-out support-to-token generalization in the learned decoder path.
+
 ## PhaseWrap Mechanism Requirements
 
 The PhaseWrap variant should be implemented as a positional mechanism comparable to RoPE or ALiBI, not as a scalar oracle feature.
@@ -230,7 +232,9 @@ Stage 82 trains a compact support-to-token routing head and records `LEARNED_SUP
 
 Stage 83 trains a nonlinear support-routing bridge and records `NONLINEAR_SUPPORT_ROUTING_BRIDGE_SUPPORT_RECOVERED_RETRIEVAL_FAILED`: support labels recover, but nonlinear learned routing still does not repair phase-cued retrieval.
 
-The next gate should redesign the stronger matched decoder-only transformer so it has enough capacity and supervision structure to learn support-to-token routing from standard inputs and loss before testing positional-method promotion. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
+Stage 84 trains a support-auxiliary two-block pointer-generator decoder and records `SUPPORT_AUXILIARY_POINTER_GENERATOR_WITHOUT_RETRIEVAL_GENERALIZATION`: train capacity is preserved, but held-out retrieval remains unrepaired.
+
+The next gate should redesign the stronger matched decoder-only transformer so it can generalize support-to-token routing on held-out retrieval rows before testing positional-method promotion. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
 
 ## Researcher Use Context
 
