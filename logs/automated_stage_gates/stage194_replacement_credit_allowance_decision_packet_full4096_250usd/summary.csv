@@ -1,0 +1,7 @@
+item_id,status,description
+replacement_approval_dossier,ready,Stage191 approval dossier must quantify the replacement run exposure before credit review.
+replacement_backend_reachability,verified,Stage193 must verify replacement-scoped read-only backend reachability before credit allowance review.
+local_budget_cap,present,"Local non-secret hardware budget cap is a safety bound, not proof of IBM account credit."
+local_queue_depth_cap,within_cap,Current backend pending jobs should be within the local queue-depth cap before a live run is considered.
+ibm_credit_billing_runtime_allowance,human_verification_required,"IBM credit, billing plan, Runtime allowance, and any expected charges require human account-side verification."
+exact_replacement_approval,not_requested,Exact live-run approval must remain separate and must not be requested until credit allowance is verified.

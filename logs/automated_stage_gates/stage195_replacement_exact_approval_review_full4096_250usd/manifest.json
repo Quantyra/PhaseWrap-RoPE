@@ -1,0 +1,46 @@
+{
+  "approval_phrase_matches": false,
+  "approval_phrase_required": "APPROVE IBM RUNTIME STAGE188 REPLACEMENT LIVE RUN",
+  "blockers": [
+    "credit_allowance_not_verified"
+  ],
+  "budget_cap_usd": 250.0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "Sampler or Estimator runtime execution",
+      "provider credentials, token values, CRN values, or account secrets",
+      "provider-side IBM credit balance or dollar-cost verification",
+      "creation of a runnable live-submit command",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "exact replacement approval is isolated from credit allowance verification",
+      "approval phrase matching is only accepted after Stage194 records human credit allowance verification",
+      "a successful approval review permits only later live-runner preparation review"
+    ]
+  },
+  "decision": "REPLACEMENT_EXACT_APPROVAL_REVIEW_BLOCKED_CREDIT_ATTESTATION_REQUIRED",
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "explicit_user_approval_required": true,
+  "human_credit_allowance_verified": false,
+  "live_submit_command_created": false,
+  "missing_source_artifacts": [],
+  "next_gate": "Resolve Stage194 credit allowance first. If the user then provides the exact replacement approval phrase, rerun Stage195 with that phrase and proceed only to live-runner preparation review, not direct submission.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provided_approval_phrase_present": false,
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage195_replacement_exact_approval_review_full4096_250usd/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage195_replacement_exact_approval_review_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage194_replacement_credit_allowance_decision_packet_full4096_250usd/results.json"
+  ],
+  "stage": "stage195_replacement_exact_approval_review",
+  "stage194_decision": "REPLACEMENT_CREDIT_ALLOWANCE_READY_FOR_HUMAN_ATTESTATION_NOT_LIVE",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage195_replacement_exact_approval_review_full4096_250usd/summary.csv"
+}

@@ -1,0 +1,171 @@
+{
+  "blockers": [],
+  "break_even_microseconds_per_shot": 118.84659851527321,
+  "budget_cap_usd": 250.0,
+  "budget_quantum_seconds_at_doc_rate": 156.25,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials, token values, CRN values, or account secrets",
+      "provider-side IBM credit balance verification",
+      "actual quantum_seconds from completed jobs",
+      "acceptance of credit attestation or exact live-run approval",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "explicit pre-attestation cost estimate using IBM's documented quantum-second cost example",
+      "break-even quantum-time-per-shot threshold for the local budget cap",
+      "scenario estimates that show whether the full replacement run is budget-tight"
+    ]
+  },
+  "cost_posture": "not_over_budget_if_effective_quantum_time_is_below_break_even_but_likely_tight_for_full_run",
+  "decision": "REPLACEMENT_COST_ESTIMATE_READY_BUDGET_LIKELY_TIGHT_NOT_LIVE",
+  "estimate_items": [
+    {
+      "description": "Replacement workload exposure must be known before manual credit attestation.",
+      "evidence": {
+        "estimated_total_job_count": 324,
+        "estimated_total_shots": 1314720
+      },
+      "item_id": "replacement_exposure",
+      "status": "recorded"
+    },
+    {
+      "description": "Local budget cap bounds the requested manual attestation.",
+      "evidence": {
+        "budget_cap_usd": 250.0,
+        "budget_quantum_seconds_at_doc_rate": 156.25
+      },
+      "item_id": "local_budget_cap",
+      "status": "recorded"
+    },
+    {
+      "description": "The full run fits the local cap only if effective quantum time per shot is below this break-even value.",
+      "evidence": {
+        "break_even_microseconds_per_shot": 118.84659851527321
+      },
+      "item_id": "break_even_quantum_time",
+      "status": "unbounded_or_missing"
+    },
+    {
+      "description": "Scenario estimates use IBM's documented quantum-second cost example and do not include provider-side overhead unknowns.",
+      "evidence": {
+        "scenarios": [
+          {
+            "estimated_quantum_seconds": 6.5736,
+            "estimated_usd": 10.51776,
+            "microseconds_per_shot": 5.0,
+            "within_budget_cap": true
+          },
+          {
+            "estimated_quantum_seconds": 13.1472,
+            "estimated_usd": 21.03552,
+            "microseconds_per_shot": 10.0,
+            "within_budget_cap": true
+          },
+          {
+            "estimated_quantum_seconds": 15.645168,
+            "estimated_usd": 25.0322688,
+            "microseconds_per_shot": 11.9,
+            "within_budget_cap": true
+          },
+          {
+            "estimated_quantum_seconds": 32.868,
+            "estimated_usd": 52.588800000000006,
+            "microseconds_per_shot": 25.0,
+            "within_budget_cap": true
+          },
+          {
+            "estimated_quantum_seconds": 65.736,
+            "estimated_usd": 105.17760000000001,
+            "microseconds_per_shot": 50.0,
+            "within_budget_cap": true
+          },
+          {
+            "estimated_quantum_seconds": 131.472,
+            "estimated_usd": 210.35520000000002,
+            "microseconds_per_shot": 100.0,
+            "within_budget_cap": true
+          }
+        ]
+      },
+      "item_id": "scenario_estimates",
+      "status": "review_required"
+    },
+    {
+      "description": "Manual credit attestation must cite this estimate and must not be requested as a blank credit check.",
+      "evidence": {
+        "cost_estimate_ready_for_review": true
+      },
+      "item_id": "attestation_request_state",
+      "status": "do_not_request_attestation_until_user_reviews_estimate"
+    }
+  ],
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "explicit_user_approval_required": true,
+  "ibm_doc_usd_per_quantum_second_example": 1.6,
+  "manual_attestation_prompt": "Please verify in IBM that the selected instance has enough remaining credit/billing/Runtime allowance for a run estimated at 324 row-level jobs and 1314720 shots. Using IBM's documented $1600/1000-quantum-second example, the local $250.00 cap allows about 156.250 quantum seconds, so the full run fits only if effective quantum time is <= 118.85 microseconds/shot. If you attest yes, you are attesting IBM account allowance and willingness to spend within the local cap; this still does not approve live submission.",
+  "manual_attestation_prompt_required": true,
+  "missing_source_artifacts": [],
+  "next_gate": "Present this estimate to the user before credit attestation. If the user attests IBM allowance despite the tight budget posture, rerun Stage194 with human_credit_allowance_verified=true; otherwise reduce run scope or raise the cap.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "runnable_commands_recorded": false,
+  "scenario_estimates": [
+    {
+      "estimated_quantum_seconds": 6.5736,
+      "estimated_usd": 10.51776,
+      "microseconds_per_shot": 5.0,
+      "within_budget_cap": true
+    },
+    {
+      "estimated_quantum_seconds": 13.1472,
+      "estimated_usd": 21.03552,
+      "microseconds_per_shot": 10.0,
+      "within_budget_cap": true
+    },
+    {
+      "estimated_quantum_seconds": 15.645168,
+      "estimated_usd": 25.0322688,
+      "microseconds_per_shot": 11.9,
+      "within_budget_cap": true
+    },
+    {
+      "estimated_quantum_seconds": 32.868,
+      "estimated_usd": 52.588800000000006,
+      "microseconds_per_shot": 25.0,
+      "within_budget_cap": true
+    },
+    {
+      "estimated_quantum_seconds": 65.736,
+      "estimated_usd": 105.17760000000001,
+      "microseconds_per_shot": 50.0,
+      "within_budget_cap": true
+    },
+    {
+      "estimated_quantum_seconds": 131.472,
+      "estimated_usd": 210.35520000000002,
+      "microseconds_per_shot": 100.0,
+      "within_budget_cap": true
+    }
+  ],
+  "schema_version": "qrope_stage196_replacement_cost_estimate_packet_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage194_replacement_credit_allowance_decision_packet_full4096_250usd/results.json"
+  ],
+  "source_notes": [
+    "IBM docs describe Standard Plan cost limits in USD converted to runtime seconds and give 1000 seconds as $1600.",
+    "IBM docs state quantum time, not wall-clock time, drives max execution time/cost behavior for QPU jobs.",
+    "IBM docs state quantum time and cost scale with shots."
+  ],
+  "source_urls": [
+    "https://docs.quantum.ibm.com/guides/manage-cost",
+    "https://docs.quantum.ibm.com/guides/max-execution-time",
+    "https://docs.quantum.ibm.com/guides/minimize-time"
+  ],
+  "stage": "stage196_replacement_cost_estimate_packet",
+  "status": "completed"
+}

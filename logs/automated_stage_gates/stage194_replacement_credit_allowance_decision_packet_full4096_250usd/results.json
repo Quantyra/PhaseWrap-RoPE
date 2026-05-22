@@ -1,0 +1,110 @@
+{
+  "backend_metadata": {
+    "backend": "ibm_fez",
+    "basis_gate_count": 5,
+    "coupling_edge_count": 352,
+    "num_qubits": 156,
+    "operational": true,
+    "pending_jobs": 1,
+    "simulator": false,
+    "version": "2"
+  },
+  "blockers": [
+    "ibm_credit_billing_runtime_allowance_unverified"
+  ],
+  "budget_cap_usd": 250.0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "Sampler or Estimator runtime execution",
+      "provider credentials, token values, CRN values, or account secrets",
+      "provider-side IBM credit balance or dollar-cost verification",
+      "acceptance of the exact live-run approval phrase",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "local budget and queue caps are compared against replacement-run exposure and read-only backend status",
+      "credit/billing/Runtime allowance is isolated as a human account-side attestation",
+      "exact live-run approval remains a later, separate gate"
+    ]
+  },
+  "decision": "REPLACEMENT_CREDIT_ALLOWANCE_READY_FOR_HUMAN_ATTESTATION_NOT_LIVE",
+  "decision_items": [
+    {
+      "description": "Stage191 approval dossier must quantify the replacement run exposure before credit review.",
+      "evidence": {
+        "estimated_total_job_count": 324,
+        "estimated_total_shots": 1314720,
+        "stage191_decision": "REPLACEMENT_APPROVAL_DOSSIER_READY_FOR_HUMAN_REVIEW_NOT_LIVE"
+      },
+      "item_id": "replacement_approval_dossier",
+      "status": "ready"
+    },
+    {
+      "description": "Stage193 must verify replacement-scoped read-only backend reachability before credit allowance review.",
+      "evidence": {
+        "backend": "ibm_fez",
+        "operational": true,
+        "pending_jobs": 1,
+        "stage193_decision": "REPLACEMENT_READ_ONLY_BACKEND_REFRESH_READY_CREDIT_AND_APPROVAL_STILL_REQUIRED"
+      },
+      "item_id": "replacement_backend_reachability",
+      "status": "verified"
+    },
+    {
+      "description": "Local non-secret hardware budget cap is a safety bound, not proof of IBM account credit.",
+      "evidence": {
+        "budget_cap_usd": 250.0
+      },
+      "item_id": "local_budget_cap",
+      "status": "present"
+    },
+    {
+      "description": "Current backend pending jobs should be within the local queue-depth cap before a live run is considered.",
+      "evidence": {
+        "backend_pending_jobs": 1,
+        "queue_depth_cap": 25
+      },
+      "item_id": "local_queue_depth_cap",
+      "status": "within_cap"
+    },
+    {
+      "description": "IBM credit, billing plan, Runtime allowance, and any expected charges require human account-side verification.",
+      "evidence": {
+        "human_credit_allowance_verified": false
+      },
+      "item_id": "ibm_credit_billing_runtime_allowance",
+      "status": "human_verification_required"
+    },
+    {
+      "description": "Exact live-run approval must remain separate and must not be requested until credit allowance is verified.",
+      "evidence": {
+        "approval_phrase_accepted_here": false,
+        "approval_phrase_required": "APPROVE IBM RUNTIME STAGE188 REPLACEMENT LIVE RUN"
+      },
+      "item_id": "exact_replacement_approval",
+      "status": "not_requested"
+    }
+  ],
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "explicit_user_approval_required": true,
+  "human_credit_allowance_verified": false,
+  "missing_source_artifacts": [],
+  "next_gate": "Have the user verify IBM credit, billing plan, Runtime allowance, and willingness to spend within the local budget cap; if verified, rerun Stage194 with human_credit_allowance_verified=true before exact approval review.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "queue_depth_cap": 25,
+  "queue_depth_within_cap": true,
+  "read_only_backend_lookup_attempted": false,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage194_replacement_credit_allowance_decision_packet_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage191_replacement_approval_dossier/results.json",
+    "logs/automated_stage_gates/stage193_replacement_read_only_backend_refresh_full4096_250usd/results.json"
+  ],
+  "stage": "stage194_replacement_credit_allowance_decision_packet",
+  "status": "completed"
+}
