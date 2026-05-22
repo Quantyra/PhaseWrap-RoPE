@@ -93,6 +93,15 @@ def _stage115_collected(path, provider_results_path) -> None:
             "decision": "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113",
             "wrote_stage113_input": True,
             "stage113_provider_results_path": str(provider_results_path.as_posix()),
+            "provider_scope": "all",
+            "stage152_write_ready": True,
+            "stage152_write_blockers": [],
+            "shard_count": 1,
+            "ready_shard_count": 1,
+            "expected_job_count": 2,
+            "result_record_count": 2,
+            "missing_job_count": 0,
+            "invalid_result_record_count": 0,
         },
     )
 
@@ -104,6 +113,15 @@ def _stage115_blocked(path, provider_results_path) -> None:
             "decision": "PROVIDER_RESULTS_COLLECTION_BLOCKED_LIVE_GUARD_REQUIRED",
             "wrote_stage113_input": False,
             "stage113_provider_results_path": str(provider_results_path.as_posix()),
+            "provider_scope": "all",
+            "stage152_write_ready": False,
+            "stage152_write_blockers": ["stage152_live_execution_guard_not_ready"],
+            "shard_count": 1,
+            "ready_shard_count": 0,
+            "expected_job_count": 2,
+            "result_record_count": 0,
+            "missing_job_count": 2,
+            "invalid_result_record_count": 0,
         },
     )
 
@@ -131,11 +149,56 @@ def test_stage113_detects_complete_results_without_writing_by_default(tmp_path) 
     jobs, results, calibration_target, _ = _fixture(tmp_path)
     _write_jsonl(tmp_path / "jobs.jsonl", jobs)
     _write_jsonl(tmp_path / "results.jsonl", results)
+    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl")
 
-    result = run_stage113_assembler(stage112_job_manifest_path=tmp_path / "jobs.jsonl", provider_results_path=tmp_path / "results.jsonl")
+    result = run_stage113_assembler(
+        stage112_job_manifest_path=tmp_path / "jobs.jsonl",
+        provider_results_path=tmp_path / "results.jsonl",
+        stage115_results_path=tmp_path / "stage115.json",
+    )
 
     assert result["decision"] == "JOB_RESULTS_READY_FOR_STAGE109_EVIDENCE_ASSEMBLY"
     assert result["ready_job_result_count"] == 2
+    assert result["assembled_evidence_count"] == 0
+    assert not calibration_target.exists()
+
+
+def test_stage113_blocks_duplicate_result_records(tmp_path) -> None:
+    jobs, results, calibration_target, _ = _fixture(tmp_path)
+    _write_jsonl(tmp_path / "jobs.jsonl", jobs)
+    _write_jsonl(tmp_path / "results.jsonl", results + [results[0]])
+    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl")
+
+    result = run_stage113_assembler(
+        stage112_job_manifest_path=tmp_path / "jobs.jsonl",
+        provider_results_path=tmp_path / "results.jsonl",
+        stage115_results_path=tmp_path / "stage115.json",
+        write_evidence=True,
+    )
+
+    assert result["decision"] == "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING"
+    assert result["duplicate_result_record_count"] == 1
+    assert result["assembled_evidence_count"] == 0
+    assert not calibration_target.exists()
+
+
+def test_stage113_blocks_unknown_result_records(tmp_path) -> None:
+    jobs, results, calibration_target, _ = _fixture(tmp_path)
+    unknown = dict(results[0])
+    unknown["job_id"] = "unknown_job"
+    _write_jsonl(tmp_path / "jobs.jsonl", jobs)
+    _write_jsonl(tmp_path / "results.jsonl", results + [unknown])
+    _stage115_collected(tmp_path / "stage115.json", tmp_path / "results.jsonl")
+
+    result = run_stage113_assembler(
+        stage112_job_manifest_path=tmp_path / "jobs.jsonl",
+        provider_results_path=tmp_path / "results.jsonl",
+        stage115_results_path=tmp_path / "stage115.json",
+        write_evidence=True,
+    )
+
+    assert result["decision"] == "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING"
+    assert result["unknown_result_record_count"] == 1
     assert result["assembled_evidence_count"] == 0
     assert not calibration_target.exists()
 
@@ -177,6 +240,43 @@ def test_stage113_blocks_evidence_write_without_stage115_collection(tmp_path) ->
 
     assert result["decision"] == "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_STAGE115_COLLECTION_REQUIRED"
     assert "stage115_not_collected_for_stage113" in result["stage115_write_blockers"]
+    assert not calibration_target.exists()
+    assert not packet_target.exists()
+
+
+def test_stage113_blocks_evidence_write_when_stage115_counters_are_incomplete(tmp_path) -> None:
+    jobs, results, calibration_target, packet_target = _fixture(tmp_path)
+    _write_jsonl(tmp_path / "jobs.jsonl", jobs)
+    _write_jsonl(tmp_path / "results.jsonl", results)
+    _write_json(
+        tmp_path / "stage115.json",
+        {
+            "decision": "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113",
+            "wrote_stage113_input": True,
+            "stage113_provider_results_path": str((tmp_path / "results.jsonl").as_posix()),
+            "provider_scope": "all",
+            "stage152_write_ready": False,
+            "stage152_write_blockers": ["stage152_stage144_not_ready"],
+            "shard_count": 1,
+            "ready_shard_count": 0,
+            "expected_job_count": 2,
+            "result_record_count": 1,
+            "missing_job_count": 1,
+            "invalid_result_record_count": 0,
+        },
+    )
+
+    result = run_stage113_assembler(
+        stage112_job_manifest_path=tmp_path / "jobs.jsonl",
+        provider_results_path=tmp_path / "results.jsonl",
+        stage115_results_path=tmp_path / "stage115.json",
+        write_evidence=True,
+    )
+
+    assert result["decision"] == "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_STAGE115_COLLECTION_REQUIRED"
+    assert "stage115_stage152_write_not_ready" in result["stage115_write_blockers"]
+    assert "stage115_shards_not_all_ready" in result["stage115_write_blockers"]
+    assert "stage115_result_count_mismatch" in result["stage115_write_blockers"]
     assert not calibration_target.exists()
     assert not packet_target.exists()
 

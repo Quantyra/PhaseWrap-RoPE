@@ -56,7 +56,11 @@ def _unique(values: list[Any]) -> list[Any]:
 
 
 def _job_result_records(jobs: list[dict[str, Any]], results: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    result_by_job = {str(record.get("job_id")): record for record in results if record.get("job_id")}
+    result_by_job: dict[str, dict[str, Any]] = {}
+    for record in results:
+        job_id = str(record.get("job_id"))
+        if job_id and job_id not in result_by_job:
+            result_by_job[job_id] = record
     records = []
     missing = []
     for job in jobs:
@@ -82,6 +86,26 @@ def _job_result_records(jobs: list[dict[str, Any]], results: list[dict[str, Any]
         if reasons:
             missing.append(record)
     return records, missing
+
+
+def _result_integrity_records(
+    jobs: list[dict[str, Any]], results: list[dict[str, Any]]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    expected_ids = {str(job.get("job_id")) for job in jobs if job.get("job_id")}
+    seen_counts: dict[str, int] = {}
+    unknown_records: list[dict[str, Any]] = []
+    for result in results:
+        job_id = str(result.get("job_id", ""))
+        if not job_id or job_id not in expected_ids:
+            unknown_records.append({"job_id": job_id, "missing_evidence": ["unknown_job_id"], "ready": False})
+            continue
+        seen_counts[job_id] = seen_counts.get(job_id, 0) + 1
+    duplicate_records = [
+        {"job_id": job_id, "result_record_count": count, "missing_evidence": ["duplicate_job_id"], "ready": False}
+        for job_id, count in sorted(seen_counts.items())
+        if count > 1
+    ]
+    return duplicate_records, unknown_records
 
 
 def _base_payload(template_path: Path) -> dict[str, Any]:
@@ -125,7 +149,20 @@ def _apply_results(jobs: list[dict[str, Any]], results_by_job: dict[str, dict[st
     return assembled
 
 
-def _stage115_write_ready(stage115: dict[str, Any] | None, provider_results_path: Path) -> tuple[bool, list[str]]:
+def _int_field(payload: dict[str, Any], key: str) -> int:
+    try:
+        return int(payload.get(key) or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _stage115_write_ready(
+    stage115: dict[str, Any] | None,
+    provider_results_path: Path,
+    *,
+    provider: str | None,
+    selected_job_count: int,
+) -> tuple[bool, list[str]]:
     if not isinstance(stage115, dict):
         return False, ["stage115_results_missing"]
     blockers = []
@@ -133,8 +170,31 @@ def _stage115_write_ready(stage115: dict[str, Any] | None, provider_results_path
         blockers.append("stage115_not_collected_for_stage113")
     if stage115.get("wrote_stage113_input") is not True:
         blockers.append("stage115_did_not_write_stage113_input")
+    if stage115.get("stage152_write_ready") is not True:
+        blockers.append("stage115_stage152_write_not_ready")
+    if stage115.get("stage152_write_blockers"):
+        blockers.append("stage115_stage152_write_blockers_present")
     if Path(str(stage115.get("stage113_provider_results_path", ""))).as_posix() != provider_results_path.as_posix():
         blockers.append("stage115_provider_results_path_mismatch")
+    provider_scope = str(stage115.get("provider_scope", ""))
+    if provider is None and provider_scope != "all":
+        blockers.append("stage115_provider_scope_mismatch")
+    if provider is not None and provider_scope not in ("all", provider):
+        blockers.append("stage115_provider_scope_mismatch")
+    shard_count = _int_field(stage115, "shard_count")
+    ready_shard_count = _int_field(stage115, "ready_shard_count")
+    expected_job_count = _int_field(stage115, "expected_job_count")
+    result_record_count = _int_field(stage115, "result_record_count")
+    if shard_count <= 0 or ready_shard_count != shard_count:
+        blockers.append("stage115_shards_not_all_ready")
+    if _int_field(stage115, "missing_job_count") != 0:
+        blockers.append("stage115_missing_jobs_present")
+    if _int_field(stage115, "invalid_result_record_count") != 0:
+        blockers.append("stage115_invalid_result_records_present")
+    if expected_job_count <= 0 or result_record_count != expected_job_count:
+        blockers.append("stage115_result_count_mismatch")
+    if provider_scope != "all" and expected_job_count != selected_job_count:
+        blockers.append("stage115_selected_job_count_mismatch")
     return not blockers, sorted(set(blockers))
 
 
@@ -160,17 +220,22 @@ def run_stage113_assembler(
         result for result in results or [] if provider is None or str(result.get("job_id")) in selected_job_ids
     ]
     job_records, missing_job_records = _job_result_records(selected_jobs, selected_results)
+    duplicate_result_records, unknown_result_records = _result_integrity_records(selected_jobs, selected_results)
     ready = (
         bool(selected_jobs)
         and bool(selected_results)
         and not missing_sources
         and not missing_job_records
-        and len(selected_results) >= len(selected_jobs)
+        and not duplicate_result_records
+        and not unknown_result_records
+        and len(selected_results) == len(selected_jobs)
     )
-    stage115_write_ready = True
-    stage115_write_blockers: list[str] = []
-    if write_evidence:
-        stage115_write_ready, stage115_write_blockers = _stage115_write_ready(stage115, provider_results_path)
+    stage115_write_ready, stage115_write_blockers = _stage115_write_ready(
+        stage115,
+        provider_results_path,
+        provider=provider,
+        selected_job_count=len(selected_jobs),
+    )
     assembled_paths: list[str] = []
     if ready and write_evidence and stage115_write_ready:
         results_by_job = {str(record["job_id"]): record for record in selected_results}
@@ -207,10 +272,14 @@ def run_stage113_assembler(
         "available_provider_result_count": len(results or []),
         "ready_job_result_count": sum(1 for record in job_records if record["ready"]),
         "missing_job_result_count": len(missing_job_records),
+        "duplicate_result_record_count": len(duplicate_result_records),
+        "unknown_result_record_count": len(unknown_result_records),
         "assembled_evidence_count": len(assembled_paths),
         "assembled_evidence_paths": assembled_paths,
         "job_records": job_records,
         "missing_job_records": missing_job_records,
+        "duplicate_result_records": duplicate_result_records,
+        "unknown_result_records": unknown_result_records,
         "no_hardware_submission": True,
         "provider_credentials_required": False,
         "secret_values_recorded": False,
@@ -219,7 +288,7 @@ def run_stage113_assembler(
                 "a deterministic assembler from Stage 112 job results into Stage 109-compatible evidence files",
                 "optional provider-scoped evidence assembly for first-provider execution",
                 "evidence writing is blocked until Stage 115 has collected and written the matching Stage 113 input",
-                "per-job missing count detection before evidence files are written",
+                "per-job missing, duplicate, and unknown job-result detection before evidence files are written",
                 "a non-submitting bridge between provider runners and calibration/packet evidence intake",
             ],
             "excluded": [
@@ -259,6 +328,8 @@ def write_stage113_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "available_provider_result_count": result["available_provider_result_count"],
         "ready_job_result_count": result["ready_job_result_count"],
         "missing_job_result_count": result["missing_job_result_count"],
+        "duplicate_result_record_count": result["duplicate_result_record_count"],
+        "unknown_result_record_count": result["unknown_result_record_count"],
         "assembled_evidence_count": result["assembled_evidence_count"],
         "no_hardware_submission": result["no_hardware_submission"],
         "provider_credentials_required": result["provider_credentials_required"],
@@ -305,6 +376,8 @@ def print_stage113_summary(result: dict[str, Any]) -> None:
     print(f"provider_result_count: {result['provider_result_count']}")
     print(f"ready_job_result_count: {result['ready_job_result_count']}")
     print(f"missing_job_result_count: {result['missing_job_result_count']}")
+    print(f"duplicate_result_record_count: {result['duplicate_result_record_count']}")
+    print(f"unknown_result_record_count: {result['unknown_result_record_count']}")
     print(f"stage115_write_ready: {result['stage115_write_ready']}")
     print(f"assembled_evidence_count: {result['assembled_evidence_count']}")
     print(f"next_gate: {result['next_gate']}")
