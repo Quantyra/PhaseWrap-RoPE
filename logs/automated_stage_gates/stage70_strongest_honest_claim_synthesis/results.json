@@ -327,9 +327,24 @@
         "phase_cued_retrieval": 0.016667
       },
       "stage": "stage84_support_auxiliary_pointer_generator_audit"
+    },
+    {
+      "capacity_established": true,
+      "decision": "DUAL_AUXILIARY_POINTER_GENERATOR_WITHOUT_RETRIEVAL_GENERALIZATION",
+      "evidence": "At least one original retrieval task remains below the generalization threshold.",
+      "failure": "Original held-out retrieval remains unrepaired in a recent fair-comparison audit.",
+      "retrieval_best_methods": {
+        "exact_offset_passkey": "sinusoidal",
+        "phase_cued_retrieval": "sinusoidal"
+      },
+      "retrieval_best_top1": {
+        "exact_offset_passkey": 0.416667,
+        "phase_cued_retrieval": 0.05
+      },
+      "stage": "stage85_dual_auxiliary_pointer_generator_audit"
     }
   ],
-  "loaded_source_stage_count": 26,
+  "loaded_source_stage_count": 27,
   "loaded_source_stages": [
     "stage44_compact_diagnostic_plateau_audit",
     "stage45_matched_decoder_only_gate",
@@ -356,7 +371,8 @@
     "stage81_soft_support_routed_token_selector_audit",
     "stage82_learned_support_routing_head_audit",
     "stage83_nonlinear_support_routing_bridge_audit",
-    "stage84_support_auxiliary_pointer_generator_audit"
+    "stage84_support_auxiliary_pointer_generator_audit",
+    "stage85_dual_auxiliary_pointer_generator_audit"
   ],
   "method_names": [
     "no_position",
@@ -386,9 +402,9 @@
     },
     {
       "claim_limit": "Tiny-text QA positives are mixed downstream evidence, not original retrieval generalization.",
-      "evidence": "Recent pointer-generator variants preserve capacity and reach tiny-text held-out top-1 0.783333.",
+      "evidence": "Recent pointer-generator variants preserve capacity and reach tiny-text held-out top-1 0.933334.",
       "method": "sinusoidal",
-      "source": "stage65_pointer_generator_length_curriculum_audit"
+      "source": "stage85_dual_auxiliary_pointer_generator_audit"
     }
   ],
   "provider_credentials_required": false,
@@ -421,6 +437,7 @@
     "logs/automated_stage_gates/stage82_learned_support_routing_head_audit/manifest.json",
     "logs/automated_stage_gates/stage83_nonlinear_support_routing_bridge_audit/manifest.json",
     "logs/automated_stage_gates/stage84_support_auxiliary_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage85_dual_auxiliary_pointer_generator_audit/manifest.json",
     "docs/research/q-rope-stage44-compact-diagnostic-plateau-audit-v1.md",
     "docs/research/q-rope-stage45-matched-decoder-only-gate-v1.md",
     "docs/research/q-rope-stage48-adam-decoder-stability-audit-v1.md",
@@ -440,12 +457,13 @@
     "docs/research/q-rope-stage81-soft-support-routed-token-selector-audit-v1.md",
     "docs/research/q-rope-stage82-learned-support-routing-head-audit-v1.md",
     "docs/research/q-rope-stage83-nonlinear-support-routing-bridge-audit-v1.md",
-    "docs/research/q-rope-stage84-support-auxiliary-pointer-generator-audit-v1.md"
+    "docs/research/q-rope-stage84-support-auxiliary-pointer-generator-audit-v1.md",
+    "docs/research/q-rope-stage85-dual-auxiliary-pointer-generator-audit-v1.md"
   ],
-  "source_stage": "stage84_support_auxiliary_pointer_generator_audit",
+  "source_stage": "stage85_dual_auxiliary_pointer_generator_audit",
   "stage": "stage70_strongest_honest_claim_synthesis",
   "status": "completed",
-  "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, and in-decoder support-supervised routes still fail held-out support-to-token retrieval; fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
+  "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, and dual support/target-attention routes still fail held-out support-to-token retrieval; fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
   "tasks": [
     "phase_cued_retrieval",
     "exact_offset_passkey",

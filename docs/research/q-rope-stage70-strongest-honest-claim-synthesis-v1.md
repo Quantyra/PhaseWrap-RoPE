@@ -28,16 +28,16 @@ Stage 70 records `BOUND_STRONGEST_HONEST_CLAIM_WITH_RETRIEVAL_FAILURES`.
 
 The generated strongest honest claim is:
 
-> PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, and in-decoder support-supervised routes still fail held-out support-to-token retrieval; fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.
+> PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, and dual support/target-attention routes still fail held-out support-to-token retrieval; fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.
 
-The refreshed synthesis loads source manifests through Stage 84 with no missing source artifacts. It also preserves the key positive and negative evidence:
+The refreshed synthesis loads source manifests through Stage 85 with no missing source artifacts. It also preserves the key positive and negative evidence:
 
 - Stage 67 proves that standard visible content-key retrieval is solvable by the current two-block pointer-generator harness for every tested method, including `no_position`.
 - Recent pointer-generator variants preserve train capacity and include tiny text-fact QA positives, with Stage 65 reaching `0.783333` best held-out top-1.
 - Stage 68 shows content-key auxiliary rows do not transfer back to original phase-cued/exact-offset retrieval.
 - Stage 69 shows original-task multitask training also does not repair original held-out retrieval.
 - Stages 80 and 81 show hard and soft support-routed token selection can solve phase-cued retrieval, but only as non-promotional/method-nonspecific diagnostics.
-- Stages 82-84 show the current learned scalar, nonlinear, and in-decoder support-supervised routes still fail held-out support-to-token retrieval.
+- Stages 82-85 show the current learned scalar, nonlinear, in-decoder support-supervised, and dual support/target-attention routes still fail held-out support-to-token retrieval.
 
 ## Interpretation
 
