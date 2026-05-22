@@ -55,9 +55,9 @@ def _first_provider(stage145: dict[str, Any] | None, stage149: dict[str, Any] | 
     return ""
 
 
-def _missing_job_fields(job: dict[str, Any]) -> list[str]:
+def _missing_job_fields(job: dict[str, Any], provider: str) -> list[str]:
     missing = [field for field in REQUIRED_JOB_FIELDS if job.get(field) in (None, "", [])]
-    if job.get("provider") and job.get("provider") != "ibm_runtime":
+    if job.get("provider") and provider and job.get("provider") != provider:
         missing.append("provider_scope_mismatch")
     if job.get("job_kind") not in VALID_JOB_KINDS:
         missing.append("job_kind_supported")
@@ -130,7 +130,7 @@ def _job_records(
             job_id_counts[job_id] = job_id_counts.get(job_id, 0) + 1
     records = []
     for job in provider_jobs:
-        missing = _missing_job_fields(job)
+        missing = _missing_job_fields(job, provider)
         job_id = str(job.get("job_id", ""))
         window_id = str(job.get("window_id", ""))
         shard_record = stage114_shard_index.get(job_id)

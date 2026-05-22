@@ -67,9 +67,21 @@ def _packet_job(job_id="ibm_runtime__independent_window_00__packet__packet0__pha
     }
 
 
-def _fixture(tmp_path, paths, jobs=None) -> None:
+def _with_provider(job, *, provider: str, window_id: str):
+    out = dict(job)
+    old_provider = str(out["provider"])
+    old_window = str(out["window_id"])
+    out["provider"] = provider
+    out["window_id"] = window_id
+    out["job_id"] = str(out["job_id"]).replace(old_provider, provider).replace(old_window, window_id)
+    out["target_evidence_path"] = str(out["target_evidence_path"]).replace(old_provider, provider).replace(old_window, window_id)
+    out["template_path"] = str(out["template_path"]).replace(old_provider, provider).replace(old_window, window_id)
+    return out
+
+
+def _fixture(tmp_path, paths, jobs=None, *, provider="ibm_runtime", window_id="ibm_runtime__independent_window_00") -> None:
     jobs = jobs or [_calibration_job(), _packet_job()]
-    shard_path = tmp_path / "stage114" / "job_shards" / "ibm_runtime" / "ibm_runtime__independent_window_00" / "jobs.jsonl"
+    shard_path = tmp_path / "stage114" / "job_shards" / provider / window_id / "jobs.jsonl"
     _write_jsonl(paths["stage112_job_manifest_path"], jobs)
     _write_jsonl(shard_path, jobs)
     _write_json(
@@ -86,23 +98,23 @@ def _fixture(tmp_path, paths, jobs=None) -> None:
             ],
         },
     )
-    _write_json(paths["stage145_results_path"], {"first_unlock_provider": "ibm_runtime"})
+    _write_json(paths["stage145_results_path"], {"first_unlock_provider": provider})
     _write_json(
         paths["stage148_results_path"],
         {
-            "provider_scope": "ibm_runtime",
+            "provider_scope": provider,
             "stage146_decision": "FIRST_PROVIDER_SHOT_UNCERTAINTY_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED",
             "stage146_ready": True,
             "stage147_decision": "FIRST_PROVIDER_CALIBRATION_CONFIDENCE_CONTRACT_READY_COUNTS_REQUIRED",
             "stage147_ready": True,
-            "calibration_records": [{"provider": "ibm_runtime", "window_id": "ibm_runtime__independent_window_00"}],
-            "lane_records": [{"provider": "ibm_runtime", "window_id": "ibm_runtime__independent_window_00"}],
+            "calibration_records": [{"provider": provider, "window_id": window_id}],
+            "lane_records": [{"provider": provider, "window_id": window_id}],
         },
     )
     _write_json(
         paths["stage149_results_path"],
         {
-            "first_unlock_provider": "ibm_runtime",
+            "first_unlock_provider": provider,
             "decision": "FIRST_PROVIDER_GUARDED_RUNNER_CONTRACT_READY_CUTOVER_BLOCKED",
             "synthetic_contract_check_count": 3,
             "synthetic_contract_ready_count": 3,
@@ -124,6 +136,25 @@ def test_stage150_readies_first_provider_result_lineage_contract(tmp_path) -> No
     assert result["required_backend_metadata_fields"] == ["provider", "backend", "window_id", "job_kind"]
     assert result["stage148_statistical_source_contract_ready"] is True
     assert result["no_hardware_submission"] is True
+
+
+def test_stage150_uses_dynamic_first_provider_scope_for_lineage(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    provider = "amazon_braket"
+    window_id = "amazon_braket__independent_window_00"
+    jobs = [
+        _with_provider(_calibration_job(), provider=provider, window_id=window_id),
+        _with_provider(_packet_job(), provider=provider, window_id=window_id),
+    ]
+    _fixture(tmp_path, paths, jobs=jobs, provider=provider, window_id=window_id)
+
+    result = run_stage150_audit(**paths)
+    missing = {item for record in result["job_records"] for item in record["missing_evidence"]}
+
+    assert result["decision"] == "FIRST_PROVIDER_RESULT_LINEAGE_CONTRACT_READY_EXECUTION_BLOCKED"
+    assert result["first_unlock_provider"] == provider
+    assert result["stage148_provider_bound"] is True
+    assert "provider_scope_mismatch" not in missing
 
 
 def test_stage150_requires_stage148_statistical_source_contract_readiness(tmp_path) -> None:
