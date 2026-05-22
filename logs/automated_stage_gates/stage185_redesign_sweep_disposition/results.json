@@ -1,0 +1,85 @@
+{
+  "blockers": [],
+  "candidate_family_count": 3,
+  "candidate_records": [
+    {
+      "comparison_group_count": 12,
+      "decision": "BALANCED_PHASE_WINDOW_CANDIDATE_DOES_NOT_SUPPORT_HARDWARE_REOPEN",
+      "design_family_id": "pw_balanced_phase_window_v1",
+      "expected_no_reopen_decision": true,
+      "hardware_reopen_supported": false,
+      "packet_count": 30,
+      "reopen_candidate_count": 0,
+      "result_path": "logs/automated_stage_gates/stage182_balanced_phase_window_candidate_screen/results.json",
+      "status": "completed"
+    },
+    {
+      "comparison_group_count": 12,
+      "decision": "CONTRAST_AMPLIFIED_DELTA_CANDIDATE_DOES_NOT_SUPPORT_HARDWARE_REOPEN",
+      "design_family_id": "pw_contrast_amplified_delta_v1",
+      "expected_no_reopen_decision": true,
+      "hardware_reopen_supported": false,
+      "packet_count": 30,
+      "reopen_candidate_count": 0,
+      "result_path": "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/results.json",
+      "status": "completed"
+    },
+    {
+      "comparison_group_count": 12,
+      "decision": "ERROR_ORTHOGONALIZED_COMPONENTS_CANDIDATE_DOES_NOT_SUPPORT_HARDWARE_REOPEN",
+      "design_family_id": "pw_error_orthogonalized_components_v1",
+      "expected_no_reopen_decision": true,
+      "hardware_reopen_supported": false,
+      "packet_count": 30,
+      "reopen_candidate_count": 0,
+      "result_path": "logs/automated_stage_gates/stage184_error_orthogonalized_components_candidate_screen/results.json",
+      "status": "completed"
+    }
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "a final noisy-hardware robustness or auditability conclusion",
+      "a proof that PhaseWrap-RoPE cannot show value under any future target, control, backend, or calibration model",
+      "credit, billing, or provider-account validation"
+    ],
+    "supported": [
+      "all three Stage181 preregistered redesign families were screened under the Stage177 primary IBM-informed models",
+      "none of the screened redesign families produced a hardware reopen candidate",
+      "the current archived IBM 328-job path remains unsupported by simulated IBM-informed evidence"
+    ]
+  },
+  "decision": "REDESIGN_SWEEP_EXHAUSTED_NO_HARDWARE_REOPEN",
+  "disposition": "archive_current_fixed_width_ibm_hardware_path_and_do_not_reopen_without_new_target_control_semantics_or_material_calibration_evidence",
+  "expected_design_families": [
+    "pw_balanced_phase_window_v1",
+    "pw_contrast_amplified_delta_v1",
+    "pw_error_orthogonalized_components_v1"
+  ],
+  "hardware_path_status": "current_ibm_328_job_run_remains_archived",
+  "hardware_reopen_candidate_count": 0,
+  "ibm_backend_properties_informed": true,
+  "missing_candidate_families": [],
+  "missing_planned_families": [],
+  "missing_source_artifacts": [],
+  "next_gate": "Revise target/control semantics with a new preregistration, obtain materially different calibration evidence, or stop pursuing the current fixed-width IBM hardware path before any hardware approval is considered.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "planned_design_family_count": 3,
+  "provider_credentials_required": false,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage185_redesign_sweep_disposition_v1",
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage181_fixed_width_target_redesign_plan/results.json",
+    "logs/automated_stage_gates/stage182_balanced_phase_window_candidate_screen/results.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/results.json",
+    "logs/automated_stage_gates/stage184_error_orthogonalized_components_candidate_screen/results.json"
+  ],
+  "stage": "stage185_redesign_sweep_disposition",
+  "status": "completed",
+  "total_comparison_group_count": 36,
+  "total_packet_count": 90,
+  "total_reopen_candidate_count": 0
+}
