@@ -1,0 +1,333 @@
+{
+  "backend": "arn:aws:braket:REGION::device/qpu/PROVIDER/DEVICE_TO_BE_SELECTED",
+  "claim_boundary": "Contrast-amplified delta candidate packet for simulated IBM-informed screening only; not a hardware robustness result.",
+  "design_family_id": "pw_contrast_amplified_delta_v1",
+  "encoding_family": "alibi_like",
+  "execution_status": "not_submitted",
+  "fixed_width": {
+    "active_qubits": 2,
+    "circuit_template": "two_ry_cx_parity_z_readout_v1",
+    "entangling_gate": "cx q0->q1",
+    "measured_qubits": 2,
+    "readout": "computational_basis",
+    "score_observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])"
+  },
+  "matching_policy": {
+    "component_transform": "bounded 1.6x normalized delta amplification applied before RY preparation",
+    "control_policy": "no-position control remains the preregistered zero-component control",
+    "hardware_scope": "simulated candidate screen only; not hardware evidence",
+    "qubit_count": "fixed at two measured qubits",
+    "row_set": "identical source rows across all encoding families within each redesigned lane"
+  },
+  "no_hardware_submission": true,
+  "packet_hash": "7bda612708b884f070796f9a7f85a40a1708207c1ea11838a59a88d4838ca70a",
+  "packet_id": "braket_cx_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__alibi_like",
+  "packet_version": "qrope_stage183_contrast_amplified_delta_candidate_packet_v1",
+  "provider": "amazon_braket",
+  "provider_credentials_required": false,
+  "row_count": 8,
+  "rows": [
+    {
+      "circuit_parameters": {
+        "entangling_gate": "cx q0->q1",
+        "ry_q0": 0.823033692135,
+        "ry_q1": 0.823033692135,
+        "template": "two_ry_cx_parity_z_readout_v1",
+        "z0_target": 0.68,
+        "z1_target": 0.68
+      },
+      "components": {
+        "component_a": 0.68,
+        "component_b": 0.68
+      },
+      "delta": -6.0,
+      "design_family_id": "pw_contrast_amplified_delta_v1",
+      "encoding_family": "alibi_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+        "readout_note": "Under ideal CNOT readout, E[Z0 after CX] recovers component_a and E[Z0 Z1 after CX] recovers component_b.",
+        "score": 0.84
+      },
+      "normalized_delta": -0.1,
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(0.823033692135) q[0];\nry(0.823033692135) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "row_hash": "347d166976f7a66dcae9174d209d97cb1e3fe17501c9880c66b01434711777bc",
+      "row_id": "hwrow-000",
+      "source": {
+        "candidate_delta": -16,
+        "context_id": "s2718_r025_1",
+        "quadrant": "00",
+        "reference_delta": -22,
+        "seed": 2718,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s2718_r025_1 slot:0 q_pos:69 ref_key_pos:91 cand_key_pos:85 ref_delta:-22 cand_delta:-16 q_tok:C ref_tok:D cand_tok:A"
+      },
+      "source_row_hash": "c45bcb9de913015693869d0de9fa3a8b76aa651ead6b5cce2278f54171b50567"
+    },
+    {
+      "circuit_parameters": {
+        "entangling_gate": "cx q0->q1",
+        "ry_q0": 1.202528433358,
+        "ry_q1": 1.202528433358,
+        "template": "two_ry_cx_parity_z_readout_v1",
+        "z0_target": 0.36,
+        "z1_target": 0.36
+      },
+      "components": {
+        "component_a": 0.36,
+        "component_b": 0.36
+      },
+      "delta": -12.0,
+      "design_family_id": "pw_contrast_amplified_delta_v1",
+      "encoding_family": "alibi_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+        "readout_note": "Under ideal CNOT readout, E[Z0 after CX] recovers component_a and E[Z0 Z1 after CX] recovers component_b.",
+        "score": 0.68
+      },
+      "normalized_delta": -0.2,
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(1.202528433358) q[0];\nry(1.202528433358) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "row_hash": "f301ca66fa5803b4e54996cf95d7de1a9d6bb309fe6210e49cfe65b4ff2e90fc",
+      "row_id": "hwrow-001",
+      "source": {
+        "candidate_delta": -10,
+        "context_id": "s2718_r025_1",
+        "quadrant": "01",
+        "reference_delta": -22,
+        "seed": 2718,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s2718_r025_1 slot:1 q_pos:69 ref_key_pos:91 cand_key_pos:79 ref_delta:-22 cand_delta:-10 q_tok:C ref_tok:D cand_tok:B"
+      },
+      "source_row_hash": "aed1fc9803efaa339fc36e85d03a55fb0d9a5e2b88ac85749e7bdcdbac18cdd2"
+    },
+    {
+      "circuit_parameters": {
+        "entangling_gate": "cx q0->q1",
+        "ry_q0": 0.960227831759,
+        "ry_q1": 0.960227831759,
+        "template": "two_ry_cx_parity_z_readout_v1",
+        "z0_target": 0.573333333333,
+        "z1_target": 0.573333333333
+      },
+      "components": {
+        "component_a": 0.573333333333,
+        "component_b": 0.573333333333
+      },
+      "delta": 8.0,
+      "design_family_id": "pw_contrast_amplified_delta_v1",
+      "encoding_family": "alibi_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+        "readout_note": "Under ideal CNOT readout, E[Z0 after CX] recovers component_a and E[Z0 Z1 after CX] recovers component_b.",
+        "score": 0.786666666667
+      },
+      "normalized_delta": 0.133333333333,
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(0.960227831759) q[0];\nry(0.960227831759) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "row_hash": "8d0397408433dbc0afd1cf50392aa4bb232befe74491ddcef15e48d80e865ece",
+      "row_id": "hwrow-002",
+      "source": {
+        "candidate_delta": -30,
+        "context_id": "s2718_r025_1",
+        "quadrant": "10",
+        "reference_delta": -22,
+        "seed": 2718,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s2718_r025_1 slot:2 q_pos:69 ref_key_pos:91 cand_key_pos:99 ref_delta:-22 cand_delta:-30 q_tok:C ref_tok:D cand_tok:C"
+      },
+      "source_row_hash": "08aa891203779cedb12a8ddae00e281b6b5b73e2c166ba38419024a191b8842e"
+    },
+    {
+      "circuit_parameters": {
+        "entangling_gate": "cx q0->q1",
+        "ry_q0": 1.854590436003,
+        "ry_q1": 1.854590436003,
+        "template": "two_ry_cx_parity_z_readout_v1",
+        "z0_target": -0.28,
+        "z1_target": -0.28
+      },
+      "components": {
+        "component_a": -0.28,
+        "component_b": -0.28
+      },
+      "delta": 24.0,
+      "design_family_id": "pw_contrast_amplified_delta_v1",
+      "encoding_family": "alibi_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+        "readout_note": "Under ideal CNOT readout, E[Z0 after CX] recovers component_a and E[Z0 Z1 after CX] recovers component_b.",
+        "score": 0.36
+      },
+      "normalized_delta": 0.4,
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(1.854590436003) q[0];\nry(1.854590436003) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "row_hash": "f3d30fdd7f0f17cd1d36990377aa40a07804d8ed7cb47d085541fcbb1d679b8d",
+      "row_id": "hwrow-003",
+      "source": {
+        "candidate_delta": -46,
+        "context_id": "s2718_r025_1",
+        "quadrant": "11",
+        "reference_delta": -22,
+        "seed": 2718,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s2718_r025_1 slot:3 q_pos:69 ref_key_pos:91 cand_key_pos:115 ref_delta:-22 cand_delta:-46 q_tok:C ref_tok:D cand_tok:D"
+      },
+      "source_row_hash": "55293a7603fcbe3380b43d955e13d13494e04c1a512d675ab46634690590deb3"
+    },
+    {
+      "circuit_parameters": {
+        "entangling_gate": "cx q0->q1",
+        "ry_q0": 2.149174556796,
+        "ry_q1": 2.149174556796,
+        "template": "two_ry_cx_parity_z_readout_v1",
+        "z0_target": -0.546666666667,
+        "z1_target": -0.546666666667
+      },
+      "components": {
+        "component_a": -0.546666666667,
+        "component_b": -0.546666666667
+      },
+      "delta": 29.0,
+      "design_family_id": "pw_contrast_amplified_delta_v1",
+      "encoding_family": "alibi_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+        "readout_note": "Under ideal CNOT readout, E[Z0 after CX] recovers component_a and E[Z0 Z1 after CX] recovers component_b.",
+        "score": 0.226666666667
+      },
+      "normalized_delta": 0.483333333333,
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(2.149174556796) q[0];\nry(2.149174556796) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "row_hash": "341fcee30f0791e31344557430697d340cb81410162dd219f677f58ad50d0616",
+      "row_id": "hwrow-004",
+      "source": {
+        "candidate_delta": -44,
+        "context_id": "s2718_r032_0",
+        "quadrant": "00",
+        "reference_delta": -15,
+        "seed": 2718,
+        "slot": 0,
+        "split": "test",
+        "text": "ctx:s2718_r032_0 slot:0 q_pos:68 ref_key_pos:83 cand_key_pos:112 ref_delta:-15 cand_delta:-44 q_tok:A ref_tok:B cand_tok:C"
+      },
+      "source_row_hash": "bef062976e78ca2ae9e0c8779001cda1e1f129747e720d8af23e47a0c6c38543"
+    },
+    {
+      "circuit_parameters": {
+        "entangling_gate": "cx q0->q1",
+        "ry_q0": 3.14159265359,
+        "ry_q1": 3.14159265359,
+        "template": "two_ry_cx_parity_z_readout_v1",
+        "z0_target": -1.0,
+        "z1_target": -1.0
+      },
+      "components": {
+        "component_a": -1.0,
+        "component_b": -1.0
+      },
+      "delta": -60.0,
+      "design_family_id": "pw_contrast_amplified_delta_v1",
+      "encoding_family": "alibi_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+        "readout_note": "Under ideal CNOT readout, E[Z0 after CX] recovers component_a and E[Z0 Z1 after CX] recovers component_b.",
+        "score": 0.0
+      },
+      "normalized_delta": -1.0,
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(3.14159265359) q[0];\nry(3.14159265359) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "row_hash": "ae54aabb9c3bd3a4f2101d7aa10f2f3a9027272e47bc47f9a02501dfffccd331",
+      "row_id": "hwrow-005",
+      "source": {
+        "candidate_delta": 45,
+        "context_id": "s2718_r032_0",
+        "quadrant": "01",
+        "reference_delta": -15,
+        "seed": 2718,
+        "slot": 1,
+        "split": "test",
+        "text": "ctx:s2718_r032_0 slot:1 q_pos:68 ref_key_pos:83 cand_key_pos:23 ref_delta:-15 cand_delta:45 q_tok:A ref_tok:B cand_tok:D"
+      },
+      "source_row_hash": "254db2892dbfe3a4f5dc427b3e14c3cbac0ce5cc8aed6c48cd03b90d99442ec0"
+    },
+    {
+      "circuit_parameters": {
+        "entangling_gate": "cx q0->q1",
+        "ry_q0": 0.960227831759,
+        "ry_q1": 0.960227831759,
+        "template": "two_ry_cx_parity_z_readout_v1",
+        "z0_target": 0.573333333333,
+        "z1_target": 0.573333333333
+      },
+      "components": {
+        "component_a": 0.573333333333,
+        "component_b": 0.573333333333
+      },
+      "delta": 8.0,
+      "design_family_id": "pw_contrast_amplified_delta_v1",
+      "encoding_family": "alibi_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+        "readout_note": "Under ideal CNOT readout, E[Z0 after CX] recovers component_a and E[Z0 Z1 after CX] recovers component_b.",
+        "score": 0.786666666667
+      },
+      "normalized_delta": 0.133333333333,
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(0.960227831759) q[0];\nry(0.960227831759) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "row_hash": "bc4bc39c3018d5faf934f558e4dfb899ea6b2414047d93cb6c90767e1983c08d",
+      "row_id": "hwrow-006",
+      "source": {
+        "candidate_delta": -23,
+        "context_id": "s2718_r032_0",
+        "quadrant": "10",
+        "reference_delta": -15,
+        "seed": 2718,
+        "slot": 2,
+        "split": "test",
+        "text": "ctx:s2718_r032_0 slot:2 q_pos:68 ref_key_pos:83 cand_key_pos:91 ref_delta:-15 cand_delta:-23 q_tok:A ref_tok:B cand_tok:A"
+      },
+      "source_row_hash": "c67d7f84ba6590eff5a0f1b2aecdfcae6734da5b54bb20e103c3854c89d54fda"
+    },
+    {
+      "circuit_parameters": {
+        "entangling_gate": "cx q0->q1",
+        "ry_q0": 3.14159265359,
+        "ry_q1": 3.14159265359,
+        "template": "two_ry_cx_parity_z_readout_v1",
+        "z0_target": -1.0,
+        "z1_target": -1.0
+      },
+      "components": {
+        "component_a": -1.0,
+        "component_b": -1.0
+      },
+      "delta": -48.0,
+      "design_family_id": "pw_contrast_amplified_delta_v1",
+      "encoding_family": "alibi_like",
+      "ideal_predictions": {
+        "observable": "0.5 + 0.25 * (E[Z0 after CX] + E[Z0 Z1 after CX])",
+        "readout_note": "Under ideal CNOT readout, E[Z0 after CX] recovers component_a and E[Z0 Z1 after CX] recovers component_b.",
+        "score": 0.0
+      },
+      "normalized_delta": -0.8,
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nry(3.14159265359) q[0];\nry(3.14159265359) q[1];\ncnot q[0], q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "row_hash": "ffcf38757aaa3e67625107b275cfc200e315c90750636e35ac86b7e902206282",
+      "row_id": "hwrow-007",
+      "source": {
+        "candidate_delta": 33,
+        "context_id": "s2718_r032_0",
+        "quadrant": "11",
+        "reference_delta": -15,
+        "seed": 2718,
+        "slot": 3,
+        "split": "test",
+        "text": "ctx:s2718_r032_0 slot:3 q_pos:68 ref_key_pos:83 cand_key_pos:35 ref_delta:-15 cand_delta:33 q_tok:A ref_tok:B cand_tok:B"
+      },
+      "source_row_hash": "ed57294fef208d497953cd39f9ad2551b5ecbdfdf79060c20c8e6082bbc7d2b8"
+    }
+  ],
+  "schema_version": "qrope_stage183_contrast_amplified_delta_candidate_screen_v1",
+  "shot_count": 1000,
+  "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+  "source_packet_path": "logs/automated_stage_gates/stage4_preregistered_replication_packets/braket_cx_seed2718_rows8_shots1000.json",
+  "source_row_set_hash": "8e5837086b91ef2da179cc5a386c1668e5c41d9b01aa7a01a05160481f3f8c84",
+  "source_stage": "stage4_preregistered_replication_packets"
+}

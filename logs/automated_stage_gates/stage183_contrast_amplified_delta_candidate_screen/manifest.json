@@ -1,0 +1,97 @@
+{
+  "blockers": [],
+  "candidate_group_count": 6,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "IBM token, CRN, account, or credit-balance verification",
+      "a noisy-hardware robustness or auditability conclusion",
+      "a claim that all Stage181 redesign families have failed"
+    ],
+    "supported": [
+      "simulated-only second redesign screen for the Stage181 contrast-amplified delta family",
+      "fixed-width product and CX packet generation over matched real-source rows",
+      "GO/NO-GO evidence for whether this first redesign can reopen the hardware path"
+    ]
+  },
+  "comparison_group_count": 12,
+  "decision": "CONTRAST_AMPLIFIED_DELTA_CANDIDATE_DOES_NOT_SUPPORT_HARDWARE_REOPEN",
+  "design_family_id": "pw_contrast_amplified_delta_v1",
+  "expected_packet_count": 30,
+  "hardware_path_status": "current_ibm_328_job_run_remains_archived",
+  "ibm_backend_properties_informed": true,
+  "metric_record_count": 60,
+  "missing_source_artifacts": [],
+  "missing_source_packets": [],
+  "next_gate": "If this candidate fails, test the next Stage181 redesign family or revise the preregistered control/target semantics before considering any IBM hardware reopen.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_count": 30,
+  "packet_paths": [
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__rope_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__no_position_control.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__rope_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_product_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__no_position_control.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_product_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_product_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__rope_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_product_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_product_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_product_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__no_position_control.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__rope_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed314_rows16_shots4096__pw_contrast_amplified_delta_v1__no_position_control.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__rope_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/ibm_cx_seed577_rows16_shots4096__pw_contrast_amplified_delta_v1__no_position_control.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_cx_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_cx_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__rope_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_cx_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_cx_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/packets/braket_cx_seed2718_rows8_shots1000__pw_contrast_amplified_delta_v1__no_position_control.json"
+  ],
+  "passing_noise_model_count": 0,
+  "passing_noise_models": [],
+  "passing_seed_pairs_by_noise_model": {
+    "ibm_backend_median_stochastic": [],
+    "ibm_backend_p75_stochastic": []
+  },
+  "primary_noise_model_ids": [
+    "ibm_backend_median_stochastic",
+    "ibm_backend_p75_stochastic"
+  ],
+  "provider_credentials_required": false,
+  "reopen_candidate_count": 0,
+  "result_path": "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage183_contrast_amplified_delta_candidate_screen_v1",
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage177_ibm_backend_informed_noise_probe/results.json",
+    "logs/automated_stage_gates/stage181_fixed_width_target_redesign_plan/results.json"
+  ],
+  "source_packet_dir": "logs/automated_stage_gates/stage4_preregistered_replication_packets",
+  "stability_thresholds": {
+    "min_control_margin_shot_quanta": 2.0,
+    "min_independent_seed_pairs": 2,
+    "min_positional_margin_shot_quanta": 2.0,
+    "min_stable_template_count_for_reopen": 2,
+    "primary_models": [
+      "ibm_backend_median_stochastic",
+      "ibm_backend_p75_stochastic"
+    ]
+  },
+  "stage": "stage183_contrast_amplified_delta_candidate_screen",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage183_contrast_amplified_delta_candidate_screen/summary.csv"
+}
