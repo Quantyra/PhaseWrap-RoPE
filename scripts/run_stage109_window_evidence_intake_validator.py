@@ -21,9 +21,10 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Validate filled Stage 107 window evidence before aggregation.")
     parser.add_argument("--stage107-window-plans", type=Path, default=DEFAULT_STAGE107_WINDOW_PLANS)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument("--provider", default=None)
     args = parser.parse_args(argv)
 
-    result = run_stage109_intake_validator(stage107_window_plans_path=args.stage107_window_plans)
+    result = run_stage109_intake_validator(stage107_window_plans_path=args.stage107_window_plans, provider=args.provider)
     paths = write_stage109_outputs(result, args.output_dir)
     print_stage109_summary(result)
     print(f"wrote {paths['manifest']}")

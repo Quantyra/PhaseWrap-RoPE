@@ -30,6 +30,23 @@ def _stage114_fixture(tmp_path):
     return root, result
 
 
+def _multi_provider_stage114_fixture(tmp_path):
+    root = tmp_path / "stage114"
+    ibm_shard = root / "job_shards" / "ibm_runtime" / "window_0" / "jobs.jsonl"
+    braket_shard = root / "job_shards" / "amazon_braket" / "window_0" / "jobs.jsonl"
+    ibm_result = root / "provider_results" / "ibm_runtime" / "window_0" / "provider_job_results.jsonl"
+    _write_jsonl(ibm_shard, [{"job_id": "ibm_job"}])
+    _write_jsonl(braket_shard, [{"job_id": "braket_job"}])
+    _write_json(
+        root / "manifest.json",
+        {
+            "decision": "PROVIDER_RESULT_CAPTURE_CONTRACT_PREPARED_RESULTS_REQUIRED",
+            "job_shard_paths": [str(ibm_shard.as_posix()), str(braket_shard.as_posix())],
+        },
+    )
+    return root, ibm_result
+
+
 def _result(job_id: str) -> dict[str, object]:
     return {
         "job_id": job_id,
@@ -84,6 +101,24 @@ def test_stage115_writes_stage113_input_when_enabled(tmp_path) -> None:
     assert result["decision"] == "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113"
     assert result["wrote_stage113_input"] is True
     assert len((tmp_path / "stage113.jsonl").read_text(encoding="utf-8").splitlines()) == 2
+
+
+def test_stage115_can_collect_provider_scoped_shards(tmp_path) -> None:
+    root, ibm_result = _multi_provider_stage114_fixture(tmp_path)
+    _write_jsonl(ibm_result, [_result("ibm_job")])
+
+    result = run_stage115_collector(
+        stage114_manifest_path=root / "manifest.json",
+        stage114_output_dir=root,
+        stage113_provider_results_path=tmp_path / "stage113.jsonl",
+        write_stage113_input=True,
+        provider="ibm_runtime",
+    )
+
+    assert result["provider_scope"] == "ibm_runtime"
+    assert result["available_shard_count"] == 2
+    assert result["shard_count"] == 1
+    assert result["decision"] == "PROVIDER_RESULTS_COLLECTED_FOR_STAGE113"
 
 
 def test_stage115_outputs_are_written(tmp_path) -> None:

@@ -24,12 +24,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--provider-results", type=Path, default=DEFAULT_PROVIDER_RESULTS)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--write-evidence", action="store_true")
+    parser.add_argument("--provider", default=None)
     args = parser.parse_args(argv)
 
     result = run_stage113_assembler(
         stage112_job_manifest_path=args.stage112_job_manifest,
         provider_results_path=args.provider_results,
         write_evidence=args.write_evidence,
+        provider=args.provider,
     )
     paths = write_stage113_outputs(result, args.output_dir)
     print_stage113_summary(result)

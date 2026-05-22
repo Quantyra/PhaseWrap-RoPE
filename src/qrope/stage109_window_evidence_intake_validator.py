@@ -148,10 +148,14 @@ def _window_record(plan: dict[str, Any]) -> dict[str, Any]:
 def run_stage109_intake_validator(
     *,
     stage107_window_plans_path: Path = DEFAULT_STAGE107_WINDOW_PLANS,
+    provider: str | None = None,
 ) -> dict[str, Any]:
     plans = _load_json(stage107_window_plans_path)
     missing_sources = [] if isinstance(plans, list) else [str(stage107_window_plans_path.as_posix())]
-    window_plans = plans if isinstance(plans, list) else []
+    all_window_plans = plans if isinstance(plans, list) else []
+    window_plans = [
+        plan for plan in all_window_plans if provider is None or plan.get("provider") == provider
+    ]
     window_records = [_window_record(plan) for plan in window_plans]
     ready_window_count = sum(1 for record in window_records if record["ready"])
     missing_evidence_count = sum(len(record["missing_evidence"]) for record in window_records)
@@ -168,7 +172,9 @@ def run_stage109_intake_validator(
         ),
         "source_artifacts": [str(stage107_window_plans_path.as_posix())],
         "missing_source_artifacts": missing_sources,
+        "provider_scope": provider or "all",
         "window_count": len(window_records),
+        "available_window_count": len(all_window_plans),
         "ready_window_count": ready_window_count,
         "missing_evidence_count": missing_evidence_count,
         "no_hardware_submission": True,
@@ -178,6 +184,7 @@ def run_stage109_intake_validator(
         "claim_boundary": {
             "supported": [
                 "a deterministic intake check for filled Stage 107 independent-window evidence",
+                "optional provider-scoped intake for first-provider replicated-window evaluation",
                 "per-window verification that calibration, packet counts, and Stage 103 metric readiness are present",
                 "a no-submission guard before any Stage 105 aggregation claim",
             ],
@@ -189,7 +196,7 @@ def run_stage109_intake_validator(
             ],
         },
         "next_gate": (
-            "Fill each Stage 107 window with real calibration evidence, Stage 101 pass results, packet execution counts, "
+            "Fill each selected Stage 107 window with real calibration evidence, Stage 101 pass results, packet execution counts, "
             "and Stage 103 metric outputs; rerun this validator before Stage 105 aggregation."
         ),
     }
@@ -205,7 +212,9 @@ def write_stage109_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "decision": result["decision"],
         "source_artifacts": result["source_artifacts"],
         "missing_source_artifacts": result["missing_source_artifacts"],
+        "provider_scope": result["provider_scope"],
         "window_count": result["window_count"],
+        "available_window_count": result["available_window_count"],
         "ready_window_count": result["ready_window_count"],
         "missing_evidence_count": result["missing_evidence_count"],
         "no_hardware_submission": result["no_hardware_submission"],
@@ -256,6 +265,7 @@ def print_stage109_summary(result: dict[str, Any]) -> None:
     print(f"stage: {result['stage']}")
     print(f"status: {result['status']}")
     print(f"decision: {result['decision']}")
+    print(f"provider_scope: {result['provider_scope']}")
     print(f"window_count: {result['window_count']}")
     print(f"ready_window_count: {result['ready_window_count']}")
     print(f"missing_evidence_count: {result['missing_evidence_count']}")

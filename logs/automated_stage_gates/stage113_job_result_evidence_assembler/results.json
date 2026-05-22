@@ -1,6 +1,8 @@
 {
   "assembled_evidence_count": 0,
   "assembled_evidence_paths": [],
+  "available_job_count": 496,
+  "available_provider_result_count": 0,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -11,6 +13,7 @@
     ],
     "supported": [
       "a deterministic assembler from Stage 112 job results into Stage 109-compatible evidence files",
+      "optional provider-scoped evidence assembly for first-provider execution",
       "per-job missing count detection before evidence files are written",
       "a non-submitting bridge between provider runners and calibration/packet evidence intake"
     ]
@@ -12921,11 +12924,12 @@
   "missing_source_artifacts": [
     "logs/automated_stage_gates/stage113_job_result_evidence_assembler/provider_job_results.jsonl"
   ],
-  "next_gate": "Produce provider_job_results.jsonl for every Stage 112 job, rerun this assembler with --write-evidence, then run Stage 101, Stage 103, Stage 109, and Stage 110 in order.",
+  "next_gate": "Produce provider_job_results.jsonl for every selected Stage 112 job, rerun this assembler with --write-evidence, then run Stage 101, Stage 103, Stage 109, and Stage 110 in order.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": false,
   "provider_result_count": 0,
+  "provider_scope": "all",
   "ready_job_result_count": 0,
   "schema_version": "qrope_stage113_job_result_evidence_assembler_v1",
   "secret_values_recorded": false,

@@ -1,4 +1,5 @@
 {
+  "available_shard_count": 4,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -9,6 +10,7 @@
     ],
     "supported": [
       "validation and collection of Stage 114 provider/window result JSONL shards",
+      "optional provider-scoped collection for first-provider execution without requiring other providers first",
       "duplicate, unknown, missing, and empty-count result detection before Stage 113 assembly",
       "optional generation of the single Stage 113 provider_job_results.jsonl input"
     ]
@@ -18,10 +20,11 @@
   "invalid_result_record_count": 0,
   "missing_job_count": 496,
   "missing_source_artifacts": [],
-  "next_gate": "Populate every Stage 114 provider result shard, rerun this collector with --write-stage113-input, then run Stage 113 with --write-evidence.",
+  "next_gate": "Populate every selected Stage 114 provider result shard, rerun this collector with --write-stage113-input, then run Stage 113 with --write-evidence.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": false,
+  "provider_scope": "all",
   "ready_shard_count": 0,
   "result_path": "logs/automated_stage_gates/stage115_provider_result_collector/results.json",
   "result_record_count": 0,

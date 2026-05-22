@@ -26,6 +26,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--stage113-provider-results", type=Path, default=DEFAULT_STAGE113_PROVIDER_RESULTS)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--write-stage113-input", action="store_true")
+    parser.add_argument("--provider", default=None)
     args = parser.parse_args(argv)
 
     result = run_stage115_collector(
@@ -33,6 +34,7 @@ def main(argv: list[str] | None = None) -> int:
         stage114_output_dir=args.stage114_output_dir,
         stage113_provider_results_path=args.stage113_provider_results,
         write_stage113_input=args.write_stage113_input,
+        provider=args.provider,
     )
     paths = write_stage115_outputs(result, args.output_dir)
     print_stage115_summary(result)

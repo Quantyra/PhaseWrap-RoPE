@@ -209,12 +209,16 @@ def run_stage137_evaluator(
     *,
     stage107_window_plans_path: Path = DEFAULT_STAGE107_WINDOW_PLANS,
     stage136_results_path: Path = DEFAULT_STAGE136_RESULTS,
+    provider: str | None = None,
 ) -> dict[str, Any]:
     plans = _load_json(stage107_window_plans_path)
     stage136 = _load_json(stage136_results_path)
     sources = [(stage107_window_plans_path, plans), (stage136_results_path, stage136)]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
-    window_plans = plans if isinstance(plans, list) else []
+    all_window_plans = plans if isinstance(plans, list) else []
+    window_plans = [
+        plan for plan in all_window_plans if provider is None or plan.get("provider") == provider
+    ]
     stage136_ready = bool(
         isinstance(stage136, dict) and stage136.get("decision") == "AUDITABILITY_METRIC_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED"
     )
@@ -234,9 +238,11 @@ def run_stage137_evaluator(
         ),
         "source_artifacts": [str(path.as_posix()) for path, _ in sources],
         "missing_source_artifacts": missing_sources,
+        "provider_scope": provider or "all",
         "stage136_decision": stage136.get("decision") if isinstance(stage136, dict) else None,
         "stage136_ready": stage136_ready,
         "window_count": len(window_records),
+        "available_window_count": len(all_window_plans),
         "ready_window_count": ready_window_count,
         "comparison_summary_count": len(comparison_summary),
         "auditability_advantage_count": sum(1 for record in comparison_summary if record["passes_auditability_advantage_rule"]),
@@ -248,6 +254,7 @@ def run_stage137_evaluator(
         "claim_boundary": {
             "supported": [
                 "a deterministic evaluator for component reconstruction auditability metrics",
+                "optional provider-scoped auditability evaluation for first-provider replicated-window evidence",
                 "binding of auditability evaluation to Stage 107 packet execution counts and Stage 101 calibration results",
                 "a blocked outcome when real provider packet counts are missing",
             ],
@@ -260,7 +267,7 @@ def run_stage137_evaluator(
             ],
         },
         "next_gate": (
-            "Populate Stage 107 packet execution counts via Stage 113 assembly and pass per-window Stage 101 calibration, "
+            "Populate selected Stage 107 packet execution counts via Stage 113 assembly and pass per-window Stage 101 calibration, "
             "then rerun this evaluator before any auditability advantage wording."
         ),
     }
@@ -276,9 +283,11 @@ def write_stage137_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "decision": result["decision"],
         "source_artifacts": result["source_artifacts"],
         "missing_source_artifacts": result["missing_source_artifacts"],
+        "provider_scope": result["provider_scope"],
         "stage136_decision": result["stage136_decision"],
         "stage136_ready": result["stage136_ready"],
         "window_count": result["window_count"],
+        "available_window_count": result["available_window_count"],
         "ready_window_count": result["ready_window_count"],
         "comparison_summary_count": result["comparison_summary_count"],
         "auditability_advantage_count": result["auditability_advantage_count"],
@@ -328,6 +337,7 @@ def print_stage137_summary(result: dict[str, Any]) -> None:
     print(f"stage: {result['stage']}")
     print(f"status: {result['status']}")
     print(f"decision: {result['decision']}")
+    print(f"provider_scope: {result['provider_scope']}")
     print(f"ready_window_count: {result['ready_window_count']}/{result['window_count']}")
     print(f"comparison_summary_count: {result['comparison_summary_count']}")
     print(f"auditability_advantage_count: {result['auditability_advantage_count']}")

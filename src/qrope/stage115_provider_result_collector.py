@@ -132,12 +132,17 @@ def run_stage115_collector(
     stage114_output_dir: Path = DEFAULT_STAGE114_OUTPUT_DIR,
     stage113_provider_results_path: Path = DEFAULT_STAGE113_PROVIDER_RESULTS,
     write_stage113_input: bool = False,
+    provider: str | None = None,
 ) -> dict[str, Any]:
     stage114 = _load_json(stage114_manifest_path)
     missing_sources = [] if isinstance(stage114, dict) else [str(stage114_manifest_path.as_posix())]
     shard_summaries = []
     invalid_records = []
-    for shard_record in _shard_records(stage114, stage114_output_dir):
+    all_shard_records = _shard_records(stage114, stage114_output_dir)
+    selected_shard_records = [
+        record for record in all_shard_records if provider is None or record.get("provider") == provider
+    ]
+    for shard_record in selected_shard_records:
         summary, records = _validate_shard(shard_record)
         shard_summaries.append(summary)
         invalid_records.extend(records)
@@ -165,10 +170,12 @@ def run_stage115_collector(
         "source_artifacts": [str(stage114_manifest_path.as_posix())],
         "missing_source_artifacts": missing_sources,
         "stage114_decision": stage114.get("decision") if isinstance(stage114, dict) else None,
+        "provider_scope": provider or "all",
         "write_stage113_input": write_stage113_input,
         "stage113_provider_results_path": str(stage113_provider_results_path.as_posix()),
         "wrote_stage113_input": wrote_stage113_input,
         "shard_count": len(shard_summaries),
+        "available_shard_count": len(all_shard_records),
         "ready_shard_count": sum(1 for record in shard_summaries if record["ready"]),
         "expected_job_count": sum(record["expected_job_count"] for record in shard_summaries),
         "result_record_count": sum(record["result_record_count"] for record in shard_summaries),
@@ -182,6 +189,7 @@ def run_stage115_collector(
         "claim_boundary": {
             "supported": [
                 "validation and collection of Stage 114 provider/window result JSONL shards",
+                "optional provider-scoped collection for first-provider execution without requiring other providers first",
                 "duplicate, unknown, missing, and empty-count result detection before Stage 113 assembly",
                 "optional generation of the single Stage 113 provider_job_results.jsonl input",
             ],
@@ -194,7 +202,7 @@ def run_stage115_collector(
             ],
         },
         "next_gate": (
-            "Populate every Stage 114 provider result shard, rerun this collector with --write-stage113-input, then run "
+            "Populate every selected Stage 114 provider result shard, rerun this collector with --write-stage113-input, then run "
             "Stage 113 with --write-evidence."
         ),
     }
@@ -211,10 +219,12 @@ def write_stage115_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "source_artifacts": result["source_artifacts"],
         "missing_source_artifacts": result["missing_source_artifacts"],
         "stage114_decision": result["stage114_decision"],
+        "provider_scope": result["provider_scope"],
         "write_stage113_input": result["write_stage113_input"],
         "stage113_provider_results_path": result["stage113_provider_results_path"],
         "wrote_stage113_input": result["wrote_stage113_input"],
         "shard_count": result["shard_count"],
+        "available_shard_count": result["available_shard_count"],
         "ready_shard_count": result["ready_shard_count"],
         "expected_job_count": result["expected_job_count"],
         "result_record_count": result["result_record_count"],
@@ -263,6 +273,7 @@ def print_stage115_summary(result: dict[str, Any]) -> None:
     print(f"stage: {result['stage']}")
     print(f"status: {result['status']}")
     print(f"decision: {result['decision']}")
+    print(f"provider_scope: {result['provider_scope']}")
     print(f"ready_shard_count: {result['ready_shard_count']}/{result['shard_count']}")
     print(f"expected_job_count: {result['expected_job_count']}")
     print(f"result_record_count: {result['result_record_count']}")

@@ -129,6 +129,7 @@ def run_stage113_assembler(
     stage112_job_manifest_path: Path = DEFAULT_STAGE112_JOB_MANIFEST,
     provider_results_path: Path = DEFAULT_PROVIDER_RESULTS,
     write_evidence: bool = False,
+    provider: str | None = None,
 ) -> dict[str, Any]:
     jobs = _load_jsonl(stage112_job_manifest_path)
     results = _load_jsonl(provider_results_path)
@@ -137,12 +138,23 @@ def run_stage113_assembler(
         (provider_results_path, results),
     ]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
-    job_records, missing_job_records = _job_result_records(jobs or [], results or [])
-    ready = bool(jobs) and bool(results) and not missing_sources and not missing_job_records and len(results) >= len(jobs)
+    selected_jobs = [job for job in jobs or [] if provider is None or job.get("provider") == provider]
+    selected_job_ids = {str(job.get("job_id")) for job in selected_jobs}
+    selected_results = [
+        result for result in results or [] if provider is None or str(result.get("job_id")) in selected_job_ids
+    ]
+    job_records, missing_job_records = _job_result_records(selected_jobs, selected_results)
+    ready = (
+        bool(selected_jobs)
+        and bool(selected_results)
+        and not missing_sources
+        and not missing_job_records
+        and len(selected_results) >= len(selected_jobs)
+    )
     assembled_paths: list[str] = []
     if ready and write_evidence:
-        results_by_job = {str(record["job_id"]): record for record in results or []}
-        for path_text, payload in _apply_results(jobs or [], results_by_job).items():
+        results_by_job = {str(record["job_id"]): record for record in selected_results}
+        for path_text, payload in _apply_results(selected_jobs, results_by_job).items():
             path = Path(path_text)
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
@@ -162,8 +174,11 @@ def run_stage113_assembler(
         "source_artifacts": [str(path.as_posix()) for path, _ in sources],
         "missing_source_artifacts": missing_sources,
         "write_evidence": write_evidence,
-        "job_count": len(jobs or []),
-        "provider_result_count": len(results or []),
+        "provider_scope": provider or "all",
+        "job_count": len(selected_jobs),
+        "available_job_count": len(jobs or []),
+        "provider_result_count": len(selected_results),
+        "available_provider_result_count": len(results or []),
         "ready_job_result_count": sum(1 for record in job_records if record["ready"]),
         "missing_job_result_count": len(missing_job_records),
         "assembled_evidence_count": len(assembled_paths),
@@ -176,6 +191,7 @@ def run_stage113_assembler(
         "claim_boundary": {
             "supported": [
                 "a deterministic assembler from Stage 112 job results into Stage 109-compatible evidence files",
+                "optional provider-scoped evidence assembly for first-provider execution",
                 "per-job missing count detection before evidence files are written",
                 "a non-submitting bridge between provider runners and calibration/packet evidence intake",
             ],
@@ -188,7 +204,7 @@ def run_stage113_assembler(
             ],
         },
         "next_gate": (
-            "Produce provider_job_results.jsonl for every Stage 112 job, rerun this assembler with --write-evidence, "
+            "Produce provider_job_results.jsonl for every selected Stage 112 job, rerun this assembler with --write-evidence, "
             "then run Stage 101, Stage 103, Stage 109, and Stage 110 in order."
         ),
     }
@@ -205,8 +221,11 @@ def write_stage113_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "source_artifacts": result["source_artifacts"],
         "missing_source_artifacts": result["missing_source_artifacts"],
         "write_evidence": result["write_evidence"],
+        "provider_scope": result["provider_scope"],
         "job_count": result["job_count"],
+        "available_job_count": result["available_job_count"],
         "provider_result_count": result["provider_result_count"],
+        "available_provider_result_count": result["available_provider_result_count"],
         "ready_job_result_count": result["ready_job_result_count"],
         "missing_job_result_count": result["missing_job_result_count"],
         "assembled_evidence_count": result["assembled_evidence_count"],
@@ -250,6 +269,7 @@ def print_stage113_summary(result: dict[str, Any]) -> None:
     print(f"stage: {result['stage']}")
     print(f"status: {result['status']}")
     print(f"decision: {result['decision']}")
+    print(f"provider_scope: {result['provider_scope']}")
     print(f"job_count: {result['job_count']}")
     print(f"provider_result_count: {result['provider_result_count']}")
     print(f"ready_job_result_count: {result['ready_job_result_count']}")

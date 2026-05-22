@@ -1,0 +1,61 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "provider credential values",
+      "hardware job submission",
+      "live provider SDK client creation",
+      "real provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "first-provider evidence intake readiness after authorized IBM Runtime execution",
+      "provider-scoped Stage 115, Stage 113, Stage 109, and Stage 137 command sequence",
+      "explicit blocker reporting before Stage 138 objective wording"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_EVIDENCE_PATH_PREPARED_RESULTS_BLOCKED",
+  "first_blocked_readiness_record": {
+    "decision": "POST_CONFIGURATION_RERUN_CHAIN_PREPARED_EXECUTION_BLOCKED",
+    "name": "post_configuration_authorized_runner_chain",
+    "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
+    "ready": false
+  },
+  "first_provider_authorized_runner_count": 0,
+  "first_provider_expected_job_count": 328,
+  "first_provider_missing_job_count": 328,
+  "first_provider_ready_shard_count": 0,
+  "first_provider_result_record_count": 0,
+  "first_provider_runner_command_count": 2,
+  "first_provider_shard_count": 2,
+  "first_unlock_provider": "ibm_runtime",
+  "missing_source_artifacts": [],
+  "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
+  "next_gate": "Clear Stage 144 and Stage 133 authorization first. After IBM Runtime result JSONL files exist, run the provider-scoped collection and evidence commands before Stage 110/138 claim gates.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage145_first_provider_evidence_path_audit/results.json",
+  "schema_version": "qrope_stage145_first_provider_evidence_path_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json",
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/manifest.json",
+    "logs/automated_stage_gates/stage115_provider_result_collector/results.json",
+    "logs/automated_stage_gates/stage133_authorized_runner_command_packet/results.json",
+    "logs/automated_stage_gates/stage135_post_collection_claim_gate_sequence/results.json",
+    "logs/automated_stage_gates/stage137_auditability_metric_evaluator/results.json",
+    "logs/automated_stage_gates/stage144_post_configuration_rerun_chain_audit/results.json"
+  ],
+  "stage": "stage145_first_provider_evidence_path_audit",
+  "stage114_required_result_fields": [
+    "job_id",
+    "job_or_task_id",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "counts"
+  ],
+  "stage135_decision": "POST_COLLECTION_CLAIM_GATE_SEQUENCE_PREPARED_EXECUTION_BLOCKED",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage145_first_provider_evidence_path_audit/summary.csv"
+}

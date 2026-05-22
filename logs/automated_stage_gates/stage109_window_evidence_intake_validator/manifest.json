@@ -1,4 +1,5 @@
 {
+  "available_window_count": 4,
   "claim_boundary": {
     "excluded": [
       "real hardware submission",
@@ -8,6 +9,7 @@
     ],
     "supported": [
       "a deterministic intake check for filled Stage 107 independent-window evidence",
+      "optional provider-scoped intake for first-provider replicated-window evaluation",
       "per-window verification that calibration, packet counts, and Stage 103 metric readiness are present",
       "a no-submission guard before any Stage 105 aggregation claim"
     ]
@@ -15,10 +17,11 @@
   "decision": "WINDOW_EVIDENCE_INTAKE_BLOCKED_EVIDENCE_MISSING",
   "missing_evidence_count": 16,
   "missing_source_artifacts": [],
-  "next_gate": "Fill each Stage 107 window with real calibration evidence, Stage 101 pass results, packet execution counts, and Stage 103 metric outputs; rerun this validator before Stage 105 aggregation.",
+  "next_gate": "Fill each selected Stage 107 window with real calibration evidence, Stage 101 pass results, packet execution counts, and Stage 103 metric outputs; rerun this validator before Stage 105 aggregation.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": false,
+  "provider_scope": "all",
   "ready_window_count": 0,
   "result_path": "logs/automated_stage_gates/stage109_window_evidence_intake_validator/results.json",
   "schema_version": "qrope_stage109_window_evidence_intake_validator_v1",

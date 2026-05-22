@@ -1,5 +1,6 @@
 {
   "auditability_advantage_count": 0,
+  "available_window_count": 4,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -10,6 +11,7 @@
     ],
     "supported": [
       "a deterministic evaluator for component reconstruction auditability metrics",
+      "optional provider-scoped auditability evaluation for first-provider replicated-window evidence",
       "binding of auditability evaluation to Stage 107 packet execution counts and Stage 101 calibration results",
       "a blocked outcome when real provider packet counts are missing"
     ]
@@ -18,10 +20,11 @@
   "comparison_summary_count": 0,
   "decision": "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED",
   "missing_source_artifacts": [],
-  "next_gate": "Populate Stage 107 packet execution counts via Stage 113 assembly and pass per-window Stage 101 calibration, then rerun this evaluator before any auditability advantage wording.",
+  "next_gate": "Populate selected Stage 107 packet execution counts via Stage 113 assembly and pass per-window Stage 101 calibration, then rerun this evaluator before any auditability advantage wording.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": false,
+  "provider_scope": "all",
   "ready_window_count": 0,
   "schema_version": "qrope_stage137_auditability_metric_evaluator_v1",
   "secret_values_recorded": false,

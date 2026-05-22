@@ -134,6 +134,47 @@ def test_stage113_writes_evidence_when_explicitly_enabled(tmp_path) -> None:
     assert packet["no_hardware_submission"] is False
 
 
+def test_stage113_can_assemble_provider_scoped_results(tmp_path) -> None:
+    jobs, results, calibration_target, _ = _fixture(tmp_path)
+    braket_target = tmp_path / "evidence" / "braket.json"
+    braket_template = tmp_path / "templates" / "braket.json"
+    _write_json(
+        braket_template,
+        {
+            "provider": "amazon_braket",
+            "raw_counts_by_state": [{"state": "00", "counts": {}}],
+        },
+    )
+    jobs.append(
+        {
+            "job_id": "braket_job",
+            "job_kind": "known_state_calibration",
+            "provider": "amazon_braket",
+            "window_id": "window0",
+            "target_evidence_path": str(braket_target.as_posix()),
+            "target_counts_container": "raw_counts_by_state",
+            "target_counts_key": "00",
+            "template_path": str(braket_template.as_posix()),
+        }
+    )
+    _write_jsonl(tmp_path / "jobs.jsonl", jobs)
+    _write_jsonl(tmp_path / "results.jsonl", results)
+
+    result = run_stage113_assembler(
+        stage112_job_manifest_path=tmp_path / "jobs.jsonl",
+        provider_results_path=tmp_path / "results.jsonl",
+        write_evidence=True,
+        provider="ibm_runtime",
+    )
+
+    assert result["provider_scope"] == "ibm_runtime"
+    assert result["available_job_count"] == 3
+    assert result["job_count"] == 2
+    assert result["decision"] == "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"
+    assert calibration_target.exists()
+    assert not braket_target.exists()
+
+
 def test_stage113_outputs_are_written(tmp_path) -> None:
     jobs, _, _, _ = _fixture(tmp_path)
     _write_jsonl(tmp_path / "jobs.jsonl", jobs)
