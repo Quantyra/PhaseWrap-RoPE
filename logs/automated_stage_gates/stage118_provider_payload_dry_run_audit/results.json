@@ -1,0 +1,88 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "completed provider result records",
+      "Stage 113 evidence assembly",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "offline provider-shaped payload compilation for every Stage 116 runner job",
+      "stable non-secret dry-run payload files for provider-runner implementation",
+      "confirmation that execution remains blocked before live provider submission"
+    ]
+  },
+  "compiled_payload_count": 496,
+  "decision": "PROVIDER_PAYLOAD_DRY_RUN_COMPILED_EXECUTION_BLOCKED",
+  "expected_job_count": 496,
+  "missing_source_artifacts": [],
+  "next_gate": "Clear Stage 106/111 provider readiness, then implement live runner submission against these payload records while preserving the Stage 114 result contract.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "payload_records": [
+    {
+      "calibration_payload_count": 4,
+      "compiled_payload_count": 84,
+      "duplicate_job_id_count": 0,
+      "expected_job_count": 84,
+      "job_shard_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/amazon_braket/amazon_braket__independent_window_00/jobs.jsonl",
+      "missing_evidence": [],
+      "packet_payload_count": 80,
+      "payload_output_path": "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/dry_run_payloads/amazon_braket/amazon_braket__independent_window_00/submission_payloads.jsonl",
+      "provider": "amazon_braket",
+      "ready": true,
+      "window_id": "amazon_braket__independent_window_00"
+    },
+    {
+      "calibration_payload_count": 4,
+      "compiled_payload_count": 84,
+      "duplicate_job_id_count": 0,
+      "expected_job_count": 84,
+      "job_shard_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/amazon_braket/amazon_braket__independent_window_01/jobs.jsonl",
+      "missing_evidence": [],
+      "packet_payload_count": 80,
+      "payload_output_path": "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/dry_run_payloads/amazon_braket/amazon_braket__independent_window_01/submission_payloads.jsonl",
+      "provider": "amazon_braket",
+      "ready": true,
+      "window_id": "amazon_braket__independent_window_01"
+    },
+    {
+      "calibration_payload_count": 4,
+      "compiled_payload_count": 164,
+      "duplicate_job_id_count": 0,
+      "expected_job_count": 164,
+      "job_shard_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_00/jobs.jsonl",
+      "missing_evidence": [],
+      "packet_payload_count": 160,
+      "payload_output_path": "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/dry_run_payloads/ibm_runtime/ibm_runtime__independent_window_00/submission_payloads.jsonl",
+      "provider": "ibm_runtime",
+      "ready": true,
+      "window_id": "ibm_runtime__independent_window_00"
+    },
+    {
+      "calibration_payload_count": 4,
+      "compiled_payload_count": 164,
+      "duplicate_job_id_count": 0,
+      "expected_job_count": 164,
+      "job_shard_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_01/jobs.jsonl",
+      "missing_evidence": [],
+      "packet_payload_count": 160,
+      "payload_output_path": "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/dry_run_payloads/ibm_runtime/ibm_runtime__independent_window_01/submission_payloads.jsonl",
+      "provider": "ibm_runtime",
+      "ready": true,
+      "window_id": "ibm_runtime__independent_window_01"
+    }
+  ],
+  "provider_credentials_required": true,
+  "ready_payload_record_count": 4,
+  "runner_count": 4,
+  "schema_version": "qrope_stage118_provider_payload_dry_run_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage116_provider_runner_plan/results.json"
+  ],
+  "stage": "stage118_provider_payload_dry_run_audit",
+  "stage116_decision": "PROVIDER_RUNNER_PLAN_PREPARED_EXECUTION_BLOCKED",
+  "status": "completed"
+}
