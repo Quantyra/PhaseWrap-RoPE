@@ -1,0 +1,117 @@
+{
+  "boundary_ready": true,
+  "claim_boundary": {
+    "excluded": [
+      "provider credential values",
+      "hardware job submission",
+      "live provider SDK client creation",
+      "real provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "machine-checkable safety audit for the Stage 142 first-provider handoff",
+      "verification that env-template assignments remain empty placeholders",
+      "verification that rerun commands do not include live-submit fragments"
+    ]
+  },
+  "command_records": [
+    {
+      "command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
+      "forbidden_fragments": [],
+      "ready": true
+    },
+    {
+      "command": "python scripts/run_stage106_hardware_execution_preflight.py --load-dotenv",
+      "forbidden_fragments": [],
+      "ready": true
+    },
+    {
+      "command": "python scripts/run_stage111_provider_sdk_backend_discovery.py",
+      "forbidden_fragments": [],
+      "ready": true
+    },
+    {
+      "command": "python scripts/run_stage128_sdk_client_factory_audit.py",
+      "forbidden_fragments": [],
+      "ready": true
+    },
+    {
+      "command": "python scripts/run_stage129_live_cutover_authorization_audit.py",
+      "forbidden_fragments": [],
+      "ready": true
+    },
+    {
+      "command": "python scripts/run_stage130_live_cutover_remediation_packet.py",
+      "forbidden_fragments": [],
+      "ready": true
+    },
+    {
+      "command": "python scripts/run_stage139_provider_action_readiness_checklist.py",
+      "forbidden_fragments": [],
+      "ready": true
+    },
+    {
+      "command": "python scripts/run_stage141_provider_unlock_priority.py",
+      "forbidden_fragments": [],
+      "ready": true
+    }
+  ],
+  "decision": "FIRST_PROVIDER_HANDOFF_SAFETY_VERIFIED_NO_SUBMISSION",
+  "first_unlock_provider": "ibm_runtime",
+  "forbidden_command_count": 0,
+  "missing_source_artifacts": [],
+  "next_gate": "Keep the committed handoff as placeholders only. Fill local env outside git, rerun Stage 142/140, and only run live provider commands after Stage 133 authorizes them.",
+  "no_hardware_submission": true,
+  "nonempty_template_assignment_count": 0,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "rerun_command_count": 8,
+  "rerun_commands_non_live": true,
+  "schema_version": "qrope_stage143_first_provider_handoff_safety_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage142_first_provider_unlock_handoff/results.json"
+  ],
+  "stage": "stage143_first_provider_handoff_safety_audit",
+  "stage142_decision": "FIRST_PROVIDER_UNLOCK_HANDOFF_READY_ENV_OR_SDK_REQUIRED",
+  "status": "completed",
+  "template_assignment_count": 7,
+  "template_placeholders_only": true,
+  "template_records": [
+    {
+      "key": "IBM_QUANTUM_INSTANCE_CRN",
+      "ready": true,
+      "value_present": false
+    },
+    {
+      "key": "IBM_QUANTUM_TOKEN",
+      "ready": true,
+      "value_present": false
+    },
+    {
+      "key": "QISKIT_IBM_TOKEN",
+      "ready": true,
+      "value_present": false
+    },
+    {
+      "key": "QROPE_HARDWARE_BACKEND",
+      "ready": true,
+      "value_present": false
+    },
+    {
+      "key": "QROPE_HARDWARE_BUDGET_USD_CAP",
+      "ready": true,
+      "value_present": false
+    },
+    {
+      "key": "QROPE_HARDWARE_QUEUE_DEPTH_CAP",
+      "ready": true,
+      "value_present": false
+    },
+    {
+      "key": "QROPE_IBM_BACKEND",
+      "ready": true,
+      "value_present": false
+    }
+  ]
+}

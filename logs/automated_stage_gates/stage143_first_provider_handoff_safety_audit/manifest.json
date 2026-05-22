@@ -1,0 +1,40 @@
+{
+  "boundary_ready": true,
+  "claim_boundary": {
+    "excluded": [
+      "provider credential values",
+      "hardware job submission",
+      "live provider SDK client creation",
+      "real provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "machine-checkable safety audit for the Stage 142 first-provider handoff",
+      "verification that env-template assignments remain empty placeholders",
+      "verification that rerun commands do not include live-submit fragments"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_HANDOFF_SAFETY_VERIFIED_NO_SUBMISSION",
+  "first_unlock_provider": "ibm_runtime",
+  "forbidden_command_count": 0,
+  "missing_source_artifacts": [],
+  "next_gate": "Keep the committed handoff as placeholders only. Fill local env outside git, rerun Stage 142/140, and only run live provider commands after Stage 133 authorizes them.",
+  "no_hardware_submission": true,
+  "nonempty_template_assignment_count": 0,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "rerun_command_count": 8,
+  "rerun_commands_non_live": true,
+  "result_path": "logs/automated_stage_gates/stage143_first_provider_handoff_safety_audit/results.json",
+  "schema_version": "qrope_stage143_first_provider_handoff_safety_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage142_first_provider_unlock_handoff/results.json"
+  ],
+  "stage": "stage143_first_provider_handoff_safety_audit",
+  "stage142_decision": "FIRST_PROVIDER_UNLOCK_HANDOFF_READY_ENV_OR_SDK_REQUIRED",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage143_first_provider_handoff_safety_audit/summary.csv",
+  "template_assignment_count": 7,
+  "template_placeholders_only": true
+}
