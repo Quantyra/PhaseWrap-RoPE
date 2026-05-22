@@ -64,6 +64,9 @@ def _stage148(*, ready: bool) -> dict:
         "ready_calibration_record_count": 2 if ready else 0,
         "stage146_ready": ready,
         "stage147_ready": ready,
+        "stage113_live_submit_provenance_ready": ready,
+        "stage113_stage115_stage152_all_first_provider_commands_authorized": ready,
+        "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready": ready,
         "lane_record_count": 2,
         "stage103_lower_mae_lane_count": 2 if ready else 0,
         "shot_noise_separated_lane_count": 2 if ready else 0,
@@ -188,6 +191,24 @@ def test_stage138_rejects_stage148_ready_decision_without_source_contract_readin
     assert result["objective_supported"] is False
 
 
+def test_stage138_rejects_stage148_ready_decision_without_live_submit_provenance(tmp_path) -> None:
+    stage110 = tmp_path / "stage110.json"
+    stage137 = tmp_path / "stage137.json"
+    stage148 = tmp_path / "stage148.json"
+    payload = _stage148(ready=True)
+    payload["stage113_live_submit_provenance_ready"] = False
+    _write_json(stage110, _stage110("PHASEWRAP_REPLICATED_ADVANTAGE_SUPPORTED_BY_STAGE105_RULE", replicated=1))
+    _write_json(stage137, _stage137(ready=True))
+    _write_json(stage148, payload)
+
+    result = run_stage138_claim_gate(stage110_results_path=stage110, stage137_results_path=stage137, stage148_results_path=stage148)
+
+    assert result["decision"] == "OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE"
+    assert result["statistical_interpretation_ready"] is False
+    assert result["stage148_stage113_live_submit_provenance_ready"] is False
+    assert result["objective_supported"] is False
+
+
 def test_stage138_supports_objective_when_auditability_replicates(tmp_path) -> None:
     stage110 = tmp_path / "stage110.json"
     stage137 = tmp_path / "stage137.json"
@@ -235,4 +256,5 @@ def test_stage138_outputs_are_written(tmp_path) -> None:
 
     assert set(paths) == {"manifest", "result", "summary_csv"}
     assert manifest["objective_supported"] is True
+    assert manifest["stage148_stage113_live_submit_provenance_ready"] is True
     assert "ibm_runtime" in summary
