@@ -1,0 +1,37 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "real hardware submission",
+      "provider credential validation",
+      "a noisy-hardware advantage claim when evidence intake is incomplete",
+      "provider-wide or transformer-scale superiority beyond recorded windows"
+    ],
+    "supported": [
+      "a deterministic gate that binds any replicated PhaseWrap claim to Stage 109 readiness",
+      "application of the preregistered Stage 103 lower-MAE rule across Stage 105 independent windows",
+      "explicit reporting of not-supported outcomes when any required window fails the advantage rule"
+    ]
+  },
+  "decision": "REPLICATED_ADVANTAGE_CLAIM_BLOCKED_EVIDENCE_INTAKE_INCOMPLETE",
+  "missing_source_artifacts": [],
+  "next_gate": "If Stage 109 is blocked, complete the missing window evidence first. If Stage 109 is ready, use this gate as the final automated check before describing any replicated PhaseWrap noisy-hardware advantage.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "replicated_advantage_count": 0,
+  "replication_record_count": 0,
+  "replication_records": [],
+  "schema_version": "qrope_stage110_replicated_advantage_claim_gate_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage105_independent_rerun_protocol/manifest.json",
+    "logs/automated_stage_gates/stage109_window_evidence_intake_validator/results.json"
+  ],
+  "stage": "stage110_replicated_advantage_claim_gate",
+  "stage105_decision": "INDEPENDENT_RERUN_PROTOCOL_PREREGISTERED_EXECUTION_REQUIRED",
+  "stage109_decision": "WINDOW_EVIDENCE_INTAKE_BLOCKED_EVIDENCE_MISSING",
+  "stage109_ready_for_aggregation": false,
+  "status": "completed",
+  "window_metric_record_count": 0,
+  "window_metric_records": []
+}
