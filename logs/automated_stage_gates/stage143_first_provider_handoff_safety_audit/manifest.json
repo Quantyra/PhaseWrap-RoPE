@@ -35,6 +35,6 @@
   "stage142_decision": "FIRST_PROVIDER_UNLOCK_HANDOFF_READY_ENV_OR_SDK_REQUIRED",
   "status": "completed",
   "summary_csv_path": "logs/automated_stage_gates/stage143_first_provider_handoff_safety_audit/summary.csv",
-  "template_assignment_count": 7,
+  "template_assignment_count": 1,
   "template_placeholders_only": true
 }

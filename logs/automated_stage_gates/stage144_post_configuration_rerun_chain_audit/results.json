@@ -16,11 +16,7 @@
   "decision": "POST_CONFIGURATION_RERUN_CHAIN_PREPARED_EXECUTION_BLOCKED",
   "first_blocked_transition": {
     "blockers": [
-      "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
-      "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
-      "IBM_QUANTUM_INSTANCE_CRN",
-      "QROPE_HARDWARE_BUDGET_USD_CAP",
-      "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+      "IBM_QUANTUM_INSTANCE_CRN"
     ],
     "label": "first provider ready for preflight rerun",
     "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
@@ -84,11 +80,7 @@
     },
     {
       "blockers": [
-        "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
-        "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
-        "IBM_QUANTUM_INSTANCE_CRN",
-        "QROPE_HARDWARE_BUDGET_USD_CAP",
-        "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+        "IBM_QUANTUM_INSTANCE_CRN"
       ],
       "label": "first provider ready for preflight rerun",
       "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",

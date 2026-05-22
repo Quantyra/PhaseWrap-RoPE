@@ -68,8 +68,10 @@
             "QROPE_HARDWARE_BUDGET_USD_CAP"
           ],
           "group": "QROPE_HARDWARE_BUDGET_USD_CAP",
-          "present_keys": [],
-          "ready": false,
+          "present_keys": [
+            "QROPE_HARDWARE_BUDGET_USD_CAP"
+          ],
+          "ready": true,
           "scope": "common"
         },
         {
@@ -77,8 +79,10 @@
             "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
           ],
           "group": "QROPE_HARDWARE_QUEUE_DEPTH_CAP",
-          "present_keys": [],
-          "ready": false,
+          "present_keys": [
+            "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+          ],
+          "ready": true,
           "scope": "common"
         }
       ],
@@ -87,16 +91,17 @@
         "AWS_ACCESS_KEY_ID or AWS_PROFILE",
         "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
         "QROPE_BRAKET_OUTPUT_S3_BUCKET",
-        "QROPE_BRAKET_AWS_REGION or AWS_REGION",
-        "QROPE_HARDWARE_BUDGET_USD_CAP",
-        "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+        "QROPE_BRAKET_AWS_REGION or AWS_REGION"
       ],
       "missing_sdk_modules": [
         "boto3",
         "braket"
       ],
       "next_commands": [],
-      "present_env_keys": [],
+      "present_env_keys": [
+        "QROPE_HARDWARE_BUDGET_USD_CAP",
+        "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+      ],
       "provider": "amazon_braket",
       "ready_for_preflight_rerun": false,
       "sdk_modules": {
@@ -115,8 +120,10 @@
             "QISKIT_IBM_TOKEN"
           ],
           "group": "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
-          "present_keys": [],
-          "ready": false,
+          "present_keys": [
+            "IBM_QUANTUM_TOKEN"
+          ],
+          "ready": true,
           "scope": "provider"
         },
         {
@@ -125,8 +132,10 @@
             "QROPE_HARDWARE_BACKEND"
           ],
           "group": "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
-          "present_keys": [],
-          "ready": false,
+          "present_keys": [
+            "QROPE_HARDWARE_BACKEND"
+          ],
+          "ready": true,
           "scope": "provider"
         },
         {
@@ -143,8 +152,10 @@
             "QROPE_HARDWARE_BUDGET_USD_CAP"
           ],
           "group": "QROPE_HARDWARE_BUDGET_USD_CAP",
-          "present_keys": [],
-          "ready": false,
+          "present_keys": [
+            "QROPE_HARDWARE_BUDGET_USD_CAP"
+          ],
+          "ready": true,
           "scope": "common"
         },
         {
@@ -152,22 +163,25 @@
             "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
           ],
           "group": "QROPE_HARDWARE_QUEUE_DEPTH_CAP",
-          "present_keys": [],
-          "ready": false,
+          "present_keys": [
+            "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+          ],
+          "ready": true,
           "scope": "common"
         }
       ],
       "env_ready_for_stage106": false,
       "missing_env_groups": [
-        "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
-        "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
-        "IBM_QUANTUM_INSTANCE_CRN",
-        "QROPE_HARDWARE_BUDGET_USD_CAP",
-        "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+        "IBM_QUANTUM_INSTANCE_CRN"
       ],
       "missing_sdk_modules": [],
       "next_commands": [],
-      "present_env_keys": [],
+      "present_env_keys": [
+        "IBM_QUANTUM_TOKEN",
+        "QROPE_HARDWARE_BACKEND",
+        "QROPE_HARDWARE_BUDGET_USD_CAP",
+        "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+      ],
       "provider": "ibm_runtime",
       "ready_for_preflight_rerun": false,
       "sdk_modules": {

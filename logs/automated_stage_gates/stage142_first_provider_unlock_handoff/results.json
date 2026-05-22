@@ -14,19 +14,15 @@
     ]
   },
   "decision": "FIRST_PROVIDER_UNLOCK_HANDOFF_READY_ENV_OR_SDK_REQUIRED",
-  "env_template": "# ibm_runtime first-unlock environment placeholders.\n# Fill locally only; do not commit credential values.\nIBM_QUANTUM_INSTANCE_CRN=\nIBM_QUANTUM_TOKEN=\nQISKIT_IBM_TOKEN=\nQROPE_HARDWARE_BACKEND=\nQROPE_HARDWARE_BUDGET_USD_CAP=\nQROPE_HARDWARE_QUEUE_DEPTH_CAP=\nQROPE_IBM_BACKEND=\n",
+  "env_template": "# ibm_runtime first-unlock environment placeholders.\n# Fill locally only; do not commit credential values.\nIBM_QUANTUM_INSTANCE_CRN=\n",
   "env_template_file": "ibm_runtime_first_unlock.env.template",
   "first_unlock_provider": "ibm_runtime",
   "first_unlock_ready_for_preflight_rerun": false,
   "minimal_unlock_actions": [
-    "Set local env groups without committing values: IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN; QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND; IBM_QUANTUM_INSTANCE_CRN; QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP."
+    "Set local env groups without committing values: IBM_QUANTUM_INSTANCE_CRN."
   ],
   "missing_env_groups": [
-    "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
-    "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
-    "IBM_QUANTUM_INSTANCE_CRN",
-    "QROPE_HARDWARE_BUDGET_USD_CAP",
-    "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+    "IBM_QUANTUM_INSTANCE_CRN"
   ],
   "missing_sdk_modules": [],
   "missing_source_artifacts": [],
@@ -34,7 +30,7 @@
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "prepared_job_count": 328,
-  "priority_score": 5,
+  "priority_score": 1,
   "provider_credentials_required": true,
   "rerun_commands": [
     "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",

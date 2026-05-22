@@ -23,20 +23,16 @@
   "priority_records": [
     {
       "authorized_runner_command_count": 0,
-      "env_missing_count": 5,
+      "env_missing_count": 1,
       "minimal_unlock_actions": [
-        "Set local env groups without committing values: IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN; QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND; IBM_QUANTUM_INSTANCE_CRN; QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP."
+        "Set local env groups without committing values: IBM_QUANTUM_INSTANCE_CRN."
       ],
       "missing_env_groups": [
-        "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
-        "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
-        "IBM_QUANTUM_INSTANCE_CRN",
-        "QROPE_HARDWARE_BUDGET_USD_CAP",
-        "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+        "IBM_QUANTUM_INSTANCE_CRN"
       ],
       "missing_sdk_modules": [],
       "prepared_job_count": 328,
-      "priority_score": 5,
+      "priority_score": 1,
       "provider": "ibm_runtime",
       "ready_for_preflight_rerun": false,
       "runner_command_count": 2,
@@ -45,25 +41,23 @@
     },
     {
       "authorized_runner_command_count": 0,
-      "env_missing_count": 6,
+      "env_missing_count": 4,
       "minimal_unlock_actions": [
-        "Set local env groups without committing values: AWS_ACCESS_KEY_ID or AWS_PROFILE; QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS; QROPE_BRAKET_OUTPUT_S3_BUCKET; QROPE_BRAKET_AWS_REGION or AWS_REGION; QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP.",
+        "Set local env groups without committing values: AWS_ACCESS_KEY_ID or AWS_PROFILE; QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS; QROPE_BRAKET_OUTPUT_S3_BUCKET; QROPE_BRAKET_AWS_REGION or AWS_REGION.",
         "Install or expose SDK modules: boto3, braket."
       ],
       "missing_env_groups": [
         "AWS_ACCESS_KEY_ID or AWS_PROFILE",
         "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
         "QROPE_BRAKET_OUTPUT_S3_BUCKET",
-        "QROPE_BRAKET_AWS_REGION or AWS_REGION",
-        "QROPE_HARDWARE_BUDGET_USD_CAP",
-        "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+        "QROPE_BRAKET_AWS_REGION or AWS_REGION"
       ],
       "missing_sdk_modules": [
         "boto3",
         "braket"
       ],
       "prepared_job_count": 168,
-      "priority_score": 12,
+      "priority_score": 10,
       "provider": "amazon_braket",
       "ready_for_preflight_rerun": false,
       "runner_command_count": 2,

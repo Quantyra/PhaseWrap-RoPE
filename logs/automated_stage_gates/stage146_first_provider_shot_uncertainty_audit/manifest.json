@@ -1,0 +1,45 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "provider credential values",
+      "hardware job submission",
+      "real provider result records",
+      "readout calibration correction",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "conservative shot-noise uncertainty thresholds for the first-provider matched packet plan",
+      "lane-specific minimum PhaseWrap MAE margins for later shot-noise-separated interpretation",
+      "a statistical guardrail that does not depend on provider credentials or hardware execution"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_SHOT_UNCERTAINTY_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED",
+  "lane_summary_count": 4,
+  "missing_source_artifacts": [],
+  "next_gate": "After IBM Runtime results are collected and Stage 103 computes observed MAE margins, compare the observed PhaseWrap-vs-best-comparator margins against these lane-specific shot-noise half-widths before wording any advantage.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_count": 20,
+  "provider_credentials_required": false,
+  "provider_scope": "ibm_runtime",
+  "ready_lane_summary_count": 4,
+  "ready_packet_count": 20,
+  "result_path": "logs/automated_stage_gates/stage146_first_provider_shot_uncertainty_audit/results.json",
+  "schema_version": "qrope_stage146_first_provider_shot_uncertainty_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage107_window_execution_orchestrator/window_execution_plans.json",
+    "logs/automated_stage_gates/stage145_first_provider_evidence_path_audit/results.json"
+  ],
+  "stage": "stage146_first_provider_shot_uncertainty_audit",
+  "statistical_contract": {
+    "advantage_interpretation": "The Stage 103 lower-MAE rule remains necessary. Stage 146 adds a shot-noise separation guard: a PhaseWrap MAE margin should exceed the lane-specific 95% half-width before being described as shot-noise-separated.",
+    "conservative_mae_standard_error": "score_standard_error / sqrt(row_count)",
+    "conservative_score_standard_error": "sqrt(2) / (4 * sqrt(shots))",
+    "mae_difference_95pct_half_width": "1.96 * sqrt(2) * max(packet_mae_standard_error)",
+    "score_formula": "score = 0.5 + 0.25 * (observable_a + observable_b)"
+  },
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage146_first_provider_shot_uncertainty_audit/summary.csv",
+  "window_count": 2
+}

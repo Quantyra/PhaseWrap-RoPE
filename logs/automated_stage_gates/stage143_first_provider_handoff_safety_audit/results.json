@@ -75,41 +75,11 @@
   "stage": "stage143_first_provider_handoff_safety_audit",
   "stage142_decision": "FIRST_PROVIDER_UNLOCK_HANDOFF_READY_ENV_OR_SDK_REQUIRED",
   "status": "completed",
-  "template_assignment_count": 7,
+  "template_assignment_count": 1,
   "template_placeholders_only": true,
   "template_records": [
     {
       "key": "IBM_QUANTUM_INSTANCE_CRN",
-      "ready": true,
-      "value_present": false
-    },
-    {
-      "key": "IBM_QUANTUM_TOKEN",
-      "ready": true,
-      "value_present": false
-    },
-    {
-      "key": "QISKIT_IBM_TOKEN",
-      "ready": true,
-      "value_present": false
-    },
-    {
-      "key": "QROPE_HARDWARE_BACKEND",
-      "ready": true,
-      "value_present": false
-    },
-    {
-      "key": "QROPE_HARDWARE_BUDGET_USD_CAP",
-      "ready": true,
-      "value_present": false
-    },
-    {
-      "key": "QROPE_HARDWARE_QUEUE_DEPTH_CAP",
-      "ready": true,
-      "value_present": false
-    },
-    {
-      "key": "QROPE_IBM_BACKEND",
       "ready": true,
       "value_present": false
     }
