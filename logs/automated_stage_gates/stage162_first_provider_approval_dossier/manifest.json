@@ -1,0 +1,51 @@
+{
+  "approval_state": "awaiting_exact_phrase",
+  "authorized_first_provider_job_count": 328,
+  "authorized_first_provider_runner_count": 2,
+  "backend_lookup_ready": true,
+  "backend_pending_jobs_at_preflight": 3,
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "runnable Stage133 command strings",
+      "provider credentials or secret values",
+      "IBM credit balance or dollar cost verification",
+      "real provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "a single no-submit dossier joining simulated GO, approval packet readiness, backend preflight, post-run sequence, and exposure totals",
+      "human GO/NO-GO readiness for the first-provider IBM Runtime run under the exact approval phrase",
+      "explicit separation between approval readiness and a noisy-hardware advantage conclusion"
+    ]
+  },
+  "credit_balance_verified": false,
+  "decision": "FIRST_PROVIDER_APPROVAL_DOSSIER_READY_FOR_HUMAN_GO_NO_GO",
+  "explicit_user_approval_required": true,
+  "exposure_job_count": 328,
+  "exposure_total_shots": 1318720,
+  "exposure_window_count": 2,
+  "first_unlock_provider": "ibm_runtime",
+  "missing_result_record_count": 328,
+  "missing_source_artifacts": [],
+  "next_gate": "If and only if the human decision is GO, provide the exact approval phrase. After execution, collect provider results and run the Stage160 analysis sequence before interpreting robustness or auditability.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage162_first_provider_approval_dossier/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage162_first_provider_approval_dossier_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage154_simulated_hardware_go_no_go/results.json",
+    "logs/automated_stage_gates/stage157_first_provider_live_run_approval_packet/results.json",
+    "logs/automated_stage_gates/stage159_first_provider_backend_preflight/results.json",
+    "logs/automated_stage_gates/stage160_first_provider_post_run_analysis_packet/results.json",
+    "logs/automated_stage_gates/stage161_first_provider_exposure_packet/results.json"
+  ],
+  "stage": "stage162_first_provider_approval_dossier",
+  "status": "completed",
+  "strict_simulated_target_count_for_provider": 2,
+  "summary_csv_path": "logs/automated_stage_gates/stage162_first_provider_approval_dossier/summary.csv"
+}
