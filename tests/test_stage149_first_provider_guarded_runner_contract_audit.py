@@ -20,14 +20,14 @@ def _paths(tmp_path) -> dict[str, object]:
     }
 
 
-def _fixture(paths) -> None:
-    _write_json(paths["stage145_results_path"], {"first_unlock_provider": "ibm_runtime"})
-    _write_json(paths["stage111_results_path"], {"provider_records": [{"provider": "ibm_runtime", "status": "blocked"}]})
+def _fixture(paths, *, provider="ibm_runtime") -> None:
+    _write_json(paths["stage145_results_path"], {"first_unlock_provider": provider})
+    _write_json(paths["stage111_results_path"], {"provider_records": [{"provider": provider, "status": "blocked"}]})
     _write_json(paths["stage118_results_path"], {"payload_records": []})
-    _write_json(paths["stage129_results_path"], {"provider_records": [{"provider": "ibm_runtime", "cutover_authorized": False}]})
+    _write_json(paths["stage129_results_path"], {"provider_records": [{"provider": provider, "cutover_authorized": False}]})
     _write_json(
         paths["stage133_results_path"],
-        {"command_records": [{"provider": "ibm_runtime", "command_authorized": False}]},
+        {"command_records": [{"provider": provider, "command_authorized": False}]},
     )
 
 
@@ -42,6 +42,29 @@ def test_stage149_validates_synthetic_runner_contract_and_current_cutover_block(
     assert result["current_stage129_cutover_authorized"] is False
     assert result["synthetic_contract_ready_count"] == 3
     assert result["no_hardware_submission"] is True
+
+
+def test_stage149_validates_synthetic_runner_contract_for_actual_first_provider(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _fixture(paths, provider="amazon_braket")
+
+    result = run_stage149_audit(**paths)
+
+    assert result["decision"] == "FIRST_PROVIDER_GUARDED_RUNNER_CONTRACT_READY_CUTOVER_BLOCKED"
+    assert result["first_unlock_provider"] == "amazon_braket"
+    assert result["synthetic_contract_ready_count"] == 3
+
+
+def test_stage149_blocks_without_first_provider_scope(tmp_path) -> None:
+    paths = _paths(tmp_path)
+    _fixture(paths)
+    _write_json(paths["stage145_results_path"], {"first_unlock_provider": ""})
+
+    result = run_stage149_audit(**paths)
+
+    assert result["decision"] == "FIRST_PROVIDER_GUARDED_RUNNER_CONTRACT_INCOMPLETE"
+    assert result["synthetic_contract_ready_count"] == 0
+    assert result["synthetic_contract_records"][0]["check"] == "first_provider_scope_required"
 
 
 def test_stage149_reports_missing_sources(tmp_path) -> None:

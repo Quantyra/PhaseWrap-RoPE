@@ -60,7 +60,7 @@ def _command_records(payload: dict[str, Any] | None, provider: str) -> list[dict
     return [record for record in payload.get("command_records", []) if record.get("provider") == provider]
 
 
-def _synthetic_fixture(root: Path, *, cutover_authorized: bool = True) -> dict[str, Path]:
+def _synthetic_fixture(root: Path, *, provider: str, cutover_authorized: bool = True) -> dict[str, Path]:
     job_shard = root / "jobs.jsonl"
     payloads = root / "payloads.jsonl"
     results = root / "results.jsonl"
@@ -72,20 +72,20 @@ def _synthetic_fixture(root: Path, *, cutover_authorized: bool = True) -> dict[s
             "job_id": "synthetic_job_0",
             "job_kind": "known_state_calibration",
             "openqasm3": "OPENQASM 3.0;\n",
-            "provider": "ibm_runtime",
+            "provider": provider,
             "shots": 1000,
             "window_id": "synthetic_window_0",
         }
     ]
     _write_jsonl(job_shard, jobs)
-    _write_jsonl(payloads, [{"job_id": "synthetic_job_0", "provider": "ibm_runtime", "window_id": "synthetic_window_0"}])
-    _write_json(stage111, {"provider_records": [{"provider": "ibm_runtime", "status": "ready", "blockers": []}]})
+    _write_jsonl(payloads, [{"job_id": "synthetic_job_0", "provider": provider, "window_id": "synthetic_window_0"}])
+    _write_json(stage111, {"provider_records": [{"provider": provider, "status": "ready", "blockers": []}]})
     _write_json(
         stage118,
         {
             "payload_records": [
                 {
-                    "provider": "ibm_runtime",
+                    "provider": provider,
                     "window_id": "synthetic_window_0",
                     "payload_output_path": str(payloads.as_posix()),
                     "compiled_payload_count": 1,
@@ -98,7 +98,7 @@ def _synthetic_fixture(root: Path, *, cutover_authorized: bool = True) -> dict[s
         {
             "provider_records": [
                 {
-                    "provider": "ibm_runtime",
+                    "provider": provider,
                     "cutover_authorized": cutover_authorized,
                     "blockers": [] if cutover_authorized else ["synthetic_cutover_not_authorized"],
                 }
@@ -137,9 +137,9 @@ def _invalid_submitter(**_: Any) -> list[dict[str, Any]]:
     return [{"job_id": "unknown", "counts": {}}]
 
 
-def _runner_code(paths: dict[str, Path], submitter: Any) -> int:
+def _runner_code(paths: dict[str, Path], submitter: Any, *, provider: str) -> int:
     return run_guarded_provider_runner(
-        "ibm_runtime",
+        provider,
         [
             "--job-shard",
             str(paths["job_shard"]),
@@ -157,12 +157,21 @@ def _runner_code(paths: dict[str, Path], submitter: Any) -> int:
     )
 
 
-def _synthetic_contract_records() -> list[dict[str, Any]]:
+def _synthetic_contract_records(provider: str) -> list[dict[str, Any]]:
+    if not provider:
+        return [
+            {
+                "check": "first_provider_scope_required",
+                "exit_code": None,
+                "result_file_written": False,
+                "ready": False,
+            }
+        ]
     records: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory() as temp_text:
         root = Path(temp_text)
-        pass_paths = _synthetic_fixture(root / "pass", cutover_authorized=True)
-        pass_code = _runner_code(pass_paths, _valid_submitter)
+        pass_paths = _synthetic_fixture(root / "pass", provider=provider, cutover_authorized=True)
+        pass_code = _runner_code(pass_paths, _valid_submitter, provider=provider)
         records.append(
             {
                 "check": "valid_injected_submitter_writes_stage114_result",
@@ -171,8 +180,8 @@ def _synthetic_contract_records() -> list[dict[str, Any]]:
                 "ready": pass_code == 0 and pass_paths["results"].exists(),
             }
         )
-        blocked_paths = _synthetic_fixture(root / "blocked", cutover_authorized=False)
-        blocked_code = _runner_code(blocked_paths, _valid_submitter)
+        blocked_paths = _synthetic_fixture(root / "blocked", provider=provider, cutover_authorized=False)
+        blocked_code = _runner_code(blocked_paths, _valid_submitter, provider=provider)
         records.append(
             {
                 "check": "stage129_cutover_required_before_write",
@@ -181,8 +190,8 @@ def _synthetic_contract_records() -> list[dict[str, Any]]:
                 "ready": blocked_code == 4 and not blocked_paths["results"].exists(),
             }
         )
-        invalid_paths = _synthetic_fixture(root / "invalid", cutover_authorized=True)
-        invalid_code = _runner_code(invalid_paths, _invalid_submitter)
+        invalid_paths = _synthetic_fixture(root / "invalid", provider=provider, cutover_authorized=True)
+        invalid_code = _runner_code(invalid_paths, _invalid_submitter, provider=provider)
         records.append(
             {
                 "check": "invalid_submitter_result_contract_rejected",
@@ -220,7 +229,7 @@ def run_stage149_audit(
     stage129_provider = _provider_record(stage129, provider)
     command_records = _command_records(stage133, provider)
     authorized_commands = [record for record in command_records if record.get("command_authorized") is True]
-    synthetic_records = _synthetic_contract_records()
+    synthetic_records = _synthetic_contract_records(provider)
     synthetic_ready = bool(synthetic_records) and all(record["ready"] for record in synthetic_records)
     current_cutover_authorized = bool(stage129_provider and stage129_provider.get("cutover_authorized") is True)
     current_stage111_ready = bool(stage111_provider and stage111_provider.get("status") == "ready")
@@ -249,7 +258,7 @@ def run_stage149_audit(
         "secret_values_recorded": False,
         "claim_boundary": {
             "supported": [
-                "IBM guarded runner validates Stage 114-shaped result records before writing provider result JSONL",
+                "first-provider guarded runner validates Stage 114-shaped result records before writing provider result JSONL",
                 "Stage 129 cutover authorization is required before any guarded result write",
                 "invalid submitter records fail closed without writing provider result files",
             ],
@@ -262,8 +271,8 @@ def run_stage149_audit(
             ],
         },
         "next_gate": (
-            "Clear Stage 140/106/111/129 and Stage 133 authorization, then use the guarded IBM runner. Stage 149 only "
-            "proves the runner contract with synthetic injected submitters."
+            "Clear Stage 140/106/111/129 and Stage 133 authorization, then use the guarded first-provider runner. "
+            "Stage 149 only proves the runner contract with synthetic injected submitters."
         ),
     }
 
