@@ -1,5 +1,5 @@
 {
-  "all_or_none_interpretation_rule": "Stage 103 interpretation requires Stage 101 calibration pass and canonical q0q1 raw_counts_by_row files for every Stage 99 and Stage 100 matched packet.",
+  "all_or_none_interpretation_rule": "Stage 103 interpretation requires Stage 101 calibration pass and canonical q0q1 raw_counts_by_row files for every Stage 99 and Stage 100 matched packet, with complete PhaseWrap/RoPE-like/sinusoidal-like/ALIBI-like/no-position groups under each provider, source lane, and circuit template.",
   "claim_boundary": {
     "excluded": [
       "real matched packet hardware counts",
@@ -9,18 +9,33 @@
     ],
     "supported": [
       "per-packet execution JSON templates for all matched Stage 99 and Stage 100 packets",
+      "validation that each provider/lane/template group contains the full fixed-width comparator family set",
       "a complete handoff contract for calibrated raw_counts_by_row evidence",
       "an all-or-none interpretation guard for the matched fixed-width hardware comparison"
     ]
   },
+  "complete_matched_group_count": 4,
   "decision": "MATCHED_PACKET_EXECUTION_TEMPLATES_PREPARED_CALIBRATION_AND_COUNTS_REQUIRED",
+  "expected_matched_group_count": 4,
   "expected_packet_count": 20,
+  "matched_group_count": 4,
   "missing_packet_artifacts": [],
   "missing_source_artifacts": [],
   "next_gate": "After Stage 101 calibration passes, execute all Stage 99 and Stage 100 matched packets, fill every Stage 104 template with canonical q0q1 row counts and metadata, then rerun Stage 103 with --execution-dir.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": false,
+  "required_circuit_templates": [
+    "two_ry_product_state_z_readout_v1",
+    "two_ry_cx_parity_z_readout_v1"
+  ],
+  "required_encoding_families": [
+    "phasewrap",
+    "rope_like",
+    "sinusoidal_like",
+    "alibi_like",
+    "no_position_control"
+  ],
   "result_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/results.json",
   "schema_version": "qrope_stage104_matched_packet_execution_package_v1",
   "source_artifacts": [

@@ -20,6 +20,17 @@ REQUIRED_EXECUTION_FIELDS: tuple[str, ...] = (
     "completed_at_utc",
     "raw_counts_by_row",
 )
+REQUIRED_ENCODING_FAMILIES: tuple[str, ...] = (
+    "phasewrap",
+    "rope_like",
+    "sinusoidal_like",
+    "alibi_like",
+    "no_position_control",
+)
+REQUIRED_CIRCUIT_TEMPLATES: tuple[str, ...] = (
+    "two_ry_product_state_z_readout_v1",
+    "two_ry_cx_parity_z_readout_v1",
+)
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
     "auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, "
@@ -37,6 +48,84 @@ def _packet_paths(manifest: dict[str, Any] | None) -> list[Path]:
     if not manifest:
         return []
     return [Path(str(path)) for path in manifest.get("packet_paths", [])]
+
+
+def _packet_contract_issues(packet: dict[str, Any]) -> list[str]:
+    issues = []
+    family = str(packet.get("encoding_family"))
+    if family not in REQUIRED_ENCODING_FAMILIES:
+        issues.append("encoding_family_not_required")
+    fixed_width = packet.get("fixed_width", {})
+    if not isinstance(fixed_width, dict):
+        return issues + ["fixed_width_missing"]
+    if fixed_width.get("measured_qubits") != 2:
+        issues.append("fixed_width_measured_qubits_not_two")
+    if fixed_width.get("active_qubits") != 2:
+        issues.append("fixed_width_active_qubits_not_two")
+    if fixed_width.get("readout") != "computational_basis":
+        issues.append("fixed_width_readout_not_computational_basis")
+    if fixed_width.get("circuit_template") not in REQUIRED_CIRCUIT_TEMPLATES:
+        issues.append("fixed_width_circuit_template_not_required")
+    return sorted(set(issues))
+
+
+def _matched_group_records(packets: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    grouped: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
+    for packet in packets:
+        key = (
+            str(packet.get("provider")),
+            str(packet.get("source_lane_id")),
+            str(packet.get("fixed_width", {}).get("circuit_template")),
+        )
+        grouped.setdefault(key, []).append(packet)
+
+    records = []
+    required = set(REQUIRED_ENCODING_FAMILIES)
+    for (provider, source_lane_id, circuit_template), group in sorted(grouped.items()):
+        families = {str(packet.get("encoding_family")) for packet in group}
+        row_counts = {int(packet.get("row_count") or len(packet.get("rows", []))) for packet in group}
+        shot_counts = {int(packet.get("shot_count") or 0) for packet in group}
+        row_set_hashes = {str(packet.get("source_row_set_hash")) for packet in group}
+        packet_issues = {
+            str(packet.get("packet_id")): _packet_contract_issues(packet)
+            for packet in group
+            if _packet_contract_issues(packet)
+        }
+        missing_families = sorted(required - families)
+        extra_families = sorted(families - required)
+        row_counts_match = len(row_counts) == 1 and 0 not in row_counts
+        shot_counts_match = len(shot_counts) == 1 and 0 not in shot_counts
+        row_sets_match = len(row_set_hashes) == 1 and "" not in row_set_hashes and "None" not in row_set_hashes
+        ready = (
+            not missing_families
+            and not extra_families
+            and len(group) == len(REQUIRED_ENCODING_FAMILIES)
+            and row_counts_match
+            and shot_counts_match
+            and row_sets_match
+            and not packet_issues
+        )
+        records.append(
+            {
+                "provider": provider,
+                "source_lane_id": source_lane_id,
+                "circuit_template": circuit_template,
+                "packet_count": len(group),
+                "required_family_count": len(REQUIRED_ENCODING_FAMILIES),
+                "observed_encoding_families": sorted(families),
+                "missing_encoding_families": missing_families,
+                "extra_encoding_families": extra_families,
+                "row_counts": sorted(row_counts),
+                "shot_counts": sorted(shot_counts),
+                "row_set_hashes": sorted(row_set_hashes),
+                "row_counts_match": row_counts_match,
+                "shot_counts_match": shot_counts_match,
+                "row_sets_match": row_sets_match,
+                "packet_contract_issues": packet_issues,
+                "ready": ready,
+            }
+        )
+    return records
 
 
 def _row_program(row: dict[str, Any], template: str) -> str:
@@ -154,6 +243,12 @@ def run_stage104_package(
             continue
         packets.append(packet)
     templates = [build_packet_execution_template(packet) for packet in packets]
+    matched_group_records = _matched_group_records(packets)
+    expected_group_count = 4
+    complete_matched_groups = (
+        len(matched_group_records) == expected_group_count
+        and all(record["ready"] for record in matched_group_records)
+    )
     evidence_records = [
         {
             "packet_id": template["packet_id"],
@@ -170,7 +265,12 @@ def run_stage104_package(
         for template in templates
     ]
     expected_packet_count = 20
-    complete_templates = len(templates) == expected_packet_count and not missing_sources and not missing_packets
+    complete_templates = (
+        len(templates) == expected_packet_count
+        and complete_matched_groups
+        and not missing_sources
+        and not missing_packets
+    )
     stage101_pass = bool(stage101 and stage101.get("known_state_calibration_pass") is True)
     return {
         "schema_version": STAGE104_SCHEMA_VERSION,
@@ -188,19 +288,27 @@ def run_stage104_package(
         "stage101_known_state_calibration_pass": stage101_pass,
         "stage103_decision": stage103.get("decision") if stage103 else None,
         "expected_packet_count": expected_packet_count,
+        "expected_matched_group_count": expected_group_count,
         "template_count": len(templates),
+        "matched_group_count": len(matched_group_records),
+        "complete_matched_group_count": sum(1 for record in matched_group_records if record["ready"]),
         "no_hardware_submission": True,
         "provider_credentials_required": False,
         "required_execution_fields": list(REQUIRED_EXECUTION_FIELDS),
+        "required_encoding_families": list(REQUIRED_ENCODING_FAMILIES),
+        "required_circuit_templates": list(REQUIRED_CIRCUIT_TEMPLATES),
+        "matched_group_records": matched_group_records,
         "templates": templates,
         "evidence_records": evidence_records,
         "all_or_none_interpretation_rule": (
             "Stage 103 interpretation requires Stage 101 calibration pass and canonical q0q1 raw_counts_by_row files "
-            "for every Stage 99 and Stage 100 matched packet."
+            "for every Stage 99 and Stage 100 matched packet, with complete PhaseWrap/RoPE-like/sinusoidal-like/"
+            "ALIBI-like/no-position groups under each provider, source lane, and circuit template."
         ),
         "claim_boundary": {
             "supported": [
                 "per-packet execution JSON templates for all matched Stage 99 and Stage 100 packets",
+                "validation that each provider/lane/template group contains the full fixed-width comparator family set",
                 "a complete handoff contract for calibrated raw_counts_by_row evidence",
                 "an all-or-none interpretation guard for the matched fixed-width hardware comparison",
             ],
@@ -239,10 +347,15 @@ def write_stage104_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "stage101_known_state_calibration_pass": result["stage101_known_state_calibration_pass"],
         "stage103_decision": result["stage103_decision"],
         "expected_packet_count": result["expected_packet_count"],
+        "expected_matched_group_count": result["expected_matched_group_count"],
         "template_count": result["template_count"],
+        "matched_group_count": result["matched_group_count"],
+        "complete_matched_group_count": result["complete_matched_group_count"],
         "template_paths": template_paths,
         "no_hardware_submission": result["no_hardware_submission"],
         "provider_credentials_required": result["provider_credentials_required"],
+        "required_encoding_families": result["required_encoding_families"],
+        "required_circuit_templates": result["required_circuit_templates"],
         "result_path": str((output_dir / "results.json").as_posix()),
         "summary_csv_path": str((output_dir / "summary.csv").as_posix()),
         "all_or_none_interpretation_rule": result["all_or_none_interpretation_rule"],

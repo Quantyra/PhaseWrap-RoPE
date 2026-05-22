@@ -14,16 +14,30 @@ def _write_json(path, payload: dict[str, object]) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def _packet(path, packet_id: str, template: str = "two_ry_product_state_z_readout_v1") -> None:
+def _packet(
+    path,
+    packet_id: str,
+    *,
+    family: str = "phasewrap",
+    lane: str = "lane_a",
+    provider: str = "ibm_runtime",
+    template: str = "two_ry_product_state_z_readout_v1",
+) -> None:
     payload = {
         "packet_id": packet_id,
         "packet_hash": f"{packet_id}-hash",
-        "source_lane_id": "lane_a",
-        "provider": "ibm_runtime",
+        "source_lane_id": lane,
+        "source_row_set_hash": f"{lane}-row-set",
+        "provider": provider,
         "backend": "BACKEND",
-        "encoding_family": "phasewrap",
+        "encoding_family": family,
         "shot_count": 128,
-        "fixed_width": {"circuit_template": template},
+        "fixed_width": {
+            "measured_qubits": 2,
+            "active_qubits": 2,
+            "readout": "computational_basis",
+            "circuit_template": template,
+        },
         "rows": [
             {
                 "row_id": "row0",
@@ -33,6 +47,33 @@ def _packet(path, packet_id: str, template: str = "two_ry_product_state_z_readou
         ],
     }
     _write_json(path, payload)
+
+
+def _matched_surface(tmp_path) -> tuple[list[str], list[str]]:
+    families = ("phasewrap", "rope_like", "sinusoidal_like", "alibi_like", "no_position_control")
+    stage99_paths = []
+    stage100_paths = []
+    lanes = (
+        ("ibm_runtime", "ibm_product_seed314_rows16_shots4096"),
+        ("amazon_braket", "braket_product_seed2718_rows8_shots1000"),
+    )
+    for provider, lane in lanes:
+        for family in families:
+            packet_path = tmp_path / f"{lane}__{family}.json"
+            _packet(packet_path, f"{lane}__{family}", family=family, lane=lane, provider=provider)
+            stage99_paths.append(str(packet_path))
+            cx_lane = lane.replace("product", "cx")
+            cx_path = tmp_path / f"{cx_lane}__{family}.json"
+            _packet(
+                cx_path,
+                f"{cx_lane}__{family}",
+                family=family,
+                lane=cx_lane,
+                provider=provider,
+                template="two_ry_cx_parity_z_readout_v1",
+            )
+            stage100_paths.append(str(cx_path))
+    return stage99_paths, stage100_paths
 
 
 def test_build_packet_execution_template_includes_rows_and_programs(tmp_path) -> None:
@@ -76,16 +117,13 @@ def test_stage104_prepares_template_for_each_matched_packet(tmp_path) -> None:
     assert result["template_count"] == 2
     assert result["stage101_known_state_calibration_pass"] is False
     assert "raw_counts_by_row" in result["evidence_records"][0]["missing_evidence"]
+    assert result["complete_matched_group_count"] == 0
 
 
 def test_stage104_marks_complete_for_twenty_packet_template_surface(tmp_path) -> None:
-    paths = []
-    for index in range(20):
-        packet_path = tmp_path / f"packet_{index}.json"
-        _packet(packet_path, f"packet_{index}")
-        paths.append(str(packet_path))
-    _write_json(tmp_path / "stage99.json", {"packet_paths": paths[:10]})
-    _write_json(tmp_path / "stage100.json", {"packet_paths": paths[10:]})
+    stage99_paths, stage100_paths = _matched_surface(tmp_path)
+    _write_json(tmp_path / "stage99.json", {"packet_paths": stage99_paths})
+    _write_json(tmp_path / "stage100.json", {"packet_paths": stage100_paths})
     _write_json(tmp_path / "stage101.json", {"known_state_calibration_pass": True})
     _write_json(tmp_path / "stage103.json", {"decision": "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED"})
 
@@ -99,16 +137,45 @@ def test_stage104_marks_complete_for_twenty_packet_template_surface(tmp_path) ->
     assert result["status"] == "completed"
     assert result["decision"] == "MATCHED_PACKET_EXECUTION_TEMPLATES_PREPARED_CALIBRATION_AND_COUNTS_REQUIRED"
     assert result["template_count"] == 20
+    assert result["matched_group_count"] == 4
+    assert result["complete_matched_group_count"] == 4
+
+
+def test_stage104_rejects_twenty_packet_surface_with_missing_comparator_family(tmp_path) -> None:
+    stage99_paths, stage100_paths = _matched_surface(tmp_path)
+    bad_packet = tmp_path / "duplicate_phasewrap.json"
+    _packet(
+        bad_packet,
+        "duplicate_phasewrap",
+        family="phasewrap",
+        lane="ibm_product_seed314_rows16_shots4096",
+        provider="ibm_runtime",
+    )
+    stage99_paths = [path for path in stage99_paths if "ibm_product_seed314_rows16_shots4096__rope_like" not in path]
+    stage99_paths.append(str(bad_packet))
+    _write_json(tmp_path / "stage99.json", {"packet_paths": stage99_paths})
+    _write_json(tmp_path / "stage100.json", {"packet_paths": stage100_paths})
+    _write_json(tmp_path / "stage101.json", {"known_state_calibration_pass": True})
+    _write_json(tmp_path / "stage103.json", {"decision": "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED"})
+
+    result = run_stage104_package(
+        stage99_manifest_path=tmp_path / "stage99.json",
+        stage100_manifest_path=tmp_path / "stage100.json",
+        stage101_results_path=tmp_path / "stage101.json",
+        stage103_manifest_path=tmp_path / "stage103.json",
+    )
+
+    assert result["status"] == "incomplete"
+    assert result["template_count"] == 20
+    assert result["complete_matched_group_count"] == 3
+    incomplete = [record for record in result["matched_group_records"] if not record["ready"]]
+    assert incomplete[0]["missing_encoding_families"] == ["rope_like"]
 
 
 def test_stage104_outputs_are_written(tmp_path) -> None:
-    paths = []
-    for index in range(20):
-        packet_path = tmp_path / f"packet_{index}.json"
-        _packet(packet_path, f"packet_{index}")
-        paths.append(str(packet_path))
-    _write_json(tmp_path / "stage99.json", {"packet_paths": paths[:10]})
-    _write_json(tmp_path / "stage100.json", {"packet_paths": paths[10:]})
+    stage99_paths, stage100_paths = _matched_surface(tmp_path)
+    _write_json(tmp_path / "stage99.json", {"packet_paths": stage99_paths})
+    _write_json(tmp_path / "stage100.json", {"packet_paths": stage100_paths})
     _write_json(tmp_path / "stage101.json", {"known_state_calibration_pass": False})
     _write_json(tmp_path / "stage103.json", {"decision": "ROBUSTNESS_METRICS_PREREGISTERED_HARDWARE_COUNTS_REQUIRED"})
     result = run_stage104_package(
@@ -125,5 +192,6 @@ def test_stage104_outputs_are_written(tmp_path) -> None:
 
     assert set(paths_out) == {"manifest", "result", "summary_csv", "template_dir"}
     assert manifest["template_count"] == 20
+    assert manifest["complete_matched_group_count"] == 4
     assert len(templates) == 20
-    assert "packet_0" in summary
+    assert "phasewrap" in summary

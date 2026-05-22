@@ -1,5 +1,5 @@
 {
-  "all_or_none_interpretation_rule": "Stage 103 interpretation requires Stage 101 calibration pass and canonical q0q1 raw_counts_by_row files for every Stage 99 and Stage 100 matched packet.",
+  "all_or_none_interpretation_rule": "Stage 103 interpretation requires Stage 101 calibration pass and canonical q0q1 raw_counts_by_row files for every Stage 99 and Stage 100 matched packet, with complete PhaseWrap/RoPE-like/sinusoidal-like/ALIBI-like/no-position groups under each provider, source lane, and circuit template.",
   "claim_boundary": {
     "excluded": [
       "real matched packet hardware counts",
@@ -9,10 +9,12 @@
     ],
     "supported": [
       "per-packet execution JSON templates for all matched Stage 99 and Stage 100 packets",
+      "validation that each provider/lane/template group contains the full fixed-width comparator family set",
       "a complete handoff contract for calibrated raw_counts_by_row evidence",
       "an all-or-none interpretation guard for the matched fixed-width hardware comparison"
     ]
   },
+  "complete_matched_group_count": 4,
   "decision": "MATCHED_PACKET_EXECUTION_TEMPLATES_PREPARED_CALIBRATION_AND_COUNTS_REQUIRED",
   "evidence_records": [
     {
@@ -376,13 +378,148 @@
       "template_file": "braket_cx_seed2718_rows8_shots1000__no_position_control.json"
     }
   ],
+  "expected_matched_group_count": 4,
   "expected_packet_count": 20,
+  "matched_group_count": 4,
+  "matched_group_records": [
+    {
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "extra_encoding_families": [],
+      "missing_encoding_families": [],
+      "observed_encoding_families": [
+        "alibi_like",
+        "no_position_control",
+        "phasewrap",
+        "rope_like",
+        "sinusoidal_like"
+      ],
+      "packet_contract_issues": {},
+      "packet_count": 5,
+      "provider": "amazon_braket",
+      "ready": true,
+      "required_family_count": 5,
+      "row_counts": [
+        8
+      ],
+      "row_counts_match": true,
+      "row_set_hashes": [
+        "8e5837086b91ef2da179cc5a386c1668e5c41d9b01aa7a01a05160481f3f8c84"
+      ],
+      "row_sets_match": true,
+      "shot_counts": [
+        1000
+      ],
+      "shot_counts_match": true,
+      "source_lane_id": "braket_cx_seed2718_rows8_shots1000"
+    },
+    {
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "extra_encoding_families": [],
+      "missing_encoding_families": [],
+      "observed_encoding_families": [
+        "alibi_like",
+        "no_position_control",
+        "phasewrap",
+        "rope_like",
+        "sinusoidal_like"
+      ],
+      "packet_contract_issues": {},
+      "packet_count": 5,
+      "provider": "amazon_braket",
+      "ready": true,
+      "required_family_count": 5,
+      "row_counts": [
+        8
+      ],
+      "row_counts_match": true,
+      "row_set_hashes": [
+        "68afb1a5d75f0b5bbc2327d81163c19372a379e90accba3e0be086d54357d293"
+      ],
+      "row_sets_match": true,
+      "shot_counts": [
+        1000
+      ],
+      "shot_counts_match": true,
+      "source_lane_id": "braket_product_seed2718_rows8_shots1000"
+    },
+    {
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "extra_encoding_families": [],
+      "missing_encoding_families": [],
+      "observed_encoding_families": [
+        "alibi_like",
+        "no_position_control",
+        "phasewrap",
+        "rope_like",
+        "sinusoidal_like"
+      ],
+      "packet_contract_issues": {},
+      "packet_count": 5,
+      "provider": "ibm_runtime",
+      "ready": true,
+      "required_family_count": 5,
+      "row_counts": [
+        16
+      ],
+      "row_counts_match": true,
+      "row_set_hashes": [
+        "ba68fb3a4acc6dca6c0ea102627af7986f9b51a460430d57506a0e91aa6c306a"
+      ],
+      "row_sets_match": true,
+      "shot_counts": [
+        4096
+      ],
+      "shot_counts_match": true,
+      "source_lane_id": "ibm_cx_seed314_rows16_shots4096"
+    },
+    {
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "extra_encoding_families": [],
+      "missing_encoding_families": [],
+      "observed_encoding_families": [
+        "alibi_like",
+        "no_position_control",
+        "phasewrap",
+        "rope_like",
+        "sinusoidal_like"
+      ],
+      "packet_contract_issues": {},
+      "packet_count": 5,
+      "provider": "ibm_runtime",
+      "ready": true,
+      "required_family_count": 5,
+      "row_counts": [
+        16
+      ],
+      "row_counts_match": true,
+      "row_set_hashes": [
+        "09434634dbe29dfbfd29abd7b8efb65c0df15198681224cc6d2dbc3bbb91267a"
+      ],
+      "row_sets_match": true,
+      "shot_counts": [
+        4096
+      ],
+      "shot_counts_match": true,
+      "source_lane_id": "ibm_product_seed314_rows16_shots4096"
+    }
+  ],
   "missing_packet_artifacts": [],
   "missing_source_artifacts": [],
   "next_gate": "After Stage 101 calibration passes, execute all Stage 99 and Stage 100 matched packets, fill every Stage 104 template with canonical q0q1 row counts and metadata, then rerun Stage 103 with --execution-dir.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": false,
+  "required_circuit_templates": [
+    "two_ry_product_state_z_readout_v1",
+    "two_ry_cx_parity_z_readout_v1"
+  ],
+  "required_encoding_families": [
+    "phasewrap",
+    "rope_like",
+    "sinusoidal_like",
+    "alibi_like",
+    "no_position_control"
+  ],
   "required_execution_fields": [
     "job_or_task_ids",
     "backend_metadata",
