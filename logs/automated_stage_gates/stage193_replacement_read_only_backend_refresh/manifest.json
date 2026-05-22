@@ -1,10 +1,8 @@
 {
   "allow_read_only_refresh": true,
-  "backend_lookup_attempted": false,
-  "backend_lookup_ready": false,
-  "blockers": [
-    "current_ibm_configuration_missing_or_incomplete"
-  ],
+  "backend_lookup_attempted": true,
+  "backend_lookup_ready": true,
+  "blockers": [],
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -21,13 +19,13 @@
     ]
   },
   "credit_balance_verified": false,
-  "decision": "REPLACEMENT_READ_ONLY_BACKEND_REFRESH_BLOCKED",
+  "decision": "REPLACEMENT_READ_ONLY_BACKEND_REFRESH_READY_CREDIT_AND_APPROVAL_STILL_REQUIRED",
   "estimated_total_job_count": 324,
   "estimated_total_shots": 1314720,
   "explicit_user_approval_required": true,
-  "ibm_backend_env_present": false,
-  "ibm_instance_crn_present": false,
-  "ibm_token_present": false,
+  "ibm_backend_env_present": true,
+  "ibm_instance_crn_present": true,
+  "ibm_token_present": true,
   "missing_source_artifacts": [],
   "next_gate": "If read-only backend refresh succeeds, resolve IBM credit/billing/Runtime allowance with the user, then require the exact replacement approval phrase before any live execution runner is prepared.",
   "no_hardware_submission": true,

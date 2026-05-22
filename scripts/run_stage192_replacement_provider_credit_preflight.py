@@ -8,6 +8,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from qrope.env_utils import load_local_dotenv  # noqa: E402
 from qrope.stage192_replacement_provider_credit_preflight import (  # noqa: E402
     DEFAULT_OUTPUT_DIR,
     DEFAULT_STAGE159_RESULTS,
@@ -25,7 +26,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--stage176-results", type=Path, default=DEFAULT_STAGE176_RESULTS)
     parser.add_argument("--stage191-results", type=Path, default=DEFAULT_STAGE191_RESULTS)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument("--load-dotenv", action="store_true")
     args = parser.parse_args(argv)
+    if args.load_dotenv:
+        load_local_dotenv(REPO_ROOT / ".env")
     result = run_stage192_replacement_provider_credit_preflight(
         stage159_results_path=args.stage159_results,
         stage176_results_path=args.stage176_results,

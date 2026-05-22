@@ -1,6 +1,6 @@
 item_id,status,description
 replacement_approval_dossier,ready_for_human_review,Stage191 replacement approval dossier must be ready before provider or credit review.
-current_local_ibm_configuration,missing_or_incomplete,"Current shell must provide non-secret presence of IBM token, instance, and backend name before any read-only refresh can run."
+current_local_ibm_configuration,present_non_secret,"Current shell must provide non-secret presence of IBM token, instance, and backend name before any read-only refresh can run."
 prior_read_only_backend_evidence,available_but_old_path,"Prior Stage159 backend lookup evidence is informative but belongs to the archived Stage133 path, not the replacement approval phrase."
 credit_billing_runtime_allowance,human_verification_required,"IBM credit, billing, and Runtime allowance cannot be inferred from local token presence or old backend metadata."
 replacement_exact_approval_boundary,awaiting_exact_phrase,Replacement hardware remains disallowed until credit/provider allowance is resolved and the replacement approval phrase is given.

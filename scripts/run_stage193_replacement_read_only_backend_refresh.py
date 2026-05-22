@@ -8,6 +8,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from qrope.env_utils import load_local_dotenv  # noqa: E402
 from qrope.stage193_replacement_read_only_backend_refresh import (  # noqa: E402
     DEFAULT_OUTPUT_DIR,
     DEFAULT_STAGE191_RESULTS,
@@ -24,7 +25,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--stage192-results", type=Path, default=DEFAULT_STAGE192_RESULTS)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--allow-read-only-refresh", action="store_true")
+    parser.add_argument("--load-dotenv", action="store_true")
     args = parser.parse_args(argv)
+    if args.load_dotenv:
+        load_local_dotenv(REPO_ROOT / ".env")
     result = run_stage193_replacement_read_only_backend_refresh(
         stage191_results_path=args.stage191_results,
         stage192_results_path=args.stage192_results,

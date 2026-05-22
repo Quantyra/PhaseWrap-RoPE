@@ -1,7 +1,6 @@
 {
   "blockers": [
-    "credit_billing_runtime_allowance_unverified",
-    "current_ibm_configuration_missing_or_incomplete"
+    "credit_billing_runtime_allowance_unverified"
   ],
   "claim_boundary": {
     "excluded": [
@@ -19,14 +18,14 @@
     ]
   },
   "credit_balance_verified": false,
-  "current_local_ibm_configuration_complete": false,
+  "current_local_ibm_configuration_complete": true,
   "decision": "REPLACEMENT_PROVIDER_CREDIT_PREFLIGHT_BLOCKED",
   "estimated_total_job_count": 324,
   "estimated_total_shots": 1314720,
   "explicit_user_approval_required": true,
-  "ibm_backend_env_present": false,
-  "ibm_instance_crn_present": false,
-  "ibm_token_present": false,
+  "ibm_backend_env_present": true,
+  "ibm_instance_crn_present": true,
+  "ibm_token_present": true,
   "missing_source_artifacts": [],
   "next_gate": "Restore IBM token, instance, and backend environment variables, then perform a replacement-scoped read-only backend refresh and human credit/billing/Runtime allowance check before any exact live-run approval is considered.",
   "no_hardware_submission": true,
