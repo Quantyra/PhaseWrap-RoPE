@@ -12,14 +12,14 @@ Stage 138 is the terminal objective-level claim gate for the noisy-hardware trac
 
 Current decision: `OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE`.
 
-The gate supports the objective only if Stage 110 is terminal, Stage 137 is ready, Stage 148 is ready when supported advantage wording is required, and either replicated robustness or replicated auditability is supported. If the robustness and auditability branches are terminal and neither supports PhaseWrap, the objective is reported as not supported rather than silently blocked.
+The gate supports the objective only if Stage 110 is terminal with its Stage 105/109 readiness flags set, Stage 137 is ready with all windows ready, Stage 148 is ready with calibration, Stage 103 lower-MAE, and shot-noise counters complete when supported advantage wording is required, and either replicated robustness or replicated auditability is supported. If the robustness and auditability branches are terminal and neither supports PhaseWrap, the objective is reported as not supported rather than silently blocked.
 
 ## Claim Boundary
 Supported:
 
 - a terminal robustness-or-auditability objective gate
-- preservation of separate robustness and auditability evidence rules before final wording
-- Stage 148 statistical guardrail enforcement before supported advantage wording
+- preservation of separate robustness and auditability evidence rules before final wording, with readiness flags checked
+- Stage 148 statistical guardrail decision and readiness-counter enforcement before supported advantage wording
 - blocked output while required evidence or statistical-interpretation branches are incomplete
 
 Excluded:

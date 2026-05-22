@@ -15,6 +15,7 @@ DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage138_objective_claim_gate"
 ROBUSTNESS_SUPPORTED = "PHASEWRAP_REPLICATED_ADVANTAGE_SUPPORTED_BY_STAGE105_RULE"
 ROBUSTNESS_NOT_SUPPORTED = "PHASEWRAP_REPLICATED_ADVANTAGE_NOT_SUPPORTED_BY_STAGE105_RULE"
 AUDITABILITY_READY = "AUDITABILITY_METRICS_READY_FOR_CLAIM_GATE"
+STATISTICAL_READY = "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_READY_FOR_CLAIM_GATES"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
     "auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, "
@@ -29,7 +30,7 @@ def _load_json(path: Path) -> Any | None:
 
 
 def _auditability_replication_records(stage137: dict[str, Any] | None) -> list[dict[str, Any]]:
-    if not isinstance(stage137, dict) or stage137.get("decision") != AUDITABILITY_READY:
+    if not _stage137_ready_for_claim(stage137):
         return []
     provider_windows: dict[str, set[str]] = {}
     for window in stage137.get("window_records", []):
@@ -68,6 +69,38 @@ def _auditability_replication_records(stage137: dict[str, Any] | None) -> list[d
     return out
 
 
+def _stage110_terminal(stage110: dict[str, Any] | None) -> bool:
+    return bool(
+        isinstance(stage110, dict)
+        and stage110.get("decision") in {ROBUSTNESS_SUPPORTED, ROBUSTNESS_NOT_SUPPORTED}
+        and stage110.get("ready_for_stage105_aggregation") is True
+        and stage110.get("stage109_ready_for_aggregation") is True
+        and stage110.get("stage105_preregistered") is True
+    )
+
+
+def _stage137_ready_for_claim(stage137: dict[str, Any] | None) -> bool:
+    return bool(
+        isinstance(stage137, dict)
+        and stage137.get("decision") == AUDITABILITY_READY
+        and stage137.get("stage136_ready") is True
+        and stage137.get("ready_window_count") == stage137.get("window_count")
+        and int(stage137.get("window_count") or 0) > 0
+    )
+
+
+def _stage148_ready_for_claim(stage148: dict[str, Any] | None) -> bool:
+    return bool(
+        isinstance(stage148, dict)
+        and stage148.get("decision") == STATISTICAL_READY
+        and stage148.get("ready_calibration_record_count") == stage148.get("calibration_record_count")
+        and stage148.get("stage103_lower_mae_lane_count") == stage148.get("lane_record_count")
+        and stage148.get("shot_noise_separated_lane_count") == stage148.get("lane_record_count")
+        and int(stage148.get("calibration_record_count") or 0) > 0
+        and int(stage148.get("lane_record_count") or 0) > 0
+    )
+
+
 def run_stage138_claim_gate(
     *,
     stage110_results_path: Path = DEFAULT_STAGE110_RESULTS,
@@ -79,17 +112,12 @@ def run_stage138_claim_gate(
     stage148 = _load_json(stage148_results_path)
     sources = [(stage110_results_path, stage110), (stage137_results_path, stage137), (stage148_results_path, stage148)]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
-    robustness_terminal = bool(
-        isinstance(stage110, dict) and stage110.get("decision") in {ROBUSTNESS_SUPPORTED, ROBUSTNESS_NOT_SUPPORTED}
-    )
-    robustness_supported = bool(isinstance(stage110, dict) and stage110.get("decision") == ROBUSTNESS_SUPPORTED)
-    auditability_ready = bool(isinstance(stage137, dict) and stage137.get("decision") == AUDITABILITY_READY)
+    robustness_terminal = _stage110_terminal(stage110)
+    robustness_supported = bool(robustness_terminal and isinstance(stage110, dict) and stage110.get("decision") == ROBUSTNESS_SUPPORTED)
+    auditability_ready = _stage137_ready_for_claim(stage137)
     auditability_replication = _auditability_replication_records(stage137)
     auditability_supported = any(record["replicated_phasewrap_auditability_advantage"] for record in auditability_replication)
-    statistical_ready = bool(
-        isinstance(stage148, dict)
-        and stage148.get("decision") == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_READY_FOR_CLAIM_GATES"
-    )
+    statistical_ready = _stage148_ready_for_claim(stage148)
     statistical_required = bool(robustness_supported or auditability_supported)
     objective_terminal = robustness_terminal and auditability_ready and not missing_sources and (not statistical_required or statistical_ready)
 
@@ -113,6 +141,14 @@ def run_stage138_claim_gate(
         "stage110_decision": stage110.get("decision") if isinstance(stage110, dict) else None,
         "stage137_decision": stage137.get("decision") if isinstance(stage137, dict) else None,
         "stage148_decision": stage148.get("decision") if isinstance(stage148, dict) else None,
+        "stage110_ready_for_stage105_aggregation": stage110.get("ready_for_stage105_aggregation") if isinstance(stage110, dict) else None,
+        "stage137_ready_window_count": stage137.get("ready_window_count") if isinstance(stage137, dict) else None,
+        "stage137_window_count": stage137.get("window_count") if isinstance(stage137, dict) else None,
+        "stage148_ready_calibration_record_count": stage148.get("ready_calibration_record_count") if isinstance(stage148, dict) else None,
+        "stage148_calibration_record_count": stage148.get("calibration_record_count") if isinstance(stage148, dict) else None,
+        "stage148_stage103_lower_mae_lane_count": stage148.get("stage103_lower_mae_lane_count") if isinstance(stage148, dict) else None,
+        "stage148_shot_noise_separated_lane_count": stage148.get("shot_noise_separated_lane_count") if isinstance(stage148, dict) else None,
+        "stage148_lane_record_count": stage148.get("lane_record_count") if isinstance(stage148, dict) else None,
         "robustness_terminal": robustness_terminal,
         "robustness_supported": robustness_supported,
         "auditability_ready": auditability_ready,
@@ -132,8 +168,8 @@ def run_stage138_claim_gate(
         "claim_boundary": {
             "supported": [
                 "a terminal objective-level gate for robustness or auditability outcomes",
-                "separate preservation of the Stage 110 robustness rule and Stage 137 auditability rule",
-                "Stage 148 statistical guardrail enforcement before supported advantage wording",
+                "separate preservation of the Stage 110 robustness rule and Stage 137 auditability rule with readiness flags checked",
+                "Stage 148 statistical guardrail decision and readiness-counter enforcement before supported advantage wording",
                 "blocked output until both robustness and auditability evidence surfaces are terminal",
             ],
             "excluded": [
@@ -164,6 +200,14 @@ def write_stage138_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "stage110_decision": result["stage110_decision"],
         "stage137_decision": result["stage137_decision"],
         "stage148_decision": result["stage148_decision"],
+        "stage110_ready_for_stage105_aggregation": result["stage110_ready_for_stage105_aggregation"],
+        "stage137_ready_window_count": result["stage137_ready_window_count"],
+        "stage137_window_count": result["stage137_window_count"],
+        "stage148_ready_calibration_record_count": result["stage148_ready_calibration_record_count"],
+        "stage148_calibration_record_count": result["stage148_calibration_record_count"],
+        "stage148_stage103_lower_mae_lane_count": result["stage148_stage103_lower_mae_lane_count"],
+        "stage148_shot_noise_separated_lane_count": result["stage148_shot_noise_separated_lane_count"],
+        "stage148_lane_record_count": result["stage148_lane_record_count"],
         "robustness_terminal": result["robustness_terminal"],
         "robustness_supported": result["robustness_supported"],
         "auditability_ready": result["auditability_ready"],

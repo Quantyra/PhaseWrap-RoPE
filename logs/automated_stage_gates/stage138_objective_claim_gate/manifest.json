@@ -11,8 +11,8 @@
     ],
     "supported": [
       "a terminal objective-level gate for robustness or auditability outcomes",
-      "separate preservation of the Stage 110 robustness rule and Stage 137 auditability rule",
-      "Stage 148 statistical guardrail enforcement before supported advantage wording",
+      "separate preservation of the Stage 110 robustness rule and Stage 137 auditability rule with readiness flags checked",
+      "Stage 148 statistical guardrail decision and readiness-counter enforcement before supported advantage wording",
       "blocked output until both robustness and auditability evidence surfaces are terminal"
     ]
   },
@@ -37,8 +37,16 @@
   ],
   "stage": "stage138_objective_claim_gate",
   "stage110_decision": "REPLICATED_ADVANTAGE_CLAIM_BLOCKED_EVIDENCE_INTAKE_INCOMPLETE",
+  "stage110_ready_for_stage105_aggregation": false,
   "stage137_decision": "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED",
+  "stage137_ready_window_count": 0,
+  "stage137_window_count": 4,
+  "stage148_calibration_record_count": 2,
   "stage148_decision": "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED",
+  "stage148_lane_record_count": 4,
+  "stage148_ready_calibration_record_count": 0,
+  "stage148_shot_noise_separated_lane_count": 0,
+  "stage148_stage103_lower_mae_lane_count": 0,
   "statistical_interpretation_ready": false,
   "statistical_interpretation_required": false,
   "status": "completed",
