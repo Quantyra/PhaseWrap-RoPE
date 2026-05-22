@@ -1,7 +1,7 @@
 section,item,value
 decision,decision,BOUND_STRONGEST_HONEST_CLAIM_WITH_RETRIEVAL_FAILURES
 decision,claim_boundary,"The strongest honest claim remains bounded: PhaseWrap-RoPE has compact/auditable evidence and mixed diagnostics, while fair matched original retrieval does not yet support RoPE replacement."
-claim,strongest_honest_claim,"PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, and dual support/target-attention routes still fail held-out support-to-token retrieval; fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
+claim,strongest_honest_claim,"PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, and practical budget-sensitivity routes still fail held-out support-to-token retrieval; fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
 next_gate,reviewer_next_gate,Run a stronger matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows before evaluating positional-method promotion.
 unsupported_claim,1,PhaseWrap-RoPE replaces RoPE.
 unsupported_claim,2,PhaseWrap-RoPE is better than RoPE under current fair matched transformer comparisons.
@@ -36,3 +36,4 @@ failure_mode,21,Original held-out retrieval remains unrepaired in a recent fair-
 failure_mode,22,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,23,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,24,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,25,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.

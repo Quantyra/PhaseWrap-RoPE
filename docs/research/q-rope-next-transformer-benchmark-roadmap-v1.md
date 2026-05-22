@@ -77,6 +77,10 @@ Stage 83 update: a nonlinear per-position routing bridge over support-congruence
 
 Stage 84 update: moving support supervision inside the two-block pointer-generator decoder preserves train capacity but still does not repair held-out retrieval. Best phase-cued top-1 is only `0.016667`, so the blocker is held-out support-to-token generalization in the learned decoder path.
 
+Stage 85 update: adding both support-class and target-position attention auxiliary supervision preserves train capacity and improves exact-offset to held-out top-1 `0.416667`, but the result remains below the `0.5` retrieval threshold and phase-cued retrieval remains only top-1 `0.050000`.
+
+Stage 86 update: a practical budget-sensitivity audit over the Stage 85 dual-auxiliary path does not repair retrieval. Increasing from `10` to `20` epochs keeps phase-cued retrieval at top-1 `0.050000` and reduces exact-offset from top-1 `0.416667` to `0.100000`, so the current blocker is not merely short-budget undertraining.
+
 ## PhaseWrap Mechanism Requirements
 
 The PhaseWrap variant should be implemented as a positional mechanism comparable to RoPE or ALiBI, not as a scalar oracle feature.
@@ -233,6 +237,10 @@ Stage 82 trains a compact support-to-token routing head and records `LEARNED_SUP
 Stage 83 trains a nonlinear support-routing bridge and records `NONLINEAR_SUPPORT_ROUTING_BRIDGE_SUPPORT_RECOVERED_RETRIEVAL_FAILED`: support labels recover, but nonlinear learned routing still does not repair phase-cued retrieval.
 
 Stage 84 trains a support-auxiliary two-block pointer-generator decoder and records `SUPPORT_AUXILIARY_POINTER_GENERATOR_WITHOUT_RETRIEVAL_GENERALIZATION`: train capacity is preserved, but held-out retrieval remains unrepaired.
+
+Stage 85 trains a dual support/target-attention auxiliary pointer-generator decoder and records `DUAL_AUXILIARY_POINTER_GENERATOR_WITHOUT_RETRIEVAL_GENERALIZATION`: train capacity is preserved, but held-out retrieval remains unrepaired.
+
+Stage 86 runs a budget-sensitivity audit over Stage 85 and records `DUAL_AUXILIARY_BUDGET_WITHOUT_RETRIEVAL_GENERALIZATION`: the practical budget increase does not repair held-out retrieval.
 
 The next gate should redesign the stronger matched decoder-only transformer so it can generalize support-to-token routing on held-out retrieval rows before testing positional-method promotion. Hardware witness hardening remains a separate replication track and should not displace the fair-comparison promotion path.
 

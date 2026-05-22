@@ -1,0 +1,66 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that budget tuning alone establishes positional-method promotion",
+      "a claim that auxiliary-supervised diagnostics are standard free decoder-only language modeling",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential budget-sensitivity audit for the Stage 85 dual-auxiliary pointer-generator path.",
+      "Evidence about whether Stage 85's below-threshold exact-offset result is explained by a short training budget.",
+      "Fair RoPE/ALiBI/sinusoidal/no-position/PhaseWrap comparisons with failed-run retention."
+    ]
+  },
+  "decision": {
+    "best_retrieval_by_task": {
+      "exact_offset_passkey": {
+        "epochs": 10,
+        "method": "sinusoidal",
+        "target_probability": 0.058441,
+        "top1": 0.416667
+      },
+      "phase_cued_retrieval": {
+        "epochs": 10,
+        "method": "sinusoidal",
+        "target_probability": 0.029205,
+        "top1": 0.05
+      }
+    },
+    "best_tiny_text_top1": 0.933334,
+    "capacity_established": true,
+    "claim_boundary": "Increasing the practical dual-auxiliary budget does not repair held-out retrieval generalization.",
+    "decision": "DUAL_AUXILIARY_BUDGET_WITHOUT_RETRIEVAL_GENERALIZATION",
+    "failed_run_count": 0,
+    "generalization_top1_threshold": 0.5,
+    "generalized_original_retrieval_tasks": [],
+    "phasewrap_retrieval_generalized_tasks": []
+  },
+  "epoch_budgets": [
+    10,
+    20
+  ],
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "no_hardware_submission": true,
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage86_dual_auxiliary_budget_sensitivity_audit/results.json",
+  "schema_version": "qrope_stage86_dual_auxiliary_budget_sensitivity_audit_v1",
+  "source_stage": "stage85_dual_auxiliary_pointer_generator_audit",
+  "stage": "stage86_dual_auxiliary_budget_sensitivity_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage86_dual_auxiliary_budget_sensitivity_audit/summary.csv",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey",
+    "tiny_text_fact_qa"
+  ]
+}

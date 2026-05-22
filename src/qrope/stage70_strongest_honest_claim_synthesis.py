@@ -43,6 +43,7 @@ SOURCE_STAGE_DIRS: tuple[str, ...] = (
     "stage83_nonlinear_support_routing_bridge_audit",
     "stage84_support_auxiliary_pointer_generator_audit",
     "stage85_dual_auxiliary_pointer_generator_audit",
+    "stage86_dual_auxiliary_budget_sensitivity_audit",
 )
 
 DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
@@ -67,6 +68,7 @@ DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
     "docs/research/q-rope-stage83-nonlinear-support-routing-bridge-audit-v1.md",
     "docs/research/q-rope-stage84-support-auxiliary-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage85-dual-auxiliary-pointer-generator-audit-v1.md",
+    "docs/research/q-rope-stage86-dual-auxiliary-budget-sensitivity-audit-v1.md",
 )
 
 
@@ -307,7 +309,7 @@ def run_stage70_synthesis(
         "schema_version": STAGE70_SCHEMA_VERSION,
         "stage": "stage70_strongest_honest_claim_synthesis",
         "status": "completed",
-        "source_stage": "stage85_dual_auxiliary_pointer_generator_audit",
+        "source_stage": "stage86_dual_auxiliary_budget_sensitivity_audit",
         "source_artifacts": source_artifacts,
         "missing_source_artifacts": missing_source_artifacts,
         "no_hardware_submission": True,
@@ -319,7 +321,7 @@ def run_stage70_synthesis(
             "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible "
             "hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft "
             "support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, "
-            "in-decoder support-supervised, and dual support/target-attention routes still fail held-out support-to-token retrieval; fair "
+            "in-decoder support-supervised, dual support/target-attention, and practical budget-sensitivity routes still fail held-out support-to-token retrieval; fair "
             "matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
         ),
         "unsupported_claims": [

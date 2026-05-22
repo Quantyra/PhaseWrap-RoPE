@@ -75,6 +75,21 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
             },
         },
     )
+    _write_manifest(
+        tmp_path,
+        "stage86_dual_auxiliary_budget_sensitivity_audit",
+        {
+            "tasks": ["phase_cued_retrieval", "exact_offset_passkey", "tiny_text_fact_qa"],
+            "decision": {
+                "decision": "DUAL_AUXILIARY_BUDGET_WITHOUT_RETRIEVAL_GENERALIZATION",
+                "capacity_established": True,
+                "retrieval_best_top1": {"phase_cued_retrieval": 0.05, "exact_offset_passkey": 0.416667},
+                "retrieval_best_methods": {"phase_cued_retrieval": "sinusoidal", "exact_offset_passkey": "sinusoidal"},
+                "tiny_text_best_top1": 0.933334,
+                "tiny_text_best_method": "sinusoidal",
+            },
+        },
+    )
     result = run_stage70_synthesis(artifact_root=tmp_path)
     assert result["stage"] == "stage70_strongest_honest_claim_synthesis"
     assert result["status"] == "completed"
@@ -86,7 +101,8 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
     assert any(item.get("stage") == "stage69_original_multitask_pointer_generator_audit" for item in result["failure_modes"])
     assert any(item.get("stage") == "stage84_support_auxiliary_pointer_generator_audit" for item in result["failure_modes"])
     assert any(item.get("stage") == "stage85_dual_auxiliary_pointer_generator_audit" for item in result["failure_modes"])
-    assert result["source_stage"] == "stage85_dual_auxiliary_pointer_generator_audit"
+    assert any(item.get("stage") == "stage86_dual_auxiliary_budget_sensitivity_audit" for item in result["failure_modes"])
+    assert result["source_stage"] == "stage86_dual_auxiliary_budget_sensitivity_audit"
 
 
 def test_stage70_labels_nonpromotional_solved_retrieval_without_calling_it_unrepaired(tmp_path) -> None:
