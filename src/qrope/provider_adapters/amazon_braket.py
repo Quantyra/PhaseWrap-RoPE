@@ -7,7 +7,12 @@ from qrope.provider_adapters.common import ProviderAdapterBlocked, ProviderAdapt
 
 PROVIDER = "amazon_braket"
 SUBMITTER_IMPORT_PATH = "qrope.provider_adapters.amazon_braket:submit"
-REQUIRED_ENV = ("QROPE_BRAKET_DEVICE_ARN", "QROPE_BRAKET_OUTPUT_S3_BUCKET", "QROPE_BRAKET_AWS_REGION")
+REQUIRED_ENV = (
+    "AWS_ACCESS_KEY_ID or AWS_PROFILE",
+    "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
+    "QROPE_BRAKET_OUTPUT_S3_BUCKET",
+    "QROPE_BRAKET_AWS_REGION or AWS_REGION",
+)
 
 
 def adapter_status() -> dict[str, Any]:
@@ -38,9 +43,10 @@ def build_submission_plan(*, jobs: list[dict[str, Any]], payloads: list[dict[str
                 "job_id": job.get("job_id"),
                 "window_id": job.get("window_id"),
                 "provider_submission_kind": "amazon_braket_openqasm3_task",
-                "device_arn_env": "QROPE_BRAKET_DEVICE_ARN",
+                "credential_env": "AWS_ACCESS_KEY_ID or AWS_PROFILE",
+                "device_arn_env": "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
                 "output_s3_bucket_env": "QROPE_BRAKET_OUTPUT_S3_BUCKET",
-                "region_env": "QROPE_BRAKET_AWS_REGION",
+                "region_env": "QROPE_BRAKET_AWS_REGION or AWS_REGION",
                 "shots": payload.get("shots", job.get("shots")),
                 "openqasm3_sha256": payload.get("openqasm3_sha256"),
                 "openqasm3": payload.get("openqasm3"),

@@ -7,7 +7,7 @@ from qrope.provider_adapters.common import ProviderAdapterBlocked, ProviderAdapt
 
 PROVIDER = "ibm_runtime"
 SUBMITTER_IMPORT_PATH = "qrope.provider_adapters.ibm_runtime:submit"
-REQUIRED_ENV = ("IBM_QUANTUM_TOKEN", "IBM_QUANTUM_INSTANCE_CRN", "QROPE_IBM_BACKEND")
+REQUIRED_ENV = ("IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN", "IBM_QUANTUM_INSTANCE_CRN", "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND")
 
 
 def adapter_status() -> dict[str, Any]:
@@ -38,9 +38,9 @@ def build_submission_plan(*, jobs: list[dict[str, Any]], payloads: list[dict[str
                 "job_id": job.get("job_id"),
                 "window_id": job.get("window_id"),
                 "provider_submission_kind": "ibm_runtime_openqasm3_sampler",
-                "backend_env": "QROPE_IBM_BACKEND",
+                "backend_env": "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
                 "instance_env": "IBM_QUANTUM_INSTANCE_CRN",
-                "credential_env": "IBM_QUANTUM_TOKEN",
+                "credential_env": "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
                 "shots": payload.get("shots", job.get("shots")),
                 "openqasm3_sha256": payload.get("openqasm3_sha256"),
                 "openqasm3": payload.get("openqasm3"),

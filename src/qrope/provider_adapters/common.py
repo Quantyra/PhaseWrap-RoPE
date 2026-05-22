@@ -62,5 +62,8 @@ def module_available(module_name: str) -> bool:
 
 
 def env_present(required_env: tuple[str, ...]) -> dict[str, bool]:
-    return {name: bool(os.environ.get(name)) for name in required_env}
-
+    presence = {}
+    for name in required_env:
+        alternatives = [part.strip() for part in name.split(" or ")]
+        presence[name] = any(bool(os.environ.get(part)) for part in alternatives)
+    return presence
