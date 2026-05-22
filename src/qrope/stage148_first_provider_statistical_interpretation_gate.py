@@ -11,6 +11,7 @@ DEFAULT_ARTIFACT_ROOT = Path("logs") / "automated_stage_gates"
 DEFAULT_STAGE107_WINDOW_PLANS = DEFAULT_ARTIFACT_ROOT / "stage107_window_execution_orchestrator" / "window_execution_plans.json"
 DEFAULT_STAGE146_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage146_first_provider_shot_uncertainty_audit" / "results.json"
 DEFAULT_STAGE147_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage147_first_provider_calibration_confidence_audit" / "results.json"
+DEFAULT_STAGE113_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage113_job_result_evidence_assembler" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage148_first_provider_statistical_interpretation_gate"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
@@ -67,6 +68,24 @@ def _lane_thresholds(stage146: dict[str, Any] | None) -> dict[tuple[str, str, st
 
 def _assembled_from_stage113(execution: dict[str, Any]) -> bool:
     return execution.get("status") == "assembled_from_stage113_results" and execution.get("no_hardware_submission") is False
+
+
+def _stage113_live_submit_provenance_ready(stage113: dict[str, Any] | None) -> bool:
+    if not isinstance(stage113, dict):
+        return False
+    runner_count = int(stage113.get("stage115_stage152_first_provider_runner_command_count") or 0)
+    authorized_count = int(stage113.get("stage115_stage152_first_provider_authorized_runner_count") or 0)
+    live_submit_ready_count = int(stage113.get("stage115_stage152_first_provider_live_submit_ready_count") or 0)
+    return bool(
+        stage113.get("decision") == "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE"
+        and stage113.get("stage115_write_ready") is True
+        and not stage113.get("stage115_write_blockers")
+        and stage113.get("stage115_stage152_all_first_provider_commands_authorized") is True
+        and stage113.get("stage115_stage152_all_first_provider_commands_live_submit_ready") is True
+        and runner_count > 0
+        and authorized_count == runner_count
+        and live_submit_ready_count == runner_count
+    )
 
 
 def _calibration_record(plan: dict[str, Any], thresholds: dict[str, dict[str, Any]]) -> dict[str, Any]:
@@ -213,11 +232,18 @@ def run_stage148_gate(
     stage107_window_plans_path: Path = DEFAULT_STAGE107_WINDOW_PLANS,
     stage146_results_path: Path = DEFAULT_STAGE146_RESULTS,
     stage147_results_path: Path = DEFAULT_STAGE147_RESULTS,
+    stage113_results_path: Path = DEFAULT_STAGE113_RESULTS,
 ) -> dict[str, Any]:
     plans = _load_json(stage107_window_plans_path)
     stage146 = _load_json(stage146_results_path)
     stage147 = _load_json(stage147_results_path)
-    sources = [(stage107_window_plans_path, plans), (stage146_results_path, stage146), (stage147_results_path, stage147)]
+    stage113 = _load_json(stage113_results_path)
+    sources = [
+        (stage107_window_plans_path, plans),
+        (stage146_results_path, stage146),
+        (stage147_results_path, stage147),
+        (stage113_results_path, stage113),
+    ]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
     provider = str(stage147.get("provider_scope", "")) if isinstance(stage147, dict) else ""
     stage146_ready = bool(isinstance(stage146, dict) and stage146.get("decision") == STAGE146_READY)
@@ -230,10 +256,12 @@ def run_stage148_gate(
     ready_calibration_count = sum(1 for record in calibration_records if record["ready"])
     lower_mae_count = sum(1 for record in lane_records if record["passes_stage103_lower_mae_rule"])
     shot_separated_count = sum(1 for record in lane_records if record["passes_stage146_shot_noise_separation"])
+    stage113_live_submit_ready = _stage113_live_submit_provenance_ready(stage113)
     ready = (
         bool(provider)
         and stage146_ready
         and stage147_ready
+        and stage113_live_submit_ready
         and bool(calibration_records)
         and bool(lane_records)
         and not missing_sources
@@ -258,6 +286,26 @@ def run_stage148_gate(
         "stage147_decision": stage147.get("decision") if isinstance(stage147, dict) else None,
         "stage146_ready": stage146_ready,
         "stage147_ready": stage147_ready,
+        "stage113_results_path": str(stage113_results_path.as_posix()),
+        "stage113_decision": stage113.get("decision") if isinstance(stage113, dict) else None,
+        "stage113_stage115_write_ready": stage113.get("stage115_write_ready") if isinstance(stage113, dict) else None,
+        "stage113_stage115_write_blockers": stage113.get("stage115_write_blockers") if isinstance(stage113, dict) else None,
+        "stage113_stage115_stage152_first_provider_runner_command_count": (
+            stage113.get("stage115_stage152_first_provider_runner_command_count") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_first_provider_authorized_runner_count": (
+            stage113.get("stage115_stage152_first_provider_authorized_runner_count") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_first_provider_live_submit_ready_count": (
+            stage113.get("stage115_stage152_first_provider_live_submit_ready_count") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_all_first_provider_commands_authorized": (
+            stage113.get("stage115_stage152_all_first_provider_commands_authorized") if isinstance(stage113, dict) else None
+        ),
+        "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready": (
+            stage113.get("stage115_stage152_all_first_provider_commands_live_submit_ready") if isinstance(stage113, dict) else None
+        ),
+        "stage113_live_submit_provenance_ready": stage113_live_submit_ready,
         "window_count": len(window_plans),
         "calibration_record_count": len(calibration_records),
         "ready_calibration_record_count": ready_calibration_count,
@@ -274,6 +322,7 @@ def run_stage148_gate(
                 "binding of later IBM interpretation to Stage 147 calibration-confidence thresholds",
                 "binding of later IBM PhaseWrap MAE margins to Stage 146 shot-noise separation thresholds",
                 "binding of final statistical interpretation to Stage 113-assembled calibration evidence with result lineage metadata",
+                "binding of final statistical interpretation to Stage 113 preserved Stage 115/152 all-command live-submit readiness provenance",
                 "binding of final statistical interpretation to Stage 103 ready decisions, readiness counters, and complete comparison groups",
                 "a blocked outcome until observed provider evidence satisfies both statistical guardrails",
             ],
@@ -307,6 +356,26 @@ def write_stage148_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "stage147_decision": result["stage147_decision"],
         "stage146_ready": result["stage146_ready"],
         "stage147_ready": result["stage147_ready"],
+        "stage113_results_path": result["stage113_results_path"],
+        "stage113_decision": result["stage113_decision"],
+        "stage113_stage115_write_ready": result["stage113_stage115_write_ready"],
+        "stage113_stage115_write_blockers": result["stage113_stage115_write_blockers"],
+        "stage113_stage115_stage152_first_provider_runner_command_count": result[
+            "stage113_stage115_stage152_first_provider_runner_command_count"
+        ],
+        "stage113_stage115_stage152_first_provider_authorized_runner_count": result[
+            "stage113_stage115_stage152_first_provider_authorized_runner_count"
+        ],
+        "stage113_stage115_stage152_first_provider_live_submit_ready_count": result[
+            "stage113_stage115_stage152_first_provider_live_submit_ready_count"
+        ],
+        "stage113_stage115_stage152_all_first_provider_commands_authorized": result[
+            "stage113_stage115_stage152_all_first_provider_commands_authorized"
+        ],
+        "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready": result[
+            "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready"
+        ],
+        "stage113_live_submit_provenance_ready": result["stage113_live_submit_provenance_ready"],
         "window_count": result["window_count"],
         "calibration_record_count": result["calibration_record_count"],
         "ready_calibration_record_count": result["ready_calibration_record_count"],

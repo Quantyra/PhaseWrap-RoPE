@@ -10,7 +10,23 @@ def _write_json(path, payload) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def _fixture(tmp_path, *, ready: bool) -> tuple[object, object, object]:
+def _stage113_ready(path) -> None:
+    _write_json(
+        path,
+        {
+            "decision": "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE",
+            "stage115_write_ready": True,
+            "stage115_write_blockers": [],
+            "stage115_stage152_first_provider_runner_command_count": 1,
+            "stage115_stage152_first_provider_authorized_runner_count": 1,
+            "stage115_stage152_first_provider_live_submit_ready_count": 1,
+            "stage115_stage152_all_first_provider_commands_authorized": True,
+            "stage115_stage152_all_first_provider_commands_live_submit_ready": True,
+        },
+    )
+
+
+def _fixture(tmp_path, *, ready: bool) -> tuple[object, object, object, object]:
     root = tmp_path / "window"
     calibration_path = root / "calibration" / "ibm_runtime_known_state_execution.json"
     stage101_path = root / "calibration" / "stage101" / "results.json"
@@ -19,6 +35,7 @@ def _fixture(tmp_path, *, ready: bool) -> tuple[object, object, object]:
     plans = tmp_path / "plans.json"
     stage146 = tmp_path / "stage146.json"
     stage147 = tmp_path / "stage147.json"
+    stage113 = tmp_path / "stage113.json"
     _write_json(
         plans,
         [
@@ -101,13 +118,19 @@ def _fixture(tmp_path, *, ready: bool) -> tuple[object, object, object]:
                 ]
             },
         )
-    return plans, stage146, stage147
+    _stage113_ready(stage113)
+    return plans, stage146, stage147, stage113
 
 
 def test_stage148_blocks_when_observed_provider_evidence_is_missing(tmp_path) -> None:
-    plans, stage146, stage147 = _fixture(tmp_path, ready=False)
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=False)
 
-    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
 
     assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
     assert result["ready_calibration_record_count"] == 0
@@ -115,24 +138,66 @@ def test_stage148_blocks_when_observed_provider_evidence_is_missing(tmp_path) ->
 
 
 def test_stage148_reports_ready_when_calibration_and_margins_pass(tmp_path) -> None:
-    plans, stage146, stage147 = _fixture(tmp_path, ready=True)
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
 
-    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
 
     assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_READY_FOR_CLAIM_GATES"
+    assert result["stage113_live_submit_provenance_ready"] is True
     assert result["ready_calibration_record_count"] == 1
     assert result["shot_noise_separated_lane_count"] == 1
     assert result["lane_records"][0]["phasewrap_mae_margin"] == 0.03
 
 
+def test_stage148_requires_stage113_live_submit_provenance(tmp_path) -> None:
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
+    _write_json(
+        stage113,
+        {
+            "decision": "JOB_RESULTS_ASSEMBLED_INTO_STAGE109_EVIDENCE",
+            "stage115_write_ready": True,
+            "stage115_write_blockers": [],
+            "stage115_stage152_first_provider_runner_command_count": 2,
+            "stage115_stage152_first_provider_authorized_runner_count": 1,
+            "stage115_stage152_first_provider_live_submit_ready_count": 1,
+            "stage115_stage152_all_first_provider_commands_authorized": False,
+            "stage115_stage152_all_first_provider_commands_live_submit_ready": False,
+        },
+    )
+
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
+
+    assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
+    assert result["ready_calibration_record_count"] == 1
+    assert result["shot_noise_separated_lane_count"] == 1
+    assert result["stage113_live_submit_provenance_ready"] is False
+    assert result["stage113_stage115_stage152_all_first_provider_commands_authorized"] is False
+    assert result["stage113_stage115_stage152_all_first_provider_commands_live_submit_ready"] is False
+
+
 def test_stage148_blocks_complete_calibration_counts_without_stage113_status(tmp_path) -> None:
-    plans, stage146, stage147 = _fixture(tmp_path, ready=True)
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
     calibration_path = tmp_path / "window" / "calibration" / "ibm_runtime_known_state_execution.json"
     calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
     calibration.pop("status")
     _write_json(calibration_path, calibration)
 
-    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
 
     assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
     assert result["ready_calibration_record_count"] == 0
@@ -140,13 +205,18 @@ def test_stage148_blocks_complete_calibration_counts_without_stage113_status(tmp
 
 
 def test_stage148_blocks_calibration_counts_without_result_lineage_metadata(tmp_path) -> None:
-    plans, stage146, stage147 = _fixture(tmp_path, ready=True)
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
     calibration_path = tmp_path / "window" / "calibration" / "ibm_runtime_known_state_execution.json"
     calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
     calibration.pop("backend_metadata")
     _write_json(calibration_path, calibration)
 
-    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
 
     assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
     assert result["ready_calibration_record_count"] == 0
@@ -154,13 +224,18 @@ def test_stage148_blocks_calibration_counts_without_result_lineage_metadata(tmp_
 
 
 def test_stage148_blocks_summary_shaped_stage103_without_ready_decision(tmp_path) -> None:
-    plans, stage146, stage147 = _fixture(tmp_path, ready=True)
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
     stage103_path = tmp_path / "window" / "stage103" / "results.json"
     stage103 = json.loads(stage103_path.read_text(encoding="utf-8"))
     stage103.pop("decision")
     _write_json(stage103_path, stage103)
 
-    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
 
     assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
     assert result["stage103_lower_mae_lane_count"] == 0
@@ -168,13 +243,18 @@ def test_stage148_blocks_summary_shaped_stage103_without_ready_decision(tmp_path
 
 
 def test_stage148_blocks_stage103_without_readiness_counters(tmp_path) -> None:
-    plans, stage146, stage147 = _fixture(tmp_path, ready=True)
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
     stage103_path = tmp_path / "window" / "stage103" / "results.json"
     stage103 = json.loads(stage103_path.read_text(encoding="utf-8"))
     stage103["comparison_groups_complete"] = False
     _write_json(stage103_path, stage103)
 
-    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
 
     assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
     assert result["stage103_lower_mae_lane_count"] == 0
@@ -183,12 +263,17 @@ def test_stage148_blocks_stage103_without_readiness_counters(tmp_path) -> None:
 
 
 def test_stage148_blocks_when_statistical_contract_sources_are_not_ready(tmp_path) -> None:
-    plans, stage146, stage147 = _fixture(tmp_path, ready=True)
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
     payload = json.loads(stage146.read_text(encoding="utf-8"))
     payload["decision"] = "FIRST_PROVIDER_SHOT_UNCERTAINTY_CONTRACT_INCOMPLETE"
     _write_json(stage146, payload)
 
-    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
 
     assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
     assert result["stage146_ready"] is False
@@ -196,8 +281,13 @@ def test_stage148_blocks_when_statistical_contract_sources_are_not_ready(tmp_pat
 
 
 def test_stage148_outputs_are_written(tmp_path) -> None:
-    plans, stage146, stage147 = _fixture(tmp_path, ready=False)
-    result = run_stage148_gate(stage107_window_plans_path=plans, stage146_results_path=stage146, stage147_results_path=stage147)
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=False)
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
 
     written = write_stage148_outputs(result, tmp_path / "out")
     manifest = json.loads((tmp_path / "out" / "manifest.json").read_text(encoding="utf-8"))

@@ -12,6 +12,7 @@
       "binding of later IBM interpretation to Stage 147 calibration-confidence thresholds",
       "binding of later IBM PhaseWrap MAE margins to Stage 146 shot-noise separation thresholds",
       "binding of final statistical interpretation to Stage 113-assembled calibration evidence with result lineage metadata",
+      "binding of final statistical interpretation to Stage 113 preserved Stage 115/152 all-command live-submit readiness provenance",
       "binding of final statistical interpretation to Stage 103 ready decisions, readiness counters, and complete comparison groups",
       "a blocked outcome until observed provider evidence satisfies both statistical guardrails"
     ]
@@ -32,10 +33,33 @@
   "source_artifacts": [
     "logs/automated_stage_gates/stage107_window_execution_orchestrator/window_execution_plans.json",
     "logs/automated_stage_gates/stage146_first_provider_shot_uncertainty_audit/results.json",
-    "logs/automated_stage_gates/stage147_first_provider_calibration_confidence_audit/results.json"
+    "logs/automated_stage_gates/stage147_first_provider_calibration_confidence_audit/results.json",
+    "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json"
   ],
   "stage": "stage148_first_provider_statistical_interpretation_gate",
   "stage103_lower_mae_lane_count": 0,
+  "stage113_decision": "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING",
+  "stage113_live_submit_provenance_ready": false,
+  "stage113_results_path": "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json",
+  "stage113_stage115_stage152_all_first_provider_commands_authorized": false,
+  "stage113_stage115_stage152_all_first_provider_commands_live_submit_ready": false,
+  "stage113_stage115_stage152_first_provider_authorized_runner_count": 0,
+  "stage113_stage115_stage152_first_provider_live_submit_ready_count": 0,
+  "stage113_stage115_stage152_first_provider_runner_command_count": 2,
+  "stage113_stage115_write_blockers": [
+    "stage115_did_not_write_stage113_input",
+    "stage115_missing_jobs_present",
+    "stage115_not_collected_for_stage113",
+    "stage115_result_count_mismatch",
+    "stage115_shards_not_all_ready",
+    "stage115_stage152_authorized_runner_count_incomplete",
+    "stage115_stage152_commands_not_all_authorized",
+    "stage115_stage152_commands_not_all_live_submit_ready",
+    "stage115_stage152_live_submit_ready_count_incomplete",
+    "stage115_stage152_write_blockers_present",
+    "stage115_stage152_write_not_ready"
+  ],
+  "stage113_stage115_write_ready": false,
   "stage146_decision": "FIRST_PROVIDER_SHOT_UNCERTAINTY_CONTRACT_READY_HARDWARE_COUNTS_REQUIRED",
   "stage146_ready": true,
   "stage147_decision": "FIRST_PROVIDER_CALIBRATION_CONFIDENCE_CONTRACT_READY_COUNTS_REQUIRED",
