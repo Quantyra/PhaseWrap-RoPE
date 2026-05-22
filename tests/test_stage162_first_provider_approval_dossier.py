@@ -150,6 +150,36 @@ def test_stage162_dossier_ready_for_human_go_no_go(tmp_path) -> None:
     assert result["credit_balance_verified"] is False
 
 
+def test_stage162_go_consideration_updates_when_real_seed_pair_count_is_cleared(tmp_path) -> None:
+    stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167, stage168, stage169 = _sources(tmp_path)
+    _write_json(
+        stage168,
+        {
+            "decision": "REAL_SOURCE_SEED_EXPANSION_REQUIRED_BEFORE_BROADENED_SCOPE",
+            "current_real_ibm_seed_pair_count": 2,
+            "missing_real_ibm_seed_pair_count": 0,
+            "blockers": ["stage167_synthetic_stress_did_not_support_broadened_scope"],
+        },
+    )
+
+    result = run_stage162_approval_dossier(
+        stage154_results_path=stage154,
+        stage157_results_path=stage157,
+        stage159_results_path=stage159,
+        stage160_results_path=stage160,
+        stage161_results_path=stage161,
+        stage165_results_path=stage165,
+        stage166_results_path=stage166,
+        stage167_results_path=stage167,
+        stage168_results_path=stage168,
+        stage169_results_path=stage169,
+    )
+
+    assert result["stage168_missing_real_ibm_seed_pair_count"] == 0
+    assert any("clears the real IBM seed-pair count" in item for item in result["go_considerations"])
+    assert all("requires another real IBM product/CX source seed pair" not in item for item in result["go_considerations"])
+
+
 def test_stage162_blocks_on_exposure_mismatch(tmp_path) -> None:
     stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167, stage168, stage169 = _sources(tmp_path)
     _write_json(

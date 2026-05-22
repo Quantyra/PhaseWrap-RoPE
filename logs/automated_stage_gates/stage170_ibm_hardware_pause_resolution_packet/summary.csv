@@ -1,0 +1,11 @@
+item_type,item,state
+stage159,read-only backend preflight has resolved the IBM target,ready
+stage161,"job, shot, and credit-boundary exposure is quantified",ready
+stage162,human GO/NO-GO dossier is assembled,ready
+stage163,pre-run job shard lock is frozen and awaiting approval,ready
+stage169,current probe scope is locked to stable simulated lanes,ready
+pause_resolution,"Verify IBM account, billing, credits, and allowed Runtime usage outside the artifact.",human_check_required
+pause_resolution,"Confirm the configured IBM backend is still acceptable, or rerun the read-only Stage159 preflight.",human_check_required
+pause_resolution,Confirm the hardware scope remains the two stable Stage169 seed314 lanes already covered by the Stage163 lock.,human_check_required
+pause_resolution,Do not broaden to Stage169 excluded lanes without a new stability and scope-selection gate.,human_check_required
+pause_resolution,"Only after a human GO, provide the exact approval phrase: APPROVE IBM RUNTIME STAGE133 LIVE RUN",human_check_required

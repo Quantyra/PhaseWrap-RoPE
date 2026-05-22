@@ -79,6 +79,19 @@ def _decision_record(stage_id: str, payload: dict[str, Any] | None, expected: st
     }
 
 
+def _stage168_scope_consideration(stage168: dict[str, Any] | None) -> str:
+    missing_seed_pairs = stage168.get("missing_real_ibm_seed_pair_count") if isinstance(stage168, dict) else None
+    blockers = stage168.get("blockers", []) if isinstance(stage168, dict) else []
+    if missing_seed_pairs == 0:
+        if blockers:
+            return (
+                "Stage168 clears the real IBM seed-pair count for broadened-scope consideration, "
+                "but the broadened scope remains blocked by the Stage167 stress boundary."
+            )
+        return "Stage168 clears the real IBM seed-pair count for broadened-scope consideration."
+    return "Stage168 requires another real IBM product/CX source seed pair before broadening scope."
+
+
 def run_stage162_approval_dossier(
     *,
     stage154_results_path: Path = DEFAULT_STAGE154_RESULTS,
@@ -171,7 +184,7 @@ def run_stage162_approval_dossier(
         "Stage165 narrows that recommendation to targets whose margins clear a two-shot-quanta stability screen.",
         "Stage166 confirms the current evidence supports a targeted IBM probe, not a broad simulated robustness claim.",
         "Stage167 expanded synthetic seed stress does not broaden the scope beyond the targeted probe.",
-        "Stage168 requires another real IBM product/CX source seed pair before broadening scope.",
+        _stage168_scope_consideration(stage168),
         "Stage169 locks the current probe scope to the stable seed314 IBM product/CX lanes and excludes nonstable seed577 lanes.",
         "Stage159 read-only backend preflight is ready.",
         "Stage161 quantifies the pending first-provider run before approval.",

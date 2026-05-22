@@ -1,0 +1,63 @@
+{
+  "approval_state": "awaiting_exact_phrase",
+  "backend_lookup_ready": true,
+  "backend_pending_jobs_at_preflight": 3,
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials, account tokens, or secret values",
+      "runnable live-submit command strings",
+      "IBM credit balance or dollar cost verification",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "non-submitting pause packet for IBM credit/provider resolution",
+      "current first-provider scope is the stable Stage169 seed314 IBM product/CX lanes",
+      "locked Stage163 job and shot exposure is carried forward before any final human GO/NO-GO",
+      "credit and provider state remain human-verification items outside recorded artifacts"
+    ]
+  },
+  "credit_balance_verified": false,
+  "decision": "IBM_HARDWARE_PAUSE_READY_FOR_CREDIT_PROVIDER_RESOLUTION",
+  "explicit_user_approval_required": true,
+  "first_unlock_provider": "ibm_runtime",
+  "locked_job_count": 328,
+  "locked_total_shots": 1318720,
+  "missing_source_artifacts": [],
+  "next_gate": "Pause with the user to resolve IBM credit/provider state. If that resolves and the decision is GO, require the exact approval phrase before any live Stage133 execution.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "pause_resolution_items": [
+    "Verify IBM account, billing, credits, and allowed Runtime usage outside the artifact.",
+    "Confirm the configured IBM backend is still acceptable, or rerun the read-only Stage159 preflight.",
+    "Confirm the hardware scope remains the two stable Stage169 seed314 lanes already covered by the Stage163 lock.",
+    "Do not broaden to Stage169 excluded lanes without a new stability and scope-selection gate.",
+    "Only after a human GO, provide the exact approval phrase: APPROVE IBM RUNTIME STAGE133 LIVE RUN"
+  ],
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage170_ibm_hardware_pause_resolution_packet/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage170_ibm_hardware_pause_resolution_packet_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage159_first_provider_backend_preflight/results.json",
+    "logs/automated_stage_gates/stage161_first_provider_exposure_packet/results.json",
+    "logs/automated_stage_gates/stage162_first_provider_approval_dossier/results.json",
+    "logs/automated_stage_gates/stage163_first_provider_prerun_lock/results.json",
+    "logs/automated_stage_gates/stage169_targeted_probe_scope_selection/results.json"
+  ],
+  "stage": "stage170_ibm_hardware_pause_resolution_packet",
+  "stage169_excluded_recommended_lanes": [
+    "braket_cx_seed2718_rows8_shots1000",
+    "braket_product_seed2718_rows8_shots1000",
+    "ibm_cx_seed577_rows16_shots4096",
+    "ibm_product_seed577_rows16_shots4096"
+  ],
+  "stage169_stable_target_lanes": [
+    "ibm_cx_seed314_rows16_shots4096",
+    "ibm_product_seed314_rows16_shots4096"
+  ],
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage170_ibm_hardware_pause_resolution_packet/summary.csv"
+}
