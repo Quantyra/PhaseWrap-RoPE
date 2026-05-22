@@ -1,0 +1,5 @@
+item_id,status,description
+credit_allowance_gate,human_attestation_required,Exact approval review requires Stage194 credit/billing/Runtime allowance verification first.
+replacement_exposure_confirmation,recorded,The human approver must have the replacement exposure available before any approval phrase can be accepted.
+exact_approval_phrase,not_requested,The approval phrase is only evaluated after credit allowance is verified; it must match the replacement phrase exactly.
+live_execution_boundary,live_run_disallowed,This gate never submits hardware; at most it allows a later live-runner preparation review.
