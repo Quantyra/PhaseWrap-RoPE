@@ -17,6 +17,9 @@ def _stage150(path) -> None:
             "decision": "FIRST_PROVIDER_RESULT_LINEAGE_CONTRACT_READY_EXECUTION_BLOCKED",
             "first_unlock_provider": "ibm_runtime",
             "required_backend_metadata_fields": ["provider", "backend", "window_id", "job_kind"],
+            "stage148_stage146_ready": True,
+            "stage148_stage147_ready": True,
+            "stage148_statistical_source_contract_ready": True,
         },
     )
 
@@ -29,6 +32,9 @@ def test_stage151_readies_metadata_guard_contract(tmp_path) -> None:
 
     assert result["decision"] == "FIRST_PROVIDER_RESULT_METADATA_GUARD_READY_EXECUTION_BLOCKED"
     assert result["stage150_lineage_contract_ready"] is True
+    assert result["stage150_statistical_source_contract_ready"] is True
+    assert result["stage150_stage146_ready"] is True
+    assert result["stage150_stage147_ready"] is True
     assert result["synthetic_guard_ready_count"] == 4
     assert result["required_backend_metadata_fields"] == ["provider", "backend", "window_id", "job_kind"]
     assert result["no_hardware_submission"] is True
@@ -42,6 +48,7 @@ def test_stage151_reports_incomplete_when_stage150_metadata_contract_missing(tmp
             "decision": "FIRST_PROVIDER_RESULT_LINEAGE_CONTRACT_READY_EXECUTION_BLOCKED",
             "first_unlock_provider": "ibm_runtime",
             "required_backend_metadata_fields": ["provider", "backend"],
+            "stage148_statistical_source_contract_ready": True,
         },
     )
 
@@ -50,6 +57,29 @@ def test_stage151_reports_incomplete_when_stage150_metadata_contract_missing(tmp
     assert result["decision"] == "FIRST_PROVIDER_RESULT_METADATA_GUARD_INCOMPLETE"
     assert result["stage150_lineage_contract_ready"] is False
     assert result["synthetic_guard_ready_count"] == 4
+
+
+def test_stage151_requires_stage150_statistical_source_contract_readiness(tmp_path) -> None:
+    stage150 = tmp_path / "stage150.json"
+    _write_json(
+        stage150,
+        {
+            "decision": "FIRST_PROVIDER_RESULT_LINEAGE_CONTRACT_READY_EXECUTION_BLOCKED",
+            "first_unlock_provider": "ibm_runtime",
+            "required_backend_metadata_fields": ["provider", "backend", "window_id", "job_kind"],
+            "stage148_stage146_ready": True,
+            "stage148_stage147_ready": False,
+            "stage148_statistical_source_contract_ready": False,
+        },
+    )
+
+    result = run_stage151_audit(stage150_results_path=stage150)
+
+    assert result["decision"] == "FIRST_PROVIDER_RESULT_METADATA_GUARD_INCOMPLETE"
+    assert result["stage150_lineage_contract_ready"] is False
+    assert result["stage150_statistical_source_contract_ready"] is False
+    assert result["stage150_stage146_ready"] is True
+    assert result["stage150_stage147_ready"] is False
 
 
 def test_stage151_outputs_are_written(tmp_path) -> None:

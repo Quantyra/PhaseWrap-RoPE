@@ -10,7 +10,8 @@
     "supported": [
       "guarded runner rejects missing backend metadata before provider result writes",
       "guarded runner rejects window and job-kind metadata mismatches against the Stage 112 job shard",
-      "complete Stage 150 backend metadata is required on the write path before live IBM result capture"
+      "complete Stage 150 backend metadata is required on the write path before live IBM result capture",
+      "Stage 150 result-lineage readiness must include Stage 148 provider and Stage 146/147 source-contract readiness"
     ]
   },
   "decision": "FIRST_PROVIDER_RESULT_METADATA_GUARD_READY_EXECUTION_BLOCKED",
@@ -34,6 +35,9 @@
   ],
   "stage": "stage151_first_provider_result_metadata_guard_audit",
   "stage150_lineage_contract_ready": true,
+  "stage150_stage146_ready": true,
+  "stage150_stage147_ready": true,
+  "stage150_statistical_source_contract_ready": true,
   "status": "completed",
   "summary_csv_path": "logs/automated_stage_gates/stage151_first_provider_result_metadata_guard_audit/summary.csv",
   "synthetic_guard_check_count": 4,

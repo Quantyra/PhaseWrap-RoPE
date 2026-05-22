@@ -166,10 +166,14 @@ def _synthetic_guard_records() -> list[dict[str, Any]]:
 def run_stage151_audit(*, stage150_results_path: Path = DEFAULT_STAGE150_RESULTS) -> dict[str, Any]:
     stage150 = _load_json(stage150_results_path)
     missing_sources = [str(stage150_results_path.as_posix())] if stage150 is None else []
+    stage150_statistical_source_contract_ready = bool(
+        isinstance(stage150, dict) and stage150.get("stage148_statistical_source_contract_ready") is True
+    )
     stage150_ready = bool(
         isinstance(stage150, dict)
         and stage150.get("decision") == "FIRST_PROVIDER_RESULT_LINEAGE_CONTRACT_READY_EXECUTION_BLOCKED"
         and all(field in stage150.get("required_backend_metadata_fields", []) for field in REQUIRED_BACKEND_METADATA_FIELDS)
+        and stage150_statistical_source_contract_ready
     )
     synthetic_records = _synthetic_guard_records()
     synthetic_ready = bool(synthetic_records) and all(record["ready"] for record in synthetic_records)
@@ -188,6 +192,9 @@ def run_stage151_audit(*, stage150_results_path: Path = DEFAULT_STAGE150_RESULTS
         "missing_source_artifacts": missing_sources,
         "first_unlock_provider": stage150.get("first_unlock_provider") if isinstance(stage150, dict) else "",
         "stage150_lineage_contract_ready": stage150_ready,
+        "stage150_statistical_source_contract_ready": stage150_statistical_source_contract_ready,
+        "stage150_stage146_ready": stage150.get("stage148_stage146_ready") if isinstance(stage150, dict) else None,
+        "stage150_stage147_ready": stage150.get("stage148_stage147_ready") if isinstance(stage150, dict) else None,
         "required_backend_metadata_fields": list(REQUIRED_BACKEND_METADATA_FIELDS),
         "synthetic_guard_check_count": len(synthetic_records),
         "synthetic_guard_ready_count": sum(1 for record in synthetic_records if record["ready"]),
@@ -200,6 +207,7 @@ def run_stage151_audit(*, stage150_results_path: Path = DEFAULT_STAGE150_RESULTS
                 "guarded runner rejects missing backend metadata before provider result writes",
                 "guarded runner rejects window and job-kind metadata mismatches against the Stage 112 job shard",
                 "complete Stage 150 backend metadata is required on the write path before live IBM result capture",
+                "Stage 150 result-lineage readiness must include Stage 148 provider and Stage 146/147 source-contract readiness",
             ],
             "excluded": [
                 "provider credential values",
@@ -228,6 +236,9 @@ def write_stage151_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "missing_source_artifacts": result["missing_source_artifacts"],
         "first_unlock_provider": result["first_unlock_provider"],
         "stage150_lineage_contract_ready": result["stage150_lineage_contract_ready"],
+        "stage150_statistical_source_contract_ready": result["stage150_statistical_source_contract_ready"],
+        "stage150_stage146_ready": result["stage150_stage146_ready"],
+        "stage150_stage147_ready": result["stage150_stage147_ready"],
         "required_backend_metadata_fields": result["required_backend_metadata_fields"],
         "synthetic_guard_check_count": result["synthetic_guard_check_count"],
         "synthetic_guard_ready_count": result["synthetic_guard_ready_count"],
@@ -263,5 +274,6 @@ def print_stage151_summary(result: dict[str, Any]) -> None:
     print(f"decision: {result['decision']}")
     print(f"first_unlock_provider: {result['first_unlock_provider']}")
     print(f"stage150_lineage_contract_ready: {result['stage150_lineage_contract_ready']}")
+    print(f"stage150_statistical_source_contract_ready: {result['stage150_statistical_source_contract_ready']}")
     print(f"synthetic_guard_ready_count: {result['synthetic_guard_ready_count']}/{result['synthetic_guard_check_count']}")
     print(f"next_gate: {result['next_gate']}")
