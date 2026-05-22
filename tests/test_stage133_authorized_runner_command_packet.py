@@ -79,6 +79,8 @@ def test_stage133_authorizes_only_complete_command_records(tmp_path) -> None:
     assert result["authorized_runner_count"] == 1
     assert result["command_records"][0]["command_authorized"] is True
     assert result["command_records"][0]["live_submit_command_available"] is True
+    assert result["command_records"][0]["stage163_results_path"] == "logs/automated_stage_gates/stage163_first_provider_prerun_lock/results.json"
+    assert "--stage163-results logs/automated_stage_gates/stage163_first_provider_prerun_lock/results.json" in result["command_records"][0]["live_submit_command"]
     assert "--allow-live-submit" in result["command_records"][0]["live_submit_command"]
     assert "--submitter qrope.provider_adapters.ibm_runtime:submit" in result["command_records"][0]["live_submit_command"]
 

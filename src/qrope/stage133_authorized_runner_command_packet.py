@@ -11,6 +11,7 @@ DEFAULT_ARTIFACT_ROOT = Path("logs") / "automated_stage_gates"
 DEFAULT_STAGE116_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage116_provider_runner_plan" / "results.json"
 DEFAULT_STAGE129_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage129_live_cutover_authorization_audit" / "results.json"
 DEFAULT_STAGE132_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage132_guarded_sdk_factory_implementation_audit" / "results.json"
+DEFAULT_STAGE163_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage163_first_provider_prerun_lock" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage133_authorized_runner_command_packet"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
@@ -78,7 +79,13 @@ def _command_record(
     if not submitter:
         blockers.append("submitter_import_path_missing")
     authorized = not blockers
-    live_submit_command = f"{runner_command} --allow-live-submit --submitter {submitter}" if authorized and submitter else ""
+    stage163_results_path = DEFAULT_STAGE163_RESULTS.as_posix() if provider == "ibm_runtime" else ""
+    stage163_argument = f" --stage163-results {stage163_results_path}" if stage163_results_path else ""
+    live_submit_command = (
+        f"{runner_command}{stage163_argument} --allow-live-submit --submitter {submitter}"
+        if authorized and submitter
+        else ""
+    )
     return {
         "provider": provider,
         "window_id": runner.get("window_id"),
@@ -89,6 +96,7 @@ def _command_record(
         "runner_command": runner_command,
         "live_submit_command": live_submit_command,
         "submitter_import_path": submitter,
+        "stage163_results_path": stage163_results_path,
         "command_authorized": authorized,
         "live_submit_command_available": authorized,
         "blockers": sorted(set(blockers)),
@@ -138,6 +146,7 @@ def run_stage133_packet(
                 "declared live-submit command templates include Stage 111, Stage 118, and Stage 129 evidence inputs",
                 "live-submit command strings require source-level Stage 116 per-runner readiness and Stage 129 cutover authorization",
                 "provider submitter import paths are attached to each provider/window runner command",
+                "IBM Runtime live-submit command strings carry the Stage 163 pre-run lock path for boundary verification",
                 "live-submit command strings are emitted only for records with command_authorized=true",
                 "current commands remain blocked until per-runner Stage 116 readiness, Stage 129 cutover, and Stage 132 factory readiness all align",
             ],
@@ -196,6 +205,7 @@ def write_stage133_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                 "job_count",
                 "command_authorized",
                 "submitter_import_path",
+                "stage163_results_path",
                 "live_submit_command_available",
                 "blockers",
                 "live_submit_command",
@@ -210,6 +220,7 @@ def write_stage133_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                     "job_count": record["job_count"],
                     "command_authorized": record["command_authorized"],
                     "submitter_import_path": record["submitter_import_path"],
+                    "stage163_results_path": record["stage163_results_path"],
                     "live_submit_command_available": record["live_submit_command_available"],
                     "blockers": "; ".join(record["blockers"]),
                     "live_submit_command": record["live_submit_command"],

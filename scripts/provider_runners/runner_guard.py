@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import inspect
 import importlib
 import json
@@ -11,6 +12,8 @@ from typing import Any
 DEFAULT_STAGE111_RESULTS = Path("logs") / "automated_stage_gates" / "stage111_provider_sdk_backend_discovery" / "results.json"
 DEFAULT_STAGE118_RESULTS = Path("logs") / "automated_stage_gates" / "stage118_provider_payload_dry_run_audit" / "results.json"
 DEFAULT_STAGE129_RESULTS = Path("logs") / "automated_stage_gates" / "stage129_live_cutover_authorization_audit" / "results.json"
+DEFAULT_STAGE163_RESULTS = Path("logs") / "automated_stage_gates" / "stage163_first_provider_prerun_lock" / "results.json"
+STAGE163_READY = "FIRST_PROVIDER_PRERUN_LOCK_READY_AWAITING_APPROVAL"
 
 
 def _load_json(path: Path) -> dict[str, Any] | None:
@@ -23,6 +26,24 @@ def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return []
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def _line_count(path: Path) -> int:
+    if not path.exists():
+        return 0
+    return sum(1 for line in path.read_text(encoding="utf-8").splitlines() if line.strip())
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _canonical_path(path: Path | str) -> str:
+    return Path(path).resolve(strict=False).as_posix().lower()
 
 
 def _write_jsonl(path: Path, records: list[dict[str, Any]]) -> None:
@@ -62,6 +83,53 @@ def _window_id_from_jobs(jobs: list[dict[str, Any]]) -> str:
     if len(window_ids) == 1:
         return next(iter(window_ids))
     return ""
+
+
+def _stage163_lock_record(stage163: dict[str, Any] | None, provider: str, window_id: str) -> dict[str, Any] | None:
+    if not stage163:
+        return None
+    for record in stage163.get("window_locks", []):
+        if record.get("provider") == provider and record.get("window_id") == window_id:
+            return record
+    return None
+
+
+def _validate_stage163_lock(
+    stage163: dict[str, Any] | None,
+    *,
+    provider: str,
+    window_id: str,
+    job_shard: Path,
+    provider_results: Path,
+    jobs: list[dict[str, Any]],
+) -> list[str]:
+    if provider != "ibm_runtime":
+        return []
+    blockers = []
+    if not isinstance(stage163, dict):
+        return ["stage163_prerun_lock_missing"]
+    if stage163.get("decision") != STAGE163_READY:
+        blockers.append("stage163_prerun_lock_not_ready")
+    if stage163.get("first_unlock_provider") != provider:
+        blockers.append("stage163_first_unlock_provider_mismatch")
+    lock = _stage163_lock_record(stage163, provider, window_id)
+    if lock is None:
+        return sorted(set(blockers + ["stage163_window_lock_missing"]))
+    if lock.get("ready") is not True:
+        blockers.append("stage163_window_lock_not_ready")
+    if _canonical_path(str(lock.get("job_shard_path", ""))) != _canonical_path(job_shard):
+        blockers.append("stage163_job_shard_path_mismatch")
+    if _canonical_path(str(lock.get("provider_results_path", ""))) != _canonical_path(provider_results):
+        blockers.append("stage163_provider_results_path_mismatch")
+    if not job_shard.exists():
+        blockers.append("stage163_job_shard_missing")
+    elif _sha256(job_shard) != lock.get("job_shard_sha256"):
+        blockers.append("stage163_job_shard_hash_mismatch")
+    if len(jobs) != int(lock.get("job_count") or -1):
+        blockers.append("stage163_job_count_mismatch")
+    if _line_count(provider_results) != 0:
+        blockers.append("stage163_provider_results_not_empty")
+    return sorted(set(blockers))
 
 
 def _validate_result_record(record: dict[str, Any], expected_jobs: dict[str, dict[str, Any]], provider: str) -> list[str]:
@@ -125,6 +193,7 @@ def run_guarded_provider_runner(provider: str, argv: list[str] | None = None, su
     parser.add_argument("--stage111-results", type=Path, default=DEFAULT_STAGE111_RESULTS)
     parser.add_argument("--stage118-results", type=Path, default=DEFAULT_STAGE118_RESULTS)
     parser.add_argument("--stage129-results", type=Path, default=DEFAULT_STAGE129_RESULTS)
+    parser.add_argument("--stage163-results", type=Path, default=DEFAULT_STAGE163_RESULTS)
     parser.add_argument("--allow-live-submit", action="store_true")
     parser.add_argument("--submitter", help="Import path for a provider submitter callable, formatted as module:callable.")
     args = parser.parse_args(argv)
@@ -132,6 +201,7 @@ def run_guarded_provider_runner(provider: str, argv: list[str] | None = None, su
     stage111 = _load_json(args.stage111_results)
     stage118 = _load_json(args.stage118_results)
     stage129 = _load_json(args.stage129_results)
+    stage163 = _load_json(args.stage163_results)
     jobs = _load_jsonl(args.job_shard)
     record = _provider_record(stage111, provider)
     window_id = _window_id_from_jobs(jobs)
@@ -147,6 +217,20 @@ def run_guarded_provider_runner(provider: str, argv: list[str] | None = None, su
         print("decision: PROVIDER_RUNNER_BLOCKED_STAGE111_NOT_READY")
         print(f"blockers: {', '.join(str(item) for item in record.get('blockers', []))}")
         return 2
+    enforce_stage163_lock = provider == "ibm_runtime" and (args.allow_live_submit or args.stage163_results.exists())
+    if enforce_stage163_lock:
+        lock_blockers = _validate_stage163_lock(
+            stage163,
+            provider=provider,
+            window_id=window_id,
+            job_shard=args.job_shard,
+            provider_results=args.provider_results,
+            jobs=jobs,
+        )
+        if lock_blockers:
+            print("decision: PROVIDER_RUNNER_BLOCKED_STAGE163_PRERUN_LOCK_MISMATCH")
+            print(f"blockers: {', '.join(lock_blockers)}")
+            return 4
     if not args.allow_live_submit:
         print("decision: PROVIDER_RUNNER_READY_LIVE_SUBMIT_FLAG_REQUIRED")
         return 3
