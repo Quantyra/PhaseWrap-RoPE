@@ -1,5 +1,5 @@
 item_id,status,description
 credit_attestation_gate,verified,Reduced-scope exact approval requires Stage200 credit attestation to be accepted first.
 reduced_scope_exposure,recorded,Approver must have the reduced-scope exposure and cap available before exact approval can be accepted.
-exact_reduced_scope_approval_phrase,missing_or_mismatched,The reduced-scope live approval phrase is only evaluated after credit attestation and must match exactly.
-live_execution_boundary,live_run_disallowed,This gate does not submit hardware; at most it allows later reduced-scope live-runner preparation review.
+exact_reduced_scope_approval_phrase,accepted,The reduced-scope live approval phrase is only evaluated after credit attestation and must match exactly.
+live_execution_boundary,runner_preparation_review_allowed,This gate does not submit hardware; at most it allows later reduced-scope live-runner preparation review.

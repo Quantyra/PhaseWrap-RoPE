@@ -24,12 +24,12 @@
     {
       "description": "The reduced-scope live approval phrase is only evaluated after credit attestation and must match exactly.",
       "evidence": {
-        "approval_phrase_matches": false,
+        "approval_phrase_matches": true,
         "approval_phrase_required": "APPROVE IBM RUNTIME REDUCED SCOPE STAGE199 LIVE RUN",
-        "provided_approval_phrase_present": false
+        "provided_approval_phrase_present": true
       },
       "item_id": "exact_reduced_scope_approval_phrase",
-      "status": "missing_or_mismatched"
+      "status": "accepted"
     },
     {
       "description": "This gate does not submit hardware; at most it allows later reduced-scope live-runner preparation review.",
@@ -38,14 +38,12 @@
         "live_submit_command_created_here": false
       },
       "item_id": "live_execution_boundary",
-      "status": "live_run_disallowed"
+      "status": "runner_preparation_review_allowed"
     }
   ],
-  "approval_phrase_matches": false,
+  "approval_phrase_matches": true,
   "approval_phrase_required": "APPROVE IBM RUNTIME REDUCED SCOPE STAGE199 LIVE RUN",
-  "blockers": [
-    "exact_reduced_scope_approval_phrase_missing_or_mismatched"
-  ],
+  "blockers": [],
   "budget_cap_usd": 100.0,
   "claim_boundary": {
     "excluded": [
@@ -61,7 +59,7 @@
       "successful review permits only later reduced-scope live-runner preparation review"
     ]
   },
-  "decision": "REDUCED_SCOPE_EXACT_APPROVAL_REVIEW_BLOCKED",
+  "decision": "REDUCED_SCOPE_EXACT_APPROVAL_ACCEPTED_READY_FOR_LIVE_RUNNER_PREPARATION_REVIEW",
   "estimated_total_job_count": 324,
   "estimated_total_shots": 659360,
   "explicit_user_approval_required": true,
@@ -72,7 +70,7 @@
   "next_gate": "Resolve Stage200 credit attestation first. If the exact reduced-scope approval phrase is then provided, rerun Stage201 and proceed only to reduced-scope live-runner preparation review, not direct submission.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
-  "provided_approval_phrase_present": false,
+  "provided_approval_phrase_present": true,
   "provider_credentials_required": false,
   "runnable_commands_recorded": false,
   "schema_version": "qrope_stage201_reduced_scope_exact_approval_review_v1",

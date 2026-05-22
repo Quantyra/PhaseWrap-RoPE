@@ -1,9 +1,7 @@
 {
-  "approval_phrase_matches": false,
+  "approval_phrase_matches": true,
   "approval_phrase_required": "APPROVE IBM RUNTIME REDUCED SCOPE STAGE199 LIVE RUN",
-  "blockers": [
-    "exact_reduced_scope_approval_phrase_missing_or_mismatched"
-  ],
+  "blockers": [],
   "budget_cap_usd": 100.0,
   "claim_boundary": {
     "excluded": [
@@ -19,7 +17,7 @@
       "successful review permits only later reduced-scope live-runner preparation review"
     ]
   },
-  "decision": "REDUCED_SCOPE_EXACT_APPROVAL_REVIEW_BLOCKED",
+  "decision": "REDUCED_SCOPE_EXACT_APPROVAL_ACCEPTED_READY_FOR_LIVE_RUNNER_PREPARATION_REVIEW",
   "estimated_total_job_count": 324,
   "estimated_total_shots": 659360,
   "explicit_user_approval_required": true,
@@ -30,7 +28,7 @@
   "next_gate": "Resolve Stage200 credit attestation first. If the exact reduced-scope approval phrase is then provided, rerun Stage201 and proceed only to reduced-scope live-runner preparation review, not direct submission.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
-  "provided_approval_phrase_present": false,
+  "provided_approval_phrase_present": true,
   "provider_credentials_required": false,
   "result_path": "logs/automated_stage_gates/stage201_reduced_scope_exact_approval_review_100usd/results.json",
   "runnable_commands_recorded": false,

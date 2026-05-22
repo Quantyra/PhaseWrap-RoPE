@@ -11,8 +11,7 @@
   },
   "blockers": [
     "reduced_scope_execution_package_required",
-    "result_ingestion_contract_required",
-    "stage201_exact_reduced_scope_approval_not_accepted"
+    "result_ingestion_contract_required"
   ],
   "budget_cap_usd": 100.0,
   "claim_boundary": {
@@ -29,10 +28,10 @@
       "runner preparation requirements are enumerated without creating submit commands"
     ]
   },
-  "decision": "REDUCED_SCOPE_LIVE_RUNNER_PREPARATION_REVIEW_BLOCKED_APPROVAL_OR_PACKAGE_REQUIRED",
+  "decision": "REDUCED_SCOPE_LIVE_RUNNER_PREPARATION_REVIEW_READY_TO_BUILD_PACKAGE_NOT_LIVE",
   "estimated_total_job_count": 324,
   "estimated_total_shots": 659360,
-  "exact_approval_ready": false,
+  "exact_approval_ready": true,
   "explicit_user_approval_required": true,
   "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
   "live_submit_command_created": false,
@@ -44,12 +43,12 @@
     {
       "description": "Live-runner preparation is disallowed until Stage201 records exact reduced-scope approval after credit attestation.",
       "evidence": {
-        "approval_phrase_matches": false,
+        "approval_phrase_matches": true,
         "human_credit_allowance_verified": true,
-        "stage201_decision": "REDUCED_SCOPE_EXACT_APPROVAL_REVIEW_BLOCKED"
+        "stage201_decision": "REDUCED_SCOPE_EXACT_APPROVAL_ACCEPTED_READY_FOR_LIVE_RUNNER_PREPARATION_REVIEW"
       },
       "item_id": "stage201_exact_reduced_scope_approval",
-      "status": "blocked"
+      "status": "accepted"
     },
     {
       "description": "Runner preparation must preserve the Stage198 all-lanes 2048-shot reduced-precision boundary.",
@@ -136,6 +135,6 @@
   "stage": "stage202_reduced_scope_live_runner_preparation_review",
   "stage193_decision": "REPLACEMENT_READ_ONLY_BACKEND_REFRESH_READY_CREDIT_AND_APPROVAL_STILL_REQUIRED",
   "stage198_decision": "REDUCED_SCOPE_PREREGISTERED_READY_FOR_COST_ATTESTATION_REVIEW",
-  "stage201_decision": "REDUCED_SCOPE_EXACT_APPROVAL_REVIEW_BLOCKED",
+  "stage201_decision": "REDUCED_SCOPE_EXACT_APPROVAL_ACCEPTED_READY_FOR_LIVE_RUNNER_PREPARATION_REVIEW",
   "status": "completed"
 }
