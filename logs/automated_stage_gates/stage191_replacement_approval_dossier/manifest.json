@@ -1,0 +1,58 @@
+{
+  "approval_state": "human_review_open_but_live_run_disallowed",
+  "blockers": [
+    "replacement_approval_requirements_open"
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "runnable live-submit command strings",
+      "provider credentials or secret values",
+      "IBM credit balance or dollar cost verification",
+      "provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "replacement-run evidence and execution-package readiness are consolidated for human review",
+      "estimated job and shot exposure is quantified before any provider action",
+      "remaining credit, exact-approval, and result-count boundaries are explicit"
+    ]
+  },
+  "credit_balance_verified": false,
+  "decision": "REPLACEMENT_APPROVAL_DOSSIER_READY_FOR_HUMAN_REVIEW_NOT_LIVE",
+  "estimated_calibration_job_count": 4,
+  "estimated_calibration_shots": 4000,
+  "estimated_packet_row_job_count": 320,
+  "estimated_packet_shots": 1310720,
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "explicit_user_approval_required": true,
+  "missing_source_artifacts": [],
+  "next_gate": "Resolve IBM credit/provider allowance and exact human approval separately; only then may a live runner be prepared, and any results still require calibration/result ingestion before interpretation.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_template_count": 20,
+  "provider_credentials_required": false,
+  "replacement_approval_phrase_required": "APPROVE IBM RUNTIME STAGE188 REPLACEMENT LIVE RUN",
+  "result_path": "logs/automated_stage_gates/stage191_replacement_approval_dossier/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage191_replacement_approval_dossier_v1",
+  "secret_values_recorded": false,
+  "selected_lane_count": 4,
+  "selected_lanes": [
+    "ibm_cx_seed314_rows16_shots4096",
+    "ibm_cx_seed577_rows16_shots4096",
+    "ibm_product_seed314_rows16_shots4096",
+    "ibm_product_seed577_rows16_shots4096"
+  ],
+  "semantics_id": "matched_nonzero_null_noise_sensitivity_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage176_ibm_credit_provider_resolution_handoff/results.json",
+    "logs/automated_stage_gates/stage188_replacement_semantics_packet_screen/results.json",
+    "logs/automated_stage_gates/stage189_replacement_hardware_readiness_review/results.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/results.json"
+  ],
+  "stage": "stage191_replacement_approval_dossier",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage191_replacement_approval_dossier/summary.csv"
+}

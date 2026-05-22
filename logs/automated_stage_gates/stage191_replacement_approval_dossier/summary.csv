@@ -1,0 +1,6 @@
+item_id,status,description
+replacement_simulation_evidence,passed,Replacement semantics must have a positive IBM-informed simulated screen.
+replacement_execution_package,prepared,Replacement packet and calibration templates must be prepared before approval review.
+credit_billing_runtime_allowance,human_verification_required,"IBM credit, billing, and Runtime allowance must be verified by the user."
+exact_human_approval,awaiting_exact_phrase,Live execution remains disallowed unless the replacement approval phrase is provided after all readiness checks.
+post_run_interpretation_boundary,counts_required,No robustness/auditability interpretation is possible until calibration and packet counts are collected and ingested.
