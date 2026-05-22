@@ -1,0 +1,36 @@
+{
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "new hardware job submission",
+      "provider-side result counts",
+      "calibration pass/fail",
+      "robustness or auditability interpretation"
+    ],
+    "supported": [
+      "status polling for submitted reduced-scope IBM Runtime jobs",
+      "job completion state required before result collection"
+    ]
+  },
+  "completed_runtime_job_count": 0,
+  "decision": "REDUCED_SCOPE_RUNTIME_JOBS_SUBMITTED_RESULTS_PENDING",
+  "expected_runtime_job_count": 21,
+  "failed_runtime_job_count": 0,
+  "missing_source_artifacts": [],
+  "next_gate": "When all Runtime jobs are complete, collect provider counts and populate reduced-scope evidence records.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "observed_runtime_job_count": 21,
+  "polled_runtime_job_count": 21,
+  "provider_credentials_required": true,
+  "result_path": "logs/automated_stage_gates/stage206_reduced_scope_job_status_poll_100usd/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage206_reduced_scope_job_status_poll_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage205_reduced_scope_hardware_submission_100usd/results.json"
+  ],
+  "stage": "stage206_reduced_scope_job_status_poll",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage206_reduced_scope_job_status_poll_100usd/summary.csv"
+}
