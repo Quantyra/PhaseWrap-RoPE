@@ -1,0 +1,54 @@
+{
+  "approval_phrase_required": "APPROVE IBM RUNTIME STAGE133 LIVE RUN",
+  "backend_lookup_allowed": true,
+  "backend_lookup_attempted": true,
+  "backend_lookup_error": null,
+  "backend_lookup_ready": true,
+  "backend_metadata": {
+    "backend": "ibm_fez",
+    "basis_gate_count": 5,
+    "coupling_edge_count": 352,
+    "num_qubits": 156,
+    "operational": true,
+    "pending_jobs": 3,
+    "simulator": false,
+    "version": "2"
+  },
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "Sampler or Estimator runtime execution",
+      "IBM token or instance CRN values",
+      "runnable live-submit command strings",
+      "credit balance verification",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "read-only IBM Runtime backend resolution after Stage 158 pre-execution sanity",
+      "non-secret backend availability, queue, and topology-size metadata when the lookup succeeds",
+      "final provider-side readiness evidence before the explicit live-run approval pause"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_BACKEND_PREFLIGHT_READY_AWAITING_APPROVAL",
+  "explicit_user_approval_required": true,
+  "first_unlock_provider": "ibm_runtime",
+  "ibm_backend_env_present": true,
+  "ibm_instance_crn_present": true,
+  "ibm_token_present": true,
+  "missing_source_artifacts": [],
+  "next_gate": "Pause for the exact approval phrase before any Stage 133 live-submit command. After live execution, rerun Stage 115, Stage 113, Stage 101, Stage 103, and the claim gates against collected IBM results.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "qiskit_sdk_ready": true,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage159_first_provider_backend_preflight_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage158_first_provider_pre_execution_sanity/results.json"
+  ],
+  "stage": "stage159_first_provider_backend_preflight",
+  "stage158_decision": "FIRST_PROVIDER_PRE_EXECUTION_SANITY_READY_AWAITING_APPROVAL",
+  "status": "completed"
+}
