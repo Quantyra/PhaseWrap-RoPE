@@ -12,8 +12,8 @@
       "job completion state required before result collection"
     ]
   },
-  "completed_runtime_job_count": 0,
-  "decision": "REDUCED_SCOPE_RUNTIME_JOBS_SUBMITTED_RESULTS_PENDING",
+  "completed_runtime_job_count": 21,
+  "decision": "REDUCED_SCOPE_RUNTIME_JOBS_COMPLETE_READY_FOR_RESULT_COLLECTION",
   "expected_runtime_job_count": 21,
   "failed_runtime_job_count": 0,
   "missing_source_artifacts": [],

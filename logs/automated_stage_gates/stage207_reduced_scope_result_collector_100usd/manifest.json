@@ -1,7 +1,5 @@
 {
-  "blockers": [
-    "runtime_jobs_not_complete"
-  ],
+  "blockers": [],
   "claim_boundary": {
     "excluded": [
       "new hardware submission",
@@ -12,8 +10,8 @@
       "provider result-count collection for completed Stage205 jobs"
     ]
   },
-  "collected_template_count": 0,
-  "decision": "REDUCED_SCOPE_RESULT_COLLECTION_PENDING_OR_BLOCKED",
+  "collected_template_count": 21,
+  "decision": "REDUCED_SCOPE_RESULT_COUNTS_COLLECTED_READY_FOR_CALIBRATION",
   "expected_template_count": 21,
   "missing_source_artifacts": [],
   "next_gate": "After all counts are collected, validate known-state calibration before computing hardware robustness and auditability metrics.",

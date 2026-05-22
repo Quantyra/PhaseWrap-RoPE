@@ -1,0 +1,50 @@
+{
+  "bitstring_order": "q1q0",
+  "blockers": [],
+  "candidate_group_count": 2,
+  "claim_boundary": {
+    "excluded": [
+      "full 4096-shot evidentiary-run conclusion",
+      "post-hoc metric or threshold changes",
+      "readout mitigation beyond the preregistered calibration order check",
+      "new hardware submission"
+    ],
+    "supported": [
+      "real IBM ibm_fez reduced-scope hardware metric interpretation under preregistered Stage198 thresholds",
+      "calibration-applied bitstring ordering before score computation",
+      "2048-shot reduced-precision hardware conclusion only"
+    ]
+  },
+  "comparison_group_count": 4,
+  "decision": "REDUCED_SCOPE_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE",
+  "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
+  "metric_record_count": 20,
+  "missing_source_artifacts": [],
+  "next_gate": "Summarize the reduced-scope hardware conclusion and decide whether a full 4096-shot evidentiary run is justified.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_template_count": 20,
+  "pass_fail_policy": {
+    "lower_precision_caveat": "A win at 2048 shots can support a reduced-precision hardware positive, but it cannot be described as the original 4096-shot evidentiary run. Any marginal result below 2 shot quanta is inconclusive, not a loss or win.",
+    "minimum_scaled_best_positional_margin_shot_quanta": 2.0,
+    "minimum_scaled_matched_null_margin_shot_quanta": 2.0,
+    "minimum_stable_seed_pairs": 2,
+    "minimum_stable_templates_per_seed_pair": 2,
+    "must_pass_phasewrap_vs_all_positional_comparators": true,
+    "must_pass_phasewrap_vs_matched_nonzero_null_control": true
+  },
+  "provider_credentials_required": false,
+  "reduced_scope_positive_seed_pair_count": 2,
+  "result_path": "logs/automated_stage_gates/stage209_reduced_scope_hardware_metric_interpreter_100usd/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage209_reduced_scope_hardware_metric_interpreter_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage198_reduced_scope_preregistration/results.json",
+    "logs/automated_stage_gates/stage207_reduced_scope_result_collector_100usd/results.json",
+    "logs/automated_stage_gates/stage208_reduced_scope_calibration_validation_100usd/results.json"
+  ],
+  "stage": "stage209_reduced_scope_hardware_metric_interpreter",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage209_reduced_scope_hardware_metric_interpreter_100usd/summary.csv"
+}
