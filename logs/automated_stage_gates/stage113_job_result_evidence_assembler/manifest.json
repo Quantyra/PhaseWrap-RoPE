@@ -1,0 +1,40 @@
+{
+  "assembled_evidence_count": 0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credential validation",
+      "Stage 101 calibration verification",
+      "Stage 103 metric interpretation",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "a deterministic assembler from Stage 112 job results into Stage 109-compatible evidence files",
+      "per-job missing count detection before evidence files are written",
+      "a non-submitting bridge between provider runners and calibration/packet evidence intake"
+    ]
+  },
+  "decision": "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING",
+  "job_count": 496,
+  "missing_job_result_count": 496,
+  "missing_source_artifacts": [
+    "logs/automated_stage_gates/stage113_job_result_evidence_assembler/provider_job_results.jsonl"
+  ],
+  "next_gate": "Produce provider_job_results.jsonl for every Stage 112 job, rerun this assembler with --write-evidence, then run Stage 101, Stage 103, Stage 109, and Stage 110 in order.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "provider_result_count": 0,
+  "ready_job_result_count": 0,
+  "result_path": "logs/automated_stage_gates/stage113_job_result_evidence_assembler/results.json",
+  "schema_version": "qrope_stage113_job_result_evidence_assembler_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage112_provider_execution_manifest/job_manifest.jsonl",
+    "logs/automated_stage_gates/stage113_job_result_evidence_assembler/provider_job_results.jsonl"
+  ],
+  "stage": "stage113_job_result_evidence_assembler",
+  "status": "incomplete",
+  "summary_csv_path": "logs/automated_stage_gates/stage113_job_result_evidence_assembler/summary.csv",
+  "write_evidence": false
+}
