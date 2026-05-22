@@ -174,6 +174,19 @@ def _stage115_write_ready(
         blockers.append("stage115_stage152_write_not_ready")
     if stage115.get("stage152_write_blockers"):
         blockers.append("stage115_stage152_write_blockers_present")
+    if stage115.get("stage152_all_first_provider_commands_authorized") is not True:
+        blockers.append("stage115_stage152_commands_not_all_authorized")
+    if stage115.get("stage152_all_first_provider_commands_live_submit_ready") is not True:
+        blockers.append("stage115_stage152_commands_not_all_live_submit_ready")
+    stage152_runner_count = _int_field(stage115, "stage152_first_provider_runner_command_count")
+    stage152_authorized_count = _int_field(stage115, "stage152_first_provider_authorized_runner_count")
+    stage152_live_submit_ready_count = _int_field(stage115, "stage152_first_provider_live_submit_ready_count")
+    if stage152_runner_count <= 0:
+        blockers.append("stage115_stage152_runner_commands_missing")
+    if stage152_runner_count > 0 and stage152_authorized_count != stage152_runner_count:
+        blockers.append("stage115_stage152_authorized_runner_count_incomplete")
+    if stage152_runner_count > 0 and stage152_live_submit_ready_count != stage152_runner_count:
+        blockers.append("stage115_stage152_live_submit_ready_count_incomplete")
     if Path(str(stage115.get("stage113_provider_results_path", ""))).as_posix() != provider_results_path.as_posix():
         blockers.append("stage115_provider_results_path_mismatch")
     provider_scope = str(stage115.get("provider_scope", ""))
@@ -264,6 +277,21 @@ def run_stage113_assembler(
         "stage115_decision": stage115.get("decision") if isinstance(stage115, dict) else None,
         "stage115_write_ready": stage115_write_ready,
         "stage115_write_blockers": stage115_write_blockers,
+        "stage115_stage152_first_provider_runner_command_count": (
+            stage115.get("stage152_first_provider_runner_command_count") if isinstance(stage115, dict) else None
+        ),
+        "stage115_stage152_first_provider_authorized_runner_count": (
+            stage115.get("stage152_first_provider_authorized_runner_count") if isinstance(stage115, dict) else None
+        ),
+        "stage115_stage152_first_provider_live_submit_ready_count": (
+            stage115.get("stage152_first_provider_live_submit_ready_count") if isinstance(stage115, dict) else None
+        ),
+        "stage115_stage152_all_first_provider_commands_authorized": (
+            stage115.get("stage152_all_first_provider_commands_authorized") if isinstance(stage115, dict) else None
+        ),
+        "stage115_stage152_all_first_provider_commands_live_submit_ready": (
+            stage115.get("stage152_all_first_provider_commands_live_submit_ready") if isinstance(stage115, dict) else None
+        ),
         "write_evidence": write_evidence,
         "provider_scope": provider or "all",
         "job_count": len(selected_jobs),
@@ -320,6 +348,21 @@ def write_stage113_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "stage115_decision": result["stage115_decision"],
         "stage115_write_ready": result["stage115_write_ready"],
         "stage115_write_blockers": result["stage115_write_blockers"],
+        "stage115_stage152_first_provider_runner_command_count": result[
+            "stage115_stage152_first_provider_runner_command_count"
+        ],
+        "stage115_stage152_first_provider_authorized_runner_count": result[
+            "stage115_stage152_first_provider_authorized_runner_count"
+        ],
+        "stage115_stage152_first_provider_live_submit_ready_count": result[
+            "stage115_stage152_first_provider_live_submit_ready_count"
+        ],
+        "stage115_stage152_all_first_provider_commands_authorized": result[
+            "stage115_stage152_all_first_provider_commands_authorized"
+        ],
+        "stage115_stage152_all_first_provider_commands_live_submit_ready": result[
+            "stage115_stage152_all_first_provider_commands_live_submit_ready"
+        ],
         "write_evidence": result["write_evidence"],
         "provider_scope": result["provider_scope"],
         "job_count": result["job_count"],

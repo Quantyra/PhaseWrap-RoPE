@@ -96,6 +96,11 @@ def _stage115_collected(path, provider_results_path) -> None:
             "provider_scope": "all",
             "stage152_write_ready": True,
             "stage152_write_blockers": [],
+            "stage152_first_provider_runner_command_count": 1,
+            "stage152_first_provider_authorized_runner_count": 1,
+            "stage152_first_provider_live_submit_ready_count": 1,
+            "stage152_all_first_provider_commands_authorized": True,
+            "stage152_all_first_provider_commands_live_submit_ready": True,
             "shard_count": 1,
             "ready_shard_count": 1,
             "expected_job_count": 2,
@@ -116,6 +121,11 @@ def _stage115_blocked(path, provider_results_path) -> None:
             "provider_scope": "all",
             "stage152_write_ready": False,
             "stage152_write_blockers": ["stage152_live_execution_guard_not_ready"],
+            "stage152_first_provider_runner_command_count": 1,
+            "stage152_first_provider_authorized_runner_count": 0,
+            "stage152_first_provider_live_submit_ready_count": 0,
+            "stage152_all_first_provider_commands_authorized": False,
+            "stage152_all_first_provider_commands_live_submit_ready": False,
             "shard_count": 1,
             "ready_shard_count": 0,
             "expected_job_count": 2,
@@ -257,6 +267,11 @@ def test_stage113_blocks_evidence_write_when_stage115_counters_are_incomplete(tm
             "provider_scope": "all",
             "stage152_write_ready": False,
             "stage152_write_blockers": ["stage152_stage144_not_ready"],
+            "stage152_first_provider_runner_command_count": 2,
+            "stage152_first_provider_authorized_runner_count": 1,
+            "stage152_first_provider_live_submit_ready_count": 1,
+            "stage152_all_first_provider_commands_authorized": False,
+            "stage152_all_first_provider_commands_live_submit_ready": False,
             "shard_count": 1,
             "ready_shard_count": 0,
             "expected_job_count": 2,
@@ -275,6 +290,10 @@ def test_stage113_blocks_evidence_write_when_stage115_counters_are_incomplete(tm
 
     assert result["decision"] == "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_STAGE115_COLLECTION_REQUIRED"
     assert "stage115_stage152_write_not_ready" in result["stage115_write_blockers"]
+    assert "stage115_stage152_commands_not_all_authorized" in result["stage115_write_blockers"]
+    assert "stage115_stage152_commands_not_all_live_submit_ready" in result["stage115_write_blockers"]
+    assert "stage115_stage152_authorized_runner_count_incomplete" in result["stage115_write_blockers"]
+    assert "stage115_stage152_live_submit_ready_count_incomplete" in result["stage115_write_blockers"]
     assert "stage115_shards_not_all_ready" in result["stage115_write_blockers"]
     assert "stage115_result_count_mismatch" in result["stage115_write_blockers"]
     assert not calibration_target.exists()
