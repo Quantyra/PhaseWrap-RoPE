@@ -1,0 +1,38 @@
+{
+  "calibration_job_count": 16,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "completed calibration counts",
+      "completed matched packet counts",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "a deterministic provider execution manifest for Stage 107 calibration and packet circuits",
+      "stable job IDs and target evidence paths for filling Stage 109-compatible result files",
+      "a no-submission handoff from provider readiness gates to future execution drivers"
+    ]
+  },
+  "decision": "PROVIDER_EXECUTION_MANIFEST_PREPARED_SUBMISSION_BLOCKED",
+  "job_manifest_jsonl_path": "logs/automated_stage_gates/stage112_provider_execution_manifest/job_manifest.jsonl",
+  "missing_source_artifacts": [],
+  "next_gate": "Clear Stage 111 provider readiness, then use this manifest to drive provider-specific calibration and packet execution while writing counts to the declared target evidence files.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_job_count": 480,
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage112_provider_execution_manifest/results.json",
+  "schema_version": "qrope_stage112_provider_execution_manifest_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage107_window_execution_orchestrator/window_execution_plans.json",
+    "logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json"
+  ],
+  "stage": "stage112_provider_execution_manifest",
+  "stage111_decision": "PROVIDER_SDK_BACKEND_DISCOVERY_BLOCKED",
+  "status": "completed",
+  "submission_ready_window_count": 0,
+  "summary_csv_path": "logs/automated_stage_gates/stage112_provider_execution_manifest/summary.csv",
+  "total_job_count": 496,
+  "window_count": 4
+}
