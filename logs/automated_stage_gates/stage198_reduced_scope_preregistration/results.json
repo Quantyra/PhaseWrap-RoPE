@@ -1,0 +1,228 @@
+{
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider-side IBM credit balance verification",
+      "acceptance of credit attestation or exact live-run approval",
+      "creation of a runnable live-submit command",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "reduced-scope all-lanes 2048-shot interpretation boundary is preregistered before credit attestation",
+      "all comparator families, both IBM seeds, both templates, and all rows remain required",
+      "lower-precision caveats and disallowed interpretations are explicit before hardware results exist"
+    ]
+  },
+  "decision": "REDUCED_SCOPE_PREREGISTERED_READY_FOR_COST_ATTESTATION_REVIEW",
+  "explicit_user_approval_required": true,
+  "interpretation_boundary": {
+    "calibration_shots_per_state": 1000,
+    "calibration_states": [
+      "00",
+      "01",
+      "10",
+      "11"
+    ],
+    "cost_context": {
+      "estimated_total_jobs": 324,
+      "estimated_total_shots": 659360,
+      "estimated_usd_at_100us_per_shot": 105.49760000000002,
+      "estimated_usd_at_10us_per_shot": 10.549760000000001,
+      "estimated_usd_at_50us_per_shot": 52.74880000000001
+    },
+    "disallowed_interpretations": [
+      "claiming equivalence to the full 4096-shot Stage190 package",
+      "dropping any comparator family after hardware results are known",
+      "using the 512-shot scout boundary for robustness claims",
+      "treating directional seed577-only evidence as independent-seed replication",
+      "changing thresholds after hardware counts are collected"
+    ],
+    "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
+    "pass_fail_policy": {
+      "lower_precision_caveat": "A win at 2048 shots can support a reduced-precision hardware positive, but it cannot be described as the original 4096-shot evidentiary run. Any marginal result below 2 shot quanta is inconclusive, not a loss or win.",
+      "minimum_scaled_best_positional_margin_shot_quanta": 2.0,
+      "minimum_scaled_matched_null_margin_shot_quanta": 2.0,
+      "minimum_stable_seed_pairs": 2,
+      "minimum_stable_templates_per_seed_pair": 2,
+      "must_pass_phasewrap_vs_all_positional_comparators": true,
+      "must_pass_phasewrap_vs_matched_nonzero_null_control": true
+    },
+    "primary_metric": "normalized_noise_sensitivity_delta_v1",
+    "required_families": [
+      "phasewrap",
+      "rope_like",
+      "sinusoidal_like",
+      "alibi_like",
+      "matched_nonzero_null_control"
+    ],
+    "required_reported_metrics": [
+      "mean_absolute_score_error",
+      "normalized_noise_sensitivity_delta",
+      "slope_retention",
+      "rank_retention",
+      "matched_null_control_margin",
+      "shot_quantum_margin"
+    ],
+    "required_seed_pairs": [
+      "ibm:314",
+      "ibm:577"
+    ],
+    "required_templates": [
+      "two_ry_product_state_z_readout_v1",
+      "two_ry_cx_parity_z_readout_v1"
+    ],
+    "row_count_per_packet": 16,
+    "scope_id": "all_lanes_half_shots_2048",
+    "selected_lanes": "all four Stage189/190 IBM replacement lanes",
+    "shots_per_row": 2048
+  },
+  "missing_source_artifacts": [],
+  "next_gate": "Use this reduced-scope boundary in the next cost/attestation packet. If the user attests credit allowance, rerun Stage194/195 against the reduced scope before preparing any live runner.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "preregistration_items": [
+    {
+      "description": "Reduced-scope preregistration requires Stage197 to recommend a reduced scope before credit attestation.",
+      "evidence": {
+        "recommended_scope_id": "all_lanes_half_shots_2048",
+        "stage197_decision": "REPLACEMENT_REDUCED_SCOPE_RECOMMENDED_BEFORE_CREDIT_ATTESTATION"
+      },
+      "item_id": "stage197_scope_review",
+      "status": "ready"
+    },
+    {
+      "description": "Selected reduced scope must be frozen before any credit attestation or live-runner preparation.",
+      "evidence": {
+        "calibration_job_count": 4,
+        "description": "All selected IBM lanes and families, all 16 rows, 2048 shots per row.",
+        "estimated_calibration_shots": 4000,
+        "estimated_packet_shots": 655360,
+        "estimated_total_job_count": 324,
+        "estimated_total_shots": 659360,
+        "estimated_usd_at_100us_per_shot": 105.49760000000002,
+        "estimated_usd_at_10us_per_shot": 10.549760000000001,
+        "estimated_usd_at_50us_per_shot": 52.74880000000001,
+        "evidentiary_status": "borderline_claim_capable_requires_predeclared_lower_precision",
+        "family_count": 5,
+        "lane_count": 4,
+        "packet_row_job_count": 320,
+        "rationale": "Preserves coverage but halves shot resolution; weakest simulated positional margin falls near 2.6 shot quanta.",
+        "row_count_per_packet": 16,
+        "scaled_min_matched_null_margin_shot_quanta": 2.503077,
+        "scaled_min_positional_margin_shot_quanta": 2.6190255,
+        "scope_id": "all_lanes_half_shots_2048",
+        "shots_per_row": 2048
+      },
+      "item_id": "selected_scope",
+      "status": "frozen"
+    },
+    {
+      "description": "Reduced precision claim boundary, thresholds, and exclusions are frozen before hardware results exist.",
+      "evidence": {
+        "calibration_shots_per_state": 1000,
+        "calibration_states": [
+          "00",
+          "01",
+          "10",
+          "11"
+        ],
+        "cost_context": {
+          "estimated_total_jobs": 324,
+          "estimated_total_shots": 659360,
+          "estimated_usd_at_100us_per_shot": 105.49760000000002,
+          "estimated_usd_at_10us_per_shot": 10.549760000000001,
+          "estimated_usd_at_50us_per_shot": 52.74880000000001
+        },
+        "disallowed_interpretations": [
+          "claiming equivalence to the full 4096-shot Stage190 package",
+          "dropping any comparator family after hardware results are known",
+          "using the 512-shot scout boundary for robustness claims",
+          "treating directional seed577-only evidence as independent-seed replication",
+          "changing thresholds after hardware counts are collected"
+        ],
+        "hardware_scope_label": "reduced_precision_all_lanes_2048_shots_v1",
+        "pass_fail_policy": {
+          "lower_precision_caveat": "A win at 2048 shots can support a reduced-precision hardware positive, but it cannot be described as the original 4096-shot evidentiary run. Any marginal result below 2 shot quanta is inconclusive, not a loss or win.",
+          "minimum_scaled_best_positional_margin_shot_quanta": 2.0,
+          "minimum_scaled_matched_null_margin_shot_quanta": 2.0,
+          "minimum_stable_seed_pairs": 2,
+          "minimum_stable_templates_per_seed_pair": 2,
+          "must_pass_phasewrap_vs_all_positional_comparators": true,
+          "must_pass_phasewrap_vs_matched_nonzero_null_control": true
+        },
+        "primary_metric": "normalized_noise_sensitivity_delta_v1",
+        "required_families": [
+          "phasewrap",
+          "rope_like",
+          "sinusoidal_like",
+          "alibi_like",
+          "matched_nonzero_null_control"
+        ],
+        "required_reported_metrics": [
+          "mean_absolute_score_error",
+          "normalized_noise_sensitivity_delta",
+          "slope_retention",
+          "rank_retention",
+          "matched_null_control_margin",
+          "shot_quantum_margin"
+        ],
+        "required_seed_pairs": [
+          "ibm:314",
+          "ibm:577"
+        ],
+        "required_templates": [
+          "two_ry_product_state_z_readout_v1",
+          "two_ry_cx_parity_z_readout_v1"
+        ],
+        "row_count_per_packet": 16,
+        "scope_id": "all_lanes_half_shots_2048",
+        "selected_lanes": "all four Stage189/190 IBM replacement lanes",
+        "shots_per_row": 2048
+      },
+      "item_id": "interpretation_boundary",
+      "status": "preregistered"
+    },
+    {
+      "description": "This preregistration does not verify IBM credit allowance and does not accept exact live-run approval.",
+      "evidence": {
+        "credit_attestation_accepted_here": false,
+        "exact_approval_accepted_here": false
+      },
+      "item_id": "attestation_boundary",
+      "status": "still_required"
+    }
+  ],
+  "provider_credentials_required": false,
+  "recommended_scope_id": "all_lanes_half_shots_2048",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage198_reduced_scope_preregistration_v1",
+  "secret_values_recorded": false,
+  "selected_scope": {
+    "calibration_job_count": 4,
+    "description": "All selected IBM lanes and families, all 16 rows, 2048 shots per row.",
+    "estimated_calibration_shots": 4000,
+    "estimated_packet_shots": 655360,
+    "estimated_total_job_count": 324,
+    "estimated_total_shots": 659360,
+    "estimated_usd_at_100us_per_shot": 105.49760000000002,
+    "estimated_usd_at_10us_per_shot": 10.549760000000001,
+    "estimated_usd_at_50us_per_shot": 52.74880000000001,
+    "evidentiary_status": "borderline_claim_capable_requires_predeclared_lower_precision",
+    "family_count": 5,
+    "lane_count": 4,
+    "packet_row_job_count": 320,
+    "rationale": "Preserves coverage but halves shot resolution; weakest simulated positional margin falls near 2.6 shot quanta.",
+    "row_count_per_packet": 16,
+    "scaled_min_matched_null_margin_shot_quanta": 2.503077,
+    "scaled_min_positional_margin_shot_quanta": 2.6190255,
+    "scope_id": "all_lanes_half_shots_2048",
+    "shots_per_row": 2048
+  },
+  "selected_scope_id": "all_lanes_half_shots_2048",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage197_replacement_cost_constrained_scope_review/results.json"
+  ],
+  "stage": "stage198_reduced_scope_preregistration",
+  "status": "completed"
+}

@@ -1,0 +1,5 @@
+item_id,status,description
+stage197_scope_review,ready,Reduced-scope preregistration requires Stage197 to recommend a reduced scope before credit attestation.
+selected_scope,frozen,Selected reduced scope must be frozen before any credit attestation or live-runner preparation.
+interpretation_boundary,preregistered,"Reduced precision claim boundary, thresholds, and exclusions are frozen before hardware results exist."
+attestation_boundary,still_required,This preregistration does not verify IBM credit allowance and does not accept exact live-run approval.
