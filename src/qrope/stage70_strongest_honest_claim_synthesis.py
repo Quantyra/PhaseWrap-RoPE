@@ -46,6 +46,7 @@ SOURCE_STAGE_DIRS: tuple[str, ...] = (
     "stage86_dual_auxiliary_budget_sensitivity_audit",
     "stage87_in_decoder_support_routed_copy_expert_audit",
     "stage88_structural_retrieval_routed_copy_expert_audit",
+    "stage89_structural_teacher_distilled_pointer_generator_audit",
 )
 
 DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
@@ -73,6 +74,7 @@ DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
     "docs/research/q-rope-stage86-dual-auxiliary-budget-sensitivity-audit-v1.md",
     "docs/research/q-rope-stage87-in-decoder-support-routed-copy-expert-audit-v1.md",
     "docs/research/q-rope-stage88-structural-retrieval-routed-copy-expert-audit-v1.md",
+    "docs/research/q-rope-stage89-structural-teacher-distilled-pointer-generator-audit-v1.md",
 )
 
 
@@ -338,7 +340,7 @@ def run_stage70_synthesis(
         "schema_version": STAGE70_SCHEMA_VERSION,
         "stage": "stage70_strongest_honest_claim_synthesis",
         "status": "completed",
-        "source_stage": "stage88_structural_retrieval_routed_copy_expert_audit",
+        "source_stage": "stage89_structural_teacher_distilled_pointer_generator_audit",
         "source_artifacts": source_artifacts,
         "missing_source_artifacts": missing_source_artifacts,
         "no_hardware_submission": True,
@@ -350,7 +352,7 @@ def run_stage70_synthesis(
             "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible "
             "hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft "
             "support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, "
-            "in-decoder support-supervised, dual support/target-attention, and practical budget-sensitivity routes still fail free held-out support-to-token retrieval. "
+            "in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, and structural-teacher distillation routes still fail free held-out support-to-token retrieval. "
             "Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits "
             "do not yet support RoPE replacement or positional-method promotion."
         ),

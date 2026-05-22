@@ -1,7 +1,7 @@
 section,item,value
 decision,decision,BOUND_STRONGEST_HONEST_CLAIM_WITH_RETRIEVAL_FAILURES
 decision,claim_boundary,"The strongest honest claim remains bounded: PhaseWrap-RoPE has compact/auditable evidence and mixed diagnostics, while fair matched original retrieval does not yet support RoPE replacement."
-claim,strongest_honest_claim,"PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, and practical budget-sensitivity routes still fail free held-out support-to-token retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
+claim,strongest_honest_claim,"PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, and structural-teacher distillation routes still fail free held-out support-to-token retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
 next_gate,reviewer_next_gate,Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion.
 unsupported_claim,1,PhaseWrap-RoPE replaces RoPE.
 unsupported_claim,2,PhaseWrap-RoPE is better than RoPE under current fair matched transformer comparisons.
@@ -41,3 +41,4 @@ failure_mode,24,Original held-out retrieval remains unrepaired in a recent fair-
 failure_mode,25,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,26,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,27,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
+failure_mode,28,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
