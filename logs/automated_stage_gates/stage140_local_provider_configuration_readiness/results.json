@@ -1,0 +1,190 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "provider credential values",
+      "hardware job submission",
+      "live provider SDK client creation",
+      "real provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "local non-secret provider configuration readiness based on environment key presence only",
+      "provider SDK module availability checks before rerunning Stage 106/111/129",
+      "explicit no-submission gate before provider cutover reruns"
+    ]
+  },
+  "decision": "LOCAL_PROVIDER_CONFIGURATION_BLOCKED_ENV_OR_SDK_REQUIRED",
+  "missing_source_artifacts": [],
+  "next_gate": "For providers marked ready_for_preflight_rerun=true, rerun Stage 106 with --load-dotenv, then Stage 111, Stage 128, Stage 129, Stage 130, and Stage 139 before any Stage 133 live runner command.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": true,
+  "provider_records": [
+    {
+      "cutover_authorized": false,
+      "env_group_records": [
+        {
+          "candidate_keys": [
+            "AWS_ACCESS_KEY_ID",
+            "AWS_PROFILE"
+          ],
+          "group": "AWS_ACCESS_KEY_ID or AWS_PROFILE",
+          "present_keys": [],
+          "ready": false,
+          "scope": "provider"
+        },
+        {
+          "candidate_keys": [
+            "QROPE_BRAKET_DEVICE_ARN",
+            "QROPE_BRAKET_DEVICE_ARNS"
+          ],
+          "group": "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
+          "present_keys": [],
+          "ready": false,
+          "scope": "provider"
+        },
+        {
+          "candidate_keys": [
+            "QROPE_BRAKET_OUTPUT_S3_BUCKET"
+          ],
+          "group": "QROPE_BRAKET_OUTPUT_S3_BUCKET",
+          "present_keys": [],
+          "ready": false,
+          "scope": "provider"
+        },
+        {
+          "candidate_keys": [
+            "QROPE_BRAKET_AWS_REGION",
+            "AWS_REGION"
+          ],
+          "group": "QROPE_BRAKET_AWS_REGION or AWS_REGION",
+          "present_keys": [],
+          "ready": false,
+          "scope": "provider"
+        },
+        {
+          "candidate_keys": [
+            "QROPE_HARDWARE_BUDGET_USD_CAP"
+          ],
+          "group": "QROPE_HARDWARE_BUDGET_USD_CAP",
+          "present_keys": [],
+          "ready": false,
+          "scope": "common"
+        },
+        {
+          "candidate_keys": [
+            "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+          ],
+          "group": "QROPE_HARDWARE_QUEUE_DEPTH_CAP",
+          "present_keys": [],
+          "ready": false,
+          "scope": "common"
+        }
+      ],
+      "env_ready_for_stage106": false,
+      "missing_env_groups": [
+        "AWS_ACCESS_KEY_ID or AWS_PROFILE",
+        "QROPE_BRAKET_DEVICE_ARN or QROPE_BRAKET_DEVICE_ARNS",
+        "QROPE_BRAKET_OUTPUT_S3_BUCKET",
+        "QROPE_BRAKET_AWS_REGION or AWS_REGION",
+        "QROPE_HARDWARE_BUDGET_USD_CAP",
+        "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+      ],
+      "missing_sdk_modules": [
+        "boto3",
+        "braket"
+      ],
+      "next_commands": [],
+      "present_env_keys": [],
+      "provider": "amazon_braket",
+      "ready_for_preflight_rerun": false,
+      "sdk_modules": {
+        "boto3": false,
+        "braket": false
+      },
+      "sdk_ready_for_stage111": false,
+      "stage139_first_blocker": "stage106:backend_selection_missing"
+    },
+    {
+      "cutover_authorized": false,
+      "env_group_records": [
+        {
+          "candidate_keys": [
+            "IBM_QUANTUM_TOKEN",
+            "QISKIT_IBM_TOKEN"
+          ],
+          "group": "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
+          "present_keys": [],
+          "ready": false,
+          "scope": "provider"
+        },
+        {
+          "candidate_keys": [
+            "QROPE_IBM_BACKEND",
+            "QROPE_HARDWARE_BACKEND"
+          ],
+          "group": "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
+          "present_keys": [],
+          "ready": false,
+          "scope": "provider"
+        },
+        {
+          "candidate_keys": [
+            "IBM_QUANTUM_INSTANCE_CRN"
+          ],
+          "group": "IBM_QUANTUM_INSTANCE_CRN",
+          "present_keys": [],
+          "ready": false,
+          "scope": "provider"
+        },
+        {
+          "candidate_keys": [
+            "QROPE_HARDWARE_BUDGET_USD_CAP"
+          ],
+          "group": "QROPE_HARDWARE_BUDGET_USD_CAP",
+          "present_keys": [],
+          "ready": false,
+          "scope": "common"
+        },
+        {
+          "candidate_keys": [
+            "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+          ],
+          "group": "QROPE_HARDWARE_QUEUE_DEPTH_CAP",
+          "present_keys": [],
+          "ready": false,
+          "scope": "common"
+        }
+      ],
+      "env_ready_for_stage106": false,
+      "missing_env_groups": [
+        "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
+        "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND",
+        "IBM_QUANTUM_INSTANCE_CRN",
+        "QROPE_HARDWARE_BUDGET_USD_CAP",
+        "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
+      ],
+      "missing_sdk_modules": [],
+      "next_commands": [],
+      "present_env_keys": [],
+      "provider": "ibm_runtime",
+      "ready_for_preflight_rerun": false,
+      "sdk_modules": {
+        "qiskit": true,
+        "qiskit_ibm_runtime": true
+      },
+      "sdk_ready_for_stage111": true,
+      "stage139_first_blocker": "stage106:ibm_instance_crn_missing"
+    }
+  ],
+  "rerun_ready_provider_count": 0,
+  "schema_version": "qrope_stage140_local_provider_configuration_readiness_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage139_provider_action_readiness_checklist/results.json"
+  ],
+  "stage": "stage140_local_provider_configuration_readiness",
+  "stage139_decision": "PROVIDER_ACTION_CHECKLIST_READY_EXECUTION_BLOCKED",
+  "status": "completed"
+}
