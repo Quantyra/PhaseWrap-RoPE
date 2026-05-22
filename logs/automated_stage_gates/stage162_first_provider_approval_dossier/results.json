@@ -17,6 +17,7 @@
     ],
     "supported": [
       "a single no-submit dossier joining simulated GO, approval packet readiness, backend preflight, post-run sequence, and exposure totals",
+      "Stage165 shot-resolution stability is included before human GO/NO-GO readiness",
       "human GO/NO-GO readiness for the first-provider IBM Runtime run under the exact approval phrase",
       "explicit separation between approval readiness and a noisy-hardware advantage conclusion"
     ]
@@ -30,6 +31,7 @@
   "first_unlock_provider": "ibm_runtime",
   "go_considerations": [
     "Stage154 simulated-only rehearsal recommends targeted hardware follow-up, not broad hardware spend.",
+    "Stage165 narrows that recommendation to targets whose margins clear a two-shot-quanta stability screen.",
     "Stage159 read-only backend preflight is ready.",
     "Stage161 quantifies the pending first-provider run before approval.",
     "Stage160 defines the no-submit post-result analysis sequence needed to answer supported/not-supported."
@@ -54,8 +56,10 @@
     "logs/automated_stage_gates/stage157_first_provider_live_run_approval_packet/results.json",
     "logs/automated_stage_gates/stage159_first_provider_backend_preflight/results.json",
     "logs/automated_stage_gates/stage160_first_provider_post_run_analysis_packet/results.json",
-    "logs/automated_stage_gates/stage161_first_provider_exposure_packet/results.json"
+    "logs/automated_stage_gates/stage161_first_provider_exposure_packet/results.json",
+    "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json"
   ],
+  "stable_simulated_target_count_for_provider": 2,
   "stage": "stage162_first_provider_approval_dossier",
   "stage_decision_records": [
     {
@@ -92,6 +96,13 @@
       "purpose": "job and shot exposure is quantified before approval",
       "ready": true,
       "stage_id": "stage161"
+    },
+    {
+      "decision": "SIMULATED_NOISE_STABLE_TARGETED_HARDWARE_PROBE_RECOMMENDED",
+      "expected_decision": "SIMULATED_NOISE_STABLE_TARGETED_HARDWARE_PROBE_RECOMMENDED",
+      "purpose": "simulated targets clear shot-resolution margin stability audit",
+      "ready": true,
+      "stage_id": "stage165"
     }
   ],
   "status": "completed",

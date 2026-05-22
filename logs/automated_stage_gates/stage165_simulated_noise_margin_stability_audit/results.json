@@ -1,0 +1,179 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "real noisy-hardware evidence",
+      "IBM credit or provider availability validation",
+      "hardware job submission",
+      "a publication-ready noisy-hardware robustness or auditability claim"
+    ],
+    "supported": [
+      "simulated-only shot-resolution audit of Stage154 recommended hardware targets",
+      "target filtering that requires PhaseWrap's positional and control margins to clear at least two shot quanta",
+      "provider-level hardware-probe recommendation only when stable targets appear on both fixed-width templates"
+    ]
+  },
+  "decision": "SIMULATED_NOISE_STABLE_TARGETED_HARDWARE_PROBE_RECOMMENDED",
+  "missing_source_artifacts": [],
+  "next_gate": "If the user accepts the stable simulated target, pause before hardware execution to verify IBM credit/provider state together; otherwise broaden the simulated seed/noise sweep before any live spend.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "provider_records": [
+    {
+      "hardware_probe_recommended": false,
+      "provider": "amazon_braket",
+      "stable_noise_models": [],
+      "stable_target_count": 0,
+      "stable_template_count": 0,
+      "stable_templates": [],
+      "target_count": 4
+    },
+    {
+      "hardware_probe_recommended": true,
+      "provider": "ibm_runtime",
+      "stable_noise_models": [
+        "ry_offset_0p02rad"
+      ],
+      "stable_target_count": 2,
+      "stable_template_count": 2,
+      "stable_templates": [
+        "two_ry_cx_parity_z_readout_v1",
+        "two_ry_product_state_z_readout_v1"
+      ],
+      "target_count": 2
+    }
+  ],
+  "recommended_hardware_probe_providers": [
+    "ibm_runtime"
+  ],
+  "recommended_target_count": 6,
+  "schema_version": "qrope_stage165_simulated_noise_margin_stability_audit_v1",
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage153_simulated_noise_rehearsal/results.json",
+    "logs/automated_stage_gates/stage154_simulated_hardware_go_no_go/results.json"
+  ],
+  "stability_thresholds": {
+    "min_control_margin_shot_quanta": 2.0,
+    "min_positional_margin_shot_quanta": 2.0,
+    "min_stable_templates_for_provider_target": 2
+  },
+  "stable_target_count": 2,
+  "stage": "stage165_simulated_noise_margin_stability_audit",
+  "stage153_decision": "SIMULATED_NOISE_PHASEWRAP_STRICT_ADVANTAGE_OBSERVED",
+  "stage154_decision": "SIMULATED_NOISE_TARGETED_HARDWARE_FOLLOWUP_RECOMMENDED",
+  "status": "completed",
+  "target_records": [
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.005700729651,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.00502711922,
+      "control_margin_shot_quanta": 5.027119,
+      "no_position_control_mean_absolute_score_error": 0.01,
+      "noise_family": "observable_bias",
+      "noise_model_id": "biased_observable_plus_2pct",
+      "phasewrap_mean_absolute_score_error": 0.00497288078,
+      "positional_margin": 0.000727848871,
+      "positional_margin_shot_quanta": 0.727849,
+      "provider": "amazon_braket",
+      "shot_quantum": 0.001,
+      "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.005700729651,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.00502711922,
+      "control_margin_shot_quanta": 5.027119,
+      "no_position_control_mean_absolute_score_error": 0.01,
+      "noise_family": "observable_bias",
+      "noise_model_id": "biased_observable_plus_2pct",
+      "phasewrap_mean_absolute_score_error": 0.00497288078,
+      "positional_margin": 0.000727848871,
+      "positional_margin_shot_quanta": 0.727849,
+      "provider": "amazon_braket",
+      "shot_quantum": 0.001,
+      "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.002924270349,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.00753538078,
+      "control_margin_shot_quanta": 7.535381,
+      "no_position_control_mean_absolute_score_error": 0.01,
+      "noise_family": "coherent_ry_angle_offset",
+      "noise_model_id": "ry_offset_0p02rad",
+      "phasewrap_mean_absolute_score_error": 0.00246461922,
+      "positional_margin": 0.000459651129,
+      "positional_margin_shot_quanta": 0.459651,
+      "provider": "amazon_braket",
+      "shot_quantum": 0.001,
+      "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.002924270349,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.00753538078,
+      "control_margin_shot_quanta": 7.535381,
+      "no_position_control_mean_absolute_score_error": 0.01,
+      "noise_family": "coherent_ry_angle_offset",
+      "noise_model_id": "ry_offset_0p02rad",
+      "phasewrap_mean_absolute_score_error": 0.00246461922,
+      "positional_margin": 0.000459651129,
+      "positional_margin_shot_quanta": 0.459651,
+      "provider": "amazon_braket",
+      "shot_quantum": 0.001,
+      "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+      "stability_blockers": [
+        "positional_margin_below_two_shot_quanta"
+      ],
+      "stable_target": false
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.004567580445,
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "control_margin": 0.006058268142,
+      "control_margin_shot_quanta": 24.814666,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": "coherent_ry_angle_offset",
+      "noise_model_id": "ry_offset_0p02rad",
+      "phasewrap_mean_absolute_score_error": 0.003951497483,
+      "positional_margin": 0.000616082962,
+      "positional_margin_shot_quanta": 2.523476,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "stability_blockers": [],
+      "stable_target": true
+    },
+    {
+      "best_positional_comparator_mean_absolute_score_error": 0.004567580445,
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "control_margin": 0.006058268142,
+      "control_margin_shot_quanta": 24.814666,
+      "no_position_control_mean_absolute_score_error": 0.010009765625,
+      "noise_family": "coherent_ry_angle_offset",
+      "noise_model_id": "ry_offset_0p02rad",
+      "phasewrap_mean_absolute_score_error": 0.003951497483,
+      "positional_margin": 0.000616082962,
+      "positional_margin_shot_quanta": 2.523476,
+      "provider": "ibm_runtime",
+      "shot_quantum": 0.000244140625,
+      "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "stability_blockers": [],
+      "stable_target": true
+    }
+  ]
+}
