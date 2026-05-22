@@ -1,0 +1,64 @@
+{
+  "calibration_job_count": 8,
+  "claim_boundary": {
+    "excluded": [
+      "provider credential values",
+      "hardware job submission",
+      "live provider SDK client creation",
+      "real provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "first-provider job lineage from Stage 112 jobs to Stage 114 shards, result fields, and Stage 107 target evidence paths",
+      "window-level IBM calibration and matched-packet job completeness before provider result interpretation",
+      "binding of expected result lineage to Stage 148 statistical interpretation and Stage 149 guarded runner checks"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_RESULT_LINEAGE_CONTRACT_READY_EXECUTION_BLOCKED",
+  "first_unlock_provider": "ibm_runtime",
+  "job_count": 328,
+  "missing_source_artifacts": [],
+  "next_gate": "After IBM cutover and Stage 133 authorization, provider result records must preserve these job IDs, target evidence paths, Stage 114 result fields, and backend metadata fields provider, backend, window_id, job_kind before Stage 115 collection.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_job_count": 320,
+  "provider_credentials_required": false,
+  "ready_job_count": 328,
+  "ready_window_count": 2,
+  "required_backend_metadata_fields": [
+    "provider",
+    "backend",
+    "window_id",
+    "job_kind"
+  ],
+  "required_result_fields": [
+    "job_id",
+    "job_or_task_id",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "counts"
+  ],
+  "result_path": "logs/automated_stage_gates/stage150_first_provider_result_lineage_audit/results.json",
+  "schema_version": "qrope_stage150_first_provider_result_lineage_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage112_provider_execution_manifest/job_manifest.jsonl",
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/manifest.json",
+    "logs/automated_stage_gates/stage145_first_provider_evidence_path_audit/results.json",
+    "logs/automated_stage_gates/stage148_first_provider_statistical_interpretation_gate/results.json",
+    "logs/automated_stage_gates/stage149_first_provider_guarded_runner_contract_audit/results.json"
+  ],
+  "stage": "stage150_first_provider_result_lineage_audit",
+  "stage114_result_fields_ready": true,
+  "stage114_shard_assignment_count": 328,
+  "stage148_provider_bound": true,
+  "stage148_window_ids": [
+    "ibm_runtime__independent_window_00",
+    "ibm_runtime__independent_window_01"
+  ],
+  "stage149_guarded_runner_contract_ready": true,
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage150_first_provider_result_lineage_audit/summary.csv",
+  "window_count": 2
+}

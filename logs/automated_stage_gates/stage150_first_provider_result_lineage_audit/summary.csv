@@ -1,0 +1,3 @@
+window_id,job_count,ready_job_count,calibration_job_count,packet_job_count,ready
+ibm_runtime__independent_window_00,164,164,4,160,True
+ibm_runtime__independent_window_01,164,164,4,160,True
