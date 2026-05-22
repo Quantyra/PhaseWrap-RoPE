@@ -74,7 +74,7 @@ def _remediation_actions(
     if client_config.get("client_factory_implemented") is not True:
         actions.append("Replace the fail-closed SDK client factory with a guarded real factory after Stage 106/111 are ready.")
     if stage129_record.get("cutover_authorized") is not True:
-        actions.append("Rerun Stage 129 and enable live runner execution only when cutover_authorized=true for this provider.")
+        actions.append("Rerun Stage 129 and execute only Stage 133 command records with command_authorized=true for this provider.")
     return actions
 
 
@@ -162,10 +162,14 @@ def run_stage130_packet(
             "python scripts/run_stage128_sdk_client_factory_audit.py",
             "python scripts/run_stage129_live_cutover_authorization_audit.py",
             "python scripts/run_stage130_live_cutover_remediation_packet.py",
+            "python scripts/run_stage132_guarded_sdk_factory_implementation_audit.py",
+            "python scripts/run_stage116_provider_runner_plan.py",
+            "python scripts/run_stage120_live_runner_orchestration_audit.py",
+            "python scripts/run_stage133_authorized_runner_command_packet.py",
         ],
         "live_execution_rule": (
-            "Do not run Stage 116/117/120 provider runner commands until Stage 129 reports "
-            "cutover_authorized=true for the target provider and Stage 130 has been regenerated."
+            "Do not run provider runner commands until Stage 133 reports command_authorized=true for the target "
+            "provider/window after Stage 129 reports cutover_authorized=true."
         ),
         "claim_boundary": {
             "supported": [

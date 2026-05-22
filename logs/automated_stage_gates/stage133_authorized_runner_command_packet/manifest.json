@@ -1,0 +1,39 @@
+{
+  "authorized_runner_count": 0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "live provider SDK client creation",
+      "real provider result records",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "declared live-submit command templates include Stage 111, Stage 118, and Stage 129 evidence inputs",
+      "provider submitter import paths are attached to each provider/window runner command",
+      "current commands remain blocked until Stage 116 readiness, Stage 129 cutover, and Stage 132 factory readiness all align"
+    ]
+  },
+  "decision": "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED",
+  "job_count": 496,
+  "missing_source_artifacts": [],
+  "next_gate": "After Stage 106/111 readiness clears and Stage 129 authorizes the target provider, execute only command records with command_authorized=true, then validate Stage 114 result files through Stage 115.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "result_path": "logs/automated_stage_gates/stage133_authorized_runner_command_packet/results.json",
+  "runner_count": 4,
+  "schema_version": "qrope_stage133_authorized_runner_command_packet_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage116_provider_runner_plan/results.json",
+    "logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
+    "logs/automated_stage_gates/stage132_guarded_sdk_factory_implementation_audit/results.json"
+  ],
+  "stage": "stage133_authorized_runner_command_packet",
+  "stage116_decision": "PROVIDER_RUNNER_PLAN_PREPARED_EXECUTION_BLOCKED",
+  "stage129_decision": "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED",
+  "stage132_decision": "GUARDED_SDK_FACTORIES_IMPLEMENTED_CUTOVER_BLOCKED",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage133_authorized_runner_command_packet/summary.csv"
+}

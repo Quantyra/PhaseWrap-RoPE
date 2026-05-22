@@ -1,0 +1,129 @@
+{
+  "authorized_runner_count": 0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "live provider SDK client creation",
+      "real provider result records",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "declared live-submit command templates include Stage 111, Stage 118, and Stage 129 evidence inputs",
+      "provider submitter import paths are attached to each provider/window runner command",
+      "current commands remain blocked until Stage 116 readiness, Stage 129 cutover, and Stage 132 factory readiness all align"
+    ]
+  },
+  "command_records": [
+    {
+      "blockers": [
+        "stage116:provider_sdk_missing",
+        "stage116:runner_not_ready",
+        "stage116:stage106_provider_preflight_not_ready",
+        "stage116:stage111_provider_not_ready",
+        "stage129:cutover_not_authorized",
+        "stage129:stage106:backend_selection_missing",
+        "stage129:stage106:braket_output_s3_bucket_missing",
+        "stage129:stage106:braket_region_missing",
+        "stage129:stage106:provider_credentials_missing",
+        "stage129:stage111:provider_sdk_missing",
+        "stage129:stage111:stage106_provider_preflight_not_ready"
+      ],
+      "command_authorized": false,
+      "cutover_authorized": false,
+      "guarded_factory_ready": true,
+      "job_count": 84,
+      "live_submit_command": "python scripts/provider_runners/run_amazon_braket_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/amazon_braket/amazon_braket__independent_window_00/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/amazon_braket/amazon_braket__independent_window_00/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json --allow-live-submit --submitter qrope.provider_adapters.amazon_braket:submit",
+      "provider": "amazon_braket",
+      "runner_command": "python scripts/provider_runners/run_amazon_braket_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/amazon_braket/amazon_braket__independent_window_00/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/amazon_braket/amazon_braket__independent_window_00/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
+      "runner_status": "blocked",
+      "submitter_import_path": "qrope.provider_adapters.amazon_braket:submit",
+      "window_id": "amazon_braket__independent_window_00"
+    },
+    {
+      "blockers": [
+        "stage116:provider_sdk_missing",
+        "stage116:runner_not_ready",
+        "stage116:stage106_provider_preflight_not_ready",
+        "stage116:stage111_provider_not_ready",
+        "stage129:cutover_not_authorized",
+        "stage129:stage106:backend_selection_missing",
+        "stage129:stage106:braket_output_s3_bucket_missing",
+        "stage129:stage106:braket_region_missing",
+        "stage129:stage106:provider_credentials_missing",
+        "stage129:stage111:provider_sdk_missing",
+        "stage129:stage111:stage106_provider_preflight_not_ready"
+      ],
+      "command_authorized": false,
+      "cutover_authorized": false,
+      "guarded_factory_ready": true,
+      "job_count": 84,
+      "live_submit_command": "python scripts/provider_runners/run_amazon_braket_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/amazon_braket/amazon_braket__independent_window_01/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/amazon_braket/amazon_braket__independent_window_01/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json --allow-live-submit --submitter qrope.provider_adapters.amazon_braket:submit",
+      "provider": "amazon_braket",
+      "runner_command": "python scripts/provider_runners/run_amazon_braket_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/amazon_braket/amazon_braket__independent_window_01/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/amazon_braket/amazon_braket__independent_window_01/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
+      "runner_status": "blocked",
+      "submitter_import_path": "qrope.provider_adapters.amazon_braket:submit",
+      "window_id": "amazon_braket__independent_window_01"
+    },
+    {
+      "blockers": [
+        "stage116:runner_not_ready",
+        "stage116:stage106_provider_preflight_not_ready",
+        "stage116:stage111_provider_not_ready",
+        "stage129:cutover_not_authorized",
+        "stage129:stage106:ibm_instance_crn_missing",
+        "stage129:stage111:stage106_provider_preflight_not_ready"
+      ],
+      "command_authorized": false,
+      "cutover_authorized": false,
+      "guarded_factory_ready": true,
+      "job_count": 164,
+      "live_submit_command": "python scripts/provider_runners/run_ibm_runtime_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_00/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_00/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json --allow-live-submit --submitter qrope.provider_adapters.ibm_runtime:submit",
+      "provider": "ibm_runtime",
+      "runner_command": "python scripts/provider_runners/run_ibm_runtime_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_00/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_00/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
+      "runner_status": "blocked",
+      "submitter_import_path": "qrope.provider_adapters.ibm_runtime:submit",
+      "window_id": "ibm_runtime__independent_window_00"
+    },
+    {
+      "blockers": [
+        "stage116:runner_not_ready",
+        "stage116:stage106_provider_preflight_not_ready",
+        "stage116:stage111_provider_not_ready",
+        "stage129:cutover_not_authorized",
+        "stage129:stage106:ibm_instance_crn_missing",
+        "stage129:stage111:stage106_provider_preflight_not_ready"
+      ],
+      "command_authorized": false,
+      "cutover_authorized": false,
+      "guarded_factory_ready": true,
+      "job_count": 164,
+      "live_submit_command": "python scripts/provider_runners/run_ibm_runtime_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_01/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_01/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json --allow-live-submit --submitter qrope.provider_adapters.ibm_runtime:submit",
+      "provider": "ibm_runtime",
+      "runner_command": "python scripts/provider_runners/run_ibm_runtime_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_01/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_01/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
+      "runner_status": "blocked",
+      "submitter_import_path": "qrope.provider_adapters.ibm_runtime:submit",
+      "window_id": "ibm_runtime__independent_window_01"
+    }
+  ],
+  "decision": "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED",
+  "job_count": 496,
+  "missing_source_artifacts": [],
+  "next_gate": "After Stage 106/111 readiness clears and Stage 129 authorizes the target provider, execute only command records with command_authorized=true, then validate Stage 114 result files through Stage 115.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "runner_count": 4,
+  "schema_version": "qrope_stage133_authorized_runner_command_packet_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage116_provider_runner_plan/results.json",
+    "logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
+    "logs/automated_stage_gates/stage132_guarded_sdk_factory_implementation_audit/results.json"
+  ],
+  "stage": "stage133_authorized_runner_command_packet",
+  "stage116_decision": "PROVIDER_RUNNER_PLAN_PREPARED_EXECUTION_BLOCKED",
+  "stage129_decision": "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED",
+  "stage132_decision": "GUARDED_SDK_FACTORIES_IMPLEMENTED_CUTOVER_BLOCKED",
+  "status": "completed"
+}

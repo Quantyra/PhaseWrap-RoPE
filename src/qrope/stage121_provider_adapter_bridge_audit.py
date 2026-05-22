@@ -36,6 +36,7 @@ def _probe_runner_help(script: str) -> dict[str, bool]:
         ).stdout
     return {
         "accepts_stage118_results": "--stage118-results" in help_text,
+        "accepts_stage129_results": "--stage129-results" in help_text,
         "has_allow_live_submit_flag": "--allow-live-submit" in help_text,
         "accepts_submitter_import_path": "--submitter" in help_text,
     }
@@ -47,6 +48,7 @@ def _runner_record(record: dict[str, Any]) -> dict[str, Any]:
     missing = []
     for key, marker in (
         ("accepts_stage118_results", "runner_missing_stage118_payload_input"),
+        ("accepts_stage129_results", "runner_missing_stage129_cutover_input"),
         ("has_allow_live_submit_flag", "runner_missing_live_submit_flag"),
         ("accepts_submitter_import_path", "runner_missing_submitter_import_path"),
     ):
@@ -89,7 +91,7 @@ def run_stage121_audit(*, stage120_results_path: Path = DEFAULT_STAGE120_RESULTS
         "claim_boundary": {
             "supported": [
                 "provider runner CLI can bind an explicit submitter callable by import path",
-                "adapter binding remains behind Stage 111 readiness, Stage 118 payload loading, and Stage 114 result validation",
+                "adapter binding remains behind Stage 111 readiness, Stage 118 payload loading, Stage 129 cutover authorization, and Stage 114 result validation",
                 "live submission remains impossible without an explicit adapter selection",
             ],
             "excluded": [
@@ -102,8 +104,8 @@ def run_stage121_audit(*, stage120_results_path: Path = DEFAULT_STAGE120_RESULTS
             ],
         },
         "next_gate": (
-            "Implement provider-specific submitter callables for IBM Runtime and Amazon Braket, then use the Stage 121 "
-            "adapter bridge only after Stage 106/111 readiness clears."
+            "Use the Stage 121 adapter bridge only after Stage 106/111 readiness clears and Stage 129 authorizes "
+            "cutover for the target provider."
         ),
     }
 
@@ -143,6 +145,7 @@ def write_stage121_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                 "provider",
                 "window_id",
                 "accepts_stage118_results",
+                "accepts_stage129_results",
                 "has_allow_live_submit_flag",
                 "accepts_submitter_import_path",
                 "ready",
@@ -156,6 +159,7 @@ def write_stage121_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
                     "provider": record["provider"],
                     "window_id": record["window_id"],
                     "accepts_stage118_results": record["accepts_stage118_results"],
+                    "accepts_stage129_results": record["accepts_stage129_results"],
                     "has_allow_live_submit_flag": record["has_allow_live_submit_flag"],
                     "accepts_submitter_import_path": record["accepts_submitter_import_path"],
                     "ready": record["ready"],

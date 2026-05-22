@@ -4,7 +4,7 @@
 Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.
 
 ## Result
-Stage 130 packages the Stage 106, Stage 111, Stage 128, and Stage 129 blocker state into a non-secret live cutover remediation packet.
+Stage 130 packages the Stage 106, Stage 111, Stage 128, and Stage 129 blocker state into a non-secret live cutover remediation packet, with downstream reruns through the Stage 133 authorized runner command packet.
 
 Current decision:
 
@@ -12,8 +12,8 @@ Current decision:
 
 ## What this supports
 - Provider-specific remediation actions are derived from the current preflight, SDK discovery, client-factory, and cutover authorization evidence.
-- The rerun sequence is explicit: Stage 106, Stage 111, Stage 128, Stage 129, then Stage 130.
-- Live execution remains barred until Stage 129 reports `cutover_authorized=true` for the target provider and this packet is regenerated.
+- The rerun sequence is explicit: Stage 106, Stage 111, Stage 128, Stage 129, Stage 130, Stage 132, Stage 116, Stage 120, then Stage 133.
+- Live execution remains barred until Stage 133 reports `command_authorized=true` for the target provider/window.
 
 ## What this does not support
 - No hardware job submission occurred.

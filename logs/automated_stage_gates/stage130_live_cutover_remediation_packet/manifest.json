@@ -15,7 +15,7 @@
     ]
   },
   "decision": "LIVE_CUTOVER_REMEDIATION_PACKET_READY_EXECUTION_BLOCKED",
-  "live_execution_rule": "Do not run Stage 116/117/120 provider runner commands until Stage 129 reports cutover_authorized=true for the target provider and Stage 130 has been regenerated.",
+  "live_execution_rule": "Do not run provider runner commands until Stage 133 reports command_authorized=true for the target provider/window after Stage 129 reports cutover_authorized=true.",
   "missing_source_artifacts": [],
   "next_gate": "Complete the provider remediation actions, rerun the listed stages, and only then proceed to guarded live provider runner execution for authorized providers.",
   "no_hardware_submission": true,

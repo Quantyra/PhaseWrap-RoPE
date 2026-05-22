@@ -94,8 +94,8 @@ def run_stage117_audit(*, stage116_results_path: Path = DEFAULT_STAGE116_RESULTS
             ],
         },
         "next_gate": (
-            "Clear Stage 111, then replace guarded no-submit runner skeletons with provider execution implementations "
-            "that still emit Stage 114 result records."
+            "Clear Stage 111 and Stage 129 cutover authorization, then execute only Stage 133 authorized command "
+            "records that still emit Stage 114 result records."
         ),
     }
 

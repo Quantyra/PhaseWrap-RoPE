@@ -12,13 +12,13 @@ Current decision:
 
 ## What this supports
 - Runner commands accept a `--submitter module:callable` import path.
-- The submitter bridge remains behind Stage 111 provider readiness, Stage 118 payload loading, and Stage 114 result validation.
+- The submitter bridge remains behind Stage 111 provider readiness, Stage 118 payload loading, Stage 129 cutover authorization, and Stage 114 result validation.
 - Live submission still cannot happen unless an explicit adapter callable is selected with `--allow-live-submit`.
 
 ## What this does not support
 - No hardware job submission occurred.
 - No provider credentials or secret values were read or recorded.
-- Provider-specific SDK adapters are not implemented by this stage.
+- Provider-specific SDK adapter activation is not authorized by this stage.
 - No real provider result records were produced.
 - Stage 113 evidence assembly remains blocked.
 - No noisy-hardware robustness or PhaseWrap advantage claim is supported.
@@ -29,4 +29,4 @@ Current decision:
 - `logs/automated_stage_gates/stage121_provider_adapter_bridge_audit/summary.csv`
 
 ## Next gate
-Implement provider-specific submitter callables for IBM Runtime and Amazon Braket, then use the Stage 121 adapter bridge only after Stage 106/111 readiness clears.
+Use the Stage 121 adapter bridge only after Stage 106/111 readiness clears and Stage 129 authorizes cutover for the target provider.

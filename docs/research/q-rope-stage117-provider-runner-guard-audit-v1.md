@@ -7,7 +7,7 @@ The committed runner scripts:
 - `scripts/provider_runners/run_ibm_runtime_stage112_jobs.py`
 - `scripts/provider_runners/run_amazon_braket_stage112_jobs.py`
 
-Both entrypoints load Stage 111 readiness, inspect the requested Stage 114 job shard, and refuse to run while the provider is not ready. Even if Stage 111 later reports ready, live submission still requires an explicit `--allow-live-submit` flag and provider-specific implementation work.
+Both entrypoints load Stage 111 readiness, Stage 118 payloads, and Stage 129 cutover authorization, inspect the requested Stage 114 job shard, and refuse to run while the provider is not ready or cutover is not authorized. Even if Stage 111 later reports ready, live submission still requires an explicit `--allow-live-submit` flag and provider-specific submitter.
 
 Current expected decision:
 

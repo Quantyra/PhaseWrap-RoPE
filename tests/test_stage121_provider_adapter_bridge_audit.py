@@ -126,6 +126,7 @@ def test_stage121_reports_adapter_bridge_ready(tmp_path) -> None:
 
     assert result["decision"] == "PROVIDER_ADAPTER_BRIDGE_READY_PROVIDER_ADAPTERS_REQUIRED"
     assert result["ready_runner_count"] == 1
+    assert result["runner_records"][0]["accepts_stage129_results"] is True
     assert result["runner_records"][0]["accepts_submitter_import_path"] is True
 
 

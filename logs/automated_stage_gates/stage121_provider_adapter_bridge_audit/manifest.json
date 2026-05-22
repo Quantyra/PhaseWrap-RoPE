@@ -10,13 +10,13 @@
     ],
     "supported": [
       "provider runner CLI can bind an explicit submitter callable by import path",
-      "adapter binding remains behind Stage 111 readiness, Stage 118 payload loading, and Stage 114 result validation",
+      "adapter binding remains behind Stage 111 readiness, Stage 118 payload loading, Stage 129 cutover authorization, and Stage 114 result validation",
       "live submission remains impossible without an explicit adapter selection"
     ]
   },
   "decision": "PROVIDER_ADAPTER_BRIDGE_READY_PROVIDER_ADAPTERS_REQUIRED",
   "missing_source_artifacts": [],
-  "next_gate": "Implement provider-specific submitter callables for IBM Runtime and Amazon Braket, then use the Stage 121 adapter bridge only after Stage 106/111 readiness clears.",
+  "next_gate": "Use the Stage 121 adapter bridge only after Stage 106/111 readiness clears and Stage 129 authorizes cutover for the target provider.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": true,
