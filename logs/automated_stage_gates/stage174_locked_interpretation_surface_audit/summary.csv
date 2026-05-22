@@ -1,0 +1,3 @@
+provider,source_lane_id,circuit_template,ready,locked_row_count,observed_encoding_families,blockers
+ibm_runtime,ibm_cx_seed314_rows16_shots4096,two_ry_cx_parity_z_readout_v1,True,32,alibi_like; no_position_control; phasewrap; rope_like; sinusoidal_like,
+ibm_runtime,ibm_product_seed314_rows16_shots4096,two_ry_product_state_z_readout_v1,True,32,alibi_like; no_position_control; phasewrap; rope_like; sinusoidal_like,

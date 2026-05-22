@@ -1,0 +1,142 @@
+{
+  "blockers": [],
+  "calibration_count_by_window": {
+    "ibm_runtime__independent_window_00": 4,
+    "ibm_runtime__independent_window_01": 4
+  },
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "provider result records",
+      "Stage103 robustness metric interpretation",
+      "Stage137 auditability metric interpretation",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "no-submit verification that locked IBM packet-row jobs cover the Stage169 stable lanes",
+      "no-submit verification that each stable lane has the full Stage104 fixed-width comparator family set",
+      "no-submit verification that locked row ids match the corresponding Stage104 template rows",
+      "no-submit verification that known-state calibration jobs are present in each locked IBM window"
+    ]
+  },
+  "decision": "LOCKED_INTERPRETATION_SURFACE_READY_AWAITING_PROVIDER_RESULTS",
+  "group_count": 2,
+  "group_records": [
+    {
+      "blockers": [],
+      "circuit_template": "two_ry_cx_parity_z_readout_v1",
+      "extra_encoding_families": [],
+      "locked_row_count": 32,
+      "locked_row_counts_by_family": {
+        "alibi_like": 32,
+        "no_position_control": 32,
+        "phasewrap": 32,
+        "rope_like": 32,
+        "sinusoidal_like": 32
+      },
+      "missing_encoding_families": [],
+      "observed_encoding_families": [
+        "alibi_like",
+        "no_position_control",
+        "phasewrap",
+        "rope_like",
+        "sinusoidal_like"
+      ],
+      "packet_ids": [
+        "ibm_cx_seed314_rows16_shots4096__alibi_like",
+        "ibm_cx_seed314_rows16_shots4096__no_position_control",
+        "ibm_cx_seed314_rows16_shots4096__phasewrap",
+        "ibm_cx_seed314_rows16_shots4096__rope_like",
+        "ibm_cx_seed314_rows16_shots4096__sinusoidal_like"
+      ],
+      "provider": "ibm_runtime",
+      "ready": true,
+      "required_encoding_families": [
+        "phasewrap",
+        "rope_like",
+        "sinusoidal_like",
+        "alibi_like",
+        "no_position_control"
+      ],
+      "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+      "stage104_template_mismatch_families": []
+    },
+    {
+      "blockers": [],
+      "circuit_template": "two_ry_product_state_z_readout_v1",
+      "extra_encoding_families": [],
+      "locked_row_count": 32,
+      "locked_row_counts_by_family": {
+        "alibi_like": 32,
+        "no_position_control": 32,
+        "phasewrap": 32,
+        "rope_like": 32,
+        "sinusoidal_like": 32
+      },
+      "missing_encoding_families": [],
+      "observed_encoding_families": [
+        "alibi_like",
+        "no_position_control",
+        "phasewrap",
+        "rope_like",
+        "sinusoidal_like"
+      ],
+      "packet_ids": [
+        "ibm_product_seed314_rows16_shots4096__alibi_like",
+        "ibm_product_seed314_rows16_shots4096__no_position_control",
+        "ibm_product_seed314_rows16_shots4096__phasewrap",
+        "ibm_product_seed314_rows16_shots4096__rope_like",
+        "ibm_product_seed314_rows16_shots4096__sinusoidal_like"
+      ],
+      "provider": "ibm_runtime",
+      "ready": true,
+      "required_encoding_families": [
+        "phasewrap",
+        "rope_like",
+        "sinusoidal_like",
+        "alibi_like",
+        "no_position_control"
+      ],
+      "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+      "stage104_template_mismatch_families": []
+    }
+  ],
+  "matched_packet_job_count": 320,
+  "missing_source_artifacts": [],
+  "next_gate": "After exact approval and provider execution, the locked result files should populate this verified interpretation surface before Stage164/115/113/103/137/148/138 are rerun.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "ready_group_count": 2,
+  "required_encoding_families": [
+    "phasewrap",
+    "rope_like",
+    "sinusoidal_like",
+    "alibi_like",
+    "no_position_control"
+  ],
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage174_locked_interpretation_surface_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage104_matched_packet_execution_package/results.json",
+    "logs/automated_stage_gates/stage163_first_provider_prerun_lock/results.json",
+    "logs/automated_stage_gates/stage169_targeted_probe_scope_selection/results.json",
+    "logs/automated_stage_gates/stage173_locked_result_ingestion_contract_audit/results.json"
+  ],
+  "stable_target_lanes": [
+    "ibm_cx_seed314_rows16_shots4096",
+    "ibm_product_seed314_rows16_shots4096"
+  ],
+  "stage": "stage174_locked_interpretation_surface_audit",
+  "stage104_decision": "MATCHED_PACKET_EXECUTION_TEMPLATES_PREPARED_CALIBRATION_AND_COUNTS_REQUIRED",
+  "stage163_decision": "FIRST_PROVIDER_PRERUN_LOCK_READY_AWAITING_APPROVAL",
+  "stage169_decision": "TARGETED_IBM_PROBE_SCOPE_LOCKED_TO_STABLE_LANES",
+  "stage173_decision": "LOCKED_RESULT_INGESTION_CONTRACT_READY_AWAITING_PROVIDER_RESULTS",
+  "status": "completed",
+  "window_ids": [
+    "ibm_runtime__independent_window_00",
+    "ibm_runtime__independent_window_01"
+  ]
+}
