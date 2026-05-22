@@ -1,0 +1,99 @@
+{
+  "approval_phrase_required": "APPROVE IBM RUNTIME STAGE133 LIVE RUN",
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials, token values, CRN values, or account secrets",
+      "runnable live-submit command strings",
+      "IBM credit balance or dollar cost verification",
+      "provider result records",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "controlled no-secret handoff for resolving IBM credit/provider state with the user",
+      "non-secret confirmation that read-only IBM configuration and backend lookup previously succeeded",
+      "explicit distinction between configured credentials presence and verified credit/billing allowance",
+      "scope confirmation for the locked first-provider IBM run before any final GO/NO-GO"
+    ]
+  },
+  "credit_balance_verified": false,
+  "decision": "IBM_CREDIT_PROVIDER_RESOLUTION_HANDOFF_READY_FOR_HUMAN_CHECK",
+  "explicit_user_approval_required": true,
+  "first_unlock_provider": "ibm_runtime",
+  "locked_job_count": 328,
+  "locked_total_shots": 1318720,
+  "missing_source_artifacts": [],
+  "next_gate": "Resolve the human-only IBM credit/billing/Runtime allowance check. If acceptable, perform a final GO/NO-GO against the locked scope and require the exact approval phrase before any live execution.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "resolution_items": [
+    {
+      "description": "IBM token, instance, and backend configuration were present for the latest read-only backend lookup.",
+      "evidence": {
+        "ibm_backend_env_present": true,
+        "ibm_instance_crn_present": true,
+        "ibm_token_present": true
+      },
+      "item_id": "configured_credentials_present",
+      "status": "verified_non_secret_presence"
+    },
+    {
+      "description": "Configured IBM backend resolved read-only without hardware submission.",
+      "evidence": {
+        "backend": "ibm_fez",
+        "operational": true,
+        "pending_jobs_at_preflight": 3
+      },
+      "item_id": "backend_read_only_preflight",
+      "status": "verified"
+    },
+    {
+      "description": "IBM account credit, billing, and Runtime allowance must be verified by the user outside the artifact.",
+      "evidence": {
+        "credit_balance_verified": false
+      },
+      "item_id": "credit_billing_runtime_allowance",
+      "status": "human_verification_required"
+    },
+    {
+      "description": "Human GO/NO-GO discussion is limited to the locked stable Stage169 seed314 IBM lanes.",
+      "evidence": {
+        "locked_job_count": 328,
+        "locked_total_shots": 1318720,
+        "stable_target_lanes": [
+          "ibm_cx_seed314_rows16_shots4096",
+          "ibm_product_seed314_rows16_shots4096"
+        ]
+      },
+      "item_id": "locked_scope_confirmation",
+      "status": "verified"
+    },
+    {
+      "description": "Live execution remains disallowed unless the exact approval phrase is provided after credit/provider resolution.",
+      "evidence": {
+        "approval_phrase_required": "APPROVE IBM RUNTIME STAGE133 LIVE RUN"
+      },
+      "item_id": "exact_approval_phrase",
+      "status": "awaiting_exact_phrase"
+    }
+  ],
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage176_ibm_credit_provider_resolution_handoff_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage159_first_provider_backend_preflight/results.json",
+    "logs/automated_stage_gates/stage170_ibm_hardware_pause_resolution_packet/results.json",
+    "logs/automated_stage_gates/stage175_first_provider_preresult_readiness_synthesis/results.json"
+  ],
+  "stable_target_lanes": [
+    "ibm_cx_seed314_rows16_shots4096",
+    "ibm_product_seed314_rows16_shots4096"
+  ],
+  "stage": "stage176_ibm_credit_provider_resolution_handoff",
+  "stage159_decision": "FIRST_PROVIDER_BACKEND_PREFLIGHT_READY_AWAITING_APPROVAL",
+  "stage170_decision": "IBM_HARDWARE_PAUSE_READY_FOR_CREDIT_PROVIDER_RESOLUTION",
+  "stage175_decision": "FIRST_PROVIDER_PRERESULT_READY_FOR_CREDIT_PROVIDER_RESOLUTION",
+  "status": "completed"
+}

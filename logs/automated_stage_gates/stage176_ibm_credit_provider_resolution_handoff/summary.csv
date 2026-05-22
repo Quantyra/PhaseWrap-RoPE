@@ -1,0 +1,6 @@
+item_id,status,description
+configured_credentials_present,verified_non_secret_presence,"IBM token, instance, and backend configuration were present for the latest read-only backend lookup."
+backend_read_only_preflight,verified,Configured IBM backend resolved read-only without hardware submission.
+credit_billing_runtime_allowance,human_verification_required,"IBM account credit, billing, and Runtime allowance must be verified by the user outside the artifact."
+locked_scope_confirmation,verified,Human GO/NO-GO discussion is limited to the locked stable Stage169 seed314 IBM lanes.
+exact_approval_phrase,awaiting_exact_phrase,Live execution remains disallowed unless the exact approval phrase is provided after credit/provider resolution.
