@@ -1,0 +1,14 @@
+# Amazon Braket configuration for Stage 106. Fill locally; do not commit secrets.
+AWS_PROFILE=
+AWS_ACCESS_KEY_ID=
+AWS_SESSION_TOKEN=
+QROPE_BRAKET_DEVICE_ARN=
+QROPE_BRAKET_DEVICE_ARNS=
+QROPE_BRAKET_OUTPUT_S3_BUCKET=
+QROPE_BRAKET_AWS_REGION=
+
+# Common execution guards.
+QROPE_HARDWARE_BUDGET_USD_CAP=
+QROPE_HARDWARE_QUEUE_DEPTH_CAP=
+
+# Current Stage 106 blockers: provider_credentials_missing, backend_selection_missing, braket_output_s3_bucket_missing, braket_region_missing

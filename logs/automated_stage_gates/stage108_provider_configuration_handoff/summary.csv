@@ -1,0 +1,3 @@
+provider,stage106_status,template_file,credential_env_present,backend_env_present,blockers,secret_values_recorded
+amazon_braket,blocked,amazon_braket_stage106_env.template,,,provider_credentials_missing; backend_selection_missing; braket_output_s3_bucket_missing; braket_region_missing,False
+ibm_runtime,blocked,ibm_runtime_stage106_env.template,IBM_QUANTUM_TOKEN,QROPE_HARDWARE_BACKEND,ibm_instance_crn_missing,False

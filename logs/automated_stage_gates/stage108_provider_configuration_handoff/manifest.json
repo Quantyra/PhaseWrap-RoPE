@@ -1,0 +1,40 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "real provider credentials",
+      "backend availability discovery",
+      "hardware submission",
+      "completed calibration or matched packet execution",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "a non-secret provider configuration handoff for clearing Stage 106",
+      "provider-specific environment templates tied to observed Stage 106 blockers",
+      "a reminder that credentials and secret values must remain local and uncommitted"
+    ]
+  },
+  "decision": "PROVIDER_CONFIGURATION_HANDOFF_PREPARED_STAGE106_STILL_BLOCKED",
+  "missing_source_artifacts": [],
+  "next_gate": "Fill provider configuration locally, rerun Stage 106 with --load-dotenv, and proceed to Stage 107 only after Stage 106 reports ready.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": true,
+  "ready_for_hardware_submission": false,
+  "result_path": "logs/automated_stage_gates/stage108_provider_configuration_handoff/results.json",
+  "schema_version": "qrope_stage108_provider_configuration_handoff_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage106_hardware_execution_preflight/results.json",
+    "logs/automated_stage_gates/stage107_window_execution_orchestrator/manifest.json"
+  ],
+  "stage": "stage108_provider_configuration_handoff",
+  "stage106_decision": "HARDWARE_EXECUTION_PREFLIGHT_BLOCKED_CONFIGURATION_REQUIRED",
+  "stage107_decision": "WINDOW_EXECUTION_PLAN_PREPARED_PREFLIGHT_BLOCKED",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage108_provider_configuration_handoff/summary.csv",
+  "template_paths": [
+    "logs/automated_stage_gates/stage108_provider_configuration_handoff/env_templates/amazon_braket_stage106_env.template",
+    "logs/automated_stage_gates/stage108_provider_configuration_handoff/env_templates/ibm_runtime_stage106_env.template"
+  ]
+}

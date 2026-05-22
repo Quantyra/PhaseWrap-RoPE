@@ -1,0 +1,73 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "real provider credentials",
+      "backend availability discovery",
+      "hardware submission",
+      "completed calibration or matched packet execution",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "a non-secret provider configuration handoff for clearing Stage 106",
+      "provider-specific environment templates tied to observed Stage 106 blockers",
+      "a reminder that credentials and secret values must remain local and uncommitted"
+    ]
+  },
+  "decision": "PROVIDER_CONFIGURATION_HANDOFF_PREPARED_STAGE106_STILL_BLOCKED",
+  "handoff_records": [
+    {
+      "backend_env_present": [],
+      "blockers": [
+        "provider_credentials_missing",
+        "backend_selection_missing",
+        "braket_output_s3_bucket_missing",
+        "braket_region_missing"
+      ],
+      "commit_template_only": true,
+      "credential_env_present": [],
+      "provider": "amazon_braket",
+      "requires_secret_handling": true,
+      "secret_values_recorded": false,
+      "stage106_status": "blocked",
+      "template_file": "amazon_braket_stage106_env.template"
+    },
+    {
+      "backend_env_present": [
+        "QROPE_HARDWARE_BACKEND"
+      ],
+      "blockers": [
+        "ibm_instance_crn_missing"
+      ],
+      "commit_template_only": true,
+      "credential_env_present": [
+        "IBM_QUANTUM_TOKEN"
+      ],
+      "provider": "ibm_runtime",
+      "requires_secret_handling": true,
+      "secret_values_recorded": false,
+      "stage106_status": "blocked",
+      "template_file": "ibm_runtime_stage106_env.template"
+    }
+  ],
+  "missing_source_artifacts": [],
+  "next_gate": "Fill provider configuration locally, rerun Stage 106 with --load-dotenv, and proceed to Stage 107 only after Stage 106 reports ready.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": true,
+  "ready_for_hardware_submission": false,
+  "schema_version": "qrope_stage108_provider_configuration_handoff_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage106_hardware_execution_preflight/results.json",
+    "logs/automated_stage_gates/stage107_window_execution_orchestrator/manifest.json"
+  ],
+  "stage": "stage108_provider_configuration_handoff",
+  "stage106_decision": "HARDWARE_EXECUTION_PREFLIGHT_BLOCKED_CONFIGURATION_REQUIRED",
+  "stage107_decision": "WINDOW_EXECUTION_PLAN_PREPARED_PREFLIGHT_BLOCKED",
+  "status": "completed",
+  "templates": {
+    "amazon_braket_stage106_env.template": "# Amazon Braket configuration for Stage 106. Fill locally; do not commit secrets.\nAWS_PROFILE=\nAWS_ACCESS_KEY_ID=\nAWS_SESSION_TOKEN=\nQROPE_BRAKET_DEVICE_ARN=\nQROPE_BRAKET_DEVICE_ARNS=\nQROPE_BRAKET_OUTPUT_S3_BUCKET=\nQROPE_BRAKET_AWS_REGION=\n\n# Common execution guards.\nQROPE_HARDWARE_BUDGET_USD_CAP=\nQROPE_HARDWARE_QUEUE_DEPTH_CAP=\n\n# Current Stage 106 blockers: provider_credentials_missing, backend_selection_missing, braket_output_s3_bucket_missing, braket_region_missing\n",
+    "ibm_runtime_stage106_env.template": "# IBM Runtime configuration for Stage 106. Fill locally; do not commit secrets.\nIBM_QUANTUM_TOKEN=\nQISKIT_IBM_TOKEN=\nQROPE_IBM_BACKEND=\nQROPE_HARDWARE_BACKEND=\nIBM_QUANTUM_INSTANCE_CRN=\n\n# Common execution guards.\nQROPE_HARDWARE_BUDGET_USD_CAP=\nQROPE_HARDWARE_QUEUE_DEPTH_CAP=\n\n# Current Stage 106 blockers: ibm_instance_crn_missing\n"
+  }
+}

@@ -1,0 +1,12 @@
+# IBM Runtime configuration for Stage 106. Fill locally; do not commit secrets.
+IBM_QUANTUM_TOKEN=
+QISKIT_IBM_TOKEN=
+QROPE_IBM_BACKEND=
+QROPE_HARDWARE_BACKEND=
+IBM_QUANTUM_INSTANCE_CRN=
+
+# Common execution guards.
+QROPE_HARDWARE_BUDGET_USD_CAP=
+QROPE_HARDWARE_QUEUE_DEPTH_CAP=
+
+# Current Stage 106 blockers: ibm_instance_crn_missing
