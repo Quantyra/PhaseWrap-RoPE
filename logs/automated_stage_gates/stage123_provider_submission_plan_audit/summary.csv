@@ -1,0 +1,5 @@
+provider,window_id,job_count,payload_count,submission_plan_count,ready,missing_evidence
+amazon_braket,amazon_braket__independent_window_00,84,84,84,True,
+amazon_braket,amazon_braket__independent_window_01,84,84,84,True,
+ibm_runtime,ibm_runtime__independent_window_00,164,164,164,True,
+ibm_runtime,ibm_runtime__independent_window_01,164,164,164,True,

@@ -1,0 +1,45 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "live provider SDK submission",
+      "real provider result records",
+      "Stage 113 evidence assembly",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "provider adapters can deterministically map Stage 118 payloads into SDK submission plans",
+      "submission plans preserve job IDs, provider/window identity, shots, OpenQASM hashes, and result-field expectations",
+      "all plans remain no-submit artifacts before live SDK execution"
+    ]
+  },
+  "decision": "PROVIDER_SUBMISSION_PLANS_READY_EXECUTION_BLOCKED",
+  "job_count": 496,
+  "missing_source_artifacts": [],
+  "next_gate": "Use the Stage 123 submission plans to implement guarded SDK submitters that replace no-submit plans with real provider job IDs and measured counts only after Stage 106/111 readiness clears.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "ready_plan_record_count": 4,
+  "result_path": "logs/automated_stage_gates/stage123_provider_submission_plan_audit/results.json",
+  "runner_count": 4,
+  "schema_version": "qrope_stage123_provider_submission_plan_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json",
+    "logs/automated_stage_gates/stage122_provider_adapter_skeleton_audit/results.json"
+  ],
+  "stage": "stage123_provider_submission_plan_audit",
+  "stage118_decision": "PROVIDER_PAYLOAD_DRY_RUN_COMPILED_EXECUTION_BLOCKED",
+  "stage122_decision": "PROVIDER_ADAPTER_SKELETONS_READY_EXECUTION_BLOCKED",
+  "status": "completed",
+  "submission_plan_count": 496,
+  "submission_plan_paths": [
+    "logs/automated_stage_gates/stage123_provider_submission_plan_audit/submission_plans/amazon_braket/amazon_braket__independent_window_00/submission_plans.jsonl",
+    "logs/automated_stage_gates/stage123_provider_submission_plan_audit/submission_plans/amazon_braket/amazon_braket__independent_window_01/submission_plans.jsonl",
+    "logs/automated_stage_gates/stage123_provider_submission_plan_audit/submission_plans/ibm_runtime/ibm_runtime__independent_window_00/submission_plans.jsonl",
+    "logs/automated_stage_gates/stage123_provider_submission_plan_audit/submission_plans/ibm_runtime/ibm_runtime__independent_window_01/submission_plans.jsonl"
+  ],
+  "summary_csv_path": "logs/automated_stage_gates/stage123_provider_submission_plan_audit/summary.csv"
+}
