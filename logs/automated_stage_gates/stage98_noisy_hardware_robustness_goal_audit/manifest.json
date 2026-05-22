@@ -1,0 +1,47 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that noisy quantum hardware improves language models",
+      "a claim that Stage 4 already proves general noisy-hardware robustness",
+      "provider-wide bitstring-order validation without known-state calibration counts",
+      "production transformer superiority",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential goal-framing audit for a noisy-hardware readout-robustness track.",
+      "A distinction between existing bounded Stage 4 hardware-positive artifacts and the stronger matched-encoding robustness claim.",
+      "A fixed-width protocol gate for comparing PhaseWrap score readout with matched positional-score encodings."
+    ]
+  },
+  "decision": {
+    "claim_boundary": "Existing Stage 4 hardware positives justify the track, but matched fixed-width positional encodings are required before testing comparative robustness.",
+    "decision": "NOISY_HARDWARE_GOAL_FRAMED_MATCHED_ENCODINGS_REQUIRED",
+    "missing_requirements": [
+      "matched_positional_score_encodings",
+      "known_state_bitstring_calibration",
+      "independent_date_calibration_reruns"
+    ],
+    "partial_requirements": [
+      "fixed_shot_budget_and_rows"
+    ],
+    "track_ready_for_real_hardware_claim": false
+  },
+  "missing_source_artifacts": [],
+  "next_gate": "Freeze matched two-qubit positional-score encoding packets for PhaseWrap, RoPE-like, sinusoidal-like, ALIBI-like, and no-position/control families before any new hardware execution.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage98_noisy_hardware_robustness_goal_audit/results.json",
+  "schema_version": "qrope_stage98_noisy_hardware_robustness_goal_audit_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage4_hardware_sweep/manifest.json",
+    "logs/automated_stage_gates/stage4_hardware_sweep/offline_verification.json",
+    "logs/automated_stage_gates/stage4_bitstring_calibration/manifest.json",
+    "logs/automated_stage_gates/stage4_bitstring_calibration/offline_verification.json"
+  ],
+  "source_stage": "stage4_hardware_sweep",
+  "stage": "stage98_noisy_hardware_robustness_goal_audit",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage98_noisy_hardware_robustness_goal_audit/summary.csv"
+}

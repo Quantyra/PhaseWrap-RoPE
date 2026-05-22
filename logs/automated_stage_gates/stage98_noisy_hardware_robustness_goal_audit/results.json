@@ -1,0 +1,119 @@
+{
+  "bitstring_calibration_status": {
+    "known_state_counts_present": false,
+    "packet_specs_present": true,
+    "verifier_pass": false,
+    "verifier_status": "unknown"
+  },
+  "claim_boundary": {
+    "excluded": [
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that noisy quantum hardware improves language models",
+      "a claim that Stage 4 already proves general noisy-hardware robustness",
+      "provider-wide bitstring-order validation without known-state calibration counts",
+      "production transformer superiority",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential goal-framing audit for a noisy-hardware readout-robustness track.",
+      "A distinction between existing bounded Stage 4 hardware-positive artifacts and the stronger matched-encoding robustness claim.",
+      "A fixed-width protocol gate for comparing PhaseWrap score readout with matched positional-score encodings."
+    ]
+  },
+  "decision": {
+    "claim_boundary": "Existing Stage 4 hardware positives justify the track, but matched fixed-width positional encodings are required before testing comparative robustness.",
+    "decision": "NOISY_HARDWARE_GOAL_FRAMED_MATCHED_ENCODINGS_REQUIRED",
+    "missing_requirements": [
+      "matched_positional_score_encodings",
+      "known_state_bitstring_calibration",
+      "independent_date_calibration_reruns"
+    ],
+    "partial_requirements": [
+      "fixed_shot_budget_and_rows"
+    ],
+    "track_ready_for_real_hardware_claim": false
+  },
+  "missing_source_artifacts": [],
+  "next_gate": "Freeze matched two-qubit positional-score encoding packets for PhaseWrap, RoPE-like, sinusoidal-like, ALIBI-like, and no-position/control families before any new hardware execution.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "proposed_strongest_claim_if_successful": "PhaseWrap-RoPE's compact positional score has bounded noisy-hardware readout robustness or auditability advantages over matched fixed-width positional-score encodings under specified backend, date, calibration, shot-budget, and bitstring-decoding conditions.",
+  "protocol_requirements": [
+    {
+      "evidence": "Current Stage 4 active records are two-qubit witness families.",
+      "required_for_claim": "Future matched encodings must use the same qubit count and comparable measurement observables.",
+      "requirement": "fixed_circuit_width",
+      "status": "passed"
+    },
+    {
+      "evidence": "6 active Stage 4 records verify as hardware-positive.",
+      "required_for_claim": "Use recorded raw counts, job/task IDs, backend metadata, and offline verifier recomputation.",
+      "requirement": "recorded_noisy_hardware_artifacts",
+      "status": "passed"
+    },
+    {
+      "evidence": "Stage 4 compares PhaseWrap witness/control records, but not matched RoPE/sinusoidal/ALiBI score encodings under equal circuit width.",
+      "required_for_claim": "Add frozen fixed-width encodings for PhaseWrap, RoPE-like, sinusoidal-like, ALIBI-like, and a no-position/control family.",
+      "requirement": "matched_positional_score_encodings",
+      "status": "missing"
+    },
+    {
+      "evidence": "Calibration packet specs exist, but real known-state counts are not yet supplied.",
+      "required_for_claim": "Run |00>, |01>, |10>, and |11> known-state packets per provider/backend/date before provider-level decoding claims.",
+      "requirement": "known_state_bitstring_calibration",
+      "status": "missing"
+    },
+    {
+      "evidence": "Current records have shot counts [1000, 4096] and row counts [8, 16].",
+      "required_for_claim": "Predeclare one fixed shot budget and row set per comparison family, or analyze shot budget as a declared factor.",
+      "requirement": "fixed_shot_budget_and_rows",
+      "status": "partial"
+    },
+    {
+      "evidence": "Current intervals are row-bootstrap and shot-resampling diagnostics over recorded artifacts, not independent date/calibration reruns.",
+      "required_for_claim": "Repeat selected packets across backend dates/calibration windows before claiming robustness beyond recorded contexts.",
+      "requirement": "independent_date_calibration_reruns",
+      "status": "missing"
+    }
+  ],
+  "provider_credentials_required": false,
+  "schema_version": "qrope_stage98_noisy_hardware_robustness_goal_audit_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage4_hardware_sweep/manifest.json",
+    "logs/automated_stage_gates/stage4_hardware_sweep/offline_verification.json",
+    "logs/automated_stage_gates/stage4_bitstring_calibration/manifest.json",
+    "logs/automated_stage_gates/stage4_bitstring_calibration/offline_verification.json"
+  ],
+  "source_stage": "stage4_hardware_sweep",
+  "stage": "stage98_noisy_hardware_robustness_goal_audit",
+  "stage4_summary": {
+    "active_hardware_positive_count": 6,
+    "active_record_count": 6,
+    "bounded_claim_statement": "This manifest supports only machine verification of recorded packet/backend/date/calibration-specific Stage 4 hardware artifacts that are present in the repository. It does not support broad quantum advantage, production transformer superiority, full transformer-scale validation, or general cross-backend robustness.",
+    "families": [
+      "two_qubit_cx_parity_phase_wrap_v2",
+      "two_qubit_zz_expectation_phase_wrap_v1"
+    ],
+    "fixed_width_current_records": true,
+    "providers": [
+      "amazon_braket",
+      "ibm_runtime"
+    ],
+    "row_counts": [
+      8,
+      16
+    ],
+    "shot_counts": [
+      1000,
+      4096
+    ],
+    "verifier_pass": true
+  },
+  "status": "completed",
+  "unsupported_claims": [
+    "Noisy quantum hardware improves language-model performance.",
+    "PhaseWrap-RoPE replaces RoPE.",
+    "Stage 4 already proves general cross-backend robustness.",
+    "Provider-wide bitstring conventions are validated without known-state calibration counts."
+  ]
+}

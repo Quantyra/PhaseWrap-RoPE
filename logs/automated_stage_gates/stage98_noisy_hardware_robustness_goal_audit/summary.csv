@@ -1,0 +1,7 @@
+requirement,status,evidence,required_for_claim
+fixed_circuit_width,passed,Current Stage 4 active records are two-qubit witness families.,Future matched encodings must use the same qubit count and comparable measurement observables.
+recorded_noisy_hardware_artifacts,passed,6 active Stage 4 records verify as hardware-positive.,"Use recorded raw counts, job/task IDs, backend metadata, and offline verifier recomputation."
+matched_positional_score_encodings,missing,"Stage 4 compares PhaseWrap witness/control records, but not matched RoPE/sinusoidal/ALiBI score encodings under equal circuit width.","Add frozen fixed-width encodings for PhaseWrap, RoPE-like, sinusoidal-like, ALIBI-like, and a no-position/control family."
+known_state_bitstring_calibration,missing,"Calibration packet specs exist, but real known-state counts are not yet supplied.","Run |00>, |01>, |10>, and |11> known-state packets per provider/backend/date before provider-level decoding claims."
+fixed_shot_budget_and_rows,partial,"Current records have shot counts [1000, 4096] and row counts [8, 16].","Predeclare one fixed shot budget and row set per comparison family, or analyze shot budget as a declared factor."
+independent_date_calibration_reruns,missing,"Current intervals are row-bootstrap and shot-resampling diagnostics over recorded artifacts, not independent date/calibration reruns.",Repeat selected packets across backend dates/calibration windows before claiming robustness beyond recorded contexts.
