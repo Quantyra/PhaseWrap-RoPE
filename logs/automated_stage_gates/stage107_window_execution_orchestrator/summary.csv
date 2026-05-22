@@ -1,0 +1,5 @@
+window_id,provider,window_index,stage106_ready,packet_template_count,blocked_step_count
+amazon_braket__independent_window_00,amazon_braket,0,False,10,5
+amazon_braket__independent_window_01,amazon_braket,1,False,10,5
+ibm_runtime__independent_window_00,ibm_runtime,0,False,10,5
+ibm_runtime__independent_window_01,ibm_runtime,1,False,10,5

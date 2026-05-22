@@ -1,0 +1,36 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "real hardware submission",
+      "completed calibration counts",
+      "completed matched packet counts",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "a dry-run orchestration plan for Stage 105 independent provider windows",
+      "an ordered handoff from Stage 106 preflight to Stage 101 calibration, Stage 104 packet execution, and Stage 103 metric recomputation",
+      "a no-submission artifact that keeps hardware execution blocked until preflight is ready"
+    ]
+  },
+  "decision": "WINDOW_EXECUTION_PLAN_PREPARED_PREFLIGHT_BLOCKED",
+  "missing_source_artifacts": [],
+  "next_gate": "Clear Stage 106, then use the Stage 107 window execution plans to run calibration, matched packet execution, and metric recomputation for each Stage 105 independent window.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": true,
+  "result_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/results.json",
+  "schema_version": "qrope_stage107_window_execution_orchestrator_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage102_calibration_execution_package/manifest.json",
+    "logs/automated_stage_gates/stage105_independent_rerun_protocol/rerun_windows.json",
+    "logs/automated_stage_gates/stage106_hardware_execution_preflight/manifest.json"
+  ],
+  "stage": "stage107_window_execution_orchestrator",
+  "stage106_ready_for_hardware_submission": false,
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/summary.csv",
+  "window_count": 4,
+  "window_plan_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/window_execution_plans.json"
+}

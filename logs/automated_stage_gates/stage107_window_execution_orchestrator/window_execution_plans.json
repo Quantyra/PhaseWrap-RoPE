@@ -1,0 +1,558 @@
+[
+  {
+    "calibration_template_path": "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/amazon_braket_known_state_execution.json",
+    "minimum_separation_from_previous_window_hours": 0,
+    "packet_template_count": 10,
+    "provider": "amazon_braket",
+    "stage106_ready": false,
+    "steps": [
+      {
+        "command": "python scripts/run_stage106_hardware_execution_preflight.py --load-dotenv",
+        "output_expectation": "Stage 106 decision must be HARDWARE_EXECUTION_PREFLIGHT_READY_NO_SUBMISSION.",
+        "required_before_hardware_submission": true,
+        "status": "blocked",
+        "step_id": "preflight"
+      },
+      {
+        "output_expectation": "Fill Stage 102 known-state execution template with real provider/backend/date counts and metadata.",
+        "output_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_00/calibration/amazon_braket_known_state_execution.json",
+        "required_before_hardware_submission": true,
+        "status": "blocked_until_stage106_ready",
+        "step_id": "known_state_calibration_execution",
+        "template_path": "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/amazon_braket_known_state_execution.json"
+      },
+      {
+        "command": "python scripts/run_stage101_known_state_calibration_gate.py --execution-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_00/calibration --output-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_00/calibration/stage101",
+        "output_expectation": "Stage 101 must pass for this provider/backend/date window.",
+        "required_before_matched_packet_interpretation": true,
+        "status": "blocked_until_calibration_counts_present",
+        "step_id": "known_state_calibration_verification"
+      },
+      {
+        "output_dir": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_00/packet_executions",
+        "output_expectation": "Fill every Stage 104 packet execution template for this provider window with canonical q0q1 row counts.",
+        "packet_template_count": 10,
+        "packet_templates": [
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "phasewrap",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__phasewrap",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__phasewrap.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "rope_like",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__rope_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__rope_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "sinusoidal_like",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__sinusoidal_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__sinusoidal_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "alibi_like",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__alibi_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__alibi_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "no_position_control",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__no_position_control",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__no_position_control.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "phasewrap",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__phasewrap",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__phasewrap.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "rope_like",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__rope_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__rope_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "sinusoidal_like",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__sinusoidal_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__sinusoidal_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "alibi_like",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__alibi_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__alibi_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "no_position_control",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__no_position_control",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__no_position_control.json"
+          }
+        ],
+        "status": "blocked_until_stage101_passes",
+        "step_id": "matched_packet_execution"
+      },
+      {
+        "command": "python scripts/run_stage103_robustness_metric_preregistration.py --execution-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_00/packet_executions --stage101-results logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_00/calibration/stage101/results.json --output-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_00/stage103",
+        "output_expectation": "Compute Stage 103 metrics for this independent window only.",
+        "required_before_claim": true,
+        "status": "blocked_until_all_packet_counts_present",
+        "step_id": "window_metric_recompute"
+      }
+    ],
+    "window_id": "amazon_braket__independent_window_00",
+    "window_index": 0
+  },
+  {
+    "calibration_template_path": "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/amazon_braket_known_state_execution.json",
+    "minimum_separation_from_previous_window_hours": 24,
+    "packet_template_count": 10,
+    "provider": "amazon_braket",
+    "stage106_ready": false,
+    "steps": [
+      {
+        "command": "python scripts/run_stage106_hardware_execution_preflight.py --load-dotenv",
+        "output_expectation": "Stage 106 decision must be HARDWARE_EXECUTION_PREFLIGHT_READY_NO_SUBMISSION.",
+        "required_before_hardware_submission": true,
+        "status": "blocked",
+        "step_id": "preflight"
+      },
+      {
+        "output_expectation": "Fill Stage 102 known-state execution template with real provider/backend/date counts and metadata.",
+        "output_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_01/calibration/amazon_braket_known_state_execution.json",
+        "required_before_hardware_submission": true,
+        "status": "blocked_until_stage106_ready",
+        "step_id": "known_state_calibration_execution",
+        "template_path": "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/amazon_braket_known_state_execution.json"
+      },
+      {
+        "command": "python scripts/run_stage101_known_state_calibration_gate.py --execution-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_01/calibration --output-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_01/calibration/stage101",
+        "output_expectation": "Stage 101 must pass for this provider/backend/date window.",
+        "required_before_matched_packet_interpretation": true,
+        "status": "blocked_until_calibration_counts_present",
+        "step_id": "known_state_calibration_verification"
+      },
+      {
+        "output_dir": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_01/packet_executions",
+        "output_expectation": "Fill every Stage 104 packet execution template for this provider window with canonical q0q1 row counts.",
+        "packet_template_count": 10,
+        "packet_templates": [
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "phasewrap",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__phasewrap",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__phasewrap.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "rope_like",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__rope_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__rope_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "sinusoidal_like",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__sinusoidal_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__sinusoidal_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "alibi_like",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__alibi_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__alibi_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "no_position_control",
+            "packet_id": "braket_product_seed2718_rows8_shots1000__no_position_control",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_product_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_product_seed2718_rows8_shots1000__no_position_control.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "phasewrap",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__phasewrap",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__phasewrap.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "rope_like",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__rope_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__rope_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "sinusoidal_like",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__sinusoidal_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__sinusoidal_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "alibi_like",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__alibi_like",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__alibi_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "no_position_control",
+            "packet_id": "braket_cx_seed2718_rows8_shots1000__no_position_control",
+            "row_count": 8,
+            "shot_count": 1000,
+            "source_lane_id": "braket_cx_seed2718_rows8_shots1000",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/braket_cx_seed2718_rows8_shots1000__no_position_control.json"
+          }
+        ],
+        "status": "blocked_until_stage101_passes",
+        "step_id": "matched_packet_execution"
+      },
+      {
+        "command": "python scripts/run_stage103_robustness_metric_preregistration.py --execution-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_01/packet_executions --stage101-results logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_01/calibration/stage101/results.json --output-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/amazon_braket__independent_window_01/stage103",
+        "output_expectation": "Compute Stage 103 metrics for this independent window only.",
+        "required_before_claim": true,
+        "status": "blocked_until_all_packet_counts_present",
+        "step_id": "window_metric_recompute"
+      }
+    ],
+    "window_id": "amazon_braket__independent_window_01",
+    "window_index": 1
+  },
+  {
+    "calibration_template_path": "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/ibm_runtime_known_state_execution.json",
+    "minimum_separation_from_previous_window_hours": 0,
+    "packet_template_count": 10,
+    "provider": "ibm_runtime",
+    "stage106_ready": false,
+    "steps": [
+      {
+        "command": "python scripts/run_stage106_hardware_execution_preflight.py --load-dotenv",
+        "output_expectation": "Stage 106 decision must be HARDWARE_EXECUTION_PREFLIGHT_READY_NO_SUBMISSION.",
+        "required_before_hardware_submission": true,
+        "status": "blocked",
+        "step_id": "preflight"
+      },
+      {
+        "output_expectation": "Fill Stage 102 known-state execution template with real provider/backend/date counts and metadata.",
+        "output_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_00/calibration/ibm_runtime_known_state_execution.json",
+        "required_before_hardware_submission": true,
+        "status": "blocked_until_stage106_ready",
+        "step_id": "known_state_calibration_execution",
+        "template_path": "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/ibm_runtime_known_state_execution.json"
+      },
+      {
+        "command": "python scripts/run_stage101_known_state_calibration_gate.py --execution-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_00/calibration --output-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_00/calibration/stage101",
+        "output_expectation": "Stage 101 must pass for this provider/backend/date window.",
+        "required_before_matched_packet_interpretation": true,
+        "status": "blocked_until_calibration_counts_present",
+        "step_id": "known_state_calibration_verification"
+      },
+      {
+        "output_dir": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_00/packet_executions",
+        "output_expectation": "Fill every Stage 104 packet execution template for this provider window with canonical q0q1 row counts.",
+        "packet_template_count": 10,
+        "packet_templates": [
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "phasewrap",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__phasewrap",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__phasewrap.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "rope_like",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__rope_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__rope_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "sinusoidal_like",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__sinusoidal_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__sinusoidal_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "alibi_like",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__alibi_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__alibi_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "no_position_control",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__no_position_control",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__no_position_control.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "phasewrap",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__phasewrap",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__phasewrap.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "rope_like",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__rope_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__rope_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "sinusoidal_like",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__sinusoidal_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__sinusoidal_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "alibi_like",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__alibi_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__alibi_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "no_position_control",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__no_position_control",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__no_position_control.json"
+          }
+        ],
+        "status": "blocked_until_stage101_passes",
+        "step_id": "matched_packet_execution"
+      },
+      {
+        "command": "python scripts/run_stage103_robustness_metric_preregistration.py --execution-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_00/packet_executions --stage101-results logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_00/calibration/stage101/results.json --output-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_00/stage103",
+        "output_expectation": "Compute Stage 103 metrics for this independent window only.",
+        "required_before_claim": true,
+        "status": "blocked_until_all_packet_counts_present",
+        "step_id": "window_metric_recompute"
+      }
+    ],
+    "window_id": "ibm_runtime__independent_window_00",
+    "window_index": 0
+  },
+  {
+    "calibration_template_path": "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/ibm_runtime_known_state_execution.json",
+    "minimum_separation_from_previous_window_hours": 24,
+    "packet_template_count": 10,
+    "provider": "ibm_runtime",
+    "stage106_ready": false,
+    "steps": [
+      {
+        "command": "python scripts/run_stage106_hardware_execution_preflight.py --load-dotenv",
+        "output_expectation": "Stage 106 decision must be HARDWARE_EXECUTION_PREFLIGHT_READY_NO_SUBMISSION.",
+        "required_before_hardware_submission": true,
+        "status": "blocked",
+        "step_id": "preflight"
+      },
+      {
+        "output_expectation": "Fill Stage 102 known-state execution template with real provider/backend/date counts and metadata.",
+        "output_path": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_01/calibration/ibm_runtime_known_state_execution.json",
+        "required_before_hardware_submission": true,
+        "status": "blocked_until_stage106_ready",
+        "step_id": "known_state_calibration_execution",
+        "template_path": "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/ibm_runtime_known_state_execution.json"
+      },
+      {
+        "command": "python scripts/run_stage101_known_state_calibration_gate.py --execution-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_01/calibration --output-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_01/calibration/stage101",
+        "output_expectation": "Stage 101 must pass for this provider/backend/date window.",
+        "required_before_matched_packet_interpretation": true,
+        "status": "blocked_until_calibration_counts_present",
+        "step_id": "known_state_calibration_verification"
+      },
+      {
+        "output_dir": "logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_01/packet_executions",
+        "output_expectation": "Fill every Stage 104 packet execution template for this provider window with canonical q0q1 row counts.",
+        "packet_template_count": 10,
+        "packet_templates": [
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "phasewrap",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__phasewrap",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__phasewrap.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "rope_like",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__rope_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__rope_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "sinusoidal_like",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__sinusoidal_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__sinusoidal_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "alibi_like",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__alibi_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__alibi_like.json"
+          },
+          {
+            "circuit_template": "two_ry_product_state_z_readout_v1",
+            "encoding_family": "no_position_control",
+            "packet_id": "ibm_product_seed314_rows16_shots4096__no_position_control",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_product_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_product_seed314_rows16_shots4096__no_position_control.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "phasewrap",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__phasewrap",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__phasewrap.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "rope_like",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__rope_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__rope_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "sinusoidal_like",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__sinusoidal_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__sinusoidal_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "alibi_like",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__alibi_like",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__alibi_like.json"
+          },
+          {
+            "circuit_template": "two_ry_cx_parity_z_readout_v1",
+            "encoding_family": "no_position_control",
+            "packet_id": "ibm_cx_seed314_rows16_shots4096__no_position_control",
+            "row_count": 16,
+            "shot_count": 4096,
+            "source_lane_id": "ibm_cx_seed314_rows16_shots4096",
+            "template_path": "logs/automated_stage_gates/stage104_matched_packet_execution_package/packet_execution_templates/ibm_cx_seed314_rows16_shots4096__no_position_control.json"
+          }
+        ],
+        "status": "blocked_until_stage101_passes",
+        "step_id": "matched_packet_execution"
+      },
+      {
+        "command": "python scripts/run_stage103_robustness_metric_preregistration.py --execution-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_01/packet_executions --stage101-results logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_01/calibration/stage101/results.json --output-dir logs/automated_stage_gates/stage107_window_execution_orchestrator/windows/ibm_runtime__independent_window_01/stage103",
+        "output_expectation": "Compute Stage 103 metrics for this independent window only.",
+        "required_before_claim": true,
+        "status": "blocked_until_all_packet_counts_present",
+        "step_id": "window_metric_recompute"
+      }
+    ],
+    "window_id": "ibm_runtime__independent_window_01",
+    "window_index": 1
+  }
+]
