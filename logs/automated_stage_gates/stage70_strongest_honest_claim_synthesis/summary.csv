@@ -1,7 +1,7 @@
 section,item,value
 decision,decision,BOUND_STRONGEST_HONEST_CLAIM_WITH_RETRIEVAL_FAILURES
 decision,claim_boundary,"The strongest honest claim remains bounded: PhaseWrap-RoPE has compact/auditable evidence and mixed diagnostics, while fair matched original retrieval does not yet support RoPE replacement."
-claim,strongest_honest_claim,"PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
+claim,strongest_honest_claim,"PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve and confidence intervals for headline promotion metrics. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion."
 next_gate,reviewer_next_gate,Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion; avoid treating more small pointer-generator variants as claim-expanding evidence without a materially different binding mechanism.
 unsupported_claim,1,PhaseWrap-RoPE replaces RoPE.
 unsupported_claim,2,PhaseWrap-RoPE is better than RoPE under current fair matched transformer comparisons.
@@ -14,37 +14,40 @@ positive_evidence,3,"Stage 67 solves visible content-key retrieval at held-out l
 positive_evidence,4,"Stage 87 repairs phase-cued retrieval with a structural support-routed copy expert, and no_position solves too."
 positive_evidence,5,Stage 88 jointly solves original phase-cued and exact-offset retrieval by composing structural support-routed and positional-bias copy experts.
 positive_evidence,6,Stage 93 consolidates the current toy-decoder lane: structural routes solve original retrieval while free learned pointer-generators remain below the full retrieval gate.
-positive_evidence,7,Recent pointer-generator variants preserve capacity and reach tiny-text held-out top-1 0.950000.
+positive_evidence,7,Stage 94 audits the predeclared promotion-gate requirements and ties the bounded claim to explicit missing proof.
+positive_evidence,8,Recent pointer-generator variants preserve capacity and reach tiny-text held-out top-1 0.950000.
 failure_mode,1,No fair matched decoder/pointer-generator artifact currently supports RoPE replacement or positional-method promotion.
 failure_mode,2,Content-key retrieval success does not transfer back to original phase-cued or exact-offset retrieval.
 failure_mode,3,The current toy pointer-generator lane is bounded as insufficient for free held-out original retrieval.
-failure_mode,4,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,4,The predeclared promotion gate remains unmet.
 failure_mode,5,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
-failure_mode,6,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
-failure_mode,7,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,6,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,7,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
 failure_mode,8,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,9,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,10,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,11,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,12,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,13,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
-failure_mode,14,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
+failure_mode,14,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,15,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
-failure_mode,16,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,16,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
 failure_mode,17,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,18,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,19,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
-failure_mode,20,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
+failure_mode,20,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,21,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
-failure_mode,22,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,22,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
 failure_mode,23,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,24,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,25,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,26,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,27,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
-failure_mode,28,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
-failure_mode,29,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,28,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,29,Original held-out retrieval is solved only as a non-promotional or method-nonspecific diagnostic.
 failure_mode,30,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,31,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,32,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
 failure_mode,33,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,34,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.
+failure_mode,35,Original held-out retrieval remains unrepaired in a recent fair-comparison audit.

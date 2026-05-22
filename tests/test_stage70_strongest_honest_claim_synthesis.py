@@ -184,6 +184,22 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
             },
         },
     )
+    _write_manifest(
+        tmp_path,
+        "stage94_promotion_gate_readiness_audit",
+        {
+            "tasks": ["phase_cued_retrieval", "exact_offset_passkey", "content_key_retrieval", "tiny_text_fact_qa"],
+            "decision": {
+                "decision": "PROMOTION_GATE_NOT_READY_STRONGEST_CLAIM_BOUNDED",
+                "promotion_gate_ready": False,
+                "claim_boundary": "Current evidence still lacks a free learned PhaseWrap-led solve of both original retrieval tasks, so the strongest claim remains bounded.",
+                "failed_requirements": [
+                    "free_learned_phasewrap_original_retrieval_solve",
+                    "confidence_intervals_over_seeds",
+                ],
+            },
+        },
+    )
     result = run_stage70_synthesis(artifact_root=tmp_path)
     assert result["stage"] == "stage70_strongest_honest_claim_synthesis"
     assert result["status"] == "completed"
@@ -202,9 +218,11 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
     assert any(item.get("stage") == "stage91_curriculum_teacher_distilled_pointer_generator_audit" for item in result["failure_modes"])
     assert any(item.get("stage") == "stage92_support_binding_teacher_pointer_generator_audit" for item in result["failure_modes"])
     assert any(item.get("stage") == "stage93_toy_decoder_lane_boundary_audit" for item in result["failure_modes"])
+    assert any(item.get("stage") == "stage94_promotion_gate_readiness_audit" for item in result["failure_modes"])
     assert any(item.get("source") == "stage93_toy_decoder_lane_boundary_audit" for item in result["positive_evidence"])
+    assert any(item.get("source") == "stage94_promotion_gate_readiness_audit" for item in result["positive_evidence"])
     assert any(item.get("source") == "stage87_in_decoder_support_routed_copy_expert_audit" for item in result["positive_evidence"])
-    assert result["source_stage"] == "stage93_toy_decoder_lane_boundary_audit"
+    assert result["source_stage"] == "stage94_promotion_gate_readiness_audit"
 
 
 def test_stage70_labels_nonpromotional_solved_retrieval_without_calling_it_unrepaired(tmp_path) -> None:

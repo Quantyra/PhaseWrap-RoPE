@@ -51,6 +51,7 @@ SOURCE_STAGE_DIRS: tuple[str, ...] = (
     "stage91_curriculum_teacher_distilled_pointer_generator_audit",
     "stage92_support_binding_teacher_pointer_generator_audit",
     "stage93_toy_decoder_lane_boundary_audit",
+    "stage94_promotion_gate_readiness_audit",
 )
 
 DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
@@ -83,6 +84,7 @@ DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
     "docs/research/q-rope-stage91-curriculum-teacher-distilled-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage92-support-binding-teacher-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage93-toy-decoder-lane-boundary-audit-v1.md",
+    "docs/research/q-rope-stage94-promotion-gate-readiness-audit-v1.md",
 )
 
 
@@ -278,6 +280,18 @@ def _positive_evidence(manifests: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "source": "stage93_toy_decoder_lane_boundary_audit",
                 }
             )
+    for manifest in manifests:
+        if manifest.get("stage") != "stage94_promotion_gate_readiness_audit":
+            continue
+        decision = manifest.get("decision", {})
+        if decision.get("promotion_gate_ready") is False:
+            positives.append(
+                {
+                    "evidence": "Stage 94 audits the predeclared promotion-gate requirements and ties the bounded claim to explicit missing proof.",
+                    "claim_limit": "Readiness auditing is not new model performance; it preserves the boundary until a free learned PhaseWrap-led solve and confidence intervals exist.",
+                    "source": "stage94_promotion_gate_readiness_audit",
+                }
+            )
     tiny_text = _best_tiny_text(manifests)
     if tiny_text is not None:
         positives.append(
@@ -315,6 +329,20 @@ def _failure_modes(manifests: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "stage": "stage93_toy_decoder_lane_boundary_audit",
                     "decision": decision.get("decision"),
                     "free_learned_best_top1_by_task": manifest.get("free_learned_best_top1_by_task"),
+                }
+            )
+    for manifest in manifests:
+        if manifest.get("stage") != "stage94_promotion_gate_readiness_audit":
+            continue
+        decision = manifest.get("decision", {})
+        if decision.get("promotion_gate_ready") is False:
+            failures.append(
+                {
+                    "failure": "The predeclared promotion gate remains unmet.",
+                    "evidence": decision.get("claim_boundary"),
+                    "stage": "stage94_promotion_gate_readiness_audit",
+                    "decision": decision.get("decision"),
+                    "failed_requirements": decision.get("failed_requirements"),
                 }
             )
     for row in rows:
@@ -374,7 +402,7 @@ def run_stage70_synthesis(
         "schema_version": STAGE70_SCHEMA_VERSION,
         "stage": "stage70_strongest_honest_claim_synthesis",
         "status": "completed",
-        "source_stage": "stage93_toy_decoder_lane_boundary_audit",
+        "source_stage": "stage94_promotion_gate_readiness_audit",
         "source_artifacts": source_artifacts,
         "missing_source_artifacts": missing_source_artifacts,
         "no_hardware_submission": True,
@@ -388,6 +416,7 @@ def run_stage70_synthesis(
             "support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, "
             "in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. "
             "Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. "
+            "Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve and confidence intervals for headline promotion metrics. "
             "Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits "
             "do not yet support RoPE replacement or positional-method promotion."
         ),

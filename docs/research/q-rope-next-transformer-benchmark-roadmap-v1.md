@@ -83,6 +83,14 @@ Stage 86 update: a practical budget-sensitivity audit over the Stage 85 dual-aux
 
 Stage 87 update: adding a structural in-decoder support-routed copy expert repairs phase-cued retrieval at top-1 `0.783333`, but `no_position` also solves and exact-offset remains below threshold at top-1 `0.416667`. This shows the learned support signal can drive token selection when the support-to-token rule is supplied, but it is mechanism evidence rather than positional-method promotion.
 
+Stage 88 update: composing structural support-routed and positional-bias copy experts solves both original retrieval lanes, but the repair is structural and not PhaseWrap-led.
+
+Stage 89-92 update: structural teacher distillation, a third attention block, length curriculum, and direct support-binding supervision all preserve bounded capacity evidence but still do not transfer the structural support-to-token route into free held-out retrieval.
+
+Stage 93 update: the current toy pointer-generator lane is formally bounded as insufficient for free held-out original retrieval. The best free learned phase-cued top-1 remains `0.050000`, and the best free learned exact-offset top-1 remains `0.433333`.
+
+Stage 94 update: the promotion gate is not ready. Current evidence lacks a free learned PhaseWrap-led original-retrieval solve and does not expose confidence intervals for headline promotion metrics.
+
 ## PhaseWrap Mechanism Requirements
 
 The PhaseWrap variant should be implemented as a positional mechanism comparable to RoPE or ALiBI, not as a scalar oracle feature.
@@ -219,6 +227,14 @@ Stage 72 makes that phase-cued diagnostic tie-aware. It still does not satisfy t
 Stage 73 sweeps the predeclared Stage 11 PhaseWrap period-pair grid on the original phase-cued rows. It still does not satisfy this promotion gate because every tested fixed period pair has held-out target-in-max-support rate `0.000000`; period-pair selection after seeing held-out rows is not promotion evidence.
 
 Stage 74 learns visible query-support maps from other seeds' train rows. It still does not satisfy this promotion gate because phase-cued retrieval is solved for `no_position` too, and the repair is a deterministic lookup/copy diagnostic rather than a matched learned decoder-only transformer.
+
+Stage 88 solves both original retrieval lanes only by composing structural copy experts. It still does not satisfy this promotion gate because the mechanism is not standard free decoder-only transformer behavior and the solve is not PhaseWrap-led.
+
+Stages 89-92 test whether structural-teacher distillation, added depth, length curriculum, and direct support-binding supervision transfer the repair into free learned pointer-generator evaluation. They still do not satisfy this promotion gate because no variant solves both original retrieval tasks and PhaseWrap does not lead.
+
+Stage 93 closes the current toy pointer-generator lane as bounded evidence. It still does not satisfy this promotion gate because it is a lane-boundary synthesis and records that free learned retrieval remains unsolved.
+
+Stage 94 audits promotion-gate readiness. It still does not satisfy this promotion gate because it records missing free learned PhaseWrap-led retrieval evidence and missing confidence intervals for headline metrics.
 
 Until then, the supported claim remains narrower: PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible classical analyses, bounded hardware readout witnesses, and mixed but useful toy downstream evidence.
 
