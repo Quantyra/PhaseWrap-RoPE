@@ -1,0 +1,33 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "completed provider calibration without raw known-state counts",
+      "a noisy-hardware robustness result",
+      "a provider-wide bitstring-order claim beyond the recorded backend/date/calibration metadata"
+    ],
+    "supported": [
+      "an executable known-state calibration evidence gate for Stage 99 and Stage 100 matched packet interpretation",
+      "explicit bitstring-order inference over |00>, |01>, |10>, and |11> raw counts",
+      "a hard block against interpreting matched hardware packets before calibration evidence passes"
+    ]
+  },
+  "decision": "KNOWN_STATE_CALIBRATION_COUNTS_REQUIRED_BEFORE_HARDWARE_INTERPRETATION",
+  "known_state_calibration_pass": false,
+  "missing_source_artifacts": [],
+  "next_gate": "Supply real known-state execution JSON per provider/backend/date, then rerun this gate before executing or interpreting Stage 99 and Stage 100 matched packets.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_freeze_ready": true,
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage101_known_state_calibration_gate/results.json",
+  "schema_version": "qrope_stage101_known_state_calibration_gate_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage99_matched_fixed_width_encoding_packets/manifest.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/manifest.json",
+    "logs/automated_stage_gates/stage4_bitstring_calibration/manifest.json",
+    "logs/automated_stage_gates/stage4_bitstring_calibration/offline_verification.json"
+  ],
+  "stage": "stage101_known_state_calibration_gate",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage101_known_state_calibration_gate/summary.csv"
+}
