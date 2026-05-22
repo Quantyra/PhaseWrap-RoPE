@@ -17,6 +17,7 @@ DEFAULT_STAGE165_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage165_simulated_noise_mar
 DEFAULT_STAGE166_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage166_simulated_evidence_sufficiency_audit" / "results.json"
 DEFAULT_STAGE167_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage167_expanded_simulated_seed_stress_audit" / "results.json"
 DEFAULT_STAGE168_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage168_real_source_seed_expansion_plan" / "results.json"
+DEFAULT_STAGE169_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage169_targeted_probe_scope_selection" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage162_first_provider_approval_dossier"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
@@ -32,6 +33,7 @@ STAGE165_READY = "SIMULATED_NOISE_STABLE_TARGETED_HARDWARE_PROBE_RECOMMENDED"
 STAGE166_READY = "SIMULATED_EVIDENCE_TARGETED_PROBE_READY_BROAD_CLAIM_INSUFFICIENT"
 STAGE167_READY = "EXPANDED_SIMULATED_SEED_STRESS_DOES_NOT_SUPPORT_BROADENED_HARDWARE_PROBE"
 STAGE168_READY = "REAL_SOURCE_SEED_EXPANSION_REQUIRED_BEFORE_BROADENED_SCOPE"
+STAGE169_READY = "TARGETED_IBM_PROBE_SCOPE_LOCKED_TO_STABLE_LANES"
 APPROVAL_PHRASE = "APPROVE IBM RUNTIME STAGE133 LIVE RUN"
 
 
@@ -88,6 +90,7 @@ def run_stage162_approval_dossier(
     stage166_results_path: Path = DEFAULT_STAGE166_RESULTS,
     stage167_results_path: Path = DEFAULT_STAGE167_RESULTS,
     stage168_results_path: Path = DEFAULT_STAGE168_RESULTS,
+    stage169_results_path: Path = DEFAULT_STAGE169_RESULTS,
 ) -> dict[str, Any]:
     stage154 = _load_json(stage154_results_path)
     stage157 = _load_json(stage157_results_path)
@@ -98,6 +101,7 @@ def run_stage162_approval_dossier(
     stage166 = _load_json(stage166_results_path)
     stage167 = _load_json(stage167_results_path)
     stage168 = _load_json(stage168_results_path)
+    stage169 = _load_json(stage169_results_path)
     sources = [
         (stage154_results_path, stage154),
         (stage157_results_path, stage157),
@@ -108,6 +112,7 @@ def run_stage162_approval_dossier(
         (stage166_results_path, stage166),
         (stage167_results_path, stage167),
         (stage168_results_path, stage168),
+        (stage169_results_path, stage169),
     ]
     missing_sources = [str(path.as_posix()) for path, payload in sources if not isinstance(payload, dict)]
     provider = str(stage157.get("first_unlock_provider") if isinstance(stage157, dict) else "ibm_runtime")
@@ -121,6 +126,7 @@ def run_stage162_approval_dossier(
         _decision_record("stage166", stage166, STAGE166_READY, "simulated evidence supports targeted probe but not broad claim"),
         _decision_record("stage167", stage167, STAGE167_READY, "expanded synthetic seed stress does not broaden hardware scope"),
         _decision_record("stage168", stage168, STAGE168_READY, "real source seed expansion is required before broadened scope"),
+        _decision_record("stage169", stage169, STAGE169_READY, "targeted probe scope is locked to stable Stage165 lanes"),
     ]
     blockers: list[str] = []
     if missing_sources:
@@ -166,6 +172,7 @@ def run_stage162_approval_dossier(
         "Stage166 confirms the current evidence supports a targeted IBM probe, not a broad simulated robustness claim.",
         "Stage167 expanded synthetic seed stress does not broaden the scope beyond the targeted probe.",
         "Stage168 requires another real IBM product/CX source seed pair before broadening scope.",
+        "Stage169 locks the current probe scope to the stable seed314 IBM product/CX lanes and excludes nonstable seed577 lanes.",
         "Stage159 read-only backend preflight is ready.",
         "Stage161 quantifies the pending first-provider run before approval.",
         "Stage160 defines the no-submit post-result analysis sequence needed to answer supported/not-supported.",
@@ -202,6 +209,9 @@ def run_stage162_approval_dossier(
             stage168.get("missing_real_ibm_seed_pair_count") if isinstance(stage168, dict) else None
         ),
         "stage168_broadened_scope_blockers": stage168.get("blockers", []) if isinstance(stage168, dict) else [],
+        "stage169_stable_target_lanes": stage169.get("stable_target_lanes", []) if isinstance(stage169, dict) else [],
+        "stage169_excluded_recommended_lanes": stage169.get("excluded_recommended_lanes", []) if isinstance(stage169, dict) else [],
+        "stage169_locked_lane_count": stage169.get("locked_lane_count") if isinstance(stage169, dict) else None,
         "authorized_first_provider_runner_count": (
             stage157.get("authorized_first_provider_runner_count") if isinstance(stage157, dict) else None
         ),
@@ -231,6 +241,7 @@ def run_stage162_approval_dossier(
                 "Stage166 simulated-evidence sufficiency bounds approval readiness to a targeted IBM probe",
                 "Stage167 expanded synthetic seed stress is included as a scope boundary before approval",
                 "Stage168 real-source seed expansion requirements are included as a broadened-scope boundary",
+                "Stage169 target selection binds the current approval scope to stable lanes already covered by the Stage163 lock",
                 "human GO/NO-GO readiness for the first-provider IBM Runtime run under the exact approval phrase",
                 "explicit separation between approval readiness and a noisy-hardware advantage conclusion",
             ],
@@ -272,6 +283,9 @@ def write_stage162_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "stage168_current_real_ibm_seed_pair_count": result["stage168_current_real_ibm_seed_pair_count"],
         "stage168_missing_real_ibm_seed_pair_count": result["stage168_missing_real_ibm_seed_pair_count"],
         "stage168_broadened_scope_blockers": result["stage168_broadened_scope_blockers"],
+        "stage169_stable_target_lanes": result["stage169_stable_target_lanes"],
+        "stage169_excluded_recommended_lanes": result["stage169_excluded_recommended_lanes"],
+        "stage169_locked_lane_count": result["stage169_locked_lane_count"],
         "authorized_first_provider_runner_count": result["authorized_first_provider_runner_count"],
         "authorized_first_provider_job_count": result["authorized_first_provider_job_count"],
         "exposure_job_count": result["exposure_job_count"],

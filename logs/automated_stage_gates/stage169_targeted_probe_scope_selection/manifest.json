@@ -1,0 +1,44 @@
+{
+  "approved_job_count": 328,
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "new job-shard generation",
+      "IBM credit or provider availability validation",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "explicit no-submit target selection for the current IBM hardware probe",
+      "stable Stage165 source lanes are mapped against the already locked Stage163 job shards",
+      "nonstable recommended lanes, including seed577 lanes, are excluded from the current probe scope"
+    ]
+  },
+  "decision": "TARGETED_IBM_PROBE_SCOPE_LOCKED_TO_STABLE_LANES",
+  "excluded_recommended_lane_count": 4,
+  "locked_lane_count": 2,
+  "locked_total_shots": 1318720,
+  "missing_source_artifacts": [],
+  "next_gate": "Before any IBM execution, verify credit/provider state with the user. Execute only the locked Stage163 IBM shards whose source lanes include the stable Stage165 target lanes; do not broaden to excluded recommended lanes.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage169_targeted_probe_scope_selection/results.json",
+  "schema_version": "qrope_stage169_targeted_probe_scope_selection_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json",
+    "logs/automated_stage_gates/stage163_first_provider_prerun_lock/results.json"
+  ],
+  "stable_target_lane_count": 2,
+  "stable_target_lanes": [
+    "ibm_cx_seed314_rows16_shots4096",
+    "ibm_product_seed314_rows16_shots4096"
+  ],
+  "stage": "stage169_targeted_probe_scope_selection",
+  "stage163_decision": "FIRST_PROVIDER_PRERUN_LOCK_READY_AWAITING_APPROVAL",
+  "stage165_decision": "SIMULATED_NOISE_STABLE_TARGETED_HARDWARE_PROBE_RECOMMENDED",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage169_targeted_probe_scope_selection/summary.csv"
+}

@@ -20,6 +20,7 @@
       "Stage166 simulated-evidence sufficiency bounds approval readiness to a targeted IBM probe",
       "Stage167 expanded synthetic seed stress is included as a scope boundary before approval",
       "Stage168 real-source seed expansion requirements are included as a broadened-scope boundary",
+      "Stage169 target selection binds the current approval scope to stable lanes already covered by the Stage163 lock",
       "human GO/NO-GO readiness for the first-provider IBM Runtime run under the exact approval phrase",
       "explicit separation between approval readiness and a noisy-hardware advantage conclusion"
     ]
@@ -50,7 +51,8 @@
     "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json",
     "logs/automated_stage_gates/stage166_simulated_evidence_sufficiency_audit/results.json",
     "logs/automated_stage_gates/stage167_expanded_simulated_seed_stress_audit/results.json",
-    "logs/automated_stage_gates/stage168_real_source_seed_expansion_plan/results.json"
+    "logs/automated_stage_gates/stage168_real_source_seed_expansion_plan/results.json",
+    "logs/automated_stage_gates/stage169_targeted_probe_scope_selection/results.json"
   ],
   "stable_simulated_target_count_for_provider": 2,
   "stage": "stage162_first_provider_approval_dossier",
@@ -68,6 +70,17 @@
   ],
   "stage168_current_real_ibm_seed_pair_count": 2,
   "stage168_missing_real_ibm_seed_pair_count": 0,
+  "stage169_excluded_recommended_lanes": [
+    "braket_cx_seed2718_rows8_shots1000",
+    "braket_product_seed2718_rows8_shots1000",
+    "ibm_cx_seed577_rows16_shots4096",
+    "ibm_product_seed577_rows16_shots4096"
+  ],
+  "stage169_locked_lane_count": 2,
+  "stage169_stable_target_lanes": [
+    "ibm_cx_seed314_rows16_shots4096",
+    "ibm_product_seed314_rows16_shots4096"
+  ],
   "status": "completed",
   "strict_simulated_target_count_for_provider": 10,
   "summary_csv_path": "logs/automated_stage_gates/stage162_first_provider_approval_dossier/summary.csv"
