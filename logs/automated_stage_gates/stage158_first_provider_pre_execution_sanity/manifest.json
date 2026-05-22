@@ -1,0 +1,42 @@
+{
+  "approval_phrase_required": "APPROVE IBM RUNTIME STAGE133 LIVE RUN",
+  "authorized_job_count": 328,
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "runnable live-submit command strings",
+      "provider credential values",
+      "provider result records",
+      "credit balance verification",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "non-live parity check between Stage 157 approval records and Stage 133 authorized commands",
+      "pre-execution check that target provider-result files are absent or empty",
+      "non-secret job-shard and result-path readiness for the first-provider live run"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_PRE_EXECUTION_SANITY_READY_AWAITING_APPROVAL",
+  "explicit_user_approval_required": true,
+  "first_unlock_provider": "ibm_runtime",
+  "missing_source_artifacts": [],
+  "next_gate": "Only after explicit approval, execute the authorized Stage 133 live-submit commands whose Stage 158 records are ready; after execution, rerun Stage 115 with provider_scope=ibm_runtime.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "ready_record_count": 2,
+  "record_count": 2,
+  "result_path": "logs/automated_stage_gates/stage158_first_provider_pre_execution_sanity/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage158_first_provider_pre_execution_sanity_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage133_authorized_runner_command_packet/results.json",
+    "logs/automated_stage_gates/stage157_first_provider_live_run_approval_packet/results.json"
+  ],
+  "stage": "stage158_first_provider_pre_execution_sanity",
+  "stage133_decision": "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED",
+  "stage157_decision": "FIRST_PROVIDER_LIVE_RUN_APPROVAL_PACKET_READY",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage158_first_provider_pre_execution_sanity/summary.csv"
+}
