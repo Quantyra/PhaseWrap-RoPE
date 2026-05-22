@@ -1,0 +1,91 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "real provider result records",
+      "Stage 113 evidence assembly",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "Stage 118 payloads can be transformed into Stage 114-shaped result records",
+      "required Stage 114 result fields are present in isolated dry-run rehearsal records",
+      "live runner implementation has a validated result-record target before submission"
+    ]
+  },
+  "decision": "PROVIDER_RESULT_REHEARSAL_READY_EXECUTION_BLOCKED",
+  "expected_payload_count": 496,
+  "invalid_rehearsal_record_count": 0,
+  "invalid_rehearsal_records": [],
+  "missing_source_artifacts": [],
+  "next_gate": "Clear Stage 106/111 provider readiness, then replace rehearsal counts and dry-run identifiers with real provider job IDs, timestamps, backend metadata, and measured counts in Stage 114 provider result paths.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "ready_rehearsal_count": 4,
+  "rehearsal_record_count": 496,
+  "rehearsal_records": [
+    {
+      "expected_payload_count": 84,
+      "invalid_rehearsal_record_count": 0,
+      "missing_evidence": [],
+      "payload_output_path": "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/dry_run_payloads/amazon_braket/amazon_braket__independent_window_00/submission_payloads.jsonl",
+      "provider": "amazon_braket",
+      "ready": true,
+      "rehearsal_record_count": 84,
+      "rehearsal_result_path": "logs/automated_stage_gates/stage119_provider_result_rehearsal_audit/rehearsal_results/amazon_braket/amazon_braket__independent_window_00/provider_job_results.rehearsal.jsonl",
+      "window_id": "amazon_braket__independent_window_00"
+    },
+    {
+      "expected_payload_count": 84,
+      "invalid_rehearsal_record_count": 0,
+      "missing_evidence": [],
+      "payload_output_path": "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/dry_run_payloads/amazon_braket/amazon_braket__independent_window_01/submission_payloads.jsonl",
+      "provider": "amazon_braket",
+      "ready": true,
+      "rehearsal_record_count": 84,
+      "rehearsal_result_path": "logs/automated_stage_gates/stage119_provider_result_rehearsal_audit/rehearsal_results/amazon_braket/amazon_braket__independent_window_01/provider_job_results.rehearsal.jsonl",
+      "window_id": "amazon_braket__independent_window_01"
+    },
+    {
+      "expected_payload_count": 164,
+      "invalid_rehearsal_record_count": 0,
+      "missing_evidence": [],
+      "payload_output_path": "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/dry_run_payloads/ibm_runtime/ibm_runtime__independent_window_00/submission_payloads.jsonl",
+      "provider": "ibm_runtime",
+      "ready": true,
+      "rehearsal_record_count": 164,
+      "rehearsal_result_path": "logs/automated_stage_gates/stage119_provider_result_rehearsal_audit/rehearsal_results/ibm_runtime/ibm_runtime__independent_window_00/provider_job_results.rehearsal.jsonl",
+      "window_id": "ibm_runtime__independent_window_00"
+    },
+    {
+      "expected_payload_count": 164,
+      "invalid_rehearsal_record_count": 0,
+      "missing_evidence": [],
+      "payload_output_path": "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/dry_run_payloads/ibm_runtime/ibm_runtime__independent_window_01/submission_payloads.jsonl",
+      "provider": "ibm_runtime",
+      "ready": true,
+      "rehearsal_record_count": 164,
+      "rehearsal_result_path": "logs/automated_stage_gates/stage119_provider_result_rehearsal_audit/rehearsal_results/ibm_runtime/ibm_runtime__independent_window_01/provider_job_results.rehearsal.jsonl",
+      "window_id": "ibm_runtime__independent_window_01"
+    }
+  ],
+  "required_result_fields": [
+    "job_id",
+    "job_or_task_id",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "counts"
+  ],
+  "runner_count": 4,
+  "schema_version": "qrope_stage119_provider_result_rehearsal_audit_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json",
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_job_result_schema.json"
+  ],
+  "stage": "stage119_provider_result_rehearsal_audit",
+  "stage118_decision": "PROVIDER_PAYLOAD_DRY_RUN_COMPILED_EXECUTION_BLOCKED",
+  "status": "completed"
+}
