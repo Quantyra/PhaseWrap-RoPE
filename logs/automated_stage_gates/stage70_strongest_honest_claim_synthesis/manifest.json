@@ -73,6 +73,7 @@
     "logs/automated_stage_gates/stage92_support_binding_teacher_pointer_generator_audit/manifest.json",
     "logs/automated_stage_gates/stage93_toy_decoder_lane_boundary_audit/manifest.json",
     "logs/automated_stage_gates/stage94_promotion_gate_readiness_audit/manifest.json",
+    "logs/automated_stage_gates/stage95_headline_interval_audit/manifest.json",
     "docs/research/q-rope-stage44-compact-diagnostic-plateau-audit-v1.md",
     "docs/research/q-rope-stage45-matched-decoder-only-gate-v1.md",
     "docs/research/q-rope-stage48-adam-decoder-stability-audit-v1.md",
@@ -102,12 +103,13 @@
     "docs/research/q-rope-stage91-curriculum-teacher-distilled-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage92-support-binding-teacher-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage93-toy-decoder-lane-boundary-audit-v1.md",
-    "docs/research/q-rope-stage94-promotion-gate-readiness-audit-v1.md"
+    "docs/research/q-rope-stage94-promotion-gate-readiness-audit-v1.md",
+    "docs/research/q-rope-stage95-headline-interval-audit-v1.md"
   ],
-  "source_stage": "stage94_promotion_gate_readiness_audit",
+  "source_stage": "stage95_headline_interval_audit",
   "stage": "stage70_strongest_honest_claim_synthesis",
   "status": "completed",
-  "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve and confidence intervals for headline promotion metrics. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
+  "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve. Stage 95 surfaces confidence intervals for selected headline structural positives and free learned failures without changing that boundary. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
   "summary_csv_path": "logs/automated_stage_gates/stage70_strongest_honest_claim_synthesis/summary.csv",
   "tasks": [
     "phase_cued_retrieval",

@@ -86,6 +86,17 @@ def test_stage94_can_mark_gate_ready_when_all_requirements_are_met(tmp_path) -> 
         )
     _write_manifest(
         tmp_path,
+        "stage95_headline_interval_audit",
+        {
+            "tasks": ["phase_cued_retrieval", "exact_offset_passkey"],
+            "decision": {
+                "decision": "HEADLINE_INTERVALS_ADDED_PROMOTION_STILL_BOUND",
+                "confidence_interval_coverage": True,
+            },
+        },
+    )
+    _write_manifest(
+        tmp_path,
         "stage89_structural_teacher_distilled_pointer_generator_audit",
         {
             "tasks": ["phase_cued_retrieval", "exact_offset_passkey", "tiny_text_fact_qa"],

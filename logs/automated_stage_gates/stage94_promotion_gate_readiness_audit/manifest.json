@@ -18,8 +18,7 @@
     "claim_boundary": "Current evidence still lacks a free learned PhaseWrap-led solve of both original retrieval tasks, so the strongest claim remains bounded.",
     "decision": "PROMOTION_GATE_NOT_READY_STRONGEST_CLAIM_BOUNDED",
     "failed_requirements": [
-      "free_learned_phasewrap_original_retrieval_solve",
-      "confidence_intervals_over_seeds"
+      "free_learned_phasewrap_original_retrieval_solve"
     ],
     "generalization_top1_threshold": 0.5,
     "promotion_gate_ready": false
@@ -48,12 +47,13 @@
     "logs/automated_stage_gates/stage90_three_block_teacher_distilled_pointer_generator_audit/manifest.json",
     "logs/automated_stage_gates/stage91_curriculum_teacher_distilled_pointer_generator_audit/manifest.json",
     "logs/automated_stage_gates/stage92_support_binding_teacher_pointer_generator_audit/manifest.json",
-    "logs/automated_stage_gates/stage93_toy_decoder_lane_boundary_audit/manifest.json"
+    "logs/automated_stage_gates/stage93_toy_decoder_lane_boundary_audit/manifest.json",
+    "logs/automated_stage_gates/stage95_headline_interval_audit/manifest.json"
   ],
-  "source_stage": "stage93_toy_decoder_lane_boundary_audit",
+  "source_stage": "stage95_headline_interval_audit",
   "stage": "stage94_promotion_gate_readiness_audit",
   "status": "completed",
-  "strongest_claim_effect": "Stage 94 confirms that the current strongest honest claim remains bounded until a free learned matched transformer or materially stronger decoder gate satisfies the PhaseWrap-led retrieval and interval requirements.",
+  "strongest_claim_effect": "Stage 94 confirms that the current strongest honest claim remains bounded until a free learned matched transformer or materially stronger decoder gate satisfies the PhaseWrap-led retrieval requirement.",
   "summary_csv_path": "logs/automated_stage_gates/stage94_promotion_gate_readiness_audit/summary.csv",
   "tasks": [
     "phase_cued_retrieval",

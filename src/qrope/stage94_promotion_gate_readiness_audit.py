@@ -26,6 +26,7 @@ SOURCE_STAGE_DIRS: tuple[str, ...] = (
     "stage91_curriculum_teacher_distilled_pointer_generator_audit",
     "stage92_support_binding_teacher_pointer_generator_audit",
     "stage93_toy_decoder_lane_boundary_audit",
+    "stage95_headline_interval_audit",
 )
 
 
@@ -213,7 +214,11 @@ def _requirement_rows(manifests: list[dict[str, Any]], missing_source_artifacts:
         {
             "requirement": "confidence_intervals_over_seeds",
             "status": "failed" if not confidence_interval_stages else "passed",
-            "evidence": "No selected manifest exposes confidence intervals for headline promotion metrics.",
+            "evidence": (
+                "Selected manifests expose confidence interval coverage for headline metrics."
+                if confidence_interval_stages
+                else "No selected manifest exposes confidence intervals for headline promotion metrics."
+            ),
             "source_stages": confidence_interval_stages,
         },
     ]
@@ -251,7 +256,7 @@ def run_stage94_audit(*, artifact_root: Path = DEFAULT_ARTIFACT_ROOT, method_nam
         "schema_version": STAGE94_SCHEMA_VERSION,
         "stage": "stage94_promotion_gate_readiness_audit",
         "status": "completed",
-        "source_stage": "stage93_toy_decoder_lane_boundary_audit",
+        "source_stage": "stage95_headline_interval_audit",
         "source_artifacts": source_artifacts,
         "missing_source_artifacts": missing_source_artifacts,
         "no_hardware_submission": True,
@@ -262,7 +267,7 @@ def run_stage94_audit(*, artifact_root: Path = DEFAULT_ARTIFACT_ROOT, method_nam
         "requirement_rows": requirement_rows,
         "strongest_claim_effect": (
             "Stage 94 confirms that the current strongest honest claim remains bounded until a free learned matched transformer "
-            "or materially stronger decoder gate satisfies the PhaseWrap-led retrieval and interval requirements."
+            "or materially stronger decoder gate satisfies the PhaseWrap-led retrieval requirement."
         ),
         "reviewer_next_gate": (
             "Implement a stronger matched decoder-only transformer benchmark with retained failed runs and confidence intervals; "

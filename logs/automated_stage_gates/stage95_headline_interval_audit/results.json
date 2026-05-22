@@ -1,0 +1,272 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "a claim that PhaseWrap-RoPE replaces RoPE",
+      "a claim that interval reporting creates a PhaseWrap-led retrieval solve",
+      "a claim that structural copy experts are standard free decoder-only language modeling",
+      "production transformer superiority",
+      "full transformer-scale validation",
+      "broad quantum advantage"
+    ],
+    "supported": [
+      "A no-credential interval extraction audit for current headline structural and free learned retrieval evidence.",
+      "Seed-interval preservation for positive structural row-family solvability and negative free learned retrieval results.",
+      "A narrowed promotion-gate gap showing interval reporting exists while PhaseWrap-led free learned retrieval evidence remains missing."
+    ]
+  },
+  "decision": {
+    "claim_boundary": "Headline seed intervals are now surfaced, but free learned retrieval still does not support PhaseWrap promotion.",
+    "confidence_interval_coverage": true,
+    "decision": "HEADLINE_INTERVALS_ADDED_PROMOTION_STILL_BOUND",
+    "free_learned_full_retrieval_solved_by_headlines": false,
+    "generalization_top1_threshold": 0.5,
+    "missing_headline_rows": [],
+    "missing_source_artifact_count": 0,
+    "phasewrap_free_learned_promotion_supported": false
+  },
+  "headline_rows": [
+    {
+      "failed_run_count": 0,
+      "headline": "structural_phase_cued_solve",
+      "intervals": {
+        "test_expected_calibration_error": {
+          "ci_high": 0.582559,
+          "ci_low": 0.530529,
+          "mean": 0.557772
+        },
+        "test_mean_target_probability": {
+          "ci_high": 0.228873,
+          "ci_low": 0.215377,
+          "mean": 0.222695
+        },
+        "test_mrr": {
+          "ci_high": 0.908334,
+          "ci_low": 0.865,
+          "mean": 0.886667
+        },
+        "test_top1_accuracy": {
+          "ci_high": 0.816666,
+          "ci_low": 0.75,
+          "mean": 0.783333
+        }
+      },
+      "lane": "structural_copy_route",
+      "method": "rope_relative",
+      "seed_count": 5,
+      "stage_dir": "stage88_structural_retrieval_routed_copy_expert_audit",
+      "status": "present",
+      "task": "phase_cued_retrieval",
+      "top1_crosses_generalization_threshold": true
+    },
+    {
+      "failed_run_count": 0,
+      "headline": "structural_exact_offset_solve",
+      "intervals": {
+        "test_expected_calibration_error": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "test_mean_target_probability": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "test_mrr": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "test_top1_accuracy": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        }
+      },
+      "lane": "structural_copy_route",
+      "method": "rope_relative",
+      "seed_count": 5,
+      "stage_dir": "stage88_structural_retrieval_routed_copy_expert_audit",
+      "status": "present",
+      "task": "exact_offset_passkey",
+      "top1_crosses_generalization_threshold": true
+    },
+    {
+      "failed_run_count": 0,
+      "headline": "free_learned_best_phase_cued",
+      "intervals": {
+        "test_expected_calibration_error": {
+          "ci_high": 0.099216,
+          "ci_low": 0.049059,
+          "mean": 0.070269
+        },
+        "test_mean_target_probability": {
+          "ci_high": 0.031591,
+          "ci_low": 0.026709,
+          "mean": 0.029205
+        },
+        "test_mrr": {
+          "ci_high": 0.196698,
+          "ci_low": 0.103138,
+          "mean": 0.151332
+        },
+        "test_top1_accuracy": {
+          "ci_high": 0.116667,
+          "ci_low": 0.0,
+          "mean": 0.05
+        }
+      },
+      "lane": "free_learned_pointer_generator",
+      "method": "sinusoidal",
+      "seed_count": 5,
+      "stage_dir": "stage85_dual_auxiliary_pointer_generator_audit",
+      "status": "present",
+      "task": "phase_cued_retrieval",
+      "top1_crosses_generalization_threshold": false
+    },
+    {
+      "failed_run_count": 0,
+      "headline": "free_learned_best_exact_offset",
+      "intervals": {
+        "test_expected_calibration_error": {
+          "ci_high": 0.44801,
+          "ci_low": 0.273981,
+          "mean": 0.367839
+        },
+        "test_mean_target_probability": {
+          "ci_high": 0.062219,
+          "ci_low": 0.056109,
+          "mean": 0.058903
+        },
+        "test_mrr": {
+          "ci_high": 0.7125,
+          "ci_low": 0.601666,
+          "mean": 0.661667
+        },
+        "test_top1_accuracy": {
+          "ci_high": 0.516667,
+          "ci_low": 0.316667,
+          "mean": 0.433333
+        }
+      },
+      "lane": "free_learned_pointer_generator",
+      "method": "sinusoidal",
+      "seed_count": 5,
+      "stage_dir": "stage90_three_block_teacher_distilled_pointer_generator_audit",
+      "status": "present",
+      "task": "exact_offset_passkey",
+      "top1_crosses_generalization_threshold": false
+    },
+    {
+      "failed_run_count": 0,
+      "headline": "recent_support_binding_phase_cued",
+      "intervals": {
+        "test_expected_calibration_error": {
+          "ci_high": 0.048941,
+          "ci_low": 0.029845,
+          "mean": 0.039166
+        },
+        "test_mean_target_probability": {
+          "ci_high": 0.021876,
+          "ci_low": 0.019411,
+          "mean": 0.020765
+        },
+        "test_mrr": {
+          "ci_high": 0.160603,
+          "ci_low": 0.078627,
+          "mean": 0.121601
+        },
+        "test_top1_accuracy": {
+          "ci_high": 0.083333,
+          "ci_low": 0.016667,
+          "mean": 0.05
+        }
+      },
+      "lane": "free_learned_pointer_generator",
+      "method": "alibi",
+      "seed_count": 5,
+      "stage_dir": "stage92_support_binding_teacher_pointer_generator_audit",
+      "status": "present",
+      "task": "phase_cued_retrieval",
+      "top1_crosses_generalization_threshold": false
+    },
+    {
+      "failed_run_count": 0,
+      "headline": "recent_support_binding_exact_offset",
+      "intervals": {
+        "test_expected_calibration_error": {
+          "ci_high": 0.369703,
+          "ci_low": 0.234226,
+          "mean": 0.302956
+        },
+        "test_mean_target_probability": {
+          "ci_high": 0.063499,
+          "ci_low": 0.05588,
+          "mean": 0.059161
+        },
+        "test_mrr": {
+          "ci_high": 0.676389,
+          "ci_low": 0.608889,
+          "mean": 0.643611
+        },
+        "test_top1_accuracy": {
+          "ci_high": 0.45,
+          "ci_low": 0.3,
+          "mean": 0.366667
+        }
+      },
+      "lane": "free_learned_pointer_generator",
+      "method": "sinusoidal",
+      "seed_count": 5,
+      "stage_dir": "stage92_support_binding_teacher_pointer_generator_audit",
+      "status": "present",
+      "task": "exact_offset_passkey",
+      "top1_crosses_generalization_threshold": false
+    }
+  ],
+  "method_names": [
+    "no_position",
+    "sinusoidal",
+    "alibi",
+    "rope_relative",
+    "phasewrap_bias",
+    "phasewrap_adapter"
+  ],
+  "missing_source_artifacts": [],
+  "no_hardware_submission": true,
+  "provider_credentials_required": false,
+  "reviewer_next_gate": "Use these surfaced intervals when reporting the bounded claim; the next model gate must still produce free learned PhaseWrap-led retrieval evidence before promotion can be reconsidered.",
+  "schema_version": "qrope_stage95_headline_interval_audit_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage85_dual_auxiliary_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage85_dual_auxiliary_pointer_generator_audit/summary.csv",
+    "logs/automated_stage_gates/stage88_structural_retrieval_routed_copy_expert_audit/manifest.json",
+    "logs/automated_stage_gates/stage88_structural_retrieval_routed_copy_expert_audit/summary.csv",
+    "logs/automated_stage_gates/stage90_three_block_teacher_distilled_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage90_three_block_teacher_distilled_pointer_generator_audit/summary.csv",
+    "logs/automated_stage_gates/stage92_support_binding_teacher_pointer_generator_audit/manifest.json",
+    "logs/automated_stage_gates/stage92_support_binding_teacher_pointer_generator_audit/summary.csv",
+    "logs/automated_stage_gates/stage93_toy_decoder_lane_boundary_audit/manifest.json",
+    "logs/automated_stage_gates/stage93_toy_decoder_lane_boundary_audit/summary.csv",
+    "logs/automated_stage_gates/stage93_toy_decoder_lane_boundary_audit/results.json"
+  ],
+  "source_stage": "stage93_toy_decoder_lane_boundary_audit",
+  "stage": "stage95_headline_interval_audit",
+  "stage93_decision": {
+    "claim_boundary": "Structural copy routes solve the row family, but current free learned toy pointer-generators do not generalize both original retrieval tasks.",
+    "decision": "TOY_DECODER_LANE_BOUND_FREE_RETRIEVAL_UNSOLVED",
+    "free_learned_full_retrieval_solved": false,
+    "free_learned_full_solve_stages": [],
+    "generalization_top1_threshold": 0.5,
+    "missing_source_artifact_count": 0,
+    "phasewrap_free_learned_promotion_supported": false,
+    "phasewrap_free_learned_solve_stages": [],
+    "structural_retrieval_solved": true
+  },
+  "status": "completed",
+  "strongest_claim_effect": "Stage95 removes interval reporting as a current artifact gap for selected headlines, but preserves the stronger blocker: no free learned PhaseWrap-led original-retrieval solve.",
+  "tasks": [
+    "phase_cued_retrieval",
+    "exact_offset_passkey"
+  ]
+}

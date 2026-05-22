@@ -195,8 +195,20 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
                 "claim_boundary": "Current evidence still lacks a free learned PhaseWrap-led solve of both original retrieval tasks, so the strongest claim remains bounded.",
                 "failed_requirements": [
                     "free_learned_phasewrap_original_retrieval_solve",
-                    "confidence_intervals_over_seeds",
                 ],
+            },
+        },
+    )
+    _write_manifest(
+        tmp_path,
+        "stage95_headline_interval_audit",
+        {
+            "tasks": ["phase_cued_retrieval", "exact_offset_passkey"],
+            "decision": {
+                "decision": "HEADLINE_INTERVALS_ADDED_PROMOTION_STILL_BOUND",
+                "confidence_interval_coverage": True,
+                "free_learned_full_retrieval_solved_by_headlines": False,
+                "claim_boundary": "Headline seed intervals are now surfaced, but free learned retrieval still does not support PhaseWrap promotion.",
             },
         },
     )
@@ -219,10 +231,12 @@ def test_stage70_synthesis_bounds_claim_with_retrieval_failures(tmp_path) -> Non
     assert any(item.get("stage") == "stage92_support_binding_teacher_pointer_generator_audit" for item in result["failure_modes"])
     assert any(item.get("stage") == "stage93_toy_decoder_lane_boundary_audit" for item in result["failure_modes"])
     assert any(item.get("stage") == "stage94_promotion_gate_readiness_audit" for item in result["failure_modes"])
+    assert any(item.get("stage") == "stage95_headline_interval_audit" for item in result["failure_modes"])
     assert any(item.get("source") == "stage93_toy_decoder_lane_boundary_audit" for item in result["positive_evidence"])
     assert any(item.get("source") == "stage94_promotion_gate_readiness_audit" for item in result["positive_evidence"])
+    assert any(item.get("source") == "stage95_headline_interval_audit" for item in result["positive_evidence"])
     assert any(item.get("source") == "stage87_in_decoder_support_routed_copy_expert_audit" for item in result["positive_evidence"])
-    assert result["source_stage"] == "stage94_promotion_gate_readiness_audit"
+    assert result["source_stage"] == "stage95_headline_interval_audit"
 
 
 def test_stage70_labels_nonpromotional_solved_retrieval_without_calling_it_unrepaired(tmp_path) -> None:

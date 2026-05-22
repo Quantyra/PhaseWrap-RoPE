@@ -52,6 +52,7 @@ SOURCE_STAGE_DIRS: tuple[str, ...] = (
     "stage92_support_binding_teacher_pointer_generator_audit",
     "stage93_toy_decoder_lane_boundary_audit",
     "stage94_promotion_gate_readiness_audit",
+    "stage95_headline_interval_audit",
 )
 
 DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
@@ -85,6 +86,7 @@ DOCUMENTED_SOURCE_ARTIFACTS: tuple[str, ...] = (
     "docs/research/q-rope-stage92-support-binding-teacher-pointer-generator-audit-v1.md",
     "docs/research/q-rope-stage93-toy-decoder-lane-boundary-audit-v1.md",
     "docs/research/q-rope-stage94-promotion-gate-readiness-audit-v1.md",
+    "docs/research/q-rope-stage95-headline-interval-audit-v1.md",
 )
 
 
@@ -292,6 +294,18 @@ def _positive_evidence(manifests: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "source": "stage94_promotion_gate_readiness_audit",
                 }
             )
+    for manifest in manifests:
+        if manifest.get("stage") != "stage95_headline_interval_audit":
+            continue
+        decision = manifest.get("decision", {})
+        if decision.get("confidence_interval_coverage") is True:
+            positives.append(
+                {
+                    "evidence": "Stage 95 surfaces seed confidence intervals for selected headline structural positives and free learned retrieval failures.",
+                    "claim_limit": "The intervals improve reporting rigor but do not create the missing free learned PhaseWrap-led solve.",
+                    "source": "stage95_headline_interval_audit",
+                }
+            )
     tiny_text = _best_tiny_text(manifests)
     if tiny_text is not None:
         positives.append(
@@ -343,6 +357,20 @@ def _failure_modes(manifests: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "stage": "stage94_promotion_gate_readiness_audit",
                     "decision": decision.get("decision"),
                     "failed_requirements": decision.get("failed_requirements"),
+                }
+            )
+    for manifest in manifests:
+        if manifest.get("stage") != "stage95_headline_interval_audit":
+            continue
+        decision = manifest.get("decision", {})
+        if decision.get("free_learned_full_retrieval_solved_by_headlines") is False:
+            failures.append(
+                {
+                    "failure": "Headline intervals preserve the free learned retrieval failure rather than reversing it.",
+                    "evidence": decision.get("claim_boundary"),
+                    "stage": "stage95_headline_interval_audit",
+                    "decision": decision.get("decision"),
+                    "confidence_interval_coverage": decision.get("confidence_interval_coverage"),
                 }
             )
     for row in rows:
@@ -402,7 +430,7 @@ def run_stage70_synthesis(
         "schema_version": STAGE70_SCHEMA_VERSION,
         "stage": "stage70_strongest_honest_claim_synthesis",
         "status": "completed",
-        "source_stage": "stage94_promotion_gate_readiness_audit",
+        "source_stage": "stage95_headline_interval_audit",
         "source_artifacts": source_artifacts,
         "missing_source_artifacts": missing_source_artifacts,
         "no_hardware_submission": True,
@@ -416,7 +444,8 @@ def run_stage70_synthesis(
             "support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, "
             "in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. "
             "Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. "
-            "Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve and confidence intervals for headline promotion metrics. "
+            "Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve. "
+            "Stage 95 surfaces confidence intervals for selected headline structural positives and free learned failures without changing that boundary. "
             "Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits "
             "do not yet support RoPE replacement or positional-method promotion."
         ),

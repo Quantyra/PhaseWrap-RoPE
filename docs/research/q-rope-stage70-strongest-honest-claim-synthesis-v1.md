@@ -28,9 +28,9 @@ Stage 70 records `BOUND_STRONGEST_HONEST_CLAIM_WITH_RETRIEVAL_FAILURES`.
 
 The generated strongest honest claim is:
 
-> PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve and confidence intervals for headline promotion metrics. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.
+> PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve. Stage 95 surfaces confidence intervals for selected headline structural positives and free learned failures without changing that boundary. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.
 
-The refreshed synthesis loads source manifests through Stage 94 with no missing source artifacts. It also preserves the key positive and negative evidence:
+The refreshed synthesis loads source manifests through Stage 95 with no missing source artifacts. It also preserves the key positive and negative evidence:
 
 - Stage 67 proves that standard visible content-key retrieval is solvable by the current two-block pointer-generator harness for every tested method, including `no_position`.
 - Recent pointer-generator variants preserve train capacity and include tiny text-fact QA positives, with Stage 91 reaching `0.950000` best held-out top-1.
@@ -45,7 +45,8 @@ The refreshed synthesis loads source manifests through Stage 94 with no missing 
 - Stage 91 shows adding length-40 curriculum rows still does not repair free held-out retrieval.
 - Stage 92 shows direct support-to-token binding supervision still does not repair free held-out retrieval.
 - Stage 93 formalizes the current toy decoder lane boundary: structural routes solve the row family, but free learned pointer-generator variants through Stage 92 do not solve both original retrieval tasks.
-- Stage 94 checks the predeclared promotion gate and records that free learned PhaseWrap-led original retrieval solve and confidence-interval requirements remain unmet.
+- Stage 94 checks the predeclared promotion gate and records that the free learned PhaseWrap-led original retrieval solve requirement remains unmet.
+- Stage 95 surfaces selected headline confidence intervals and preserves the free learned retrieval failure boundary.
 
 ## Interpretation
 

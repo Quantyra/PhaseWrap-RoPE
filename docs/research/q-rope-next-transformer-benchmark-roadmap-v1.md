@@ -91,6 +91,8 @@ Stage 93 update: the current toy pointer-generator lane is formally bounded as i
 
 Stage 94 update: the promotion gate is not ready. Current evidence lacks a free learned PhaseWrap-led original-retrieval solve and does not expose confidence intervals for headline promotion metrics.
 
+Stage 95 update: selected headline confidence intervals are now surfaced for structural positives and free learned failures. This removes interval reporting as the current artifact gap, but the substantive promotion blocker remains the missing free learned PhaseWrap-led original-retrieval solve.
+
 ## PhaseWrap Mechanism Requirements
 
 The PhaseWrap variant should be implemented as a positional mechanism comparable to RoPE or ALiBI, not as a scalar oracle feature.
@@ -235,6 +237,8 @@ Stages 89-92 test whether structural-teacher distillation, added depth, length c
 Stage 93 closes the current toy pointer-generator lane as bounded evidence. It still does not satisfy this promotion gate because it is a lane-boundary synthesis and records that free learned retrieval remains unsolved.
 
 Stage 94 audits promotion-gate readiness. It still does not satisfy this promotion gate because it records missing free learned PhaseWrap-led retrieval evidence and missing confidence intervals for headline metrics.
+
+Stage 95 surfaces selected headline confidence intervals. It still does not satisfy this promotion gate because interval reporting does not create the missing free learned PhaseWrap-led retrieval solve.
 
 Until then, the supported claim remains narrower: PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible classical analyses, bounded hardware readout witnesses, and mixed but useful toy downstream evidence.
 

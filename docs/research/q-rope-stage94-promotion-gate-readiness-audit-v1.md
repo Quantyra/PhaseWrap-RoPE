@@ -36,14 +36,13 @@ Default readiness summary:
 | free learned PhaseWrap-led original retrieval solve | failed | no current free learned artifact solves both original retrieval tasks with PhaseWrap-led methods |
 | structural solve not overread | passed | Stage 88/93 preserve structural row-family solvability without treating it as promotion |
 | failed-run retention | passed | selected training artifacts retain failed-run fields or paths |
-| confidence intervals over seeds | failed | selected manifests do not expose confidence intervals for headline promotion metrics |
+| confidence intervals over seeds | passed | Stage 95 surfaces selected headline confidence intervals |
 
 ## Interpretation
 
-Stage 94 makes the current gap explicit. The research has useful positives, but the promotion gate still lacks two core proof items:
+Stage 94 makes the current gap explicit. The research has useful positives, but the promotion gate still lacks the core proof item:
 
-- a free learned PhaseWrap-led solve or competitive result on the relevant original retrieval gate;
-- confidence intervals for headline promotion metrics.
+- a free learned PhaseWrap-led solve or competitive result on the relevant original retrieval gate.
 
 This keeps the strongest honest claim bounded while making the next evidence requirement concrete.
 
