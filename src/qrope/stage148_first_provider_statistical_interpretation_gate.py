@@ -150,11 +150,15 @@ def _stage103_records(plan: dict[str, Any], thresholds: dict[tuple[str, str, str
         and stage103.get("decision") == "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION"
         and stage103.get("ready_to_interpret_hardware_metrics") is True
         and stage103.get("comparison_groups_complete") is True
+        and stage103.get("stage104_matched_surface_ready") is True
+        and stage103.get("stage113_live_submit_provenance_ready") is True
         and int(stage103.get("missing_execution_count") or 0) == 0
         and int(stage103.get("metric_record_count") or 0) > 0
     )
     records = []
     for summary in stage103.get("comparison_summary", []) if isinstance(stage103, dict) else []:
+        summary_provider = summary.get("provider")
+        provider_matches = summary_provider is None or summary_provider == plan.get("provider")
         key = (
             str(plan.get("provider")),
             str(plan.get("window_id")),
@@ -173,6 +177,8 @@ def _stage103_records(plan: dict[str, Any], thresholds: dict[tuple[str, str, str
             {
                 "provider": plan.get("provider"),
                 "window_id": plan.get("window_id"),
+                "stage103_summary_provider": summary_provider,
+                "stage103_summary_provider_matches_window": provider_matches,
                 "source_lane_id": summary.get("source_lane_id"),
                 "circuit_template": summary.get("circuit_template"),
                 "phasewrap_mean_absolute_score_error": phasewrap,
@@ -181,6 +187,7 @@ def _stage103_records(plan: dict[str, Any], thresholds: dict[tuple[str, str, str
                 "minimum_shot_noise_separation_margin": required,
                 "passes_stage103_lower_mae_rule": bool(
                     stage103_ready
+                    and provider_matches
                     and summary.get("all_families_present") is True
                     and summary.get("phasewrap_lower_error_than")
                     and len(summary.get("phasewrap_lower_error_than", [])) >= 4
@@ -191,6 +198,15 @@ def _stage103_records(plan: dict[str, Any], thresholds: dict[tuple[str, str, str
                     stage103.get("ready_to_interpret_hardware_metrics") if isinstance(stage103, dict) else None
                 ),
                 "stage103_comparison_groups_complete": stage103.get("comparison_groups_complete") if isinstance(stage103, dict) else None,
+                "stage103_stage104_matched_surface_ready": (
+                    stage103.get("stage104_matched_surface_ready") if isinstance(stage103, dict) else None
+                ),
+                "stage103_stage104_complete_matched_group_count": (
+                    stage103.get("stage104_complete_matched_group_count") if isinstance(stage103, dict) else None
+                ),
+                "stage103_stage113_live_submit_provenance_ready": (
+                    stage103.get("stage113_live_submit_provenance_ready") if isinstance(stage103, dict) else None
+                ),
                 "stage103_missing_execution_count": stage103.get("missing_execution_count") if isinstance(stage103, dict) else None,
                 "stage103_metric_record_count": stage103.get("metric_record_count") if isinstance(stage103, dict) else None,
                 "stage103_results_path": str(stage103_path.as_posix()),
@@ -204,6 +220,8 @@ def _stage103_records(plan: dict[str, Any], thresholds: dict[tuple[str, str, str
                     {
                         "provider": provider,
                         "window_id": window_id,
+                        "stage103_summary_provider": None,
+                        "stage103_summary_provider_matches_window": None,
                         "source_lane_id": source_lane_id,
                         "circuit_template": circuit_template,
                         "phasewrap_mean_absolute_score_error": None,
@@ -219,6 +237,15 @@ def _stage103_records(plan: dict[str, Any], thresholds: dict[tuple[str, str, str
                             stage103.get("ready_to_interpret_hardware_metrics") if isinstance(stage103, dict) else None
                         ),
                         "stage103_comparison_groups_complete": stage103.get("comparison_groups_complete") if isinstance(stage103, dict) else None,
+                        "stage103_stage104_matched_surface_ready": (
+                            stage103.get("stage104_matched_surface_ready") if isinstance(stage103, dict) else None
+                        ),
+                        "stage103_stage104_complete_matched_group_count": (
+                            stage103.get("stage104_complete_matched_group_count") if isinstance(stage103, dict) else None
+                        ),
+                        "stage103_stage113_live_submit_provenance_ready": (
+                            stage103.get("stage113_live_submit_provenance_ready") if isinstance(stage103, dict) else None
+                        ),
                         "stage103_missing_execution_count": stage103.get("missing_execution_count") if isinstance(stage103, dict) else None,
                         "stage103_metric_record_count": stage103.get("metric_record_count") if isinstance(stage103, dict) else None,
                         "stage103_results_path": str(stage103_path.as_posix()),
@@ -323,7 +350,7 @@ def run_stage148_gate(
                 "binding of later IBM PhaseWrap MAE margins to Stage 146 shot-noise separation thresholds",
                 "binding of final statistical interpretation to Stage 113-assembled calibration evidence with result lineage metadata",
                 "binding of final statistical interpretation to Stage 113 preserved Stage 115/152 all-command live-submit readiness provenance",
-                "binding of final statistical interpretation to Stage 103 ready decisions, readiness counters, and complete comparison groups",
+                "binding of final statistical interpretation to Stage 103 ready decisions, Stage 104 matched-surface readiness, Stage 113 live-submit provenance, readiness counters, and complete comparison groups",
                 "a blocked outcome until observed provider evidence satisfies both statistical guardrails",
             ],
             "excluded": [

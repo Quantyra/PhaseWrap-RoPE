@@ -104,10 +104,14 @@ def _fixture(tmp_path, *, ready: bool) -> tuple[object, object, object, object]:
                 "decision": "ROBUSTNESS_METRICS_READY_FOR_INTERPRETATION",
                 "ready_to_interpret_hardware_metrics": True,
                 "comparison_groups_complete": True,
+                "stage104_matched_surface_ready": True,
+                "stage104_complete_matched_group_count": 1,
+                "stage113_live_submit_provenance_ready": True,
                 "missing_execution_count": 0,
                 "metric_record_count": 5,
                 "comparison_summary": [
                     {
+                        "provider": "ibm_runtime",
                         "source_lane_id": "lane_a",
                         "circuit_template": "two_ry_product_state_z_readout_v1",
                         "phasewrap_mean_absolute_score_error": 0.02,
@@ -260,6 +264,66 @@ def test_stage148_blocks_stage103_without_readiness_counters(tmp_path) -> None:
     assert result["stage103_lower_mae_lane_count"] == 0
     assert result["lane_records"][0]["stage103_ready_for_interpretation"] is False
     assert result["lane_records"][0]["stage103_comparison_groups_complete"] is False
+
+
+def test_stage148_blocks_stage103_without_stage104_matched_surface_readiness(tmp_path) -> None:
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
+    stage103_path = tmp_path / "window" / "stage103" / "results.json"
+    stage103 = json.loads(stage103_path.read_text(encoding="utf-8"))
+    stage103["stage104_matched_surface_ready"] = False
+    _write_json(stage103_path, stage103)
+
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
+
+    assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
+    assert result["stage103_lower_mae_lane_count"] == 0
+    assert result["lane_records"][0]["stage103_ready_for_interpretation"] is False
+    assert result["lane_records"][0]["stage103_stage104_matched_surface_ready"] is False
+
+
+def test_stage148_blocks_stage103_without_live_submit_provenance(tmp_path) -> None:
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
+    stage103_path = tmp_path / "window" / "stage103" / "results.json"
+    stage103 = json.loads(stage103_path.read_text(encoding="utf-8"))
+    stage103["stage113_live_submit_provenance_ready"] = False
+    _write_json(stage103_path, stage103)
+
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
+
+    assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
+    assert result["stage103_lower_mae_lane_count"] == 0
+    assert result["lane_records"][0]["stage103_ready_for_interpretation"] is False
+    assert result["lane_records"][0]["stage103_stage113_live_submit_provenance_ready"] is False
+
+
+def test_stage148_blocks_stage103_summary_provider_mismatch(tmp_path) -> None:
+    plans, stage146, stage147, stage113 = _fixture(tmp_path, ready=True)
+    stage103_path = tmp_path / "window" / "stage103" / "results.json"
+    stage103 = json.loads(stage103_path.read_text(encoding="utf-8"))
+    stage103["comparison_summary"][0]["provider"] = "amazon_braket"
+    _write_json(stage103_path, stage103)
+
+    result = run_stage148_gate(
+        stage107_window_plans_path=plans,
+        stage146_results_path=stage146,
+        stage147_results_path=stage147,
+        stage113_results_path=stage113,
+    )
+
+    assert result["decision"] == "FIRST_PROVIDER_STATISTICAL_INTERPRETATION_BLOCKED_EVIDENCE_REQUIRED"
+    assert result["stage103_lower_mae_lane_count"] == 0
+    assert result["lane_records"][0]["stage103_summary_provider"] == "amazon_braket"
+    assert result["lane_records"][0]["stage103_summary_provider_matches_window"] is False
 
 
 def test_stage148_blocks_when_statistical_contract_sources_are_not_ready(tmp_path) -> None:
