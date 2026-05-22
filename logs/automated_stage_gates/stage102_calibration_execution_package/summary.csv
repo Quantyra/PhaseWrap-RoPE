@@ -1,0 +1,3 @@
+provider,expected_bitstring_order,template_file,shots_per_state,states,missing_evidence,ready_for_stage101
+ibm_runtime,q1q0,ibm_runtime_known_state_execution.json,1000,00; 01; 10; 11,job_or_task_ids; submitted_at_utc; completed_at_utc; backend_metadata; raw_counts_by_state,False
+amazon_braket,q0q1,amazon_braket_known_state_execution.json,1000,00; 01; 10; 11,job_or_task_ids; submitted_at_utc; completed_at_utc; backend_metadata; raw_counts_by_state,False

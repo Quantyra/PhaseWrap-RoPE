@@ -1,0 +1,184 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "real known-state calibration counts",
+      "completed provider calibration",
+      "a noisy-hardware robustness result",
+      "permission to interpret Stage 99 or Stage 100 counts before Stage 101 passes"
+    ],
+    "supported": [
+      "provider-specific known-state execution JSON templates for the Stage 101 calibration gate",
+      "explicit |00>, |01>, |10>, and |11> preparation circuits and expected dominant keys",
+      "a no-hardware handoff package for collecting calibration evidence without changing the claim boundary"
+    ]
+  },
+  "decision": "CALIBRATION_EXECUTION_TEMPLATES_PREPARED_COUNTS_STILL_REQUIRED",
+  "evidence_records": [
+    {
+      "expected_bitstring_order": "q1q0",
+      "missing_evidence": [
+        "job_or_task_ids",
+        "submitted_at_utc",
+        "completed_at_utc",
+        "backend_metadata",
+        "raw_counts_by_state"
+      ],
+      "provider": "ibm_runtime",
+      "ready_for_stage101": false,
+      "shots_per_state": 1000,
+      "states": [
+        "00",
+        "01",
+        "10",
+        "11"
+      ],
+      "template_file": "ibm_runtime_known_state_execution.json"
+    },
+    {
+      "expected_bitstring_order": "q0q1",
+      "missing_evidence": [
+        "job_or_task_ids",
+        "submitted_at_utc",
+        "completed_at_utc",
+        "backend_metadata",
+        "raw_counts_by_state"
+      ],
+      "provider": "amazon_braket",
+      "ready_for_stage101": false,
+      "shots_per_state": 1000,
+      "states": [
+        "00",
+        "01",
+        "10",
+        "11"
+      ],
+      "template_file": "amazon_braket_known_state_execution.json"
+    }
+  ],
+  "missing_source_artifacts": [],
+  "next_gate": "Execute the known-state circuits on the target provider/backend/date, fill the generated execution JSON templates with raw counts and metadata, then rerun Stage 101 with --execution-dir.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": false,
+  "required_execution_fields": [
+    "job_or_task_ids",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "raw_counts_by_state"
+  ],
+  "schema_version": "qrope_stage102_calibration_execution_package_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage101_known_state_calibration_gate/results.json"
+  ],
+  "stage": "stage102_calibration_execution_package",
+  "stage101_decision": "KNOWN_STATE_CALIBRATION_COUNTS_REQUIRED_BEFORE_HARDWARE_INTERPRETATION",
+  "stage101_known_state_calibration_pass": false,
+  "status": "completed",
+  "template_count": 2,
+  "templates": [
+    {
+      "backend_metadata": {
+        "additional_metadata": {},
+        "backend": "",
+        "calibration_timestamp_utc": "",
+        "provider": "ibm_runtime"
+      },
+      "completed_at_utc": "",
+      "expected_bitstring_order": "q1q0",
+      "instructions": "Replace placeholders with real provider/backend/date execution evidence before rerunning scripts/run_stage101_known_state_calibration_gate.py --execution-dir PATH.",
+      "job_or_task_ids": [],
+      "no_hardware_submission": true,
+      "provider": "ibm_runtime",
+      "raw_counts_by_state": [
+        {
+          "counts": {},
+          "expected_dominant_key": "00",
+          "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+          "state": "00"
+        },
+        {
+          "counts": {},
+          "expected_dominant_key": "10",
+          "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nx q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+          "state": "01"
+        },
+        {
+          "counts": {},
+          "expected_dominant_key": "01",
+          "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nx q[0];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+          "state": "10"
+        },
+        {
+          "counts": {},
+          "expected_dominant_key": "11",
+          "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nx q[0];\nx q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+          "state": "11"
+        }
+      ],
+      "required_execution_fields": [
+        "job_or_task_ids",
+        "backend_metadata",
+        "submitted_at_utc",
+        "completed_at_utc",
+        "raw_counts_by_state"
+      ],
+      "schema_version": "qrope_stage102_calibration_execution_package_v1",
+      "shots_per_state": 1000,
+      "status": "template_counts_required",
+      "submitted_at_utc": ""
+    },
+    {
+      "backend_metadata": {
+        "additional_metadata": {},
+        "backend": "",
+        "calibration_timestamp_utc": "",
+        "provider": "amazon_braket"
+      },
+      "completed_at_utc": "",
+      "expected_bitstring_order": "q0q1",
+      "instructions": "Replace placeholders with real provider/backend/date execution evidence before rerunning scripts/run_stage101_known_state_calibration_gate.py --execution-dir PATH.",
+      "job_or_task_ids": [],
+      "no_hardware_submission": true,
+      "provider": "amazon_braket",
+      "raw_counts_by_state": [
+        {
+          "counts": {},
+          "expected_dominant_key": "00",
+          "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+          "state": "00"
+        },
+        {
+          "counts": {},
+          "expected_dominant_key": "01",
+          "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nx q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+          "state": "01"
+        },
+        {
+          "counts": {},
+          "expected_dominant_key": "10",
+          "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nx q[0];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+          "state": "10"
+        },
+        {
+          "counts": {},
+          "expected_dominant_key": "11",
+          "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nx q[0];\nx q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+          "state": "11"
+        }
+      ],
+      "required_execution_fields": [
+        "job_or_task_ids",
+        "backend_metadata",
+        "submitted_at_utc",
+        "completed_at_utc",
+        "raw_counts_by_state"
+      ],
+      "schema_version": "qrope_stage102_calibration_execution_package_v1",
+      "shots_per_state": 1000,
+      "status": "template_counts_required",
+      "submitted_at_utc": ""
+    }
+  ]
+}

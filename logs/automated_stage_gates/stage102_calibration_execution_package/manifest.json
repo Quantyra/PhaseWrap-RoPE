@@ -1,0 +1,37 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "real known-state calibration counts",
+      "completed provider calibration",
+      "a noisy-hardware robustness result",
+      "permission to interpret Stage 99 or Stage 100 counts before Stage 101 passes"
+    ],
+    "supported": [
+      "provider-specific known-state execution JSON templates for the Stage 101 calibration gate",
+      "explicit |00>, |01>, |10>, and |11> preparation circuits and expected dominant keys",
+      "a no-hardware handoff package for collecting calibration evidence without changing the claim boundary"
+    ]
+  },
+  "decision": "CALIBRATION_EXECUTION_TEMPLATES_PREPARED_COUNTS_STILL_REQUIRED",
+  "missing_source_artifacts": [],
+  "next_gate": "Execute the known-state circuits on the target provider/backend/date, fill the generated execution JSON templates with raw counts and metadata, then rerun Stage 101 with --execution-dir.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_count": 2,
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage102_calibration_execution_package/results.json",
+  "schema_version": "qrope_stage102_calibration_execution_package_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage101_known_state_calibration_gate/results.json"
+  ],
+  "stage": "stage102_calibration_execution_package",
+  "stage101_decision": "KNOWN_STATE_CALIBRATION_COUNTS_REQUIRED_BEFORE_HARDWARE_INTERPRETATION",
+  "stage101_known_state_calibration_pass": false,
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage102_calibration_execution_package/summary.csv",
+  "template_count": 2,
+  "template_paths": [
+    "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/ibm_runtime_known_state_execution.json",
+    "logs/automated_stage_gates/stage102_calibration_execution_package/execution_templates/amazon_braket_known_state_execution.json"
+  ]
+}

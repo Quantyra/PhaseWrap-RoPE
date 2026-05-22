@@ -1,0 +1,51 @@
+{
+  "backend_metadata": {
+    "additional_metadata": {},
+    "backend": "",
+    "calibration_timestamp_utc": "",
+    "provider": "amazon_braket"
+  },
+  "completed_at_utc": "",
+  "expected_bitstring_order": "q0q1",
+  "instructions": "Replace placeholders with real provider/backend/date execution evidence before rerunning scripts/run_stage101_known_state_calibration_gate.py --execution-dir PATH.",
+  "job_or_task_ids": [],
+  "no_hardware_submission": true,
+  "provider": "amazon_braket",
+  "raw_counts_by_state": [
+    {
+      "counts": {},
+      "expected_dominant_key": "00",
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "state": "00"
+    },
+    {
+      "counts": {},
+      "expected_dominant_key": "01",
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nx q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "state": "01"
+    },
+    {
+      "counts": {},
+      "expected_dominant_key": "10",
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nx q[0];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "state": "10"
+    },
+    {
+      "counts": {},
+      "expected_dominant_key": "11",
+      "openqasm3": "OPENQASM 3.0;\nqubit[2] q;\nbit[2] c;\nx q[0];\nx q[1];\nc[0] = measure q[0];\nc[1] = measure q[1];\n",
+      "state": "11"
+    }
+  ],
+  "required_execution_fields": [
+    "job_or_task_ids",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "raw_counts_by_state"
+  ],
+  "schema_version": "qrope_stage102_calibration_execution_package_v1",
+  "shots_per_state": 1000,
+  "status": "template_counts_required",
+  "submitted_at_utc": ""
+}
