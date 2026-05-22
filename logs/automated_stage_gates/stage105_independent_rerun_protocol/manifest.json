@@ -1,0 +1,51 @@
+{
+  "aggregation_rule": {
+    "claim_level": "A PhaseWrap robustness advantage may only be described as replicated if the Stage 103 advantage rule holds in every independent window for the same provider, source lane, and circuit template.",
+    "reporting": [
+      "report per-window metric tables",
+      "report across-window median and range for PhaseWrap and comparator errors",
+      "report failures, missing packets, calibration failures, and queue/backend metadata without exclusion"
+    ],
+    "window_level": "Compute Stage 103 metrics independently inside each provider/backend/date calibration window."
+  },
+  "claim_boundary": {
+    "excluded": [
+      "completed independent reruns",
+      "real hardware evidence",
+      "a PhaseWrap robustness advantage claim",
+      "provider-wide robustness beyond recorded windows"
+    ],
+    "supported": [
+      "a preregistered independent rerun protocol for the matched noisy-hardware comparison",
+      "a minimum two-window provider/backend/date calibration requirement",
+      "an aggregation rule preventing single-window noisy-hardware advantage claims"
+    ]
+  },
+  "decision": "INDEPENDENT_RERUN_PROTOCOL_PREREGISTERED_EXECUTION_REQUIRED",
+  "expected_window_count": 4,
+  "min_hours_between_windows": 24,
+  "min_independent_windows_per_provider": 2,
+  "missing_source_artifacts": [],
+  "missing_template_artifacts": [],
+  "next_gate": "Run Stage 101 calibration and all Stage 104 matched packet executions in each independent provider window, then recompute Stage 103 metrics per window and aggregate only under the Stage 105 rule.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_template_count": 20,
+  "provider_credentials_required": false,
+  "providers": [
+    "amazon_braket",
+    "ibm_runtime"
+  ],
+  "rerun_windows_path": "logs/automated_stage_gates/stage105_independent_rerun_protocol/rerun_windows.json",
+  "result_path": "logs/automated_stage_gates/stage105_independent_rerun_protocol/results.json",
+  "schema_version": "qrope_stage105_independent_rerun_protocol_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage101_known_state_calibration_gate/results.json",
+    "logs/automated_stage_gates/stage103_robustness_metric_preregistration/manifest.json",
+    "logs/automated_stage_gates/stage104_matched_packet_execution_package/manifest.json"
+  ],
+  "stage": "stage105_independent_rerun_protocol",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage105_independent_rerun_protocol/summary.csv",
+  "window_count": 4
+}
