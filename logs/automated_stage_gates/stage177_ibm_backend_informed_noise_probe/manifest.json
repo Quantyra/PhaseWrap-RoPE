@@ -1,0 +1,121 @@
+{
+  "backend_properties_lookup_allowed": true,
+  "backend_properties_lookup_attempted": true,
+  "backend_property_stats": {
+    "gate_error_medians_by_gate": {
+      "cz": 0.0029410445396472196,
+      "id": 0.0003545465103182603,
+      "rx": 0.0003545465103182603,
+      "rz": 0.0,
+      "rzz": 0.002831209665877854,
+      "sx": 0.0003545465103182603,
+      "x": 0.0003545465103182603,
+      "xslow": 0.0003545465103182603
+    },
+    "one_qubit_gate_error_count": 936,
+    "one_qubit_gate_error_median": 0.0003235134905447672,
+    "one_qubit_gate_error_p75": 0.0004311796391409769,
+    "readout_error_count": 156,
+    "readout_error_median": 0.014892578125,
+    "readout_error_p75": 0.0306396484375,
+    "t1_us_median": 99.09010798748184,
+    "t2_us_median": 70.44070883356956,
+    "two_qubit_gate_error_count": 704,
+    "two_qubit_gate_error_median": 0.0028931662121122748,
+    "two_qubit_gate_error_p75": 0.003930600210936802
+  },
+  "backend_snapshot_summary": {
+    "backend": "ibm_fez",
+    "coupling_edge_count": 352,
+    "last_update_date": "2026-05-22 11:26:30-07:00",
+    "num_qubits": 156,
+    "operational": true,
+    "pending_jobs": 7
+  },
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "IBM token, CRN, or account secrets",
+      "credit balance or bill verification",
+      "a calibrated signed coherent RY offset measurement",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "read-only IBM backend-property-informed simulated rerun over frozen Stage99/Stage100 matched packets",
+      "primary decision based on measured backend stochastic properties rather than the hand-built coherent offset screen",
+      "explicit separation of measured stochastic models from a non-decisive coherent proxy heuristic"
+    ]
+  },
+  "comparison_group_count": 18,
+  "decision": "IBM_BACKEND_INFORMED_SIM_DOES_NOT_SUPPORT_TARGETED_HARDWARE_RUN_YET",
+  "ibm_backend_properties_informed": true,
+  "locked_comparison_group_count": 6,
+  "locked_target_lanes": [
+    "ibm_cx_seed314_rows16_shots4096",
+    "ibm_product_seed314_rows16_shots4096"
+  ],
+  "missing_source_artifacts": [],
+  "next_gate": "Use this IBM-informed simulation as the immediate GO/NO-GO input before resolving credit or approving any live Stage133 IBM execution.",
+  "no_hardware_submission": true,
+  "noise_models": [
+    {
+      "depolarizing_observable_shrink": 0.0028931662121122748,
+      "noise_family": "ibm_backend_properties_stochastic",
+      "noise_model_id": "ibm_backend_median_stochastic",
+      "observable_bias_component_a": 0.0,
+      "observable_bias_component_b": 0.0,
+      "readout_bitflip_probability": 0.014892578125,
+      "ry_angle_offset_radians": 0.0,
+      "ry_angle_scale_error": 0.0
+    },
+    {
+      "depolarizing_observable_shrink": 0.003930600210936802,
+      "noise_family": "ibm_backend_properties_stochastic",
+      "noise_model_id": "ibm_backend_p75_stochastic",
+      "observable_bias_component_a": 0.0,
+      "observable_bias_component_b": 0.0,
+      "readout_bitflip_probability": 0.0306396484375,
+      "ry_angle_offset_radians": 0.0,
+      "ry_angle_scale_error": 0.0
+    },
+    {
+      "depolarizing_observable_shrink": 0.0028931662121122748,
+      "noise_family": "ibm_backend_properties_coherent_proxy_not_measured_signed_offset",
+      "noise_model_id": "ibm_backend_single_qubit_coherent_proxy",
+      "observable_bias_component_a": 0.0,
+      "observable_bias_component_b": 0.0,
+      "readout_bitflip_probability": 0.014892578125,
+      "ry_angle_offset_radians": 0.0,
+      "ry_angle_scale_error": 0.017986480771534134
+    }
+  ],
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "primary_stable_target_count": 0,
+  "primary_stable_templates": [],
+  "provider_credentials_required": true,
+  "proxy_stable_target_count": 0,
+  "proxy_stable_templates": [],
+  "result_path": "logs/automated_stage_gates/stage177_ibm_backend_informed_noise_probe/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage177_ibm_backend_informed_noise_probe_v1",
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage159_first_provider_backend_preflight/results.json",
+    "logs/automated_stage_gates/stage169_targeted_probe_scope_selection/results.json",
+    "logs/automated_stage_gates/stage99_matched_fixed_width_encoding_packets/manifest.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/manifest.json"
+  ],
+  "stability_thresholds": {
+    "min_control_margin_shot_quanta": 2.0,
+    "min_positional_margin_shot_quanta": 2.0,
+    "primary_models": [
+      "ibm_backend_median_stochastic",
+      "ibm_backend_p75_stochastic"
+    ]
+  },
+  "stage": "stage177_ibm_backend_informed_noise_probe",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage177_ibm_backend_informed_noise_probe/summary.csv"
+}
