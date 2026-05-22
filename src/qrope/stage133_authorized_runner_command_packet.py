@@ -21,6 +21,9 @@ SUBMITTERS = {
     "amazon_braket": "qrope.provider_adapters.amazon_braket:submit",
     "ibm_runtime": "qrope.provider_adapters.ibm_runtime:submit",
 }
+STAGE116_READY = "PROVIDER_RUNNER_PLAN_READY_FOR_EXECUTION"
+STAGE129_AUTHORIZED = "LIVE_CUTOVER_AUTHORIZED"
+STAGE132_READY = "GUARDED_SDK_FACTORIES_IMPLEMENTED_CUTOVER_BLOCKED"
 
 
 def _load_json(path: Path) -> Any | None:
@@ -38,18 +41,33 @@ def _provider_record(payload: dict[str, Any] | None, provider: str) -> dict[str,
     return {}
 
 
-def _command_record(runner: dict[str, Any], stage129: dict[str, Any] | None, stage132: dict[str, Any] | None) -> dict[str, Any]:
+def _command_record(
+    runner: dict[str, Any],
+    stage116: dict[str, Any] | None,
+    stage129: dict[str, Any] | None,
+    stage132: dict[str, Any] | None,
+) -> dict[str, Any]:
     provider = str(runner.get("provider"))
     stage129_record = _provider_record(stage129, provider)
     stage132_record = _provider_record(stage132, provider)
     runner_command = str(runner.get("runner_command", ""))
     blockers = []
+    if not isinstance(stage116, dict) or stage116.get("decision") != STAGE116_READY:
+        blockers.append("stage116:runner_plan_not_ready")
+    if not isinstance(stage129, dict) or stage129.get("decision") != STAGE129_AUTHORIZED:
+        blockers.append("stage129:live_cutover_not_authorized")
+    if not isinstance(stage132, dict) or stage132.get("decision") != STAGE132_READY:
+        blockers.append("stage132:guarded_factory_audit_not_ready")
     blockers.extend(f"stage116:{item}" for item in runner.get("blockers", []))
     blockers.extend(f"stage129:{item}" for item in stage129_record.get("blockers", []))
     if runner.get("status") != "ready_to_run":
         blockers.append("stage116:runner_not_ready")
+    if runner.get("provider_ready") is not True:
+        blockers.append("stage116:provider_not_ready")
     if stage129_record.get("cutover_authorized") is not True:
         blockers.append("stage129:cutover_not_authorized")
+    if stage132_record.get("cutover_authorized") is not False:
+        blockers.append("stage132:cutover_guard_state_not_blocked")
     if stage132_record.get("ready") is not True:
         blockers.append("stage132:guarded_factory_not_ready")
     if "--stage111-results" not in runner_command:
@@ -91,7 +109,7 @@ def run_stage133_packet(
     sources = [(stage116_results_path, stage116), (stage129_results_path, stage129), (stage132_results_path, stage132)]
     missing_sources = [str(path.as_posix()) for path, payload in sources if payload is None]
     command_records = [
-        _command_record(runner, stage129, stage132)
+        _command_record(runner, stage116, stage129, stage132)
         for runner in (stage116.get("runner_records", []) if isinstance(stage116, dict) else [])
     ]
     authorized_count = sum(1 for record in command_records if record["command_authorized"])
@@ -120,6 +138,7 @@ def run_stage133_packet(
         "claim_boundary": {
             "supported": [
                 "declared live-submit command templates include Stage 111, Stage 118, and Stage 129 evidence inputs",
+                "live-submit command strings require source-level Stage 116 runner-plan readiness and Stage 129 cutover authorization",
                 "provider submitter import paths are attached to each provider/window runner command",
                 "live-submit command strings are emitted only for records with command_authorized=true",
                 "current commands remain blocked until Stage 116 readiness, Stage 129 cutover, and Stage 132 factory readiness all align",

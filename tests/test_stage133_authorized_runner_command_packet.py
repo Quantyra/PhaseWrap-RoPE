@@ -21,6 +21,7 @@ def _fixture(tmp_path, *, authorized: bool = False):
                     "provider": "ibm_runtime",
                     "window_id": "window_0",
                     "status": status,
+                    "provider_ready": authorized,
                     "job_count": 2,
                     "blockers": [] if authorized else ["stage111_provider_not_ready"],
                     "runner_command": (
@@ -49,7 +50,7 @@ def _fixture(tmp_path, *, authorized: bool = False):
         tmp_path / "stage132.json",
         {
             "decision": "GUARDED_SDK_FACTORIES_IMPLEMENTED_CUTOVER_BLOCKED",
-            "provider_records": [{"provider": "ibm_runtime", "ready": True}],
+            "provider_records": [{"provider": "ibm_runtime", "ready": True, "cutover_authorized": False}],
         },
     )
     return tmp_path / "stage116.json", tmp_path / "stage129.json", tmp_path / "stage132.json"
@@ -80,6 +81,47 @@ def test_stage133_authorizes_only_complete_command_records(tmp_path) -> None:
     assert result["command_records"][0]["live_submit_command_available"] is True
     assert "--allow-live-submit" in result["command_records"][0]["live_submit_command"]
     assert "--submitter qrope.provider_adapters.ibm_runtime:submit" in result["command_records"][0]["live_submit_command"]
+
+
+def test_stage133_blocks_record_ready_without_stage116_ready_decision(tmp_path) -> None:
+    stage116, stage129, stage132 = _fixture(tmp_path, authorized=True)
+    payload = json.loads(stage116.read_text(encoding="utf-8"))
+    payload["decision"] = "PROVIDER_RUNNER_PLAN_PREPARED_EXECUTION_BLOCKED"
+    _write_json(stage116, payload)
+
+    result = run_stage133_packet(stage116_results_path=stage116, stage129_results_path=stage129, stage132_results_path=stage132)
+
+    assert result["decision"] == "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED"
+    assert result["authorized_runner_count"] == 0
+    assert "stage116:runner_plan_not_ready" in result["command_records"][0]["blockers"]
+    assert result["command_records"][0]["live_submit_command"] == ""
+
+
+def test_stage133_blocks_cutover_record_authorized_without_stage129_authorized_decision(tmp_path) -> None:
+    stage116, stage129, stage132 = _fixture(tmp_path, authorized=True)
+    payload = json.loads(stage129.read_text(encoding="utf-8"))
+    payload["decision"] = "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED"
+    _write_json(stage129, payload)
+
+    result = run_stage133_packet(stage116_results_path=stage116, stage129_results_path=stage129, stage132_results_path=stage132)
+
+    assert result["decision"] == "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED"
+    assert result["authorized_runner_count"] == 0
+    assert "stage129:live_cutover_not_authorized" in result["command_records"][0]["blockers"]
+    assert result["command_records"][0]["live_submit_command_available"] is False
+
+
+def test_stage133_blocks_runner_ready_without_provider_ready_flag(tmp_path) -> None:
+    stage116, stage129, stage132 = _fixture(tmp_path, authorized=True)
+    payload = json.loads(stage116.read_text(encoding="utf-8"))
+    payload["runner_records"][0]["provider_ready"] = False
+    _write_json(stage116, payload)
+
+    result = run_stage133_packet(stage116_results_path=stage116, stage129_results_path=stage129, stage132_results_path=stage132)
+
+    assert result["decision"] == "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED"
+    assert result["authorized_runner_count"] == 0
+    assert "stage116:provider_not_ready" in result["command_records"][0]["blockers"]
 
 
 def test_stage133_outputs_are_written(tmp_path) -> None:

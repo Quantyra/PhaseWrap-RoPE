@@ -6,12 +6,15 @@ Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measu
 ## Result
 Stage 133 prepares exact live-submit command templates from Stage 116 runner records, Stage 129 cutover authorization, and Stage 132 guarded SDK factory readiness.
 
+Live-submit command strings require both per-command readiness and source-level readiness. Stage 116 must report `PROVIDER_RUNNER_PLAN_READY_FOR_EXECUTION`, Stage 129 must report `LIVE_CUTOVER_AUTHORIZED`, the runner record must preserve `provider_ready=true`, and Stage 132 must still show the guarded factory audit ready with the cutover guard state blocked. If any of those source-level facts are missing, `command_authorized` remains false even if an individual runner or provider record looks ready.
+
 Current decision:
 
 `AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED`
 
 ## What this supports
 - Runner command templates include Stage 111 readiness, Stage 118 payload, and Stage 129 cutover evidence inputs.
+- Live-submit command strings require source-level Stage 116 runner-plan readiness and Stage 129 cutover authorization.
 - Provider submitter import paths are attached to each provider/window command template.
 - Executable live-submit command strings are emitted only for records with `command_authorized=true`.
 - Current commands remain blocked until Stage 116 readiness, Stage 129 cutover, and Stage 132 factory readiness all align.

@@ -25,10 +25,13 @@
   "command_records": [
     {
       "blockers": [
+        "stage116:provider_not_ready",
         "stage116:runner_not_ready",
+        "stage116:runner_plan_not_ready",
         "stage116:stage106_provider_preflight_not_ready",
         "stage116:stage111_provider_not_ready",
         "stage129:cutover_not_authorized",
+        "stage129:live_cutover_not_authorized",
         "stage129:stage106:ibm_instance_crn_missing",
         "stage129:stage111:stage106_provider_preflight_not_ready"
       ],
@@ -46,10 +49,13 @@
     },
     {
       "blockers": [
+        "stage116:provider_not_ready",
         "stage116:runner_not_ready",
+        "stage116:runner_plan_not_ready",
         "stage116:stage106_provider_preflight_not_ready",
         "stage116:stage111_provider_not_ready",
         "stage129:cutover_not_authorized",
+        "stage129:live_cutover_not_authorized",
         "stage129:stage106:ibm_instance_crn_missing",
         "stage129:stage111:stage106_provider_preflight_not_ready"
       ],
