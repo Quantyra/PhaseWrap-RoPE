@@ -1,0 +1,56 @@
+{
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credentials or secret values",
+      "completed provider results",
+      "Stage 101 calibration verification",
+      "a noisy-hardware robustness result"
+    ],
+    "supported": [
+      "a provider result JSONL contract for Stage 112 jobs",
+      "per-provider/window job shards and fillable result stubs",
+      "a no-submission handoff format for provider runners before Stage 113 assembly"
+    ]
+  },
+  "decision": "PROVIDER_RESULT_CAPTURE_CONTRACT_PREPARED_RESULTS_REQUIRED",
+  "job_count": 496,
+  "job_shard_paths": [
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/amazon_braket/amazon_braket__independent_window_00/jobs.jsonl",
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/amazon_braket/amazon_braket__independent_window_01/jobs.jsonl",
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_00/jobs.jsonl",
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_01/jobs.jsonl"
+  ],
+  "missing_source_artifacts": [],
+  "next_gate": "Run provider execution against the job shards, write result JSONL records with the required fields, concatenate validated results into Stage 113 provider_job_results.jsonl, then assemble evidence.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": false,
+  "provider_job_result_schema_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_job_result_schema.json",
+  "required_result_fields": [
+    "job_id",
+    "job_or_task_id",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "counts"
+  ],
+  "result_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/results.json",
+  "result_stub_paths": [
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/result_stubs/amazon_braket/amazon_braket__independent_window_00/provider_job_results.stub.jsonl",
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/result_stubs/amazon_braket/amazon_braket__independent_window_01/provider_job_results.stub.jsonl",
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/result_stubs/ibm_runtime/ibm_runtime__independent_window_00/provider_job_results.stub.jsonl",
+    "logs/automated_stage_gates/stage114_provider_result_capture_contract/result_stubs/ibm_runtime/ibm_runtime__independent_window_01/provider_job_results.stub.jsonl"
+  ],
+  "schema_version": "qrope_stage114_provider_result_capture_contract_v1",
+  "secret_values_recorded": false,
+  "shard_count": 4,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage112_provider_execution_manifest/job_manifest.jsonl",
+    "logs/automated_stage_gates/stage113_job_result_evidence_assembler/manifest.json"
+  ],
+  "stage": "stage114_provider_result_capture_contract",
+  "stage113_decision": "JOB_RESULT_EVIDENCE_ASSEMBLY_BLOCKED_RESULTS_MISSING",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/summary.csv"
+}

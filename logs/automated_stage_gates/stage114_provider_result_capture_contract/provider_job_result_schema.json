@@ -1,0 +1,20 @@
+{
+  "field_notes": {
+    "backend_metadata": "Non-secret provider/backend/window metadata.",
+    "completed_at_utc": "ISO-8601 UTC timestamp.",
+    "counts": "Non-empty bitstring count mapping using provider output decoded into canonical keys expected by the job.",
+    "job_id": "Must match exactly one Stage 112 job_id.",
+    "job_or_task_id": "Provider job/task identifier; do not include secrets.",
+    "submitted_at_utc": "ISO-8601 UTC timestamp."
+  },
+  "record_type": "provider_job_result",
+  "required_fields": [
+    "job_id",
+    "job_or_task_id",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "counts"
+  ],
+  "schema_version": "qrope_stage114_provider_result_capture_contract_v1"
+}
