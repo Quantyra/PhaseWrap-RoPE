@@ -19,6 +19,13 @@ OBJECTIVE = (
     "under fixed circuit width."
 )
 POSITIONAL_COMPARATOR_FAMILIES: tuple[str, ...] = ("rope_like", "sinusoidal_like", "alibi_like")
+REQUIRED_EXECUTION_FIELDS: tuple[str, ...] = (
+    "job_or_task_ids",
+    "backend_metadata",
+    "submitted_at_utc",
+    "completed_at_utc",
+    "raw_counts_by_row",
+)
 
 
 def _load_json(path: Path) -> Any | None:
@@ -77,11 +84,16 @@ def _packet_template_metrics(packet_template: dict[str, Any], execution_dir: Pat
     if not isinstance(packet, dict):
         missing.append("packet_template_json")
         packet = {}
-    if not isinstance(execution, dict):
+    execution_present = isinstance(execution, dict)
+    if not execution_present:
         missing.append("packet_execution_json")
         execution = {}
     elif not _assembled_from_stage113(execution):
         missing.append("stage113_assembled_status")
+    if execution_present:
+        for field in REQUIRED_EXECUTION_FIELDS:
+            if field not in execution or execution.get(field) in (None, "", []):
+                missing.append(field)
     circuit_template = str(packet_template.get("circuit_template") or packet.get("fixed_width", {}).get("circuit_template"))
     counts_by_row = _counts_by_row(execution)
     errors: list[float] = []
@@ -167,11 +179,21 @@ def _comparison_summary(packet_records: list[dict[str, Any]]) -> list[dict[str, 
                 "circuit_template": circuit_template,
                 "phasewrap_component_reconstruction_mae": phasewrap_mae,
                 "phasewrap_lower_error_than": lower_than,
+                "phasewrap_present": phasewrap is not None,
                 "all_positional_comparators_present": all(family in by_family for family in POSITIONAL_COMPARATOR_FAMILIES),
                 "passes_auditability_advantage_rule": all(family in lower_than for family in POSITIONAL_COMPARATOR_FAMILIES),
             }
         )
     return summaries
+
+
+def _comparison_groups_complete(comparison_summary: list[dict[str, Any]]) -> bool:
+    return bool(comparison_summary) and all(
+        record.get("phasewrap_present") is True
+        and record.get("all_positional_comparators_present") is True
+        and record.get("phasewrap_component_reconstruction_mae") is not None
+        for record in comparison_summary
+    )
 
 
 def _window_record(plan: dict[str, Any], stage136_ready: bool) -> dict[str, Any]:
@@ -195,6 +217,9 @@ def _window_record(plan: dict[str, Any], stage136_ready: bool) -> dict[str, Any]
         missing.append("stage101_calibration_not_verified")
     if any(not record["ready"] for record in packet_records):
         missing.append("packet_execution_counts_missing")
+    comparison_summary = _comparison_summary(packet_records)
+    if not _comparison_groups_complete(comparison_summary):
+        missing.append("auditability_comparison_groups_incomplete")
     ready = bool(packet_records) and not missing
     return {
         "window_id": plan.get("window_id"),
@@ -207,7 +232,7 @@ def _window_record(plan: dict[str, Any], stage136_ready: bool) -> dict[str, Any]
         "missing_evidence": sorted(set(missing)),
         "packet_records": packet_records,
         "row_records": row_records,
-        "comparison_summary": _comparison_summary(packet_records) if ready else [],
+        "comparison_summary": comparison_summary if ready else [],
     }
 
 
@@ -262,6 +287,8 @@ def run_stage137_evaluator(
                 "a deterministic evaluator for component reconstruction auditability metrics",
                 "optional provider-scoped auditability evaluation for first-provider replicated-window evidence",
                 "binding of auditability evaluation to Stage 107 packet execution counts and Stage 101 calibration results",
+                "verification that packet executions preserve Stage 113 hardware-result lineage metadata",
+                "verification that PhaseWrap and every named positional comparator are present before claim-gate readiness",
                 "a blocked outcome when real provider packet counts are missing",
             ],
             "excluded": [

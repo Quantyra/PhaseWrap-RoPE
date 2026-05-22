@@ -36,6 +36,10 @@ def _execution(path, packet_id, counts) -> None:
             "status": "assembled_from_stage113_results",
             "no_hardware_submission": False,
             "packet_id": packet_id,
+            "job_or_task_ids": [f"job-{packet_id}"],
+            "backend_metadata": {"provider": "ibm_runtime", "backend": "backend_a"},
+            "submitted_at_utc": "2026-05-21T00:00:00Z",
+            "completed_at_utc": "2026-05-21T00:01:00Z",
             "raw_counts_by_row": [{"row_id": "row_0", "counts": counts}],
         },
     )
@@ -129,6 +133,38 @@ def test_stage137_rejects_complete_counts_without_stage113_status(tmp_path) -> N
     phasewrap_packet = result["window_records"][0]["packet_records"][0]
     assert phasewrap_packet["ready"] is False
     assert "stage113_assembled_status" in phasewrap_packet["missing_evidence"]
+
+
+def test_stage137_rejects_counts_without_result_lineage_metadata(tmp_path) -> None:
+    plans, stage136 = _ready_fixture(tmp_path)
+    execution_path = tmp_path / "executions" / "lane_0__phasewrap.json"
+    execution = json.loads(execution_path.read_text(encoding="utf-8"))
+    execution.pop("backend_metadata")
+    _write_json(execution_path, execution)
+
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136)
+
+    assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
+    assert result["ready_window_count"] == 0
+    phasewrap_packet = result["window_records"][0]["packet_records"][0]
+    assert phasewrap_packet["ready"] is False
+    assert "backend_metadata" in phasewrap_packet["missing_evidence"]
+
+
+def test_stage137_rejects_incomplete_positional_comparator_group(tmp_path) -> None:
+    plans, stage136 = _ready_fixture(tmp_path)
+    payload = json.loads(plans.read_text(encoding="utf-8"))
+    packet_templates = payload[0]["steps"][1]["packet_templates"]
+    payload[0]["steps"][1]["packet_templates"] = [
+        record for record in packet_templates if record["encoding_family"] != "alibi_like"
+    ]
+    _write_json(plans, payload)
+
+    result = run_stage137_evaluator(stage107_window_plans_path=plans, stage136_results_path=stage136)
+
+    assert result["decision"] == "AUDITABILITY_METRICS_BLOCKED_HARDWARE_COUNTS_REQUIRED"
+    assert result["ready_window_count"] == 0
+    assert "auditability_comparison_groups_incomplete" in result["window_records"][0]["missing_evidence"]
 
 
 def test_stage137_outputs_are_written(tmp_path) -> None:

@@ -13,6 +13,8 @@
       "a deterministic evaluator for component reconstruction auditability metrics",
       "optional provider-scoped auditability evaluation for first-provider replicated-window evidence",
       "binding of auditability evaluation to Stage 107 packet execution counts and Stage 101 calibration results",
+      "verification that packet executions preserve Stage 113 hardware-result lineage metadata",
+      "verification that PhaseWrap and every named positional comparator are present before claim-gate readiness",
       "a blocked outcome when real provider packet counts are missing"
     ]
   },
@@ -41,6 +43,7 @@
     {
       "comparison_summary": [],
       "missing_evidence": [
+        "auditability_comparison_groups_incomplete",
         "packet_execution_counts_missing",
         "stage101_calibration_not_verified"
       ],
@@ -238,6 +241,7 @@
     {
       "comparison_summary": [],
       "missing_evidence": [
+        "auditability_comparison_groups_incomplete",
         "packet_execution_counts_missing",
         "stage101_calibration_not_verified"
       ],
@@ -435,6 +439,7 @@
     {
       "comparison_summary": [],
       "missing_evidence": [
+        "auditability_comparison_groups_incomplete",
         "packet_execution_counts_missing",
         "stage101_calibration_not_verified"
       ],
@@ -632,6 +637,7 @@
     {
       "comparison_summary": [],
       "missing_evidence": [
+        "auditability_comparison_groups_incomplete",
         "packet_execution_counts_missing",
         "stage101_calibration_not_verified"
       ],
