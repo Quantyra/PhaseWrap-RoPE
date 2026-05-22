@@ -1,0 +1,83 @@
+{
+  "blockers": [],
+  "broad_simulated_claim_ready_providers": [],
+  "claim_boundary": {
+    "excluded": [
+      "real noisy-hardware evidence",
+      "provider credit or queue availability validation",
+      "hardware job submission",
+      "a publication-ready noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "simulated-only sufficiency audit separating targeted hardware-probe readiness from broad simulated robustness",
+      "provider-level count of stable templates, seeds, source lanes, and noise models from Stage165",
+      "explicit evidence that the current IBM signal is a narrow targeted-probe signal, not a broad claim"
+    ]
+  },
+  "cx_lane_count": 2,
+  "cx_lanes": [
+    "braket_cx_seed2718_rows8_shots1000",
+    "ibm_cx_seed314_rows16_shots4096"
+  ],
+  "decision": "SIMULATED_EVIDENCE_TARGETED_PROBE_READY_BROAD_CLAIM_INSUFFICIENT",
+  "missing_source_artifacts": [],
+  "next_gate": "For a targeted hardware probe, pause and resolve IBM credit/provider state together before live execution. For a broader simulated claim, add independent seeds/noise models before hardware spend.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "product_lane_count": 2,
+  "product_lanes": [
+    "braket_product_seed2718_rows8_shots1000",
+    "ibm_product_seed314_rows16_shots4096"
+  ],
+  "provider_credentials_required": false,
+  "schema_version": "qrope_stage166_simulated_evidence_sufficiency_audit_v1",
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage99_matched_fixed_width_encoding_packets/manifest.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/manifest.json",
+    "logs/automated_stage_gates/stage153_simulated_noise_rehearsal/results.json",
+    "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json"
+  ],
+  "stable_provider_records": [
+    {
+      "broad_claim_blockers": [
+        "stable_seed_count_below_broad_claim_threshold",
+        "stable_noise_model_count_below_broad_claim_threshold"
+      ],
+      "broad_simulated_claim_ready": false,
+      "provider": "ibm_runtime",
+      "stable_noise_model_count": 1,
+      "stable_noise_models": [
+        "ry_offset_0p02rad"
+      ],
+      "stable_seed_count": 1,
+      "stable_seeds": [
+        "314"
+      ],
+      "stable_source_lanes": [
+        "ibm_cx_seed314_rows16_shots4096",
+        "ibm_product_seed314_rows16_shots4096"
+      ],
+      "stable_target_count": 2,
+      "stable_template_count": 2,
+      "stable_templates": [
+        "two_ry_cx_parity_z_readout_v1",
+        "two_ry_product_state_z_readout_v1"
+      ],
+      "targeted_probe_ready": true
+    }
+  ],
+  "stage": "stage166_simulated_evidence_sufficiency_audit",
+  "stage153_decision": "SIMULATED_NOISE_PHASEWRAP_STRICT_ADVANTAGE_OBSERVED",
+  "stage165_decision": "SIMULATED_NOISE_STABLE_TARGETED_HARDWARE_PROBE_RECOMMENDED",
+  "status": "completed",
+  "sufficiency_thresholds": {
+    "min_stable_noise_model_count_for_broad_simulated_claim": 2,
+    "min_stable_seed_count_for_broad_simulated_claim": 2,
+    "min_stable_template_count_for_targeted_probe": 2
+  },
+  "targeted_probe_ready_providers": [
+    "ibm_runtime"
+  ]
+}

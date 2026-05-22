@@ -14,6 +14,7 @@ DEFAULT_STAGE159_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage159_first_provider_back
 DEFAULT_STAGE160_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage160_first_provider_post_run_analysis_packet" / "results.json"
 DEFAULT_STAGE161_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage161_first_provider_exposure_packet" / "results.json"
 DEFAULT_STAGE165_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage165_simulated_noise_margin_stability_audit" / "results.json"
+DEFAULT_STAGE166_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage166_simulated_evidence_sufficiency_audit" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage162_first_provider_approval_dossier"
 OBJECTIVE = (
     "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or "
@@ -26,6 +27,7 @@ STAGE159_READY = "FIRST_PROVIDER_BACKEND_PREFLIGHT_READY_AWAITING_APPROVAL"
 STAGE160_READY = "FIRST_PROVIDER_POST_RUN_ANALYSIS_PACKET_READY_AWAITING_PROVIDER_RESULTS"
 STAGE161_READY = "FIRST_PROVIDER_EXPOSURE_PACKET_READY_AWAITING_APPROVAL"
 STAGE165_READY = "SIMULATED_NOISE_STABLE_TARGETED_HARDWARE_PROBE_RECOMMENDED"
+STAGE166_READY = "SIMULATED_EVIDENCE_TARGETED_PROBE_READY_BROAD_CLAIM_INSUFFICIENT"
 APPROVAL_PHRASE = "APPROVE IBM RUNTIME STAGE133 LIVE RUN"
 
 
@@ -51,6 +53,15 @@ def _stable_provider_target_count(stage165: dict[str, Any] | None, provider: str
     )
 
 
+def _stage166_provider_record(stage166: dict[str, Any] | None, provider: str) -> dict[str, Any]:
+    if not isinstance(stage166, dict):
+        return {}
+    for record in stage166.get("stable_provider_records", []):
+        if isinstance(record, dict) and record.get("provider") == provider:
+            return record
+    return {}
+
+
 def _decision_record(stage_id: str, payload: dict[str, Any] | None, expected: str, purpose: str) -> dict[str, Any]:
     decision = payload.get("decision") if isinstance(payload, dict) else None
     return {
@@ -70,6 +81,7 @@ def run_stage162_approval_dossier(
     stage160_results_path: Path = DEFAULT_STAGE160_RESULTS,
     stage161_results_path: Path = DEFAULT_STAGE161_RESULTS,
     stage165_results_path: Path = DEFAULT_STAGE165_RESULTS,
+    stage166_results_path: Path = DEFAULT_STAGE166_RESULTS,
 ) -> dict[str, Any]:
     stage154 = _load_json(stage154_results_path)
     stage157 = _load_json(stage157_results_path)
@@ -77,6 +89,7 @@ def run_stage162_approval_dossier(
     stage160 = _load_json(stage160_results_path)
     stage161 = _load_json(stage161_results_path)
     stage165 = _load_json(stage165_results_path)
+    stage166 = _load_json(stage166_results_path)
     sources = [
         (stage154_results_path, stage154),
         (stage157_results_path, stage157),
@@ -84,6 +97,7 @@ def run_stage162_approval_dossier(
         (stage160_results_path, stage160),
         (stage161_results_path, stage161),
         (stage165_results_path, stage165),
+        (stage166_results_path, stage166),
     ]
     missing_sources = [str(path.as_posix()) for path, payload in sources if not isinstance(payload, dict)]
     provider = str(stage157.get("first_unlock_provider") if isinstance(stage157, dict) else "ibm_runtime")
@@ -94,6 +108,7 @@ def run_stage162_approval_dossier(
         _decision_record("stage160", stage160, STAGE160_READY, "post-result no-submit analysis sequence is prepared"),
         _decision_record("stage161", stage161, STAGE161_READY, "job and shot exposure is quantified before approval"),
         _decision_record("stage165", stage165, STAGE165_READY, "simulated targets clear shot-resolution margin stability audit"),
+        _decision_record("stage166", stage166, STAGE166_READY, "simulated evidence supports targeted probe but not broad claim"),
     ]
     blockers: list[str] = []
     if missing_sources:
@@ -116,12 +131,15 @@ def run_stage162_approval_dossier(
         blockers.append("stage161_missing_result_boundary_not_active")
     if isinstance(stage165, dict) and provider not in stage165.get("recommended_hardware_probe_providers", []):
         blockers.append("stage165_first_provider_not_stable_probe_target")
+    if isinstance(stage166, dict) and provider not in stage166.get("targeted_probe_ready_providers", []):
+        blockers.append("stage166_first_provider_not_targeted_probe_ready")
     approved_job_count = int(stage157.get("authorized_first_provider_job_count") or 0) if isinstance(stage157, dict) else 0
     exposure_job_count = int(stage161.get("job_count") or 0) if isinstance(stage161, dict) else 0
     if approved_job_count != exposure_job_count:
         blockers.append("approved_job_count_exposure_mismatch")
     strict_ibm_target_count = _provider_target_count(stage154, provider)
     stable_ibm_target_count = _stable_provider_target_count(stage165, provider)
+    stage166_provider_record = _stage166_provider_record(stage166, provider)
     ready = not blockers
     decision = (
         "FIRST_PROVIDER_APPROVAL_DOSSIER_INCOMPLETE"
@@ -133,6 +151,7 @@ def run_stage162_approval_dossier(
     go_considerations = [
         "Stage154 simulated-only rehearsal recommends targeted hardware follow-up, not broad hardware spend.",
         "Stage165 narrows that recommendation to targets whose margins clear a two-shot-quanta stability screen.",
+        "Stage166 confirms the current evidence supports a targeted IBM probe, not a broad simulated robustness claim.",
         "Stage159 read-only backend preflight is ready.",
         "Stage161 quantifies the pending first-provider run before approval.",
         "Stage160 defines the no-submit post-result analysis sequence needed to answer supported/not-supported.",
@@ -156,6 +175,9 @@ def run_stage162_approval_dossier(
         "stage_decision_records": decision_records,
         "strict_simulated_target_count_for_provider": strict_ibm_target_count,
         "stable_simulated_target_count_for_provider": stable_ibm_target_count,
+        "stage166_targeted_probe_ready_for_provider": stage166_provider_record.get("targeted_probe_ready"),
+        "stage166_broad_simulated_claim_ready_for_provider": stage166_provider_record.get("broad_simulated_claim_ready"),
+        "stage166_broad_claim_blockers_for_provider": stage166_provider_record.get("broad_claim_blockers", []),
         "authorized_first_provider_runner_count": (
             stage157.get("authorized_first_provider_runner_count") if isinstance(stage157, dict) else None
         ),
@@ -182,6 +204,7 @@ def run_stage162_approval_dossier(
             "supported": [
                 "a single no-submit dossier joining simulated GO, approval packet readiness, backend preflight, post-run sequence, and exposure totals",
                 "Stage165 shot-resolution stability is included before human GO/NO-GO readiness",
+                "Stage166 simulated-evidence sufficiency bounds approval readiness to a targeted IBM probe",
                 "human GO/NO-GO readiness for the first-provider IBM Runtime run under the exact approval phrase",
                 "explicit separation between approval readiness and a noisy-hardware advantage conclusion",
             ],
@@ -214,6 +237,9 @@ def write_stage162_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "first_unlock_provider": result["first_unlock_provider"],
         "strict_simulated_target_count_for_provider": result["strict_simulated_target_count_for_provider"],
         "stable_simulated_target_count_for_provider": result["stable_simulated_target_count_for_provider"],
+        "stage166_targeted_probe_ready_for_provider": result["stage166_targeted_probe_ready_for_provider"],
+        "stage166_broad_simulated_claim_ready_for_provider": result["stage166_broad_simulated_claim_ready_for_provider"],
+        "stage166_broad_claim_blockers_for_provider": result["stage166_broad_claim_blockers_for_provider"],
         "authorized_first_provider_runner_count": result["authorized_first_provider_runner_count"],
         "authorized_first_provider_job_count": result["authorized_first_provider_job_count"],
         "exposure_job_count": result["exposure_job_count"],

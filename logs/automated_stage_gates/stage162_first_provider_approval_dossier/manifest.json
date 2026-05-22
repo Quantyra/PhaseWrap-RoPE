@@ -17,6 +17,7 @@
     "supported": [
       "a single no-submit dossier joining simulated GO, approval packet readiness, backend preflight, post-run sequence, and exposure totals",
       "Stage165 shot-resolution stability is included before human GO/NO-GO readiness",
+      "Stage166 simulated-evidence sufficiency bounds approval readiness to a targeted IBM probe",
       "human GO/NO-GO readiness for the first-provider IBM Runtime run under the exact approval phrase",
       "explicit separation between approval readiness and a noisy-hardware advantage conclusion"
     ]
@@ -44,10 +45,17 @@
     "logs/automated_stage_gates/stage159_first_provider_backend_preflight/results.json",
     "logs/automated_stage_gates/stage160_first_provider_post_run_analysis_packet/results.json",
     "logs/automated_stage_gates/stage161_first_provider_exposure_packet/results.json",
-    "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json"
+    "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json",
+    "logs/automated_stage_gates/stage166_simulated_evidence_sufficiency_audit/results.json"
   ],
   "stable_simulated_target_count_for_provider": 2,
   "stage": "stage162_first_provider_approval_dossier",
+  "stage166_broad_claim_blockers_for_provider": [
+    "stable_seed_count_below_broad_claim_threshold",
+    "stable_noise_model_count_below_broad_claim_threshold"
+  ],
+  "stage166_broad_simulated_claim_ready_for_provider": false,
+  "stage166_targeted_probe_ready_for_provider": true,
   "status": "completed",
   "strict_simulated_target_count_for_provider": 2,
   "summary_csv_path": "logs/automated_stage_gates/stage162_first_provider_approval_dossier/summary.csv"

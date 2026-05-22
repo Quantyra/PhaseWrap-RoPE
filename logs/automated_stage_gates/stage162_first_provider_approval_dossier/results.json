@@ -18,6 +18,7 @@
     "supported": [
       "a single no-submit dossier joining simulated GO, approval packet readiness, backend preflight, post-run sequence, and exposure totals",
       "Stage165 shot-resolution stability is included before human GO/NO-GO readiness",
+      "Stage166 simulated-evidence sufficiency bounds approval readiness to a targeted IBM probe",
       "human GO/NO-GO readiness for the first-provider IBM Runtime run under the exact approval phrase",
       "explicit separation between approval readiness and a noisy-hardware advantage conclusion"
     ]
@@ -32,6 +33,7 @@
   "go_considerations": [
     "Stage154 simulated-only rehearsal recommends targeted hardware follow-up, not broad hardware spend.",
     "Stage165 narrows that recommendation to targets whose margins clear a two-shot-quanta stability screen.",
+    "Stage166 confirms the current evidence supports a targeted IBM probe, not a broad simulated robustness claim.",
     "Stage159 read-only backend preflight is ready.",
     "Stage161 quantifies the pending first-provider run before approval.",
     "Stage160 defines the no-submit post-result analysis sequence needed to answer supported/not-supported."
@@ -57,10 +59,17 @@
     "logs/automated_stage_gates/stage159_first_provider_backend_preflight/results.json",
     "logs/automated_stage_gates/stage160_first_provider_post_run_analysis_packet/results.json",
     "logs/automated_stage_gates/stage161_first_provider_exposure_packet/results.json",
-    "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json"
+    "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json",
+    "logs/automated_stage_gates/stage166_simulated_evidence_sufficiency_audit/results.json"
   ],
   "stable_simulated_target_count_for_provider": 2,
   "stage": "stage162_first_provider_approval_dossier",
+  "stage166_broad_claim_blockers_for_provider": [
+    "stable_seed_count_below_broad_claim_threshold",
+    "stable_noise_model_count_below_broad_claim_threshold"
+  ],
+  "stage166_broad_simulated_claim_ready_for_provider": false,
+  "stage166_targeted_probe_ready_for_provider": true,
   "stage_decision_records": [
     {
       "decision": "SIMULATED_NOISE_TARGETED_HARDWARE_FOLLOWUP_RECOMMENDED",
@@ -103,6 +112,13 @@
       "purpose": "simulated targets clear shot-resolution margin stability audit",
       "ready": true,
       "stage_id": "stage165"
+    },
+    {
+      "decision": "SIMULATED_EVIDENCE_TARGETED_PROBE_READY_BROAD_CLAIM_INSUFFICIENT",
+      "expected_decision": "SIMULATED_EVIDENCE_TARGETED_PROBE_READY_BROAD_CLAIM_INSUFFICIENT",
+      "purpose": "simulated evidence supports targeted probe but not broad claim",
+      "ready": true,
+      "stage_id": "stage166"
     }
   ],
   "status": "completed",

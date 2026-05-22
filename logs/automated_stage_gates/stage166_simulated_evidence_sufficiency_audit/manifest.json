@@ -1,0 +1,48 @@
+{
+  "blockers": [],
+  "broad_simulated_claim_ready_providers": [],
+  "claim_boundary": {
+    "excluded": [
+      "real noisy-hardware evidence",
+      "provider credit or queue availability validation",
+      "hardware job submission",
+      "a publication-ready noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "simulated-only sufficiency audit separating targeted hardware-probe readiness from broad simulated robustness",
+      "provider-level count of stable templates, seeds, source lanes, and noise models from Stage165",
+      "explicit evidence that the current IBM signal is a narrow targeted-probe signal, not a broad claim"
+    ]
+  },
+  "cx_lane_count": 2,
+  "decision": "SIMULATED_EVIDENCE_TARGETED_PROBE_READY_BROAD_CLAIM_INSUFFICIENT",
+  "missing_source_artifacts": [],
+  "next_gate": "For a targeted hardware probe, pause and resolve IBM credit/provider state together before live execution. For a broader simulated claim, add independent seeds/noise models before hardware spend.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "product_lane_count": 2,
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage166_simulated_evidence_sufficiency_audit/results.json",
+  "schema_version": "qrope_stage166_simulated_evidence_sufficiency_audit_v1",
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage99_matched_fixed_width_encoding_packets/manifest.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/manifest.json",
+    "logs/automated_stage_gates/stage153_simulated_noise_rehearsal/results.json",
+    "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json"
+  ],
+  "stage": "stage166_simulated_evidence_sufficiency_audit",
+  "stage153_decision": "SIMULATED_NOISE_PHASEWRAP_STRICT_ADVANTAGE_OBSERVED",
+  "stage165_decision": "SIMULATED_NOISE_STABLE_TARGETED_HARDWARE_PROBE_RECOMMENDED",
+  "status": "completed",
+  "sufficiency_thresholds": {
+    "min_stable_noise_model_count_for_broad_simulated_claim": 2,
+    "min_stable_seed_count_for_broad_simulated_claim": 2,
+    "min_stable_template_count_for_targeted_probe": 2
+  },
+  "summary_csv_path": "logs/automated_stage_gates/stage166_simulated_evidence_sufficiency_audit/summary.csv",
+  "targeted_probe_ready_providers": [
+    "ibm_runtime"
+  ]
+}
