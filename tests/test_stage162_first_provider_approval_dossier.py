@@ -19,6 +19,7 @@ def _sources(tmp_path):
     stage165 = tmp_path / "stage165.json"
     stage166 = tmp_path / "stage166.json"
     stage167 = tmp_path / "stage167.json"
+    stage168 = tmp_path / "stage168.json"
     _write_json(
         stage154,
         {
@@ -96,11 +97,20 @@ def _sources(tmp_path):
             "stable_template_count": 2,
         },
     )
-    return stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167
+    _write_json(
+        stage168,
+        {
+            "decision": "REAL_SOURCE_SEED_EXPANSION_REQUIRED_BEFORE_BROADENED_SCOPE",
+            "current_real_ibm_seed_pair_count": 1,
+            "missing_real_ibm_seed_pair_count": 1,
+            "blockers": ["real_ibm_seed_pair_count_below_broadened_scope_threshold"],
+        },
+    )
+    return stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167, stage168
 
 
 def test_stage162_dossier_ready_for_human_go_no_go(tmp_path) -> None:
-    stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167 = _sources(tmp_path)
+    stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167, stage168 = _sources(tmp_path)
 
     result = run_stage162_approval_dossier(
         stage154_results_path=stage154,
@@ -111,6 +121,7 @@ def test_stage162_dossier_ready_for_human_go_no_go(tmp_path) -> None:
         stage165_results_path=stage165,
         stage166_results_path=stage166,
         stage167_results_path=stage167,
+        stage168_results_path=stage168,
     )
 
     assert result["decision"] == "FIRST_PROVIDER_APPROVAL_DOSSIER_READY_FOR_HUMAN_GO_NO_GO"
@@ -120,13 +131,14 @@ def test_stage162_dossier_ready_for_human_go_no_go(tmp_path) -> None:
     assert result["stage166_targeted_probe_ready_for_provider"] is True
     assert result["stage166_broad_simulated_claim_ready_for_provider"] is False
     assert result["stage167_stable_seed_count"] == 1
+    assert result["stage168_missing_real_ibm_seed_pair_count"] == 1
     assert result["exposure_total_shots"] == 1318720
     assert result["runnable_commands_recorded"] is False
     assert result["credit_balance_verified"] is False
 
 
 def test_stage162_blocks_on_exposure_mismatch(tmp_path) -> None:
-    stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167 = _sources(tmp_path)
+    stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167, stage168 = _sources(tmp_path)
     _write_json(
         stage161,
         {
@@ -147,6 +159,7 @@ def test_stage162_blocks_on_exposure_mismatch(tmp_path) -> None:
         stage165_results_path=stage165,
         stage166_results_path=stage166,
         stage167_results_path=stage167,
+        stage168_results_path=stage168,
     )
 
     assert result["decision"] == "FIRST_PROVIDER_APPROVAL_DOSSIER_BLOCKED"
@@ -154,7 +167,7 @@ def test_stage162_blocks_on_exposure_mismatch(tmp_path) -> None:
 
 
 def test_stage162_outputs_do_not_record_secrets_or_live_commands(tmp_path) -> None:
-    stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167 = _sources(tmp_path)
+    stage154, stage157, stage159, stage160, stage161, stage165, stage166, stage167, stage168 = _sources(tmp_path)
     result = run_stage162_approval_dossier(
         stage154_results_path=stage154,
         stage157_results_path=stage157,
@@ -164,6 +177,7 @@ def test_stage162_outputs_do_not_record_secrets_or_live_commands(tmp_path) -> No
         stage165_results_path=stage165,
         stage166_results_path=stage166,
         stage167_results_path=stage167,
+        stage168_results_path=stage168,
     )
 
     paths = write_stage162_outputs(result, tmp_path / "out")

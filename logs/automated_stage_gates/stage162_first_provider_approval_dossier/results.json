@@ -20,6 +20,7 @@
       "Stage165 shot-resolution stability is included before human GO/NO-GO readiness",
       "Stage166 simulated-evidence sufficiency bounds approval readiness to a targeted IBM probe",
       "Stage167 expanded synthetic seed stress is included as a scope boundary before approval",
+      "Stage168 real-source seed expansion requirements are included as a broadened-scope boundary",
       "human GO/NO-GO readiness for the first-provider IBM Runtime run under the exact approval phrase",
       "explicit separation between approval readiness and a noisy-hardware advantage conclusion"
     ]
@@ -36,6 +37,7 @@
     "Stage165 narrows that recommendation to targets whose margins clear a two-shot-quanta stability screen.",
     "Stage166 confirms the current evidence supports a targeted IBM probe, not a broad simulated robustness claim.",
     "Stage167 expanded synthetic seed stress does not broaden the scope beyond the targeted probe.",
+    "Stage168 requires another real IBM product/CX source seed pair before broadening scope.",
     "Stage159 read-only backend preflight is ready.",
     "Stage161 quantifies the pending first-provider run before approval.",
     "Stage160 defines the no-submit post-result analysis sequence needed to answer supported/not-supported."
@@ -63,7 +65,8 @@
     "logs/automated_stage_gates/stage161_first_provider_exposure_packet/results.json",
     "logs/automated_stage_gates/stage165_simulated_noise_margin_stability_audit/results.json",
     "logs/automated_stage_gates/stage166_simulated_evidence_sufficiency_audit/results.json",
-    "logs/automated_stage_gates/stage167_expanded_simulated_seed_stress_audit/results.json"
+    "logs/automated_stage_gates/stage167_expanded_simulated_seed_stress_audit/results.json",
+    "logs/automated_stage_gates/stage168_real_source_seed_expansion_plan/results.json"
   ],
   "stable_simulated_target_count_for_provider": 2,
   "stage": "stage162_first_provider_approval_dossier",
@@ -76,6 +79,12 @@
   "stage167_stable_noise_model_count": 1,
   "stage167_stable_seed_count": 1,
   "stage167_stable_template_count": 2,
+  "stage168_broadened_scope_blockers": [
+    "real_ibm_seed_pair_count_below_broadened_scope_threshold",
+    "stage167_synthetic_stress_did_not_support_broadened_scope"
+  ],
+  "stage168_current_real_ibm_seed_pair_count": 1,
+  "stage168_missing_real_ibm_seed_pair_count": 1,
   "stage_decision_records": [
     {
       "decision": "SIMULATED_NOISE_TARGETED_HARDWARE_FOLLOWUP_RECOMMENDED",
@@ -132,6 +141,13 @@
       "purpose": "expanded synthetic seed stress does not broaden hardware scope",
       "ready": true,
       "stage_id": "stage167"
+    },
+    {
+      "decision": "REAL_SOURCE_SEED_EXPANSION_REQUIRED_BEFORE_BROADENED_SCOPE",
+      "expected_decision": "REAL_SOURCE_SEED_EXPANSION_REQUIRED_BEFORE_BROADENED_SCOPE",
+      "purpose": "real source seed expansion is required before broadened scope",
+      "ready": true,
+      "stage_id": "stage168"
     }
   ],
   "status": "completed",

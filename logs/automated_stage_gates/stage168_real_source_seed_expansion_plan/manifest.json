@@ -1,0 +1,41 @@
+{
+  "blockers": [
+    "real_ibm_seed_pair_count_below_broadened_scope_threshold",
+    "stage167_synthetic_stress_did_not_support_broadened_scope"
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "new source packet generation",
+      "hardware job submission",
+      "provider credentials or secret values",
+      "real noisy-hardware evidence",
+      "a broad robustness or auditability conclusion"
+    ],
+    "supported": [
+      "no-submit plan for the real frozen IBM source seeds needed before broadened simulated or hardware scope",
+      "count of current complete IBM product/CX seed pairs in Stage4 preregistered packets",
+      "recommended additional IBM source lanes to freeze before broadening beyond the current targeted probe"
+    ]
+  },
+  "current_real_ibm_seed_pair_count": 1,
+  "decision": "REAL_SOURCE_SEED_EXPANSION_REQUIRED_BEFORE_BROADENED_SCOPE",
+  "missing_real_ibm_seed_pair_count": 1,
+  "missing_source_artifacts": [],
+  "next_gate": "Keep the live path scoped to the current targeted IBM probe unless additional real IBM product/CX seed pairs are frozen and rerun through Stage99/100/153/165/166/167.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider": "ibm_runtime",
+  "provider_credentials_required": false,
+  "required_real_ibm_seed_pair_count_for_broadened_scope": 2,
+  "result_path": "logs/automated_stage_gates/stage168_real_source_seed_expansion_plan/results.json",
+  "schema_version": "qrope_stage168_real_source_seed_expansion_plan_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage4_preregistered_replication_packets/manifest.json",
+    "logs/automated_stage_gates/stage167_expanded_simulated_seed_stress_audit/results.json"
+  ],
+  "stage": "stage168_real_source_seed_expansion_plan",
+  "stage167_decision": "EXPANDED_SIMULATED_SEED_STRESS_DOES_NOT_SUPPORT_BROADENED_HARDWARE_PROBE",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage168_real_source_seed_expansion_plan/summary.csv"
+}
