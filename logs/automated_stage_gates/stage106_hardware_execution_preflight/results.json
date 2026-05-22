@@ -37,16 +37,14 @@
       "backend_env_present": [
         "QROPE_HARDWARE_BACKEND"
       ],
-      "blockers": [
-        "ibm_instance_crn_missing"
-      ],
+      "blockers": [],
       "budget_cap_present": true,
       "credential_env_present": [
         "IBM_QUANTUM_TOKEN"
       ],
       "provider": "ibm_runtime",
       "queue_depth_cap_present": true,
-      "status": "blocked"
+      "status": "ready"
     }
   ],
   "providers": [

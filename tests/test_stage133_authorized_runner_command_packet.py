@@ -83,6 +83,18 @@ def test_stage133_authorizes_only_complete_command_records(tmp_path) -> None:
     assert "--submitter qrope.provider_adapters.ibm_runtime:submit" in result["command_records"][0]["live_submit_command"]
 
 
+def test_stage133_accepts_stage132_provider_scoped_cutover_authorization(tmp_path) -> None:
+    stage116, stage129, stage132 = _fixture(tmp_path, authorized=True)
+    payload = json.loads(stage132.read_text(encoding="utf-8"))
+    payload["provider_records"][0]["cutover_authorized"] = True
+    _write_json(stage132, payload)
+
+    result = run_stage133_packet(stage116_results_path=stage116, stage129_results_path=stage129, stage132_results_path=stage132)
+
+    assert result["command_records"][0]["command_authorized"] is True
+    assert "stage132:cutover_guard_state_not_blocked" not in result["command_records"][0]["blockers"]
+
+
 def test_stage133_allows_record_ready_when_only_stage116_global_decision_is_blocked(tmp_path) -> None:
     stage116, stage129, stage132 = _fixture(tmp_path, authorized=True)
     payload = json.loads(stage116.read_text(encoding="utf-8"))

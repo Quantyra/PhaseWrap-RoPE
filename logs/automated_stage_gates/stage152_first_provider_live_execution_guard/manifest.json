@@ -1,11 +1,7 @@
 {
-  "all_first_provider_commands_authorized": false,
-  "all_first_provider_commands_live_submit_ready": false,
-  "blockers": [
-    "stage133_no_authorized_first_provider_commands",
-    "stage133_not_all_first_provider_commands_live_submit_ready",
-    "stage144_post_configuration_chain_not_ready"
-  ],
+  "all_first_provider_commands_authorized": true,
+  "all_first_provider_commands_live_submit_ready": true,
+  "blockers": [],
   "claim_boundary": {
     "excluded": [
       "provider credential values",
@@ -22,9 +18,9 @@
       "explicit separation between command preparation and permission to run guarded live provider execution"
     ]
   },
-  "decision": "FIRST_PROVIDER_LIVE_EXECUTION_GUARD_PREPARED_EXECUTION_BLOCKED",
-  "first_provider_authorized_runner_count": 0,
-  "first_provider_live_submit_ready_count": 0,
+  "decision": "FIRST_PROVIDER_LIVE_EXECUTION_GUARD_READY_FOR_GUARDED_RUNNER",
+  "first_provider_authorized_runner_count": 2,
+  "first_provider_live_submit_ready_count": 2,
   "first_provider_runner_command_count": 2,
   "first_unlock_provider": "ibm_runtime",
   "missing_source_artifacts": [],
@@ -41,20 +37,10 @@
     "logs/automated_stage_gates/stage151_first_provider_result_metadata_guard_audit/results.json"
   ],
   "stage": "stage152_first_provider_live_execution_guard",
-  "stage144_decision": "POST_CONFIGURATION_RERUN_CHAIN_PREPARED_EXECUTION_BLOCKED",
-  "stage144_first_blocked_transition": {
-    "blockers": [
-      "IBM_QUANTUM_INSTANCE_CRN"
-    ],
-    "label": "first provider ready for preflight rerun",
-    "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
-    "observed": false,
-    "ready": false,
-    "required": true,
-    "stage": "stage140_local_provider_configuration_readiness"
-  },
-  "stage144_ready_for_authorized_runner": false,
-  "stage144_ready_transition_count": 2,
+  "stage144_decision": "POST_CONFIGURATION_RERUN_CHAIN_READY_FOR_AUTHORIZED_RUNNER",
+  "stage144_first_blocked_transition": null,
+  "stage144_ready_for_authorized_runner": true,
+  "stage144_ready_transition_count": 9,
   "stage144_transition_count": 9,
   "stage151_metadata_guard_ready": true,
   "status": "completed",

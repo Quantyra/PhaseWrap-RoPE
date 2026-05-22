@@ -66,11 +66,7 @@
       "blocked_without_allow": true,
       "blocked_without_cutover": true,
       "client_config": {
-        "blockers": [
-          "env_missing:IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
-          "env_missing:IBM_QUANTUM_INSTANCE_CRN",
-          "env_missing:QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND"
-        ],
+        "blockers": [],
         "client_factory_implemented": true,
         "client_kind": "ibm_runtime_sampler_client",
         "no_hardware_submission": false,
@@ -81,9 +77,9 @@
           "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND"
         ],
         "required_env_present": {
-          "IBM_QUANTUM_INSTANCE_CRN": false,
-          "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN": false,
-          "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND": false
+          "IBM_QUANTUM_INSTANCE_CRN": true,
+          "IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN": true,
+          "QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND": true
         },
         "sdk_modules": {
           "qiskit": true,
@@ -95,8 +91,8 @@
       "missing_evidence": [],
       "provider": "ibm_runtime",
       "ready": true,
-      "stage106_status": "blocked",
-      "stage111_status": "blocked"
+      "stage106_status": "ready",
+      "stage111_status": "ready"
     }
   ],
   "ready_provider_count": 2,

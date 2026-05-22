@@ -1,5 +1,5 @@
 {
-  "authorized_provider_count": 0,
+  "authorized_provider_count": 1,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -77,13 +77,11 @@
       ]
     },
     {
-      "cutover_authorized": false,
+      "cutover_authorized": true,
       "provider": "ibm_runtime",
       "remediation_actions": [
-        "Set or verify non-committed provider configuration for Stage 106.",
         "Required provider env groups: IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN; QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND; IBM_QUANTUM_INSTANCE_CRN.",
-        "Required common env groups: QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP.",
-        "Rerun Stage 129 and execute only Stage 133 command records with command_authorized=true for this provider."
+        "Required common env groups: QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP."
       ],
       "required_common_env": [
         "QROPE_HARDWARE_BUDGET_USD_CAP",
@@ -98,24 +96,13 @@
         "qiskit": true,
         "qiskit_ibm_runtime": true
       },
-      "stage106_blockers": [
-        "ibm_instance_crn_missing"
-      ],
-      "stage106_status": "blocked",
-      "stage111_blockers": [
-        "stage106_provider_preflight_not_ready"
-      ],
-      "stage111_status": "blocked",
-      "stage128_client_blockers": [
-        "env_missing:IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
-        "env_missing:IBM_QUANTUM_INSTANCE_CRN",
-        "env_missing:QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND"
-      ],
+      "stage106_blockers": [],
+      "stage106_status": "ready",
+      "stage111_blockers": [],
+      "stage111_status": "ready",
+      "stage128_client_blockers": [],
       "stage128_ready": true,
-      "stage129_blockers": [
-        "stage106:ibm_instance_crn_missing",
-        "stage111:stage106_provider_preflight_not_ready"
-      ]
+      "stage129_blockers": []
     }
   ],
   "rerun_sequence": [

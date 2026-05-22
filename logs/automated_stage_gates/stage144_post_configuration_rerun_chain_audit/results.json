@@ -14,34 +14,24 @@
       "preservation of the Stage 138 no-claim boundary until downstream hardware result gates clear"
     ]
   },
-  "decision": "POST_CONFIGURATION_RERUN_CHAIN_PREPARED_EXECUTION_BLOCKED",
-  "first_blocked_transition": {
-    "blockers": [
-      "IBM_QUANTUM_INSTANCE_CRN"
-    ],
-    "label": "first provider ready for preflight rerun",
-    "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
-    "observed": false,
-    "ready": false,
-    "required": true,
-    "stage": "stage140_local_provider_configuration_readiness"
-  },
-  "first_provider_authorized_runner_count": 0,
+  "decision": "POST_CONFIGURATION_RERUN_CHAIN_READY_FOR_AUTHORIZED_RUNNER",
+  "first_blocked_transition": null,
+  "first_provider_authorized_runner_count": 2,
   "first_provider_prepared_job_count": 328,
   "first_provider_runner_command_count": 2,
   "first_unlock_provider": "ibm_runtime",
   "missing_source_artifacts": [],
-  "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
+  "next_command": "",
   "next_gate": "Fill first-provider local env outside git, rerun the reported command chain, and execute only Stage 133 commands that later report command_authorized=true.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": true,
-  "ready_transition_count": 2,
+  "ready_transition_count": 9,
   "rerun_commands": [
     "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
     "python scripts/run_stage106_hardware_execution_preflight.py --load-dotenv",
     "python scripts/run_stage111_provider_sdk_backend_discovery.py",
-    "python scripts/run_stage128_sdk_client_factory_audit.py",
+    "python scripts/run_stage128_sdk_client_factory_audit.py --load-dotenv",
     "python scripts/run_stage129_live_cutover_authorization_audit.py",
     "python scripts/run_stage130_live_cutover_remediation_packet.py",
     "python scripts/run_stage139_provider_action_readiness_checklist.py",
@@ -80,35 +70,29 @@
       "stage": "stage143_first_provider_handoff_safety_audit"
     },
     {
-      "blockers": [
-        "IBM_QUANTUM_INSTANCE_CRN"
-      ],
-      "label": "first provider ready for preflight rerun",
-      "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
+      "blockers": [],
+      "label": "first provider configured for preflight or already cutover",
+      "next_command": "",
       "observed": false,
-      "ready": false,
-      "required": true,
+      "ready": true,
+      "required": "ready_for_preflight_rerun=true or env/sdk ready with cutover already authorized",
       "stage": "stage140_local_provider_configuration_readiness"
     },
     {
-      "blockers": [
-        "ibm_instance_crn_missing"
-      ],
+      "blockers": [],
       "label": "first provider hardware preflight ready",
-      "next_command": "python scripts/run_stage106_hardware_execution_preflight.py --load-dotenv",
-      "observed": "blocked",
-      "ready": false,
+      "next_command": "",
+      "observed": "ready",
+      "ready": true,
       "required": "ready",
       "stage": "stage106_hardware_execution_preflight"
     },
     {
-      "blockers": [
-        "stage106_provider_preflight_not_ready"
-      ],
+      "blockers": [],
       "label": "first provider SDK/backend discovery ready",
-      "next_command": "python scripts/run_stage111_provider_sdk_backend_discovery.py",
-      "observed": "blocked",
-      "ready": false,
+      "next_command": "",
+      "observed": "ready",
+      "ready": true,
       "required": "ready",
       "stage": "stage111_provider_sdk_backend_discovery"
     },
@@ -122,48 +106,38 @@
       "stage": "stage128_sdk_client_factory_audit"
     },
     {
-      "blockers": [
-        "stage106:ibm_instance_crn_missing",
-        "stage111:stage106_provider_preflight_not_ready"
-      ],
+      "blockers": [],
       "label": "first provider live cutover authorized",
-      "next_command": "python scripts/run_stage129_live_cutover_authorization_audit.py",
-      "observed": false,
-      "ready": false,
+      "next_command": "",
+      "observed": true,
+      "ready": true,
       "required": true,
       "stage": "stage129_live_cutover_authorization_audit"
     },
     {
-      "blockers": [
-        "stage106:ibm_instance_crn_missing",
-        "stage111:stage106_provider_preflight_not_ready"
-      ],
+      "blockers": [],
       "label": "first provider remediation packet authorizes cutover",
-      "next_command": "python scripts/run_stage130_live_cutover_remediation_packet.py",
-      "observed": false,
-      "ready": false,
+      "next_command": "",
+      "observed": true,
+      "ready": true,
       "required": true,
       "stage": "stage130_live_cutover_remediation_packet"
     },
     {
-      "blockers": [
-        "stage106:ibm_instance_crn_missing"
-      ],
+      "blockers": [],
       "label": "first provider ready for live runner execution",
-      "next_command": "python scripts/run_stage139_provider_action_readiness_checklist.py",
-      "observed": false,
-      "ready": false,
+      "next_command": "",
+      "observed": true,
+      "ready": true,
       "required": true,
       "stage": "stage139_provider_action_readiness_checklist"
     },
     {
-      "blockers": [
-        "no_authorized_runner_commands"
-      ],
+      "blockers": [],
       "label": "first provider has authorized runner commands",
-      "next_command": "python scripts/run_stage133_authorized_runner_command_packet.py",
-      "observed": 0,
-      "ready": false,
+      "next_command": "",
+      "observed": 2,
+      "ready": true,
       "required": "at least 1 authorized command",
       "stage": "stage133_authorized_runner_command_packet"
     },

@@ -1,5 +1,5 @@
 {
-  "authorized_provider_count": 0,
+  "authorized_provider_count": 1,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -15,7 +15,7 @@
       "confirmation that current live cutover remains blocked before hardware submission"
     ]
   },
-  "decision": "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED",
+  "decision": "LIVE_CUTOVER_AUTHORIZED",
   "missing_source_artifacts": [],
   "next_gate": "Clear the listed provider blockers, rerun Stage 106, Stage 111, Stage 128, and this cutover audit, then run guarded live provider execution only for providers with cutover_authorized=true.",
   "no_hardware_submission": true,

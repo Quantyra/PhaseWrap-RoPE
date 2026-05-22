@@ -1,5 +1,5 @@
 {
-  "authorized_runner_count": 0,
+  "authorized_runner_count": 2,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -34,7 +34,7 @@
   ],
   "stage": "stage133_authorized_runner_command_packet",
   "stage116_decision": "PROVIDER_RUNNER_PLAN_PREPARED_EXECUTION_BLOCKED",
-  "stage129_decision": "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED",
+  "stage129_decision": "LIVE_CUTOVER_AUTHORIZED",
   "stage132_decision": "GUARDED_SDK_FACTORIES_IMPLEMENTED_CUTOVER_BLOCKED",
   "status": "completed",
   "summary_csv_path": "logs/automated_stage_gates/stage133_authorized_runner_command_packet/summary.csv"

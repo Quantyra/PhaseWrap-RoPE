@@ -1,0 +1,53 @@
+{
+  "authorized_command_records": [
+    {
+      "command_authorized": true,
+      "job_count": 164,
+      "live_submit_command_available": true,
+      "provider": "ibm_runtime",
+      "window_id": "ibm_runtime__independent_window_00"
+    },
+    {
+      "command_authorized": true,
+      "job_count": 164,
+      "live_submit_command_available": true,
+      "provider": "ibm_runtime",
+      "window_id": "ibm_runtime__independent_window_01"
+    }
+  ],
+  "authorized_first_provider_job_count": 328,
+  "authorized_first_provider_runner_count": 2,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "provider credential values",
+      "provider result records",
+      "credit balance verification",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "non-live checkpoint that IBM first-provider guarded-runner readiness has cleared",
+      "explicit pause before running any Stage 133 live-submit command",
+      "non-secret authorized command counts and job counts"
+    ]
+  },
+  "decision": "FIRST_PROVIDER_LIVE_RUN_READY_AWAITING_EXPLICIT_APPROVAL",
+  "explicit_user_approval_required": true,
+  "first_unlock_provider": "ibm_runtime",
+  "missing_source_artifacts": [],
+  "next_gate": "After explicit approval to spend hardware budget, execute only the authorized first-provider Stage 133 live-submit commands, then collect provider result shards through Stage 115 and assemble evidence through Stage 113.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "schema_version": "qrope_stage156_first_provider_live_run_pause_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage133_authorized_runner_command_packet/results.json",
+    "logs/automated_stage_gates/stage152_first_provider_live_execution_guard/results.json"
+  ],
+  "stage": "stage156_first_provider_live_run_pause",
+  "stage133_decision": "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED",
+  "stage152_decision": "FIRST_PROVIDER_LIVE_EXECUTION_GUARD_READY_FOR_GUARDED_RUNNER",
+  "stage152_ready_for_guarded_runner": true,
+  "status": "completed"
+}

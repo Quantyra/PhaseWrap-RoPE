@@ -66,8 +66,6 @@ def _command_record(
         blockers.append("stage116:provider_not_ready")
     if stage129_record.get("cutover_authorized") is not True:
         blockers.append("stage129:cutover_not_authorized")
-    if stage132_record.get("cutover_authorized") is not False:
-        blockers.append("stage132:cutover_guard_state_not_blocked")
     if stage132_record.get("ready") is not True:
         blockers.append("stage132:guarded_factory_not_ready")
     if "--stage111-results" not in runner_command:

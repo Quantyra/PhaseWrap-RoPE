@@ -3,14 +3,15 @@
     "excluded": [
       "hardware job submission",
       "provider credentials or secret values",
-      "live provider SDK client creation under the current blocked state",
+      "live provider SDK client creation",
       "real provider result records",
       "a noisy-hardware robustness result"
     ],
     "supported": [
       "guarded SDK factory implementation blockers are removed for IBM Runtime and Amazon Braket",
-      "live client creation still fails closed under current provider readiness and cutover blockers",
-      "Stage 129 cutover blockers now point to readiness rather than missing factory code"
+      "live client creation still fails closed without explicit allow/cutover controls",
+      "Stage 129 cutover blockers now point to readiness rather than missing factory code when a provider is not authorized",
+      "provider-scoped cutover authorization does not require every provider to be authorized before Stage 133 can evaluate target-provider commands"
     ]
   },
   "decision": "GUARDED_SDK_FACTORIES_IMPLEMENTED_CUTOVER_BLOCKED",
@@ -46,14 +47,11 @@
       "client_factory_implemented": true,
       "client_factory_live_capable": true,
       "contract_version": "ibm_runtime_sampler_v2_factory_contract_v1",
-      "cutover_authorized": false,
+      "cutover_authorized": true,
       "missing_evidence": [],
       "provider": "ibm_runtime",
       "ready": true,
-      "stage129_blockers": [
-        "stage106:ibm_instance_crn_missing",
-        "stage111:stage106_provider_preflight_not_ready"
-      ]
+      "stage129_blockers": []
     }
   ],
   "ready_provider_count": 2,
@@ -66,7 +64,7 @@
   ],
   "stage": "stage132_guarded_sdk_factory_implementation_audit",
   "stage128_decision": "SDK_CLIENT_FACTORIES_IMPLEMENTED_EXECUTION_BLOCKED",
-  "stage129_decision": "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED",
+  "stage129_decision": "LIVE_CUTOVER_AUTHORIZED",
   "stage131_decision": "SDK_FACTORY_CONTRACTS_READY_EXECUTION_BLOCKED",
   "status": "completed"
 }

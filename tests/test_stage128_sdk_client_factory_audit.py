@@ -67,6 +67,31 @@ def _fixture(tmp_path):
     return tmp_path / "stage106.json", tmp_path / "stage111.json", tmp_path / "stage127.json"
 
 
+def _provider_ready_fixture(tmp_path):
+    _write_json(
+        tmp_path / "stage106.json",
+        {
+            "decision": "HARDWARE_EXECUTION_PREFLIGHT_BLOCKED_CONFIGURATION_REQUIRED",
+            "provider_records": [
+                {"provider": "amazon_braket", "status": "blocked"},
+                {"provider": "ibm_runtime", "status": "ready"},
+            ],
+        },
+    )
+    _write_json(
+        tmp_path / "stage111.json",
+        {
+            "decision": "PROVIDER_SDK_BACKEND_DISCOVERY_BLOCKED",
+            "provider_records": [
+                {"provider": "amazon_braket", "status": "blocked"},
+                {"provider": "ibm_runtime", "status": "ready"},
+            ],
+        },
+    )
+    _write_json(tmp_path / "stage127.json", {"decision": "INJECTED_CLIENT_SUBMITTER_PATH_READY_EXECUTION_BLOCKED"})
+    return tmp_path / "stage106.json", tmp_path / "stage111.json", tmp_path / "stage127.json"
+
+
 def test_stage128_reports_client_factories_guarded(tmp_path) -> None:
     stage106, stage111, stage127 = _fixture(tmp_path)
 
@@ -76,6 +101,21 @@ def test_stage128_reports_client_factories_guarded(tmp_path) -> None:
     assert result["ready_provider_count"] == 2
     assert all(record["blocked_without_allow"] for record in result["provider_records"])
     assert all(record["blocked_without_cutover"] for record in result["provider_records"])
+
+
+def test_stage128_accepts_provider_scoped_ready_state_after_local_config(tmp_path, monkeypatch) -> None:
+    stage106, stage111, stage127 = _provider_ready_fixture(tmp_path)
+    monkeypatch.setenv("IBM_QUANTUM_TOKEN", "token")
+    monkeypatch.setenv("IBM_QUANTUM_INSTANCE_CRN", "crn")
+    monkeypatch.setenv("QROPE_HARDWARE_BACKEND", "backend")
+
+    result = run_stage128_audit(stage106_results_path=stage106, stage111_results_path=stage111, stage127_results_path=stage127)
+    ibm = next(record for record in result["provider_records"] if record["provider"] == "ibm_runtime")
+
+    assert ibm["ready"] is True
+    assert ibm["client_config"]["required_env_present"]["IBM_QUANTUM_INSTANCE_CRN"] is True
+    assert "current_provider_blocker_state_changed" not in ibm["missing_evidence"]
+    assert "current_provider_readiness_state_inconsistent" not in ibm["missing_evidence"]
 
 
 def test_stage128_outputs_are_written(tmp_path) -> None:

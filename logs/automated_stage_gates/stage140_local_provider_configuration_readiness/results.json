@@ -115,7 +115,7 @@
       "stage139_source_ready_for_remediation": true
     },
     {
-      "cutover_authorized": false,
+      "cutover_authorized": true,
       "env_group_records": [
         {
           "candidate_keys": [
@@ -146,8 +146,10 @@
             "IBM_QUANTUM_INSTANCE_CRN"
           ],
           "group": "IBM_QUANTUM_INSTANCE_CRN",
-          "present_keys": [],
-          "ready": false,
+          "present_keys": [
+            "IBM_QUANTUM_INSTANCE_CRN"
+          ],
+          "ready": true,
           "scope": "provider"
         },
         {
@@ -173,13 +175,12 @@
           "scope": "common"
         }
       ],
-      "env_ready_for_stage106": false,
-      "missing_env_groups": [
-        "IBM_QUANTUM_INSTANCE_CRN"
-      ],
+      "env_ready_for_stage106": true,
+      "missing_env_groups": [],
       "missing_sdk_modules": [],
       "next_commands": [],
       "present_env_keys": [
+        "IBM_QUANTUM_INSTANCE_CRN",
         "IBM_QUANTUM_TOKEN",
         "QROPE_HARDWARE_BACKEND",
         "QROPE_HARDWARE_BUDGET_USD_CAP",
@@ -192,8 +193,10 @@
         "qiskit_ibm_runtime": true
       },
       "sdk_ready_for_stage111": true,
-      "stage139_context_blockers": [],
-      "stage139_first_blocker": "stage106:ibm_instance_crn_missing",
+      "stage139_context_blockers": [
+        "stage139_provider_already_cutover_authorized"
+      ],
+      "stage139_first_blocker": "stage128_client_blockers:env_missing:IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN",
       "stage139_source_ready_for_remediation": true
     }
   ],

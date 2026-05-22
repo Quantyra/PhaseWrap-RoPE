@@ -1,5 +1,5 @@
 {
-  "authorized_provider_count": 0,
+  "authorized_provider_count": 1,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",

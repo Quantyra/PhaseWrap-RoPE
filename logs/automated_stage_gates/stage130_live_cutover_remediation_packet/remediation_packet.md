@@ -26,12 +26,9 @@ LIVE_CUTOVER_REMEDIATION_PACKET_READY_EXECUTION_BLOCKED
 - Install or expose missing provider SDK modules: boto3, braket.
 - Rerun Stage 129 and execute only Stage 133 command records with command_authorized=true for this provider.
 ### ibm_runtime
-- Cutover authorized: `False`
-- Stage 129 blockers: stage106:ibm_instance_crn_missing; stage111:stage106_provider_preflight_not_ready
-- Set or verify non-committed provider configuration for Stage 106.
+- Cutover authorized: `True`
 - Required provider env groups: IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN; QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND; IBM_QUANTUM_INSTANCE_CRN.
 - Required common env groups: QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP.
-- Rerun Stage 129 and execute only Stage 133 command records with command_authorized=true for this provider.
 
 ## Live Execution Rule
 Do not run provider runner commands until Stage 152 reports READY_FOR_GUARDED_RUNNER after Stage 129 cutover, Stage 151 metadata guard readiness, and Stage 133 command authorization.

@@ -21,7 +21,7 @@
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": true,
-  "ready_runner_count": 0,
+  "ready_runner_count": 2,
   "runner_count": 4,
   "runner_records": [
     {
@@ -75,16 +75,13 @@
       "window_id": "amazon_braket__independent_window_01"
     },
     {
-      "blockers": [
-        "stage106_provider_preflight_not_ready",
-        "stage111_provider_not_ready"
-      ],
+      "blockers": [],
       "calibration_job_count": 4,
       "job_count": 164,
       "job_shard_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_00/jobs.jsonl",
       "packet_job_count": 160,
       "provider": "ibm_runtime",
-      "provider_ready": false,
+      "provider_ready": true,
       "provider_result_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_00/provider_job_results.jsonl",
       "required_result_fields": [
         "job_id",
@@ -95,20 +92,17 @@
         "counts"
       ],
       "runner_command": "python scripts/provider_runners/run_ibm_runtime_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_00/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_00/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
-      "status": "blocked",
+      "status": "ready_to_run",
       "window_id": "ibm_runtime__independent_window_00"
     },
     {
-      "blockers": [
-        "stage106_provider_preflight_not_ready",
-        "stage111_provider_not_ready"
-      ],
+      "blockers": [],
       "calibration_job_count": 4,
       "job_count": 164,
       "job_shard_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_01/jobs.jsonl",
       "packet_job_count": 160,
       "provider": "ibm_runtime",
-      "provider_ready": false,
+      "provider_ready": true,
       "provider_result_path": "logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_01/provider_job_results.jsonl",
       "required_result_fields": [
         "job_id",
@@ -119,7 +113,7 @@
         "counts"
       ],
       "runner_command": "python scripts/provider_runners/run_ibm_runtime_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_01/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_01/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
-      "status": "blocked",
+      "status": "ready_to_run",
       "window_id": "ibm_runtime__independent_window_01"
     }
   ],
@@ -135,6 +129,6 @@
   "stage111_decision": "PROVIDER_SDK_BACKEND_DISCOVERY_BLOCKED",
   "stage114_decision": "PROVIDER_RESULT_CAPTURE_CONTRACT_PREPARED_RESULTS_REQUIRED",
   "stage118_decision": "PROVIDER_PAYLOAD_DRY_RUN_COMPILED_EXECUTION_BLOCKED",
-  "stage129_decision": "LIVE_CUTOVER_BLOCKED_READINESS_REQUIRED",
+  "stage129_decision": "LIVE_CUTOVER_AUTHORIZED",
   "status": "completed"
 }

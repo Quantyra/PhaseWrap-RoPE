@@ -1,5 +1,5 @@
 {
-  "authorized_runner_count": 0,
+  "authorized_runner_count": 2,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -15,7 +15,7 @@
     ]
   },
   "decision": "PROVIDER_ACTION_CHECKLIST_READY_EXECUTION_BLOCKED",
-  "live_ready_provider_count": 0,
+  "live_ready_provider_count": 1,
   "missing_source_artifacts": [],
   "next_gate": "Complete the listed provider actions, rerun the remediation sequence, then execute only Stage 133 commands that report command_authorized=true before Stage 115 collection and Stage 138 objective gating.",
   "no_hardware_submission": true,
@@ -38,5 +38,5 @@
   "stage138_decision": "OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE",
   "status": "completed",
   "summary_csv_path": "logs/automated_stage_gates/stage139_provider_action_readiness_checklist/summary.csv",
-  "total_action_count": 11
+  "total_action_count": 8
 }

@@ -1,5 +1,5 @@
 {
-  "authorized_runner_count": 0,
+  "authorized_runner_count": 2,
   "claim_boundary": {
     "excluded": [
       "hardware job submission",
@@ -15,7 +15,7 @@
     ]
   },
   "decision": "PROVIDER_ACTION_CHECKLIST_READY_EXECUTION_BLOCKED",
-  "live_ready_provider_count": 0,
+  "live_ready_provider_count": 1,
   "missing_source_artifacts": [],
   "next_gate": "Complete the listed provider actions, rerun the remediation sequence, then execute only Stage 133 commands that report command_authorized=true before Stage 115 collection and Stage 138 objective gating.",
   "no_hardware_submission": true,
@@ -61,20 +61,17 @@
       "stage128_ready": true
     },
     {
-      "action_count": 5,
+      "action_count": 2,
       "actions": [
-        "Set or verify non-committed provider configuration for Stage 106.",
         "Required provider env groups: IBM_QUANTUM_TOKEN or QISKIT_IBM_TOKEN; QROPE_IBM_BACKEND or QROPE_HARDWARE_BACKEND; IBM_QUANTUM_INSTANCE_CRN.",
-        "Required common env groups: QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP.",
-        "Rerun Stage 129 and execute only Stage 133 command records with command_authorized=true for this provider.",
-        "After remediation reruns, execute only Stage 133 command records with command_authorized=true."
+        "Required common env groups: QROPE_HARDWARE_BUDGET_USD_CAP; QROPE_HARDWARE_QUEUE_DEPTH_CAP."
       ],
-      "authorized_runner_command_count": 0,
-      "cutover_authorized": false,
-      "first_blocker": "stage106:ibm_instance_crn_missing",
+      "authorized_runner_command_count": 2,
+      "cutover_authorized": true,
+      "first_blocker": "",
       "prepared_job_count": 328,
       "provider": "ibm_runtime",
-      "ready_for_live_runner_execution": false,
+      "ready_for_live_runner_execution": true,
       "required_common_env": [
         "QROPE_HARDWARE_BUDGET_USD_CAP",
         "QROPE_HARDWARE_QUEUE_DEPTH_CAP"
@@ -89,8 +86,8 @@
         "qiskit": true,
         "qiskit_ibm_runtime": true
       },
-      "stage106_status": "blocked",
-      "stage111_status": "blocked",
+      "stage106_status": "ready",
+      "stage111_status": "ready",
       "stage128_ready": true
     }
   ],
@@ -119,5 +116,5 @@
   "stage133_decision": "AUTHORIZED_RUNNER_COMMANDS_PREPARED_EXECUTION_BLOCKED",
   "stage138_decision": "OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE",
   "status": "completed",
-  "total_action_count": 11
+  "total_action_count": 8
 }

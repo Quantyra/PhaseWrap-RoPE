@@ -14,29 +14,19 @@
       "preservation of the Stage 138 no-claim boundary until downstream hardware result gates clear"
     ]
   },
-  "decision": "POST_CONFIGURATION_RERUN_CHAIN_PREPARED_EXECUTION_BLOCKED",
-  "first_blocked_transition": {
-    "blockers": [
-      "IBM_QUANTUM_INSTANCE_CRN"
-    ],
-    "label": "first provider ready for preflight rerun",
-    "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
-    "observed": false,
-    "ready": false,
-    "required": true,
-    "stage": "stage140_local_provider_configuration_readiness"
-  },
-  "first_provider_authorized_runner_count": 0,
+  "decision": "POST_CONFIGURATION_RERUN_CHAIN_READY_FOR_AUTHORIZED_RUNNER",
+  "first_blocked_transition": null,
+  "first_provider_authorized_runner_count": 2,
   "first_provider_prepared_job_count": 328,
   "first_provider_runner_command_count": 2,
   "first_unlock_provider": "ibm_runtime",
   "missing_source_artifacts": [],
-  "next_command": "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
+  "next_command": "",
   "next_gate": "Fill first-provider local env outside git, rerun the reported command chain, and execute only Stage 133 commands that later report command_authorized=true.",
   "no_hardware_submission": true,
   "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
   "provider_credentials_required": true,
-  "ready_transition_count": 2,
+  "ready_transition_count": 9,
   "result_path": "logs/automated_stage_gates/stage144_post_configuration_rerun_chain_audit/results.json",
   "schema_version": "qrope_stage144_post_configuration_rerun_chain_audit_v1",
   "secret_values_recorded": false,

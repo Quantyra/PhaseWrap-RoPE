@@ -76,8 +76,9 @@ def _factory_record(stage106: dict[str, Any] | None, stage111: dict[str, Any] | 
         missing.append("client_factory_not_blocked_without_stage129_cutover")
     stage106_record = _provider_record(stage106, provider)
     stage111_record = _provider_record(stage111, provider)
-    if stage106_record.get("status") != "blocked" or stage111_record.get("status") != "blocked":
-        missing.append("current_provider_blocker_state_changed")
+    provider_status_pair = (stage106_record.get("status"), stage111_record.get("status"))
+    if provider_status_pair not in {("blocked", "blocked"), ("ready", "ready")}:
+        missing.append("current_provider_readiness_state_inconsistent")
     return {
         "provider": provider,
         "stage106_status": stage106_record.get("status"),

@@ -172,6 +172,26 @@ def test_stage144_preserves_stage140_context_blockers(tmp_path) -> None:
     assert "stage139_runner_commands_missing" in result["first_blocked_transition"]["blockers"]
 
 
+def test_stage144_accepts_stage140_after_first_provider_cutover_authorized(tmp_path) -> None:
+    paths = _stage_paths(tmp_path)
+    _write_fixture(paths, ready=True)
+    stage140 = json.loads(paths["stage140_results_path"].read_text(encoding="utf-8"))
+    stage140["provider_records"][0]["ready_for_preflight_rerun"] = False
+    stage140["provider_records"][0]["env_ready_for_stage106"] = True
+    stage140["provider_records"][0]["sdk_ready_for_stage111"] = True
+    stage140["provider_records"][0]["stage139_context_blockers"] = ["stage139_provider_already_cutover_authorized"]
+    _write_json(paths["stage140_results_path"], stage140)
+
+    result = run_stage144_audit(**paths)
+    stage140_transition = next(
+        record for record in result["transition_records"] if record["stage"] == "stage140_local_provider_configuration_readiness"
+    )
+
+    assert stage140_transition["ready"] is True
+    assert stage140_transition["blockers"] == []
+    assert result["decision"] == "POST_CONFIGURATION_RERUN_CHAIN_READY_FOR_AUTHORIZED_RUNNER"
+
+
 def test_stage144_reports_ready_when_first_provider_chain_and_runner_commands_authorized(tmp_path) -> None:
     paths = _stage_paths(tmp_path)
     _write_fixture(paths, ready=True)

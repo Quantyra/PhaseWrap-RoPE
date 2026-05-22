@@ -66,8 +66,8 @@ def _implementation_record(
         missing.append("factory_not_blocked_without_allow")
     if stage128_record.get("blocked_without_cutover") is not True:
         missing.append("factory_unexpectedly_unblocked_before_cutover")
-    if stage129_record.get("cutover_authorized") is not False:
-        missing.append("stage129_cutover_state_not_blocked")
+    if stage129_record.get("cutover_authorized") is not True and not stage129_record.get("blockers", []):
+        missing.append("stage129_cutover_state_missing_authorization_or_blockers")
     if "stage128:client_factory_not_implemented" in stage129_record.get("blockers", []):
         missing.append("stage129_still_reports_factory_not_implemented")
     if "stage128:no_hardware_submission_guard_active" in stage129_record.get("blockers", []):
@@ -124,13 +124,14 @@ def run_stage132_audit(
         "claim_boundary": {
             "supported": [
                 "guarded SDK factory implementation blockers are removed for IBM Runtime and Amazon Braket",
-                "live client creation still fails closed under current provider readiness and cutover blockers",
-                "Stage 129 cutover blockers now point to readiness rather than missing factory code",
+                "live client creation still fails closed without explicit allow/cutover controls",
+                "Stage 129 cutover blockers now point to readiness rather than missing factory code when a provider is not authorized",
+                "provider-scoped cutover authorization does not require every provider to be authorized before Stage 133 can evaluate target-provider commands",
             ],
             "excluded": [
                 "hardware job submission",
                 "provider credentials or secret values",
-                "live provider SDK client creation under the current blocked state",
+                "live provider SDK client creation",
                 "real provider result records",
                 "a noisy-hardware robustness result",
             ],

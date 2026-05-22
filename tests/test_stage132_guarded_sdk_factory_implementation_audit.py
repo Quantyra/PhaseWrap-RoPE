@@ -91,6 +91,27 @@ def test_stage132_rejects_stale_stage129_factory_blockers(tmp_path) -> None:
     assert result["ready_provider_count"] == 1
 
 
+def test_stage132_accepts_provider_scoped_cutover_authorization(tmp_path) -> None:
+    stage128, stage129, stage131 = _fixture(tmp_path)
+    payload = json.loads(stage129.read_text(encoding="utf-8"))
+    payload["decision"] = "LIVE_CUTOVER_AUTHORIZED"
+    payload["provider_records"][1]["cutover_authorized"] = True
+    payload["provider_records"][1]["blockers"] = []
+    _write_json(stage129, payload)
+
+    result = run_stage132_audit(
+        stage128_results_path=stage128,
+        stage129_results_path=stage129,
+        stage131_results_path=stage131,
+    )
+    ibm = next(record for record in result["provider_records"] if record["provider"] == "ibm_runtime")
+
+    assert result["decision"] == "GUARDED_SDK_FACTORIES_IMPLEMENTED_CUTOVER_BLOCKED"
+    assert ibm["ready"] is True
+    assert ibm["cutover_authorized"] is True
+    assert "stage129_cutover_state_not_blocked" not in ibm["missing_evidence"]
+
+
 def test_stage132_outputs_are_written(tmp_path) -> None:
     stage128, stage129, stage131 = _fixture(tmp_path)
     result = run_stage132_audit(

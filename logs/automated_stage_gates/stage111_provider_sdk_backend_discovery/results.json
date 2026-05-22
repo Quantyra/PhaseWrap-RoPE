@@ -51,9 +51,7 @@
         "attempted": false,
         "status": "disabled"
       },
-      "blockers": [
-        "stage106_provider_preflight_not_ready"
-      ],
+      "blockers": [],
       "live_discovery_allowed": false,
       "provider": "ibm_runtime",
       "sdk_modules": {
@@ -61,14 +59,12 @@
         "qiskit_ibm_runtime": true
       },
       "sdk_ready": true,
-      "stage106_blockers": [
-        "ibm_instance_crn_missing"
-      ],
-      "stage106_status": "blocked",
-      "status": "blocked"
+      "stage106_blockers": [],
+      "stage106_status": "ready",
+      "status": "ready"
     }
   ],
-  "ready_provider_count": 0,
+  "ready_provider_count": 1,
   "schema_version": "qrope_stage111_provider_sdk_backend_discovery_v1",
   "secret_values_recorded": false,
   "source_artifacts": [

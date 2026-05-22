@@ -1,11 +1,11 @@
 stage,label,ready,observed,required,blockers,next_command
 stage143_first_provider_handoff_safety_audit,first-provider handoff safety verified,True,FIRST_PROVIDER_HANDOFF_SAFETY_VERIFIED_NO_SUBMISSION,FIRST_PROVIDER_HANDOFF_SAFETY_VERIFIED_NO_SUBMISSION with scoped empty template and non-live rerun commands,,
-stage140_local_provider_configuration_readiness,first provider ready for preflight rerun,False,False,True,IBM_QUANTUM_INSTANCE_CRN,python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv
-stage106_hardware_execution_preflight,first provider hardware preflight ready,False,blocked,ready,ibm_instance_crn_missing,python scripts/run_stage106_hardware_execution_preflight.py --load-dotenv
-stage111_provider_sdk_backend_discovery,first provider SDK/backend discovery ready,False,blocked,ready,stage106_provider_preflight_not_ready,python scripts/run_stage111_provider_sdk_backend_discovery.py
+stage140_local_provider_configuration_readiness,first provider configured for preflight or already cutover,True,False,ready_for_preflight_rerun=true or env/sdk ready with cutover already authorized,,
+stage106_hardware_execution_preflight,first provider hardware preflight ready,True,ready,ready,,
+stage111_provider_sdk_backend_discovery,first provider SDK/backend discovery ready,True,ready,ready,,
 stage128_sdk_client_factory_audit,first provider guarded SDK factory ready,True,True,True,,
-stage129_live_cutover_authorization_audit,first provider live cutover authorized,False,False,True,stage106:ibm_instance_crn_missing; stage111:stage106_provider_preflight_not_ready,python scripts/run_stage129_live_cutover_authorization_audit.py
-stage130_live_cutover_remediation_packet,first provider remediation packet authorizes cutover,False,False,True,stage106:ibm_instance_crn_missing; stage111:stage106_provider_preflight_not_ready,python scripts/run_stage130_live_cutover_remediation_packet.py
-stage139_provider_action_readiness_checklist,first provider ready for live runner execution,False,False,True,stage106:ibm_instance_crn_missing,python scripts/run_stage139_provider_action_readiness_checklist.py
-stage133_authorized_runner_command_packet,first provider has authorized runner commands,False,0,at least 1 authorized command,no_authorized_runner_commands,python scripts/run_stage133_authorized_runner_command_packet.py
+stage129_live_cutover_authorization_audit,first provider live cutover authorized,True,True,True,,
+stage130_live_cutover_remediation_packet,first provider remediation packet authorizes cutover,True,True,True,,
+stage139_provider_action_readiness_checklist,first provider ready for live runner execution,True,True,True,,
+stage133_authorized_runner_command_packet,first provider has authorized runner commands,True,2,at least 1 authorized command,,
 stage138_objective_claim_gate,objective claim gate remains downstream after hardware results,True,OBJECTIVE_CLAIM_GATE_BLOCKED_EVIDENCE_INCOMPLETE,informational; not required for authorized-runner readiness,,

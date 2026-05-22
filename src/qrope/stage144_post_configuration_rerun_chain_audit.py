@@ -30,7 +30,7 @@ RERUN_COMMANDS = [
     "python scripts/run_stage140_local_provider_configuration_readiness.py --load-dotenv",
     "python scripts/run_stage106_hardware_execution_preflight.py --load-dotenv",
     "python scripts/run_stage111_provider_sdk_backend_discovery.py",
-    "python scripts/run_stage128_sdk_client_factory_audit.py",
+    "python scripts/run_stage128_sdk_client_factory_audit.py --load-dotenv",
     "python scripts/run_stage129_live_cutover_authorization_audit.py",
     "python scripts/run_stage130_live_cutover_remediation_packet.py",
     "python scripts/run_stage139_provider_action_readiness_checklist.py",
@@ -92,6 +92,41 @@ def _transition(
 
 def _bool(value: Any) -> bool:
     return value is True
+
+
+def _stage140_first_provider_ready(record: dict[str, Any] | None) -> bool:
+    if not record:
+        return False
+    tolerated_context_blockers = {"stage139_provider_already_cutover_authorized"}
+    context_blockers = set(str(blocker) for blocker in record.get("stage139_context_blockers", []))
+    return bool(
+        (
+            record.get("ready_for_preflight_rerun") is True
+            or (
+                record.get("env_ready_for_stage106") is True
+                and record.get("sdk_ready_for_stage111") is True
+                and context_blockers.issubset(tolerated_context_blockers)
+            )
+        )
+        and not record.get("missing_env_groups", [])
+        and not record.get("missing_sdk_modules", [])
+    )
+
+
+def _stage140_first_provider_blockers(record: dict[str, Any] | None) -> list[str]:
+    if not record:
+        return ["provider_record_missing"]
+    tolerated_context_blockers = {"stage139_provider_already_cutover_authorized"}
+    context_blockers = [
+        str(blocker)
+        for blocker in record.get("stage139_context_blockers", [])
+        if str(blocker) not in tolerated_context_blockers
+    ]
+    return (
+        list(record.get("missing_env_groups", []))
+        + list(record.get("missing_sdk_modules", []))
+        + context_blockers
+    )
 
 
 def _stage143_scoped_safety_ready(stage143: dict[str, Any] | None) -> bool:
@@ -176,17 +211,11 @@ def run_stage144_audit(
         ),
         _transition(
             stage="stage140_local_provider_configuration_readiness",
-            label="first provider ready for preflight rerun",
-            ready=_bool(stage140_provider.get("ready_for_preflight_rerun")) if stage140_provider else False,
+            label="first provider configured for preflight or already cutover",
+            ready=_stage140_first_provider_ready(stage140_provider),
             observed=stage140_provider.get("ready_for_preflight_rerun") if stage140_provider else None,
-            required=True,
-            blockers=(
-                list(stage140_provider.get("missing_env_groups", []))
-                + list(stage140_provider.get("missing_sdk_modules", []))
-                + list(stage140_provider.get("stage139_context_blockers", []))
-            )
-            if stage140_provider
-            else ["provider_record_missing"],
+            required="ready_for_preflight_rerun=true or env/sdk ready with cutover already authorized",
+            blockers=_stage140_first_provider_blockers(stage140_provider),
             next_command=RERUN_COMMANDS[0],
         ),
         _transition(

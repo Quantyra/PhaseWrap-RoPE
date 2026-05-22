@@ -60,7 +60,7 @@
       "ready": true,
       "runner_command": "python scripts/provider_runners/run_ibm_runtime_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_00/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_00/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
       "runner_script": "scripts/provider_runners/run_ibm_runtime_stage112_jobs.py",
-      "stage116_status": "blocked",
+      "stage116_status": "ready_to_run",
       "window_id": "ibm_runtime__independent_window_00"
     },
     {
@@ -73,7 +73,7 @@
       "ready": true,
       "runner_command": "python scripts/provider_runners/run_ibm_runtime_stage112_jobs.py --job-shard logs/automated_stage_gates/stage114_provider_result_capture_contract/job_shards/ibm_runtime/ibm_runtime__independent_window_01/jobs.jsonl --provider-results logs/automated_stage_gates/stage114_provider_result_capture_contract/provider_results/ibm_runtime/ibm_runtime__independent_window_01/provider_job_results.jsonl --stage111-results logs/automated_stage_gates/stage111_provider_sdk_backend_discovery/results.json --stage118-results logs/automated_stage_gates/stage118_provider_payload_dry_run_audit/results.json --stage129-results logs/automated_stage_gates/stage129_live_cutover_authorization_audit/results.json",
       "runner_script": "scripts/provider_runners/run_ibm_runtime_stage112_jobs.py",
-      "stage116_status": "blocked",
+      "stage116_status": "ready_to_run",
       "window_id": "ibm_runtime__independent_window_01"
     }
   ],
