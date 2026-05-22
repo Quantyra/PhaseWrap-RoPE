@@ -1,0 +1,70 @@
+{
+  "blockers": [],
+  "calibration_template_count": 1,
+  "calibration_template_path": "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_runtime_replacement_known_state_calibration.json",
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "real calibration or packet counts",
+      "provider credentials or runnable live-submit command strings",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "replacement-semantics packet execution templates for selected IBM lanes",
+      "known-state calibration template for the replacement run",
+      "result-ingestion contract fields required before interpretation"
+    ]
+  },
+  "decision": "REPLACEMENT_EXECUTION_PACKAGE_PREPARED_COUNTS_AND_CALIBRATION_REQUIRED",
+  "estimated_calibration_job_count": 4,
+  "estimated_packet_row_job_count": 320,
+  "estimated_total_job_count": 324,
+  "expected_packet_count": 20,
+  "missing_source_artifacts": [],
+  "next_gate": "Use these templates only after IBM credit/provider review and exact human approval; filled counts must pass calibration and result-ingestion checks before any robustness interpretation.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_template_count": 20,
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage190_replacement_execution_package/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage190_replacement_execution_package_v1",
+  "secret_values_recorded": false,
+  "selected_lane_count": 4,
+  "selected_lanes": [
+    "ibm_cx_seed314_rows16_shots4096",
+    "ibm_cx_seed577_rows16_shots4096",
+    "ibm_product_seed314_rows16_shots4096",
+    "ibm_product_seed577_rows16_shots4096"
+  ],
+  "semantics_id": "matched_nonzero_null_noise_sensitivity_v1",
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage188_replacement_semantics_packet_screen/results.json",
+    "logs/automated_stage_gates/stage189_replacement_hardware_readiness_review/results.json"
+  ],
+  "stage": "stage190_replacement_execution_package",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage190_replacement_execution_package/summary.csv",
+  "template_paths": [
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__matched_nonzero_null_control.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__rope_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__matched_nonzero_null_control.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__rope_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_cx_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__matched_nonzero_null_control.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__rope_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed314_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__sinusoidal_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__alibi_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__matched_nonzero_null_control.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__phasewrap.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__rope_like.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/execution_templates/ibm_product_seed577_rows16_shots4096__matched_nonzero_null_noise_sensitivity_v1__sinusoidal_like.json"
+  ]
+}
