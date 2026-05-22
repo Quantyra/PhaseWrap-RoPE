@@ -1,0 +1,129 @@
+{
+  "blockers": [],
+  "candidate_group_count": 6,
+  "candidate_records": [
+    {
+      "comparison_group_count": 2,
+      "min_control_margin_shot_quanta": -11.910381,
+      "min_positional_margin_shot_quanta": -1.479437,
+      "noise_model_id": "ibm_backend_median_stochastic",
+      "provider_family": "braket",
+      "reopen_candidate": false,
+      "seed": "2718",
+      "stable_lanes": [],
+      "stable_target_count": 0,
+      "stable_template_count": 0,
+      "stable_templates": []
+    },
+    {
+      "comparison_group_count": 2,
+      "min_control_margin_shot_quanta": -44.046253,
+      "min_positional_margin_shot_quanta": -3.58929,
+      "noise_model_id": "ibm_backend_median_stochastic",
+      "provider_family": "ibm",
+      "reopen_candidate": false,
+      "seed": "314",
+      "stable_lanes": [],
+      "stable_target_count": 0,
+      "stable_template_count": 0,
+      "stable_templates": []
+    },
+    {
+      "comparison_group_count": 2,
+      "min_control_margin_shot_quanta": -50.678755,
+      "min_positional_margin_shot_quanta": -4.450382,
+      "noise_model_id": "ibm_backend_median_stochastic",
+      "provider_family": "ibm",
+      "reopen_candidate": false,
+      "seed": "577",
+      "stable_lanes": [],
+      "stable_target_count": 0,
+      "stable_template_count": 0,
+      "stable_templates": []
+    },
+    {
+      "comparison_group_count": 2,
+      "min_control_margin_shot_quanta": -23.972881,
+      "min_positional_margin_shot_quanta": -3.041937,
+      "noise_model_id": "ibm_backend_p75_stochastic",
+      "provider_family": "braket",
+      "reopen_candidate": false,
+      "seed": "2718",
+      "stable_lanes": [],
+      "stable_target_count": 0,
+      "stable_template_count": 0,
+      "stable_templates": []
+    },
+    {
+      "comparison_group_count": 2,
+      "min_control_margin_shot_quanta": -87.171253,
+      "min_positional_margin_shot_quanta": -6.83929,
+      "noise_model_id": "ibm_backend_p75_stochastic",
+      "provider_family": "ibm",
+      "reopen_candidate": false,
+      "seed": "314",
+      "stable_lanes": [],
+      "stable_target_count": 0,
+      "stable_template_count": 0,
+      "stable_templates": []
+    },
+    {
+      "comparison_group_count": 2,
+      "min_control_margin_shot_quanta": -100.491255,
+      "min_positional_margin_shot_quanta": -8.762882,
+      "noise_model_id": "ibm_backend_p75_stochastic",
+      "provider_family": "ibm",
+      "reopen_candidate": false,
+      "seed": "577",
+      "stable_lanes": [],
+      "stable_target_count": 0,
+      "stable_template_count": 0,
+      "stable_templates": []
+    }
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "new packet or circuit-family generation",
+      "a noisy-hardware robustness or auditability conclusion",
+      "a claim that all possible redesigned targets have failed"
+    ],
+    "supported": [
+      "no-submit screen of the existing frozen fixed-width packet surface after archiving the current IBM run",
+      "evidence for whether any existing provider/seed pair can reopen the hardware path under IBM-informed primary noise",
+      "decision support for moving from run selection to target/circuit redesign"
+    ]
+  },
+  "comparison_group_count": 12,
+  "decision": "EXISTING_SURFACE_HAS_NO_IBM_INFORMED_REOPEN_CANDIDATE",
+  "ibm_backend_properties_informed": true,
+  "missing_source_artifacts": [],
+  "next_gate": "If no existing-surface reopen candidate is found, the next progress path is target/circuit redesign rather than selecting another already frozen lane.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_count": 30,
+  "primary_noise_model_ids": [
+    "ibm_backend_median_stochastic",
+    "ibm_backend_p75_stochastic"
+  ],
+  "provider_credentials_required": false,
+  "reopen_candidate_count": 0,
+  "reopen_candidates": [],
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage180_existing_surface_reopen_screen_v1",
+  "secret_values_recorded": false,
+  "simulated_only": true,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage177_ibm_backend_informed_noise_probe/results.json",
+    "logs/automated_stage_gates/stage179_current_ibm_hardware_path_disposition/results.json",
+    "logs/automated_stage_gates/stage99_matched_fixed_width_encoding_packets/manifest.json",
+    "logs/automated_stage_gates/stage100_matched_cx_encoding_packets/manifest.json"
+  ],
+  "stability_thresholds": {
+    "min_control_margin_shot_quanta": 2.0,
+    "min_positional_margin_shot_quanta": 2.0,
+    "min_stable_template_count_for_reopen": 2
+  },
+  "stage": "stage180_existing_surface_reopen_screen",
+  "status": "completed"
+}

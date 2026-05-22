@@ -1,0 +1,7 @@
+noise_model_id,provider_family,seed,comparison_group_count,stable_target_count,stable_template_count,min_positional_margin_shot_quanta,min_control_margin_shot_quanta,reopen_candidate
+ibm_backend_median_stochastic,braket,2718,2,0,0,-1.479437,-11.910381,False
+ibm_backend_median_stochastic,ibm,314,2,0,0,-3.58929,-44.046253,False
+ibm_backend_median_stochastic,ibm,577,2,0,0,-4.450382,-50.678755,False
+ibm_backend_p75_stochastic,braket,2718,2,0,0,-3.041937,-23.972881,False
+ibm_backend_p75_stochastic,ibm,314,2,0,0,-6.83929,-87.171253,False
+ibm_backend_p75_stochastic,ibm,577,2,0,0,-8.762882,-100.491255,False
