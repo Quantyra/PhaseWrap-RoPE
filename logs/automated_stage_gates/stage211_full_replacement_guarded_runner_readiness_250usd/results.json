@@ -1,0 +1,98 @@
+{
+  "backend": "ibm_fez",
+  "blockers": [],
+  "budget_cap_usd": 250.0,
+  "calibration_template_count": 1,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "creation or recording of a runnable live-submit command",
+      "provider-side result retrieval",
+      "calibration pass/fail or robustness interpretation"
+    ],
+    "supported": [
+      "full 4096-shot replacement package, fresh backend metadata, credit attestation, and exact approval are bound before final execution",
+      "no-submit readiness is separated from live hardware execution and result interpretation"
+    ]
+  },
+  "decision": "FULL_REPLACEMENT_GUARDED_RUNNER_READY_FOR_FINAL_EXECUTION_STEP_NOT_LIVE",
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "explicit_user_approval_recorded": true,
+  "fresh_backend_metadata": {
+    "backend": "ibm_fez",
+    "basis_gate_count": 5,
+    "coupling_edge_count": 352,
+    "num_qubits": 156,
+    "operational": true,
+    "pending_jobs": 1,
+    "simulator": false,
+    "version": "2"
+  },
+  "fresh_backend_ready": true,
+  "live_submit_command_created": false,
+  "missing_source_artifacts": [],
+  "next_gate": "Run the final guarded full replacement execution step only from this ready state.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "package_contract_ready": true,
+  "packet_template_count": 20,
+  "provider_credentials_required": true,
+  "readiness_items": [
+    {
+      "description": "The full replacement execution package must match the 4096-shot, 324-row-evidence, 1314720-shot contract.",
+      "evidence": {
+        "estimated_total_job_count": 324,
+        "estimated_total_shots": 1314720,
+        "packet_template_count": 20,
+        "stage190_decision": "REPLACEMENT_EXECUTION_PACKAGE_PREPARED_COUNTS_AND_CALIBRATION_REQUIRED"
+      },
+      "item_id": "stage190_full_replacement_package",
+      "status": "ready"
+    },
+    {
+      "description": "A fresh read-only backend refresh must succeed before final guarded execution.",
+      "evidence": {
+        "backend": "ibm_fez",
+        "operational": true,
+        "pending_jobs": 1,
+        "stage193_decision": "REPLACEMENT_READ_ONLY_BACKEND_REFRESH_READY_CREDIT_AND_APPROVAL_STILL_REQUIRED"
+      },
+      "item_id": "fresh_read_only_backend_refresh",
+      "status": "ready"
+    },
+    {
+      "description": "The user-attested $250 credit/cost cap must be recorded before exact live approval is accepted.",
+      "evidence": {
+        "budget_cap_usd": 250.0,
+        "human_credit_allowance_verified": true,
+        "stage194_decision": "REPLACEMENT_CREDIT_ALLOWANCE_VERIFIED_READY_FOR_EXACT_APPROVAL_REVIEW"
+      },
+      "item_id": "credit_attestation",
+      "status": "ready"
+    },
+    {
+      "description": "The exact live approval phrase must be accepted before the final guarded runner may submit.",
+      "evidence": {
+        "approval_phrase_matches": true,
+        "stage195_decision": "REPLACEMENT_EXACT_APPROVAL_ACCEPTED_READY_FOR_LIVE_RUNNER_PREPARATION_REVIEW"
+      },
+      "item_id": "exact_live_approval",
+      "status": "ready"
+    }
+  ],
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage211_full_replacement_guarded_runner_readiness_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage190_replacement_execution_package/results.json",
+    "logs/automated_stage_gates/stage193_replacement_read_only_backend_refresh_full4096_250usd/results.json",
+    "logs/automated_stage_gates/stage194_replacement_credit_allowance_decision_packet_full4096_250usd_attested/results.json",
+    "logs/automated_stage_gates/stage195_replacement_exact_approval_review_full4096_250usd_approved/results.json"
+  ],
+  "stage": "stage211_full_replacement_guarded_runner_readiness",
+  "stage190_ready": true,
+  "stage194_credit_attestation_ready": true,
+  "stage195_exact_approval_ready": true,
+  "status": "completed"
+}

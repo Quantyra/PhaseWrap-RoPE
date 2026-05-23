@@ -1,0 +1,57 @@
+{
+  "backend": "ibm_fez",
+  "blockers": [],
+  "budget_cap_usd": 250.0,
+  "calibration_template_count": 1,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "creation or recording of a runnable live-submit command",
+      "provider-side result retrieval",
+      "calibration pass/fail or robustness interpretation"
+    ],
+    "supported": [
+      "full 4096-shot replacement package, fresh backend metadata, credit attestation, and exact approval are bound before final execution",
+      "no-submit readiness is separated from live hardware execution and result interpretation"
+    ]
+  },
+  "decision": "FULL_REPLACEMENT_GUARDED_RUNNER_READY_FOR_FINAL_EXECUTION_STEP_NOT_LIVE",
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "explicit_user_approval_recorded": true,
+  "fresh_backend_metadata": {
+    "backend": "ibm_fez",
+    "basis_gate_count": 5,
+    "coupling_edge_count": 352,
+    "num_qubits": 156,
+    "operational": true,
+    "pending_jobs": 1,
+    "simulator": false,
+    "version": "2"
+  },
+  "fresh_backend_ready": true,
+  "live_submit_command_created": false,
+  "missing_source_artifacts": [],
+  "next_gate": "Run the final guarded full replacement execution step only from this ready state.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "package_contract_ready": true,
+  "packet_template_count": 20,
+  "provider_credentials_required": true,
+  "result_path": "logs/automated_stage_gates/stage211_full_replacement_guarded_runner_readiness_250usd/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage211_full_replacement_guarded_runner_readiness_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage190_replacement_execution_package/results.json",
+    "logs/automated_stage_gates/stage193_replacement_read_only_backend_refresh_full4096_250usd/results.json",
+    "logs/automated_stage_gates/stage194_replacement_credit_allowance_decision_packet_full4096_250usd_attested/results.json",
+    "logs/automated_stage_gates/stage195_replacement_exact_approval_review_full4096_250usd_approved/results.json"
+  ],
+  "stage": "stage211_full_replacement_guarded_runner_readiness",
+  "stage190_ready": true,
+  "stage194_credit_attestation_ready": true,
+  "stage195_exact_approval_ready": true,
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage211_full_replacement_guarded_runner_readiness_250usd/summary.csv"
+}

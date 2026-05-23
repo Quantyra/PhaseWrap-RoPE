@@ -1,0 +1,82 @@
+{
+  "approval_items": [
+    {
+      "description": "Exact approval review requires Stage194 credit/billing/Runtime allowance verification first.",
+      "evidence": {
+        "budget_cap_usd": 250.0,
+        "human_credit_allowance_verified": true,
+        "stage194_decision": "REPLACEMENT_CREDIT_ALLOWANCE_VERIFIED_READY_FOR_EXACT_APPROVAL_REVIEW"
+      },
+      "item_id": "credit_allowance_gate",
+      "status": "verified"
+    },
+    {
+      "description": "The human approver must have the replacement exposure available before any approval phrase can be accepted.",
+      "evidence": {
+        "estimated_total_job_count": 324,
+        "estimated_total_shots": 1314720
+      },
+      "item_id": "replacement_exposure_confirmation",
+      "status": "recorded"
+    },
+    {
+      "description": "The approval phrase is only evaluated after credit allowance is verified; it must match the replacement phrase exactly.",
+      "evidence": {
+        "approval_phrase_matches": true,
+        "approval_phrase_required": "APPROVE IBM RUNTIME STAGE188 REPLACEMENT LIVE RUN",
+        "provided_approval_phrase_present": true
+      },
+      "item_id": "exact_approval_phrase",
+      "status": "accepted"
+    },
+    {
+      "description": "This gate never submits hardware; at most it allows a later live-runner preparation review.",
+      "evidence": {
+        "hardware_submitted_here": false,
+        "live_submit_command_created_here": false
+      },
+      "item_id": "live_execution_boundary",
+      "status": "runner_preparation_review_allowed"
+    }
+  ],
+  "approval_phrase_matches": true,
+  "approval_phrase_required": "APPROVE IBM RUNTIME STAGE188 REPLACEMENT LIVE RUN",
+  "blockers": [],
+  "budget_cap_usd": 250.0,
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "Sampler or Estimator runtime execution",
+      "provider credentials, token values, CRN values, or account secrets",
+      "provider-side IBM credit balance or dollar-cost verification",
+      "creation of a runnable live-submit command",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "exact replacement approval is isolated from credit allowance verification",
+      "approval phrase matching is only accepted after Stage194 records human credit allowance verification",
+      "a successful approval review permits only later live-runner preparation review"
+    ]
+  },
+  "decision": "REPLACEMENT_EXACT_APPROVAL_ACCEPTED_READY_FOR_LIVE_RUNNER_PREPARATION_REVIEW",
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "explicit_user_approval_required": true,
+  "human_credit_allowance_verified": true,
+  "live_submit_command_created": false,
+  "missing_source_artifacts": [],
+  "next_gate": "Resolve Stage194 credit allowance first. If the user then provides the exact replacement approval phrase, rerun Stage195 with that phrase and proceed only to live-runner preparation review, not direct submission.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provided_approval_phrase_present": true,
+  "provider_credentials_required": false,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage195_replacement_exact_approval_review_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage194_replacement_credit_allowance_decision_packet_full4096_250usd_attested/results.json"
+  ],
+  "stage": "stage195_replacement_exact_approval_review",
+  "stage194_decision": "REPLACEMENT_CREDIT_ALLOWANCE_VERIFIED_READY_FOR_EXACT_APPROVAL_REVIEW",
+  "status": "completed"
+}

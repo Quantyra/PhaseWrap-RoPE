@@ -1,0 +1,5 @@
+item_id,status,description
+stage190_full_replacement_package,ready,"The full replacement execution package must match the 4096-shot, 324-row-evidence, 1314720-shot contract."
+fresh_read_only_backend_refresh,ready,A fresh read-only backend refresh must succeed before final guarded execution.
+credit_attestation,ready,The user-attested $250 credit/cost cap must be recorded before exact live approval is accepted.
+exact_live_approval,ready,The exact live approval phrase must be accepted before the final guarded runner may submit.
