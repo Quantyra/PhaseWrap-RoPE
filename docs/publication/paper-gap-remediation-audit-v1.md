@@ -24,5 +24,5 @@ Objective: address the gaps discovered in the paper audit.
 ## Remaining non-blocking work
 
 - Convert Markdown paper to venue-specific format after selecting a venue.
-- Refresh DOI/archive metadata after the `v0.2.43` public release is archived.
+- Refresh DOI/archive metadata after the `v0.2.44` public release is archived.
 - Add cross-backend replication only after new evidence exists.

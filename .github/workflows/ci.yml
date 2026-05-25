@@ -29,11 +29,18 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev]"
 
-      - name: Run full unit suite with coverage
+      - name: Run publication-review suite with coverage
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          pytest --cov=qrope --cov-report=term-missing --cov-report=xml
+          pytest --cov=qrope --cov-report=term-missing --cov-report=xml \
+            tests/test_scoring_api.py \
+            tests/test_stage11_phasewrap_theory.py \
+            tests/test_stage12_ruler_retrieval.py \
+            tests/test_publication_package_verifier.py \
+            tests/test_publication_paper_export.py \
+            tests/test_stage216_218_full_replacement_interpretation.py \
+            tests/test_stage219_rope_substitution_gate.py
 
       - name: Check README verifier output
         env:

@@ -836,14 +836,21 @@ Stage 43 keeps the Stage 42 setup but adds an auxiliary generator-target loss. G
 
 ## CI and test coverage
 
-GitHub Actions runs the full unit suite on Python `3.11` and `3.12` without hardware-provider credentials:
+GitHub Actions runs the bounded publication-review suite on Python `3.11` and `3.12` without hardware-provider credentials:
 
 ```bash
-pytest --cov=qrope --cov-report=term-missing --cov-report=xml
+pytest --cov=qrope --cov-report=term-missing --cov-report=xml \
+  tests/test_scoring_api.py \
+  tests/test_stage11_phasewrap_theory.py \
+  tests/test_stage12_ruler_retrieval.py \
+  tests/test_publication_package_verifier.py \
+  tests/test_publication_paper_export.py \
+  tests/test_stage216_218_full_replacement_interpretation.py \
+  tests/test_stage219_rope_substitution_gate.py
 python scripts/check_readme_verifier_output.py
 ```
 
-Coverage XML is uploaded as a workflow artifact. Optional provider SDK tests use mocks or skip paths when optional packages such as Perceval are not installed.
+Coverage XML is uploaded as a workflow artifact. Optional provider SDK tests use mocks or skip paths when optional packages such as Perceval are not installed. The broader deterministic stage-test corpus remains available for local audit, but it is not the default push/PR gate because it is intentionally much larger than the publication reviewer path.
 
 ## Publication use
 

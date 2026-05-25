@@ -41,13 +41,13 @@ python -m pytest tests\test_scoring_api.py tests\test_stage11_phasewrap_theory.p
 
 Observed verifier result: `PUBLICATION_PACKAGE_VERIFY_PASS`.
 
-Observed test result: `27 passed`.
+Observed publication-review test result: `28 passed`.
 
 ## Remaining external publication steps
 
 These are not missing research evidence, but they are required before a public venue submission or refreshed public release:
 
 - convert the exported HTML or Markdown manuscript to the selected venue-specific format;
-- refresh Zenodo metadata after the `v0.2.43` public release is archived;
+- refresh Zenodo metadata after the `v0.2.44` public release is archived;
 - add arXiv/OSF identifiers after submission/acceptance;
 - rerun broader independent hardware replications only if the desired claim expands beyond the current bounded result.

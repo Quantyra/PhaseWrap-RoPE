@@ -61,7 +61,7 @@ Blocking items:
 Use a conservative Stage216-219 update tag for the completed full replacement evidence and bounded RoPE-substitution gate release:
 
 ```text
-v0.2.43
+v0.2.44
 ```
 
 Do not use `v1.0.0` until independent replication or a venue-ready preprint exists.

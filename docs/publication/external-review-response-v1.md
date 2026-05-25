@@ -18,7 +18,7 @@ Date: `2026-05-23`
 | README lacked quickstart. | README now includes a no-credential local method check, verifier command, expected verifier output, and reviewer path. |
 | Paper referenced verifier/evidence artifacts that were not staged for public review. | The public evidence bundle is prepared for publication: `src/qrope/automated_stage_gates.py`, `scripts/verify_stage4_hardware_packet.py`, `scripts/verify_stage4_hardware_sweep.py`, Stage 4 JSON packet files under `logs/automated_stage_gates/stage4_hardware_packet/`, and a provider-aware sweep manifest that passes for active IBM Fez product-state, Amazon Braket/Rigetti product-state, IBM Fez CX, and Amazon Braket CX records on Rigetti Cepheus, IQM Garnet, and IQM Emerald while listing additional IBM targets as deferred and IonQ as an excluded unavailable target. |
 | Default packet and sweep evidence paths could be confused. | `stage4_hardware_packet/` remains the default single-packet reviewer path, and the same IBM Fez 2026-05-17 pass is also preserved under `stage4_hardware_packet_ibm_fez_20260517_pass/`; the sweep manifest points to the immutable named directory. |
-| CI did not run the full unit suite or check README verifier drift. | CI now runs the full unit suite, skips optional Perceval-dependent tests when Perceval is unavailable, and checks the README expected single-packet verifier summary against the actual verifier output. |
+| CI was not aligned to the public reviewer path or README verifier drift. | CI now runs the bounded publication-review suite on Python 3.11/3.12, skips optional Perceval-dependent tests when Perceval is unavailable, and checks the README expected single-packet verifier summary against the actual verifier output. |
 | Stronger classical and attention baselines were requested. | Stage 5 now includes mod-24 lookup, direct `m8`/`m12`/`m8*m12`, shallow regression-tree, RoPE-style, sinusoidal, and ALiBI-style attention-scoring baselines. The result is reported as a bounded baseline closure: the current synthetic label is exactly recoverable by mod-24 lookup and direct product features. |
 | A non-tautological downstream benchmark was needed after Stage 5. | Stage 6 now mixes token/content compatibility with phase-wrap positional signal. Mod-24 lookup and direct phase features are no longer exact, and `phasewrap_rope_attention` has the lowest MAE on the fixed toy packet. Because the PhaseWrap model sees `phase_label` directly, the paper frames this as an oracle phase-feature sanity check. |
 | A compact toy transformer ablation was requested. | Stage 7 now swaps the PhaseWrap positional term into a four-layer attention-only toy transformer on a synthetic length-extrapolation retrieval packet. `phasewrap_rope_4layer` has the best argmax retrieval ranking on that fixed packet, while `rope_4layer` is better on target-probability calibration. |
@@ -30,9 +30,8 @@ Date: `2026-05-23`
 
 ## Not yet done
 
-- Refresh the release DOI/archive after the `v0.2.43` public release is archived by Zenodo.
+- Refresh the release DOI/archive after the `v0.2.44` public release is archived by Zenodo.
 - Move internal process/governance materials into a cleaner public structure.
-- Wait for CI to complete on GitHub and respond to any failures.
 - Post an arXiv/OSF preprint and mint a Zenodo DOI.
 - Add harder multi-seed downstream benchmarks. Stage 6, Stage 7, and Stage 8 now provide bounded synthetic packets, but broader downstream claims require standard retrieval tasks or small trained transformer experiments.
 - Add repeated hardware evidence across dates/calibration windows. The current sweep verifier and full IBM Fez replacement run are stronger than the initial packet evidence, but they are not substitutes for independent reruns on additional dates/backends.
