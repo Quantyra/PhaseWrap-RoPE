@@ -2,7 +2,7 @@
 
 Status: `READY_FOR_FINAL_MANUSCRIPT_PACKAGING`
 
-Date: `2026-05-23`
+Date: `2026-05-25`
 
 ## Scope
 
@@ -58,10 +58,10 @@ Blocking items:
 
 ## Release tag recommendation
 
-Use a conservative Stage216-218 update tag if publishing the completed full replacement evidence as a new public release:
+Use a conservative Stage216-219 update tag for the completed full replacement evidence and bounded RoPE-substitution gate release:
 
 ```text
-v0.2.6-stage216-218
+v0.2.43
 ```
 
 Do not use `v1.0.0` until independent replication or a venue-ready preprint exists.

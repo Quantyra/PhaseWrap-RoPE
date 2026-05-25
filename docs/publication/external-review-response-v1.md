@@ -30,7 +30,7 @@ Date: `2026-05-23`
 
 ## Not yet done
 
-- Refresh the release DOI/archive after final public release tagging if publishing the Stage216-218 update as a new public release.
+- Refresh the release DOI/archive after the `v0.2.43` public release is archived by Zenodo.
 - Move internal process/governance materials into a cleaner public structure.
 - Wait for CI to complete on GitHub and respond to any failures.
 - Post an arXiv/OSF preprint and mint a Zenodo DOI.

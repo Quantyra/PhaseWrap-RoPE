@@ -48,6 +48,6 @@ Observed test result: `27 passed`.
 These are not missing research evidence, but they are required before a public venue submission or refreshed public release:
 
 - convert the exported HTML or Markdown manuscript to the selected venue-specific format;
-- refresh public release/tag/Zenodo metadata if publishing the Stage216-218 update as a new release;
+- refresh Zenodo metadata after the `v0.2.43` public release is archived;
 - add arXiv/OSF identifiers after submission/acceptance;
 - rerun broader independent hardware replications only if the desired claim expands beyond the current bounded result.
