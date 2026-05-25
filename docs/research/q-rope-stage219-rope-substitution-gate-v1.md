@@ -1,4 +1,4 @@
-# Stage 219 RoPE-Substitution Gate v1
+# Stage 219 Ranking-Parity Bridge v1
 
 Date: `2026-05-23`
 
@@ -8,7 +8,7 @@ Decision: `BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATI
 
 ## Question
 
-Can PhaseWrap be used in place of RoPE in a bounded non-phase-cued retrieval-bridge benchmark, even if RoPE remains better on probability and calibration?
+Can PhaseWrap-derived adapters match RoPE on rank metrics in bounded non-phase-cued retrieval-bridge benchmarks, even when RoPE remains better on probability and calibration?
 
 ## Evidence Inputs
 
@@ -49,11 +49,11 @@ Secondary Stage 32 corroboration:
 
 ## Supported Claim
 
-PhaseWrap-derived adapters are viable RoPE substitutes in these bounded retrieval-bridge benchmarks: they preserve held-out retrieval top-1/MRR within the predeclared margin while showing measured degradation versus RoPE on probability, calibration, and loss.
+PhaseWrap-derived adapters reach ranking parity in these bounded retrieval-bridge benchmarks: they preserve held-out retrieval top-1/MRR within the predeclared margin while showing measured degradation versus RoPE on probability, calibration, and loss.
 
 ## Boundary
 
-This does not establish general RoPE replacement, production transformer superiority, language-model-scale validation, or quantum advantage.
+This does not establish RoPE substitution, general RoPE replacement, production transformer superiority, language-model-scale validation, or quantum advantage.
 
 Run:
 

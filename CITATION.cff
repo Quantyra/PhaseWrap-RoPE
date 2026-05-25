@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use PhaseWrap-RoPE, cite this repository and preserve the bounded evidence posture."
-title: "PhaseWrap-RoPE: Bounded Phase-Wrap Positional Scoring Evidence and Hardware-Validation Tooling"
+message: "If you use PhaseWrap-RoPE, cite this repository and preserve the negative-results evidence posture."
+title: "PhaseWrap-RoPE: Negative Results for Phase-Wrap Positional Scoring and Hardware-Readout Audit Tooling"
 version: "0.2.44"
 date-released: "2026-05-25"
 doi: "10.5281/zenodo.20306786"
@@ -14,6 +14,7 @@ keywords:
   - "phase-wrap positional scoring"
   - "rotary positional encoding"
   - "deterministic evidence packets"
-  - "hardware validation"
+  - "negative results"
+  - "hardware readout audit"
   - "quantum circuits"
-abstract: "Bounded evidence repository for PhaseWrap-RoPE, a phase-wrap positional scoring rule with deterministic validation packets, a machine-verifiable Stage 4 hardware sweep, Stage216-218 full IBM Fez 4096-shot replacement hardware comparison, Stage 5 classical attention baselines, Stage 6 downstream attention benchmark, Stage 7 toy transformer ablation, and later bounded retrieval/copy diagnostics. The release does not claim production transformer superiority, RoPE replacement, quantum advantage, or broad cross-backend robustness."
+abstract: "Negative-results evidence repository for PhaseWrap-RoPE, a phase-wrap positional scoring rule with deterministic validation packets, score-theory limits, retrieval-benchmark failure modes, method-nonspecific support-routing repairs, a machine-verifiable Stage 4 hardware sweep, and Stage216-218 full IBM Fez 4096-shot hardware-readout comparison. The release does not claim production transformer superiority, RoPE replacement, quantum advantage, or broad cross-backend robustness."

@@ -1,10 +1,14 @@
 # PhaseWrap-RoPE roadmap
 
-Status: `public_review_roadmap`
+Status: `negative_results_publication_roadmap`
 
 Date: `2026-05-23`
 
-This roadmap turns external feedback into implementation tracks. It does not broaden the current claim boundary.
+This roadmap turns external feedback into implementation tracks. The positive replacement line is closed; the active goal is a negative-results publication package that does not broaden the current claim boundary.
+
+Canonical decision: [PhaseWrap research program decision](publication/phasewrap-research-program-decision-v1.md).
+
+Execution freeze: [PhaseWrap execution freeze](publication/phasewrap-execution-freeze-v1.md).
 
 | Track | Status | Next action |
 | --- | --- | --- |
@@ -15,4 +19,6 @@ This roadmap turns external feedback into implementation tracks. It does not bro
 | Documentation site | In progress | API documentation now starts at `docs/api/scoring.md`; next step is publishing the docs tree through GitHub Pages or ReadTheDocs. |
 | Standard benchmark | Protocol ready | Implement the predeclared benchmark in `docs/research/q-rope-standard-benchmark-protocol-v1.md` before any stronger RoPE-facing claim. |
 | Hardware-specific claim test | Protocol ready | Implement the preregistered same-packet comparison in `docs/research/q-rope-hardware-specific-claim-test-v1.md` before claiming a hardware-specific contribution beyond witness behavior. |
-| External publication | Planned | Prepare arXiv/OSF/blog outreach only after the current bounded framing and verifier gate remain green. |
+| Negative-results publication | Active | Prepare the essential Stage 67-96 methodology paper described in `docs/publication/negative-results-publication-roadmap-v1.md`; treat score theory and evidence hygiene as optional follow-ons. |
+| PhaseWrap-positive execution | Frozen | Do not add new positive-replacement stages unless a reopen gate in `docs/publication/phasewrap-research-program-decision-v1.md` is predeclared. |
+| External publication | Planned | Prepare arXiv/OSF/blog outreach only after the negative-results framing and verifier gate remain green. |

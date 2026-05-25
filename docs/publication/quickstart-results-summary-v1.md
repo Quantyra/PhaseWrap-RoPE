@@ -6,11 +6,27 @@ Archive DOI: `10.5281/zenodo.20306786`
 
 ## Purpose
 
-This page is the one-page reviewer entry point for the current bounded PhaseWrap-RoPE release. It summarizes what is present, what passes, what is excluded, and what research comes next.
+This page is the one-page reviewer entry point for the current PhaseWrap-RoPE negative-results release. It summarizes what is present, what passes, what failed, what is excluded, and how to reproduce the evidence.
 
 Repository naming note: public materials use `PhaseWrap-RoPE`; internal imports and artifact IDs retain the existing `qrope` stem.
 
 ## Current Result
+
+The positive replacement research line is closed. The repository should be read as a negative-results and methodology package: fixed-period PhaseWrap-RoPE is compact and auditable, but the evidence does not support RoPE replacement, production transformer superiority, quantum advantage, or broad cross-backend robustness.
+
+The publication roadmap is calibrated by effort and payoff:
+
+- the essential paper is a retrieval-benchmark methodology paper carrying the full Stage 67-96 arc;
+- Stage 11 score theory should usually be an appendix, with a short standalone note only if writing capacity permits;
+- the evidence-hygiene note is optional but worthwhile if it can be presented without implying model-improvement evidence.
+
+See [Negative results publication roadmap](negative-results-publication-roadmap-v1.md).
+
+The canonical program-level decision is [PhaseWrap research program decision](phasewrap-research-program-decision-v1.md).
+
+The essential paper draft is [On the Difficulty of Isolating Positional Contributions in Retrieval Benchmarks](phasewrap-methodology-paper-v1.md).
+
+## Hardware Audit Result
 
 The active Stage 4 hardware sweep is machine-verifiable from committed packet, execution, raw-count, evaluation, and manifest artifacts. It reports six completed hardware records:
 
@@ -35,6 +51,8 @@ The full IBM Fez replacement path is now complete. Stages 216-218 merge `21/21` 
 | `ibm_cx_seed577_rows16_shots4096` | CX parity | 0.058017 | 0.082664 | 0.072316 | 100.953134 | 58.566817 |
 | `ibm_product_seed314_rows16_shots4096` | Product state | 0.027709 | 0.038480 | 0.039844 | 44.116726 | 49.705471 |
 | `ibm_product_seed577_rows16_shots4096` | Product state | 0.037817 | 0.039628 | 0.042044 | 7.418207 | 17.313848 |
+
+This hardware result is preserved as bounded audit evidence. It is not a transformer-scale result and does not reverse the negative retrieval-benchmark conclusion.
 
 ## Reproduce
 

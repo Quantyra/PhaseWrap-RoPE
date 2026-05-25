@@ -11,13 +11,14 @@
   "blockers": [],
   "claim_boundary": {
     "does_not_support": [
+      "substitution adequacy",
       "general RoPE replacement",
       "production transformer superiority",
       "language-model-scale validation",
       "quantum advantage"
     ],
     "supports": [
-      "bounded non-phase-cued retrieval-bridge substitution",
+      "bounded non-phase-cued retrieval-bridge ranking parity",
       "measured degradation versus RoPE with preserved retrieval behavior",
       "multi-seed same-parameter comparison against no-position, sinusoidal, and RoPE controls"
     ]
@@ -207,6 +208,15 @@
       512
     ]
   },
+  "ranking_parity_criteria": {
+    "maximum_mrr_degradation_vs_rope": 0.05,
+    "maximum_top1_degradation_vs_rope": 0.1,
+    "minimum_phasewrap_mrr": 0.95,
+    "minimum_phasewrap_top1": 0.9,
+    "minimum_run_count": 5,
+    "minimum_top1_lift_vs_no_position": 0.5,
+    "minimum_top1_lift_vs_sinusoidal": 0.1
+  },
   "schema_version": "qrope_stage219_rope_substitution_gate_v1",
   "secondary_benchmark": {
     "all_criteria_pass": true,
@@ -393,5 +403,5 @@
     ]
   },
   "stage": "stage219_rope_substitution_gate",
-  "supported_claim": "PhaseWrap-derived adapters are viable RoPE substitutes in these bounded retrieval-bridge benchmarks: they preserve held-out retrieval top-1/MRR within the predeclared margin while showing measured degradation versus RoPE on probability, calibration, and loss."
+  "supported_claim": "PhaseWrap-derived adapters reach ranking parity with RoPE in these bounded retrieval-bridge benchmarks: they preserve held-out retrieval top-1/MRR within the predeclared rank margin while showing measured degradation versus RoPE on probability, calibration, and loss."
 }

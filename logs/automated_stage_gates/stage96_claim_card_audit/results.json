@@ -60,6 +60,15 @@
         "stage": "stage95_headline_interval_audit"
       },
       {
+        "decision": "CLAIM_CARD_BOUND_STRONGEST_HONEST_CLAIM",
+        "evidence": "The current strongest honest claim is bounded and reportable with intervals, but promotion remains unsupported.",
+        "failure": "The claim-card packaging still records promotion as unsupported.",
+        "promotion_failed_requirements": [
+          "free_learned_phasewrap_original_retrieval_solve"
+        ],
+        "stage": "stage96_claim_card_audit"
+      },
+      {
         "capacity_established": null,
         "decision": null,
         "evidence": "At least one original retrieval task remains below the generalization threshold.",
@@ -496,6 +505,15 @@
         "retrieval_best_methods": {},
         "retrieval_best_top1": {},
         "stage": "stage95_headline_interval_audit"
+      },
+      {
+        "capacity_established": null,
+        "decision": "CLAIM_CARD_BOUND_STRONGEST_HONEST_CLAIM",
+        "evidence": "At least one original retrieval task remains below the generalization threshold.",
+        "failure": "Original held-out retrieval remains unrepaired in a recent fair-comparison audit.",
+        "retrieval_best_methods": {},
+        "retrieval_best_top1": {},
+        "stage": "stage96_claim_card_audit"
       }
     ],
     "headline_intervals": [
@@ -569,7 +587,7 @@
       "ready": false
     },
     "reviewer_next_gate": "Run a stronger learned matched decoder-only transformer or original-row mechanism that improves held-out support-to-token retrieval for phase-cued and exact-offset rows without structural copy routing before evaluating positional-method promotion; avoid treating more small pointer-generator variants as claim-expanding evidence without a materially different binding mechanism.",
-    "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve. Stage 95 surfaces confidence intervals for selected headline structural positives and free learned failures without changing that boundary. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
+    "strongest_honest_claim": "PhaseWrap-RoPE is a compact, auditable phase-wrap positional scoring rule with reproducible hardware/readout witnesses and mixed toy/diagnostic downstream evidence. Hard and soft support-routing diagnostics show the row family can be solved, but learned scalar, nonlinear, in-decoder support-supervised, dual support/target-attention, practical budget-sensitivity, structural-teacher distillation, added-depth teacher-distillation, length-curriculum, and direct support-binding routes still fail free held-out support-to-token retrieval. Stage 93 bounds the current toy pointer-generator lane as insufficient for free held-out original retrieval. Stage 94 confirms the predeclared promotion gate is still unmet because the current evidence lacks a free learned PhaseWrap-led original-retrieval solve. Stage 95 surfaces confidence intervals for selected headline structural positives and free learned failures without changing that boundary. Stage 96 packages this as a claim card to reduce publication-facing over-read risk. Structural copy-expert compositions can repair phase-cued and exact-offset retrieval, but they are method-nonspecific or not PhaseWrap-led, so fair matched decoder/pointer-generator audits do not yet support RoPE replacement or positional-method promotion.",
     "supported_evidence": [
       {
         "claim_limit": "This is not transformer-scale superiority, broad quantum advantage, or cross-backend generalization without additional replication.",
@@ -610,6 +628,11 @@
         "claim_limit": "The intervals improve reporting rigor but do not create the missing free learned PhaseWrap-led solve.",
         "evidence": "Stage 95 surfaces seed confidence intervals for selected headline structural positives and free learned retrieval failures.",
         "source": "stage95_headline_interval_audit"
+      },
+      {
+        "claim_limit": "The claim card is a reporting guardrail and does not expand the underlying evidence.",
+        "evidence": "Stage 96 packages the current strongest honest claim, unsupported claims, failure modes, next gate, and headline intervals into one claim-card artifact.",
+        "source": "stage96_claim_card_audit"
       },
       {
         "claim_limit": "Tiny-text QA positives are mixed downstream evidence, not original retrieval generalization.",

@@ -1,16 +1,16 @@
 # External review response v1
 
-Status: `HISTORICAL_REVIEW_RESPONSE_PAPER_WITHDRAWN_PENDING_REFRAME`
+Status: `HISTORICAL_REVIEW_RESPONSE_NEGATIVE_RESULTS_REFRAME`
 
 Date: `2026-05-23`
 
-Current note: the standalone paper draft referenced below has been withdrawn from the current public branch pending a shorter reframed manuscript. The repository evidence package, quickstart summary, verifier scripts, and raw artifacts remain public.
+Current note: the standalone replacement paper draft referenced below has been withdrawn from the current public branch. The repository is being reframed for negative-results publication: the positive replacement line is closed, while the evidence package, quickstart summary, verifier scripts, and raw artifacts remain the reviewer base.
 
 ## High-priority corrections made
 
 | Review issue | Response |
 | --- | --- |
-| Provisional application number looked inconsistent with USPTO provisional series conventions. | Public wording now uses patent-pending language with only public application numbers and filing dates. `docs/publication/patent-status-note-v1.md` records provisional applications `64/068,121` and `64/073,899`; receipt-specific identifiers are retained only in internal IP records. |
+| Provisional application number looked inconsistent with USPTO provisional series conventions. | The repo retains a factual low-prominence patent status note, while README/release front matter no longer uses patent status as a credibility signal. Receipt-specific identifiers are retained only in internal IP records. |
 | Filing date appeared future-dated. | The current repo date is `2026-05-18`; the receipt date is not future-dated as of this response. Public wording now uses the concrete receipt timestamp. |
 | Hardware run occurred before the USPTO receipt. | `docs/publication/patent-status-note-v1.md` now separates the internal hardware execution timeline, USPTO receipt timeline, and later public release timeline. |
 | Product-state witness was overframed as quantum evidence. | README and public evidence notes state that the product-state Stage 4 circuit is an angle-encoding/readout witness with no entangling gate, and that it is not evidence of entanglement, quantum speedup, or nonclassical interference. The repository also reports an entangling CX witness family, still with bounded packet/backend/date/calibration-specific claims only. |
@@ -28,14 +28,19 @@ Current note: the standalone paper draft referenced below has been withdrawn fro
 | Reviewers asked why the CX variant was chosen and whether packet generation would be reusable. | README and quickstart materials state that CX is the smallest entangling extension of the product-state witness and that the current packet generation pipeline is open in `src/qrope/automated_stage_gates.py`, with cleaner researcher-facing API packaging deferred. |
 | A one-click reviewer verification path was requested. | README now includes a Colab badge pointing to `docs/notebooks/phasewrap_rope_verify.ipynb`, a one-cell notebook that runs local verifier scripts and prints JSON summaries. |
 | A stronger live-hardware replacement packet was needed before spending claims on hardware. | The reduced-scope signal was promoted to the full IBM Fez 4096-shot replacement path. Stages 216-218 merge `21/21` result-count templates, validate unique `q1q0` known-state calibration, and report `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE` across all four seed/template comparison groups. README, quickstart summary, replication ledger, release checklist, and Zenodo/CFF metadata describe this as a bounded two-qubit packet result only. |
+| Later review argued that the cumulative downstream record did not support the replacement framing. | Accepted. The current publication roadmap is now negative-results first: the essential paper carries the Stage 67-96 methodology arc, Stage 11 is appendix or optional note material, and Stage 216-218 is retained as hardware-audit infrastructure rather than model-improvement evidence. |
+| Later review flagged patent prominence as inconsistent with a credibility-first nonprofit research strategy. | Accepted. Public-facing research materials now keep patent status as a low-prominence legal mention and separate from scientific claims. Patent prosecution and conversion strategy is outside this repository. |
+| Filing records clarified that the USPTO records are provisional applications. | Accepted. The repo mentions the filings factually, excludes receipt-specific identifiers and confirmation numbers, and does not treat the filings as evidence of novelty, eligibility, hardware advantage, or model-improvement claims. |
 | AGENTS.md rendered a literal `\r\n`. | Fixed. |
 
 ## Not yet done
 
-- Refresh the release DOI/archive after the `v0.2.44` public release is archived by Zenodo.
+- Prepare the negative-results publication package before any new public release.
+- Draft the essential retrieval-benchmark methodology paper carrying the Stage 67-96 arc.
+- Decide whether Stage 11 score theory remains an appendix or becomes a short optional standalone note.
+- Decide whether the evidence-hygiene material warrants an optional follow-on note after the methodology paper stabilizes.
+- Refresh the release DOI/archive only after the negative-results release is cut.
 - Move internal process/governance materials into a cleaner public structure.
-- Post an arXiv/OSF preprint and mint a Zenodo DOI.
-- Add harder multi-seed downstream benchmarks. Stage 6, Stage 7, and Stage 8 now provide bounded synthetic packets, but broader downstream claims require standard retrieval tasks or small trained transformer experiments.
-- Add repeated hardware evidence across dates/calibration windows. The current sweep verifier and full IBM Fez replacement run are stronger than the initial packet evidence, but they are not substitutes for independent reruns on additional dates/backends.
+- Post arXiv/OSF material only under negative-results or methodology framing.
 
 These remaining items require new execution, repo restructuring, or external publication steps and should not be represented as complete.

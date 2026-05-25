@@ -1,8 +1,8 @@
 {
-  "title": "PhaseWrap-RoPE: Bounded Phase-Wrap Positional Scoring Evidence and Hardware-Validation Tooling",
+  "title": "PhaseWrap-RoPE: Negative Results for Phase-Wrap Positional Scoring and Hardware-Readout Audit Tooling",
   "upload_type": "software",
   "version": "0.2.44",
-  "description": "Open-source bounded evidence repository for PhaseWrap-RoPE, including a phase-wrap positional scoring rule, deterministic validation packets, a machine-verifiable Stage 4 hardware sweep, provider-aware IBM Runtime and Amazon Braket artifacts, Stage216-218 full IBM Fez 4096-shot replacement hardware comparison, Stage 5 classical attention baselines, Stage 6 downstream attention benchmark, Stage 7 toy transformer ablation, and later bounded retrieval/copy diagnostics. The release does not claim broad quantum advantage, production transformer superiority, full transformer-scale validation, RoPE replacement, or general cross-backend robustness.",
+  "description": "Open-source negative-results evidence repository for PhaseWrap-RoPE, including a phase-wrap positional scoring rule, deterministic validation packets, score-theory limits, retrieval-benchmark failure modes, method-nonspecific support-routing repairs, a machine-verifiable Stage 4 hardware sweep, provider-aware IBM Runtime and Amazon Braket artifacts, and Stage216-218 full IBM Fez 4096-shot hardware-readout comparison. The release does not claim broad quantum advantage, production transformer superiority, full transformer-scale validation, RoPE replacement, or general cross-backend robustness.",
   "creators": [
     {
       "name": "Fredriksen, Daniel Eric"
@@ -15,7 +15,8 @@
     "rotary positional encoding",
     "phase-wrap scoring",
     "quantum circuits",
-    "hardware validation",
+    "negative results",
+    "hardware readout audit",
     "reproducibility",
     "deterministic evidence packets"
   ],

@@ -18,7 +18,7 @@ ROPE_METHOD = "rope_relative"
 NO_POSITION_METHOD = "no_position"
 SINUSOIDAL_METHOD = "sinusoidal"
 
-ADEQUACY_CRITERIA = {
+RANKING_PARITY_CRITERIA = {
     "minimum_run_count": 5,
     "minimum_phasewrap_top1": 0.9,
     "minimum_phasewrap_mrr": 0.95,
@@ -55,15 +55,15 @@ def _compare_stage(result: dict[str, Any], *, phasewrap_method: str) -> dict[str
     top1_lift_vs_no_position = round(float(phasewrap["top1_accuracy_mean"]) - float(no_position["top1_accuracy_mean"]), 6)
     top1_lift_vs_sinusoidal = round(float(phasewrap["top1_accuracy_mean"]) - float(sinusoidal["top1_accuracy_mean"]), 6)
     criteria = {
-        "run_count_at_least_minimum": int(phasewrap["run_count"]) >= ADEQUACY_CRITERIA["minimum_run_count"],
+        "run_count_at_least_minimum": int(phasewrap["run_count"]) >= RANKING_PARITY_CRITERIA["minimum_run_count"],
         "parameter_count_matched": parameter_count_equal,
         "run_count_matched": run_count_equal,
-        "phasewrap_top1_at_least_minimum": float(phasewrap["top1_accuracy_mean"]) >= ADEQUACY_CRITERIA["minimum_phasewrap_top1"],
-        "phasewrap_mrr_at_least_minimum": float(phasewrap["mrr_mean"]) >= ADEQUACY_CRITERIA["minimum_phasewrap_mrr"],
-        "top1_degradation_within_margin": top1_degradation <= ADEQUACY_CRITERIA["maximum_top1_degradation_vs_rope"],
-        "mrr_degradation_within_margin": mrr_degradation <= ADEQUACY_CRITERIA["maximum_mrr_degradation_vs_rope"],
-        "top1_lift_vs_no_position_met": top1_lift_vs_no_position >= ADEQUACY_CRITERIA["minimum_top1_lift_vs_no_position"],
-        "top1_lift_vs_sinusoidal_met": top1_lift_vs_sinusoidal >= ADEQUACY_CRITERIA["minimum_top1_lift_vs_sinusoidal"],
+        "phasewrap_top1_at_least_minimum": float(phasewrap["top1_accuracy_mean"]) >= RANKING_PARITY_CRITERIA["minimum_phasewrap_top1"],
+        "phasewrap_mrr_at_least_minimum": float(phasewrap["mrr_mean"]) >= RANKING_PARITY_CRITERIA["minimum_phasewrap_mrr"],
+        "top1_degradation_within_margin": top1_degradation <= RANKING_PARITY_CRITERIA["maximum_top1_degradation_vs_rope"],
+        "mrr_degradation_within_margin": mrr_degradation <= RANKING_PARITY_CRITERIA["maximum_mrr_degradation_vs_rope"],
+        "top1_lift_vs_no_position_met": top1_lift_vs_no_position >= RANKING_PARITY_CRITERIA["minimum_top1_lift_vs_no_position"],
+        "top1_lift_vs_sinusoidal_met": top1_lift_vs_sinusoidal >= RANKING_PARITY_CRITERIA["minimum_top1_lift_vs_sinusoidal"],
         "rope_probability_advantage_recorded": target_probability_degradation > 0.0,
         "rope_calibration_advantage_recorded": ece_degradation > 0.0,
     }
@@ -115,10 +115,10 @@ def run_stage219_rope_substitution_gate(
         blockers.append(f"secondary stage mismatch: {secondary['stage']}")
     if not primary["all_criteria_pass"]:
         failed = [key for key, value in primary["criteria"].items() if not value]
-        blockers.append(f"primary adequacy criteria failed: {failed}")
+        blockers.append(f"primary ranking-parity criteria failed: {failed}")
     if not secondary["all_criteria_pass"]:
         failed = [key for key, value in secondary["criteria"].items() if not value]
-        blockers.append(f"secondary corroboration criteria failed: {failed}")
+        blockers.append(f"secondary ranking-parity criteria failed: {failed}")
     decision = (
         "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION"
         if not blockers
@@ -129,21 +129,23 @@ def run_stage219_rope_substitution_gate(
         "stage": "stage219_rope_substitution_gate",
         "decision": decision,
         "blockers": blockers,
-        "adequacy_criteria": ADEQUACY_CRITERIA,
+        "ranking_parity_criteria": RANKING_PARITY_CRITERIA,
+        "adequacy_criteria": RANKING_PARITY_CRITERIA,
         "primary_benchmark": primary,
         "secondary_benchmark": secondary,
         "supported_claim": (
-            "PhaseWrap-derived adapters are viable RoPE substitutes in these bounded retrieval-bridge benchmarks: "
-            "they preserve held-out retrieval top-1/MRR within the predeclared margin while showing measured "
+            "PhaseWrap-derived adapters reach ranking parity with RoPE in these bounded retrieval-bridge benchmarks: "
+            "they preserve held-out retrieval top-1/MRR within the predeclared rank margin while showing measured "
             "degradation versus RoPE on probability, calibration, and loss."
         ),
         "claim_boundary": {
             "supports": [
-                "bounded non-phase-cued retrieval-bridge substitution",
+                "bounded non-phase-cued retrieval-bridge ranking parity",
                 "measured degradation versus RoPE with preserved retrieval behavior",
                 "multi-seed same-parameter comparison against no-position, sinusoidal, and RoPE controls",
             ],
             "does_not_support": [
+                "substitution adequacy",
                 "general RoPE replacement",
                 "production transformer superiority",
                 "language-model-scale validation",
@@ -161,6 +163,7 @@ def write_stage219_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "decision": result["decision"],
         "blockers": result["blockers"],
         "adequacy_criteria": result["adequacy_criteria"],
+        "ranking_parity_criteria": result["ranking_parity_criteria"],
         "primary_stage": result["primary_benchmark"]["stage"],
         "primary_phasewrap_method": result["primary_benchmark"]["phasewrap_method"],
         "secondary_stage": result["secondary_benchmark"]["stage"],

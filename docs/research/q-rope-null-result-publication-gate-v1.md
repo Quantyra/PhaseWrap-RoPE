@@ -1,16 +1,17 @@
 # Q-RoPE Null-Result Publication Gate v1
 
 ## Decision
-If the initiative remains in a null-result or boundary-setting state without a credible positive thesis, do not pursue publication.
+If the initiative remains in a null-result or boundary-setting state without a credible positive thesis, do not pursue a positive-result publication. A negative-results publication is allowed when it makes the failure boundary clear and useful.
 
 ## Meaning
-In that state, the correct disposition is:
+In that state, the correct disposition is one of:
+
 - internal research archive
 - reusable infrastructure asset
-- possible future restart point
+- negative-results or methodology publication
 
 Not:
-- paper submission
+- positive-result paper submission
 - outward publication push
 - public victory narrative
 
@@ -21,19 +22,22 @@ This gate is active when all are true:
 3. local redesign branches do not yield a credible successor path
 
 ## Current status
-Current evidence is close enough to this gate that publication should be treated as off by default unless a new positive technical result appears.
+Current evidence is inside this gate for positive-result claims. Publication is allowed only as a negative-results and methodology package centered on score limits, retrieval-benchmark failure modes, and reproducibility infrastructure.
 
 ## Allowed work under this gate
 - internal status memos
 - executive summaries
 - repo hygiene and archiving
 - restart-option analysis
+- negative-results paper preparation
+- methodology paper preparation
+- evidence-verifier hardening
 
 ## Disallowed work under this gate
-- submission-oriented paper packaging
+- positive-result submission-oriented paper packaging
 - publication-style positioning
 - external claims that imply the result is stronger than it is
 
 ## Bottom line
 Null results are not a reason to misframe the work.
-They are a reason to preserve the asset internally and only reopen publication if a genuine positive result emerges later.
+They are a reason to publish only what the evidence actually shows: the replacement thesis failed, the support-routing repair is method-nonspecific, the fixed score has structural limits, and the audit infrastructure is reusable.

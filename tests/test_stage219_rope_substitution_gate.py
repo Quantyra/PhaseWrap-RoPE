@@ -3,11 +3,13 @@ from __future__ import annotations
 from qrope.stage219_rope_substitution_gate import run_stage219_rope_substitution_gate
 
 
-def test_stage219_supports_bounded_rope_substitution_claim() -> None:
+def test_stage219_supports_bounded_ranking_parity_claim() -> None:
     result = run_stage219_rope_substitution_gate()
 
     assert result["decision"] == "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION"
     assert result["blockers"] == []
+    assert "ranking parity" in result["supported_claim"]
+    assert "substitution adequacy" in result["claim_boundary"]["does_not_support"]
 
     primary = result["primary_benchmark"]
     assert primary["stage"] == "stage30_matched_retrieval_bridge"

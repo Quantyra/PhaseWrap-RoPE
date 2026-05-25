@@ -1,29 +1,34 @@
 # PhaseWrap-RoPE open-source release checklist v1
 
-Status: `PUBLIC_RELEASE_PUBLISHED_PAPER_WITHDRAWN`
+Status: `NEGATIVE_RESULTS_RELEASE_PREP`
 
 Target repository: `https://github.com/Quantyra/PhaseWrap-RoPE`
 
 License: `AGPL-3.0-only`
 
-Patent notice: patent pending under USPTO provisional applications `64/068,121` and `64/073,899`; receipt-specific identifiers are not published.
+Patent notice: low-prominence legal mention only; patent status is not part of the scientific claim, and receipt-specific identifiers or confirmation numbers are not published.
 
 ## Required local artifacts
 
 | Artifact | Status | Notes |
 | --- | --- | --- |
-| `README.md` | Prepared | Public-facing Quantyra/PhaseWrap-RoPE positioning with claim boundary. |
+| `README.md` | Prepared | Public-facing Quantyra/PhaseWrap-RoPE negative-results positioning with claim boundary. |
 | `LICENSE` | Prepared | GNU AGPL v3 text. |
 | `NOTICE` | Prepared | Short public ownership and patent/IP-status notice. |
-| `PATENTS.md` | Prepared | USPTO acknowledgement-receipt notice and license boundary. |
+| `PATENTS.md` | Prepared | Low-prominence patent/IP notice and license boundary. |
 | `CITATION.cff` | Prepared | Repository citation metadata. |
-| `docs/publication/patent-status-note-v1.md` | Prepared | Conservative acknowledgement-receipt status note and timeline. |
+| `docs/publication/patent-status-note-v1.md` | Prepared | Low-prominence legal mention and claim-separation boundary. |
 | `docs/publication/quickstart-results-summary-v1.md` | Prepared | One-page reviewer entry point with verifier commands, active hardware table, claim boundary, and roadmap. |
 | `docs/publication/references.bib` | Prepared | Formal references for Transformer, RoPE, IBM Runtime primitives, SamplerV2, and backend metadata. |
 | `docs/publication/external-review-response-v1.md` | Prepared | External review response and unresolved follow-up list. |
 | `docs/roadmap.md` | Prepared | Public review roadmap for framing, API, structure, benchmark, and publication follow-up. |
 | `docs/publication/replication-plan-v1.md` | Prepared | Cross-backend/cross-date and entangling-witness replication plan. |
 | `docs/publication/external-release-plan-v1.md` | Prepared | arXiv, OSF, and Zenodo release plan with blockers. |
+| `docs/publication/negative-results-publication-roadmap-v1.md` | Prepared | Negative-results publication roadmap with one essential methodology paper and optional follow-ons. |
+| `docs/publication/phasewrap-methodology-paper-v1.md` | Prepared | Essential negative-results methodology paper draft carrying the Stage 67-96 arc. |
+| `docs/publication/phasewrap-execution-freeze-v1.md` | Prepared | Execution guardrail freezing PhaseWrap-positive stage churn unless a reopen gate is predeclared. |
+| `docs/publication/phasewrap-decision-execution-audit-v1.md` | Prepared | Requirement-by-requirement audit of decision-memo execution, with external release held pending approval. |
+| `docs/publication/release-notes-v0.3.0-negative-results.md` | Prepared | Conservative release notes for the negative-results release tag, not yet published. |
 | `.zenodo.json` | Prepared | Zenodo metadata override for first GitHub release DOI. |
 | `.github/workflows/ci.yml` | Prepared | GitHub Actions pytest and coverage workflow. |
 | `src/qrope/automated_stage_gates.py` | Prepared | Public implementation reference for formulas, packet generation, and hardware evaluation. |
@@ -41,15 +46,19 @@ Patent notice: patent pending under USPTO provisional applications `64/068,121` 
 | `CODE_OF_CONDUCT.md` | Prepared | Research-collaboration conduct standard. |
 | `docs/publication/manuscript-to-provisional-support-audit-v1.md` | Prepared | Support audit and prohibited claims list. |
 
-## Publication gate
+## Negative-results publication gate
 
 Proceed if all statements remain inside this boundary:
 
-- USPTO-receipted PhaseWrap-RoPE provisional application status without publishing receipt-specific identifiers;
+- low-prominence provisional-filing mention without publishing receipt-specific identifiers or confirmation numbers;
 - phase-wrap mod-8/mod-12 scoring;
 - deterministic validation packets;
 - raw-count and metadata-backed hardware evidence;
 - bounded Stage 4 real-hardware results, including Stage216-218 full IBM Fez replacement comparison.
+- Stage 11 fixed-score aliasing and Fourier-support limits.
+- Stage 80/81 method-nonspecific support-routing repairs.
+- closed positive replacement thesis and explicit negative-results framing.
+- low-prominence patent/IP posture separated from scientific claims.
 - open questions framed as future work unless backed by current artifacts.
 
 Do not proceed if the manuscript or repository front matter claims:
@@ -57,6 +66,8 @@ Do not proceed if the manuscript or repository front matter claims:
 - broad quantum advantage;
 - production transformer superiority;
 - general cross-backend robustness;
+- RoPE replacement;
+- PhaseWrap-specific success for repairs that also solve with `no_position`;
 - unsupported commercial performance claims.
 
 ## Remote publication record

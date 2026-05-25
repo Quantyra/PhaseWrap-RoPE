@@ -12,6 +12,15 @@
   "decision": "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION",
   "primary_phasewrap_method": "phasewrap_distance_adapter",
   "primary_stage": "stage30_matched_retrieval_bridge",
+  "ranking_parity_criteria": {
+    "maximum_mrr_degradation_vs_rope": 0.05,
+    "maximum_top1_degradation_vs_rope": 0.1,
+    "minimum_phasewrap_mrr": 0.95,
+    "minimum_phasewrap_top1": 0.9,
+    "minimum_run_count": 5,
+    "minimum_top1_lift_vs_no_position": 0.5,
+    "minimum_top1_lift_vs_sinusoidal": 0.1
+  },
   "result_path": "logs/automated_stage_gates/stage219_rope_substitution_gate/results.json",
   "schema_version": "qrope_stage219_rope_substitution_gate_v1",
   "secondary_phasewrap_method": "phasewrap_multiscale_adapter",
