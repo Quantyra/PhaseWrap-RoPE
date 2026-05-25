@@ -23,8 +23,8 @@ This audit checks whether the actions in `phasewrap-research-program-decision-v1
 | Stop adding positive-replacement stages by default. | `phasewrap-execution-freeze-v1.md` freezes PhaseWrap-positive execution unless a reopen gate is predeclared. | Executed |
 | Keep patent/IP posture factual and low-prominence. | `PATENTS.md`, `NOTICE`, patent status note, README, and release checklist describe patent status as a low-prominence legal mention, not scientific evidence. | Executed |
 | Keep receipt-specific identifiers and confirmation numbers out of public materials. | Publication verifier and explicit public-file scans check forbidden receipt/confirmation fragments. | Executed |
-| Prepare conservative release notes for the negative-results tag. | `release-notes-v0.3.0-negative-results.md` exists with support/non-support boundaries and verifier commands. | Executed |
-| Release under a conservative negative-results tag only after wording is safe. | Commit `b293ef3d` was pushed to `main`, tag `v0.3.0-negative-results` points at that commit, and the GitHub release was created under `Quantyra/PhaseWrap`. | Executed for public GitHub release |
+| Prepare conservative release notes for the negative-results tag. | `release-notes-v0.3.1-negative-results.md` exists with support/non-support boundaries and verifier commands. | Executed |
+| Release under a conservative negative-results tag only after wording is safe. | The `v0.3.1-negative-results` tag is the Zenodo-targeted public GitHub release under `Quantyra/PhaseWrap`. | Executed for public GitHub release |
 
 ## Verification Commands
 
@@ -52,7 +52,7 @@ Public-facing receipt/confirmation scan returned no matches for the configured f
 
 The repository has a public GitHub release:
 
-- `https://github.com/Quantyra/PhaseWrap/releases/tag/v0.3.0-negative-results`
+- `https://github.com/Quantyra/PhaseWrap/releases/tag/v0.3.1-negative-results`
 
 Additional external-publication actions still require explicit approval because they change public state outside GitHub:
 

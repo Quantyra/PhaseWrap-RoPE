@@ -90,7 +90,7 @@ Start here:
 - Execution freeze: [PhaseWrap execution freeze](docs/publication/phasewrap-execution-freeze-v1.md)
 - Execution audit: [PhaseWrap decision execution audit](docs/publication/phasewrap-decision-execution-audit-v1.md)
 - Methodology paper draft: [On the Difficulty of Isolating Positional Contributions in Retrieval Benchmarks](docs/publication/phasewrap-methodology-paper-v1.md)
-- Prepared release notes: [v0.3.0-negative-results](docs/publication/release-notes-v0.3.0-negative-results.md)
+- Prepared release notes: [v0.3.1-negative-results](docs/publication/release-notes-v0.3.1-negative-results.md)
 - Documentation landing page: [PhaseWrap documentation](docs/index.md)
 - Negative-results publication roadmap: [Negative results publication roadmap](docs/publication/negative-results-publication-roadmap-v1.md)
 - Zenodo concept DOI: [10.5281/zenodo.20306786](https://doi.org/10.5281/zenodo.20306786)

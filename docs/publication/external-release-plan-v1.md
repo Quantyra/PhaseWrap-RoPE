@@ -56,11 +56,11 @@ Recommended action:
 Prepared artifact:
 
 - `.zenodo.json`
-- [Release notes for v0.3.0-negative-results](release-notes-v0.3.0-negative-results.md)
+- [Release notes for v0.3.1-negative-results](release-notes-v0.3.1-negative-results.md)
 
 Current GitHub release:
 
-- `https://github.com/Quantyra/PhaseWrap/releases/tag/v0.3.0-negative-results`
+- `https://github.com/Quantyra/PhaseWrap/releases/tag/v0.3.1-negative-results`
 - Repository visibility at publication time: `PUBLIC`
 
 Blocking items:
@@ -75,7 +75,7 @@ Blocking items:
 Use a conservative negative-results tag for the reframed evidence package:
 
 ```text
-v0.3.0-negative-results
+v0.3.1-negative-results
 ```
 
 Do not use `v1.0.0` until a venue-ready negative-results preprint exists.

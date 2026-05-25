@@ -20,7 +20,7 @@ PUBLIC_TEXT_FILES = [
     Path("docs/publication/phasewrap-execution-freeze-v1.md"),
     Path("docs/publication/phasewrap-decision-execution-audit-v1.md"),
     Path("docs/publication/phasewrap-methodology-paper-v1.md"),
-    Path("docs/publication/release-notes-v0.3.0-negative-results.md"),
+    Path("docs/publication/release-notes-v0.3.1-negative-results.md"),
     Path("docs/publication/negative-results-publication-roadmap-v1.md"),
     Path("docs/publication/replication-ledger-v1.md"),
     Path("docs/publication/external-release-plan-v1.md"),
@@ -119,7 +119,7 @@ REQUIRED_PUBLIC_STRINGS = [
     "All repo-side actions in the decision memo are executed",
     "external publication actions beyond GitHub",
     "GITHUB_RELEASE_PUBLISHED_REPO_PUBLIC",
-    "Do not refresh Zenodo, post arXiv, create an OSF project, publish a blog post, or make a broader public announcement until the repository owner explicitly approves that external-publication step",
+    "Do not post arXiv, create an OSF project, publish a blog post, or make a broader public announcement until the repository owner explicitly approves that external-publication step",
 ]
 
 

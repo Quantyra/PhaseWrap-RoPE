@@ -28,7 +28,7 @@ Patent notice: low-prominence legal mention only; patent status is not part of t
 | `docs/publication/phasewrap-methodology-paper-v1.md` | Prepared | Essential negative-results methodology paper draft carrying the Stage 67-96 arc. |
 | `docs/publication/phasewrap-execution-freeze-v1.md` | Prepared | Execution guardrail freezing PhaseWrap-positive stage churn unless a reopen gate is predeclared. |
 | `docs/publication/phasewrap-decision-execution-audit-v1.md` | Prepared | Requirement-by-requirement audit of decision-memo execution, with external release held pending approval. |
-| `docs/publication/release-notes-v0.3.0-negative-results.md` | Prepared | Conservative release notes for the negative-results release tag, not yet published. |
+| `docs/publication/release-notes-v0.3.1-negative-results.md` | Prepared | Conservative release notes for the Zenodo-targeted negative-results release tag. |
 | `.zenodo.json` | Prepared | Zenodo metadata override for first GitHub release DOI. |
 | `.github/workflows/ci.yml` | Prepared | GitHub Actions pytest and coverage workflow. |
 | `src/qrope/automated_stage_gates.py` | Prepared | Public implementation reference for formulas, packet generation, and hardware evaluation. |
@@ -80,6 +80,6 @@ The public repository has been created and published:
 | Create or connect the public GitHub repository. | Done |
 | Push the prepared local repository. | Done |
 | Confirm the public repository metadata. | Done |
-| Tag the public release after final manuscript approval. | Done for prior release; standalone paper now withdrawn from current public branch. |
+| Tag the public release after final manuscript approval. | Done for `v0.3.1-negative-results`; standalone paper remains withdrawn from current public branch. |
 | Enable Zenodo integration and mint the release DOI. | Done |
 | Preserve latest archive handle in public docs. | Done: concept DOI `10.5281/zenodo.20306786`. |

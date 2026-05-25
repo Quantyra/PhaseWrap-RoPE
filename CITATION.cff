@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use PhaseWrap, cite this repository and preserve the negative-results evidence posture."
 title: "PhaseWrap: Negative Results for Phase-Wrap Positional Scoring and Hardware-Readout Audit Tooling"
-version: "0.2.44"
+version: "0.3.1-negative-results"
 date-released: "2026-05-25"
 doi: "10.5281/zenodo.20306786"
 license: "AGPL-3.0-only"
