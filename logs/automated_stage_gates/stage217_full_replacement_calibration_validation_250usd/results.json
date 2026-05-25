@@ -1,0 +1,211 @@
+{
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "readout mitigation",
+      "robustness or auditability metric interpretation",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "full 4096-shot known-state calibration counts validate bitstring order before metric interpretation",
+      "Wilson 95% lower-bound guard applied to each calibration state"
+    ]
+  },
+  "decision": "FULL_REPLACEMENT_CALIBRATION_VALIDATED_READY_FOR_METRICS",
+  "inferred_bitstring_order": "q1q0",
+  "min_required_wilson95_dominant_fraction": 0.8,
+  "missing_source_artifacts": [],
+  "next_gate": "Apply the inferred bitstring order to full 4096-shot packet counts and compute hardware metrics.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "order_records": [
+    {
+      "minimum_wilson95_lower_bound": 0.0,
+      "order": "q0q1",
+      "pass": false,
+      "pass_count": 2,
+      "state_records": [
+        {
+          "dominant_count": 959,
+          "dominant_fraction": 0.959,
+          "expected_key": "00",
+          "order": "q0q1",
+          "pass": true,
+          "state": "00",
+          "total_count": 1000,
+          "wilson95_lower_bound": 0.944851711098596
+        },
+        {
+          "dominant_count": 0,
+          "dominant_fraction": 0.0,
+          "expected_key": "01",
+          "order": "q0q1",
+          "pass": false,
+          "state": "01",
+          "total_count": 1000,
+          "wilson95_lower_bound": 0.0
+        },
+        {
+          "dominant_count": 1,
+          "dominant_fraction": 0.001,
+          "expected_key": "10",
+          "order": "q0q1",
+          "pass": false,
+          "state": "10",
+          "total_count": 1000,
+          "wilson95_lower_bound": 0.00017654182905727116
+        },
+        {
+          "dominant_count": 934,
+          "dominant_fraction": 0.934,
+          "expected_key": "11",
+          "order": "q0q1",
+          "pass": true,
+          "state": "11",
+          "total_count": 1000,
+          "wilson95_lower_bound": 0.9168903772338006
+        }
+      ]
+    },
+    {
+      "minimum_wilson95_lower_bound": 0.9168903772338006,
+      "order": "q1q0",
+      "pass": true,
+      "pass_count": 4,
+      "state_records": [
+        {
+          "dominant_count": 959,
+          "dominant_fraction": 0.959,
+          "expected_key": "00",
+          "order": "q1q0",
+          "pass": true,
+          "state": "00",
+          "total_count": 1000,
+          "wilson95_lower_bound": 0.944851711098596
+        },
+        {
+          "dominant_count": 949,
+          "dominant_fraction": 0.949,
+          "expected_key": "10",
+          "order": "q1q0",
+          "pass": true,
+          "state": "01",
+          "total_count": 1000,
+          "wilson95_lower_bound": 0.9335641957120492
+        },
+        {
+          "dominant_count": 960,
+          "dominant_fraction": 0.96,
+          "expected_key": "01",
+          "order": "q1q0",
+          "pass": true,
+          "state": "10",
+          "total_count": 1000,
+          "wilson95_lower_bound": 0.9459900625744302
+        },
+        {
+          "dominant_count": 934,
+          "dominant_fraction": 0.934,
+          "expected_key": "11",
+          "order": "q1q0",
+          "pass": true,
+          "state": "11",
+          "total_count": 1000,
+          "wilson95_lower_bound": 0.9168903772338006
+        }
+      ]
+    }
+  ],
+  "provider_credentials_required": false,
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage217_full_replacement_calibration_validation_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage216_full_replacement_merged_result_counts_250usd/results.json"
+  ],
+  "stage": "stage217_full_replacement_calibration_validation",
+  "stage216_decision": "FULL_REPLACEMENT_ALL_RESULT_COUNTS_MERGED_READY_FOR_CALIBRATION",
+  "state_records": [
+    {
+      "dominant_count": 959,
+      "dominant_fraction": 0.959,
+      "expected_key": "00",
+      "order": "q0q1",
+      "pass": true,
+      "state": "00",
+      "total_count": 1000,
+      "wilson95_lower_bound": 0.944851711098596
+    },
+    {
+      "dominant_count": 0,
+      "dominant_fraction": 0.0,
+      "expected_key": "01",
+      "order": "q0q1",
+      "pass": false,
+      "state": "01",
+      "total_count": 1000,
+      "wilson95_lower_bound": 0.0
+    },
+    {
+      "dominant_count": 1,
+      "dominant_fraction": 0.001,
+      "expected_key": "10",
+      "order": "q0q1",
+      "pass": false,
+      "state": "10",
+      "total_count": 1000,
+      "wilson95_lower_bound": 0.00017654182905727116
+    },
+    {
+      "dominant_count": 934,
+      "dominant_fraction": 0.934,
+      "expected_key": "11",
+      "order": "q0q1",
+      "pass": true,
+      "state": "11",
+      "total_count": 1000,
+      "wilson95_lower_bound": 0.9168903772338006
+    },
+    {
+      "dominant_count": 959,
+      "dominant_fraction": 0.959,
+      "expected_key": "00",
+      "order": "q1q0",
+      "pass": true,
+      "state": "00",
+      "total_count": 1000,
+      "wilson95_lower_bound": 0.944851711098596
+    },
+    {
+      "dominant_count": 949,
+      "dominant_fraction": 0.949,
+      "expected_key": "10",
+      "order": "q1q0",
+      "pass": true,
+      "state": "01",
+      "total_count": 1000,
+      "wilson95_lower_bound": 0.9335641957120492
+    },
+    {
+      "dominant_count": 960,
+      "dominant_fraction": 0.96,
+      "expected_key": "01",
+      "order": "q1q0",
+      "pass": true,
+      "state": "10",
+      "total_count": 1000,
+      "wilson95_lower_bound": 0.9459900625744302
+    },
+    {
+      "dominant_count": 934,
+      "dominant_fraction": 0.934,
+      "expected_key": "11",
+      "order": "q1q0",
+      "pass": true,
+      "state": "11",
+      "total_count": 1000,
+      "wilson95_lower_bound": 0.9168903772338006
+    }
+  ],
+  "status": "completed"
+}

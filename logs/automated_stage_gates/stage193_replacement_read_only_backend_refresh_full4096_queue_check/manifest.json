@@ -1,0 +1,46 @@
+{
+  "allow_read_only_refresh": true,
+  "backend_lookup_attempted": true,
+  "backend_lookup_ready": true,
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "hardware job submission",
+      "Sampler or Estimator runtime execution",
+      "provider credentials, token values, CRN values, or account secrets",
+      "IBM credit balance, billing plan, or dollar-cost verification",
+      "runnable live-submit command strings",
+      "a noisy-hardware robustness or auditability conclusion"
+    ],
+    "supported": [
+      "replacement-scoped read-only IBM backend metadata refresh when explicitly allowed",
+      "non-secret provider configuration presence and public backend status metadata",
+      "separation of provider reachability from credit/billing and exact approval"
+    ]
+  },
+  "credit_balance_verified": false,
+  "decision": "REPLACEMENT_READ_ONLY_BACKEND_REFRESH_READY_CREDIT_AND_APPROVAL_STILL_REQUIRED",
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "explicit_user_approval_required": true,
+  "ibm_backend_env_present": true,
+  "ibm_instance_crn_present": true,
+  "ibm_token_present": true,
+  "missing_source_artifacts": [],
+  "next_gate": "If read-only backend refresh succeeds, resolve IBM credit/billing/Runtime allowance with the user, then require the exact replacement approval phrase before any live execution runner is prepared.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "qiskit_sdk_ready": true,
+  "result_path": "logs/automated_stage_gates/stage193_replacement_read_only_backend_refresh_full4096_queue_check/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage193_replacement_read_only_backend_refresh_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage191_replacement_approval_dossier/results.json",
+    "logs/automated_stage_gates/stage192_replacement_provider_credit_preflight/results.json"
+  ],
+  "stage": "stage193_replacement_read_only_backend_refresh",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage193_replacement_read_only_backend_refresh_full4096_queue_check/summary.csv"
+}

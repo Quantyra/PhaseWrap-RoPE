@@ -1,14 +1,14 @@
 # External review response v1
 
-Status: `CLAUDE_REVIEW_ACTIONED_INITIAL_PASS`
+Status: `CLAUDE_REVIEW_ACTIONED_WITH_FULL_REPLACEMENT_UPDATE`
 
-Date: `2026-05-18`
+Date: `2026-05-23`
 
 ## High-priority corrections made
 
 | Review issue | Response |
 | --- | --- |
-| Provisional application number looked inconsistent with USPTO provisional series conventions. | Public wording changed to conservative acknowledgement-receipt language. `docs/publication/patent-status-note-v1.md` now records that the Electronic Acknowledgement Receipt lists `64/068,121`, while USPTO MPEP 503 lists provisional series codes as `60/` through `63/`; final Filing Receipt review remains pending. |
+| Provisional application number looked inconsistent with USPTO provisional series conventions. | Public wording now uses patent-pending language with only public application numbers and filing dates. `docs/publication/patent-status-note-v1.md` records provisional applications `64/068,121` and `64/073,899`; receipt-specific identifiers are retained only in internal IP records. |
 | Filing date appeared future-dated. | The current repo date is `2026-05-18`; the receipt date is not future-dated as of this response. Public wording now uses the concrete receipt timestamp. |
 | Hardware run occurred before the USPTO receipt. | `docs/publication/patent-status-note-v1.md` now separates the internal hardware execution timeline, USPTO receipt timeline, and later public release timeline. |
 | Product-state witness was overframed as quantum evidence. | README and paper now state that the product-state Stage 4 circuit is an angle-encoding/readout witness with no entangling gate, and that it is not evidence of entanglement, quantum speedup, or nonclassical interference. The repository now separately reports an entangling CX witness family, still with bounded packet/backend/date/calibration-specific claims only. |
@@ -25,15 +25,16 @@ Date: `2026-05-18`
 | A RoPE-facing benchmark lane was needed to justify keeping the name. | Stage 8 adds a local phase-cued Needle-style retrieval packet with five seeds, bootstrap intervals, RoPE-like/ALiBI-like/sinusoidal/no-position baselines, and a period-pair ablation. It supports continued RoPE-facing research, not a production replacement claim. |
 | Reviewers asked why the CX variant was chosen and whether packet generation would be reusable. | README, quickstart, and paper now state that CX is the smallest entangling extension of the product-state witness and that the current packet generation pipeline is open in `src/qrope/automated_stage_gates.py`, with cleaner researcher-facing API packaging deferred. |
 | A one-click reviewer verification path was requested. | README now includes a Colab badge pointing to `docs/notebooks/phasewrap_rope_verify.ipynb`, a one-cell notebook that runs local verifier scripts and prints JSON summaries. |
+| A stronger live-hardware replacement packet was needed before spending claims on hardware. | The reduced-scope signal was promoted to the full IBM Fez 4096-shot replacement path. Stages 216-218 merge `21/21` result-count templates, validate unique `q1q0` known-state calibration, and report `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE` across all four seed/template comparison groups. The paper, README, quickstart summary, replication ledger, release checklist, and Zenodo/CFF metadata now describe this as a bounded two-qubit packet result only. |
 | AGENTS.md rendered a literal `\r\n`. | Fixed. |
 
 ## Not yet done
 
-- Mint a release DOI/archive after final public release tagging.
+- Refresh the release DOI/archive after final public release tagging if publishing the Stage216-218 update as a new public release.
 - Move internal process/governance materials into a cleaner public structure.
 - Wait for CI to complete on GitHub and respond to any failures.
 - Post an arXiv/OSF preprint and mint a Zenodo DOI.
 - Add harder multi-seed downstream benchmarks. Stage 6, Stage 7, and Stage 8 now provide bounded synthetic packets, but broader downstream claims require standard retrieval tasks or small trained transformer experiments.
-- Add repeated hardware evidence across dates/calibration windows. The current sweep verifier now maintains deterministic row-bootstrap and shot-resampling intervals for MAE/rank correlations from committed artifacts, but those intervals are not substitutes for independent reruns.
+- Add repeated hardware evidence across dates/calibration windows. The current sweep verifier and full IBM Fez replacement run are stronger than the initial packet evidence, but they are not substitutes for independent reruns on additional dates/backends.
 
 These remaining items require new execution, repo restructuring, or external publication steps and should not be represented as complete.

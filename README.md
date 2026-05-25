@@ -10,16 +10,98 @@ This repository is intended for open scientific review of the PhaseWrap-RoPE sco
 
 Repository naming note: public materials use `PhaseWrap-RoPE`; Python imports, script paths, packet IDs, and evidence IDs retain the existing `qrope` stem.
 
+## Reviewer Fast Path
+
+**Claim:** PhaseWrap-RoPE is a compact phase-wrap positional scoring rule with bounded, reproducible evidence packets and two-qubit hardware readout witnesses.
+
+**Not claimed:** the repository does not prove RoPE replacement, production transformer superiority, quantum advantage, entanglement-based advantage, or broad cross-backend robustness.
+
+**Key positive result:**
+
+```bash
+python scripts/run_stage216_full_replacement_merged_result_counts.py
+python scripts/run_stage217_full_replacement_calibration_validation.py
+python scripts/run_stage218_full_replacement_hardware_metric_interpreter.py
+```
+
+Expected decision: `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`. This means PhaseWrap has lower normalized noise-sensitivity delta than the best matched positional baseline and matched null control in all four full IBM Fez 4096-shot seed/template comparison groups, after Stage 217 validates `q1q0` known-state calibration.
+
+**Key limitation result:**
+
+```bash
+python scripts/run_stage11_phasewrap_theory.py
+python scripts/run_stage12_ruler_retrieval.py
+```
+
+Expected interpretation: the fixed 8/12 score is a compact mod-24 periodic feature with aliasing, and RoPE-like/sinusoidal baselines solve the non-phase-cued retrieval packet while fixed PhaseWrap does not. This is why the paper keeps the claim bounded.
+
+**One-command package check:**
+
+```bash
+python scripts/verify_publication_package.py
+```
+
+Expected output: `PUBLICATION_PACKAGE_VERIFY_PASS`.
+
+## Why This Matters in 60 Seconds
+
+PhaseWrap-RoPE turns relative-position offsets into two wrapped residual margins, one mod 8 and one mod 12, then multiplies them into a compact score used throughout the repository as `SQR`. That score is small enough to characterize classically, cheap enough to test against RoPE/ALiBI/sinusoidal baselines, and structured enough to map into two-qubit readout witnesses using `RY` angle encodings with optional `CX` parity readout.
+
+The current contribution is the evidence discipline around that idea: frozen packets, raw counts, backend metadata, known-state calibration, offline verifiers, positive hardware witness results, and negative retrieval results are all kept together. The result is a falsifiable method repo, not a broad positional-encoding victory lap.
+
+## Why Quantum Hardware?
+
+It does not need a quantum computer to compute the score. The default `SQR = m8 * m12` value is a closed-form classical feature that can be computed exactly on CPU; Stage 5 shows that the original synthetic label is exactly recoverable by mod-24 lookup and direct `m8*m12` features.
+
+The hardware lane is therefore framed as a bounded noisy-readout witness and provider-audit probe. It tests whether frozen phase-feature packets, known-state calibration, provider bitstring decoding, raw counts, and offline metric interpretation can preserve the predeclared ordering on real devices. It is not evidence of computational speedup.
+
+A stronger hardware-specific claim would require a preregistered same-packet comparison where classical `m8*m12`/mod-24 lookup, product-state readout, and CX readout are evaluated under the same seeds, shots, and metrics, and where the hardware-specific lane adds evidence not reducible to the classical feature baseline.
+
+## Current Limitations
+
+- The fixed 8/12 score is compact and aliased: Stage 11 shows mod-24 periodicity, mirror aliases, only 10 distinct residue scores, and small Fourier support.
+- Stage 5 is a motivation constraint, not a success claim: mod-24 lookup and direct `m8*m12` features exactly recover the original synthetic label.
+- On non-phase-cued retrieval, fixed PhaseWrap does not beat RoPE-like or sinusoidal baselines: Stage 12 and Stage 22 are intentionally negative for the raw score.
+- Learned PhaseWrap distance/multiscale adapters can recover top-1/MRR in selected bridge settings, but RoPE-like scoring often keeps stronger target probability and calibration.
+- The hardware evidence is a bounded readout/witness result for frozen two-qubit packets. It is not quantum acceleration, not transformer-scale validation, and not broad cross-backend robustness.
+- A clean standard transformer benchmark remains future work before any stronger RoPE-facing claim should be made.
+
+## Claim-Status Table
+
+| Evidence lane | Main result | Supports | Does not support | Command |
+| --- | --- | --- | --- | --- |
+| Stage 216-218 full IBM Fez replacement | PhaseWrap beats the best matched positional baseline and matched null control in all four 4096-shot comparison groups after `q1q0` calibration. | Bounded two-qubit hardware evidence for this frozen IBM Fez replacement packet. | RoPE replacement, transformer improvement, quantum advantage, broad backend robustness. | `python scripts/run_stage218_full_replacement_hardware_metric_interpreter.py` |
+| Stage 219 bounded RoPE-substitution gate | PhaseWrap-derived adapters preserve held-out top-1/MRR within the predeclared margin versus RoPE on Stage 30/32 retrieval bridges, with measured probability/calibration degradation. | Bounded RoPE-substitution adequacy in these retrieval-bridge benchmarks. | General RoPE replacement, production transformer superiority, language-model-scale validation. | `python scripts/run_stage219_rope_substitution_gate.py` |
+| Stage 4 hardware sweep | Saved IBM/Braket hardware records verify as witness-positive under committed manifests and provider decoding rules. | Auditable hardware readout pipeline for frozen packets. | General hardware robustness or quantum acceleration. | `python scripts/verify_stage4_hardware_sweep.py` |
+| Stage 11 score theory | Fixed 8/12 score is mod-24 periodic with aliases and small Fourier support. | Classical characterization of the scoring rule and its limits. | Proof that the score is globally optimal or transformer-useful. | `python scripts/run_stage11_phasewrap_theory.py` |
+| Stage 12 retrieval | RoPE-like and sinusoidal baselines solve the non-phase-cued retrieval packet; fixed PhaseWrap is weak. | Negative evidence that prevents a raw PhaseWrap-as-RoPE-replacement claim. | Long-context superiority. | `python scripts/run_stage12_ruler_retrieval.py` |
+| Stage 32 feature bridge | PhaseWrap distance/multiscale adapters recover top-1/MRR, while RoPE-like scoring keeps stronger probability/calibration. | Adapter/feature-bridge viability worth studying. | Raw fixed-score dominance or production transformer validation. | `python scripts/run_stage32_full_context_feature_bridge.py` |
+| Stage 70 synthesis | Current fair evidence supports a bounded compact/auditable claim with failures preserved. | Strongest honest claim for this release. | Claim broadening beyond the recorded evidence. | `python scripts/run_stage70_strongest_honest_claim_synthesis.py` |
+
 ## Read the Paper
 
 Start here:
 
 - [Repository paper: PhaseWrap-RoPE bounded phase-wrap scoring rule](docs/publication/qrope-paper-v1.md)
+- [Exported HTML paper](docs/publication/qrope-paper-v1.html)
+- Documentation landing page: [PhaseWrap-RoPE documentation](docs/index.md)
 - Zenodo concept DOI: [10.5281/zenodo.20306786](https://doi.org/10.5281/zenodo.20306786)
 - One-page reviewer summary: [Quickstart and results summary](docs/publication/quickstart-results-summary-v1.md)
+- Local completion audit: [Paper completion audit](docs/publication/paper-completion-audit-v1.md)
+- Scoring API reference: [qrope.scoring API](docs/api/scoring.md)
+- Reproducible review environment: [Reproducible environment](docs/reproducible-environment.md)
 - One-cell verification notebook: [Open in Colab](https://colab.research.google.com/github/Quantyra/PhaseWrap-RoPE/blob/main/docs/notebooks/phasewrap_rope_verify.ipynb)
 
-The paper is the canonical narrative for the current release. It frames PhaseWrap-RoPE as a bounded positional scoring rule, not as a validated production transformer positional encoding method. The repository provides the artifacts behind the paper: frozen packets, raw counts, verifier scripts, hardware sweep outputs, classical baselines, and toy downstream ablations.
+The paper is the canonical narrative for the current release. It frames PhaseWrap-RoPE as a bounded positional scoring rule, not as a validated production transformer positional encoding method. The repository provides the artifacts behind the paper: frozen packets, raw counts, verifier scripts, hardware sweep outputs, the full IBM Fez replacement interpretation path, classical baselines, and toy downstream ablations.
+
+Minimal core API from `qrope.scoring`:
+
+```python
+from qrope import phase_margins, phase_residual, phasewrap_features, phasewrap_score
+
+score = phasewrap_score(reference_delta=37, candidate_delta=13)
+features = phasewrap_features(reference_delta=37, candidate_delta=13)
+```
 
 Minimal local verification:
 
@@ -109,21 +191,26 @@ python scripts/run_stage81_soft_support_routed_token_selector_audit.py
 python scripts/run_stage82_learned_support_routing_head_audit.py
 python scripts/run_stage83_nonlinear_support_routing_bridge_audit.py
 python scripts/run_stage84_support_auxiliary_pointer_generator_audit.py
+python scripts/run_stage216_full_replacement_merged_result_counts.py
+python scripts/run_stage217_full_replacement_calibration_validation.py
+python scripts/run_stage218_full_replacement_hardware_metric_interpreter.py
+python scripts/export_publication_paper.py
+python scripts/verify_publication_package.py
 ```
 
 ## Status
 
-- `Patent/IP posture`: USPTO provisional submission received `2026-05-18`; the Electronic Acknowledgement Receipt lists application `64/068,121` and Patent Center `76347440`; final Filing Receipt pending. See [Patent status note](docs/publication/patent-status-note-v1.md).
+- `Patent/IP posture`: PhaseWrap-RoPE is patent pending under USPTO provisional applications `64/068,121` and `64/073,899`, with public materials limited to application numbers and filing dates. See [Patent status note](docs/publication/patent-status-note-v1.md).
 - `Archive DOI`: `10.5281/zenodo.20306786` for the latest bounded evidence release.
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
 - `Publication posture`: bounded, reproducible, evidence-disciplined.
-- `Current evidence posture`: Stage 4 real-noisy-hardware results for bounded frozen packet/backend/date/calibration contexts, including IBM Fez positives, Amazon Braket/Rigetti product-state positive evidence, and provider-aware Amazon Braket CX positive recomputations from committed raw counts.
+- `Current evidence posture`: Stage 4 real-noisy-hardware results for bounded frozen packet/backend/date/calibration contexts, including IBM Fez positives, Amazon Braket/Rigetti product-state positive evidence, and provider-aware Amazon Braket CX positive recomputations from committed raw counts. The full 4096-shot IBM Fez replacement run is also complete: Stages 216-218 merge `21/21` templates, validate `q1q0` calibration, and record `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`.
 - `Stage 4 cost posture`: local recomputation of the committed Stage 4 sweep is covered by a deterministic classical compute estimate: 4,096 static operations over 163,072 recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - `Stage 4 preregistration posture`: future replication lanes now have no-hardware preregistered row-set artifacts with fixed seeds, families, shots, row counts, and row-set hashes; they are not submitted hardware evidence.
-- `Stage 4 calibration posture`: provider bitstring calibration packet specs and a failing-by-default verifier contract now exist for IBM-style `q1q0` and Amazon Braket-style `q0q1` known-state checks; real calibration counts are still missing.
+- `Stage 4 calibration posture`: provider bitstring calibration packet specs and a verifier contract exist for IBM-style `q1q0` and Amazon Braket-style `q0q1` known-state checks. The full IBM Fez replacement run includes real known-state calibration counts, and Stage 217 validates unique `q1q0` order before metric interpretation.
 - `RoPE-facing benchmark posture`: Stage 8 adds a local phase-cued Needle-style retrieval packet, Stage 9 adds a trained decoder-style positional attention ablation, Stage 12 adds a stricter non-phase-cued RULER-style retrieval packet, Stage 13 tests trained positional adapters, Stage 14 turns the non-phase-cued rows into key-value attention readout, Stage 15 adds a one-hidden-layer learned attention scorer, Stage 16 checks initialization stability, Stage 17 adds learned value embeddings plus output projection, Stage 18 probes that value-output bottleneck with teacher-forced attention, Stage 19 hardens the teacher-forced value-output path, Stage 20 reintroduces learned positional attention with the hardened path, Stage 21 reruns that comparison across five initialization seeds, Stage 22 extends explicit retrieval to 4096-token contexts, Stage 23 trains adapters on those long-context rows, Stage 24 adds learned value embeddings/output projection to the long-context rows, Stage 25 reruns that long-context value model across five initialization seeds, Stage 26 adds a compact key-value QA retrieval packet with explicit content keys, Stage 27 trains a compact attention bridge on that packet across five model initialization seeds, Stage 28 trains a compact attention bridge directly over non-phase-cued RULER-style retrieval rows, Stage 29 audits fixed period-pair choices on those retrieval rows, Stage 30 repeats the Stage 28 bridge with matched feature width and parameter count, Stage 31 moves to learned full-prefix retrieval attention, Stage 32 adds a nonlinear full-context feature bridge, Stage 33 adds post-hoc temperature calibration, Stage 34 adds a compact decoder-style value bridge, Stage 35 adds a teacher-forced value-output diagnostic, Stage 36 adds a copy-value bridge, Stage 37 calibrates that copy-value bridge, Stage 38 hardens the learned decoder-style value bridge, Stage 39 moves to all-prefix sequence decoder retrieval, Stage 40 adds a broader length curriculum, Stage 41 adds a pointer/copy sequence head, Stage 42 makes that output path trainable with a pointer-generator mixture, Stage 43 adds auxiliary generator-target hardening, Stage 44 records a compact-diagnostic plateau, Stage 45 runs a matched one-block decoder-only gate, Stage 46 audits longer-training capacity, Stage 47 adds Adam optimizer hardening, Stage 48 checks five-seed stability, Stage 49 tests a fixed copy-decoder retrieval repair, Stage 50 tests a learned pointer-generator decoder, Stage 51 records the decoder path as a bounded plateau, Stage 52 starts a stronger two-block decoder feasibility path, Stage 53 hardens retrieval exposure for that two-block path, Stage 54 adds target-attention supervision, Stage 55 adds an explicit row-metadata cue-copy upper bound, Stage 56 restricts cue-copy to visible input tokens, Stage 57 adds a known-support prior for decoding the query cue, Stage 58 learns that support map from pooled train rows, Stage 59 makes the lookup seed-local, Stage 60 removes fallback cue help for unseen residues, Stage 61 returns to learned two-block decoding with support-complete training, Stage 62 extends that learned decoder to longer training, Stage 63 replaces the vocab softmax with learned copy-output attention, Stage 64 tests a learned pointer-generator mixture, Stage 65 adds length-40 curriculum rows, Stage 66 adds a direct positional-copy expert, Stage 67 redesigns rows around visible content-key retrieval, Stage 68 tests whether that content-key signal transfers back to original retrieval rows, Stage 69 tests original-task multitask training, Stage 70 synthesizes the current strongest honest claim, Stage 71 tests deterministic positional-bias copy on the original rows, Stage 72 tests tie-aware phase-cued max-bias support, Stage 73 sweeps predeclared PhaseWrap period pairs on phase-cued support, Stage 74 tests leave-one-seed visible query-support recovery, Stage 75 replaces that hard lookup with a learned query-support head, Stage 76 optimizes an integrated support/copy head through token-copy loss, Stage 77 adds auxiliary support supervision, Stage 78 audits support split coverage, Stage 79 restores same-seed support-complete exposure, Stage 80 routes recovered support into farthest-congruent token selection, Stage 81 routes learned support probabilities into that token-selection path, Stage 82 replaces the hard farthest-congruent selector with a learned scalar routing head, Stage 83 tests a nonlinear support-routing bridge, Stage 84 moves support supervision inside the two-block pointer-generator decoder, Stage 85 adds dual support and target-attention auxiliary supervision, Stage 86 audits practical budget sensitivity for that dual-auxiliary path, and Stage 87 adds an in-decoder support-routed copy expert. Stage 87 records `IN_DECODER_SUPPORT_ROUTED_COPY_EXPERT_SOLVES_PHASE_CUED_NOT_PROMOTION`: the structural expert repairs phase-cued retrieval for `no_position` too, exact-offset remains below threshold, and learned support-to-token generalization remains bounded mechanism evidence rather than positional-method promotion.
 - `Score theory posture`: Stage 11 formalizes the fixed 8/12 score as a mod-24 periodic feature with translation invariance, mirror aliases, 10 distinct residue scores, and exact small Fourier support. This clarifies why stronger transformer benchmarks must resolve aliasing before any replacement claim.
-- `Hardware posture`: IBM Fez product-state, IBM Fez CX, Amazon Braket/Rigetti product-state, and Amazon Braket CX lanes have completed active Stage 4 hardware artifacts; additional IBM machines are deferred from the active sweep; Amazon Braket/IonQ was checked on 2026-05-19 and was not run because Forte devices were `OFFLINE` and Aria 1 was `RETIRED`; AQT IBEX Q1 is deferred due cost.
+- `Hardware posture`: IBM Fez product-state, IBM Fez CX, Amazon Braket/Rigetti product-state, Amazon Braket CX lanes, and the full 4096-shot IBM Fez replacement comparison have completed hardware artifacts. The replacement comparison is positive across product-state and CX templates, seeds 314 and 577, and matched positional/null controls. Additional IBM machines are not promoted to broad robustness evidence; Amazon Braket/IonQ was checked on 2026-05-19 and was not run because Forte devices were `OFFLINE` and Aria 1 was `RETIRED`; AQT IBEX Q1 is deferred due cost.
 - `Evidence tree posture`: `logs/automated_stage_gates/stage4_hardware_packet/` remains the default single-packet verifier path. The same IBM Fez 2026-05-17 product-state pass is also preserved as an immutable named run under `logs/automated_stage_gates/stage4_hardware_packet_ibm_fez_20260517_pass/` for the sweep manifest.
 
 ## Claim boundary
@@ -134,9 +221,11 @@ The public claim frame for this repository is:
 - The SQR score uses the product of the mod-8 and mod-12 signed margins.
 - The evidence lane includes deterministic frozen-packet validation, raw counts, backend metadata, and offline recomputation.
 - The Stage 4 result is a bounded real-hardware validation for the frozen packet reported in this repository.
+- The full 4096-shot IBM Fez replacement run supports a bounded two-qubit hardware claim: PhaseWrap has lower normalized noise-sensitivity delta than the best matched positional baseline and the matched null control in all four seed/template groups.
 - The Amazon Braket/Rigetti replication artifact is an 8-row, 1000-shot-per-row product-state hardware-positive run with offline verifier pass.
 - The current active hardware evidence includes two product-state angle-encoding/readout witness artifacts: IBM Fez and Amazon Braket/Rigetti.
 - The entangling CX witness family is implemented as `two_qubit_cx_parity_phase_wrap_v2`; IBM Fez and Amazon Braket executions on Rigetti Cepheus, IQM Garnet, and IQM Emerald verify as hardware-positive when decoded with the manifest-declared provider bitstring order. This does not support a general cross-backend robustness claim.
+- The full replacement evidence is not a production transformer result, not a RoPE-replacement proof, and not a quantum-advantage claim.
 
 The public claim frame excludes:
 
@@ -151,15 +240,22 @@ The active research north star is to find the strongest honest claim PhaseWrap-R
 ## Key documents
 
 - [Repository paper v1](docs/publication/qrope-paper-v1.md)
+- [Documentation landing page](docs/index.md)
+- [Paper completion audit](docs/publication/paper-completion-audit-v1.md)
 - [Manuscript-to-provisional support audit](docs/publication/manuscript-to-provisional-support-audit-v1.md)
 - [Patent status note](docs/publication/patent-status-note-v1.md)
 - [Quickstart and results summary](docs/publication/quickstart-results-summary-v1.md)
 - [External review response](docs/publication/external-review-response-v1.md)
+- [Public review roadmap](docs/roadmap.md)
+- [Scoring API reference](docs/api/scoring.md)
+- [Reproducible review environment](docs/reproducible-environment.md)
 - [Replication plan](docs/publication/replication-plan-v1.md)
 - [External release plan](docs/publication/external-release-plan-v1.md)
 - [PhaseWrap-RoPE method schematic](docs/publication/figures/qrope-method-schematic-v1.svg)
 - [Validation pipeline figure](docs/publication/figures/qrope-validation-pipeline-v1.svg)
 - [Stage 4 comparison figure](docs/publication/figures/qrope-stage4-comparison-v1.svg)
+- [Full IBM Fez replacement metrics figure](docs/publication/figures/qrope-full-replacement-metrics-v1.png)
+- [Publication figures index](docs/publication/figures/README.md)
 - [Open-source release checklist](docs/publication/open-source-release-checklist-v1.md)
 - [Patent notice](PATENTS.md)
 - [Stage 4 real-hardware validation result](docs/research/q-rope-stage4-real-hardware-validation-result-v1.md)
@@ -167,12 +263,16 @@ The active research north star is to find the strongest honest claim PhaseWrap-R
 - [Stage 4 bitstring calibration plan](docs/research/q-rope-stage4-bitstring-calibration-plan-v1.md)
 - [Stage 4 classical compute cost estimate](docs/research/q-rope-stage4-classical-compute-cost-v1.md)
 - [Stage 4 CX portability diagnostic](docs/research/q-rope-stage4-cx-portability-diagnostic-v1.md)
+- [Standard benchmark protocol](docs/research/q-rope-standard-benchmark-protocol-v1.md)
+- [Hardware-specific claim test protocol](docs/research/q-rope-hardware-specific-claim-test-v1.md)
+- [Stage 219 bounded RoPE-substitution gate](docs/research/q-rope-stage219-rope-substitution-gate-v1.md)
 - [Stage 5 attention baseline result](docs/research/q-rope-stage5-attention-baselines-v1.md)
 - [Stage 6 downstream attention result](docs/research/q-rope-stage6-downstream-attention-v1.md)
 - [Stage 7 toy transformer ablation](docs/research/q-rope-stage7-toy-transformer-ablation-v1.md)
 - [Stage 8 Needle-style benchmark](docs/research/q-rope-stage8-needle-benchmark-v1.md)
 - [Stage 9 trained transformer ablation plan and first executable subset](docs/research/q-rope-stage9-trained-transformer-ablation-plan-v1.md)
 - [Next transformer benchmark roadmap](docs/research/q-rope-next-transformer-benchmark-roadmap-v1.md)
+- [Standard benchmark protocol](docs/research/q-rope-standard-benchmark-protocol-v1.md)
 - [Stage 11 PhaseWrap score theory analysis](docs/research/q-rope-stage11-phasewrap-theory-v1.md)
 - [Stage 12 RULER-style retrieval benchmark](docs/research/q-rope-stage12-ruler-retrieval-v1.md)
 - [Stage 13 positional-adapter benchmark](docs/research/q-rope-stage13-positional-adapter-v1.md)
@@ -196,6 +296,7 @@ The active research north star is to find the strongest honest claim PhaseWrap-R
 - [Stage 31 full-context retrieval-attention benchmark](docs/research/q-rope-stage31-full-context-retrieval-attention-v1.md)
 - [Stage 32 full-context feature-bridge benchmark](docs/research/q-rope-stage32-full-context-feature-bridge-v1.md)
 - [Stage 33 temperature calibration audit](docs/research/q-rope-stage33-temperature-calibration-v1.md)
+- [Stage 219 bounded RoPE-substitution gate](docs/research/q-rope-stage219-rope-substitution-gate-v1.md)
 - [Stage 34 small decoder value-bridge benchmark](docs/research/q-rope-stage34-small-decoder-value-bridge-v1.md)
 - [Stage 35 value-bridge bottleneck diagnostic](docs/research/q-rope-stage35-value-bridge-bottleneck-diagnostic-v1.md)
 - [Stage 36 copy-value bridge benchmark](docs/research/q-rope-stage36-copy-value-bridge-v1.md)
@@ -252,7 +353,6 @@ The active research north star is to find the strongest honest claim PhaseWrap-R
 - [Stage 87 in-decoder support-routed copy expert audit](docs/research/q-rope-stage87-in-decoder-support-routed-copy-expert-audit-v1.md)
 - [Strongest honest claim goal](docs/research/q-rope-strongest-honest-claim-goal-v1.md)
 - [Amazon Braket hardware runbook](docs/evidence/E002-braket-hardware-runbook.md)
-- [Automated terminal human-review packet](docs/evidence/review-packets/qrope-automated-terminal-v1/qrope-terminal-human-review-packet-v1.md)
 - [Phase-wrap algorithm note](docs/research/q-rope-phase-wrap-qrope-algorithm-v1.md)
 
 ## Quickstart
@@ -262,6 +362,15 @@ Recommended local environment: Python `3.11+`.
 ```bash
 python -m pip install -e ".[dev]"
 ```
+
+For a pinned, no-provider reviewer environment, see [Reproducible review environment](docs/reproducible-environment.md):
+
+```bash
+python -m pip install -r requirements-review.txt
+python -m pip install -e .
+```
+
+Provider stacks are optional. Use `python -m pip install -e .` for the core scoring API and no-hardware review paths; use `python -m pip install -e ".[hardware]"` only for live IBM/Braket/Quandela provider work.
 
 Run a simulator-free local method check with no IBM credentials:
 
@@ -354,7 +463,7 @@ python scripts/prepare_stage4_bitstring_calibration_packets.py
 python scripts/verify_stage4_bitstring_calibration.py
 ```
 
-The verifier currently fails with `missing-evidence` until real known-state calibration counts are supplied. This is intentional and prevents treating planned calibration as completed calibration.
+The generic provider-calibration verifier still fails with `missing-evidence` until counts are supplied for that provider packet. The completed full IBM Fez replacement run has its own real known-state calibration path in Stage 217.
 
 Run the deterministic Stage 5 attention-scoring baselines:
 
@@ -579,6 +688,14 @@ python scripts/run_stage32_full_context_feature_bridge.py
 ```
 
 Stage 32 reruns the full-prefix setting with a one-hidden-layer feature bridge and equal feature width (`12`), hidden width (`10`), parameter count (`141`), optimizer, epochs, and five model seeds. `phasewrap_distance_adapter`, `phasewrap_multiscale_adapter`, and `rope_relative` all reach mean top-1 `1.000000` and mean MRR `1.000000`; `rope_relative` keeps higher mean target probability (`0.713026` versus `0.480310` for multiscale and `0.429075` for distance) and lower expected calibration error. This is constructive mechanism evidence, not a RoPE replacement claim.
+
+Run the deterministic Stage 219 bounded RoPE-substitution gate:
+
+```bash
+python scripts/run_stage219_rope_substitution_gate.py
+```
+
+Stage 219 applies a predeclared adequacy gate to the Stage 30 matched retrieval bridge and Stage 32 full-context feature bridge. The decision is `BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION`: PhaseWrap-derived adapters preserve held-out top-1/MRR at `1.000000` with zero top-1/MRR degradation versus `rope_relative` in both gates, while RoPE keeps stronger target probability and calibration. This supports bounded substitution adequacy for these retrieval-bridge benchmarks, not a general RoPE replacement claim.
 
 Run the deterministic Stage 33 temperature-calibration audit:
 

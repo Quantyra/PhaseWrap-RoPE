@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from qrope.env_utils import load_local_dotenv
+from qrope.ibm_runtime_utils import ibm_runtime_service_kwargs
 from qrope.stage99_matched_fixed_width_encoding_packet_freezer import OBJECTIVE
 
 
@@ -36,11 +37,7 @@ def _status_text(status: Any) -> str:
 def _real_fetch_status(runtime_job_id: str) -> dict[str, Any]:
     from qiskit_ibm_runtime import QiskitRuntimeService
 
-    token = os.environ.get("IBM_QUANTUM_TOKEN") or os.environ.get("QISKIT_IBM_TOKEN")
-    instance = os.environ.get("IBM_QUANTUM_INSTANCE_CRN")
-    if not token or not instance:
-        raise RuntimeError("IBM token or instance missing")
-    service = QiskitRuntimeService(channel="ibm_quantum_platform", token=token, instance=instance)
+    service = QiskitRuntimeService(**ibm_runtime_service_kwargs())
     job = service.job(runtime_job_id)
     status = job.status()
     return {"runtime_job_id": runtime_job_id, "status": _status_text(status)}

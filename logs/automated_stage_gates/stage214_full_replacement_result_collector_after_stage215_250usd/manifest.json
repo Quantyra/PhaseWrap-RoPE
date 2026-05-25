@@ -1,0 +1,34 @@
+{
+  "blockers": [
+    "runtime_result_collection_failed"
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "new hardware submission",
+      "calibration pass/fail",
+      "robustness or auditability interpretation"
+    ],
+    "supported": [
+      "provider result-count collection for completed full replacement Stage212 jobs"
+    ]
+  },
+  "collected_template_count": 8,
+  "decision": "FULL_REPLACEMENT_RESULT_COLLECTION_PENDING_OR_BLOCKED",
+  "expected_template_count": 21,
+  "missing_source_artifacts": [],
+  "next_gate": "After all counts are collected, validate known-state calibration before computing full 4096-shot hardware metrics.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "provider_credentials_required": true,
+  "result_path": "logs/automated_stage_gates/stage214_full_replacement_result_collector_after_stage215_250usd/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage214_full_replacement_result_collector_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage215_full_replacement_allocated_instance_resubmission_250usd/results.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/results.json"
+  ],
+  "stage": "stage214_full_replacement_result_collector",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage214_full_replacement_result_collector_after_stage215_250usd/summary.csv"
+}

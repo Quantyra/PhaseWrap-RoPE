@@ -1,8 +1,8 @@
 # PhaseWrap-RoPE replication ledger v1
 
-Status: `PROVIDER_AWARE_BRAKET_CX_REPLICATIONS_RECORDED`
+Status: `FULL_IBM_REPLACEMENT_AND_PROVIDER_AWARE_BRAKET_CX_RECORDED`
 
-Date: `2026-05-19`
+Date: `2026-05-23`
 
 ## Purpose
 
@@ -23,10 +23,11 @@ Machine-readable ledger: `logs/automated_stage_gates/replication_lanes/replicati
 | CX Braket IQM Garnet replication | `two_qubit_cx_parity_phase_wrap_v2` | Amazon Braket IQM `Garnet`, `2026-05-19` | `published_completed` | Bounded provider-aware hardware-positive Braket CX result; does not support a general cross-backend CX claim. |
 | CX Braket IQM Emerald replication | `two_qubit_cx_parity_phase_wrap_v2` | Amazon Braket IQM `Emerald`, `2026-05-19` | `published_completed` | Bounded provider-aware hardware-positive Braket CX result; does not support a general cross-backend CX claim. |
 | CX Braket queued attempt | `two_qubit_cx_parity_phase_wrap_v2` | Amazon Braket Rigetti `Cepheus-1-108Q`, `2026-05-19` | `hardware_attempt_timeout_cancelled` | No raw counts; superseded by the later completed Rigetti CX record. |
+| Full IBM Fez replacement comparison | `replacement_packet_execution_counts` plus known-state calibration | IBM `ibm_fez`, `2026-05-23` UTC collection artifacts | `published_completed` | Bounded full 4096-shot positive replacement comparison across product-state and CX templates, two seeds, and matched positional/null controls. |
 
 ## Braket replication result for this update
 
-The implementation environment had AWS credentials for account `485386182336`, a reachable Amazon Braket Rigetti QPU, and a Braket-compatible output bucket. The Braket replication lane completed with 8 tasks at 1000 shots per task and verified as `PASS / hardware-positive`.
+The implementation environment had AWS credentials, a reachable Amazon Braket Rigetti QPU, and a Braket-compatible output bucket. The Braket replication lane completed with 8 tasks at 1000 shots per task and verified as `PASS / hardware-positive`.
 
 Artifact directory:
 
@@ -67,7 +68,7 @@ Attempt artifacts:
 
 Submitted task:
 
-`arn:aws:braket:us-west-1:485386182336:quantum-task/ac7e2b2e-2794-43e8-ba18-c65225efceea`
+`arn:aws:braket:us-west-1:[account-redacted]:quantum-task/ac7e2b2e-2794-43e8-ba18-c65225efceea`
 
 The task remained `QUEUED` until the local runner hit its `1800` second timeout. A cancellation request was then sent, and AWS reported `CANCELLED` at `2026-05-19T22:07:22.245000Z`. No raw counts were produced, no CX metrics were computed from hardware counts, and this remains non-evidence for the entangling witness.
 
@@ -82,6 +83,27 @@ Later on `2026-05-19`, online Amazon Braket gate-model devices were run for the 
 | IQM `Emerald` | `logs/automated_stage_gates/stage4_hardware_sweep/amazon_braket__arn_aws_braket_eu-north-1__device_qpu_iqm_Emerald/two_qubit_cx_parity_phase_wrap_v2_20260519T230818Z/` | 0.021479 | 0.884995 | 0.210995 | -0.096986 | `hardware-positive` |
 
 These records show that Braket execution succeeded and that provider-aware decoding preserves witness/control ordering for the recorded packet/backend/date/calibration contexts. They should not be reframed as support for general cross-backend robustness.
+
+## Full IBM Fez replacement comparison
+
+Stages 216-218 complete the full 4096-shot IBM Fez replacement lane. The final merged artifact combines the original 13 completed templates with 8 allocated-instance replacement templates and records `21/21` templates. Stage 217 validates unique `q1q0` bitstring order from known-state calibration counts. Stage 218 records `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`.
+
+Artifacts:
+
+- `logs/automated_stage_gates/stage216_full_replacement_merged_result_counts_250usd/`
+- `logs/automated_stage_gates/stage217_full_replacement_calibration_validation_250usd/`
+- `logs/automated_stage_gates/stage218_full_replacement_hardware_metric_interpreter_250usd/`
+
+Summary:
+
+| Source lane | Circuit template | PhaseWrap delta | Best positional delta | Matched null delta | Outcome |
+| --- | --- | ---: | ---: | ---: | --- |
+| `ibm_cx_seed314_rows16_shots4096` | CX parity | 0.056686 | 0.073770 | 0.079248 | `stable_full_replacement_hardware_target` |
+| `ibm_cx_seed577_rows16_shots4096` | CX parity | 0.058017 | 0.082664 | 0.072316 | `stable_full_replacement_hardware_target` |
+| `ibm_product_seed314_rows16_shots4096` | Product state | 0.027709 | 0.038480 | 0.039844 | `stable_full_replacement_hardware_target` |
+| `ibm_product_seed577_rows16_shots4096` | Product state | 0.037817 | 0.039628 | 0.042044 | `stable_full_replacement_hardware_target` |
+
+This lane supports a bounded two-qubit hardware comparison claim only. It does not establish production transformer improvement, RoPE replacement, quantum advantage, or broad cross-backend robustness.
 
 A replication lane becomes publishable only after it contains:
 

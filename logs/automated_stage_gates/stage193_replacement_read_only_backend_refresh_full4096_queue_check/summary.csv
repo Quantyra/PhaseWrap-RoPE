@@ -1,0 +1,5 @@
+item_id,status,description
+replacement_approval_dossier,ready_for_refresh,Stage191 replacement approval dossier must be ready before a replacement-scoped backend refresh.
+current_local_ibm_configuration,present_non_secret,"IBM token, instance, and backend name must be present in the current shell; values are never recorded."
+read_only_refresh,verified,"Read-only backend metadata refresh; no Sampler, Estimator, or hardware job submission is allowed."
+credit_billing_runtime_allowance,human_verification_required,"A successful read-only backend refresh still does not verify IBM credit, billing, or Runtime allowance."

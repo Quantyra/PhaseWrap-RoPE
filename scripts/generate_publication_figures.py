@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FIGURES = ROOT / "docs" / "publication" / "figures"
 STAGE4 = ROOT / "logs" / "automated_stage_gates" / "stage4_hardware_packet"
 REPLICATION = ROOT / "logs" / "automated_stage_gates" / "replication_lanes"
+STAGE218 = ROOT / "logs" / "automated_stage_gates" / "stage218_full_replacement_hardware_metric_interpreter_250usd"
 
 INK = "#15211f"
 MUTED = "#66736e"
@@ -242,7 +243,7 @@ def replication_status_chart() -> None:
 
     fig, ax = plt.subplots(figsize=(12.5, 6.2))
     fig.suptitle("Replication lane status", x=0.01, ha="left", fontsize=18, fontweight="bold", color=INK)
-    fig.text(0.01, 0.92, "Only the original product-state hardware packet is completed. CX and cross-backend lanes remain outside the evidence claim.", color=MUTED, fontsize=10)
+    fig.text(0.01, 0.92, "Completed lanes are bounded packet/backend/date records. Planned or cancelled lanes remain outside the evidence claim.", color=MUTED, fontsize=10)
 
     ax.set_xlim(0, 1)
     ax.set_ylim(-0.75, len(lanes) - 0.25)
@@ -276,6 +277,66 @@ def replication_status_chart() -> None:
     save(fig, "qrope-replication-status-v1.png")
 
 
+def full_replacement_metric_chart() -> None:
+    result = load_json(STAGE218 / "results.json")
+    rows = result["comparison_summary"]
+    labels = []
+    phasewrap = []
+    best_positional = []
+    matched_null = []
+    positional_margin = []
+    null_margin = []
+    for row in rows:
+        source = str(row["source_lane_id"])
+        template = "CX" if "cx" in source else "Product"
+        seed = source.split("_seed", 1)[1].split("_", 1)[0]
+        labels.append(f"{template}\nseed {seed}")
+        phasewrap.append(float(row["phasewrap_normalized_noise_sensitivity_delta"]))
+        best_positional.append(float(row["best_positional_normalized_noise_sensitivity_delta"]))
+        matched_null.append(float(row["matched_null_control_normalized_noise_sensitivity_delta"]))
+        positional_margin.append(float(row["positional_margin_shot_quanta"]))
+        null_margin.append(float(row["matched_null_control_margin_shot_quanta"]))
+
+    x = np.arange(len(rows))
+    width = 0.24
+    fig, (ax_top, ax_bottom) = plt.subplots(
+        2,
+        1,
+        figsize=(12.5, 8.4),
+        gridspec_kw={"height_ratios": [2.0, 1.05], "hspace": 0.32},
+    )
+    fig.suptitle("Full IBM Fez replacement run: normalized noise sensitivity", x=0.01, ha="left", fontsize=18, fontweight="bold", color=INK)
+    fig.text(
+        0.01,
+        0.935,
+        "Stage 218, 4096 shots per row. Lower delta is better; margins are expressed in shot quanta. This is not a transformer or cross-backend claim.",
+        color=MUTED,
+        fontsize=10,
+    )
+
+    ax_top.bar(x - width, phasewrap, width=width, color=TEAL, label="PhaseWrap")
+    ax_top.bar(x, best_positional, width=width, color=BLUE, label="Best matched positional")
+    ax_top.bar(x + width, matched_null, width=width, color=AMBER, label="Matched null control")
+    ax_top.set_ylabel("Normalized noise-sensitivity delta")
+    ax_top.set_xticks(x)
+    ax_top.set_xticklabels(labels)
+    ax_top.set_ylim(0, max(matched_null + best_positional + phasewrap) * 1.25)
+    ax_top.grid(True, axis="y", linestyle="--", linewidth=0.7)
+    ax_top.legend(loc="upper left", frameon=False, ncol=3)
+
+    ax_bottom.plot(x, positional_margin, color=BLUE, linewidth=2.0, marker="o", markersize=6, label="PhaseWrap vs best positional")
+    ax_bottom.plot(x, null_margin, color=AMBER, linewidth=2.0, marker="s", markersize=6, label="PhaseWrap vs matched null")
+    ax_bottom.axhline(2.0, color=RED, linewidth=1.4, linestyle="--", label="Gate threshold")
+    ax_bottom.set_ylabel("Margin, shot quanta")
+    ax_bottom.set_xticks(x)
+    ax_bottom.set_xticklabels(labels)
+    ax_bottom.grid(True, axis="y", linestyle="--", linewidth=0.7)
+    ax_bottom.legend(loc="upper left", frameon=False, ncol=3)
+
+    add_source_note(fig, "Source: logs/automated_stage_gates/stage218_full_replacement_hardware_metric_interpreter_250usd/results.json")
+    save(fig, "qrope-full-replacement-metrics-v1.png")
+
+
 def main() -> None:
     set_common_style()
     draw_circuit("qrope-product-state-circuit-v1.png", entangling=False)
@@ -283,6 +344,7 @@ def main() -> None:
     stage4_prediction_chart()
     stage4_metric_chart()
     replication_status_chart()
+    full_replacement_metric_chart()
 
 
 if __name__ == "__main__":

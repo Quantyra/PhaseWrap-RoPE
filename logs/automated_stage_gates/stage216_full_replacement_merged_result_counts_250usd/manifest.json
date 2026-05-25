@@ -1,0 +1,27 @@
+{
+  "blockers": [],
+  "claim_boundary": {
+    "excluded": [
+      "calibration pass/fail",
+      "robustness or auditability interpretation"
+    ],
+    "supported": [
+      "merged provider result-count collection for all full replacement templates across the original and allocated IBM instances"
+    ]
+  },
+  "decision": "FULL_REPLACEMENT_ALL_RESULT_COUNTS_MERGED_READY_FOR_CALIBRATION",
+  "expected_template_count": 21,
+  "merged_template_count": 21,
+  "missing_source_artifacts": [],
+  "next_gate": "Validate known-state calibration before computing full 4096-shot hardware metrics.",
+  "result_path": "logs/automated_stage_gates/stage216_full_replacement_merged_result_counts_250usd/results.json",
+  "schema_version": "qrope_stage216_full_replacement_merged_result_counts_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage214_full_replacement_result_collector_250usd/results.json",
+    "logs/automated_stage_gates/stage214_full_replacement_result_collector_after_stage215_250usd/results.json"
+  ],
+  "stage": "stage216_full_replacement_merged_result_counts",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage216_full_replacement_merged_result_counts_250usd/summary.csv"
+}

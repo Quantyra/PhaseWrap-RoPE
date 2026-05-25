@@ -4,13 +4,15 @@ This repository includes materials related to PhaseWrap-RoPE.
 
 ## USPTO submission record
 
-- USPTO Electronic Acknowledgement Receipt application number: `64/068,121`
-- Receipt date/time: `2026-05-18 01:26:34 AM ET`
-- Patent Center number: `76347440`
+- USPTO provisional application: `64/068,121`
+- USPTO receipt date/time: `2026-05-18 01:26:34 AM ET`
 - Title: `SYSTEMS, METHODS, AND CIRCUITS FOR QUANTUM ROTARY POSITIONAL ENCODING AND HARDWARE VALIDATION`
-- Public status language used in this repository: `USPTO provisional submission received; final Filing Receipt pending`
+- USPTO provisional application: `64/073,899`
+- USPTO receipt date/time: `2026-05-25 06:30:52 AM ET`
+- Title: `SYSTEMS, METHODS, AND COMPUTER READABLE MEDIA FOR PHASE WRAP POSITIONAL FEATURE SUBSTITUTION, ADAPTED-BASED RETRIEVAL, AND HARDWARE WITNESS VALIDATION`
+- Public status language used in this repository: `patent pending under USPTO provisional applications 64/068,121 and 64/073,899`
 
-Important: USPTO MPEP 503 currently lists provisional application series codes as `60/` through `63/`. The acknowledgement receipt in CYINT IP records lists `64/068,121`. Until the official Filing Receipt is received and checked, this repository treats `64/068,121` as the acknowledgement-receipt application number rather than an independently verified final-format provisional serial.
+Additional receipt-specific identifiers are retained in internal IP records and are not published in this repository.
 
 The authoritative public status note is `docs/publication/patent-status-note-v1.md`.
 

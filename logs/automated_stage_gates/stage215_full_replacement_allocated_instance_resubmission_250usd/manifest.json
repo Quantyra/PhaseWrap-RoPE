@@ -1,0 +1,45 @@
+{
+  "allow_live_submit": true,
+  "backend": "ibm_fez",
+  "blockers": [],
+  "budget_cap_usd": 250.0,
+  "claim_boundary": {
+    "excluded": [
+      "provider-side result counts unless a later collector retrieves them",
+      "calibration pass/fail",
+      "robustness or auditability interpretation"
+    ],
+    "supported": [
+      "guarded resubmission of only pending full 4096-shot replacement templates to the currently configured IBM Runtime instance",
+      "merged Stage212-compatible submission records for later status polling and result collection"
+    ]
+  },
+  "decision": "FULL_REPLACEMENT_HARDWARE_SUBMITTED_AWAITING_RESULTS",
+  "estimated_replacement_shots": 462752,
+  "estimated_total_job_count": 324,
+  "estimated_total_shots": 1314720,
+  "expected_runtime_job_count": 21,
+  "hardware_submission_performed": true,
+  "missing_source_artifacts": [],
+  "next_gate": "Poll the merged submission records; when all Runtime jobs are complete, collect provider counts and validate calibration.",
+  "no_hardware_submission": false,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "pending_replacement_runtime_job_count": 8,
+  "provider_credentials_required": true,
+  "replacement_attempted": true,
+  "replacement_decision": "FULL_REPLACEMENT_ALLOCATED_INSTANCE_REPLACEMENTS_SUBMITTED_AWAITING_RESULTS",
+  "result_path": "logs/automated_stage_gates/stage215_full_replacement_allocated_instance_resubmission_250usd/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage215_full_replacement_allocated_instance_resubmission_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage212_full_replacement_hardware_submission_250usd/results.json",
+    "logs/automated_stage_gates/stage213_full_replacement_job_status_poll_250usd/results.json",
+    "logs/automated_stage_gates/stage190_replacement_execution_package/results.json"
+  ],
+  "stage": "stage215_full_replacement_allocated_instance_resubmission",
+  "status": "completed",
+  "submitted_replacement_runtime_job_count": 8,
+  "submitted_runtime_job_count": 21,
+  "summary_csv_path": "logs/automated_stage_gates/stage215_full_replacement_allocated_instance_resubmission_250usd/summary.csv"
+}

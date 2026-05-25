@@ -4,7 +4,7 @@ Status: `patent pending`
 
 ## Public patent statement
 
-PhaseWrap-RoPE is associated with USPTO provisional application `64/068,121`.
+PhaseWrap-RoPE is associated with USPTO provisional applications `64/068,121` (received `2026-05-18`) and `64/073,899` (received `2026-05-25`).
 
 Additional USPTO receipt identifiers are retained in internal CYINT IP records and are not published in this repository.
 

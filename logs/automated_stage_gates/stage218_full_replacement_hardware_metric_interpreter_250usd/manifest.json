@@ -1,0 +1,48 @@
+{
+  "bitstring_order": "q1q0",
+  "blockers": [],
+  "candidate_group_count": 2,
+  "claim_boundary": {
+    "excluded": [
+      "post-hoc threshold changes",
+      "readout mitigation beyond the calibration order check",
+      "production transformer performance",
+      "general cross-backend hardware robustness",
+      "quantum advantage"
+    ],
+    "supported": [
+      "real IBM ibm_fez full 4096-shot replacement hardware metric interpretation under fixed margin thresholds",
+      "calibration-applied bitstring ordering before score computation",
+      "full packet evidence across product-state and CX templates, two seeds, and five encoding families"
+    ]
+  },
+  "comparison_group_count": 4,
+  "decision": "FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE",
+  "full_replacement_positive_seed_pair_count": 2,
+  "hardware_scope_label": "full_replacement_all_lanes_4096_shots_v1",
+  "metric_record_count": 20,
+  "missing_source_artifacts": [],
+  "next_gate": "Update the manuscript with the full-run calibration, metric interpretation, and bounded claim conclusion.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "packet_template_count": 20,
+  "pass_fail_policy": {
+    "minimum_scaled_best_positional_margin_shot_quanta": 2.0,
+    "minimum_scaled_matched_null_margin_shot_quanta": 2.0,
+    "minimum_stable_seed_pairs": 2,
+    "minimum_stable_templates_per_seed_pair": 2,
+    "scope_note": "Full 4096-shot Stage188 replacement run uses the same predeclared margin thresholds as the reduced-scope run, with 4096-shot shot-quanta scaling."
+  },
+  "provider_credentials_required": false,
+  "result_path": "logs/automated_stage_gates/stage218_full_replacement_hardware_metric_interpreter_250usd/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage218_full_replacement_hardware_metric_interpreter_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage216_full_replacement_merged_result_counts_250usd/results.json",
+    "logs/automated_stage_gates/stage217_full_replacement_calibration_validation_250usd/results.json"
+  ],
+  "stage": "stage218_full_replacement_hardware_metric_interpreter",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage218_full_replacement_hardware_metric_interpreter_250usd/summary.csv"
+}

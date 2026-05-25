@@ -1,5 +1,0 @@
-# S917 Transfer Fork-Join Post-Packet Decision
-
-Status: completed
-
-- Kept the fork-join transfer line active because the bounded symbolic control did not match or beat the witness on both declared packet metrics.

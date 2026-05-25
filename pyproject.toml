@@ -40,6 +40,13 @@ braket = [
 quandela = [
   "perceval-quandela>=0.12",
 ]
+hardware = [
+  "qiskit>=1.0",
+  "qiskit-ibm-runtime>=0.25",
+  "amazon-braket-sdk>=1.90",
+  "boto3>=1.34",
+  "perceval-quandela>=0.12",
+]
 transformer = [
   "autograd>=1.8",
 ]

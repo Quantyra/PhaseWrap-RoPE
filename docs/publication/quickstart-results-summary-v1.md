@@ -1,6 +1,6 @@
 # PhaseWrap-RoPE Quickstart and Results Summary v1
 
-Date: `2026-05-21`
+Date: `2026-05-23`
 
 Archive DOI: `10.5281/zenodo.20306786`
 
@@ -26,6 +26,15 @@ The active Stage 4 hardware sweep is machine-verifiable from committed packet, e
 For every active completed record, the witness has lower MAE than the control and higher rank correlation than the control under the manifest-declared verifier. Amazon Braket records use `q0q1` bitstring decoding; IBM records use `q1q0`.
 
 The default single-packet path `logs/automated_stage_gates/stage4_hardware_packet/` remains the reviewer entry point for the original IBM Fez product-state packet. The same run is also preserved as `logs/automated_stage_gates/stage4_hardware_packet_ibm_fez_20260517_pass/` so the sweep manifest can refer to an immutable named run directory.
+
+The full IBM Fez replacement path is now complete. Stages 216-218 merge `21/21` provider-count templates, validate unique `q1q0` known-state calibration, and report `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`. PhaseWrap has lower normalized noise-sensitivity delta than the best matched positional baseline and matched null control in all four 4096-shot seed/template comparison groups.
+
+| Source lane | Circuit template | PhaseWrap delta | Best positional delta | Matched null delta | Positional margin, shot quanta | Null margin, shot quanta |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| `ibm_cx_seed314_rows16_shots4096` | CX parity | 0.056686 | 0.073770 | 0.079248 | 69.976037 | 92.414320 |
+| `ibm_cx_seed577_rows16_shots4096` | CX parity | 0.058017 | 0.082664 | 0.072316 | 100.953134 | 58.566817 |
+| `ibm_product_seed314_rows16_shots4096` | Product state | 0.027709 | 0.038480 | 0.039844 | 44.116726 | 49.705471 |
+| `ibm_product_seed577_rows16_shots4096` | Product state | 0.037817 | 0.039628 | 0.042044 | 7.418207 | 17.313848 |
 
 ## Reproduce
 
@@ -66,7 +75,13 @@ python scripts/prepare_stage4_bitstring_calibration_packets.py
 python scripts/verify_stage4_bitstring_calibration.py
 ```
 
-The default calibration verifier reports `missing-evidence` until real known-state calibration counts are supplied.
+The default Stage 4 calibration verifier is still a provider-packet contract. For the completed full replacement IBM Fez run, use:
+
+```bash
+python scripts/run_stage216_full_replacement_merged_result_counts.py
+python scripts/run_stage217_full_replacement_calibration_validation.py
+python scripts/run_stage218_full_replacement_hardware_metric_interpreter.py
+```
 
 Audit the Braket CX bitstring-order correction:
 
@@ -714,7 +729,7 @@ This writes `logs/automated_stage_gates/stage74_leave_one_seed_query_support_aud
 - A provider-aware Amazon Braket correction that is auditable from the saved raw counts.
 - A deterministic Stage 4 classical recomputation cost estimate: `4096` static operations over `163072` recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - Preregistered future Stage 4 replication row sets for IBM-style and Amazon Braket-style product-state and CX reruns. These are no-hardware controls, not new hardware evidence.
-- Provider bitstring calibration packet specs plus a verifier contract that fails as `missing-evidence` until real known-state counts are supplied.
+- Provider bitstring calibration packet specs plus a verifier contract for future provider packets; the completed full IBM Fez replacement run has real known-state calibration counts validated in Stage 217.
 - A deterministic Stage 5 attention-scoring baseline suite showing that the current synthetic label is exactly recoverable by mod-24 lookup and direct `m8*m12` exposed features.
 - A deterministic Stage 6 oracle phase-feature sanity check where the target is not exactly recoverable by mod-24 lookup or direct phase features alone, and `phasewrap_rope_attention` has the lowest MAE on the fixed packet.
 - A deterministic Stage 7 four-layer toy transformer ablation where `phasewrap_rope_4layer` has the best argmax retrieval ranking on a fixed synthetic length-extrapolation retrieval packet, while calibration remains mixed.
@@ -982,5 +997,5 @@ This writes `logs/automated_stage_gates/stage74_leave_one_seed_query_support_aud
 | Stage 83 | Nonlinear support-routing bridge audit | Complete. Decision: `NONLINEAR_SUPPORT_ROUTING_BRIDGE_SUPPORT_RECOVERED_RETRIEVAL_FAILED`; support labels recover, but nonlinear learned routing does not repair phase-cued retrieval. |
 | Stage 84 | Support-auxiliary pointer-generator audit | Complete. Decision: `SUPPORT_AUXILIARY_POINTER_GENERATOR_WITHOUT_RETRIEVAL_GENERALIZATION`; train capacity is preserved, but held-out retrieval remains unrepaired. |
 | Next downstream gate | Stronger decoder-only transformer | Learn support-to-token routing in a stronger matched decoder path before positional-method promotion. |
-| Hardware replication track | Hardware witness hardening | Partly complete for intervals, local cost estimates, preregistered future replication row sets, and provider bitstring calibration specs/verifier contract. Remaining work is real provider calibration execution and independent reruns. |
+| Hardware replication track | Hardware witness hardening | Completed for the full IBM Fez replacement lane: merged counts, known-state calibration, and full metric interpretation are committed. Independent reruns and additional-provider calibration remain future replication work, not current broad robustness evidence. |
 | Later hardware track | Larger/error-aware witnesses | Add larger witness families or mitigation analysis only after downstream and replication evidence justify it. |

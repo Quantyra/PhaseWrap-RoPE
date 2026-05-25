@@ -1,8 +1,8 @@
 # PhaseWrap-RoPE external release plan v1
 
-Status: `READY_FOR_ACCOUNT_OWNER_ACTION`
+Status: `READY_FOR_FINAL_MANUSCRIPT_PACKAGING`
 
-Date: `2026-05-18`
+Date: `2026-05-23`
 
 ## Scope
 
@@ -12,8 +12,8 @@ This plan prepares the repo for external citable release. It does not claim that
 
 Recommended action:
 
-- Convert `docs/publication/qrope-paper-v1.md` to the target arXiv PDF/LaTeX bundle.
-- Submit as a methods/evidence preprint only after the patent-status note, completed hardware comparison, and claim boundary remain in the manuscript.
+- Convert `docs/publication/qrope-paper-v1.md` or the reviewable `docs/publication/qrope-paper-v1.html` export to the target arXiv PDF/LaTeX bundle.
+- Submit as a methods/evidence preprint only after the patent-status note, full IBM Fez replacement comparison, and claim boundary remain in the manuscript.
 - Candidate categories: `quant-ph` or `cs.LG`, with final category choice made by the submitting author.
 - Add the arXiv identifier to `CITATION.cff`, `README.md`, and this file after acceptance.
 
@@ -28,7 +28,7 @@ Blocking items:
 Recommended action:
 
 - Create an OSF project for PhaseWrap-RoPE.
-- Upload the paper, figures, Stage 4 packet files, completed comparison report, and repository snapshot.
+- Upload the paper, figures, Stage 4 packet files, Stage216-218 full IBM Fez replacement artifacts, completed comparison report, and repository snapshot.
 - Link the OSF project from README after public posting.
 
 Blocking items:
@@ -58,10 +58,10 @@ Blocking items:
 
 ## Release tag recommendation
 
-Use a conservative first public review tag:
+Use a conservative Stage216-218 update tag if publishing the completed full replacement evidence as a new public release:
 
 ```text
-v0.1.0-review
+v0.2.6-stage216-218
 ```
 
 Do not use `v1.0.0` until independent replication or a venue-ready preprint exists.

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from qrope.env_utils import load_local_dotenv
+from qrope.ibm_runtime_utils import ibm_runtime_service_kwargs
 from qrope.provider_adapters.common import canonicalize_counts
 from qrope.stage207_reduced_scope_result_collector import _extract_counts_list, _status_text
 from qrope.stage99_matched_fixed_width_encoding_packet_freezer import OBJECTIVE
@@ -31,11 +32,7 @@ def _load_json(path: Path) -> Any | None:
 def _real_fetch_result(runtime_job_id: str) -> dict[str, Any]:
     from qiskit_ibm_runtime import QiskitRuntimeService
 
-    token = os.environ.get("IBM_QUANTUM_TOKEN") or os.environ.get("QISKIT_IBM_TOKEN")
-    instance = os.environ.get("IBM_QUANTUM_INSTANCE_CRN")
-    if not token or not instance:
-        raise RuntimeError("IBM token or instance missing")
-    service = QiskitRuntimeService(channel="ibm_quantum_platform", token=token, instance=instance)
+    service = QiskitRuntimeService(**ibm_runtime_service_kwargs())
     job = service.job(runtime_job_id)
     status = _status_text(job.status())
     if status not in {"DONE", "COMPLETED", "done", "completed"}:

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from qrope.env_utils import load_local_dotenv
+from qrope.ibm_runtime_utils import ibm_runtime_service_kwargs
 from qrope.stage190_replacement_execution_package import DEFAULT_OUTPUT_DIR as STAGE190_OUTPUT_DIR
 from qrope.stage205_reduced_scope_hardware_submission import _extract_job_id, _limited_openqasm3_to_circuit
 from qrope.stage99_matched_fixed_width_encoding_packet_freezer import OBJECTIVE
@@ -70,11 +71,7 @@ def _real_submit_template(*, template: dict[str, Any], backend_name: str) -> dic
     from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
     from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2
 
-    token = os.environ.get("IBM_QUANTUM_TOKEN") or os.environ.get("QISKIT_IBM_TOKEN")
-    instance = os.environ.get("IBM_QUANTUM_INSTANCE_CRN")
-    if not token or not instance:
-        raise RuntimeError("IBM token or instance missing")
-    service = QiskitRuntimeService(channel="ibm_quantum_platform", token=token, instance=instance)
+    service = QiskitRuntimeService(**ibm_runtime_service_kwargs())
     backend = service.backend(backend_name)
     circuits = [_limited_openqasm3_to_circuit(str(row.get("openqasm3", ""))) for row in _template_rows(template)]
     pass_manager = generate_preset_pass_manager(target=backend.target, optimization_level=1)

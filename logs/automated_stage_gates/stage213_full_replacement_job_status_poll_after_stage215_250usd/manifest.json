@@ -1,0 +1,37 @@
+{
+  "blockers": [
+    "runtime_job_status_poll_failed"
+  ],
+  "claim_boundary": {
+    "excluded": [
+      "new hardware job submission",
+      "provider-side result counts",
+      "calibration pass/fail",
+      "robustness or auditability interpretation"
+    ],
+    "supported": [
+      "status polling for submitted full 4096-shot IBM Runtime jobs"
+    ]
+  },
+  "completed_runtime_job_count": 8,
+  "decision": "FULL_REPLACEMENT_JOB_STATUS_POLL_BLOCKED_OR_INCOMPLETE",
+  "expected_runtime_job_count": 21,
+  "failed_runtime_job_count": 0,
+  "missing_source_artifacts": [],
+  "next_gate": "When all Runtime jobs are complete, collect provider counts and populate full replacement evidence records.",
+  "no_hardware_submission": true,
+  "objective": "Determine whether PhaseWrap-RoPE's compact phase-wrap positional score has measurable robustness or auditability advantages on noisy quantum hardware, compared with matched positional-score encodings, under fixed circuit width.",
+  "observed_runtime_job_count": 21,
+  "polled_runtime_job_count": 21,
+  "provider_credentials_required": true,
+  "result_path": "logs/automated_stage_gates/stage213_full_replacement_job_status_poll_after_stage215_250usd/results.json",
+  "runnable_commands_recorded": false,
+  "schema_version": "qrope_stage213_full_replacement_job_status_poll_v1",
+  "secret_values_recorded": false,
+  "source_artifacts": [
+    "logs/automated_stage_gates/stage215_full_replacement_allocated_instance_resubmission_250usd/results.json"
+  ],
+  "stage": "stage213_full_replacement_job_status_poll",
+  "status": "completed",
+  "summary_csv_path": "logs/automated_stage_gates/stage213_full_replacement_job_status_poll_after_stage215_250usd/summary.csv"
+}
