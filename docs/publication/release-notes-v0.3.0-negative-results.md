@@ -1,6 +1,6 @@
 # Release Notes: v0.3.0-negative-results
 
-Status: `GITHUB_RELEASE_PUBLISHED_REPO_PRIVATE`
+Status: `GITHUB_RELEASE_PUBLISHED_REPO_PUBLIC`
 
 Date: `2026-05-25`
 
@@ -66,8 +66,8 @@ Expected outcomes:
 
 ## Publication Boundary
 
-This release has been published as a GitHub release in the currently private repository:
+This release has been published as a GitHub release in the public repository:
 
 `https://github.com/Quantyra/PhaseWrap/releases/tag/v0.3.0-negative-results`
 
-Do not change repository visibility, refresh Zenodo, post arXiv, create an OSF project, publish a blog post, or make a public announcement until the repository owner explicitly approves broader public publication.
+Do not refresh Zenodo, post arXiv, create an OSF project, publish a blog post, or make a broader public announcement until the repository owner explicitly approves that external-publication step.

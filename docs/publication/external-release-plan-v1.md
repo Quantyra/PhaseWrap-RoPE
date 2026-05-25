@@ -61,14 +61,14 @@ Prepared artifact:
 Current GitHub release:
 
 - `https://github.com/Quantyra/PhaseWrap/releases/tag/v0.3.0-negative-results`
-- Repository visibility at publication time: `PRIVATE`
+- Repository visibility at publication time: `PUBLIC`
 
 Blocking items:
 
 - Zenodo account access.
 - Zenodo GitHub integration enabled for the repository.
 - GitHub release tag decision.
-- explicit owner approval to make the currently private repository public or post beyond GitHub.
+- explicit owner approval before posting beyond GitHub.
 
 ## Release tag recommendation
 

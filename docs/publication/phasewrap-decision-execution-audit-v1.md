@@ -1,6 +1,6 @@
 # PhaseWrap Decision Execution Audit v1
 
-Status: `DECISION_MEMO_EXECUTED_GITHUB_RELEASE_PRIVATE`
+Status: `DECISION_MEMO_EXECUTED_GITHUB_RELEASE_PUBLIC`
 
 Date: `2026-05-25`
 
@@ -24,7 +24,7 @@ This audit checks whether the actions in `phasewrap-research-program-decision-v1
 | Keep patent/IP posture factual and low-prominence. | `PATENTS.md`, `NOTICE`, patent status note, README, and release checklist describe patent status as a low-prominence legal mention, not scientific evidence. | Executed |
 | Keep receipt-specific identifiers and confirmation numbers out of public materials. | Publication verifier and explicit public-file scans check forbidden receipt/confirmation fragments. | Executed |
 | Prepare conservative release notes for the negative-results tag. | `release-notes-v0.3.0-negative-results.md` exists with support/non-support boundaries and verifier commands. | Executed |
-| Release under a conservative negative-results tag only after wording is safe. | Commit `b228ca43` was pushed to `main`, tag `v0.3.0-negative-results` was pushed, and the GitHub release was created. The repository remains private. | Executed for private GitHub release |
+| Release under a conservative negative-results tag only after wording is safe. | Commit `b293ef3d` was pushed to `main`, tag `v0.3.0-negative-results` points at that commit, and the GitHub release was created under `Quantyra/PhaseWrap`. | Executed for public GitHub release |
 
 ## Verification Commands
 
@@ -50,16 +50,15 @@ Public-facing receipt/confirmation scan returned no matches for the configured f
 
 ## Release Boundary
 
-The repository has a private GitHub release:
+The repository has a public GitHub release:
 
 - `https://github.com/Quantyra/PhaseWrap/releases/tag/v0.3.0-negative-results`
 
-Broader public release actions still require explicit approval because they change public state:
+Additional external-publication actions still require explicit approval because they change public state outside GitHub:
 
-- changing repository visibility from private to public;
 - refreshing Zenodo metadata or DOI records;
 - posting arXiv, OSF, blog, or public announcement material.
 
 ## Current Verdict
 
-All repo-side actions in the decision memo are executed, and the conservative GitHub release tag exists in the private repository. The only held items are broader public-publication actions: repository visibility, Zenodo, arXiv, OSF, blog, or public announcement.
+All repo-side actions in the decision memo are executed, and the conservative GitHub release tag exists in the public repository. The held items are external publication actions beyond GitHub: Zenodo refresh, arXiv, OSF, blog, or public announcement.
