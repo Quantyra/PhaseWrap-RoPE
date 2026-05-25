@@ -33,7 +33,7 @@ python scripts/run_stage11_phasewrap_theory.py
 python scripts/run_stage12_ruler_retrieval.py
 ```
 
-Expected interpretation: the fixed 8/12 score is a compact mod-24 periodic feature with aliasing, and RoPE-like/sinusoidal baselines solve the non-phase-cued retrieval packet while fixed PhaseWrap does not. This is why the paper keeps the claim bounded.
+Expected interpretation: the fixed 8/12 score is a compact mod-24 periodic feature with aliasing, and RoPE-like/sinusoidal baselines solve the non-phase-cued retrieval packet while fixed PhaseWrap does not. This is why the repository keeps the claim bounded.
 
 **One-command package check:**
 
@@ -78,21 +78,18 @@ A stronger hardware-specific claim would require a preregistered same-packet com
 | Stage 32 feature bridge | PhaseWrap distance/multiscale adapters recover top-1/MRR, while RoPE-like scoring keeps stronger probability/calibration. | Adapter/feature-bridge viability worth studying. | Raw fixed-score dominance or production transformer validation. | `python scripts/run_stage32_full_context_feature_bridge.py` |
 | Stage 70 synthesis | Current fair evidence supports a bounded compact/auditable claim with failures preserved. | Strongest honest claim for this release. | Claim broadening beyond the recorded evidence. | `python scripts/run_stage70_strongest_honest_claim_synthesis.py` |
 
-## Read the Paper
+## Review the Evidence
 
 Start here:
 
-- [Repository paper: PhaseWrap-RoPE bounded phase-wrap scoring rule](docs/publication/qrope-paper-v1.md)
-- [Exported HTML paper](docs/publication/qrope-paper-v1.html)
 - Documentation landing page: [PhaseWrap-RoPE documentation](docs/index.md)
 - Zenodo concept DOI: [10.5281/zenodo.20306786](https://doi.org/10.5281/zenodo.20306786)
 - One-page reviewer summary: [Quickstart and results summary](docs/publication/quickstart-results-summary-v1.md)
-- Local completion audit: [Paper completion audit](docs/publication/paper-completion-audit-v1.md)
 - Scoring API reference: [qrope.scoring API](docs/api/scoring.md)
 - Reproducible review environment: [Reproducible environment](docs/reproducible-environment.md)
 - One-cell verification notebook: [Open in Colab](https://colab.research.google.com/github/Quantyra/PhaseWrap-RoPE/blob/main/docs/notebooks/phasewrap_rope_verify.ipynb)
 
-The paper is the canonical narrative for the current release. It frames PhaseWrap-RoPE as a bounded positional scoring rule, not as a validated production transformer positional encoding method. The repository provides the artifacts behind the paper: frozen packets, raw counts, verifier scripts, hardware sweep outputs, the full IBM Fez replacement interpretation path, classical baselines, and toy downstream ablations.
+The standalone paper draft has been withdrawn from the current public branch pending reframing. The current canonical review path is the repository evidence package: frozen packets, raw counts, verifier scripts, hardware sweep outputs, the full IBM Fez replacement interpretation path, classical baselines, and toy downstream ablations.
 
 Minimal core API from `qrope.scoring`:
 
@@ -194,7 +191,6 @@ python scripts/run_stage84_support_auxiliary_pointer_generator_audit.py
 python scripts/run_stage216_full_replacement_merged_result_counts.py
 python scripts/run_stage217_full_replacement_calibration_validation.py
 python scripts/run_stage218_full_replacement_hardware_metric_interpreter.py
-python scripts/export_publication_paper.py
 python scripts/verify_publication_package.py
 ```
 
@@ -203,7 +199,7 @@ python scripts/verify_publication_package.py
 - `Patent/IP posture`: PhaseWrap-RoPE is patent pending under USPTO provisional applications `64/068,121` and `64/073,899`, with public materials limited to application numbers and filing dates. See [Patent status note](docs/publication/patent-status-note-v1.md).
 - `Archive DOI`: `10.5281/zenodo.20306786` for the latest bounded evidence release.
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
-- `Publication posture`: bounded, reproducible, evidence-disciplined.
+- `Publication posture`: bounded, reproducible, evidence-disciplined; the standalone paper draft is withdrawn from the current public branch pending reframing.
 - `Current evidence posture`: Stage 4 real-noisy-hardware results for bounded frozen packet/backend/date/calibration contexts, including IBM Fez positives, Amazon Braket/Rigetti product-state positive evidence, and provider-aware Amazon Braket CX positive recomputations from committed raw counts. The full 4096-shot IBM Fez replacement run is also complete: Stages 216-218 merge `21/21` templates, validate `q1q0` calibration, and record `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`.
 - `Stage 4 cost posture`: local recomputation of the committed Stage 4 sweep is covered by a deterministic classical compute estimate: 4,096 static operations over 163,072 recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - `Stage 4 preregistration posture`: future replication lanes now have no-hardware preregistered row-set artifacts with fixed seeds, families, shots, row counts, and row-set hashes; they are not submitted hardware evidence.
@@ -239,9 +235,7 @@ The active research north star is to find the strongest honest claim PhaseWrap-R
 
 ## Key documents
 
-- [Repository paper v1](docs/publication/qrope-paper-v1.md)
 - [Documentation landing page](docs/index.md)
-- [Paper completion audit](docs/publication/paper-completion-audit-v1.md)
 - [Manuscript-to-provisional support audit](docs/publication/manuscript-to-provisional-support-audit-v1.md)
 - [Patent status note](docs/publication/patent-status-note-v1.md)
 - [Quickstart and results summary](docs/publication/quickstart-results-summary-v1.md)
@@ -789,7 +783,6 @@ Stage 43 keeps the Stage 42 setup but adds an auxiliary generator-target loss. G
 
 - Read the claim boundary in this README.
 - Open [Quickstart and results summary](docs/publication/quickstart-results-summary-v1.md).
-- Open [Repository paper v1](docs/publication/qrope-paper-v1.md).
 - Inspect [Patent status note](docs/publication/patent-status-note-v1.md).
 - Inspect the Stage 4 packet files under `logs/automated_stage_gates/stage4_hardware_packet/`.
 - Run `python scripts/verify_stage4_hardware_packet.py`.
@@ -844,7 +837,6 @@ pytest --cov=qrope --cov-report=term-missing --cov-report=xml \
   tests/test_stage11_phasewrap_theory.py \
   tests/test_stage12_ruler_retrieval.py \
   tests/test_publication_package_verifier.py \
-  tests/test_publication_paper_export.py \
   tests/test_stage216_218_full_replacement_interpretation.py \
   tests/test_stage219_rope_substitution_gate.py
 python scripts/check_readme_verifier_output.py

@@ -38,7 +38,6 @@ jobs:
             tests/test_stage11_phasewrap_theory.py \
             tests/test_stage12_ruler_retrieval.py \
             tests/test_publication_package_verifier.py \
-            tests/test_publication_paper_export.py \
             tests/test_stage216_218_full_replacement_interpretation.py \
             tests/test_stage219_rope_substitution_gate.py
 

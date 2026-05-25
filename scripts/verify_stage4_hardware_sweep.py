@@ -634,7 +634,6 @@ def main(argv: list[str] | None = None) -> int:
     guardrail = scan_public_docs_for_overclaims(
         [
             REPO_ROOT / "README.md",
-            REPO_ROOT / "docs" / "publication" / "qrope-paper-v1.md",
             REPO_ROOT / "docs" / "research" / "q-rope-stage4-hardware-comparison-v1.md",
             REPO_ROOT / "docs" / "research" / "q-rope-stage4-real-hardware-validation-result-v1.md",
         ]

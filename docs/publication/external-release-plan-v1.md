@@ -1,19 +1,19 @@
 # PhaseWrap-RoPE external release plan v1
 
-Status: `READY_FOR_FINAL_MANUSCRIPT_PACKAGING`
+Status: `PAPER_WITHDRAWN_PENDING_REFRAME`
 
 Date: `2026-05-25`
 
 ## Scope
 
-This plan prepares the repo for external citable release. It does not claim that arXiv, OSF, or Zenodo submission is complete.
+This plan records external release options. The standalone paper draft is withdrawn from the current public branch pending a shorter reframed manuscript.
 
 ## arXiv
 
 Recommended action:
 
-- Convert `docs/publication/qrope-paper-v1.md` or the reviewable `docs/publication/qrope-paper-v1.html` export to the target arXiv PDF/LaTeX bundle.
-- Submit as a methods/evidence preprint only after the patent-status note, full IBM Fez replacement comparison, and claim boundary remain in the manuscript.
+- Draft a shorter manuscript from the evidence package before any arXiv submission.
+- Submit as a methods/evidence preprint only after the scalar-score framing, full IBM Fez replacement comparison, calibration limitations, and claim boundary remain explicit in the manuscript.
 - Candidate categories: `quant-ph` or `cs.LG`, with final category choice made by the submitting author.
 - Add the arXiv identifier to `CITATION.cff`, `README.md`, and this file after acceptance.
 
@@ -22,13 +22,14 @@ Blocking items:
 - Author account access.
 - Endorsement/category eligibility if required by arXiv.
 - Final PDF/LaTeX package.
+- Replacement manuscript not yet drafted.
 
 ## OSF
 
 Recommended action:
 
 - Create an OSF project for PhaseWrap-RoPE.
-- Upload the paper, figures, Stage 4 packet files, Stage216-218 full IBM Fez replacement artifacts, completed comparison report, and repository snapshot.
+- Upload only the evidence package, figures, Stage 4 packet files, Stage216-218 full IBM Fez replacement artifacts, completed comparison report, and repository snapshot until a replacement manuscript is ready.
 - Link the OSF project from README after public posting.
 
 Blocking items:

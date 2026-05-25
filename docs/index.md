@@ -1,10 +1,9 @@
 # PhaseWrap-RoPE Documentation
 
-This documentation tree separates the reusable method/package material from the static publication artifacts and archived research process.
+This documentation tree separates the reusable method/package material from the static evidence artifacts and archived research process.
 
 ## Reviewer Fast Path
 
-- [Repository paper v1](publication/qrope-paper-v1.md)
 - [Quickstart and results summary](publication/quickstart-results-summary-v1.md)
 - [Reproducible review environment](reproducible-environment.md)
 - [Public review roadmap](roadmap.md)
@@ -15,7 +14,6 @@ This documentation tree separates the reusable method/package material from the 
 
 ## Evidence and Publication
 
-- [Publication package completion audit](publication/paper-completion-audit-v1.md)
 - [Replication ledger](publication/replication-ledger-v1.md)
 - [Publication figures](publication/figures/README.md)
 

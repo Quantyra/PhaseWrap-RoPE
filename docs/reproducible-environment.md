@@ -34,7 +34,7 @@ python scripts/verify_publication_package.py
 Run the focused public-review tests:
 
 ```bash
-python -m pytest tests/test_scoring_api.py tests/test_publication_package_verifier.py tests/test_publication_paper_export.py tests/test_stage216_218_full_replacement_interpretation.py
+python -m pytest tests/test_scoring_api.py tests/test_publication_package_verifier.py tests/test_stage216_218_full_replacement_interpretation.py tests/test_stage219_rope_substitution_gate.py
 ```
 
 ## Optional Provider Installs

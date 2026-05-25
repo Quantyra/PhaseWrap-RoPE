@@ -1,6 +1,6 @@
 # PhaseWrap-RoPE open-source release checklist v1
 
-Status: `PUBLIC_RELEASE_PUBLISHED`
+Status: `PUBLIC_RELEASE_PUBLISHED_PAPER_WITHDRAWN`
 
 Target repository: `https://github.com/Quantyra/PhaseWrap-RoPE`
 
@@ -19,11 +19,7 @@ Patent notice: patent pending under USPTO provisional applications `64/068,121` 
 | `CITATION.cff` | Prepared | Repository citation metadata. |
 | `docs/publication/patent-status-note-v1.md` | Prepared | Conservative acknowledgement-receipt status note and timeline. |
 | `docs/publication/quickstart-results-summary-v1.md` | Prepared | One-page reviewer entry point with verifier commands, active hardware table, claim boundary, and roadmap. |
-| `docs/publication/qrope-paper-v1.md` | Prepared | Standalone bounded repository-paper draft. |
-| `docs/publication/qrope-paper-v1.html` | Prepared | Reviewable exported paper generated from Markdown without external tooling. |
 | `docs/publication/references.bib` | Prepared | Formal references for Transformer, RoPE, IBM Runtime primitives, SamplerV2, and backend metadata. |
-| `docs/publication/paper-gap-remediation-audit-v1.md` | Prepared | Checklist showing paper audit gaps remediated locally. |
-| `docs/publication/paper-completion-audit-v1.md` | Prepared | Current local readiness audit for the Stage216-218 paper package. |
 | `docs/publication/external-review-response-v1.md` | Prepared | External review response and unresolved follow-up list. |
 | `docs/roadmap.md` | Prepared | Public review roadmap for framing, API, structure, benchmark, and publication follow-up. |
 | `docs/publication/replication-plan-v1.md` | Prepared | Cross-backend/cross-date and entangling-witness replication plan. |
@@ -73,6 +69,6 @@ The public repository has been created and published:
 | Create or connect the public GitHub repository. | Done |
 | Push the prepared local repository. | Done |
 | Confirm the public repository metadata. | Done |
-| Tag the public release after final manuscript approval. | Done |
+| Tag the public release after final manuscript approval. | Done for prior release; standalone paper now withdrawn from current public branch. |
 | Enable Zenodo integration and mint the release DOI. | Done |
 | Preserve latest archive handle in public docs. | Done: concept DOI `10.5281/zenodo.20306786`. |

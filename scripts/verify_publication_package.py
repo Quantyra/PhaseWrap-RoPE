@@ -15,16 +15,12 @@ PUBLIC_TEXT_FILES = [
     Path("NOTICE"),
     Path("CITATION.cff"),
     Path(".zenodo.json"),
-    Path("docs/publication/qrope-paper-v1.md"),
-    Path("docs/publication/qrope-paper-v1.html"),
     Path("docs/publication/quickstart-results-summary-v1.md"),
     Path("docs/publication/replication-ledger-v1.md"),
     Path("docs/publication/external-release-plan-v1.md"),
     Path("docs/publication/external-review-response-v1.md"),
     Path("docs/publication/manuscript-to-provisional-support-audit-v1.md"),
     Path("docs/publication/open-source-release-checklist-v1.md"),
-    Path("docs/publication/paper-gap-remediation-audit-v1.md"),
-    Path("docs/publication/paper-completion-audit-v1.md"),
     Path("docs/roadmap.md"),
     Path("docs/index.md"),
     Path("docs/api/scoring.md"),
@@ -38,7 +34,6 @@ PUBLIC_TEXT_FILES = [
 
 REQUIRED_FILES = [
     *PUBLIC_TEXT_FILES,
-    Path("scripts/export_publication_paper.py"),
     Path("scripts/generate_publication_figures.py"),
     Path("scripts/run_stage216_full_replacement_merged_result_counts.py"),
     Path("scripts/run_stage217_full_replacement_calibration_validation.py"),
@@ -46,7 +41,6 @@ REQUIRED_FILES = [
     Path("scripts/run_stage219_rope_substitution_gate.py"),
     Path("src/qrope/scoring.py"),
     Path("src/qrope/stage219_rope_substitution_gate.py"),
-    Path("tests/test_publication_paper_export.py"),
     Path("tests/test_scoring_api.py"),
     Path("tests/test_stage216_218_full_replacement_interpretation.py"),
     Path("tests/test_stage219_rope_substitution_gate.py"),
@@ -182,35 +176,6 @@ def _check_markdown_links(errors: list[str]) -> None:
                 errors.append(f"missing local link in {path.as_posix()}: {target}")
 
 
-def _check_html_export(errors: list[str]) -> None:
-    html_path = Path("docs/publication/qrope-paper-v1.html")
-    if not (ROOT / html_path).exists():
-        return
-    text = _read(html_path)
-    for match in re.finditer(r'<img src="([^"]+)"', text):
-        src = match.group(1)
-        if re.match(r"^(https?:|data:)", src):
-            continue
-        resolved = (ROOT / html_path.parent / src).resolve()
-        if not resolved.exists():
-            errors.append(f"missing html image: {src}")
-    if "figures/qrope-full-replacement-metrics-v1.png" not in text:
-        errors.append("exported HTML does not embed the full replacement metrics figure")
-    for match in re.finditer(r'<a href="([^"]+)"', text):
-        href = match.group(1)
-        if not href or href.startswith("#") or re.match(r"^(https?:|mailto:)", href):
-            continue
-        target = href.split("#", 1)[0]
-        resolved = (ROOT / html_path.parent / target).resolve()
-        try:
-            resolved.relative_to(ROOT)
-        except ValueError:
-            errors.append(f"html link escapes repo: {href}")
-            continue
-        if not resolved.exists():
-            errors.append(f"missing html local link: {href}")
-
-
 def verify_publication_package() -> list[str]:
     errors: list[str] = []
     _check_required_files(errors)
@@ -219,7 +184,6 @@ def verify_publication_package() -> list[str]:
     _check_stage_manifests(errors)
     _check_public_text(errors)
     _check_markdown_links(errors)
-    _check_html_export(errors)
     return errors
 
 

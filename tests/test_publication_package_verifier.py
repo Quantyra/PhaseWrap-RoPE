@@ -24,17 +24,17 @@ def test_publication_package_verifier_catches_stage218_decision_regression(monke
     assert any("stage218 decision mismatch" in error for error in errors)
 
 
-def test_publication_package_verifier_catches_missing_html_image(monkeypatch) -> None:
+def test_publication_package_verifier_catches_forbidden_public_pattern(monkeypatch) -> None:
     original_read = verifier._read
 
     def fake_read(path):
         text = original_read(path)
-        if path.as_posix() == "docs/publication/qrope-paper-v1.html":
-            return text.replace("figures/qrope-full-replacement-metrics-v1.png", "figures/missing.png")
+        if path.as_posix() == "README.md":
+            return f"{text}\n76347440\n"
         return text
 
     monkeypatch.setattr(verifier, "_read", fake_read)
 
     errors = verifier.verify_publication_package()
 
-    assert any("missing html image" in error for error in errors)
+    assert any("forbidden public pattern" in error for error in errors)
