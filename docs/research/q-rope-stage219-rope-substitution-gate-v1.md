@@ -4,7 +4,9 @@ Date: `2026-05-23`
 
 Status: `complete`
 
-Decision: `BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION`
+Decision: `BOUNDED_PHASEWRAP_RANKING_PARITY_WITH_MEASURED_CALIBRATION_DEGRADATION`
+
+Historical manifest alias: `BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION`
 
 ## Question
 
@@ -19,9 +21,11 @@ Stage 219 reads the existing raw benchmark outputs:
 
 The primary gate is Stage 30. Stage 32 is a corroborating full-context feature-bridge gate.
 
-## Adequacy Criteria
+## Ranking-Parity Criteria
 
-The gate requires at least five model initialization seeds, matched parameter count and run count, PhaseWrap top-1 at least `0.90`, PhaseWrap MRR at least `0.95`, top-1 degradation versus RoPE no more than `0.10`, MRR degradation versus RoPE no more than `0.05`, lift over `no_position` and sinusoidal controls, and explicit recording of RoPE's probability/calibration advantage.
+The gate requires at least five model initialization seeds, matched parameter count and run count, PhaseWrap top-1 at least `0.90`, PhaseWrap MRR at least `0.95`, top-1 degradation versus RoPE no more than `0.10`, MRR degradation versus RoPE no more than `0.05`, and lift over `no_position` and sinusoidal controls.
+
+Probability, calibration, and loss degradation are recorded separately as observations. They are not required for the ranking-parity pass, because better PhaseWrap probability or calibration should not make a ranking-parity result fail.
 
 ## Result
 

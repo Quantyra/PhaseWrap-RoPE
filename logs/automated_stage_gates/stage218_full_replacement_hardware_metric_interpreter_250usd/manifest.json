@@ -12,6 +12,7 @@
     ],
     "supported": [
       "real IBM ibm_fez full 4096-shot replacement hardware metric interpretation under fixed margin thresholds",
+      "lower normalized readout-noise-sensitivity delta for PhaseWrap on one frozen IBM Fez packet",
       "calibration-applied bitstring ordering before score computation",
       "full packet evidence across product-state and CX templates, two seeds, and five encoding families"
     ]
@@ -20,6 +21,9 @@
   "decision": "FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE",
   "full_replacement_positive_seed_pair_count": 2,
   "hardware_scope_label": "full_replacement_all_lanes_4096_shots_v1",
+  "legacy_decision_aliases": [
+    "FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE"
+  ],
   "metric_record_count": 20,
   "missing_source_artifacts": [],
   "next_gate": "Update the manuscript with the full-run calibration, metric interpretation, and bounded claim conclusion.",
@@ -34,6 +38,7 @@
     "scope_note": "Full 4096-shot Stage188 replacement run uses the same predeclared margin thresholds as the reduced-scope run, with 4096-shot shot-quanta scaling."
   },
   "provider_credentials_required": false,
+  "public_decision": "IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_FAVORS_PHASEWRAP",
   "result_path": "logs/automated_stage_gates/stage218_full_replacement_hardware_metric_interpreter_250usd/results.json",
   "runnable_commands_recorded": false,
   "schema_version": "qrope_stage218_full_replacement_hardware_metric_interpreter_v1",

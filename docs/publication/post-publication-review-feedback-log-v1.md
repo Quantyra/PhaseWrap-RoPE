@@ -1,6 +1,6 @@
 # Post-Publication Review Feedback Log v1
 
-Status: `CAPTURED_NOT_TRIAGED`
+Status: `CAPTURED_AND_TRIAGED`
 
 Date: `2026-05-25`
 
@@ -8,9 +8,7 @@ Repository state reviewed: public `Quantyra/PhaseWrap` release with Zenodo versi
 
 ## Purpose
 
-This document logs external reviewer feedback received after the public PhaseWrap negative-results release. It is a capture artifact only: it does not decide which items should be accepted, deferred, or rejected.
-
-Triage should happen in a separate analysis pass.
+This document logs external reviewer feedback received after the public PhaseWrap negative-results release. It is the capture artifact; triage decisions are recorded separately in [post-publication review triage v1](post-publication-review-triage-v1.md).
 
 ## Review Sources
 

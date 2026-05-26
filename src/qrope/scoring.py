@@ -8,11 +8,12 @@ DEFAULT_PERIOD_PAIR = (8, 12)
 
 
 def _wrap_to_pi(angle: float) -> float:
-    while angle <= -math.pi:
-        angle += 2.0 * math.pi
-    while angle > math.pi:
-        angle -= 2.0 * math.pi
-    return angle
+    wrapped = math.remainder(angle, 2.0 * math.pi)
+    if wrapped <= -math.pi:
+        return wrapped + 2.0 * math.pi
+    if wrapped > math.pi:
+        return wrapped - 2.0 * math.pi
+    return wrapped
 
 
 def phase_residual(reference_delta: int, candidate_delta: int, period: int) -> float:
@@ -28,7 +29,7 @@ def phase_margins(
     reference_delta: int,
     candidate_delta: int,
     period_pair: tuple[int, int] = DEFAULT_PERIOD_PAIR,
-) -> dict[str, float]:
+) -> dict[str, Any]:
     """Return the two signed residual margins used by the PhaseWrap score."""
     if len(period_pair) != 2:
         raise ValueError("period_pair must contain exactly two periods")
@@ -37,14 +38,26 @@ def phase_margins(
     second_residual = phase_residual(reference_delta, candidate_delta, second_period)
     first_margin = math.cos(first_residual) - math.cos(2.0 * math.pi / float(first_period))
     second_margin = math.cos(second_residual) - math.cos(2.0 * math.pi / float(second_period))
-    return {
-        "m8": first_margin,
-        "m12": second_margin,
+    result: dict[str, Any] = {
+        "first_period": first_period,
+        "second_period": second_period,
         "first_margin": first_margin,
         "second_margin": second_margin,
         "first_residual": first_residual,
         "second_residual": second_residual,
+        "margins_by_period": {
+            first_period: first_margin,
+            second_period: second_margin,
+        },
+        "residuals_by_period": {
+            first_period: first_residual,
+            second_period: second_residual,
+        },
     }
+    if period_pair == DEFAULT_PERIOD_PAIR:
+        result["m8"] = first_margin
+        result["m12"] = second_margin
+    return result
 
 
 def phasewrap_score(
@@ -68,8 +81,6 @@ def phasewrap_features(
         "reference_delta": reference_delta,
         "candidate_delta": candidate_delta,
         "period_pair": list(period_pair),
-        "first_period": period_pair[0],
-        "second_period": period_pair[1],
         **margins,
         "score": phasewrap_score(reference_delta, candidate_delta, period_pair),
     }

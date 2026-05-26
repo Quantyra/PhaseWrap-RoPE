@@ -14,6 +14,10 @@ from pathlib import Path
 from typing import Any, Callable, Mapping
 
 from .env_utils import load_local_dotenv
+from .scoring import _wrap_to_pi as _canonical_wrap_to_pi
+from .scoring import phase_margins as _canonical_phase_margins
+from .scoring import phase_residual as _canonical_phase_residual
+from .scoring import phasewrap_score as _canonical_phasewrap_score
 
 
 TOKENS = ("A", "B", "C", "D")
@@ -44,30 +48,21 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 def wrap_to_pi(angle: float) -> float:
-    while angle <= -math.pi:
-        angle += 2.0 * math.pi
-    while angle > math.pi:
-        angle -= 2.0 * math.pi
-    return angle
+    return _canonical_wrap_to_pi(angle)
 
 
 def phase_residual(delta_a: int, delta_b: int, period: int) -> float:
-    theta_a = wrap_to_pi(2.0 * math.pi * float(delta_a) / float(period))
-    theta_b = wrap_to_pi(2.0 * math.pi * float(delta_b) / float(period))
-    return abs(wrap_to_pi(theta_a - theta_b))
+    return _canonical_phase_residual(delta_a, delta_b, period)
 
 
 def phase_margins(delta_a: int, delta_b: int) -> dict[str, float]:
-    r8 = phase_residual(delta_a, delta_b, 8)
-    r12 = phase_residual(delta_a, delta_b, 12)
-    m8 = math.cos(r8) - math.cos(math.pi / 4.0)
-    m12 = math.cos(r12) - math.cos(math.pi / 6.0)
+    canonical = _canonical_phase_margins(delta_a, delta_b)
     return {
-        "r8": r8,
-        "r12": r12,
-        "m8": m8,
-        "m12": m12,
-        "score": m8 * m12,
+        "r8": float(canonical["first_residual"]),
+        "r12": float(canonical["second_residual"]),
+        "m8": float(canonical["first_margin"]),
+        "m12": float(canonical["second_margin"]),
+        "score": _canonical_phasewrap_score(delta_a, delta_b),
     }
 
 

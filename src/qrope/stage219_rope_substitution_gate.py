@@ -4,11 +4,13 @@ import json
 from pathlib import Path
 from typing import Any
 
+from qrope.paths import AUTOMATED_STAGE_LOG_ROOT, repo_relative_posix
+
 
 STAGE219_SCHEMA_VERSION = "qrope_stage219_rope_substitution_gate_v1"
-DEFAULT_OUTPUT_DIR = Path("logs") / "automated_stage_gates" / "stage219_rope_substitution_gate"
-STAGE30_RESULTS_PATH = Path("logs") / "automated_stage_gates" / "stage30_matched_retrieval_bridge" / "results.json"
-STAGE32_RESULTS_PATH = Path("logs") / "automated_stage_gates" / "stage32_full_context_feature_bridge" / "results.json"
+DEFAULT_OUTPUT_DIR = AUTOMATED_STAGE_LOG_ROOT / "stage219_rope_substitution_gate"
+STAGE30_RESULTS_PATH = AUTOMATED_STAGE_LOG_ROOT / "stage30_matched_retrieval_bridge" / "results.json"
+STAGE32_RESULTS_PATH = AUTOMATED_STAGE_LOG_ROOT / "stage32_full_context_feature_bridge" / "results.json"
 
 PRIMARY_STAGE = "stage30_matched_retrieval_bridge"
 PRIMARY_PHASEWRAP_METHOD = "phasewrap_distance_adapter"
@@ -27,6 +29,9 @@ RANKING_PARITY_CRITERIA = {
     "minimum_top1_lift_vs_no_position": 0.50,
     "minimum_top1_lift_vs_sinusoidal": 0.10,
 }
+LEGACY_POSITIVE_DECISION = "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION"
+RANKING_PARITY_POSITIVE_DECISION = "BOUNDED_PHASEWRAP_RANKING_PARITY_WITH_MEASURED_CALIBRATION_DEGRADATION"
+RANKING_PARITY_NEGATIVE_DECISION = "BOUNDED_PHASEWRAP_RANKING_PARITY_NOT_SUPPORTED"
 
 
 def _load_json(path: Path) -> Any:
@@ -54,7 +59,7 @@ def _compare_stage(result: dict[str, Any], *, phasewrap_method: str) -> dict[str
     loss_degradation = round(float(phasewrap["loss_mean"]) - float(rope["loss_mean"]), 6)
     top1_lift_vs_no_position = round(float(phasewrap["top1_accuracy_mean"]) - float(no_position["top1_accuracy_mean"]), 6)
     top1_lift_vs_sinusoidal = round(float(phasewrap["top1_accuracy_mean"]) - float(sinusoidal["top1_accuracy_mean"]), 6)
-    criteria = {
+    ranking_criteria = {
         "run_count_at_least_minimum": int(phasewrap["run_count"]) >= RANKING_PARITY_CRITERIA["minimum_run_count"],
         "parameter_count_matched": parameter_count_equal,
         "run_count_matched": run_count_equal,
@@ -64,8 +69,11 @@ def _compare_stage(result: dict[str, Any], *, phasewrap_method: str) -> dict[str
         "mrr_degradation_within_margin": mrr_degradation <= RANKING_PARITY_CRITERIA["maximum_mrr_degradation_vs_rope"],
         "top1_lift_vs_no_position_met": top1_lift_vs_no_position >= RANKING_PARITY_CRITERIA["minimum_top1_lift_vs_no_position"],
         "top1_lift_vs_sinusoidal_met": top1_lift_vs_sinusoidal >= RANKING_PARITY_CRITERIA["minimum_top1_lift_vs_sinusoidal"],
-        "rope_probability_advantage_recorded": target_probability_degradation > 0.0,
-        "rope_calibration_advantage_recorded": ece_degradation > 0.0,
+    }
+    degradation_observed = {
+        "target_probability": target_probability_degradation > 0.0,
+        "expected_calibration_error": ece_degradation > 0.0,
+        "loss": loss_degradation > 0.0,
     }
     return {
         "stage": result["stage"],
@@ -94,8 +102,10 @@ def _compare_stage(result: dict[str, Any], *, phasewrap_method: str) -> dict[str
             "top1_accuracy_vs_no_position": top1_lift_vs_no_position,
             "top1_accuracy_vs_sinusoidal": top1_lift_vs_sinusoidal,
         },
-        "criteria": criteria,
-        "all_criteria_pass": all(criteria.values()),
+        "ranking_criteria": ranking_criteria,
+        "degradation_observed": degradation_observed,
+        "ranking_parity_pass": all(ranking_criteria.values()),
+        "all_criteria_pass": all(ranking_criteria.values()),
     }
 
 
@@ -113,24 +123,24 @@ def run_stage219_rope_substitution_gate(
         blockers.append(f"primary stage mismatch: {primary['stage']}")
     if secondary["stage"] != SECONDARY_STAGE:
         blockers.append(f"secondary stage mismatch: {secondary['stage']}")
-    if not primary["all_criteria_pass"]:
-        failed = [key for key, value in primary["criteria"].items() if not value]
+    if not primary["ranking_parity_pass"]:
+        failed = [key for key, value in primary["ranking_criteria"].items() if not value]
         blockers.append(f"primary ranking-parity criteria failed: {failed}")
-    if not secondary["all_criteria_pass"]:
-        failed = [key for key, value in secondary["criteria"].items() if not value]
+    if not secondary["ranking_parity_pass"]:
+        failed = [key for key, value in secondary["ranking_criteria"].items() if not value]
         blockers.append(f"secondary ranking-parity criteria failed: {failed}")
     decision = (
-        "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION"
+        RANKING_PARITY_POSITIVE_DECISION
         if not blockers
-        else "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_NOT_SUPPORTED"
+        else RANKING_PARITY_NEGATIVE_DECISION
     )
     return {
         "schema_version": STAGE219_SCHEMA_VERSION,
         "stage": "stage219_rope_substitution_gate",
         "decision": decision,
+        "legacy_decision_aliases": [LEGACY_POSITIVE_DECISION] if not blockers else [],
         "blockers": blockers,
         "ranking_parity_criteria": RANKING_PARITY_CRITERIA,
-        "adequacy_criteria": RANKING_PARITY_CRITERIA,
         "primary_benchmark": primary,
         "secondary_benchmark": secondary,
         "supported_claim": (
@@ -161,14 +171,16 @@ def write_stage219_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "schema_version": result["schema_version"],
         "stage": result["stage"],
         "decision": result["decision"],
+        "legacy_decision_aliases": result["legacy_decision_aliases"],
         "blockers": result["blockers"],
-        "adequacy_criteria": result["adequacy_criteria"],
         "ranking_parity_criteria": result["ranking_parity_criteria"],
         "primary_stage": result["primary_benchmark"]["stage"],
         "primary_phasewrap_method": result["primary_benchmark"]["phasewrap_method"],
+        "primary_ranking_parity_pass": result["primary_benchmark"]["ranking_parity_pass"],
         "secondary_stage": result["secondary_benchmark"]["stage"],
         "secondary_phasewrap_method": result["secondary_benchmark"]["phasewrap_method"],
-        "result_path": str((output_dir / "results.json").as_posix()),
+        "secondary_ranking_parity_pass": result["secondary_benchmark"]["ranking_parity_pass"],
+        "result_path": repo_relative_posix(output_dir / "results.json"),
     }
     paths = {
         "manifest": str(output_dir / "manifest.json"),

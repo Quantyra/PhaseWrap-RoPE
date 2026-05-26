@@ -37,6 +37,7 @@ jobs:
             tests/test_scoring_api.py \
             tests/test_stage11_phasewrap_theory.py \
             tests/test_stage12_ruler_retrieval.py \
+            tests/test_env_utils.py \
             tests/test_publication_package_verifier.py \
             tests/test_stage216_218_full_replacement_interpretation.py \
             tests/test_stage219_rope_substitution_gate.py
@@ -46,6 +47,16 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}
         run: |
           python scripts/check_readme_verifier_output.py
+
+      - name: Run public-surface smoke and artifact-integrity checks
+        env:
+          PYTHONPATH: ${{ github.workspace }}/src
+        run: |
+          python scripts/smoke_public_surface.py
+
+      - name: Run lightweight secret-hygiene scan
+        run: |
+          python scripts/scan_secret_hygiene.py
 
       - name: Upload coverage XML
         uses: actions/upload-artifact@v4

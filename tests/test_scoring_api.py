@@ -19,6 +19,12 @@ def test_phasewrap_score_translation_invariance() -> None:
     assert phasewrap_score(7, 19 + 48) == base
 
 
+def test_phasewrap_score_handles_large_offsets() -> None:
+    base = phasewrap_score(7, 19)
+    assert phasewrap_score(7 + 24 * 10**9, 19) == pytest.approx(base, abs=1e-6)
+    assert phasewrap_score(7, 19 - 24 * 10**9) == pytest.approx(base, abs=1e-6)
+
+
 def test_phasewrap_features_include_public_fields() -> None:
     features = phasewrap_features(7, 19)
     assert features["reference_delta"] == 7
@@ -34,8 +40,12 @@ def test_phasewrap_features_include_public_fields() -> None:
 def test_phase_margins_accept_custom_period_pair() -> None:
     default = phase_margins(7, 19)
     custom = phase_margins(7, 19, (8, 24))
-    assert default["m8"] == custom["m8"]
-    assert default["m12"] != custom["m12"]
+    assert default["m8"] == default["first_margin"]
+    assert default["m12"] == default["second_margin"]
+    assert "m8" not in custom
+    assert "m12" not in custom
+    assert default["margins_by_period"][8] == custom["margins_by_period"][8]
+    assert default["second_margin"] != custom["second_margin"]
 
 
 def test_invalid_period_inputs_raise() -> None:

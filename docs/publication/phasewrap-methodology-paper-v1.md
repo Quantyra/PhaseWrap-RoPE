@@ -143,7 +143,7 @@ This appendix should remain in the methodology paper unless a separate score-the
 
 The hardware results are real but should remain secondary.
 
-Stages 216-218 report `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`: PhaseWrap has lower normalized noise-sensitivity delta than the best matched positional baseline and matched null control in all four full IBM Fez 4096-shot seed/template comparison groups, after Stage 217 validates `q1q0` known-state calibration.
+Stages 216-218 report public decision `IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_FAVORS_PHASEWRAP`: PhaseWrap has lower normalized noise-sensitivity delta than the best matched positional baseline and matched null control in all four full IBM Fez 4096-shot seed/template comparison groups, after Stage 217 validates `q1q0` known-state calibration. The historical manifest decision is preserved as an evidence alias; the result remains a bounded readout-audit observation rather than a transformer or RoPE-replacement result.
 
 | Source lane | Circuit template | PhaseWrap delta | Best positional delta | Matched null delta |
 | --- | --- | ---: | ---: | ---: |

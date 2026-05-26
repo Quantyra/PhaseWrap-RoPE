@@ -28,6 +28,8 @@ PUBLIC_TEXT_FILES = [
     Path("docs/publication/patent-status-note-v1.md"),
     Path("docs/publication/manuscript-to-provisional-support-audit-v1.md"),
     Path("docs/publication/open-source-release-checklist-v1.md"),
+    Path("docs/publication/post-publication-review-feedback-log-v1.md"),
+    Path("docs/publication/post-publication-review-triage-v1.md"),
     Path("docs/roadmap.md"),
     Path("docs/index.md"),
     Path("docs/api/scoring.md"),
@@ -46,9 +48,13 @@ REQUIRED_FILES = [
     Path("scripts/run_stage217_full_replacement_calibration_validation.py"),
     Path("scripts/run_stage218_full_replacement_hardware_metric_interpreter.py"),
     Path("scripts/run_stage219_rope_substitution_gate.py"),
+    Path("scripts/scan_secret_hygiene.py"),
+    Path("scripts/smoke_public_surface.py"),
     Path("src/qrope/scoring.py"),
     Path("src/qrope/stage219_rope_substitution_gate.py"),
+    Path("src/qrope/paths.py"),
     Path("tests/test_scoring_api.py"),
+    Path("tests/test_env_utils.py"),
     Path("tests/test_stage216_218_full_replacement_interpretation.py"),
     Path("tests/test_stage219_rope_substitution_gate.py"),
     Path("docs/publication/figures/qrope-full-replacement-metrics-v1.png"),
@@ -76,6 +82,7 @@ FORBIDDEN_PUBLIC_PATTERNS = [
 
 REQUIRED_PUBLIC_STRINGS = [
     "FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE",
+    "IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_FAVORS_PHASEWRAP",
     "qrope-full-replacement-metrics-v1.png",
     "production transformer superiority",
     "RoPE replacement",
@@ -92,7 +99,7 @@ REQUIRED_PUBLIC_STRINGS = [
     "Hardware-Specific Claim Test",
     "PhaseWrap Documentation",
     "Publication Figures",
-    "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION",
+    "BOUNDED_PHASEWRAP_RANKING_PARITY_WITH_MEASURED_CALIBRATION_DEGRADATION",
     "ranking-parity bridge",
     "not substitution adequacy",
     "NEGATIVE_RESULTS_PUBLICATION_TRACK",
@@ -160,20 +167,26 @@ def _check_stage_manifests(errors: list[str]) -> None:
         errors.append("stage218 comparison group count is not 4")
     if stage218.get("full_replacement_positive_seed_pair_count") != 2:
         errors.append("stage218 positive seed pair count is not 2")
+    if stage218.get("public_decision") != "IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_FAVORS_PHASEWRAP":
+        errors.append("stage218 public decision mismatch")
     for label, manifest in (("stage216", stage216), ("stage217", stage217), ("stage218", stage218)):
         if manifest.get("blockers"):
             errors.append(f"{label} has blockers: {manifest.get('blockers')}")
         if manifest.get("secret_values_recorded") is not False:
             errors.append(f"{label} secret_values_recorded is not false")
     stage219 = _load_json(Path("logs/automated_stage_gates/stage219_rope_substitution_gate/manifest.json"))
-    if stage219.get("decision") != "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION":
-        errors.append("stage219 bounded substitution decision mismatch")
+    if stage219.get("decision") != "BOUNDED_PHASEWRAP_RANKING_PARITY_WITH_MEASURED_CALIBRATION_DEGRADATION":
+        errors.append("stage219 bounded ranking-parity decision mismatch")
     if stage219.get("blockers"):
         errors.append(f"stage219 has blockers: {stage219.get('blockers')}")
     if stage219.get("primary_stage") != "stage30_matched_retrieval_bridge":
         errors.append("stage219 primary stage is not stage30")
     if stage219.get("secondary_stage") != "stage32_full_context_feature_bridge":
         errors.append("stage219 secondary stage is not stage32")
+    if stage219.get("primary_ranking_parity_pass") is not True:
+        errors.append("stage219 primary ranking parity did not pass")
+    if stage219.get("secondary_ranking_parity_pass") is not True:
+        errors.append("stage219 secondary ranking parity did not pass")
 
 
 def _check_public_text(errors: list[str]) -> None:

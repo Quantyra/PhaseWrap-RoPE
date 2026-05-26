@@ -7,12 +7,11 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from .automated_stage_gates import phase_residual
+from .scoring import DEFAULT_PERIOD_PAIR, phase_residual, phasewrap_score
 
 
 STAGE11_SCHEMA_VERSION = "qrope_stage11_phasewrap_theory_v1"
 DEFAULT_OUTPUT_DIR = Path("logs") / "automated_stage_gates" / "stage11_phasewrap_theory"
-DEFAULT_PERIOD_PAIR = (8, 12)
 PERIOD_PAIR_GRID = (
     (4, 8),
     (5, 10),
@@ -34,14 +33,6 @@ def lcm(a: int, b: int) -> int:
     if a <= 0 or b <= 0:
         raise ValueError("periods must be positive")
     return abs(a * b) // math.gcd(a, b)
-
-
-def phasewrap_score(reference_delta: int, candidate_delta: int, period_pair: tuple[int, int] = DEFAULT_PERIOD_PAIR) -> float:
-    margins = []
-    for period in period_pair:
-        residual = phase_residual(reference_delta, candidate_delta, period)
-        margins.append(math.cos(residual) - math.cos(2.0 * math.pi / float(period)))
-    return float(margins[0] * margins[1])
 
 
 def score_from_difference(difference: int, period_pair: tuple[int, int] = DEFAULT_PERIOD_PAIR) -> float:

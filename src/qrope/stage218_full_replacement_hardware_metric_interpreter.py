@@ -5,8 +5,11 @@ import json
 from pathlib import Path
 from typing import Any
 
+from qrope.paths import AUTOMATED_STAGE_LOG_ROOT, repo_relative_posix
 from qrope.stage209_reduced_scope_hardware_metric_interpreter import (
+    CX_TEMPLATE,
     ENCODING_FAMILIES,
+    PRODUCT_TEMPLATE,
     _candidate_records,
     _comparison_summary,
     _metric_record,
@@ -15,12 +18,15 @@ from qrope.stage99_matched_fixed_width_encoding_packet_freezer import OBJECTIVE
 
 
 STAGE218_SCHEMA_VERSION = "qrope_stage218_full_replacement_hardware_metric_interpreter_v1"
-DEFAULT_ARTIFACT_ROOT = Path("logs") / "automated_stage_gates"
+DEFAULT_ARTIFACT_ROOT = AUTOMATED_STAGE_LOG_ROOT
 DEFAULT_STAGE216_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage216_full_replacement_merged_result_counts_250usd" / "results.json"
 DEFAULT_STAGE217_RESULTS = DEFAULT_ARTIFACT_ROOT / "stage217_full_replacement_calibration_validation_250usd" / "results.json"
 DEFAULT_OUTPUT_DIR = DEFAULT_ARTIFACT_ROOT / "stage218_full_replacement_hardware_metric_interpreter_250usd"
 STAGE216_READY = "FULL_REPLACEMENT_ALL_RESULT_COUNTS_MERGED_READY_FOR_CALIBRATION"
 STAGE217_READY = "FULL_REPLACEMENT_CALIBRATION_VALIDATED_READY_FOR_METRICS"
+LEGACY_POSITIVE_DECISION = "FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE"
+PUBLIC_POSITIVE_DECISION = "IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_FAVORS_PHASEWRAP"
+PUBLIC_NEGATIVE_DECISION = "IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_DOES_NOT_FAVOR_PHASEWRAP"
 FULL_REPLACEMENT_PASS_POLICY = {
     "minimum_stable_seed_pairs": 2,
     "minimum_stable_templates_per_seed_pair": 2,
@@ -42,6 +48,52 @@ def _packet_templates(stage216: dict[str, Any]) -> list[dict[str, Any]]:
         for template in stage216.get("collected_templates", [])
         if template.get("template_type") == "replacement_packet_execution_counts"
     ]
+
+
+def _packet_template_validation_blockers(packet_templates: list[dict[str, Any]]) -> list[str]:
+    valid_count_keys = {"00", "01", "10", "11"}
+    valid_circuit_templates = {PRODUCT_TEMPLATE, CX_TEMPLATE}
+    blockers: set[str] = set()
+    for template in packet_templates:
+        if template.get("circuit_template") not in valid_circuit_templates:
+            blockers.add("unknown_circuit_template")
+        try:
+            shot_count = int(template.get("shot_count"))
+        except (TypeError, ValueError):
+            blockers.add("bad_shot_count_fields")
+            shot_count = 0
+        if shot_count <= 0:
+            blockers.add("bad_shot_count_fields")
+        rows = template.get("raw_counts_by_row")
+        if not isinstance(rows, list) or not rows:
+            blockers.add("malformed_count_records")
+            continue
+        for row in rows:
+            if not isinstance(row, dict):
+                blockers.add("malformed_count_records")
+                continue
+            counts = row.get("counts")
+            if not isinstance(counts, dict) or not counts:
+                blockers.add("malformed_count_records")
+                continue
+            total = 0
+            for key, value in counts.items():
+                if str(key) not in valid_count_keys:
+                    blockers.add("malformed_count_records")
+                    continue
+                try:
+                    count = int(value)
+                except (TypeError, ValueError):
+                    blockers.add("malformed_count_records")
+                    continue
+                if count < 0:
+                    blockers.add("malformed_count_records")
+                total += count
+            if total <= 0:
+                blockers.add("malformed_count_records")
+            if shot_count > 0 and total != shot_count:
+                blockers.add("malformed_count_records")
+    return sorted(blockers)
 
 
 def _full_comparison_summary(metric_records: list[dict[str, Any]], policy: dict[str, Any]) -> list[dict[str, Any]]:
@@ -73,7 +125,7 @@ def run_stage218_full_replacement_hardware_metric_interpreter(
     stage217 = _load_json(stage217_results_path)
     policy = pass_policy or FULL_REPLACEMENT_PASS_POLICY
     sources = [(stage216_results_path, stage216), (stage217_results_path, stage217)]
-    missing_sources = [str(path.as_posix()) for path, payload in sources if not isinstance(payload, dict)]
+    missing_sources = [repo_relative_posix(path) for path, payload in sources if not isinstance(payload, dict)]
     blockers: list[str] = []
     if missing_sources:
         blockers.append("missing_source_artifacts")
@@ -90,6 +142,7 @@ def run_stage218_full_replacement_hardware_metric_interpreter(
     present_families = sorted({str(template.get("encoding_family")) for template in packet_templates})
     if set(present_families) != set(ENCODING_FAMILIES):
         blockers.append("required_family_set_mismatch")
+    blockers.extend(_packet_template_validation_blockers(packet_templates))
 
     metric_records: list[dict[str, Any]] = []
     comparison_summary: list[dict[str, Any]] = []
@@ -107,9 +160,14 @@ def run_stage218_full_replacement_hardware_metric_interpreter(
     elif blockers:
         decision = "FULL_REPLACEMENT_HARDWARE_METRIC_INTERPRETATION_BLOCKED"
     elif full_replacement_positive:
-        decision = "FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE"
+        decision = LEGACY_POSITIVE_DECISION
     else:
         decision = "FULL_REPLACEMENT_HARDWARE_DOES_NOT_SUPPORT_PHASEWRAP_ADVANTAGE"
+    public_decision = PUBLIC_POSITIVE_DECISION if decision == LEGACY_POSITIVE_DECISION else PUBLIC_NEGATIVE_DECISION
+    if missing_sources:
+        public_decision = "IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_INTERPRETATION_INCOMPLETE"
+    elif blockers:
+        public_decision = "IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_INTERPRETATION_BLOCKED"
 
     return {
         "schema_version": STAGE218_SCHEMA_VERSION,
@@ -117,7 +175,9 @@ def run_stage218_full_replacement_hardware_metric_interpreter(
         "status": "completed" if not missing_sources else "incomplete",
         "objective": OBJECTIVE,
         "decision": decision,
-        "source_artifacts": [str(path.as_posix()) for path, _ in sources],
+        "public_decision": public_decision,
+        "legacy_decision_aliases": [LEGACY_POSITIVE_DECISION] if decision == LEGACY_POSITIVE_DECISION else [],
+        "source_artifacts": [repo_relative_posix(path) for path, _ in sources],
         "missing_source_artifacts": missing_sources,
         "blockers": sorted(set(blockers)),
         "bitstring_order": bitstring_order,
@@ -138,6 +198,7 @@ def run_stage218_full_replacement_hardware_metric_interpreter(
         "claim_boundary": {
             "supported": [
                 "real IBM ibm_fez full 4096-shot replacement hardware metric interpretation under fixed margin thresholds",
+                "lower normalized readout-noise-sensitivity delta for PhaseWrap on one frozen IBM Fez packet",
                 "calibration-applied bitstring ordering before score computation",
                 "full packet evidence across product-state and CX templates, two seeds, and five encoding families",
             ],
@@ -156,7 +217,7 @@ def run_stage218_full_replacement_hardware_metric_interpreter(
 def write_stage218_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OUTPUT_DIR) -> dict[str, str]:
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest_keys = (
-        "schema_version", "stage", "status", "objective", "decision", "source_artifacts",
+        "schema_version", "stage", "status", "objective", "decision", "public_decision", "legacy_decision_aliases", "source_artifacts",
         "missing_source_artifacts", "blockers", "bitstring_order", "hardware_scope_label",
         "pass_fail_policy", "packet_template_count", "metric_record_count", "comparison_group_count",
         "candidate_group_count", "full_replacement_positive_seed_pair_count", "no_hardware_submission",
@@ -164,8 +225,8 @@ def write_stage218_outputs(result: dict[str, Any], output_dir: Path = DEFAULT_OU
         "claim_boundary", "next_gate",
     )
     manifest = {key: result[key] for key in manifest_keys}
-    manifest["result_path"] = str((output_dir / "results.json").as_posix())
-    manifest["summary_csv_path"] = str((output_dir / "summary.csv").as_posix())
+    manifest["result_path"] = repo_relative_posix(output_dir / "results.json")
+    manifest["summary_csv_path"] = repo_relative_posix(output_dir / "summary.csv")
     paths = {"manifest": str(output_dir / "manifest.json"), "result": str(output_dir / "results.json"), "summary_csv": str(output_dir / "summary.csv")}
     (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
     (output_dir / "results.json").write_text(json.dumps(result, indent=2, sort_keys=True), encoding="utf-8")
@@ -193,6 +254,7 @@ def print_stage218_summary(result: dict[str, Any]) -> None:
     print(f"stage: {result['stage']}")
     print(f"status: {result['status']}")
     print(f"decision: {result['decision']}")
+    print(f"public_decision: {result['public_decision']}")
     print(f"bitstring_order: {result['bitstring_order']}")
     print(f"blockers: {', '.join(result['blockers'])}")
     print(f"comparison_group_count: {result['comparison_group_count']}")

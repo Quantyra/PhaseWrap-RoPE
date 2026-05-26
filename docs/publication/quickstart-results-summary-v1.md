@@ -45,7 +45,7 @@ For every active completed record, the witness has lower MAE than the control an
 
 The default single-packet path `logs/automated_stage_gates/stage4_hardware_packet/` remains the reviewer entry point for the original IBM Fez product-state packet. The same run is also preserved as `logs/automated_stage_gates/stage4_hardware_packet_ibm_fez_20260517_pass/` so the sweep manifest can refer to an immutable named run directory.
 
-The full IBM Fez replacement path is now complete. Stages 216-218 merge `21/21` provider-count templates, validate unique `q1q0` known-state calibration, and report `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`. PhaseWrap has lower normalized noise-sensitivity delta than the best matched positional baseline and matched null control in all four 4096-shot seed/template comparison groups.
+The full IBM Fez replacement path is now complete. Stages 216-218 merge `21/21` provider-count templates, validate unique `q1q0` known-state calibration, and report public decision `IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_FAVORS_PHASEWRAP`. PhaseWrap has lower normalized noise-sensitivity delta than the best matched positional baseline and matched null control in all four 4096-shot seed/template comparison groups. The historical manifest decision is preserved as an evidence alias, not a broader hardware or transformer claim.
 
 | Source lane | Circuit template | PhaseWrap delta | Best positional delta | Matched null delta | Positional margin, shot quanta | Null margin, shot quanta |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |

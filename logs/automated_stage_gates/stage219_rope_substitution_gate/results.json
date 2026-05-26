@@ -1,13 +1,4 @@
 {
-  "adequacy_criteria": {
-    "maximum_mrr_degradation_vs_rope": 0.05,
-    "maximum_top1_degradation_vs_rope": 0.1,
-    "minimum_phasewrap_mrr": 0.95,
-    "minimum_phasewrap_top1": 0.9,
-    "minimum_run_count": 5,
-    "minimum_top1_lift_vs_no_position": 0.5,
-    "minimum_top1_lift_vs_sinusoidal": 0.1
-  },
   "blockers": [],
   "claim_boundary": {
     "does_not_support": [
@@ -23,23 +14,18 @@
       "multi-seed same-parameter comparison against no-position, sinusoidal, and RoPE controls"
     ]
   },
-  "decision": "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION",
+  "decision": "BOUNDED_PHASEWRAP_RANKING_PARITY_WITH_MEASURED_CALIBRATION_DEGRADATION",
+  "legacy_decision_aliases": [
+    "BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION"
+  ],
   "primary_benchmark": {
     "all_criteria_pass": true,
-    "criteria": {
-      "mrr_degradation_within_margin": true,
-      "parameter_count_matched": true,
-      "phasewrap_mrr_at_least_minimum": true,
-      "phasewrap_top1_at_least_minimum": true,
-      "rope_calibration_advantage_recorded": true,
-      "rope_probability_advantage_recorded": true,
-      "run_count_at_least_minimum": true,
-      "run_count_matched": true,
-      "top1_degradation_within_margin": true,
-      "top1_lift_vs_no_position_met": true,
-      "top1_lift_vs_sinusoidal_met": true
-    },
     "dataset": "stage12_non_phase_cued_ruler_style_retrieval_v1",
+    "degradation_observed": {
+      "expected_calibration_error": true,
+      "loss": true,
+      "target_probability": true
+    },
     "degradation_vs_rope": {
       "expected_calibration_error": 0.185967,
       "loss": 0.293585,
@@ -125,6 +111,18 @@
       "top1_accuracy_ci_low": 1.0,
       "top1_accuracy_mean": 1.0
     },
+    "ranking_criteria": {
+      "mrr_degradation_within_margin": true,
+      "parameter_count_matched": true,
+      "phasewrap_mrr_at_least_minimum": true,
+      "phasewrap_top1_at_least_minimum": true,
+      "run_count_at_least_minimum": true,
+      "run_count_matched": true,
+      "top1_degradation_within_margin": true,
+      "top1_lift_vs_no_position_met": true,
+      "top1_lift_vs_sinusoidal_met": true
+    },
+    "ranking_parity_pass": true,
     "rope_method": "rope_relative",
     "rope_metrics": {
       "expected_calibration_error_ci_high": 0.273887,
@@ -220,20 +218,12 @@
   "schema_version": "qrope_stage219_rope_substitution_gate_v1",
   "secondary_benchmark": {
     "all_criteria_pass": true,
-    "criteria": {
-      "mrr_degradation_within_margin": true,
-      "parameter_count_matched": true,
-      "phasewrap_mrr_at_least_minimum": true,
-      "phasewrap_top1_at_least_minimum": true,
-      "rope_calibration_advantage_recorded": true,
-      "rope_probability_advantage_recorded": true,
-      "run_count_at_least_minimum": true,
-      "run_count_matched": true,
-      "top1_degradation_within_margin": true,
-      "top1_lift_vs_no_position_met": true,
-      "top1_lift_vs_sinusoidal_met": true
-    },
     "dataset": "stage12_non_phase_cued_ruler_style_retrieval_v1",
+    "degradation_observed": {
+      "expected_calibration_error": true,
+      "loss": true,
+      "target_probability": true
+    },
     "degradation_vs_rope": {
       "expected_calibration_error": 0.23833,
       "loss": 0.413283,
@@ -319,6 +309,18 @@
       "top1_accuracy_ci_low": 1.0,
       "top1_accuracy_mean": 1.0
     },
+    "ranking_criteria": {
+      "mrr_degradation_within_margin": true,
+      "parameter_count_matched": true,
+      "phasewrap_mrr_at_least_minimum": true,
+      "phasewrap_top1_at_least_minimum": true,
+      "run_count_at_least_minimum": true,
+      "run_count_matched": true,
+      "top1_degradation_within_margin": true,
+      "top1_lift_vs_no_position_met": true,
+      "top1_lift_vs_sinusoidal_met": true
+    },
+    "ranking_parity_pass": true,
     "rope_method": "rope_relative",
     "rope_metrics": {
       "expected_calibration_error_ci_high": 0.292052,

@@ -86,7 +86,7 @@ These records show that Braket execution succeeded and that provider-aware decod
 
 ## Full IBM Fez replacement comparison
 
-Stages 216-218 complete the full 4096-shot IBM Fez replacement lane. The final merged artifact combines the original 13 completed templates with 8 allocated-instance replacement templates and records `21/21` templates. Stage 217 validates unique `q1q0` bitstring order from known-state calibration counts. Stage 218 records `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`.
+Stages 216-218 complete the full 4096-shot IBM Fez replacement lane. The final merged artifact combines the original 13 completed templates with 8 allocated-instance replacement templates and records `21/21` templates. Stage 217 validates unique `q1q0` bitstring order from known-state calibration counts. Stage 218 records public decision `IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_FAVORS_PHASEWRAP` and preserves the historical manifest decision as an evidence alias.
 
 Artifacts:
 

@@ -4,11 +4,11 @@
 [![Open verification in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Quantyra/PhaseWrap/blob/main/docs/notebooks/phasewrap_verify.ipynb)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20387905.svg)](https://doi.org/10.5281/zenodo.20387905)
 
-PhaseWrap is Quantyra's negative-results research repository for a phase-wrap positional scoring rule, retrieval-benchmark diagnostics, and two-qubit hardware readout audit infrastructure.
+Repository naming note: public materials use `PhaseWrap`; Python imports, script paths, packet IDs, and evidence IDs retain the existing `qrope` stem for compatibility with frozen artifacts.
+
+PhaseWrap is Quantyra's negative-results research repository for a phase-wrap positional scoring rule, retrieval-benchmark methodology, and two-qubit readout audit infrastructure.
 
 This repository is intended for open scientific review of what the PhaseWrap line did and did not support. The positive replacement thesis is closed: the evidence does not support RoPE replacement, production transformer superiority, quantum advantage, entanglement-based advantage, or broad cross-backend robustness.
-
-Repository naming note: public materials use `PhaseWrap`; Python imports, script paths, packet IDs, and evidence IDs retain the existing `qrope` stem.
 
 ## Reviewer Fast Path
 
@@ -16,7 +16,7 @@ Repository naming note: public materials use `PhaseWrap`; Python imports, script
 
 **Not claimed:** the repository does not prove RoPE replacement, production transformer superiority, quantum advantage, entanglement-based advantage, or broad cross-backend robustness.
 
-**Key negative-results path:**
+**Primary methodology path:**
 
 ```bash
 python scripts/run_stage11_phasewrap_theory.py
@@ -27,7 +27,7 @@ python scripts/run_stage81_soft_support_routed_token_selector_audit.py
 
 Expected interpretation: the fixed `8/12` score is compact and aliased; the strongest honest synthesis rejects a RoPE-replacement claim; hard and soft support-routing repairs solve phase-cued retrieval for every tested method, including `no_position`, so those repairs are method-nonspecific.
 
-**Bounded hardware-audit path:**
+**Secondary bounded hardware-audit path:**
 
 ```bash
 python scripts/run_stage216_full_replacement_merged_result_counts.py
@@ -35,7 +35,7 @@ python scripts/run_stage217_full_replacement_calibration_validation.py
 python scripts/run_stage218_full_replacement_hardware_metric_interpreter.py
 ```
 
-Expected decision: `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`. This remains a bounded two-qubit readout result: PhaseWrap has lower normalized noise-sensitivity delta than the best matched positional baseline and matched null control in all four full IBM Fez 4096-shot seed/template comparison groups, after Stage 217 validates `q1q0` known-state calibration. It is not a transformer or RoPE-replacement result.
+Expected public decision: `IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_FAVORS_PHASEWRAP`. The historical manifest decision `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE` is preserved as an evidence alias. This remains a bounded provider-audit/readout-witness result: PhaseWrap has lower normalized noise-sensitivity delta than the best matched positional baseline and matched null control in all four full IBM Fez 4096-shot seed/template comparison groups, after Stage 217 validates `q1q0` known-state calibration. It is not a transformer or RoPE-replacement result.
 
 **One-command package check:**
 
@@ -45,11 +45,22 @@ python scripts/verify_publication_package.py
 
 Expected output: `PUBLICATION_PACKAGE_VERIFY_PASS`.
 
+**Command matrix:**
+
+| Goal | Command | Expected time | Credentials |
+| --- | --- | --- | --- |
+| Verify public package | `python scripts/verify_publication_package.py` | Fast | No |
+| Test public scoring API | `pytest tests/test_scoring_api.py` | Fast | No |
+| Recompute score theory | `python scripts/run_stage11_phasewrap_theory.py` | Fast | No |
+| Reproduce support-routing warning | `python scripts/run_stage80_support_routed_token_selector_audit.py` | Fast to medium | No |
+| Reinterpret saved hardware evidence | `python scripts/run_stage216_full_replacement_merged_result_counts.py && python scripts/run_stage217_full_replacement_calibration_validation.py && python scripts/run_stage218_full_replacement_hardware_metric_interpreter.py` | Medium | No |
+| Submit new hardware work | Provider-specific runner scripts under `scripts/` | Variable | Yes |
+
 ## Why This Matters in 60 Seconds
 
 PhaseWrap turns relative-position offsets into two wrapped residual margins, one mod 8 and one mod 12, then multiplies them into a compact score used throughout the repository as `SQR`. That score is small enough to characterize classically, cheap enough to test against RoPE/ALiBI/sinusoidal/no-position baselines, and structured enough to map into two-qubit readout witnesses using `RY` angle encodings with optional `CX` parity readout.
 
-The current contribution is the negative evidence and audit discipline around that idea: frozen packets, raw counts, backend metadata, known-state calibration, offline verifiers, bounded hardware witness results, and failed retrieval/promotional gates are all kept together. The result is a falsifiable negative-results repo, not a broad positional-encoding victory lap.
+The current contribution is the negative-results methodology around that idea: assistance pipelines that repair `no_position` too, frozen packets, raw counts, backend metadata, known-state calibration, offline verifiers, bounded hardware witness results, and failed retrieval/promotional gates are all kept together. The result is a falsifiable negative-results repo, not a broad positional-encoding victory lap.
 
 ## Why Quantum Hardware?
 
@@ -73,14 +84,15 @@ A stronger hardware-specific claim would require a preregistered same-packet com
 
 | Evidence lane | Main result | Supports | Does not support | Command |
 | --- | --- | --- | --- | --- |
-| Stage 216-218 full IBM Fez replacement | PhaseWrap has lower normalized readout-noise delta than the best matched positional baseline and matched null control in all four 4096-shot comparison groups after `q1q0` calibration. | Bounded two-qubit hardware-audit evidence for this frozen IBM Fez replacement packet. | RoPE replacement, transformer improvement, quantum advantage, broad backend robustness. | `python scripts/run_stage218_full_replacement_hardware_metric_interpreter.py` |
-| Stage 219 ranking-parity bridge | PhaseWrap-derived adapters preserve held-out top-1/MRR within the predeclared margin versus RoPE on Stage 30/32 retrieval bridges, with measured probability/calibration degradation. | Ranking parity in these retrieval-bridge benchmarks. | General RoPE replacement, production transformer superiority, language-model-scale validation, calibration parity. | `python scripts/run_stage219_rope_substitution_gate.py` |
-| Stage 4 hardware sweep | Saved IBM/Braket hardware records verify as witness-positive under committed manifests and provider decoding rules. | Auditable hardware readout pipeline for frozen packets. | General hardware robustness or quantum acceleration. | `python scripts/verify_stage4_hardware_sweep.py` |
+| Stage 80/81 support routing | Hard and soft support-routing repairs solve phase-cued retrieval for all tested methods, including `no_position`. | Methodology warning for positional benchmark design. | PhaseWrap-specific positional-method promotion. | `python scripts/run_stage80_support_routed_token_selector_audit.py` |
+| Stage 67-96 methodology arc | Content-key redesigns, query-support recovery, support routing, failed promotion gates, and claim cards repeatedly show that repair pipelines can do the work independent of the positional method. | Negative-results methodology paper centered on isolating positional contributions. | A positive PhaseWrap replacement claim. | `python scripts/run_stage70_strongest_honest_claim_synthesis.py` |
 | Stage 11 score theory | Fixed 8/12 score is mod-24 periodic with aliases and small Fourier support. | Classical characterization of the scoring rule and its limits. | Proof that the score is globally optimal or transformer-useful. | `python scripts/run_stage11_phasewrap_theory.py` |
 | Stage 12 retrieval | RoPE-like and sinusoidal baselines solve the non-phase-cued retrieval packet; fixed PhaseWrap is weak. | Negative evidence that prevents a raw PhaseWrap-as-RoPE-replacement claim. | Long-context superiority. | `python scripts/run_stage12_ruler_retrieval.py` |
 | Stage 32 feature bridge | PhaseWrap distance/multiscale adapters recover top-1/MRR, while RoPE-like scoring keeps stronger probability/calibration. | Adapter/feature-bridge viability worth studying. | Raw fixed-score dominance or production transformer validation. | `python scripts/run_stage32_full_context_feature_bridge.py` |
 | Stage 70 synthesis | Current fair evidence supports a bounded compact/auditable claim with failures preserved and rejects promotion beyond recorded evidence. | Negative-results publication boundary. | Claim broadening beyond the recorded evidence. | `python scripts/run_stage70_strongest_honest_claim_synthesis.py` |
-| Stage 80/81 support routing | Hard and soft support-routing repairs solve phase-cued retrieval for all tested methods, including `no_position`. | Methodology warning for positional benchmark design. | PhaseWrap-specific positional-method promotion. | `python scripts/run_stage80_support_routed_token_selector_audit.py` |
+| Stage 219 ranking-parity bridge | PhaseWrap-derived adapters preserve held-out top-1/MRR within the predeclared margin versus RoPE on Stage 30/32 retrieval bridges, with measured probability/calibration degradation. | Ranking parity in these retrieval-bridge benchmarks. | General RoPE replacement, production transformer superiority, language-model-scale validation, calibration parity. | `python scripts/run_stage219_rope_substitution_gate.py` |
+| Stage 216-218 full IBM Fez replacement | PhaseWrap has lower normalized readout-noise delta than the best matched positional baseline and matched null control in all four 4096-shot comparison groups after `q1q0` calibration. | Bounded two-qubit hardware-audit evidence for this frozen IBM Fez replacement packet. | RoPE replacement, transformer improvement, quantum advantage, broad backend robustness. | `python scripts/run_stage218_full_replacement_hardware_metric_interpreter.py` |
+| Stage 4 hardware sweep | Saved IBM/Braket hardware records verify as witness-positive under committed manifests and provider decoding rules. | Auditable hardware readout pipeline for frozen packets. | General hardware robustness or quantum acceleration. | `python scripts/verify_stage4_hardware_sweep.py` |
 
 ## Review the Evidence
 
@@ -208,10 +220,12 @@ python scripts/verify_publication_package.py
 
 - `Patent/IP posture`: low-prominence legal notice only; USPTO provisional filings are not part of the scientific claim, and receipt-specific identifiers are not published. See [Patent status note](docs/publication/patent-status-note-v1.md).
 - `Archive DOI`: `10.5281/zenodo.20387905` for release `v0.3.1-negative-results`; concept DOI `10.5281/zenodo.20306786`.
+- `Version semantics`: the Python package API version is `0.1.0`; the evidence release version is `0.3.1-negative-results`.
 - `License`: GNU Affero General Public License v3.0 only (`AGPL-3.0-only`).
+- `Patent/license use note`: the AGPL governs repository software reuse; the patent notice is a low-prominence filing-status disclosure for research review, with practical boundaries summarized in [PATENTS.md](PATENTS.md).
 - `Publication posture`: negative-results publication track; the standalone replacement paper draft is withdrawn from the current public branch and the positive replacement line is closed.
 - `Research-line disposition`: abandon PhaseWrap as a positive RoPE-replacement program; publish the failure boundary, assistance-pipeline warning, score theory, and reproducibility infrastructure.
-- `Current evidence posture`: Stage 4 real-noisy-hardware results for bounded frozen packet/backend/date/calibration contexts, including IBM Fez positives, Amazon Braket/Rigetti product-state positive evidence, and provider-aware Amazon Braket CX positive recomputations from committed raw counts. The full 4096-shot IBM Fez replacement run is also complete: Stages 216-218 merge `21/21` templates, validate `q1q0` calibration, and record `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`.
+- `Current evidence posture`: Stage 4 real-noisy-hardware results for bounded frozen packet/backend/date/calibration contexts, including IBM Fez positives, Amazon Braket/Rigetti product-state positive evidence, and provider-aware Amazon Braket CX positive recomputations from committed raw counts. The full 4096-shot IBM Fez replacement run is also complete: Stages 216-218 merge `21/21` templates, validate `q1q0` calibration, and record public decision `IBM_FEZ_FROZEN_PACKET_READOUT_NOISE_DELTA_FAVORS_PHASEWRAP` while preserving historical manifest alias `FULL_REPLACEMENT_HARDWARE_POSITIVE_PHASEWRAP_ADVANTAGE`.
 - `Stage 4 cost posture`: local recomputation of the committed Stage 4 sweep is covered by a deterministic classical compute estimate: 4,096 static operations over 163,072 recorded hardware shots, with zero incremental local verifier cost and no provider billing reconstruction.
 - `Stage 4 preregistration posture`: future replication lanes now have no-hardware preregistered row-set artifacts with fixed seeds, families, shots, row counts, and row-set hashes; they are not submitted hardware evidence.
 - `Stage 4 calibration posture`: provider bitstring calibration packet specs and a verifier contract exist for IBM-style `q1q0` and Amazon Braket-style `q0q1` known-state checks. The full IBM Fez replacement run includes real known-state calibration counts, and Stage 217 validates unique `q1q0` order before metric interpretation.
@@ -702,7 +716,7 @@ Run the deterministic Stage 219 ranking-parity bridge:
 python scripts/run_stage219_rope_substitution_gate.py
 ```
 
-Stage 219 applies a predeclared rank-metric gate to the Stage 30 matched retrieval bridge and Stage 32 full-context feature bridge. The decision is `BOUNDED_PHASEWRAP_ROPE_SUBSTITUTION_SUPPORTED_WITH_MEASURED_CALIBRATION_DEGRADATION`: PhaseWrap-derived adapters preserve held-out top-1/MRR at `1.000000` with zero top-1/MRR degradation versus `rope_relative` in both gates, while RoPE keeps stronger target probability and calibration. This supports ranking parity for these retrieval-bridge benchmarks, not substitution adequacy or a general RoPE replacement claim.
+Stage 219 applies a predeclared rank-metric gate to the Stage 30 matched retrieval bridge and Stage 32 full-context feature bridge. The decision is `BOUNDED_PHASEWRAP_RANKING_PARITY_WITH_MEASURED_CALIBRATION_DEGRADATION`: PhaseWrap-derived adapters preserve held-out top-1/MRR at `1.000000` with zero top-1/MRR degradation versus `rope_relative` in both gates, while RoPE keeps stronger target probability and calibration. This supports ranking parity for these retrieval-bridge benchmarks, not substitution adequacy or a general RoPE replacement claim.
 
 Run the deterministic Stage 33 temperature-calibration audit:
 
@@ -848,10 +862,13 @@ pytest --cov=qrope --cov-report=term-missing --cov-report=xml \
   tests/test_scoring_api.py \
   tests/test_stage11_phasewrap_theory.py \
   tests/test_stage12_ruler_retrieval.py \
+  tests/test_env_utils.py \
   tests/test_publication_package_verifier.py \
   tests/test_stage216_218_full_replacement_interpretation.py \
   tests/test_stage219_rope_substitution_gate.py
 python scripts/check_readme_verifier_output.py
+python scripts/smoke_public_surface.py
+python scripts/scan_secret_hygiene.py
 ```
 
 Coverage XML is uploaded as a workflow artifact. Optional provider SDK tests use mocks or skip paths when optional packages such as Perceval are not installed. The broader deterministic stage-test corpus remains available for local audit, but it is not the default push/PR gate because it is intentionally much larger than the publication reviewer path.
