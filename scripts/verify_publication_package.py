@@ -31,6 +31,7 @@ PUBLIC_TEXT_FILES = [
     Path("docs/publication/post-publication-review-feedback-log-v1.md"),
     Path("docs/publication/post-publication-review-triage-v1.md"),
     Path("docs/publication/post-publication-review-decision-matrix-v2.md"),
+    Path("docs/publication/post-publication-novelty-and-prior-work-supplement-v1.md"),
     Path("docs/roadmap.md"),
     Path("docs/index.md"),
     Path("docs/api/scoring.md"),

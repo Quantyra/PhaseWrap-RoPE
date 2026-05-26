@@ -91,6 +91,11 @@ The strongest already-addressed concern is hardware-overclaim wording. The prior
 | R048 | ChatGPT Pro | PhaseWrap is not yet a polished Python library. | `relevant` | Accurate. The stable public API is small, but the repo is primarily evidence/methodology infrastructure. |
 | R049 | Grok | Repo is publication-ready as negative-results/methodology venue. | `partially_relevant` | Directionally valid, but reviewer ergonomics and CI/repro hardening are still worth improving before formal submission. |
 | R050 | Grok | No open issues/PRs is fine for a solo/closed research line. | `partially_relevant` | Accurate as description, but the open-review goal would benefit from external issues or review threads. |
+| R051 | Claude supplement | The general methodology warning is not novel; it is an instance of shortcut-learning, control-task, spurious-cue, and NoPE/NoPos precedents. | `relevant` | Primary-source check supports this. PhaseWrap should frame its contribution as a worked example, not as discovery of the general concern. |
+| R052 | Claude supplement | Cite Geirhos, Hewitt and Liang, McCoy, Niven and Kao, Sinha, Haviv, Kazemnejad, and Wang in the methodology paper. | `relevant` | The current paper needed a clearer related-work boundary. These references are directly relevant to shortcut learning, control tasks, and NoPE/NoPos baselines. |
+| R053 | Claude supplement | Do not call specific external papers "suspect" without reproducing their experiments under stronger controls. | `relevant` | This is the correct scientific posture. The repo can make a category-level warning about missing controls, not allegations about particular papers. |
+| R054 | Claude supplement | Position Stage 80/81 as a granular worked example of an established concern. | `relevant` | This preserves the value of the PhaseWrap evidence while avoiding novelty overclaiming. |
+| R055 | Claude supplement | If the draft implies the warning itself is novel, reviewers will object. | `relevant` | The methodology paper should explicitly state the novelty boundary. |
 
 ## Items To Discard
 
@@ -100,6 +105,8 @@ Only two recommendations are discarded:
 - `R037`: removing patent-status documentation entirely is not necessary for scientific claim hygiene because the repo already keeps it low-prominence and non-claim-bearing.
 
 Everything else is at least partially relevant when judged against long-run repo quality rather than short-term implementation cost.
+
+The novelty supplement adds no discarded items. Its main effect is to narrow the claimed contribution: PhaseWrap should be presented as an auditable worked example of established shortcut-learning/control-task/NoPE concerns.
 
 ## Highest-Value Backlog Themes
 

@@ -44,6 +44,18 @@ The score is classical and exactly CPU-computable. The quantum hardware path in 
 
 Early positive-looking signals motivated increasingly strict tests. The later evidence shows that the original replacement framing should be closed. The program now has a stronger and more defensible output: an audited negative-results package showing where positional-method claims can be confounded by benchmark assistance mechanisms.
 
+## Novelty Boundary And Prior Work
+
+The general warning is not new. PhaseWrap should not claim to have discovered shortcut learning, spurious-cue exploitation, or the need for method-nonspecific controls. Prior work already establishes the broader methodological concern:
+
+- shortcut learning in deep networks: Geirhos et al. (2020);
+- controlled evaluation for syntactic heuristics and spurious cues: McCoy et al. (2019) and Niven and Kao (2019);
+- probe selectivity through control tasks: Hewitt and Liang (2019);
+- language-model and masked-language-model evidence that order and explicit position mechanisms can be less decisive than assumed: Sinha et al. (2021) and Haviv et al. (2022);
+- systematic NoPE comparisons in length-generalization settings: Kazemnejad et al. (2023) and Wang et al. (2024).
+
+The PhaseWrap contribution is narrower: it is a worked negative-results example in a staged retrieval-benchmark program, with frozen artifacts, exact score theory, explicit no-position controls, failed promotion gates, hardware-readout audit artifacts, and claim cards. The specific observation is that support recovery, routing, copy, and auxiliary mechanisms can repair the tested retrieval rows for `no_position` controls too. That is useful as a reproducible case study of an established concern, not as a new conceptual category.
+
 ## Methods
 
 The repository used staged audits rather than a single monolithic benchmark. Each stage wrote machine-readable artifacts under `logs/automated_stage_gates/`, and the public reviewer path preserves:
